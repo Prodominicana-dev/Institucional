@@ -8,7 +8,7 @@ export default function NavBar() {
   const [isVisible, setIsVisible] = useAtom(sideBarAtom);
   return (
     <>
-      <div className="w-full h-24 flex flex-row justify-between items-center">
+      <div className="w-10/12 h-24 flex flex-row justify-between items-center">
         <button
           onClick={() => {
             setIsVisible(!isVisible);
