@@ -150,11 +150,11 @@ export function SideBar() {
                   />
                   <SidebarMenuItem
                     title={"Subsecciones"}
-                    url={"/admin/transparency/section"}
+                    url={"/admin/transparency/subsection"}
                   />
                   <SidebarMenuItem
                     title={"Documentos"}
-                    url={"/admin/transparency/section"}
+                    url={"/admin/transparency/"}
                   />
                 </List>
               )}
