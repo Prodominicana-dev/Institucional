@@ -16,24 +16,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <UserProvider>
-      <MantineProvider>
-        <Provider>
-          <div
-            className="w-full h-screen flex bg-white"
-            style={monserratStyle.style}
-          >
-            <div className="h-screen hidden lg:flex">
-              <SideBar />
-            </div>
-            <div className={`w-full h-full`}>
-              <NavBar />
-              {children}
-            </div>
-            <Notifications zIndex={9999} />
-          </div>
-        </Provider>
-      </MantineProvider>
-    </UserProvider>
+    <div className="w-full h-screen flex bg-white" style={monserratStyle.style}>
+      <div className="h-screen hidden lg:flex">
+        <SideBar />
+      </div>
+      <div className={`w-full h-full`}>
+        <NavBar />
+        {children}
+      </div>
+      <Notifications zIndex={9999} />
+    </div>
   );
 }
