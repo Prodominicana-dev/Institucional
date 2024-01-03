@@ -12,8 +12,6 @@ export default function NavBar() {
   const [isVisible, setIsVisible] = useAtom(sideBarAtom);
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   const pathname = usePathname();
-  const actualUrl = baseUrl + pathname;
-  const { user, error, isLoading } = useUser();
 
   useEffect(() => {
     const sidebarOpen = localStorage.getItem("sidebarOpen");
@@ -34,12 +32,11 @@ export default function NavBar() {
 
   return (
     <>
-      <div className="w-full h-24 flex flex-row justify-between items-center p-8">
+      <div className="w-full h-[15vh] flex flex-row justify-between items-center p-8">
         <button onClick={handleOpen}>
           <Image
             src={"svg/layout/navbar/menu.svg"}
             alt="menu"
-            className="bg-white"
             width={30}
             height={30}
           />
