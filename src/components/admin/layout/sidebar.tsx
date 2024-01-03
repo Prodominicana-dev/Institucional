@@ -154,7 +154,7 @@ export function SideBar() {
                   />
                   <SidebarMenuItem
                     title={"Documentos"}
-                    url={"/admin/transparency/"}
+                    url={"/admin/transparency/documents"}
                   />
                 </List>
               )}

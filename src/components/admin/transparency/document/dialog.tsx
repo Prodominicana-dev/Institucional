@@ -42,7 +42,7 @@ const typeOptions = [
   { value: "document", label: "Documento" },
   { value: "url", label: "URL" },
 ];
-export function TransparencyDialog({
+export function DocumentDialog({
   open,
   handler,
 }: {

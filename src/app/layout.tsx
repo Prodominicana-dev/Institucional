@@ -4,9 +4,6 @@ import "./globals.css";
 import "@mantine/core/styles.css";
 import "@mantine/dropzone/styles.css";
 import "@mantine/notifications/styles.css";
-import { UserProvider } from "@auth0/nextjs-auth0/client";
-import { MantineProvider } from "@mantine/core";
-import { Provider } from "jotai";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,14 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <UserProvider>
-      <MantineProvider>
-        <Provider>
-          <html lang="en">
-            <body className={inter.className}>{children}</body>
-          </html>
-        </Provider>
-      </MantineProvider>
-    </UserProvider>
+    <html lang="en">
+      <body className={inter.className}>{children}</body>
+    </html>
   );
 }

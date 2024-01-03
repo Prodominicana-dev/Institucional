@@ -1,5 +1,5 @@
 "use client";
-import { TransparencyDialog } from "@/components/admin/transparency/dialog";
+import { DocumentDialog } from "@/components/admin/transparency/document/dialog";
 import {
   Button,
   Dialog,
@@ -72,7 +72,7 @@ export default function page() {
           </div>
         </div>
       </div>
-      {open && <TransparencyDialog open={open} handler={handleOpen} />}
+      {open && <DocumentDialog open={open} handler={handleOpen} />}
     </>
   );
 }
