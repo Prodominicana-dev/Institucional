@@ -25,10 +25,10 @@ export default function RootLayout({
               className="w-full h-screen flex bg-white"
               style={monserratStyle.style}
             >
-              <div className="h-screen hidden lg:flex">
+              <div className="items-end hidden h-full lg:flex">
                 <SideBar />
               </div>
-              <div className={`w-full h-full`}>
+              <div className={`w-full h-full overflow-y-auto`}>
                 <NavBar />
                 {children}
               </div>

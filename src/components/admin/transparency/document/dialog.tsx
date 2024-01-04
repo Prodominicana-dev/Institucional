@@ -139,6 +139,7 @@ export function DocumentDialog({
               id="subsection"
               className="w-full"
               options={typeOptions}
+              maxMenuHeight={200}
               defaultValue={typeOptions[0]}
               onChange={(e) => setType(e?.value || "")}
             />

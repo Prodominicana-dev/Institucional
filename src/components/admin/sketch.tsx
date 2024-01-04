@@ -17,7 +17,7 @@ export default function Sketch({
 }) {
   return (
     <>
-      <div className="w-full h-[85vh] space-y-8 flex flex-col items-center p-8">
+      <div className="w-full min-h-[85vh] h-full space-y-8 flex flex-col items-center p-8">
         <div className="w-11/12 h-24 flex justify-between items-center text-black">
           <div className="flex flex-col">
             <div className="font-semibold text-2xl">{title}</div>

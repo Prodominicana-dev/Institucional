@@ -3,19 +3,23 @@ import Sketch from "@/components/admin/sketch";
 import Card from "@/components/admin/transparency/section/card";
 import { SectionDialog } from "@/components/admin/transparency/section/dialog";
 import { Section } from "@/models/section";
-import { useSection } from "@/services/section/service";
+import { useSectionAdmin } from "@/services/section/service";
+import { useUser } from "@auth0/nextjs-auth0/client";
 import React, { useState, useEffect } from "react";
 
 export default function page() {
   const [open, setOpen] = useState(false);
+  const { user, isLoading: userLoading } = useUser();
   const [filterOpen, setFilterOpen] = useState(false);
-  const { data, isLoading, refetch } = useSection();
+  const { data, isLoading, refetch } = useSectionAdmin();
   const [sections, setSections] = useState([]);
   const [_refetch, setRefetch] = useState(false);
 
   useEffect(() => {
-    setSections(data);
-  }, [data, isLoading]);
+    if (!isLoading && !userLoading) updateSections;
+  }, [data, isLoading, userLoading, user]);
+
+  console.log(sections);
 
   useEffect(() => {
     refetch().then((e) => {

@@ -10,14 +10,11 @@ import {
   Input,
   Textarea,
 } from "@material-tailwind/react";
-import { Montserrat } from "next/font/google";
 import { createSection } from "@/services/section/service";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { notifications } from "@mantine/notifications";
-import axios from "axios";
 
+import { Montserrat } from "next/font/google";
 const monserratStyle = Montserrat({ subsets: ["latin"] });
-var CryptoJS = require("crypto-js");
 
 const typeOptions = [
   { value: "document", label: "Documento" },
@@ -36,60 +33,14 @@ export function SectionDialog({
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const handleSubmit = () => {
-    handler();
-    const data = {
-      name,
-      description,
-    };
-
-    const userIdEncrypted = CryptoJS.AES.encrypt(
-      user?.sub,
-      process.env.NEXT_PUBLIC_CRYPTOJS_KEY
-    ).toString();
-
-    return axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/section`, data, {
-        headers: {
-          Authorization: `${userIdEncrypted}`,
-        },
-      })
-      .then((res) => {
-        if (res.status === 201) {
-          notifications.show({
-            id: "section",
-            autoClose: 5000,
-            withCloseButton: false,
-            title: "Producto creado",
-            message: "El producto ha sido creado correctamente.",
-            color: "green",
-            loading: false,
-          });
-          handler();
-          update();
-        }
-        if (res.status === 500) {
-          notifications.show({
-            id: "section",
-            autoClose: 5000,
-            withCloseButton: false,
-            title: "Error",
-            message: "Hubo un error creando la nueva sección.",
-            color: "red",
-            loading: false,
-          });
-        }
-        if (res.status === 401) {
-          notifications.show({
-            id: "section",
-            autoClose: 5000,
-            withCloseButton: false,
-            title: "Usuario inautorizado",
-            message: "No tienes permisos para crear una sección.",
-            color: "red",
-            loading: false,
-          });
-        }
-      });
+    if (user) {
+      handler();
+      const data = {
+        name,
+        description,
+      };
+      createSection(data, handler, update, user.sub as string);
+    }
   };
 
   return (
