@@ -3,7 +3,7 @@ import { Subsection } from "./subsection";
 
 export interface Section {
   id?: number;
-  name?: string;
+  name: string;
   description?: string;
   priority?: number;
   status?: boolean;
