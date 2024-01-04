@@ -1,12 +1,32 @@
 "use client";
 import Sketch from "@/components/admin/sketch";
-import { DocumentDialog } from "@/components/admin/transparency/document/dialog";
+import Card from "@/components/admin/transparency/section/card";
 import { SectionDialog } from "@/components/admin/transparency/section/dialog";
-import React, { useState } from "react";
+import { Section } from "@/models/section";
+import { useSection } from "@/services/section/service";
+import React, { useState, useEffect } from "react";
 
 export default function page() {
   const [open, setOpen] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
+  const { data, isLoading, refetch } = useSection();
+  const [sections, setSections] = useState([]);
+  const [_refetch, setRefetch] = useState(false);
+
+  useEffect(() => {
+    setSections(data);
+  }, [data, isLoading]);
+
+  useEffect(() => {
+    refetch().then((e) => {
+      setSections(e.data);
+    });
+  }, [_refetch]);
+
+  const updateSections = () => {
+    setRefetch(!_refetch);
+  };
+
   const handleOpen = () => {
     setOpen(!open);
   };
@@ -29,9 +49,11 @@ export default function page() {
                 <div className="">Estado</div>
                 <div>Acción</div>
               </div>
-              {/* {currentPageData?.map((rami: any, key: number) => {
-                return <Card key={key} rami={rami} updateRamis={updateRamis} />;
-              })} */}
+              {sections?.map((section: Section, key: number) => {
+                return (
+                  <Card key={key} section={section} update={updateSections} />
+                );
+              })}
 
               {/* <div className="flex flex-row items-center w-full py-4 space-x-3 sm:justify-end">
                 <button
@@ -56,7 +78,13 @@ export default function page() {
           </div>
         </div>
       </Sketch>
-      {open && <SectionDialog open={open} handler={handleOpen} />}
+      {open && (
+        <SectionDialog
+          open={open}
+          handler={handleOpen}
+          update={updateSections}
+        />
+      )}
     </>
   );
 }

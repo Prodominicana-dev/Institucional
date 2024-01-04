@@ -10,34 +10,14 @@ import {
   Input,
   Textarea,
 } from "@material-tailwind/react";
-import CreatableSelect from "react-select/creatable";
-import Select from "react-select";
 import { Montserrat } from "next/font/google";
-import { Group, Text, rem } from "@mantine/core";
+import { createSection } from "@/services/section/service";
+import { useUser } from "@auth0/nextjs-auth0/client";
 import { notifications } from "@mantine/notifications";
-import { Dropzone, FileWithPath } from "@mantine/dropzone";
-import { XMarkIcon } from "@heroicons/react/24/solid";
+import axios from "axios";
+
 const monserratStyle = Montserrat({ subsets: ["latin"] });
-const colourOptions = [
-  { value: "ocean", label: "Ocean" },
-  { value: "blue", label: "Blue" },
-  { value: "purple", label: "Purple" },
-  { value: "red", label: "Red" },
-  { value: "orange", label: "Orange" },
-  { value: "yellow", label: "Yellow" },
-  { value: "ocean", label: "Ocean" },
-  { value: "blue", label: "Blue" },
-  { value: "purple", label: "Purple" },
-  { value: "red", label: "Red" },
-  { value: "orange", label: "Orange" },
-  { value: "yellow", label: "Yellow" },
-  { value: "ocean", label: "Ocean" },
-  { value: "blue", label: "Blue" },
-  { value: "purple", label: "Purple" },
-  { value: "red", label: "Red" },
-  { value: "orange", label: "Orange" },
-  { value: "yellow", label: "Yellow" },
-];
+var CryptoJS = require("crypto-js");
 
 const typeOptions = [
   { value: "document", label: "Documento" },
@@ -46,10 +26,72 @@ const typeOptions = [
 export function SectionDialog({
   open,
   handler,
+  update,
 }: {
   open: boolean;
   handler: () => void;
+  update: () => void;
 }) {
+  const { user, isLoading } = useUser();
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const handleSubmit = () => {
+    handler();
+    const data = {
+      name,
+      description,
+    };
+
+    const userIdEncrypted = CryptoJS.AES.encrypt(
+      user?.sub,
+      process.env.NEXT_PUBLIC_CRYPTOJS_KEY
+    ).toString();
+
+    return axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/section`, data, {
+        headers: {
+          Authorization: `${userIdEncrypted}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 201) {
+          notifications.show({
+            id: "section",
+            autoClose: 5000,
+            withCloseButton: false,
+            title: "Producto creado",
+            message: "El producto ha sido creado correctamente.",
+            color: "green",
+            loading: false,
+          });
+          handler();
+          update();
+        }
+        if (res.status === 500) {
+          notifications.show({
+            id: "section",
+            autoClose: 5000,
+            withCloseButton: false,
+            title: "Error",
+            message: "Hubo un error creando la nueva sección.",
+            color: "red",
+            loading: false,
+          });
+        }
+        if (res.status === 401) {
+          notifications.show({
+            id: "section",
+            autoClose: 5000,
+            withCloseButton: false,
+            title: "Usuario inautorizado",
+            message: "No tienes permisos para crear una sección.",
+            color: "red",
+            loading: false,
+          });
+        }
+      });
+  };
+
   return (
     <>
       <Dialog
@@ -78,6 +120,7 @@ export function SectionDialog({
               crossOrigin={""}
               id="name"
               className="w-full"
+              onChange={(e) => setName(e.target.value)}
               placeholder="Nombre de la sección"
             />
           </div>
@@ -86,7 +129,10 @@ export function SectionDialog({
               Descripción{" "}
               <span className="font-normal text-xs italic">(?)</span>
             </label>
-            <Textarea size="md" />
+            <Textarea
+              size="md"
+              onChange={(e) => setDescription(e.target.value)}
+            />
           </div>
           <label className="text-black text-xs font-light italic text-right">
             (?) = Opcional
@@ -104,7 +150,7 @@ export function SectionDialog({
             Cancelar
           </button>
           <button
-            onClick={handler}
+            onClick={handleSubmit}
             className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl"
           >
             Confirmar

@@ -10,7 +10,7 @@ export function useSection() {
     queryFn: async () => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/section`;
       const { data } = await axios.get(url);
-      return data.map((item: Section) => item);
+      return data.sections;
     },
   });
 }
