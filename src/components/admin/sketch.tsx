@@ -8,12 +8,14 @@ export default function Sketch({
   handleOpen,
   handleFilterOpen,
   children,
+  buttons,
 }: {
   title: string;
   subtitle: string;
   handleOpen: () => void;
   handleFilterOpen: () => void;
   children: React.ReactNode;
+  buttons: { name: string; onClick: () => void }[];
 }) {
   return (
     <>
@@ -24,12 +26,16 @@ export default function Sketch({
             <label className="text-base font-normal">{subtitle}</label>
           </div>
           <div className="space-x-4">
-            <button
-              onClick={handleOpen}
-              className="w-36 h-12 rounded-full bg-blue-dark text-white hover:text-white/80 hover:shadow-md"
-            >
-              Añadir
-            </button>
+            {buttons?.map((button, key) => {
+              return (
+                <button
+                  onClick={button.onClick}
+                  className="w-36 h-12 rounded-full bg-blue-dark text-white hover:text-white/80 hover:shadow-md"
+                >
+                  {button.name}
+                </button>
+              );
+            })}
             <button
               onClick={handleFilterOpen}
               className="w-36 h-12 rounded-full border-[1px] border-gray-400 text-gray-400 hover:text-gray-400/80 hover:shadow-sm"

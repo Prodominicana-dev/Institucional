@@ -1,6 +1,7 @@
 "use client";
 import Sketch from "@/components/admin/sketch";
 import { DocumentDialog } from "@/components/admin/transparency/document/dialog";
+import { SubsectionDialog } from "@/components/admin/transparency/subsection/dialog";
 import React, { useState } from "react";
 
 export default function page() {
@@ -19,6 +20,7 @@ export default function page() {
         subtitle="Transparencia"
         handleOpen={handleOpen}
         handleFilterOpen={handleFilterOpen}
+        buttons={[{ name: "Agregar", onClick: handleOpen }]}
       >
         <div className="w-11/12">
           <div className="w-full  space-y-5 text-black">
@@ -56,7 +58,9 @@ export default function page() {
           </div>
         </div>
       </Sketch>
-      {open && <DocumentDialog open={open} handler={handleOpen} />}
+      {open && (
+        <SubsectionDialog open={open} handler={handleOpen} update={() => {}} />
+      )}
     </>
   );
 }

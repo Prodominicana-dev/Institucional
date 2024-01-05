@@ -161,6 +161,7 @@ export function EditSectionDialog({
                 menuPlacement="auto"
                 options={statusOption}
                 defaultValue={statusOption[0]}
+                value={status ? statusOption[0] : statusOption[1]}
                 onChange={(e) => handleStatus(e)}
               />
             </div>

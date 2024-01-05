@@ -2,6 +2,7 @@
 import Sketch from "@/components/admin/sketch";
 import Card from "@/components/admin/transparency/section/card";
 import { SectionDialog } from "@/components/admin/transparency/section/dialog";
+import DragAndDropList from "@/components/admin/transparency/section/draganddrop";
 import { Section } from "@/models/section";
 import { useSectionAdmin } from "@/services/section/service";
 import { useUser } from "@auth0/nextjs-auth0/client";
@@ -19,6 +20,7 @@ export default function page() {
   const [_refetch, setRefetch] = useState(false);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<any>(null);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
 
@@ -104,6 +106,7 @@ export default function page() {
         subtitle="Transparencia"
         handleOpen={handleOpen}
         handleFilterOpen={handleFilterOpen}
+        buttons={[{ name: "Agregar", onClick: handleOpen }]}
       >
         <div
           className={`${

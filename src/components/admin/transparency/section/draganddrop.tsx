@@ -15,7 +15,8 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 
 import { Montserrat } from "next/font/google";
 const monserratStyle = Montserrat({ subsets: ["latin"] });
-export function SectionDialog({
+
+export default function DragAndDropList({
   open,
   handler,
   update,
@@ -34,7 +35,7 @@ export function SectionDialog({
         name,
         description,
       };
-      createSection(data, handler, update, user.sub as string);
+      //createSection(data, handler, update, user.sub as string);
     }
   };
 
@@ -51,7 +52,7 @@ export function SectionDialog({
           className="font-semibold "
           style={monserratStyle.style}
         >
-          Agregar sección
+          Ordena las secciones
         </DialogHeader>
         <DialogBody
           placeholder={false}
