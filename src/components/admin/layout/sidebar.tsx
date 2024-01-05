@@ -54,7 +54,7 @@ export function SideBar() {
         <div className="p-4 mb-2 text-white">
           <Link href={"/"}>
             <Image
-              src={"/png/layout/sidebar/prodominicana.png"}
+              src={"/svg/prodominicanaWhite.svg"}
               alt=""
               width={1920}
               height={1080}

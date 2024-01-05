@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { usePathname } from "next/navigation";
 import UserProfile from "./userProfile";
+import { Bars3Icon } from "@heroicons/react/24/outline";
 
 export default function NavBar() {
   const [isVisible, setIsVisible] = useAtom(sideBarAtom);
@@ -34,12 +35,7 @@ export default function NavBar() {
     <>
       <div className="w-full h-[15vh] flex flex-row justify-between items-center p-8">
         <button onClick={handleOpen}>
-          <Image
-            src={"svg/layout/navbar/menu.svg"}
-            alt="menu"
-            width={30}
-            height={30}
-          />
+          <Bars3Icon className="w-7 h-7 text-black" />
         </button>
         <UserProfile />
       </div>
