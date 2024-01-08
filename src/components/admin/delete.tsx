@@ -1,6 +1,6 @@
 import { TrashIcon } from "@heroicons/react/24/solid";
-import { Dialog, DialogBody } from "@material-tailwind/react";
-import React from "react";
+import { Dialog, DialogBody, Spinner } from "@material-tailwind/react";
+import React, { useState } from "react";
 import { Montserrat } from "next/font/google";
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 
@@ -17,6 +17,7 @@ export default function DeleteButton({
   message: string;
   funct: () => void;
 }) {
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <>
       <Dialog placeholder={""} open={open} handler={handleOpen} size="sm">
@@ -35,10 +36,14 @@ export default function DeleteButton({
             </div>
             <div className="flex flex-row w-full space-x-3">
               <button
-                className="w-full h-12 font-normal text-red-500 duration-300 bg-white rounded-lg hover:shadow-lg hover:text-white hover:bg-red-500 border-2 border-red-500  "
-                onClick={funct}
+                disabled={isLoading}
+                className="w-full h-12 font-normal text-red-500 duration-300 bg-white rounded-lg hover:shadow-lg hover:text-white hover:bg-red-500 border-2 border-red-500  flex justify-center items-center"
+                onClick={() => {
+                  setIsLoading(true);
+                  funct();
+                }}
               >
-                Eliminar
+                {isLoading ? <Spinner className="w-7 h-7" /> : "Eliminar"}
               </button>
               <button
                 onClick={handleOpen}

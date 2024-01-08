@@ -1,3 +1,5 @@
+import { Section } from "./section";
+
 export interface Subsection {
   id?: number;
   name?: string;
@@ -6,4 +8,5 @@ export interface Subsection {
   status?: boolean;
   url?: string;
   sectionId?: number;
+  section?: Section;
 }

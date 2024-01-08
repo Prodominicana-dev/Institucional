@@ -22,16 +22,20 @@ import Select from "react-select";
 import { Montserrat } from "next/font/google";
 import {
   createSubsection,
+  editSubsection,
   useSectionSubsAdmin,
 } from "@/services/subsection/service";
 import { PlusIcon } from "@heroicons/react/24/outline";
+import { Subsection } from "@/models/subsection";
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 
-export function SubsectionDialog({
+export function SubsectionEditDialog({
+  subsection,
   open,
   handler,
   update,
 }: {
+  subsection: Subsection;
   open: boolean;
   handler: () => void;
   update: () => void;
@@ -54,6 +58,9 @@ export function SubsectionDialog({
   useEffect(() => {
     if (data && !dataLoaded) {
       setSection(data);
+      setName(subsection.name || "");
+      setDescription(subsection.description || "");
+      setSectionId(subsection.sectionId || 0);
     }
   }, [data, dataLoaded]);
 
@@ -66,7 +73,7 @@ export function SubsectionDialog({
   };
 
   useEffect(() => {
-    refetch().then((e) => {
+    refetch().then((e: any) => {
       setSection(e.data);
     });
   }, [refresh]);
@@ -92,14 +99,20 @@ export function SubsectionDialog({
   };
   const handleSubmit = () => {
     setDataLoading(true);
-    if (user) {
+    if (user && !isLoading) {
       handler();
       const data = {
         name,
         description,
         sectionId,
       };
-      createSubsection(data, handler, update, user.sub as string).then(() => {
+      editSubsection(
+        subsection.id || 0,
+        data,
+        handler,
+        update,
+        user.sub as string
+      ).then(() => {
         setTimeout(() => {
           setDataLoading(false);
           setName("");
@@ -147,6 +160,7 @@ export function SubsectionDialog({
                 type="text"
                 placeholder="Nombre de la subsección"
                 onChange={(e) => setName(e.target.value)}
+                defaultValue={name}
               />
             </div>
             <div className="flex flex-row justify-end items-end space-x-4 w-6/12">
@@ -167,6 +181,8 @@ export function SubsectionDialog({
                   onChange={(e) => {
                     setSectionId(e?.value as number);
                   }}
+                  defaultValue={section.find((e) => e.value === sectionId)}
+                  value={section.find((e) => e.value === sectionId)}
                 />
               </div>
               <Popover

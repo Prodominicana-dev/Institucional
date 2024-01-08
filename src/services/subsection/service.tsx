@@ -9,9 +9,9 @@ export function useSubsection() {
   return useQuery({
     queryKey: ["subsections"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/section`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/subsection`;
       const { data } = await axios.get(url);
-      return data.sections;
+      return data.subsections;
     },
   });
 }
@@ -20,26 +20,15 @@ export function useSectionSubsAdmin() {
   return useQuery({
     queryKey: ["secSubsAdmin"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/section`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/subsection`;
       const { data } = await axios.get(url);
-      const sectionsObject = data.sections.map((section: Section) => {
+      const sectionsObject = data.sections.map((subsection: Section) => {
         return {
-          value: section.id,
-          label: section.name,
+          value: subsection.id,
+          label: subsection.name,
         };
       });
       return sectionsObject;
-    },
-  });
-}
-
-export function useSectionAdmin() {
-  return useQuery({
-    queryKey: ["sectionsAdmin"],
-    queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/section/adm/all`;
-      const { data } = await axios.get(url);
-      return data.sections;
     },
   });
 }
@@ -48,26 +37,25 @@ export function useSectionById(id: number) {
   return useQuery({
     queryKey: ["sectionById", id],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/section/${id}`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/subsection/${id}`;
       const { data } = await axios.get(url);
       return data;
     },
   });
 }
 
-export function createSection(
-  section: any,
+export function createSubsection(
+  subsection: Subsection,
   handleOpen: () => void,
   update: () => void,
   userId: string
 ) {
-  console.log(userId);
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
   ).toString();
   return axios
-    .post(`${process.env.NEXT_PUBLIC_API_URL}/section`, section, {
+    .post(`${process.env.NEXT_PUBLIC_API_URL}/subsection`, subsection, {
       headers: {
         Authorization: `${userIdEncrypted}`,
       },
@@ -75,11 +63,11 @@ export function createSection(
     .then((res) => {
       if (res.status === 201) {
         notifications.show({
-          id: "section",
+          id: "subsection",
           autoClose: 5000,
           withCloseButton: false,
-          title: "Sección creada",
-          message: "La sección ha sido creada correctamente.",
+          title: "Subsección creada",
+          message: "La subsección ha sido creada correctamente.",
           color: "green",
           loading: false,
         });
@@ -88,22 +76,22 @@ export function createSection(
       }
       if (res.status === 500) {
         notifications.show({
-          id: "section",
+          id: "subsection",
           autoClose: 5000,
           withCloseButton: false,
           title: "Error",
-          message: "Hubo un error creando la nueva sección.",
+          message: "Hubo un error creando la nueva subsección.",
           color: "red",
           loading: false,
         });
       }
       if (res.status === 401) {
         notifications.show({
-          id: "section",
+          id: "subsection",
           autoClose: 5000,
           withCloseButton: false,
           title: "Usuario inautorizado",
-          message: "No tienes permisos para crear una sección.",
+          message: "No tienes permisos para crear una subsección.",
           color: "red",
           loading: false,
         });
@@ -111,20 +99,19 @@ export function createSection(
     });
 }
 
-export function editSection(
+export function editSubsection(
   id: number,
-  section: any,
+  subsection: any,
   handleOpen: () => void,
   update: () => void,
   userId: string
 ) {
-  console.log(userId);
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
   ).toString();
   return axios
-    .patch(`${process.env.NEXT_PUBLIC_API_URL}/section/${id}`, section, {
+    .patch(`${process.env.NEXT_PUBLIC_API_URL}/subsection/${id}`, subsection, {
       headers: {
         Authorization: `${userIdEncrypted}`,
       },
@@ -132,11 +119,11 @@ export function editSection(
     .then((res) => {
       if (res.status === 200) {
         notifications.show({
-          id: "section",
+          id: "subsection",
           autoClose: 5000,
           withCloseButton: false,
-          title: "Sección actualizada",
-          message: "La sección ha sido actualizada correctamente.",
+          title: "Subsección actualizada",
+          message: "La subsección ha sido actualizada correctamente.",
           color: "green",
           loading: false,
         });
@@ -145,22 +132,22 @@ export function editSection(
       }
       if (res.status === 500) {
         notifications.show({
-          id: "section",
+          id: "subsection",
           autoClose: 5000,
           withCloseButton: false,
           title: "Error",
-          message: "Hubo un error creando la nueva sección.",
+          message: "Hubo un error creando la nueva subsección.",
           color: "red",
           loading: false,
         });
       }
       if (res.status === 401) {
         notifications.show({
-          id: "section",
+          id: "subsection",
           autoClose: 5000,
           withCloseButton: false,
           title: "Usuario inautorizado",
-          message: "No tienes permisos para crear una sección.",
+          message: "No tienes permisos para crear una subsección.",
           color: "red",
           loading: false,
         });
@@ -168,7 +155,7 @@ export function editSection(
     });
 }
 
-export function activeSection(
+export function activeSubsection(
   id: number,
   handleOpen: () => void,
   update: () => void,
@@ -181,7 +168,7 @@ export function activeSection(
   ).toString();
   return axios
     .patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/section/adm/activate/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/subsection/adm/activate/${id}`,
       null,
       {
         headers: {
@@ -192,11 +179,11 @@ export function activeSection(
     .then((res) => {
       if (res.status === 200) {
         notifications.show({
-          id: "section",
+          id: "subsection",
           autoClose: 5000,
           withCloseButton: false,
-          title: "Sección activada",
-          message: "La sección ha sido activada correctamente.",
+          title: "Subsección activada",
+          message: "La subsección ha sido activada correctamente.",
           color: "green",
           loading: false,
         });
@@ -205,22 +192,22 @@ export function activeSection(
       }
       if (res.status === 500) {
         notifications.show({
-          id: "section",
+          id: "subsection",
           autoClose: 5000,
           withCloseButton: false,
           title: "Error",
-          message: "Hubo un error activando la sección.",
+          message: "Hubo un error activando la subsección.",
           color: "red",
           loading: false,
         });
       }
       if (res.status === 401) {
         notifications.show({
-          id: "section",
+          id: "subsection",
           autoClose: 5000,
           withCloseButton: false,
           title: "Usuario inautorizado",
-          message: "No tienes permisos para activar una sección.",
+          message: "No tienes permisos para activar una subsección.",
           color: "red",
           loading: false,
         });
@@ -228,7 +215,7 @@ export function activeSection(
     });
 }
 
-export function inactiveSection(
+export function inactiveSubsection(
   id: number,
   handleOpen: () => void,
   update: () => void,
@@ -241,7 +228,7 @@ export function inactiveSection(
   ).toString();
   return axios
     .patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/section/adm/deactivate/${id}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/subsection/adm/deactivate/${id}`,
       null,
       {
         headers: {
@@ -252,11 +239,11 @@ export function inactiveSection(
     .then((res) => {
       if (res.status === 200) {
         notifications.show({
-          id: "section",
+          id: "subsection",
           autoClose: 5000,
           withCloseButton: false,
           title: "Sección desactivada",
-          message: "La sección ha sido desactivada correctamente.",
+          message: "La subsección ha sido desactivada correctamente.",
           color: "green",
           loading: false,
         });
@@ -265,22 +252,22 @@ export function inactiveSection(
       }
       if (res.status === 500) {
         notifications.show({
-          id: "section",
+          id: "subsection",
           autoClose: 5000,
           withCloseButton: false,
           title: "Error",
-          message: "Hubo un error desactivando la sección.",
+          message: "Hubo un error desactivando la subsección.",
           color: "red",
           loading: false,
         });
       }
       if (res.status === 401) {
         notifications.show({
-          id: "section",
+          id: "subsection",
           autoClose: 5000,
           withCloseButton: false,
           title: "Usuario inautorizado",
-          message: "No tienes permisos para desactivar una sección.",
+          message: "No tienes permisos para desactivar una subsección.",
           color: "red",
           loading: false,
         });
@@ -288,7 +275,7 @@ export function inactiveSection(
     });
 }
 
-export function deleteSection(
+export function deleteSubsection(
   id: number,
   handleOpen: () => void,
   update: () => void,
@@ -300,7 +287,7 @@ export function deleteSection(
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
   ).toString();
   return axios
-    .delete(`${process.env.NEXT_PUBLIC_API_URL}/section/${id}`, {
+    .delete(`${process.env.NEXT_PUBLIC_API_URL}/subsection/${id}`, {
       headers: {
         Authorization: `${userIdEncrypted}`,
       },
@@ -308,12 +295,12 @@ export function deleteSection(
     .then((res) => {
       if (res.status === 200) {
         notifications.show({
-          id: "section",
+          id: "subsection",
           autoClose: 5000,
           withCloseButton: false,
           title: "Sección eliminada",
           message:
-            "La sección ha sido eliminada correctamente. No podrás recuperarla.",
+            "La subsección ha sido eliminada correctamente. No podrás recuperarla.",
           color: "green",
           loading: false,
         });
@@ -322,22 +309,22 @@ export function deleteSection(
       }
       if (res.status === 500) {
         notifications.show({
-          id: "section",
+          id: "subsection",
           autoClose: 5000,
           withCloseButton: false,
           title: "Error",
-          message: "Hubo un error borrando la sección.",
+          message: "Hubo un error borrando la subsección.",
           color: "red",
           loading: false,
         });
       }
       if (res.status === 401) {
         notifications.show({
-          id: "section",
+          id: "subsection",
           autoClose: 5000,
           withCloseButton: false,
           title: "Usuario inautorizado",
-          message: "No tienes permisos para desactivar una sección.",
+          message: "No tienes permisos para desactivar una subsección.",
           color: "red",
           loading: false,
         });

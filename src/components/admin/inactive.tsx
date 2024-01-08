@@ -1,6 +1,6 @@
 import { EyeSlashIcon } from "@heroicons/react/24/solid";
-import { Dialog, DialogBody } from "@material-tailwind/react";
-import React from "react";
+import { Dialog, DialogBody, Spinner } from "@material-tailwind/react";
+import React, { useState } from "react";
 import { Montserrat } from "next/font/google";
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 
@@ -17,6 +17,7 @@ export default function DeactiveButton({
   message: string;
   funct: () => void;
 }) {
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <>
       <Dialog placeholder={""} open={open} handler={handleOpen} size="sm">
@@ -35,10 +36,14 @@ export default function DeactiveButton({
             </div>
             <div className="flex flex-row w-full space-x-3">
               <button
-                className="w-full h-12 font-normal text-black duration-300 bg-white rounded-lg hover:bg-black hover:shadow-lg hover:text-white border-2 border-black"
-                onClick={funct}
+                disabled={isLoading}
+                className="w-full h-12 font-normal text-black duration-300 bg-white rounded-lg hover:bg-black hover:shadow-lg hover:text-white border-2 border-black flex justify-center items-center"
+                onClick={() => {
+                  setIsLoading(true);
+                  funct();
+                }}
               >
-                Ocultar
+                {isLoading ? <Spinner className="w-7 h-7" /> : "Ocultar"}
               </button>
               <button
                 onClick={handleOpen}
