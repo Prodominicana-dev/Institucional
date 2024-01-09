@@ -62,21 +62,15 @@ export function EditSectionDialog({
         status: status,
       };
 
-      editSection(
-        Number(section.id),
-        data,
-        handler,
-        update,
-        user.sub as string
-      );
+      editSection(section.id as string, data, update, user.sub as string);
       setTimeout(() => {
         handleUpload();
-      }, 5000);
+        handler();
+      }, 1000);
     }
   };
   const handleUpload = () => {
     setUploadData(!uploadData);
-    console.log(uploadData);
   };
 
   const handleStatus = (e: any) => {
@@ -186,7 +180,7 @@ export function EditSectionDialog({
             onClick={handleSubmit}
             className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl justify-center flex items-center"
           >
-            {uploadData ? <Spinner /> : "Confirmar"}
+            {uploadData ? <Spinner className="w-7 h-7" /> : "Confirmar"}
           </button>
         </DialogFooter>
       </Dialog>

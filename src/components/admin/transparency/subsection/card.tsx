@@ -48,7 +48,7 @@ export default function Card({
   const handleDeactivate = () => {
     if (user && !isLoading) {
       inactiveSubsection(
-        Number(subsection.id),
+        subsection.id as string,
         handleInactiveOpen,
         update,
         user.sub as string
@@ -63,7 +63,7 @@ export default function Card({
   const handleActivate = () => {
     if (user && !isLoading) {
       activeSubsection(
-        Number(subsection.id),
+        subsection.id as string,
         handleActivateOpen,
         update,
         user.sub as string
@@ -78,7 +78,7 @@ export default function Card({
   const handleDelete = () => {
     if (user && !isLoading) {
       deleteSubsection(
-        Number(subsection.id),
+        subsection.id as string,
         handleDeleteOpen,
         update,
         user.sub as string

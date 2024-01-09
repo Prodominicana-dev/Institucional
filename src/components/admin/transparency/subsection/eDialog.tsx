@@ -43,11 +43,11 @@ export function SubsectionEditDialog({
   const { user, isLoading } = useUser();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [sectionId, setSectionId] = useState(0);
+  const [sectionId, setSectionId] = useState("");
   const { data, refetch, isLoading: dataLoaded } = useSectionSubsAdmin();
   const [refresh, setRefresh] = useState(false);
   const [section, setSection] = useState([
-    { value: 0, label: "Selecciona una sección..." },
+    { value: "", label: "Selecciona una sección..." },
   ]);
   const [openPopover, setOpenPopover] = useState(false);
   const [sectionName, setSectionName] = useState("");
@@ -60,7 +60,7 @@ export function SubsectionEditDialog({
       setSection(data);
       setName(subsection.name || "");
       setDescription(subsection.description || "");
-      setSectionId(subsection.sectionId || 0);
+      setSectionId(subsection.sectionId || "");
     }
   }, [data, dataLoaded]);
 
@@ -85,15 +85,13 @@ export function SubsectionEditDialog({
         name: sectionName,
         description: sectionDescription,
       };
-      createSection(
-        data,
-        handlePopOver,
-        handleSectionRefresh,
-        user.sub as string
-      ).then(() => {
-        setSectionLoading(false);
-        setSectionName("");
-        setSectionDescription("");
+      createSection(data, handleSectionRefresh, user.sub as string).then(() => {
+        setTimeout(() => {
+          setSectionLoading(false);
+          setSectionName("");
+          setSectionDescription("");
+          handlePopOver();
+        }, 1000);
       });
     }
   };
@@ -107,9 +105,8 @@ export function SubsectionEditDialog({
         sectionId,
       };
       editSubsection(
-        subsection.id || 0,
+        subsection.id as string,
         data,
-        handler,
         update,
         user.sub as string
       ).then(() => {
@@ -117,7 +114,8 @@ export function SubsectionEditDialog({
           setDataLoading(false);
           setName("");
           setDescription("");
-        }, 5000);
+          handler();
+        }, 1000);
       });
     }
   };
@@ -179,7 +177,7 @@ export function SubsectionEditDialog({
                   maxMenuHeight={100}
                   options={section}
                   onChange={(e) => {
-                    setSectionId(e?.value as number);
+                    setSectionId(e?.value as string);
                   }}
                   defaultValue={section.find((e) => e.value === sectionId)}
                   value={section.find((e) => e.value === sectionId)}
@@ -287,7 +285,7 @@ export function SubsectionEditDialog({
           </button>
           <button
             onClick={handleSubmit}
-            disabled={!name || sectionId === 0}
+            disabled={!name || !sectionId}
             className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl justify-center flex items-center"
           >
             {dataLoading ? <Spinner className="w-7 h-7" /> : "Guardar"}

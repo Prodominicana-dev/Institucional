@@ -39,7 +39,6 @@ export function useSectionById(id: number) {
 
 export function createSection(
   section: Section,
-  handleOpen: () => void,
   update: () => void,
   userId: string
 ) {
@@ -65,7 +64,6 @@ export function createSection(
           loading: false,
         });
         update();
-        handleOpen();
       }
       if (res.status === 500) {
         notifications.show({
@@ -93,9 +91,8 @@ export function createSection(
 }
 
 export function editSection(
-  id: number,
+  id: string,
   section: Section,
-  handleOpen: () => void,
   update: () => void,
   userId: string
 ) {
@@ -121,7 +118,6 @@ export function editSection(
           loading: false,
         });
         update();
-        handleOpen();
       }
       if (res.status === 500) {
         notifications.show({
@@ -149,7 +145,7 @@ export function editSection(
 }
 
 export function activeSection(
-  id: number,
+  id: string,
   handleOpen: () => void,
   update: () => void,
   userId: string
@@ -209,7 +205,7 @@ export function activeSection(
 }
 
 export function inactiveSection(
-  id: number,
+  id: string,
   handleOpen: () => void,
   update: () => void,
   userId: string
@@ -269,7 +265,7 @@ export function inactiveSection(
 }
 
 export function deleteSection(
-  id: number,
+  id: string,
   handleOpen: () => void,
   update: () => void,
   userId: string

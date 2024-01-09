@@ -37,7 +37,7 @@ export default function ActivateButton({
             <div className="flex flex-row w-full space-x-3">
               <button
                 disabled={isLoading}
-                className="w-full h-12 font-normal text-green-500 duration-300 bg-white rounded-lg hover:shadow-lg hover:text-white hover:bg-green-500 border-2 border-green-500 flex items7 justify-center"
+                className="w-full h-12 font-normal text-green-500 duration-300 bg-white rounded-lg hover:shadow-lg hover:text-white hover:bg-green-500 border-2 border-green-500 flex items-center justify-center"
                 onClick={() => {
                   setIsLoading(true);
                   funct();

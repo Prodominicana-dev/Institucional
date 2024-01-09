@@ -9,6 +9,7 @@ import {
   Tooltip,
   Input,
   Textarea,
+  Spinner,
 } from "@material-tailwind/react";
 import { createSection } from "@/services/section/service";
 import { useUser } from "@auth0/nextjs-auth0/client";
@@ -27,14 +28,20 @@ export function SectionDialog({
   const { user, isLoading } = useUser();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+  const [submitLoading, setSubmitLoading] = useState(false);
   const handleSubmit = () => {
     if (user) {
-      handler();
+      setSubmitLoading(true);
       const data = {
         name,
         description,
       };
-      createSection(data, handler, update, user.sub as string);
+      createSection(data, update, user.sub as string).then(() => {
+        setTimeout(() => {
+          handler();
+          setSubmitLoading(false);
+        }, 1000);
+      });
     }
   };
 
@@ -96,10 +103,11 @@ export function SectionDialog({
             Cancelar
           </button>
           <button
+            disabled={submitLoading || !name}
             onClick={handleSubmit}
-            className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl"
+            className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center"
           >
-            Confirmar
+            {submitLoading ? <Spinner className="w-7 h-7" /> : "Guardar"}
           </button>
         </DialogFooter>
       </Dialog>

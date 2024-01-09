@@ -41,7 +41,7 @@ export default function Card({
   const handleDeactivate = () => {
     if (user && !isLoading) {
       inactiveSection(
-        Number(section.id),
+        section.id as string,
         handleInactiveOpen,
         update,
         user.sub as string
@@ -56,7 +56,7 @@ export default function Card({
   const handleActivate = () => {
     if (user && !isLoading) {
       activeSection(
-        Number(section.id),
+        section.id as string,
         handleActivateOpen,
         update,
         user.sub as string
@@ -71,7 +71,7 @@ export default function Card({
   const handleDelete = () => {
     if (user && !isLoading) {
       deleteSection(
-        Number(section.id),
+        section.id as string,
         handleDeleteOpen,
         update,
         user.sub as string

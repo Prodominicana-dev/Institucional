@@ -1,12 +1,12 @@
 import { Section } from "./section";
 
 export interface Subsection {
-  id?: number;
+  id?: string;
   name?: string;
   description?: string;
   priority?: number;
   status?: boolean;
   url?: string;
-  sectionId?: number;
+  sectionId?: string;
   section?: Section;
 }

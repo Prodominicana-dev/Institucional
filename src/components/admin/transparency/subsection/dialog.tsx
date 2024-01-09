@@ -19,12 +19,13 @@ import {
 import { createSection } from "@/services/section/service";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Select from "react-select";
-import { Montserrat } from "next/font/google";
 import {
   createSubsection,
   useSectionSubsAdmin,
 } from "@/services/subsection/service";
 import { PlusIcon } from "@heroicons/react/24/outline";
+import { Montserrat } from "next/font/google";
+import SectionPopover from "../section/popover";
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 
 export function SubsectionDialog({
@@ -39,12 +40,12 @@ export function SubsectionDialog({
   const { user, isLoading } = useUser();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [sectionId, setSectionId] = useState(0);
+  const [sectionId, setSectionId] = useState("");
   const { data, refetch, isLoading: dataLoaded } = useSectionSubsAdmin();
-  const [refresh, setRefresh] = useState(false);
   const [section, setSection] = useState([
-    { value: 0, label: "Selecciona una sección..." },
+    { value: "", label: "Selecciona una sección..." },
   ]);
+  const [refresh, setRefresh] = useState(false);
   const [openPopover, setOpenPopover] = useState(false);
   const [sectionName, setSectionName] = useState("");
   const [sectionDescription, setSectionDescription] = useState("");
@@ -61,15 +62,15 @@ export function SubsectionDialog({
     setRefresh(!refresh);
   };
 
-  const handlePopOver = () => {
-    setOpenPopover(!openPopover);
-  };
-
   useEffect(() => {
     refetch().then((e) => {
       setSection(e.data);
     });
   }, [refresh]);
+
+  const handlePopOver = () => {
+    setOpenPopover(!openPopover);
+  };
 
   const handleSectionSubmit = () => {
     setSectionLoading(true);
@@ -78,15 +79,13 @@ export function SubsectionDialog({
         name: sectionName,
         description: sectionDescription,
       };
-      createSection(
-        data,
-        handlePopOver,
-        handleSectionRefresh,
-        user.sub as string
-      ).then(() => {
-        setSectionLoading(false);
-        setSectionName("");
-        setSectionDescription("");
+      createSection(data, handleSectionRefresh, user.sub as string).then(() => {
+        setTimeout(() => {
+          setSectionLoading(false);
+          setSectionName("");
+          setSectionDescription("");
+          handlePopOver();
+        }, 1000);
       });
     }
   };
@@ -99,12 +98,13 @@ export function SubsectionDialog({
         description,
         sectionId,
       };
-      createSubsection(data, handler, update, user.sub as string).then(() => {
+      createSubsection(data, update, user.sub as string).then(() => {
         setTimeout(() => {
           setDataLoading(false);
           setName("");
           setDescription("");
-        }, 5000);
+          handler();
+        }, 1000);
       });
     }
   };
@@ -162,84 +162,24 @@ export function SubsectionDialog({
                   placeholder="Seleccione..."
                   id="subsection"
                   className="w-full"
-                  maxMenuHeight={100}
+                  maxMenuHeight={200}
                   options={section}
                   onChange={(e) => {
-                    setSectionId(e?.value as number);
+                    setSectionId(e?.value as string);
                   }}
                 />
               </div>
-              <Popover
-                open={openPopover}
-                handler={setOpenPopover}
-                placement="bottom"
-              >
-                <PopoverHandler {...sectionTriggers}>
-                  <div
-                    style={monserratStyle.style}
-                    className="w-2/12 h-10 bg-blue-dark rounded-lg text-white flex items-center justify-center hover:cursor-pointer"
-                  >
-                    <PlusIcon className="w-7 h-7" />{" "}
-                  </div>
-                </PopoverHandler>
-                <PopoverContent
-                  placeholder={""}
-                  {...sectionTriggers}
-                  className="z-[9999] w-96 flex flex-col space-y-4 p-4 bg-white rounded-xl shadow-xl"
-                >
-                  <div
-                    style={monserratStyle.style}
-                    className="flex flex-col w-full"
-                  >
-                    <label
-                      htmlFor="name"
-                      className="font-semibold text-black text-lg"
-                    >
-                      Nombre
-                    </label>
-                    <Input
-                      crossOrigin={""}
-                      id="name"
-                      className="w-full"
-                      onChange={(e) => setSectionName(e.target.value)}
-                      placeholder="Nombre de la sección"
-                    />
-                  </div>
-                  <div
-                    style={monserratStyle.style}
-                    className="flex flex-col w-full"
-                  >
-                    <label
-                      htmlFor="name"
-                      className="font-semibold text-black text-lg"
-                    >
-                      Descripción{" "}
-                      <span className="font-normal text-xs italic">(?)</span>
-                    </label>
-                    <Textarea
-                      size="md"
-                      onChange={(e) => setSectionDescription(e.target.value)}
-                    />
-                  </div>
-                  <label
-                    style={monserratStyle.style}
-                    className="text-black text-xs font-light italic text-right"
-                  >
-                    (?) = Opcional
-                  </label>
-                  <button
-                    disabled={!sectionName}
-                    onClick={handleSectionSubmit}
-                    className="w-full h-12 hover:bg-white border-2 border-blue-dark hover:text-blue-dark duration-300 hover:shadow-md bg-blue-dark rounded-lg text-white justify-center items-center flex"
-                  >
-                    {sectionLoading ? (
-                      <Spinner className="w-7 h-7" />
-                    ) : (
-                      "Agregar"
-                    )}
-                  </button>
-                </PopoverContent>
-              </Popover>
+              <SectionPopover
+                handleOpen={handlePopOver}
+                openPopover={openPopover}
+                handleSectionSubmit={handleSectionSubmit}
+                sectionName={sectionName}
+                setSectionName={setSectionName}
+                sectionDescription={sectionDescription}
+                setSectionDescription={setSectionDescription}
+                sectionLoading={sectionLoading}
+                sectionTriggers={sectionTriggers}
+              />
             </div>
           </div>
           <div className="flex flex-col w-full">
@@ -271,7 +211,7 @@ export function SubsectionDialog({
           </button>
           <button
             onClick={handleSubmit}
-            disabled={!name || sectionId === 0}
+            disabled={!name || !sectionId}
             className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl justify-center flex items-center"
           >
             {dataLoading ? <Spinner className="w-7 h-7" /> : "Guardar"}

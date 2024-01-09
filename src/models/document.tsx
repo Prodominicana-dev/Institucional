@@ -1,5 +1,5 @@
 export interface Document {
-  id?: number;
+  id?: string;
   name?: string;
   description?: string;
   path?: string;
@@ -7,6 +7,6 @@ export interface Document {
   size?: string;
   period?: string;
   createdAt?: Date;
-  sectionId?: number;
-  subsectionId?: number;
+  sectionId?: string;
+  subsectionId?: string;
 }

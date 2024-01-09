@@ -2,7 +2,7 @@ import { Document } from "./document";
 import { Subsection } from "./subsection";
 
 export interface Section {
-  id?: number;
+  id?: string;
   name: string;
   description?: string;
   priority?: number;

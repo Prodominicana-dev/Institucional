@@ -19,6 +19,7 @@ export default function page() {
         subtitle="Transparencia"
         handleOpen={handleOpen}
         handleFilterOpen={handleFilterOpen}
+        buttons={[{ name: "Agregar", onClick: handleOpen }]}
       >
         <div className="w-11/12">
           <div className="w-full  space-y-5 text-black">

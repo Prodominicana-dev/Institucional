@@ -20,7 +20,7 @@ export function useSectionSubsAdmin() {
   return useQuery({
     queryKey: ["secSubsAdmin"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/subsection`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/section`;
       const { data } = await axios.get(url);
       const sectionsObject = data.sections.map((subsection: Section) => {
         return {
@@ -46,7 +46,6 @@ export function useSectionById(id: number) {
 
 export function createSubsection(
   subsection: Subsection,
-  handleOpen: () => void,
   update: () => void,
   userId: string
 ) {
@@ -72,7 +71,6 @@ export function createSubsection(
           loading: false,
         });
         update();
-        handleOpen();
       }
       if (res.status === 500) {
         notifications.show({
@@ -100,9 +98,8 @@ export function createSubsection(
 }
 
 export function editSubsection(
-  id: number,
+  id: string,
   subsection: any,
-  handleOpen: () => void,
   update: () => void,
   userId: string
 ) {
@@ -128,7 +125,6 @@ export function editSubsection(
           loading: false,
         });
         update();
-        handleOpen();
       }
       if (res.status === 500) {
         notifications.show({
@@ -156,12 +152,11 @@ export function editSubsection(
 }
 
 export function activeSubsection(
-  id: number,
+  id: string,
   handleOpen: () => void,
   update: () => void,
   userId: string
 ) {
-  console.log(userId);
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
@@ -216,12 +211,11 @@ export function activeSubsection(
 }
 
 export function inactiveSubsection(
-  id: number,
+  id: string,
   handleOpen: () => void,
   update: () => void,
   userId: string
 ) {
-  console.log(userId);
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
@@ -276,12 +270,11 @@ export function inactiveSubsection(
 }
 
 export function deleteSubsection(
-  id: number,
+  id: string,
   handleOpen: () => void,
   update: () => void,
   userId: string
 ) {
-  console.log(userId);
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY

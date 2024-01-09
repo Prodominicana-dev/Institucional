@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -8,6 +8,7 @@ import {
   DialogFooter,
   Tooltip,
   Input,
+  Spinner,
 } from "@material-tailwind/react";
 import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
@@ -16,6 +17,10 @@ import { Group, Text, rem } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
 import { Dropzone, FileWithPath } from "@mantine/dropzone";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import { useSectionSubsAdmin } from "@/services/subsection/service";
+import SectionPopover from "../section/popover";
+import { createSection } from "@/services/section/service";
+import { useUser } from "@auth0/nextjs-auth0/client";
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 const colourOptions = [
   { value: "ocean", label: "Ocean" },
@@ -49,10 +54,75 @@ export function DocumentDialog({
   open: boolean;
   handler: () => void;
 }) {
+  const { user, isLoading } = useUser();
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const [dropzoneLoading, setDropzoneLoading] = useState(false);
   const [dropzoneError, setDropzoneError] = useState(false);
   const [type, setType] = useState("document");
+  const [submitLoading, setSubmitLoading] = useState(false);
+  const { data, refetch, isLoading: dataLoaded } = useSectionSubsAdmin();
+  const [section, setSection] = useState([
+    { value: "", label: "Selecciona una sección..." },
+  ]);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [sectionId, setSectionId] = useState("");
+  const [refresh, setRefresh] = useState(false);
+  const [openPopover, setOpenPopover] = useState(false);
+  const [sectionName, setSectionName] = useState("");
+  const [sectionDescription, setSectionDescription] = useState("");
+  const [sectionLoading, setSectionLoading] = useState(false);
+  const [dataLoading, setDataLoading] = useState(false);
+
+  useEffect(() => {
+    if (data && !dataLoaded) {
+      setSection(data);
+    }
+  }, [data, dataLoaded]);
+
+  const handleSectionRefresh = () => {
+    setRefresh(!refresh);
+  };
+
+  useEffect(() => {
+    refetch().then((e) => {
+      setSection(e.data);
+    });
+  }, [refresh]);
+
+  useEffect(() => {
+    refetch().then((e) => {
+      setSection(e.data);
+    });
+  }, [refresh]);
+
+  const handleSectionSubmit = () => {
+    setSectionLoading(true);
+    if (user) {
+      const data = {
+        name: sectionName,
+        description: sectionDescription,
+      };
+      createSection(data, handleSectionRefresh, user.sub as string).then(() => {
+        setTimeout(() => {
+          setSectionLoading(false);
+          setSectionName("");
+          setSectionDescription("");
+          handlePopOver();
+        }, 1000);
+      });
+    }
+  };
+
+  const handlePopOver = () => {
+    setOpenPopover(!openPopover);
+  };
+
+  const sectionTriggers = {
+    onMouseEnter: () => setOpenPopover(true),
+    onMouseLeave: () => setOpenPopover(false),
+  };
+
   const handleDrop = (acceptedFiles: FileWithPath[]) => {
     setDropzoneLoading(true);
     const newFiles = [...files, ...acceptedFiles];
@@ -74,8 +144,9 @@ export function DocumentDialog({
     const newFiles = [...files];
     newFiles.splice(index, 1);
     setFiles(newFiles);
-    console.log(newFiles);
   };
+
+  const handleSubmit = () => {};
   return (
     <>
       <Dialog
@@ -97,19 +168,35 @@ export function DocumentDialog({
           style={monserratStyle.style}
         >
           <div className="flex flex-row space-x-4 w-full justify-center">
-            <div className="w-6/12 flex flex-col">
-              <label
-                htmlFor="section"
-                className="font-semibold text-black text-lg"
-              >
-                Sección
-              </label>
-              <CreatableSelect
-                id="section"
-                className="w-full"
-                isClearable
-                maxMenuHeight={200}
-                options={colourOptions}
+            <div className="flex flex-row justify-end items-end space-x-4 w-6/12">
+              <div className="flex flex-col w-10/12">
+                <label
+                  htmlFor="section"
+                  className="font-semibold text-black text-lg"
+                >
+                  Sección
+                </label>
+                <Select
+                  placeholder="Seleccione..."
+                  id="subsection"
+                  className="w-full"
+                  maxMenuHeight={200}
+                  options={section}
+                  onChange={(e) => {
+                    setSectionId(e?.value as string);
+                  }}
+                />
+              </div>
+              <SectionPopover
+                handleOpen={handlePopOver}
+                openPopover={openPopover}
+                handleSectionSubmit={handleSectionSubmit}
+                sectionName={sectionName}
+                setSectionName={setSectionName}
+                sectionDescription={sectionDescription}
+                setSectionDescription={setSectionDescription}
+                sectionLoading={sectionLoading}
+                sectionTriggers={sectionTriggers}
               />
             </div>
             <div className="w-6/12 flex flex-col">
@@ -230,27 +317,27 @@ export function DocumentDialog({
               id="subsection"
               className="w-full"
               placeholder="https://www.google.com"
+              type="url"
             />
           </div>
         </DialogBody>
-        <DialogFooter placeholder={false} style={monserratStyle.style}>
-          <Button
-            placeholder={false}
-            variant="text"
-            color="red"
+        <DialogFooter
+          placeholder={false}
+          style={monserratStyle.style}
+          className="space-x-4"
+        >
+          <button
             onClick={handler}
-            className="mr-1"
+            className="w-36 h-12 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white hover:shadow-lg duration-300 rounded-xl"
           >
-            <span>Cancel</span>
-          </Button>
-          <Button
-            placeholder={false}
-            variant="gradient"
-            color="green"
-            onClick={handler}
+            Cancelar
+          </button>
+          <button
+            onClick={handleSubmit}
+            className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center"
           >
-            <span>Confirm</span>
-          </Button>
+            {submitLoading ? <Spinner className="w-7 h-7" /> : "Guardar"}
+          </button>
         </DialogFooter>
       </Dialog>
     </>
