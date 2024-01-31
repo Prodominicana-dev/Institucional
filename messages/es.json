@@ -1,0 +1,161 @@
+{
+  "Index": {
+    "title": "Hola mundo!"
+  },
+  "Navbar": {
+    "aboutUs": {
+      "title": "Nosotros",
+      "menuList": {
+        "whoWeAre": "Quiénes somos",
+        "whoWeAreDesc": "Explora la pasión que nos impulsa",
+        "CEODispach": "Despacho de la directora ",
+        "CEODispachDesc": "Conoce el corazón de nuestro liderazgo",
+        "organizationalChart": "Estructura organizacional",
+        "organizationalChartDesc": "Nuestro organigrama detallado",
+        "legal": "Marco legal",
+        "legalDesc": "Nuestro compromiso legal"
+      }
+    },
+    "services": {
+      "title": "Servicios",
+      "menuList": {
+        "invest": "Inversión",
+        "investDesc": "Explora la pasión que nos impulsa",
+        "export": "Exportación",
+        "exportDesc": "Conoce el corazón de nuestro liderazgo"
+      }
+    },
+    "news": {
+      "title": "Novedades",
+      "menuList": {
+        "news": "Noticias",
+        "newsDesc": "Explora la pasión que nos impulsa",
+        "event": "Eventos",
+        "eventDesc": "Conoce el corazón de nuestro liderazgo",
+        "prodomTV": "ProDominicana TV",
+        "prodomTVDesc": "Nuestro organigrama detallado",
+        "gallery": "Galería de fotos",
+        "galleryDesc": "Nuestro compromiso legal"
+      }
+    },
+    "shetrades": "SheTrades",
+    "transparency": "Transparencia",
+    "contact": "Contacto",
+    "institute": "Instituto",
+    "investButton": "Invertir",
+    "exportButton": "Exportar"
+  },
+  "GovPagesInfo": {
+    "label": "Esta es una web oficial del Gobierno de la República Dominicana",
+    "buttonText": "Así es como puedes saberlo",
+    "domainTitle": "Los sitios web oficiales utilizan .gob.do, .gov.do o .mil.do",
+    "domainLabel": "Un sitio .gob.do, .gov.do o .mil.do significa que pertenece a una organización oficial del Estado dominicano.",
+    "secureDomainTitle": "Los sitios web oficiales .gob.do, .gov.do o .mil.do seguros usan HTTPS",
+    "secureDomainLabel": "Un candado (🔒) o https:// significa que estás conectado a un sitio seguro dentro de .gob.do o .gov.do. Comparte información confidencial solo en los sitios seguros de .gob.do o gov.do."
+  },
+  "DominicanRepublic": {
+    "nameTitle": "Nombre Oficial",
+    "name": "República Dominicana",
+    "slogan": "Una Tierra Llena de Oportunidades",
+    "telCodeLabel": "Código de teléfono",
+    "telCode": "+1-809, +1-829, +1-849",
+    "govDivisionLabel": "División administrativa",
+    "govDivision": "32 provincias y un distrito nacional",
+    "govFormLabel": "Forma del Estado",
+    "govForm": "Sistema de gobierno democrático, representativo y presidencial",
+    "weatherLabel": "Clima",
+    "weather": "Tropical (25.4 - 30 Celsius) (77.7 - 86 Fahrenheit)",
+    "languageLabel": "Idioma Oficial",
+    "language": "Español",
+    "timeZoneLabel": "Zona Horaria",
+    "timeZone": "GTM-4",
+    "currencyLabel": "Moneda",
+    "currency": "Peso Dominicano (RD$)",
+    "areaLabel": "Superficie",
+    "area": "48,442 km2"
+  },
+  "BusinessFacilitation": {
+    "title": "Te asistimos en tus procesos de negocios en el pais",
+    "paragraph1": "Nuestro Objetivo es promover y facilitar la iniciativas empresariales de la Republica Dominicana.",
+    "paragraph2": "Brindamos servicios integrales a todos los inversionistas, exportadores y compradores sin costo alguno.",
+    "buttonText": "Conoce más"
+  },
+  "DigitalTools": {
+    "title": "Ecosistema digital",
+    "description": "Herramientas digitales que ofrece el centro de exportación e importación de la Republica Dominicana",
+    "buttonText": "Ver todas las herramientas digitales"
+  },
+  "Institute": {
+    "title": "Conoce nuestra oferta académica",
+    "description": "¡Desarrolla tu futuro, formándote con nosotros!",
+    "buttonText": "Inscríbete"
+  },
+  "PressRoom": {
+    "title": "Sala de prensa",
+    "postButton": "Publicaciones",
+    "mediaButton": "Multimedia",
+    "buttonText": "Ver más"
+  },
+  "Schedule": {
+    "title": "Agenda"
+  },
+  "UpcomingEvents": {
+    "title": "Próximas ferias, misiones y eventos",
+    "buttonText": "Ver más"
+  },
+  "PhotoGallery": {
+    "miniTitle": "Nuestra",
+    "title": "Galería de fotos",
+    "buttonText": "Ver más"
+  },
+  "ProdominicanaTV": {
+    "title": "Prodominicana TV",
+    "subtitle": "transmitirá el resto de episodios los últimos domingos de cada mes a las 3:00 p. m. por el Canal 4RD",
+    "description": "Espacio audiovisual cuyo propósito es impulsar a los productores nacionales, exportadores y potenciales exportadores, tanto como atraer las inversiones y proyectar lo mejor que tiene nuestro país para ofrecer."
+  },
+  "DataDashboard": {
+    "title": "Tablero de datos",
+    "ied": { "title": "Inversión Extranjera Directa" },
+    "it": { "title": "Inversión de Turismo" },
+    "ezf": { "title": "Estadísticas de Zonas Francas" },
+    "pm": { "title": "Posicionamiento Mundial" }
+  },
+  "SocialMedia": {
+    "miniTitle": "SÍGUENOS EN NUESTRAS",
+    "title": "Redes Sociales"
+  },
+  "CEO": {
+    "name": "Biviana Riveiro",
+    "title": "Directora Ejecutiva del Centro de Exportación e Inversión de la República Dominicana",
+    "description": "Queremos que nuestros exportadores cuenten, además, con servicios de facilitación del comercio mediante la participación en ferias y misiones comerciales alrededor del mundo, rondas de negocios con compradores internacionales y agendas de encadenamiento productivo."
+  },
+  "Footer": {
+    "aboutUs": {
+      "title": "CONÓCENOS",
+      "name": "ProDominicana",
+      "fullName": "Centro de Exportación e Inversión de la República Dominicana"
+    },
+    "contactUs": {
+      "title": "CONTÁCTANOS",
+      "phone": "t: 809-530-5505",
+      "email": "servicios@prodominicana.gob.do",
+      "emailMobile": "Correo electrónico"
+    },
+    "findUs": {
+      "title": "BÚSCANOS",
+      "address": "Av. 27 de Febrero esq. Av. Gregorio Luperón, Plaza de la Bandera.",
+      "city": "Santo Domingo, República Dominicana"
+    },
+    "stayInformed": {
+      "title": "INFÓRMATE",
+      "useTerms": "Términos de uso",
+      "privacyPolicy": "Política de privacidad",
+      "frequentlyQuestions": "Preguntas frecuentes"
+    },
+    "extra": {
+      "certifications": "Certificaciones obtenidas",
+      "copyright": "Todos los derechos reservados. Desarrollado por",
+      "socialMediaText": "SÍGUENOS"
+    }
+  }
+}

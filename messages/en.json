@@ -1,0 +1,161 @@
+{
+  "Index": {
+    "title": "Hello world!"
+  },
+  "Navbar": {
+    "aboutUs": {
+      "title": "About Us",
+      "menuList": {
+        "whoWeAre": "Who We Are",
+        "whoWeAreDesc": "Explore the passion that drives us",
+        "CEODispach": "Director's Office",
+        "CEODispachDesc": "Get to know the heart of our leadership",
+        "organizationalChart": "Organizational Structure",
+        "organizationalChartDesc": "Our detailed organizational chart",
+        "legal": "Legal Framework",
+        "legalDesc": "Our legal commitment"
+      }
+    },
+    "services": {
+      "title": "Services",
+      "menuList": {
+        "invest": "Investment",
+        "investDesc": "Explore the passion that drives us",
+        "export": "Exportation",
+        "exportDesc": "Get to know the heart of our leadership"
+      }
+    },
+    "news": {
+      "title": "News",
+      "menuList": {
+        "news": "News",
+        "newsDesc": "Explore the passion that drives us",
+        "event": "Events",
+        "eventDesc": "Get to know the heart of our leadership",
+        "prodomTV": "ProDominicana TV",
+        "prodomTVDesc": "Our detailed organizational chart",
+        "gallery": "Photo Gallery",
+        "galleryDesc": "Our legal commitment"
+      }
+    },
+    "shetrades": "SheTrades",
+    "transparency": "Transparency",
+    "contact": "Contact",
+    "institute": "Institute",
+    "investButton": "Invest",
+    "exportButton": "Export"
+  },
+  "GovPagesInfo": {
+    "label": "This is an official website of the Government of the Dominican Republic",
+    "buttonText": "Here's how you can verify it",
+    "domainTitle": "Official websites use .gob.do, .gov.do, or .mil.do domains",
+    "domainLabel": "A .gob.do, .gov.do, or .mil.do site signifies that it belongs to an official organization of the Dominican State.",
+    "secureDomainTitle": "Secure official websites use HTTPS with .gob.do, .gov.do, or .mil.do domains",
+    "secureDomainLabel": "A padlock (🔒) or https:// indicates that you are connected to a secure site within .gob.do or .gov.do. Share confidential information only on secure sites of .gob.do or gov.do."
+  },
+  "DominicanRepublic": {
+    "nameTitle": "Official Name",
+    "name": "Dominican Republic",
+    "slogan": "A Land Full of Opportunities",
+    "telCodeLabel": "Telephone Code",
+    "telCode": "+1-809, +1-829, +1-849",
+    "govDivisionLabel": "Administrative Division",
+    "govDivision": "32 provinces and one national district",
+    "govFormLabel": "Form of Government",
+    "govForm": "Democratic, representative, and presidential system of government",
+    "weatherLabel": "Climate",
+    "weather": "Tropical (25.4 - 30 Celsius) (77.7 - 86 Fahrenheit)",
+    "languageLabel": "Official Language",
+    "language": "Spanish",
+    "timeZoneLabel": "Time Zone",
+    "timeZone": "GMT-4",
+    "currencyLabel": "Currency",
+    "currency": "Dominican Peso (RD$)",
+    "areaLabel": "Area",
+    "area": "48,442 km2"
+  },
+  "BusinessFacilitation": {
+    "title": "We assist you in your business processes in the country",
+    "paragraph1": "Our goal is to promote and facilitate business initiatives in the Dominican Republic.",
+    "paragraph2": "We provide comprehensive services to all investors, exporters, and buyers at no cost.",
+    "buttonText": "See more"
+  },
+  "DigitalTools": {
+    "title": "Digital Ecosystem",
+    "description": "Digital tools offered by the Center for Export and Import of the Dominican Republic",
+    "buttonText": "View all digital tools"
+  },
+  "Institute": {
+    "title": "Explore Our Academic Offerings",
+    "description": "Build your future by studying with us!",
+    "buttonText": "Enroll Now"
+  },
+  "PressRoom": {
+    "title": "Press Room",
+    "postButton": "Publications",
+    "mediaButton": "Multimedia",
+    "buttonText": "See More"
+  },
+  "Schedule": {
+    "title": "Schedule"
+  },
+  "UpcomingEvents": {
+    "title": "Upcoming Fairs, Missions, and Events",
+    "buttonText": "See More"
+  },
+  "PhotoGallery": {
+    "miniTitle": "Our",
+    "title": "Photo Gallery",
+    "buttonText": "See More"
+  },
+  "ProdominicanaTV": {
+    "title": "ProDominicana TV",
+    "subtitle": "will broadcast the remaining episodes on the last Sundays of each month at 3:00 p.m. on Channel 4RD",
+    "description": "An audiovisual space aimed at promoting domestic producers, exporters, and potential exporters, as well as attracting investments and showcasing the best our country has to offer."
+  },
+  "DataDashboard": {
+    "title": "Data Dashboard",
+    "ied": { "title": "Foreign Direct Investment" },
+    "it": { "title": "Tourism Investment" },
+    "ezf": { "title": "Free Trade Zone Statistics" },
+    "pm": { "title": "Global Positioning" }
+  },
+  "SocialMedia": {
+    "miniTitle": "FOLLOW US ON OUR",
+    "title": "Social Media"
+  },
+  "CEO": {
+    "name": "Biviana Riveiro",
+    "title": "Executive Director of the Center for Export and Investment of the Dominican Republic",
+    "description": "We aim to provide our exporters with trade facilitation services through participation in fairs and trade missions worldwide, business rounds with international buyers, and productive linkage agendas."
+  },
+  "Footer": {
+    "aboutUs": {
+      "title": "ABOUT US",
+      "name": "ProDominicana",
+      "fullName": "Export and Investment Center of the Dominican Republic"
+    },
+    "contactUs": {
+      "title": "CONTACT US",
+      "phone": "t: 809-530-5505",
+      "email": "servicios@prodominicana.gob.do",
+      "emailMobile": "Email address"
+    },
+    "findUs": {
+      "title": "FIND US",
+      "address": "Av. 27 de Febrero esq. Av. Gregorio Luperón, Plaza de la Bandera.",
+      "city": "Santo Domingo, Dominican Republic"
+    },
+    "stayInformed": {
+      "title": "STAY INFORMED",
+      "useTerms": "Terms of Use",
+      "privacyPolicy": "Privacy Policy",
+      "frequentlyQuestions": "Frequently Asked Questions"
+    },
+    "extra": {
+      "certifications": "Certifications Obtained",
+      "copyright": "All rights reserved. Developed by",
+      "socialMediaText": "FOLLOW US"
+    }
+  }
+}
