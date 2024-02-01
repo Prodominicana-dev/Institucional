@@ -28,7 +28,7 @@ export default function Navbar() {
       title: t("aboutUs.menuList.whoWeAre"),
       description: t("aboutUs.menuList.whoWeAreDesc"),
       icon: AboutIcon,
-      link: "/nosotros",
+      link: "/whoweare",
     },
     {
       title: t("aboutUs.menuList.CEODispach"),
@@ -40,13 +40,13 @@ export default function Navbar() {
       title: t("aboutUs.menuList.organizationalChart"),
       description: t("aboutUs.menuList.organizationalChartDesc"),
       icon: OrganizationIcon,
-      link: "/organigrama",
+      link: "/organizationalChart",
     },
     {
       title: t("aboutUs.menuList.legal"),
       description: t("aboutUs.menuList.legalDesc"),
       icon: ScaleIcon,
-      link: "/marcolegal",
+      link: "/legalframework",
     },
   ];
 
@@ -55,13 +55,13 @@ export default function Navbar() {
       title: t("news.menuList.news"),
       description: t("news.menuList.newsDesc"),
       icon: NewspaperIcon,
-      link: "/noticias",
+      link: "/news",
     },
     {
       title: t("news.menuList.event"),
       description: t("news.menuList.eventDesc"),
       icon: CalendarDaysIcon,
-      link: "/eventos",
+      link: "/events",
     },
     {
       title: t("news.menuList.prodomTV"),
@@ -73,7 +73,7 @@ export default function Navbar() {
       title: t("news.menuList.gallery"),
       description: t("news.menuList.galleryDesc"),
       icon: PhotoIcon,
-      link: "/galeria",
+      link: "/photosgallery",
     },
   ];
 

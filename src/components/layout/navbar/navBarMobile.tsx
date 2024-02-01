@@ -24,37 +24,37 @@ export default function NavBarMobile() {
     {
       title: "Portal del Estado Dominicano",
       link: "https://www.gob.do/",
-      icon: "svg/logos/portals/gobdo.svg",
+      icon: "/svg/logos/portals/gobdo.svg",
     },
     {
       title: "Sistema de Atención Ciudadana",
       link: "https://311.gob.do/",
-      icon: "svg/logos/portals/311.svg",
+      icon: "/svg/logos/portals/311.svg",
     },
     {
       title: "911",
       link: "https://911.gob.do/",
-      icon: "svg/logos/portals/911.svg",
+      icon: "/svg/logos/portals/911.svg",
     },
     {
       title: "Observatorio Nacional",
       link: "https://observatorioserviciospublicos.gob.do",
-      icon: "svg/logos/portals/observatorioserviciospublicos.svg",
+      icon: "/svg/logos/portals/observatorioserviciospublicos.svg",
     },
     {
       title: "Beca tu futuro",
       link: "https://becas.gob.do",
-      icon: "svg/logos/portals/becatufuturo.svg",
+      icon: "/svg/logos/portals/becatufuturo.svg",
     },
     {
       title: "Reporte de Abuso Sexual Infantil",
       link: "https://report.iwf.org.uk/do/",
-      icon: "svg/logos/portals/iwf.svg",
+      icon: "/svg/logos/portals/iwf.svg",
     },
     {
       title: "Centro Nacional de Ciberseguridad",
       link: "https://cncs.gob.do",
-      icon: "svg/logos/portals/cncs.svg",
+      icon: "/svg/logos/portals/cncs.svg",
     },
   ];
 
@@ -62,7 +62,7 @@ export default function NavBarMobile() {
     {
       title: "Ventanilla Única de Inversión",
       link: "https://vui.gob.do/",
-      icon: "svg/logos/vuiIcon.svg",
+      icon: "/svg/logos/vuiIcon.svg",
     },
   ];
 
@@ -106,7 +106,7 @@ export default function NavBarMobile() {
 
   return (
     <section className="xl:hidden">
-      <div className="w-full flex justify-center items-center">
+      <div className="w-full flex justify-center items-center bg-white">
         <div className="w-11/12 h-24 flex justify-between items-center">
           <div className="w-6/12 h-full flex items-center">
             <Image
@@ -131,7 +131,7 @@ export default function NavBarMobile() {
           </div>
         </div>
       </div>
-      <Collapse open={open} className="px-5">
+      <Collapse open={open} className="px-5 bg-white">
         <button
           className="w-full h-12 flex items-center justify-between "
           onClick={toggleMenuOpen}
@@ -141,7 +141,7 @@ export default function NavBarMobile() {
               alt=""
               width={50}
               height={50}
-              src={"svg/icons/appsIcon.svg"}
+              src={"/svg/icons/appsIcon.svg"}
               className="w-8 cursor-pointer"
             />
 
