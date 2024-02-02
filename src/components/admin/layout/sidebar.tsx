@@ -41,6 +41,7 @@ export function SideBar() {
   useEffect(() => {
     if (!isHover) {
       setOpen(0);
+      setOpenNewness(0);
     }
   }, [setOpen, isHover]);
 
@@ -130,17 +131,11 @@ export function SideBar() {
             <AccordionBody className="py-1">
               {openNewness === 1 && (
                 <List placeholder={undefined} className="p-0 text-white">
+                  <SidebarMenuItem title={"Noticias"} url={"/admin/news"} />
+                  <SidebarMenuItem title={"Eventos"} url={"/admin/events"} />
                   <SidebarMenuItem
-                    title={"Secciones"}
-                    url={"/admin/transparency/section"}
-                  />
-                  <SidebarMenuItem
-                    title={"Subsecciones"}
-                    url={"/admin/transparency/subsection"}
-                  />
-                  <SidebarMenuItem
-                    title={"Documentos"}
-                    url={"/admin/transparency/documents"}
+                    title={"Galería de Fotos"}
+                    url={"/admin/gallery"}
                   />
                 </List>
               )}

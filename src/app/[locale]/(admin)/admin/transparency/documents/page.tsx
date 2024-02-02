@@ -32,7 +32,6 @@ export default function Page() {
   const [subsectionFilter, setSubsectionFilter] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
-
   const indexOfLastSection = currentPage * itemsPerPage;
   const indexOfFirstSection = indexOfLastSection - itemsPerPage;
   const currentDocuments = documents?.slice(
@@ -126,7 +125,6 @@ export default function Page() {
         <Sketch
           title="Documentos"
           subtitle="Transparencia"
-          handleOpen={handleOpen}
           handleFilterOpen={handleFilterOpen}
           buttons={[{ name: "Agregar", onClick: handleOpen }]}
         >

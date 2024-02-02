@@ -5,14 +5,12 @@ import React from "react";
 export default function Sketch({
   title,
   subtitle,
-  handleOpen,
   handleFilterOpen,
   children,
   buttons,
 }: {
   title: string;
-  subtitle: string;
-  handleOpen: () => void;
+  subtitle?: string;
   handleFilterOpen: () => void;
   children: React.ReactNode;
   buttons: { name: string; onClick: () => void }[];
