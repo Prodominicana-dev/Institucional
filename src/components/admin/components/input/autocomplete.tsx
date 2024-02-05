@@ -1,6 +1,4 @@
-"use client";
 import React, { useEffect, useRef, useState } from "react";
-import { Collapse, button } from "@material-tailwind/react";
 
 export default function Autocomplete({
   options,
@@ -16,21 +14,7 @@ export default function Autocomplete({
   className: string;
 }) {
   const [open, setOpen] = useState(false);
-
-  const handleClickOutside = (event: any) => {
-    const inputElement = inputRef.current;
-    const optionsElement = document.querySelector(
-      ".w-full.flex.flex-col.gap-2.p-2.z-[9999].bg-white.max-h-[20vh].rounded-lg.ring-1.ring-gray-300.absolute.transform.translate-y-3"
-    );
-
-    if (
-      open &&
-      !(inputElement && inputElement.contains(event.target as Node)) &&
-      !(optionsElement && optionsElement.contains(event.target as Node))
-    ) {
-      setOpen(false);
-    }
-  };
+  const [optionClicked, setOptionClicked] = useState(false);
 
   const handleInputFocus = () => {
     setOpen(true);
@@ -40,38 +24,24 @@ export default function Autocomplete({
     setOpen(false);
   };
 
-  const inputRef = useRef<HTMLInputElement>(null);
+  useEffect(() => {}, [optionClicked]);
 
   const listUpdated = options?.filter((option: any) => {
     return option.toLowerCase().includes(value.toLowerCase());
   });
 
-  useEffect(() => {
-    // Add event listener for clicks outside the input
-    document.addEventListener("mousedown", handleClickOutside);
-
-    // Clean up event listener on unmount
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
   return (
     <div className="w-full relative">
       <input
-        ref={inputRef}
         className={`${className}`}
         onChange={(e) => onChange(e.target.value)}
         onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
+        onBlur={() => setTimeout(handleInputBlur, 2000)}
         value={value ? value : ""}
         placeholder={label}
       />
       {open && listUpdated.length > 0 && (
-        <div
-          ref={inputRef}
-          className="w-full flex flex-col gap-2 p-2 z-[9999] bg-white max-h-[20vh] rounded-lg ring-1 ring-gray-300 absolute transform translate-y-3"
-        >
+        <div className="options-container w-full flex flex-col gap-2 p-2 z-[9999] bg-white max-h-[20vh] rounded-lg ring-1 ring-gray-300 absolute transform translate-y-3">
           {listUpdated?.map((option: any, key: number) => (
             <button
               key={key}
