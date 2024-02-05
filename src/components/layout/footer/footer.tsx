@@ -184,7 +184,6 @@ export default function Footer() {
             </div>
           </Collapse>
         </div>
-
         <div className="h-2/6 w-11/12 flex items-center text-blue-950">
           <div className="w-8/12 flex  space-x-2 justify-start items-center h-full">
             <p className="text-center sm:text-left">
@@ -196,6 +195,7 @@ export default function Footer() {
               src={"/prodominicana.svg"}
               width={150}
               height={150}
+              className="size-24"
             />
           </div>
           <div className=" w-4/12 flex space-x-4 justify-center sm:justify-end items-center h-full">

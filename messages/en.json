@@ -19,23 +19,23 @@
     "services": {
       "title": "Services",
       "menuList": {
-        "invest": "Investment",
-        "investDesc": "Explore the passion that drives us",
-        "export": "Exportation",
-        "exportDesc": "Get to know the heart of our leadership"
+        "invest": "Investment Services",
+        "investDesc": "We assist you in investing in the Dominican Republic",
+        "export": "Export Services",
+        "exportDesc": "Maximize your international presence"
       }
     },
     "news": {
       "title": "News",
       "menuList": {
         "news": "News",
-        "newsDesc": "Explore the passion that drives us",
+        "newsDesc": "Stay updated on the latest developments",
         "event": "Events",
-        "eventDesc": "Get to know the heart of our leadership",
+        "eventDesc": "Discover and participate in featured events",
         "prodomTV": "ProDominicana TV",
-        "prodomTVDesc": "Our detailed organizational chart",
+        "prodomTVDesc": "Explore exclusive content from ProDominicana",
         "gallery": "Photo Gallery",
-        "galleryDesc": "Our legal commitment"
+        "galleryDesc": "Discover impactful visual moments"
       }
     },
     "shetrades": "SheTrades",
@@ -128,6 +128,61 @@
     "name": "Biviana Riveiro",
     "title": "Executive Director of the Center for Export and Investment of the Dominican Republic",
     "description": "We aim to provide our exporters with trade facilitation services through participation in fairs and trade missions worldwide, business rounds with international buyers, and productive linkage agendas."
+  },
+  "whoarewe": {
+    "title": "Who Are We?",
+    "desc": "We are the Center for the Promotion of Exports and Investments in the country, responsible for promoting our products, services, and business opportunities worldwide.",
+    "mission": {
+      "title": "Mission",
+      "desc": "To create value and serve to optimize investment attraction and enhance our export presence in international markets, encouraging quality employment."
+    },
+    "vision": {
+      "title": "Vision",
+      "desc": "To be the most efficient export and investment promotion agency in the region, for a more competitive, productive, and developed Dominican Republic."
+    },
+    "qualityPolicy": {
+      "title": "Quality Policy",
+      "desc": "The Export and Investment Center of the Dominican Republic (ProDominicana) maintains a strong commitment to the country's development by promoting increased exports and foreign direct investment through comprehensive services that meet the needs of exporters, potential exporters, foreign investors, and the general public. Always adhering to the highest standards of excellence and quality, the organization promotes continuous improvement of its processes and compliance with current laws and regulations."
+    },
+    "values": {
+      "title": "Values",
+      "excellence": {
+        "title": "Excellence",
+        "desc": "We put all our effort into doing our work in the best possible way to remain a model institution."
+      },
+      "teamWork": {
+        "title": "Teamwork",
+        "desc": "We believe that our work is enriched, and our services improve when we share value and information as a team."
+      },
+      "integrity": {
+        "title": "Integrity",
+        "desc": "We are driven by love for public service, and therefore, we act correctly, adhering to the law and ethical values."
+      },
+      "efficiency": {
+        "title": "Efficiency",
+        "desc": "We optimize available resources to provide services in the shortest time and with the highest possible quality."
+      },
+      "confidence": {
+        "title": "Confidence",
+        "desc": "Keeping our word and consistency in actions are important parts of our business dealings. Therefore, we nurture professional and investment relationships by generating trust."
+      },
+      "transparency": {
+        "title": "Transparency",
+        "desc": "We work with openness and transparency so that our work can be scrutinized and recognized, ensuring trust."
+      },
+      "serviceVocation": {
+        "title": "Service Vocation",
+        "desc": "We believe in public service. We diligently and timely attend to the requirements of our internal and external clients."
+      },
+      "proactivity": {
+        "title": "Proactivity",
+        "desc": "We anticipate, manage, understand, and meet customer expectations based on proposed objectives to ensure success."
+      },
+      "equity": {
+        "title": "Equity",
+        "desc": "We act fairly with our clients, regardless of economic, social, political, and gender conditions, respecting and serving all human beings equally."
+      }
+    }
   },
   "Footer": {
     "aboutUs": {

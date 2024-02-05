@@ -9,7 +9,7 @@ export default createMiddleware({
   localePrefix: "as-needed",
 
   pathnames: {
-    "/whoweare": {
+    "/whoarewe": {
       en: "/whoarewe",
       es: "/quienessomos",
     },

@@ -28,7 +28,7 @@ export default function Navbar() {
       title: t("aboutUs.menuList.whoWeAre"),
       description: t("aboutUs.menuList.whoWeAreDesc"),
       icon: AboutIcon,
-      link: "/whoweare",
+      link: "/whoarewe",
     },
     {
       title: t("aboutUs.menuList.CEODispach"),

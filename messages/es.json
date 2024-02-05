@@ -19,23 +19,23 @@
     "services": {
       "title": "Servicios",
       "menuList": {
-        "invest": "Inversión",
-        "investDesc": "Explora la pasión que nos impulsa",
-        "export": "Exportación",
-        "exportDesc": "Conoce el corazón de nuestro liderazgo"
+        "invest": "Servicios de Inversión",
+        "investDesc": "Te ayudamos a invertir en la República Dominicana",
+        "export": "Servicios de Exportación",
+        "exportDesc": "Maximizamos tu presencia internacional"
       }
     },
     "news": {
       "title": "Novedades",
       "menuList": {
         "news": "Noticias",
-        "newsDesc": "Explora la pasión que nos impulsa",
+        "newsDesc": "Mantente al tanto de las últimas novedades",
         "event": "Eventos",
-        "eventDesc": "Conoce el corazón de nuestro liderazgo",
+        "eventDesc": "Descubre y participa en eventos destacados",
         "prodomTV": "ProDominicana TV",
-        "prodomTVDesc": "Nuestro organigrama detallado",
+        "prodomTVDesc": "Explora contenido exclusivo de ProDominicana",
         "gallery": "Galería de fotos",
-        "galleryDesc": "Nuestro compromiso legal"
+        "galleryDesc": "Descubre momentos visuales impactantes"
       }
     },
     "shetrades": "SheTrades",
@@ -128,6 +128,61 @@
     "name": "Biviana Riveiro",
     "title": "Directora Ejecutiva del Centro de Exportación e Inversión de la República Dominicana",
     "description": "Queremos que nuestros exportadores cuenten, además, con servicios de facilitación del comercio mediante la participación en ferias y misiones comerciales alrededor del mundo, rondas de negocios con compradores internacionales y agendas de encadenamiento productivo."
+  },
+  "whoarewe": {
+    "title": "¿Quiénes somos?",
+    "desc": "Somos el Centro para la promoción de las exportaciones e inversiones en el país, responsables de promover nuestros productos, servicios y oportunidades de negocio por el mundo.",
+    "mission": {
+      "title": "Misión",
+      "desc": "Crear valor y servir para optimizar la atracción de inversión y mejorar nuestra presencia exportadora en los mercados internacionales, incentivando empleos de calidad."
+    },
+    "vision": {
+      "title": "Visión",
+      "desc": "Ser la agencia de promoción de exportación e inversión más eficiente de la región, para una República Dominicana más competitiva, productiva y desarrollada."
+    },
+    "qualityPolicy": {
+      "title": "Política de calidad",
+      "desc": "El Centro de Exportación e Inversión de la República Dominicana (ProDominicana) mantiene un elevado compromiso con el desarrollo del país al fomentar el incremento de la exportación y la inversión extranjera directa, a través de un servicio integral que satisface las necesidades de exportadores y potenciales exportadores, inversionistas extranjeros y ciudadanía en general. Siempre apegados a los más elevados estándares de excelencia y calidad, la organización promueve la mejora continua de sus procesos y el cumplimiento de las leyes y normas vigentes."
+    },
+    "values": {
+      "title": "Valores",
+      "excellence": {
+        "title": "Excelencia",
+        "desc": "Ponemos todo nuestro empeño en hacer nuestro trabajo del mejor modo posible, para mantenernos como institución modelo."
+      },
+      "teamWork": {
+        "title": "Trabajo en Equipo",
+        "desc": "Creemos que nuestro trabajo se enriquece y nuestros servicios mejoran cuando compartimos valor e información en equipo."
+      },
+      "integrity": {
+        "title": "Integridad",
+        "desc": "Nos mueve el amor al servicio público y por ello actuamos correctamente, con apego a la ley y a los valores éticos."
+      },
+      "efficiency": {
+        "title": "Eficiencia",
+        "desc": "Optimizamos los recursos disponibles para ofrecer los servicios en el menor tiempo y con la mayor calidad posible."
+      },
+      "confidence": {
+        "title": "Confianza",
+        "desc": "La palabra dada y la consistencia de las acciones con esta, es parte importante de nuestro intercambio de negocios. Por eso cuidamos nuestras relaciones profesionales y de inversión generando confianza."
+      },
+      "transparency": {
+        "title": "Transparencia",
+        "desc": "Trabajamos con apertura y transparencia para que nuestra labor pueda ser fiscalizada y reconocida asegurando la confianza."
+      },
+      "serviceVocation": {
+        "title": "Vocación de Servicio",
+        "desc": "Creemos en el servicio público. Atendemos con esmero, calidad y de manera oportuna, los requerimientos de nuestros clientes internos y externos."
+      },
+      "proactivity": {
+        "title": "Proactividad",
+        "desc": "Nos anticipamos, gestionamos, conocemos y satisfacemos las expectativas del cliente en función de los objetivos propuestos para garantizar el éxito."
+      },
+      "equity": {
+        "title": "Equidad",
+        "desc": "Actuamos de manera justa con nuestros clientes, sin importar condición económica, social, política y de género, respetando y sirviendo a todos los seres humanos por igual."
+      }
+    }
   },
   "Footer": {
     "aboutUs": {

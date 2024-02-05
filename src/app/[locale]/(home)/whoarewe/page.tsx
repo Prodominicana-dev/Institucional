@@ -1,0 +1,201 @@
+"use client";
+import { Typography } from "@material-tailwind/react";
+import React from "react";
+import Image from "next/image";
+import { useTranslations } from "next-intl";
+
+export default function Page() {
+  const t = useTranslations("whoarewe");
+  const valores = [
+    {
+      title: t("values.excellence.title"),
+      desc: t("values.excellence.desc"),
+      icon: "/svg/icons/ExportIcon.svg",
+    },
+    {
+      title: t("values.teamWork.title"),
+      desc: t("values.teamWork.desc"),
+      icon: "/svg/icons/ExportIcon.svg",
+    },
+    {
+      title: t("values.integrity.title"),
+      desc: t("values.integrity.desc"),
+      icon: "/svg/icons/ExportIcon.svg",
+    },
+    {
+      title: t("values.efficiency.title"),
+      desc: t("values.efficiency.desc"),
+      icon: "/svg/icons/ExportIcon.svg",
+    },
+    {
+      title: t("values.confidence.title"),
+      desc: t("values.confidence.desc"),
+      icon: "/svg/icons/ExportIcon.svg",
+    },
+    {
+      title: t("values.transparency.title"),
+      desc: t("values.transparency.desc"),
+      icon: "/svg/icons/ExportIcon.svg",
+    },
+    {
+      title: t("values.serviceVocation.title"),
+      desc: t("values.serviceVocation.desc"),
+      icon: "/svg/icons/ExportIcon.svg",
+    },
+    {
+      title: t("values.proactivity.title"),
+      desc: t("values.proactivity.desc"),
+      icon: "/svg/icons/ExportIcon.svg",
+    },
+    {
+      title: t("values.equity.title"),
+      desc: t("values.equity.desc"),
+      icon: "/svg/icons/ExportIcon.svg",
+    },
+  ];
+
+  return (
+    <div className="bg-white">
+      <div className="w-full lg:h-[40vh] bg-blue-950 flex py-5">
+        <div className="w-5/12 p-16 flex justify-center items-center">
+          <Typography
+            placeholder={undefined}
+            className="text-white font-extrabold text-5xl"
+          >
+            {t("title")}
+          </Typography>
+        </div>
+        <div className="w-7/12">
+          <Image
+            width={3840}
+            height={2160}
+            src={
+              "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg"
+            }
+            alt={"news"}
+            className="h-full w-full object-cover object-center rounded-l-3xl"
+          />
+        </div>
+      </div>
+      <div className="w-full lg:h-[70vh] flex flex-col lg:flex-row">
+        <div className="lg:w-6/12 h-full bg-sky-600 flex justify-center items-center p-10">
+          <div className="lg:w-6/12 space-y-3">
+            <Typography
+              placeholder={undefined}
+              className="text-white font-extrabold text-3xl"
+            >
+              {t("title")}
+            </Typography>
+            <div className="bg-white w-4/12 h-1 rounded-full"></div>
+            <Typography
+              placeholder={undefined}
+              className="text-white text-xl"
+              translate="yes"
+            >
+              {t("desc")}
+            </Typography>
+          </div>
+        </div>
+        <div className="flex flex-col lg:w-6/12 h-full">
+          <div className="h-3/6 bg-red-700 flex justify-center items-center p-10">
+            <div className="lg:w-8/12 space-y-2">
+              <Typography
+                placeholder={undefined}
+                className="text-white font-extrabold text-3xl"
+              >
+                {t("mission.title")}
+              </Typography>
+              <Typography
+                placeholder={undefined}
+                className="text-white text-xl"
+                translate="yes"
+              >
+                {t("mission.desc")}
+              </Typography>
+            </div>
+          </div>
+          <div className="h-3/6 bg-white sm:bg-blue-950 flex justify-center items-center p-10">
+            <div className="lg:w-8/12 space-y-2">
+              <Typography
+                placeholder={undefined}
+                className="text-blue-950 sm:text-white font-extrabold text-3xl"
+              >
+                {t("vision.title")}
+              </Typography>
+              <Typography
+                placeholder={undefined}
+                className="text-blue-950 sm:text-sky-500 text-xl"
+              >
+                {t("vision.desc")}
+              </Typography>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="h-full">
+        <div className="w-full h-full lg:h-svh relative">
+          <Image
+            src={"/images/home/prodominicanabuilding.jpg"}
+            width={6000}
+            height={2195}
+            alt="foto"
+            className="object-cover w-full h-full hidden lg:block"
+          />
+          <div className="relative lg:absolute inset-0 bg-blue-950 lg:bg-blue-950/90 z-10 flex flex-col items-center justify-center p-10 xl:p-0">
+            <div className="xl:w-10/12 space-y-5">
+              <Typography
+                placeholder={undefined}
+                className="text-white font-bold text-4xl xl:pl-20"
+              >
+                {t("values.title")}
+              </Typography>
+              <ul className="grid grid-cols-1 xl:grid-cols-2 gap-5 list-disc list-inside">
+                {valores.map((valor, index) => (
+                  <div className="w-full flex items-center gap-5" key={index}>
+                    <Image
+                      width={100}
+                      height={100}
+                      alt={valor.title}
+                      src={"/svg/icons/ExportIcon.svg"}
+                      className="w-16 hidden lg:block"
+                    />
+                    <div>
+                      <li className="text-white font-extrabold text-xl">
+                        {valor.title}
+                      </li>
+                      <Typography
+                        placeholder={undefined}
+                        className="text-white text-lg"
+                      >
+                        {valor.desc}
+                      </Typography>
+                    </div>
+                  </div>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="w-full h-full lg:h-[30vh] bg-white flex justify-center items-center p-10 lg:p-0">
+        <div className="w-full lg:w-10/12 flex flex-col lg:flex-row gap-10">
+          <Image
+            width={100}
+            height={100}
+            alt={"quality"}
+            src={"/svg/icons/PicIcon.svg"}
+            className="w-24 hidden lg:block"
+          />
+          <div className="w-full space-y-5">
+            <div className="text-blue-950 font-extrabold text-2xl">
+              {t("qualityPolicy.title")}
+            </div>
+            <Typography placeholder={undefined} className="text-black text-lg">
+              {t("qualityPolicy.desc")}
+            </Typography>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
