@@ -8,7 +8,7 @@ import {
   UserIcon,
   VideoCameraIcon,
 } from "@heroicons/react/24/outline";
-import { IconButton } from "@material-tailwind/react";
+import { IconButton, Select } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -20,6 +20,7 @@ import NavbarLink from "./navbarLink";
 import NavbarButton from "./navbarButton";
 import GovPagesInfo from "./govPagesInfo";
 import { useTranslations } from "next-intl";
+import LanguagePicker from "./languagePicker";
 
 export default function Navbar() {
   const t = useTranslations("Navbar");
@@ -104,8 +105,8 @@ export default function Navbar() {
             src={"/prodominicana.svg"}
             className="w-56 cursor-pointer"
           />
-          <div className="flex flex-col space-y-4">
-            <div className="w-72 flex items-center space-x-4">
+          <div className="flex flex-col space-y-4 w-3/12 ">
+            <div className="w-full flex items-center justify-center gap-4">
               <div className="h-12 w-10/12 border-2 border-blue-950 rounded-full p-2 flex items-center justify-between">
                 <input
                   type="text"
@@ -120,6 +121,7 @@ export default function Navbar() {
                 </IconButton>
               </div>
               <ToolsMenu />
+              <LanguagePicker />
             </div>
           </div>
         </div>

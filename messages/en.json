@@ -127,7 +127,45 @@
   "CEO": {
     "name": "Biviana Riveiro",
     "title": "Executive Director of the Center for Export and Investment of the Dominican Republic",
-    "description": "We aim to provide our exporters with trade facilitation services through participation in fairs and trade missions worldwide, business rounds with international buyers, and productive linkage agendas."
+    "about": "Law graduate with honors (Magna Cum Laude) from the Pontifical Catholic Mother and Teacher University PUCMM, Santo Domingo, in the year 2002.",
+    "description": "We aim to provide our exporters with trade facilitation services through participation in fairs and trade missions worldwide, business rounds with international buyers, and productive linkage agendas.",
+    "studies": {
+      "title": "Studies",
+      "data": [
+        {
+          "desc": "Graduated from the Dominican College of La Salle in 1998 and as a lawyer with honors (Magna Cum Laude) from the Pontifical Catholic Mother and Teacher University PUCMM, Santo Domingo in 2002."
+        },
+        {
+          "desc": "Has completed numerous national and international studies and courses at institutions such as the World Trade Organization, the International Telecommunication Union, and holds the following master's degrees, postgraduates, and diplomas: Master's in Corporate Business Law and Postgraduates in Business Economics; Diplomas in International Law, Intellectual Property, Banking Law, Administrative Law, Arbitration, sponsored by various local and foreign universities. Also completed the Executive Management Program at Barna Business School."
+        }
+      ]
+    },
+    "experience": {
+      "title": "Experience",
+      "data": [
+        {
+          "desc": "Began legal work in 2000, serving as a Paralegal and later as an Associate Researcher at the Institutionalism and Justice Foundation (FINJUS) until 2003."
+        },
+        {
+          "desc": "Served as Legal Advisor for the Regulatory Policies Management and Legal Advisor for the International Affairs Management of the Dominican Telecommunications Institute (INDOTEL). Participated in the development and review of regulations and standards related to the telecommunications sector, handling topics such as information society, e-commerce, and high-tech crimes. Represented the institution at events and international organizations such as the International Telecommunication Union (ITU), the Inter-American Telecommunication Commission of the OAS (CITEL), REGULATEL, among others. Also worked as a Lawyer at the Melo Guerrero Law Office (OMG) practicing corporate law."
+        },
+        {
+          "desc": "From 2006 to 2011, served as Executive Director of the National Association of Young Entrepreneurs (ANJE), becoming a member of the Board of Directors in 2012 and President from October 2014 to October 2015. Advocated for improving the investment climate, legal security, entrepreneurship, innovation, and institutionalism in the Dominican Republic."
+        },
+        {
+          "desc": "In 2010, founded the legal and business consulting firm Grupo Legalia, specializing in various areas of law such as corporate, civil, commercial, tourism, foreign investment, telecommunications, cinema, competition, consumer law, civil aviation, and intellectual property. Led projects for simplifying administrative procedures and collaborated on numerous initiatives and legislative reforms."
+        },
+        {
+          "desc": "In August 2016, joined the administration of former Mayor David Collado as Interim Legal Director and Secretary General of the National District City Council. From April to August 2020, held the position of Technical Secretary of the municipal entity, declared Distinguished Citizen of Santo Domingo by Resolution 34/20 for transparent and efficient management. Coordinated the creation of the first Municipal Citizen Security Plan for Santo Domingo."
+        },
+        {
+          "desc": "Since August 16, 2020, has been serving as the Executive Director of the Center for Export and Investment of the Dominican Republic, appointed by Decree 329-20 by the Constitutional President, Luis Rodolfo Abinader Estrella."
+        },
+        {
+          "desc": "Has been a university lecturer and representative on various business councils. Received various recognitions for professional and social contributions, including the Market Social Award (2015), National Youth Award for Overcoming, Personal Achievements, and Business Development (2015), Recognition by the National Social Security Council for contributions as a member representing the employer sector (2013), Recognition by the National Association of Young Entrepreneurs for contributions to the country (2010), and awards for outstanding young individuals by Jaycees 72 (2010) and the Chamber of Commerce and Production of Santo Domingo for participation in the General Law of Commercial Companies (2009)."
+        }
+      ]
+    }
   },
   "whoarewe": {
     "title": "Who Are We?",

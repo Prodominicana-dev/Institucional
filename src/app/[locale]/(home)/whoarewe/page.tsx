@@ -154,7 +154,7 @@ export default function Page() {
       <div className="h-full">
         <div className="w-full h-full lg:h-svh relative">
           <Image
-            src={"/images/home/prodominicanabuilding.jpg"}
+            src={"/images/prodominicanabuilding.jpg"}
             width={6000}
             height={2195}
             alt="foto"

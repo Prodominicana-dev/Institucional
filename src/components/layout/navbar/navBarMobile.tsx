@@ -13,6 +13,7 @@ import Link from "next/link";
 import NavbarCollapseMobile from "./navbarCollapseMobile";
 import NavbarLinkMobile from "./navbarLinkMobile";
 import NavbarButtonMobile from "./navbarButtonMobile";
+import LanguagePicker from "./languagePicker";
 
 export default function NavBarMobile() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -117,14 +118,16 @@ export default function NavBarMobile() {
               className="w-56 cursor-pointer"
             />
           </div>
-          <div className="w-6/12 h-full flex space-x-4 items-center justify-end">
+          <div className="w-6/12 h-full flex space-x-2 sm:space-x-4 items-center justify-end">
             <IconButton
               className="bg-red-700 rounded-full w-8 h-8"
               placeholder={undefined}
             >
               <MagnifyingGlassIcon className="w-5 h-5" />
             </IconButton>
-            <div className="w-[2px] h-3/6 bg-gray-300 rounded-full"></div>
+            <div className="w-[2px] h-2/6 bg-gray-300 rounded-full"></div>
+            <LanguagePicker />
+            <div className="w-[2px] h-2/6 bg-gray-300 rounded-full"></div>
             <button onClick={toggleOpen}>
               <Bars3Icon className="w-8 h-8 text-blue-950" />
             </button>

@@ -1,12 +1,10 @@
 import createMiddleware from "next-intl/middleware";
+import { locales, localePrefix } from "./navigation";
 
 export default createMiddleware({
-  // A list of all locales that are supported
-  locales: ["es", "en"],
-
-  // Used when no locale matches
   defaultLocale: "es",
-  localePrefix: "as-needed",
+  locales: locales,
+  localePrefix: localePrefix,
 
   pathnames: {
     "/whoarewe": {

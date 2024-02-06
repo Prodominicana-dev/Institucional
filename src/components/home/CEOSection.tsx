@@ -9,7 +9,7 @@ export default function CEOSection() {
     <section className="h-[60vh] xl:h-screen">
       <div className="w-full h-full relative">
         <Image
-          src={"/images/home/prodominicanabuilding.jpg"}
+          src={"/images/prodominicanabuilding.jpg"}
           width={6000}
           height={2195}
           alt="foto"
@@ -18,7 +18,7 @@ export default function CEOSection() {
         <div className="absolute inset-0 bg-blue-dark/80 z-10 flex flex-col-reverse xl:flex-row items-center justify-center xl:justify-evenly text-center text-white xl:px-32">
           <div className="w-6/12 flex justify-center items-end">
             <Image
-              src={"/images/home/bivianariveiro.png"}
+              src={"/images/bivianariveiro.png"}
               width={2504}
               height={4096}
               alt="CEO"
