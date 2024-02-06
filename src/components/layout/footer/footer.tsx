@@ -81,21 +81,23 @@ export default function Footer() {
           />
         </div>
         <div className="w-[2px] h-3/6 bg-white "></div>
-        <div className="w-full h-full flex justify-center items-center space-x-3">
-          <div className="flex flex-col h-full sm:justify-center sm:items-center text-white  space-y-4 w-3/12">
-            <h1 className=" font-bold text-lg h-2/6 flex sm:items-end w-full uppercase">
+        <div className="w-full h-3/6 flex justify-center items-center space-x-3">
+          <div className="flex flex-col h-full sm:justify-center sm:items-center text-white space-y-4 w-3/12">
+            <h1 className="font-bold text-lg h-2/6 flex sm:items-end w-full uppercase">
               {t("aboutUs.title")}
             </h1>
-            <Link
-              href={"/about"}
-              className="text-sm font-light h-3/6 w-full flex flex-col"
-            >
-              <p>{t("aboutUs.name")}</p>
-              <p>{t("aboutUs.fullName")}</p>
-            </Link>
+            <div className="h-3/6 w-full">
+              <Link
+                href={"/whoarewe"}
+                className="flex flex-col shrink text-white hover:text-cyan-600 text-sm font-light"
+              >
+                <p>{t("aboutUs.name")}</p>
+                <p>{t("aboutUs.fullName")}</p>
+              </Link>
+            </div>
           </div>
           <div className="flex flex-col h-full sm:justify-center sm:items-center text-white space-y-4 w-3/12">
-            <h1 className=" font-bold text-lg h-2/6 flex sm:items-end w-full">
+            <h1 className="font-bold text-lg h-2/6 flex sm:items-end w-full">
               {t("contactUs.title")}
             </h1>
             <div className="text-sm font-light h-3/6 w-full flex flex-col space-y-2">
