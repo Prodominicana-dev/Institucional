@@ -35,14 +35,21 @@ import { Dropzone } from "@mantine/dropzone";
 import Image from "next/image";
 import Select from "react-select";
 import { is } from "date-fns/locale";
-import { createNews, useCategoriesNews } from "@/services/news/service";
+import {
+  createNews,
+  editNews,
+  useCategoriesNews,
+  useNewsById,
+} from "@/services/news/service";
 import { Autocomplete } from "@mantine/core";
 
-export function NewsDialog({
+export function NewsEditDialog({
+  id,
   open,
   handler,
   update,
 }: {
+  id: string;
   open: boolean;
   handler: () => void;
   update: () => void;
@@ -50,8 +57,10 @@ export function NewsDialog({
   const { user } = useUser();
   const [spanishTitle, setSpanishTitle] = useState("");
   const [spanishCategory, setSpanishCategory] = useState("");
+  const [spanishDescription, setSpanishDescription] = useState("");
   const [englishTitle, setEnglishTitle] = useState("");
   const [englishCategory, setEnglishCategory] = useState("");
+  const [englishDescription, setEnglishDescription] = useState("");
   const [description] = useState("");
   const [warningAlert, setWarningAlert] = useState(false);
   const [submitLoading, setSubmitLoading] = useState(false);
@@ -61,11 +70,26 @@ export function NewsDialog({
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const [spanishCategories, setSpanishCategories] = useState([]);
   const [englishCategories, setEnglishCategories] = useState([]);
+  const { data, isLoading } = useNewsById(id);
+  const [image, setImage] = useState("");
   const {
     data: categories,
     refetch: categoriesRefetch,
     isLoading: categoriesLoading,
   } = useCategoriesNews();
+
+  useEffect(() => {
+    if (data && !isLoading) {
+      const { es, en, image } = data;
+      setSpanishTitle(es.title);
+      setSpanishCategory(es.category);
+      setSpanishDescription(es.description);
+      setEnglishTitle(en.title);
+      setEnglishCategory(en.category);
+      setEnglishDescription(en.description);
+      setImage(image);
+    }
+  }, [data, isLoading]);
 
   useEffect(() => {
     if (!categoriesLoading) {
@@ -130,11 +154,7 @@ export function NewsDialog({
 
     !isLastStep && handleNext();
 
-    if (isLastStep && files.length === 0) {
-      return setWarningAlert(true);
-    }
-
-    if (isLastStep && files.length > 0) {
+    if (isLastStep) {
       setSubmitLoading(true);
       const es_data = {
         title: spanishTitle,
@@ -153,7 +173,7 @@ export function NewsDialog({
       formData.append("es", JSON.stringify(es_data));
       formData.append("en", JSON.stringify(en_data));
       files.length > 0 && files.map((file) => formData.append("files", file));
-      await createNews(formData, update, user?.sub as string);
+      await editNews(id, formData, update, user?.sub as string);
       setSubmitLoading(false);
       handler();
     }
@@ -232,7 +252,11 @@ export function NewsDialog({
               Cuerpo de la noticia{" "}
               <span className="text-bold text-red-700">*</span>
             </label>
-            <TextEditor editor={editorSpanish} number={30} />
+            <TextEditor
+              editor={editorSpanish}
+              number={30}
+              description={spanishDescription}
+            />
           </div>
           <label
             className={`${
@@ -314,18 +338,12 @@ export function NewsDialog({
             <label className="font-semibold text-black text-lg">
               News body
             </label>
-            <TextEditor editor={editorEnglish} number={30} />
+            <TextEditor
+              editor={editorEnglish}
+              number={30}
+              description={englishDescription}
+            />
           </div>
-          <label
-            className={`${
-              warningAlert && !editorEnglish?.getText() && activeStep === 1
-                ? "block"
-                : "hidden"
-            } text-red-600 text-sm text-start flex items-center gap-1`}
-          >
-            <ExclamationCircleIcon className="size-5 inline-block" /> The body
-            news is required.
-          </label>
         </div>
       ),
     },
@@ -334,13 +352,26 @@ export function NewsDialog({
       section: (
         <div className="w-full h-full flex flex-col gap-5 justify-center items-center">
           <div className="w-11/12 h-[30vh] relative flex justify-center items-center group">
-            {files.length > 0 && (
+            {files.length > 0 ? (
               <button
                 onClick={() => openRef.current?.()}
                 className="w-full h-full z-10 absolute flex justify-center items-center group"
               >
                 <Image
                   src={URL.createObjectURL(files[0])} // Use the preview URL directly
+                  alt=""
+                  width="500"
+                  height="500"
+                  className="w-full h-full absolute rounded-lg object-cover group-hover:blur-[2px] group-hover:opacity-40 duration-300" // Add bg-white for visibility
+                />
+              </button>
+            ) : (
+              <button
+                onClick={() => openRef.current?.()}
+                className="w-full h-full z-10 absolute flex justify-center items-center group"
+              >
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_API_URL}/news/images/${id}/${image}`} // Use the preview URL directly
                   alt=""
                   width="500"
                   height="500"
