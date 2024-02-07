@@ -38,22 +38,28 @@ import { is } from "date-fns/locale";
 import { createNews, useCategoriesNews } from "@/services/news/service";
 import { Autocomplete } from "@mantine/core";
 import Day_Picker from "../tools/daypicker";
-import { createEvents } from "@/services/events/service";
+import {
+  createEvents,
+  editEvents,
+  useEventById,
+} from "@/services/events/service";
 
-export function EventDialog({
+export function EventEditDialog({
+  id,
   open,
   handler,
   update,
 }: {
+  id: string;
   open: boolean;
   handler: () => void;
   update: () => void;
 }) {
   const { user } = useUser();
   const [spanishTitle, setSpanishTitle] = useState("");
-  const [spanishCategory, setSpanishCategory] = useState("");
+  const [spanishDescription, setSpanishDescription] = useState("");
   const [englishTitle, setEnglishTitle] = useState("");
-  const [englishCategory, setEnglishCategory] = useState("");
+  const [englishDescription, setEnglishDescription] = useState("");
   const [description] = useState("");
   const [warningAlert, setWarningAlert] = useState(false);
   const [submitLoading, setSubmitLoading] = useState(false);
@@ -66,6 +72,7 @@ export function EventDialog({
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [link, setLink] = useState("");
+  const { data, isLoading } = useEventById(id);
 
   useEffect(() => {
     if (startDate > endDate) {
@@ -84,6 +91,19 @@ export function EventDialog({
     refetch: categoriesRefetch,
     isLoading: categoriesLoading,
   } = useCategoriesNews();
+
+  useEffect(() => {
+    if (data && !isLoading) {
+      console.log(data);
+      setSpanishTitle(data.es.title);
+      setSpanishDescription(data.es.description);
+      setEnglishTitle(data.en.title);
+      setEnglishDescription(data.en.description);
+      setLink(data.formLink === null ? "" : data.formLink);
+      setStartDate(new Date(data.start_Date));
+      setEndDate(new Date(data.end_Date));
+    }
+  }, [data, isLoading]);
 
   useEffect(() => {
     if (!categoriesLoading) {
@@ -168,7 +188,7 @@ export function EventDialog({
       formData.append("es", JSON.stringify(es_data));
       formData.append("en", JSON.stringify(en_data));
       files.length > 0 && files.map((file) => formData.append("files", file));
-      await createEvents(formData, update, user?.sub as string);
+      await editEvents(id, formData, update, user?.sub as string);
       setSubmitLoading(false);
       handler();
     }
@@ -220,7 +240,11 @@ export function EventDialog({
               Descripción del evento{" "}
               <span className="text-bold text-red-700">*</span>
             </label>
-            <TextEditor editor={editorSpanish} number={30} />
+            <TextEditor
+              editor={editorSpanish}
+              number={30}
+              description={spanishDescription}
+            />
           </div>
           <label
             className={`${
@@ -275,7 +299,11 @@ export function EventDialog({
             <label className="font-semibold text-black text-lg">
               Event description{" "}
             </label>
-            <TextEditor editor={editorEnglish} number={30} />
+            <TextEditor
+              editor={editorEnglish}
+              number={30}
+              description={englishDescription}
+            />
           </div>
           <label
             className={`${
@@ -393,7 +421,7 @@ export function EventDialog({
           className="font-black text-black font-montserrat flex flex-col gap-5"
         >
           <div className="w-full flex justify-between items-center">
-            Agregar un nuevo evento
+            Editar evento
             <button onClick={handler}>
               <XMarkIcon className="size-7 text-black" />
             </button>
@@ -405,16 +433,14 @@ export function EventDialog({
             isFirstStep={(value) => setIsFirstStep(value)}
           >
             {steps.map((step, index) => (
-              <>
-                <Step
-                  key={index}
-                  placeholder={undefined}
-                  onClick={handleButton}
-                  className="font-montserrat text-white font-black text-lg bg-blue-dark cursor-pointer"
-                >
-                  {step.step}
-                </Step>
-              </>
+              <Step
+                key={index}
+                placeholder={undefined}
+                onClick={handleButton}
+                className="font-montserrat text-white font-black text-lg bg-blue-dark cursor-pointer"
+              >
+                {step.step}
+              </Step>
             ))}
           </Stepper>
         </DialogHeader>

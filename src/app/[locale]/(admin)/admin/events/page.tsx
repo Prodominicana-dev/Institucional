@@ -1,7 +1,7 @@
 "use client";
 import AuthUser from "@/components/admin/auth";
 import { EventDialog } from "@/components/admin/events/dialog";
-import Card from "@/components/admin/news/card";
+import Card from "@/components/admin/events/card";
 import { NewsDialog } from "@/components/admin/news/dialog";
 import Sketch from "@/components/admin/sketch";
 import { useEvents } from "@/services/events/service";
@@ -71,8 +71,7 @@ export default function Page() {
           ) : (
             <>
               {events.map((n, index) => (
-                // <Card key={index} news={n} update={handleRefresh} />
-                <>a</>
+                <Card key={index} event={n} update={handleRefresh} />
               ))}
             </>
           )}

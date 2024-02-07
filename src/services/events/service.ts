@@ -9,6 +9,7 @@ export function useEvents(lang: string) {
     queryFn: async () => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/${lang}/events`;
       const { data } = await axios.get(url);
+      console.log(data);
       return data;
     },
   });
