@@ -95,10 +95,10 @@ export default function Card({
             alt={event.title}
             width={1920}
             height={1080}
-            className="w-full h-5/6 rounded-t-lg"
+            className="w-full h-[75%] rounded-t-lg shadow-sm"
           />
         ) : (
-          <div className="w-full h-5/6 bg-white rounded-t-lg">
+          <div className="w-full h-[75%] rounded-t-lg shadow-sm bg-white ">
             <Image
               src={`/svg/prodominicana-logo.svg`}
               alt={event.title}
@@ -108,8 +108,8 @@ export default function Card({
             />
           </div>
         )}
-        <div className="w-11/12 h-1/6 flex items-center">
-          <h1 className="text-2xl text-black font-montserrat font-bold truncate">
+        <div className="w-11/12 h-[25%] flex items-center">
+          <h1 className="text-2xl text-black font-montserrat font-bold truncate w-full">
             {event.title}
           </h1>
         </div>

@@ -19,7 +19,8 @@ export default function TextEditor({
   number?: number;
 }) {
   useEffect(() => {
-    editor.commands.setContent(description);
+    if (description !== "" && description !== undefined && description !== null)
+      editor.commands.setContent(description);
   }, [description]);
   return (
     <RichTextEditor editor={editor}>
@@ -136,7 +137,7 @@ export default function TextEditor({
         </RichTextEditor.ControlsGroup>
       </RichTextEditor.Toolbar>
       <RichTextEditor.Content
-        className={`h-[${number}vh] overflow-y-auto no-scrollbar`}
+        className={`h-[${number}vh] w-full overflow-y-auto no-scrollbar`}
       />
     </RichTextEditor>
   );

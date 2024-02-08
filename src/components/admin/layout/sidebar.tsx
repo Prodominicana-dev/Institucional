@@ -101,7 +101,7 @@ export function SideBar() {
           >
             <ListItem
               placeholder={undefined}
-              className="p-0"
+              className="p-0 bg-transparent"
               selected={openNewness === 0}
             >
               <AccordionHeader
@@ -171,13 +171,13 @@ export function SideBar() {
           >
             <ListItem
               placeholder={undefined}
-              className="p-0"
+              className="p-0 bg-transparent"
               selected={open === 0}
             >
               <AccordionHeader
                 placeholder={undefined}
                 onClick={() => handleOpen(1)}
-                className="p-3 border-b-0"
+                className="p-3 border-b-0 "
               >
                 <ListItemPrefix placeholder={undefined} className="">
                   <Image
@@ -232,10 +232,7 @@ export function SideBar() {
 function SidebarItem({ title, url, iconUrl }: any) {
   return (
     <Link href={url}>
-      <ListItem
-        placeholder={undefined}
-        className="focus:bg-transparent space-x-5"
-      >
+      <ListItem placeholder={undefined} className="bg-transparent space-x-5">
         <ListItemPrefix placeholder={undefined}>
           <Image
             src={iconUrl}
@@ -261,10 +258,7 @@ function SidebarItem({ title, url, iconUrl }: any) {
 function SidebarMenuItem({ title, url }: any) {
   return (
     <Link href={url}>
-      <ListItem
-        placeholder={undefined}
-        className="focus:bg-transparent space-x-5"
-      >
+      <ListItem placeholder={undefined} className="bg-transparent space-x-5">
         <ListItemPrefix placeholder={undefined}>
           <div></div>
         </ListItemPrefix>

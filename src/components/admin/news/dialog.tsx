@@ -11,6 +11,10 @@ import {
   Textarea,
   Spinner,
   Switch,
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
 } from "@material-tailwind/react";
 import { Stepper, Step, Typography } from "@material-tailwind/react";
 import {
@@ -37,6 +41,8 @@ import Select from "react-select";
 import { is } from "date-fns/locale";
 import { createNews, useCategoriesNews } from "@/services/news/service";
 import { Autocomplete } from "@mantine/core";
+import DragNDrop from "../tools/dropzone/dropzone";
+import TextEditorWithConfig from "../tools/textEditor/textEditor";
 
 export function NewsDialog({
   open,
@@ -53,19 +59,34 @@ export function NewsDialog({
   const [englishTitle, setEnglishTitle] = useState("");
   const [englishCategory, setEnglishCategory] = useState("");
   const [description] = useState("");
+  const [image, setImage] = useState("");
   const [warningAlert, setWarningAlert] = useState(false);
   const [submitLoading, setSubmitLoading] = useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
   const [isLastStep, setIsLastStep] = React.useState(false);
   const [isFirstStep, setIsFirstStep] = React.useState(false);
   const [files, setFiles] = useState<FileWithPath[]>([]);
+  const [filesBody, setFilesBody] = useState<FileWithPath[]>([]);
   const [spanishCategories, setSpanishCategories] = useState([]);
   const [englishCategories, setEnglishCategories] = useState([]);
+  const [submittion, setSubmittion] = useState(false);
   const {
     data: categories,
     refetch: categoriesRefetch,
     isLoading: categoriesLoading,
   } = useCategoriesNews();
+
+  const [contentEs, setContentEs] = useState<any>([]);
+  const [options, setOptions] = useState<any>([]);
+
+  useEffect(() => {
+    console.log("contentEs:");
+    console.log(contentEs);
+  }, [contentEs]);
+
+  useEffect(() => {
+    console.log(options);
+  }, [options]);
 
   useEffect(() => {
     if (!categoriesLoading) {
@@ -95,18 +116,19 @@ export function NewsDialog({
 
   const editorSpanish = Editor({
     placeholder: "Cuerpo de la noticia",
-    content: description ? description : "",
+    contentEs: description ? description : "",
   });
 
   const editorEnglish = Editor({
     placeholder: "News body",
-    content: description ? description : "",
+    contentEs: description ? description : "",
   });
 
   /* Funcion para cuando droppeen un documento se agregue a la lista ya existente */
   const handleDrop = (acceptedFiles: FileWithPath[]) => {
+    setImage(acceptedFiles[0].name);
     setFiles(acceptedFiles);
-    console.log(acceptedFiles);
+    console.log(acceptedFiles[0].name);
   };
 
   const handleButton = async () => {
@@ -135,11 +157,12 @@ export function NewsDialog({
     }
 
     if (isLastStep && files.length > 0) {
-      setSubmitLoading(true);
+      setSubmittion(true);
+      // setSubmitLoading(true);
       const es_data = {
         title: spanishTitle,
         category: spanishCategory,
-        description: editorSpanish?.getHTML(),
+        content: contentEs,
         language: "es",
       };
       const en_data = {
@@ -148,11 +171,15 @@ export function NewsDialog({
         description: editorEnglish?.getHTML(),
         language: "en",
       };
+      setSubmittion(false);
 
       const formData = new FormData();
       formData.append("es", JSON.stringify(es_data));
       formData.append("en", JSON.stringify(en_data));
+      formData.append("image", image);
       files.length > 0 && files.map((file) => formData.append("files", file));
+      filesBody.length > 0 &&
+        filesBody.map((file) => formData.append("files", file));
       await createNews(formData, update, user?.sub as string);
       setSubmitLoading(false);
       handler();
@@ -178,10 +205,9 @@ export function NewsDialog({
                   >
                     Título <span className="text-bold text-red-700">*</span>
                   </label>
-                  <Input
-                    crossOrigin={""}
+                  <input
                     id="title"
-                    className="w-full"
+                    className="w-full h-9 ring-1 ring-gray-300 rounded-md px-2"
                     onChange={(e) => setSpanishTitle(e.target.value)}
                     value={spanishTitle}
                     placeholder="Título de la noticia"
@@ -212,6 +238,9 @@ export function NewsDialog({
                     }}
                     value={spanishCategory}
                     data={spanishCategories}
+                    onFocus={() => {
+                      console.log(spanishCategories);
+                    }}
                   />
                 </div>
                 <label
@@ -227,23 +256,79 @@ export function NewsDialog({
               </div>
             </div>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-5 pb-5">
             <label className="font-semibold text-black text-lg">
               Cuerpo de la noticia{" "}
               <span className="text-bold text-red-700">*</span>
             </label>
             <TextEditor editor={editorSpanish} number={30} />
+            {options.map((option: any, index: number) => {
+              switch (option) {
+                case "text":
+                  return (
+                    <TextEditorWithConfig
+                      key={index}
+                      data={contentEs}
+                      setData={setContentEs}
+                      id={index}
+                      isSubmitting={submittion}
+                    />
+                  );
+                case "image":
+                  return (
+                    <DragNDrop
+                      key={index}
+                      data={contentEs}
+                      setData={setContentEs}
+                      _files={filesBody}
+                      _setFiles={setFilesBody}
+                      id={index}
+                      isSubmitting={submittion}
+                    />
+                  );
+                default:
+                  return null; // Opción desconocida, podrías manejarla de otra manera si es necesario
+              }
+            })}
+            <Menu allowHover>
+              <MenuHandler>
+                <button className="ring-1 ring-gray-200 w-56 h-10 text-black rounded-md">
+                  Agregar Componente
+                </button>
+              </MenuHandler>
+              <MenuList placeholder={undefined} className="z-[9999]">
+                <MenuItem
+                  placeholder={undefined}
+                  onClick={() => {
+                    setOptions([...options, "text"]);
+                  }}
+                  className="text-black font-montserrat font-light"
+                >
+                  Agregar texto
+                </MenuItem>
+                <MenuItem
+                  placeholder={undefined}
+                  onClick={() => {
+                    setOptions([...options, "image"]);
+                  }}
+                  className="text-black font-montserrat font-light"
+                >
+                  Agregar imagen
+                </MenuItem>
+              </MenuList>
+            </Menu>
+
+            {/* <DragNDrop
+              data={contentEs}
+              setData={setContentEs}
+              isSubmitting={submittion}
+            />
+            <TextEditorWithConfig
+              data={contentEs}
+              setData={setContentEs}
+              isSubmitting={submittion}
+            /> */}
           </div>
-          <label
-            className={`${
-              warningAlert && !editorSpanish?.getText() && activeStep === 0
-                ? "block"
-                : "hidden"
-            } text-red-600 text-sm text-start flex items-center gap-1`}
-          >
-            <ExclamationCircleIcon className="size-5 inline-block" /> El cuerpo
-            de la noticia es obligatorio.
-          </label>
         </div>
       ),
     },
@@ -391,11 +476,12 @@ export function NewsDialog({
         placeholder={undefined}
         open={open}
         handler={handler}
-        className="p-2 "
+        className="p-2 flex justify-center items-center"
+        size="xxl"
       >
         <DialogHeader
           placeholder={undefined}
-          className="font-black text-black font-montserrat flex flex-col gap-5"
+          className="font-black text-black font-montserrat flex flex-col gap-5 w-8/12"
         >
           <div className="w-full flex justify-between items-center">
             Agrega una nueva noticia
@@ -425,7 +511,7 @@ export function NewsDialog({
         </DialogHeader>
         <DialogBody
           placeholder={undefined}
-          className="flex flex-col overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh] font-montserrat"
+          className="flex flex-col w-8/12 overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh] font-montserrat"
         >
           {steps.map((step, index) => (
             <div
@@ -440,7 +526,7 @@ export function NewsDialog({
         </DialogBody>
         <DialogFooter
           placeholder={undefined}
-          className="space-x-4 font-montserrat"
+          className="space-x-4 font-montserrat w-8/12"
         >
           <button
             onClick={handlePrev}

@@ -87,22 +87,25 @@ export default function Card({
   };
 
   return (
-    <div className="w-full h-[50vh] bg-gray-200 flex flex-col justify-center items-center rounded-lg">
-      <div className="w-full h-5/6 flex flex-col justify-center items-center  rounded-t-lg">
+    <div className="w-full min-h-[60vh] bg-gray-200 flex flex-col justify-center items-center rounded-lg">
+      <div className="w-full h-5/6 flex flex-col  items-center  rounded-t-lg">
         <Image
           src={`${process.env.NEXT_PUBLIC_API_URL}/news/images/${news.id}/${news.image}`}
           alt={news.title}
           width={1920}
           height={1080}
-          className="w-full h-5/6 rounded-t-lg"
+          className="w-full h-[75%] rounded-t-lg shadow-sm"
         />
-        <div className="w-11/12 h-1/6 flex items-center">
-          <h1 className="text-2xl text-black font-montserrat font-bold truncate">
+        <div className="w-11/12 h-[25%] flex flex-col justify-center">
+          <h1 className="text-2xl text-black font-montserrat font-bold truncate w-full">
             {news.title}
           </h1>
+          <p className="text-lg text-black/90 font-montserrat truncate w-full">
+            {news.category}
+          </p>
         </div>
       </div>
-      <div className="w-full h-1/6 flex gap-5 relative justify-center items-center group rounded-lg">
+      <div className="w-full h-1/6 flex gap-2 relative justify-center items-center group rounded-lg">
         <div
           onMouseEnter={() => setEditHover(true)}
           onMouseLeave={() => setEditHover(false)}
