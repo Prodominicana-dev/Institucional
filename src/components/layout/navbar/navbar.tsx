@@ -155,8 +155,8 @@ export default function Navbar() {
               navListMenuItems={newsListItems}
             />
             <NavbarLink title={t("shetrades")} link={"/shetrades"} />
-            <NavbarLink title={t("transparency")} link={"/transparencia"} />
-            <NavbarLink title={t("contact")} link={"/contacto"} />
+            <NavbarLink title={t("transparency")} link={"/transparency"} />
+            <NavbarLink title={t("contact")} link={"/contact"} />
             <NavbarLink title={t("institute")} link={"/transparencia"} />
             <div className="h-10 flex space-x-3 text-white self-center">
               <NavbarButton

@@ -56,7 +56,7 @@ export default function Page() {
 
   return (
     <div className="bg-white">
-      <div className="w-full lg:h-[30vh] bg-blue-950 flex py-5">
+      <div className="w-full lg:h-[40vh] bg-blue-950 flex py-5">
         <div className="w-5/12 p-16 flex justify-center items-center">
           <Typography
             placeholder={undefined}
@@ -152,7 +152,7 @@ export default function Page() {
         </div>
       </div>
       <div className="h-full">
-        <div className="w-full h-full lg:h-svh relative">
+        <div className="w-full relative">
           <Image
             src={"/images/prodominicanabuilding.jpg"}
             width={6000}
@@ -196,7 +196,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div className="w-full h-full lg:h-[30vh] bg-white flex justify-center items-center p-10 lg:p-0">
+      <div className="w-full bg-white flex justify-center items-center py-10">
         <div className="w-full lg:w-10/12 flex flex-col lg:flex-row gap-10">
           <Image
             width={100}

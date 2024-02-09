@@ -11,9 +11,17 @@ export default createMiddleware({
       en: "/whoarewe",
       es: "/quienessomos",
     },
+    "/legalframework": {
+      en: "/legalframework",
+      es: "/marcolegal",
+    },
     "/news": {
       en: "/news",
       es: "/noticias",
+    },
+    "/transparency": {
+      en: "/transparency",
+      es: "/transparencia",
     },
   },
 });

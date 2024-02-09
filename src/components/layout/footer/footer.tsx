@@ -197,7 +197,7 @@ export default function Footer() {
               src={"/prodominicana.svg"}
               width={150}
               height={150}
-              className="size-24"
+              className="w-20"
             />
           </div>
           <div className=" w-4/12 flex space-x-4 justify-center sm:justify-end items-center h-full">

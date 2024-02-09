@@ -167,6 +167,20 @@
       ]
     }
   },
+  "legal": {
+    "laws": {
+      "title": "Laws"
+    },
+    "decrees": {
+      "title": "Decrees"
+    },
+    "resolutions": {
+      "title": "Resolutions"
+    },
+    "regulations": {
+      "title": "Other Regulations"
+    }
+  },
   "whoarewe": {
     "title": "Who Are We?",
     "desc": "We are the Center for the Promotion of Exports and Investments in the country, responsible for promoting our products, services, and business opportunities worldwide.",
