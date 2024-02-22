@@ -19,6 +19,10 @@ export default createMiddleware({
       en: "/news",
       es: "/noticias",
     },
+    "/events": {
+      en: "/events",
+      es: "/eventos",
+    },
     "/transparency": {
       en: "/transparency",
       es: "/transparencia",

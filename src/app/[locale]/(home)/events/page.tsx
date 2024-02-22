@@ -3,6 +3,7 @@ import {
   ArrowRightCircleIcon,
   CalendarDaysIcon,
 } from "@heroicons/react/24/outline";
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -13,6 +14,7 @@ export default function Page() {
     { title: "Americas Lodging Investment Summit", date: "enero" },
     { title: "Americas Lodging Investment Summit", date: "enero" },
   ];
+  const t = useTranslations("events");
   return (
     <div>
       <div className="bg-blue-900 flex flex-col items-center justify-center sm:flex-row">
@@ -26,14 +28,13 @@ export default function Page() {
           />
         </div>
         <div className="w-full xl:w-8/12 text-white p-5">
-          <h1 className="text-3xl sm:text-5xl font-bold">
-            EVENTOS, FERIAS Y MISIONES INTERNACIONALES
-          </h1>
+          <h1 className="text-3xl sm:text-5xl font-bold">{t("title")}</h1>
           <Image
             src="/svg/2024.svg"
             alt="events"
             width={500}
             height={500}
+            draggable={false}
             className="w-full"
           />
         </div>
