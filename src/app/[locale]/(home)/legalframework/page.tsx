@@ -19,6 +19,7 @@ export default function Page() {
     setActiveIndex(value);
   };
   const t = useTranslations("legal");
+  const t2 = useTranslations("commonWords");
   const data = [
     {
       label: t("laws.title"),
@@ -120,24 +121,23 @@ export default function Page() {
             alt="foto"
             className="object-cover object-top w-full h-full"
           />
-          <div className="absolute inset-0 bg-blue-dark/50 z-10 flex flex-col-reverse xl:flex-row justify-center xl:justify-end text-center text-white xl:p-32">
+          <div className="absolute inset-0 bg-blue-dark/50 z-10 flex flex-col-reverse xl:flex-row justify-center items-center xl:items-start xl:justify-end text-center text-white xl:p-32">
             <div className="">
-              <div className="flex uppercase text-6xl font-extrabold space-x-2">
-                <p>Marco</p> <p className="bg-red-700 px-2">Legal</p>
+              <div className="flex uppercase text-4xl sm:text-6xl font-extrabold space-x-2">
+                <p>{t("title").split(" ")[0]}</p>{" "}
+                <p className="bg-red-700 px-2">{t("title").split(" ")[1]}</p>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <div className="bg-white flex justify-center p-20 min-h-screen">
-        <div className="w-8/12">
+      <div className="bg-white flex justify-center py-10 min-h-screen">
+        <div className="w-10/12 xl:w-8/12">
           <Tabs value={data[0].value}>
             <TabsHeader
               placeholder={undefined}
-              className="bg-transparent space-x-5 "
-              indicatorProps={{
-                className: "bg-transparent  border-none ",
-              }}
+              className="!bg-blue-950 p-5"
+              indicatorProps={{ className: "bg-lightBlue-600" }}
             >
               {data.map(({ label, value }, index) => (
                 <Tab
@@ -145,11 +145,7 @@ export default function Page() {
                   value={value}
                   placeholder={undefined}
                   onClick={() => selectType(index)}
-                  className={` ${
-                    activeIndex === index
-                      ? "bg-blue-950 ease-in border-2 border-blue-950"
-                      : "bg-cyan-600 ease-in border-2 border-lightBlue-600"
-                  } text-white rounded-t-2xl h-34  p-3  duration-300 font-montserrat`}
+                  className="text-white"
                 >
                   {label}
                 </Tab>
@@ -164,10 +160,10 @@ export default function Page() {
                 >
                   {files.map((file: any, index: any) => (
                     <div
-                      className={`w-full border-2 border-gray-300 rounded-xl p-8 flex items-center justify-between `}
+                      className={`w-full border-2 border-gray-300 rounded-xl p-5 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-3`}
                       key={index}
                     >
-                      <div className="flex items-center gap-3">
+                      <div className="flex flex-col sm:flex-row items-center gap-3">
                         <Image
                           width={100}
                           height={100}
@@ -175,34 +171,34 @@ export default function Page() {
                           src={"/svg/icons/PdfIcon.svg"}
                           className="w-12"
                         />
-                        <div>
+                        <div className="space-y-3 sm:space-y-0">
                           <Typography
                             placeholder={undefined}
                             className="text-lg text-black uppercase font-bold"
                           >
                             {file.title}
                           </Typography>
-                          <div className="flex gap-5">
+                          <div className="w-full flex gap-5">
                             <Typography
                               placeholder={undefined}
-                              className=" text-black uppercase font-medium"
+                              className=" text-black font-medium w-auto"
                             >
-                              {file.size}
+                              {t2("size")}: {file.size}
                             </Typography>
                             <Typography
                               placeholder={undefined}
                               className=" text-black font-medium"
                             >
-                              {"Fecha de publicación: 12/12/2021"}
+                              {t2("date")}: {"12/12/2021"}
                             </Typography>
                           </div>
                         </div>
                       </div>
                       <Button
                         placeholder={undefined}
-                        className="bg-transparent border-2 border-red-600 text-red-600"
+                        className="bg-transparent border-2 border-red-600 text-red-600 w-full sm:w-auto"
                       >
-                        Descargar
+                        {t2("download")}
                       </Button>
                     </div>
                   ))}

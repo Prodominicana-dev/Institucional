@@ -157,7 +157,10 @@ export default function Navbar() {
             <NavbarLink title={t("shetrades")} link={"/shetrades"} />
             <NavbarLink title={t("transparency")} link={"/transparency"} />
             <NavbarLink title={t("contact")} link={"/contact"} />
-            <NavbarLink title={t("institute")} link={"/transparencia"} />
+            <NavbarLink
+              title={t("institute")}
+              link={"https://instituto.prodominicana.gob.do"}
+            />
             <div className="h-10 flex space-x-3 text-white self-center">
               <NavbarButton
                 title={t("investButton")}

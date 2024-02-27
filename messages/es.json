@@ -2,6 +2,11 @@
   "Index": {
     "title": "Hola mundo!"
   },
+  "commonWords": {
+    "download": "Descargar",
+    "size": "Peso",
+    "date": "Fecha"
+  },
   "Navbar": {
     "aboutUs": {
       "title": "Nosotros",
@@ -171,6 +176,7 @@
     }
   },
   "legal": {
+    "title": "Marco legal",
     "laws": {
       "title": "Leyes"
     },
@@ -181,7 +187,7 @@
       "title": "Resoluciones"
     },
     "regulations": {
-      "title": "Otras normativas"
+      "title": "Normativas"
     }
   },
   "whoarewe": {

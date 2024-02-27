@@ -2,6 +2,11 @@
   "Index": {
     "title": "Hello world!"
   },
+  "commonWords": {
+    "download": "Download",
+    "size": "Size",
+    "date": "Date"
+  },
   "Navbar": {
     "aboutUs": {
       "title": "About Us",
@@ -171,6 +176,7 @@
     }
   },
   "legal": {
+    "title": "Legal Framework",
     "laws": {
       "title": "Laws"
     },
@@ -181,7 +187,7 @@
       "title": "Resolutions"
     },
     "regulations": {
-      "title": "Other Regulations"
+      "title": "Regulations"
     }
   },
   "whoarewe": {
