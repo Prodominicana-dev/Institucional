@@ -46,39 +46,39 @@ export default function Page() {
               alt="events"
               width={100}
               height={100}
-              className="w-36"
+              className="w-22 sm:w-9 md:w-16  lg:w-30 xl:w-32 2xl:w-36"
             />
-            <div className="text-4xl font-extrabold uppercase">
+            <div className="text-2xl font-extrabold uppercase sm:text-sm md:text-lg lg:text-xl xl:text-2xl 2xl:text-4xl">
               <p>LOGROS</p>
               <p>DEL 2023</p>
             </div>
           </div>
-          <div className="bg-white w-[2px] h-24 hidden sm:block"></div>
+          <div className="bg-white  h-24 hidden sm:block xl:w-[2px] 2xl:w-[2px] "></div>
           <div className="flex items-center gap-5">
             <Image
               src="/svg/icons/businessExpoIcon.svg"
               alt="events"
               width={100}
               height={100}
-              className="w-36"
+              className="w-22 sm:w-9 md:w-16 lg:w-30 xl:w-32 2xl:w-36"
             />
-            <div className="text-2xl font-bold uppercase">
-              <p className="font-normal text-4xl">17</p>
+            <div className="text-base font-bold uppercase sm:text-xs md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
+              <p className="font-normal md:xl lg:text-2xl xl:text-3xl 2xl:text-4xl">17</p>
               <p>FERIAS</p>
               <p>Comerciales</p>
             </div>
           </div>
-          <div className="bg-white w-[2px] h-24 hidden sm:block"></div>
+          <div className="bg-white  h-24 hidden sm:block xl:w-[2px] 2xl:w-[2px]"></div>
           <div className="flex items-center gap-5">
             <Image
               src="/svg/icons/benefitedCompaniesIcon.svg"
               alt="events"
               width={100}
               height={100}
-              className="w-36"
+              className="w-22 sm:w-9 md:w-16 lg:w-30 xl:w-32 2xl:w-36"
             />
-            <div className="text-2xl font-bold uppercase">
-              <p className="font-normal text-4xl">260</p>
+            <div className="text-base font-bold uppercase sm:text-xs md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
+              <p className="font-normal md:xl lg:text-2xl xl:text-3xl 2xl:text-4xl">260</p>
               <p>Empresas</p>
               <p>Beneficiadas</p>
             </div>
@@ -116,19 +116,19 @@ function EventCard({ title, date }: any) {
               height={100}
               className="w-8"
             />
-            <p className="text-sm sm:text-xl font-bold">{title}</p>
+            <p className="text-xs sm:text-sm md:text-base lg:text-sm xl:text-base 2xl:text-xl font-bold">{title}</p>
           </div>
           <div className="w-6/12 h-full flex flex-col items-end gap-2 justify-end">
             <div className="flex items-center gap-2 uppercase font-semibold">
               <CalendarDaysIcon className="w-5" />
-              <p>{date}</p>
+              <p className=" text-[12px] 2xl:text-[16px]">{date}</p>
             </div>
             <Link
               href="/es/home/events/fitur"
               className="bg-[#9B1E2E] px-2 py-1 font-bold rounded-full flex gap-2"
             >
               <ArrowRightCircleIcon className="w-5" />
-              <p>Conoce más</p>
+              <p className=" text-[12px] sm:text-[10px] md:text-[10px] lg:text-[15px]   2xl:text-[16px]">Conoce más</p>
             </Link>
           </div>
         </div>
