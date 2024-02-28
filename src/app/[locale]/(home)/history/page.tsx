@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
 export default function page() {
@@ -33,11 +34,12 @@ export default function page() {
       image: "/images/2020.png",
     },
   ];
+  const t = useTranslations("history");
   return (
     <div className="  mx-auto w-full h-full bg-white flex justify-center items-center">
       <div className=" bg-whiteh-[135vh] w-full">
-        <h2 className=" text-[#1E3059] font-bold font-montserrat text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl   2xl:text-5xl underline flex justify-center items-center py-6">
-          Nuestra Historia
+        <h2 className=" text-[#1E3059] font-bold font-montserrat text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-5xl underline flex justify-center items-center py-10">
+          {t("title")}
         </h2>
         <div className="flex flex-col p-10 h-full w-full  ">
           {historyYears.map((history, index) => (
