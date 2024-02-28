@@ -32,7 +32,7 @@ export default function NavbarMenu({ title, navListMenuItems }: Props) {
             {" "}
             {React.createElement(icon, {
               strokeWidth: 2,
-              className: "h-6 text-gray-900 w-6",
+              className: "h-6 w-6 text-gray-900",
             })}
           </div>
           <div>

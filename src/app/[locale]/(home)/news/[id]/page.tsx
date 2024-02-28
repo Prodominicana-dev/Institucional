@@ -88,7 +88,7 @@ export default function Page() {
               </SpeedDialHandler>
               <SpeedDialContent
                 placeholder={undefined}
-                className="flex flex-row flex-wrap"
+                className="flex flex-row flex-wrap w-9/12"
               >
                 <SpeedDialAction
                   placeholder={undefined}
