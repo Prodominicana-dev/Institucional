@@ -2,12 +2,19 @@
   "Index": {
     "title": "Hola mundo!"
   },
+  "commonWords": {
+    "download": "Descargar",
+    "size": "Peso",
+    "date": "Fecha"
+  },
   "Navbar": {
     "aboutUs": {
       "title": "Nosotros",
       "menuList": {
         "whoWeAre": "Quiénes somos",
         "whoWeAreDesc": "Explora la pasión que nos impulsa",
+        "history": "Historia",
+        "historyDesc": "Descubre nuestra trayectoria",
         "CEODispach": "Despacho de la directora ",
         "CEODispachDesc": "Conoce el corazón de nuestro liderazgo",
         "organizationalChart": "Estructura organizacional",
@@ -124,6 +131,9 @@
     "miniTitle": "SÍGUENOS EN NUESTRAS",
     "title": "Redes Sociales"
   },
+  "events": {
+    "title": "EVENTOS, FERIAS Y MISIONES INTERNACIONALES"
+  },
   "CEO": {
     "name": "Biviana Riveiro",
     "title": "Directora Ejecutiva del Centro de Exportación e Inversión de la República Dominicana",
@@ -168,6 +178,7 @@
     }
   },
   "legal": {
+    "title": "Marco legal",
     "laws": {
       "title": "Leyes"
     },
@@ -178,7 +189,7 @@
       "title": "Resoluciones"
     },
     "regulations": {
-      "title": "Otras normativas"
+      "title": "Normativas"
     }
   },
   "whoarewe": {

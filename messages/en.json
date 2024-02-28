@@ -2,12 +2,19 @@
   "Index": {
     "title": "Hello world!"
   },
+  "commonWords": {
+    "download": "Download",
+    "size": "Size",
+    "date": "Date"
+  },
   "Navbar": {
     "aboutUs": {
       "title": "About Us",
       "menuList": {
         "whoWeAre": "Who We Are",
         "whoWeAreDesc": "Explore the passion that drives us",
+        "history": "History",
+        "historyDesc": "Explore our journey",
         "CEODispach": "Director's Office",
         "CEODispachDesc": "Get to know the heart of our leadership",
         "organizationalChart": "Organizational Structure",
@@ -124,6 +131,9 @@
     "miniTitle": "FOLLOW US ON OUR",
     "title": "Social Media"
   },
+  "events": {
+    "title": "EVENTS, TRADE SHOWS AND INTERNATIONAL MISSIONS"
+  },
   "CEO": {
     "name": "Biviana Riveiro",
     "title": "Executive Director of the Center for Export and Investment of the Dominican Republic",
@@ -168,6 +178,7 @@
     }
   },
   "legal": {
+    "title": "Legal Framework",
     "laws": {
       "title": "Laws"
     },
@@ -178,7 +189,7 @@
       "title": "Resolutions"
     },
     "regulations": {
-      "title": "Other Regulations"
+      "title": "Regulations"
     }
   },
   "whoarewe": {

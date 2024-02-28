@@ -21,6 +21,7 @@ import NavbarButton from "./navbarButton";
 import GovPagesInfo from "./govPagesInfo";
 import { useTranslations } from "next-intl";
 import LanguagePicker from "./languagePicker";
+import HistoryIcon from "@/components/icons/historyIcon";
 
 export default function Navbar() {
   const t = useTranslations("Navbar");
@@ -30,6 +31,12 @@ export default function Navbar() {
       description: t("aboutUs.menuList.whoWeAreDesc"),
       icon: AboutIcon,
       link: "/whoarewe",
+    },
+    {
+      title: t("aboutUs.menuList.history"),
+      description: t("aboutUs.menuList.historyDesc"),
+      icon: HistoryIcon,
+      link: "/history",
     },
     {
       title: t("aboutUs.menuList.CEODispach"),
@@ -157,7 +164,10 @@ export default function Navbar() {
             <NavbarLink title={t("shetrades")} link={"/shetrades"} />
             <NavbarLink title={t("transparency")} link={"/transparency"} />
             <NavbarLink title={t("contact")} link={"/contact"} />
-            <NavbarLink title={t("institute")} link={"/transparencia"} />
+            <NavbarLink
+              title={t("institute")}
+              link={"https://instituto.prodominicana.gob.do"}
+            />
             <div className="h-10 flex space-x-3 text-white self-center">
               <NavbarButton
                 title={t("investButton")}
