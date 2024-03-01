@@ -43,7 +43,7 @@ export default function page() {
         </h2>
         <div className="flex flex-col p-10 h-full w-full  ">
           {historyYears.map((history, index) => (
-            <HistoryYear history={history} index={index} />
+            <HistoryYear history={history} index={index} key={index} />
           ))}
         </div>
       </div>
@@ -54,12 +54,17 @@ export default function page() {
 function HistoryYear({ history, index }: any) {
   return (
     <div
-      className={`flex items-center sm:w-[calc(50%+1px)] gap-5 p-5 border-gray-700 ${
+      className={`flex items-center sm:w-[calc(50%+1px)] gap-5 py-5 border-gray-700 ${
         index % 2 === 0
           ? "border-l-2 self-end"
           : "border-l-2 sm:border-l-0 sm:border-r-2"
       }`}
     >
+      <div
+        className={`bg-gray-700 w-24 h-[2px] ${
+          index % 2 === 0 ? "" : "sm:order-last"
+        }`}
+      ></div>
       <h1 className="font-semibold text-lg text-black">2002</h1>
 
       <div className=" flex order-1 rounded-lg py-4 2xl:py-7">
