@@ -58,10 +58,10 @@ export default function Page() {
             <button className=" bg-[#A21E2E] text-white font-extrabold rounded-lg w-full min-h-12 sm:w-3/12">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className=" absolute pointer-events-none translate-x-[360px] sm:w-  md:w-[8vw] lg:translate-x-[69px] 2xl:translate-x-[95px]  "
+                className=" absolute pointer-events-none translate-x-[350px] sm:translate-x-[50px] md:translate-x-[80px]  lg:translate-x-[95px] xl:translate-x-[107px] 2xl:translate-x-[159px]  sm:w-[0px] md:w-[1px] lg:w-[25px] "
                 x="0px"
                 y="0px"
-                width="30"
+                width="25"
                 height="25"
                 viewBox="0 0 30 30"
               >
@@ -72,7 +72,7 @@ export default function Page() {
           </label>
 
           <div className=" text-sm text-[#616063] font-bold  mt-16">
-            <p>TOTAL ÁLBUMES: 2136</p>
+            <p className=" mb-2">TOTAL ÁLBUMES: 2136</p>
             <div className="flex justify-start  ">
               <div className="w-12/12 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-10">
                 {gallery.map((gallery, index) => (
