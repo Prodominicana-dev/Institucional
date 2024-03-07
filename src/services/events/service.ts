@@ -3,12 +3,13 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 var CryptoJS = require("crypto-js");
 
-export function useEsNews() {
+export function useEvents(lang: string) {
   return useQuery({
-    queryKey: ["news"],
+    queryKey: ["events"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/es/news`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/${lang}/events`;
       const { data } = await axios.get(url);
+      console.log(data);
       return data;
     },
   });
@@ -18,42 +19,35 @@ export function useEnNews() {
   return useQuery({
     queryKey: ["news"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/en/news`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/en/events`;
       const { data } = await axios.get(url);
       return data;
     },
   });
 }
 
-export function useNewsById(id: string) {
+export function useEventById(id: string) {
   return useQuery({
     queryKey: ["newsById", id],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/news/${id}`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/events/${id}`;
       const { data } = await axios.get(url);
       return data;
     },
   });
 }
 
-export function useCategoriesNews() {
-  return useQuery({
-    queryKey: ["categories"],
-    queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/news/c/all`;
-      const { data } = await axios.get(url);
-      return data;
-    },
-  });
-}
-
-export function createNews(news: FormData, update: () => void, userId: string) {
+export function createEvents(
+  event: FormData,
+  update: () => void,
+  userId: string
+) {
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
   ).toString();
   return axios
-    .post(`${process.env.NEXT_PUBLIC_API_URL}/news`, news, {
+    .post(`${process.env.NEXT_PUBLIC_API_URL}/events`, event, {
       headers: {
         Authorization: `${userIdEncrypted}`,
       },
@@ -61,11 +55,11 @@ export function createNews(news: FormData, update: () => void, userId: string) {
     .then((res) => {
       if (res.status === 201) {
         notifications.show({
-          id: "news",
+          id: "event",
           autoClose: 5000,
           withCloseButton: false,
-          title: "Noticia creada",
-          message: "La noticia se ha creado correctamente.",
+          title: "Evento creado",
+          message: "El evento se ha creado correctamente",
           color: "green",
           loading: false,
         });
@@ -77,7 +71,7 @@ export function createNews(news: FormData, update: () => void, userId: string) {
           autoClose: 5000,
           withCloseButton: false,
           title: "Error",
-          message: "Ha ocurrido un error al crear la noticia.",
+          message: "Hubo un error creando el evento.",
           color: "red",
           loading: false,
         });
@@ -88,7 +82,7 @@ export function createNews(news: FormData, update: () => void, userId: string) {
           autoClose: 5000,
           withCloseButton: false,
           title: "Usuario inautorizado",
-          message: "No tienes permisos para crear una sección.",
+          message: "No tienes permisos para crear un evento.",
           color: "red",
           loading: false,
         });
@@ -99,7 +93,7 @@ export function createNews(news: FormData, update: () => void, userId: string) {
     });
 }
 
-export function editNews(
+export function editEvents(
   id: string,
   news: any,
   update: () => void,
@@ -110,7 +104,7 @@ export function editNews(
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
   ).toString();
   return axios
-    .patch(`${process.env.NEXT_PUBLIC_API_URL}/news/${id}`, news, {
+    .patch(`${process.env.NEXT_PUBLIC_API_URL}/events/${id}`, news, {
       headers: {
         Authorization: `${userIdEncrypted}`,
       },
@@ -118,11 +112,11 @@ export function editNews(
     .then((res) => {
       if (res.status === 200) {
         notifications.show({
-          id: "section",
+          id: "event",
           autoClose: 5000,
           withCloseButton: false,
-          title: "Sección actualizada",
-          message: "La sección ha sido actualizada correctamente.",
+          title: "Evento actualizado",
+          message: "El evento ha sido actualizado correctamente.",
           color: "green",
           loading: false,
         });
@@ -130,22 +124,22 @@ export function editNews(
       }
       if (res.status === 500) {
         notifications.show({
-          id: "section",
+          id: "event",
           autoClose: 5000,
           withCloseButton: false,
           title: "Error",
-          message: "Hubo un error creando la nueva sección.",
+          message: "Hubo un error creando el nuevo evento.",
           color: "red",
           loading: false,
         });
       }
       if (res.status === 401) {
         notifications.show({
-          id: "section",
+          id: "event",
           autoClose: 5000,
           withCloseButton: false,
           title: "Usuario inautorizado",
-          message: "No tienes permisos para crear una sección.",
+          message: "No tienes permisos para crear un evento.",
           color: "red",
           loading: false,
         });
@@ -153,7 +147,7 @@ export function editNews(
     });
 }
 
-export function enableNews(
+export function enableEvents(
   id: string,
   handleOpen: () => void,
   update: () => void,
@@ -165,7 +159,7 @@ export function enableNews(
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
   ).toString();
   return axios
-    .patch(`${process.env.NEXT_PUBLIC_API_URL}/news/enable/${id}`, null, {
+    .patch(`${process.env.NEXT_PUBLIC_API_URL}/events/enable/${id}`, null, {
       headers: {
         Authorization: `${userIdEncrypted}`,
       },
@@ -173,11 +167,11 @@ export function enableNews(
     .then((res) => {
       if (res.status === 200) {
         notifications.show({
-          id: "news",
+          id: "event",
           autoClose: 5000,
           withCloseButton: false,
-          title: "Noticia publicada",
-          message: "La noticia ha sido publicada correctamente.",
+          title: "Evento publicado",
+          message: "El evento se ha publicado correctamente.",
           color: "green",
           loading: false,
         });
@@ -186,22 +180,22 @@ export function enableNews(
       }
       if (res.status === 500) {
         notifications.show({
-          id: "news",
+          id: "event",
           autoClose: 5000,
           withCloseButton: false,
           title: "Error",
-          message: "Hubo un error publicando la noticia.",
+          message: "Hubo un error publicando el evento.",
           color: "red",
           loading: false,
         });
       }
       if (res.status === 401) {
         notifications.show({
-          id: "news",
+          id: "event",
           autoClose: 5000,
           withCloseButton: false,
           title: "Usuario inautorizado",
-          message: "No tienes permisos para publicar una noticia.",
+          message: "No tienes permisos para publicar un evento.",
           color: "red",
           loading: false,
         });
@@ -209,7 +203,7 @@ export function enableNews(
     });
 }
 
-export function disableNews(
+export function disableEvents(
   id: string,
   handleOpen: () => void,
   update: () => void,
@@ -221,7 +215,7 @@ export function disableNews(
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
   ).toString();
   return axios
-    .patch(`${process.env.NEXT_PUBLIC_API_URL}/news/disable/${id}`, null, {
+    .patch(`${process.env.NEXT_PUBLIC_API_URL}/events/disable/${id}`, null, {
       headers: {
         Authorization: `${userIdEncrypted}`,
       },
@@ -229,11 +223,11 @@ export function disableNews(
     .then((res) => {
       if (res.status === 200) {
         notifications.show({
-          id: "news",
+          id: "events",
           autoClose: 5000,
           withCloseButton: false,
-          title: "Noticia ocultada",
-          message: "La noticia ha sido ocultada correctamente.",
+          title: "Evento ocultado",
+          message: "El evento se ha ocultado correctamente.",
           color: "green",
           loading: false,
         });
@@ -242,22 +236,22 @@ export function disableNews(
       }
       if (res.status === 500) {
         notifications.show({
-          id: "news",
+          id: "events",
           autoClose: 5000,
           withCloseButton: false,
           title: "Error",
-          message: "Hubo un error ocultando la noticia.",
+          message: "Hubo un error ocultando el evento.",
           color: "red",
           loading: false,
         });
       }
       if (res.status === 401) {
         notifications.show({
-          id: "news",
+          id: "events",
           autoClose: 5000,
           withCloseButton: false,
           title: "Usuario inautorizado",
-          message: "No tienes permisos para ocultar una noticia.",
+          message: "No tienes permisos para ocultar un evento.",
           color: "red",
           loading: false,
         });
@@ -265,7 +259,7 @@ export function disableNews(
     });
 }
 
-export function deleteNews(
+export function deleteEvents(
   id: string,
   handleOpen: () => void,
   update: () => void,
@@ -277,7 +271,7 @@ export function deleteNews(
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
   ).toString();
   return axios
-    .delete(`${process.env.NEXT_PUBLIC_API_URL}/news/${id}`, {
+    .delete(`${process.env.NEXT_PUBLIC_API_URL}/events/${id}`, {
       headers: {
         Authorization: `${userIdEncrypted}`,
       },
@@ -285,11 +279,11 @@ export function deleteNews(
     .then((res) => {
       if (res.status === 200) {
         notifications.show({
-          id: "news",
+          id: "events",
           autoClose: 5000,
           withCloseButton: false,
-          title: "Noticia eliminada",
-          message: "La noticia ha sido eliminada correctamente. ",
+          title: "Evento eliminado",
+          message: "El evento se ha eliminado correctamente",
           color: "green",
           loading: false,
         });
@@ -298,22 +292,22 @@ export function deleteNews(
       }
       if (res.status === 500) {
         notifications.show({
-          id: "section",
+          id: "events",
           autoClose: 5000,
           withCloseButton: false,
           title: "Error",
-          message: "Hubo un error eliminando la noticia.",
+          message: "Hubo un error eliminando el evento.",
           color: "red",
           loading: false,
         });
       }
       if (res.status === 401) {
         notifications.show({
-          id: "section",
+          id: "events",
           autoClose: 5000,
           withCloseButton: false,
           title: "Usuario inautorizado",
-          message: "No tienes permisos para eliminar una noticia.",
+          message: "No tienes permisos para eliminar un evento.",
           color: "red",
           loading: false,
         });
