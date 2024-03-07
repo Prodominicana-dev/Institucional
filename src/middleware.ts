@@ -13,6 +13,10 @@ export default createMiddleware({
       en: "/news",
       es: "/noticias",
     },
+    "/transparency": {
+      en: "/transparency",
+      es: "/transparencia",
+    }
   },
 });
 
