@@ -2,12 +2,19 @@
   "Index": {
     "title": "Hello world!"
   },
+  "commonWords": {
+    "download": "Download",
+    "size": "Size",
+    "date": "Date"
+  },
   "Navbar": {
     "aboutUs": {
       "title": "About Us",
       "menuList": {
         "whoWeAre": "Who We Are",
         "whoWeAreDesc": "Explore the passion that drives us",
+        "history": "History",
+        "historyDesc": "Explore our journey",
         "CEODispach": "Director's Office",
         "CEODispachDesc": "Get to know the heart of our leadership",
         "organizationalChart": "Organizational Structure",
@@ -19,23 +26,23 @@
     "services": {
       "title": "Services",
       "menuList": {
-        "invest": "Investment",
-        "investDesc": "Explore the passion that drives us",
-        "export": "Exportation",
-        "exportDesc": "Get to know the heart of our leadership"
+        "invest": "Investment Services",
+        "investDesc": "We assist you in investing in the Dominican Republic",
+        "export": "Export Services",
+        "exportDesc": "Maximize your international presence"
       }
     },
     "news": {
       "title": "News",
       "menuList": {
         "news": "News",
-        "newsDesc": "Explore the passion that drives us",
+        "newsDesc": "Stay updated on the latest developments",
         "event": "Events",
-        "eventDesc": "Get to know the heart of our leadership",
+        "eventDesc": "Discover and participate in featured events",
         "prodomTV": "ProDominicana TV",
-        "prodomTVDesc": "Our detailed organizational chart",
+        "prodomTVDesc": "Explore exclusive content from ProDominicana",
         "gallery": "Photo Gallery",
-        "galleryDesc": "Our legal commitment"
+        "galleryDesc": "Discover impactful visual moments"
       }
     },
     "shetrades": "SheTrades",
@@ -124,10 +131,124 @@
     "miniTitle": "FOLLOW US ON OUR",
     "title": "Social Media"
   },
+  "events": {
+    "title": "EVENTS, TRADE SHOWS AND INTERNATIONAL MISSIONS"
+  },
   "CEO": {
     "name": "Biviana Riveiro",
     "title": "Executive Director of the Center for Export and Investment of the Dominican Republic",
-    "description": "We aim to provide our exporters with trade facilitation services through participation in fairs and trade missions worldwide, business rounds with international buyers, and productive linkage agendas."
+    "about": "Law graduate with honors (Magna Cum Laude) from the Pontifical Catholic Mother and Teacher University PUCMM, Santo Domingo, in the year 2002.",
+    "description": "We aim to provide our exporters with trade facilitation services through participation in fairs and trade missions worldwide, business rounds with international buyers, and productive linkage agendas.",
+    "studies": {
+      "title": "Studies",
+      "data": [
+        {
+          "desc": "Graduated from the Dominican College of La Salle in 1998 and as a lawyer with honors (Magna Cum Laude) from the Pontifical Catholic Mother and Teacher University PUCMM, Santo Domingo in 2002."
+        },
+        {
+          "desc": "Has completed numerous national and international studies and courses at institutions such as the World Trade Organization, the International Telecommunication Union, and holds the following master's degrees, postgraduates, and diplomas: Master's in Corporate Business Law and Postgraduates in Business Economics; Diplomas in International Law, Intellectual Property, Banking Law, Administrative Law, Arbitration, sponsored by various local and foreign universities. Also completed the Executive Management Program at Barna Business School."
+        }
+      ]
+    },
+    "experience": {
+      "title": "Experience",
+      "data": [
+        {
+          "desc": "Began legal work in 2000, serving as a Paralegal and later as an Associate Researcher at the Institutionalism and Justice Foundation (FINJUS) until 2003."
+        },
+        {
+          "desc": "Served as Legal Advisor for the Regulatory Policies Management and Legal Advisor for the International Affairs Management of the Dominican Telecommunications Institute (INDOTEL). Participated in the development and review of regulations and standards related to the telecommunications sector, handling topics such as information society, e-commerce, and high-tech crimes. Represented the institution at events and international organizations such as the International Telecommunication Union (ITU), the Inter-American Telecommunication Commission of the OAS (CITEL), REGULATEL, among others. Also worked as a Lawyer at the Melo Guerrero Law Office (OMG) practicing corporate law."
+        },
+        {
+          "desc": "From 2006 to 2011, served as Executive Director of the National Association of Young Entrepreneurs (ANJE), becoming a member of the Board of Directors in 2012 and President from October 2014 to October 2015. Advocated for improving the investment climate, legal security, entrepreneurship, innovation, and institutionalism in the Dominican Republic."
+        },
+        {
+          "desc": "In 2010, founded the legal and business consulting firm Grupo Legalia, specializing in various areas of law such as corporate, civil, commercial, tourism, foreign investment, telecommunications, cinema, competition, consumer law, civil aviation, and intellectual property. Led projects for simplifying administrative procedures and collaborated on numerous initiatives and legislative reforms."
+        },
+        {
+          "desc": "In August 2016, joined the administration of former Mayor David Collado as Interim Legal Director and Secretary General of the National District City Council. From April to August 2020, held the position of Technical Secretary of the municipal entity, declared Distinguished Citizen of Santo Domingo by Resolution 34/20 for transparent and efficient management. Coordinated the creation of the first Municipal Citizen Security Plan for Santo Domingo."
+        },
+        {
+          "desc": "Since August 16, 2020, has been serving as the Executive Director of the Center for Export and Investment of the Dominican Republic, appointed by Decree 329-20 by the Constitutional President, Luis Rodolfo Abinader Estrella."
+        },
+        {
+          "desc": "Has been a university lecturer and representative on various business councils. Received various recognitions for professional and social contributions, including the Market Social Award (2015), National Youth Award for Overcoming, Personal Achievements, and Business Development (2015), Recognition by the National Social Security Council for contributions as a member representing the employer sector (2013), Recognition by the National Association of Young Entrepreneurs for contributions to the country (2010), and awards for outstanding young individuals by Jaycees 72 (2010) and the Chamber of Commerce and Production of Santo Domingo for participation in the General Law of Commercial Companies (2009)."
+        }
+      ]
+    }
+  },
+  "legal": {
+    "title": "Legal Framework",
+    "laws": {
+      "title": "Laws"
+    },
+    "decrees": {
+      "title": "Decrees"
+    },
+    "resolutions": {
+      "title": "Resolutions"
+    },
+    "regulations": {
+      "title": "Regulations"
+    }
+  },
+  "whoarewe": {
+    "title": "Who Are We?",
+    "desc": "We are the Center for the Promotion of Exports and Investments in the country, responsible for promoting our products, services, and business opportunities worldwide.",
+    "mission": {
+      "title": "Mission",
+      "desc": "To create value and serve to optimize investment attraction and enhance our export presence in international markets, encouraging quality employment."
+    },
+    "vision": {
+      "title": "Vision",
+      "desc": "To be the most efficient export and investment promotion agency in the region, for a more competitive, productive, and developed Dominican Republic."
+    },
+    "qualityPolicy": {
+      "title": "Quality Policy",
+      "desc": "The Export and Investment Center of the Dominican Republic (ProDominicana) maintains a strong commitment to the country's development by promoting increased exports and foreign direct investment through comprehensive services that meet the needs of exporters, potential exporters, foreign investors, and the general public. Always adhering to the highest standards of excellence and quality, the organization promotes continuous improvement of its processes and compliance with current laws and regulations."
+    },
+    "values": {
+      "title": "Values",
+      "excellence": {
+        "title": "Excellence",
+        "desc": "We put all our effort into doing our work in the best possible way to remain a model institution."
+      },
+      "teamWork": {
+        "title": "Teamwork",
+        "desc": "We believe that our work is enriched, and our services improve when we share value and information as a team."
+      },
+      "integrity": {
+        "title": "Integrity",
+        "desc": "We are driven by love for public service, and therefore, we act correctly, adhering to the law and ethical values."
+      },
+      "efficiency": {
+        "title": "Efficiency",
+        "desc": "We optimize available resources to provide services in the shortest time and with the highest possible quality."
+      },
+      "confidence": {
+        "title": "Confidence",
+        "desc": "Keeping our word and consistency in actions are important parts of our business dealings. Therefore, we nurture professional and investment relationships by generating trust."
+      },
+      "transparency": {
+        "title": "Transparency",
+        "desc": "We work with openness and transparency so that our work can be scrutinized and recognized, ensuring trust."
+      },
+      "serviceVocation": {
+        "title": "Service Vocation",
+        "desc": "We believe in public service. We diligently and timely attend to the requirements of our internal and external clients."
+      },
+      "proactivity": {
+        "title": "Proactivity",
+        "desc": "We anticipate, manage, understand, and meet customer expectations based on proposed objectives to ensure success."
+      },
+      "equity": {
+        "title": "Equity",
+        "desc": "We act fairly with our clients, regardless of economic, social, political, and gender conditions, respecting and serving all human beings equally."
+      }
+    }
+  },
+  "history": {
+    "title": "Our History"
   },
   "Footer": {
     "aboutUs": {

@@ -3,6 +3,7 @@ import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import TransparencySidebar from "@/components/transparencia/sidebar";
 
+
 export default function RootLayout({
   children,
 }: {
@@ -19,6 +20,6 @@ export default function RootLayout({
         <div className='w-6/12 h-5/6 text-black overflow-auto'>{children}</div>
         </div>
       </QueryClientProvider>
-    </div>
+      </div>
   );
 }

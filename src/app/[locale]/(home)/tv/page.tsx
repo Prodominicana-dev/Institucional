@@ -24,7 +24,7 @@ export default function Page() {
           {videos.map((video: any, key) => (
             <iframe
               key={key}
-              src={`https://www.youtube.com/embed/${video.snippet.resourceId.videoId}`}
+              src={`https://www.youtube.com/embed/${video.id}`}
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               className="w-full h-48 sm:h-72 rounded-lg"

@@ -8,7 +8,7 @@ import {
   UserIcon,
   VideoCameraIcon,
 } from "@heroicons/react/24/outline";
-import { IconButton } from "@material-tailwind/react";
+import { IconButton, Select } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
@@ -20,6 +20,8 @@ import NavbarLink from "./navbarLink";
 import NavbarButton from "./navbarButton";
 import GovPagesInfo from "./govPagesInfo";
 import { useTranslations } from "next-intl";
+import LanguagePicker from "./languagePicker";
+import HistoryIcon from "@/components/icons/historyIcon";
 
 export default function Navbar() {
   const t = useTranslations("Navbar");
@@ -28,7 +30,13 @@ export default function Navbar() {
       title: t("aboutUs.menuList.whoWeAre"),
       description: t("aboutUs.menuList.whoWeAreDesc"),
       icon: AboutIcon,
-      link: "/nosotros",
+      link: "/whoarewe",
+    },
+    {
+      title: t("aboutUs.menuList.history"),
+      description: t("aboutUs.menuList.historyDesc"),
+      icon: HistoryIcon,
+      link: "/history",
     },
     {
       title: t("aboutUs.menuList.CEODispach"),
@@ -40,13 +48,13 @@ export default function Navbar() {
       title: t("aboutUs.menuList.organizationalChart"),
       description: t("aboutUs.menuList.organizationalChartDesc"),
       icon: OrganizationIcon,
-      link: "/organigrama",
+      link: "/organizationalChart",
     },
     {
       title: t("aboutUs.menuList.legal"),
       description: t("aboutUs.menuList.legalDesc"),
       icon: ScaleIcon,
-      link: "/marcolegal",
+      link: "/legalframework",
     },
   ];
 
@@ -55,13 +63,13 @@ export default function Navbar() {
       title: t("news.menuList.news"),
       description: t("news.menuList.newsDesc"),
       icon: NewspaperIcon,
-      link: "/noticias",
+      link: "/news",
     },
     {
       title: t("news.menuList.event"),
       description: t("news.menuList.eventDesc"),
       icon: CalendarDaysIcon,
-      link: "/eventos",
+      link: "/events",
     },
     {
       title: t("news.menuList.prodomTV"),
@@ -73,7 +81,7 @@ export default function Navbar() {
       title: t("news.menuList.gallery"),
       description: t("news.menuList.galleryDesc"),
       icon: PhotoIcon,
-      link: "/galeria",
+      link: "/photosgallery",
     },
   ];
 
@@ -104,8 +112,8 @@ export default function Navbar() {
             src={"/prodominicana.svg"}
             className="w-56 cursor-pointer"
           />
-          <div className="flex flex-col space-y-4">
-            <div className="w-72 flex items-center space-x-4">
+          <div className="flex flex-col space-y-4 w-3/12 ">
+            <div className="w-full flex items-center justify-center gap-4">
               <div className="h-12 w-10/12 border-2 border-blue-950 rounded-full p-2 flex items-center justify-between">
                 <input
                   type="text"
@@ -120,6 +128,7 @@ export default function Navbar() {
                 </IconButton>
               </div>
               <ToolsMenu />
+              <LanguagePicker />
             </div>
           </div>
         </div>
@@ -153,9 +162,12 @@ export default function Navbar() {
               navListMenuItems={newsListItems}
             />
             <NavbarLink title={t("shetrades")} link={"/shetrades"} />
-            <NavbarLink title={t("transparency")} link={"/transparencia"} />
-            <NavbarLink title={t("contact")} link={"/contacto"} />
-            <NavbarLink title={t("institute")} link={"/transparencia"} />
+            <NavbarLink title={t("transparency")} link={"/transparency"} />
+            <NavbarLink title={t("contact")} link={"/contact"} />
+            <NavbarLink
+              title={t("institute")}
+              link={"https://instituto.prodominicana.gob.do"}
+            />
             <div className="h-10 flex space-x-3 text-white self-center">
               <NavbarButton
                 title={t("investButton")}

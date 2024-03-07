@@ -19,44 +19,44 @@ export default function ToolsMenu() {
     {
       title: "Portal del Estado Dominicano",
       link: "https://www.gob.do/",
-      icon: "svg/logos/portals/gobdo.svg",
+      icon: "/svg/logos/portals/gobdo.svg",
     },
     {
       title: "Sistema de Atención Ciudadana",
       link: "https://311.gob.do/",
-      icon: "svg/logos/portals/311.svg",
+      icon: "/svg/logos/portals/311.svg",
     },
     {
       title: "911",
       link: "https://911.gob.do/",
-      icon: "svg/logos/portals/911.svg",
+      icon: "/svg/logos/portals/911.svg",
     },
     {
       title: "Observatorio Nacional",
       link: "https://observatorioserviciospublicos.gob.do",
-      icon: "svg/logos/portals/observatorioserviciospublicos.svg",
+      icon: "/svg/logos/portals/observatorioserviciospublicos.svg",
     },
     {
       title: "Beca tu futuro",
       link: "https://becas.gob.do",
-      icon: "svg/logos/portals/becatufuturo.svg",
+      icon: "/svg/logos/portals/becatufuturo.svg",
     },
     {
       title: "Reporte de Abuso Sexual Infantil",
       link: "https://report.iwf.org.uk/do/",
-      icon: "svg/logos/portals/IWF.svg",
+      icon: "/svg/logos/portals/IWF.svg",
     },
     {
       title: "Centro Nacional de Ciberseguridad",
       link: "https://cncs.gob.do",
-      icon: "svg/logos/portals/CNCS.svg",
+      icon: "/svg/logos/portals/CNCS.svg",
     },
   ];
   const ventanillaListItems = [
     {
       title: "Ventanilla Única de Inversión",
       link: "https://vui.gob.do/",
-      icon: "svg/logos/vuiIcon.svg",
+      icon: "/svg/logos/vuiIcon.svg",
     },
   ];
 
@@ -73,7 +73,7 @@ export default function ToolsMenu() {
           width={50}
           height={50}
           src={"/svg/icons/appsIcon.svg"}
-          className="w-12 cursor-pointer"
+          className="w-16 cursor-pointer"
         />
       </MenuHandler>
       <MenuList
