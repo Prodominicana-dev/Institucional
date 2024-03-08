@@ -11,15 +11,22 @@ export default createMiddleware({
       en: "/whoarewe",
       es: "/quienessomos",
     },
+    "/history": {
+      en: "/history",
+      es: "/historia",
+    },
     "/legalframework": {
       en: "/legalframework",
       es: "/marcolegal",
+    },
+    "/organizationalstructure": {
+      en: "/organizationalstructure",
+      es: "/organigrama",
     },
     "/news": {
       en: "/news",
       es: "/noticias",
     },
-
     "/events": {
       en: "/events",
       es: "/eventos",

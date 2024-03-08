@@ -48,7 +48,7 @@ export default function Navbar() {
       title: t("aboutUs.menuList.organizationalChart"),
       description: t("aboutUs.menuList.organizationalChartDesc"),
       icon: OrganizationIcon,
-      link: "/organizationalChart",
+      link: "/organizationalstructure",
     },
     {
       title: t("aboutUs.menuList.legal"),
