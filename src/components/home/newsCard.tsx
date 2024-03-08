@@ -12,6 +12,7 @@ interface Props {
 }
 
 export default function NewsCard({ id, title, category, date, image }: Props) {
+  console.log(id, title, category, date, image);
   return (
     <Link
       href={`/news/${id}`}
@@ -20,7 +21,7 @@ export default function NewsCard({ id, title, category, date, image }: Props) {
       <Image
         width={2048}
         height={1080}
-        src={image}
+        src={`${process.env.NEXT_PUBLIC_API_URL}/files/news/${id}/img/${image}`}
         alt={title}
         className="sm:h-[25vh] xl:h-[30vh] w-full object-cover object-center rounded-md"
       />

@@ -3,13 +3,13 @@ import AuthUser from "@/components/admin/auth";
 import Card from "@/components/admin/news/card";
 import { NewsDialog } from "@/components/admin/news/dialog";
 import Sketch from "@/components/admin/sketch";
-import { useCategoriesNews, useEsNews } from "@/services/news/service";
+import { useCategoriesNews, useNews } from "@/services/news/service";
 import { Autocomplete } from "@mantine/core";
 import React, { useState, useEffect, useRef } from "react";
 import { useHover } from "usehooks-ts";
 import Select from "react-select";
 
-export default function Page() {
+export default function Page({ params: { locale } }: any) {
   const [open, setOpen] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
 
@@ -22,7 +22,7 @@ export default function Page() {
   const [isFirstStep, setIsFirstStep] = React.useState(false);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
-  const { data, isLoading, refetch } = useEsNews();
+  const { data, isLoading, refetch } = useNews(locale);
   const [news, setNews] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [categoriesOptions, setCategoriesOptions] = useState([]);
@@ -52,7 +52,7 @@ export default function Page() {
   }, [data, isLoading]);
 
   useEffect(() => {
-    refetch().then((res) => {
+    refetch().then((res: any) => {
       setNews(res.data);
     });
   }, [refresh]);
@@ -109,7 +109,7 @@ export default function Page() {
           </div>
         </div>
         <div className="w-full grid lg:grid-cols-4 gap-8">
-          {news.map((n, index) => (
+          {news?.map((n, index) => (
             <Card key={index} news={n} update={handleRefresh} />
           ))}
         </div>

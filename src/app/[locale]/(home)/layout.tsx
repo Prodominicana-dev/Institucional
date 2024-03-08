@@ -16,6 +16,7 @@ import {
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
+import { useLocale } from "next-intl";
 
 library.add(
   faFacebookF,

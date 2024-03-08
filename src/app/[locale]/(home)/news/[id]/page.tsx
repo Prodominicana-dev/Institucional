@@ -17,9 +17,19 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useNewsById } from "@/services/news/service";
 
-export default function Page() {
+export default function Page({ params: { locale, id } }: any) {
+  const { data, isLoading } = useNewsById(locale, id);
+  const [article, setArticle] = useState<any>();
+
+  useEffect(() => {
+    if (!isLoading && data) {
+      setArticle(data);
+      console.log(data.content);
+    }
+  }, [data, isLoading]);
   return (
     <div className="bg-white w-full h-full relative">
       <div className="bg-blue-950 h-[60vh] absolute inset-0 "></div>
@@ -27,27 +37,26 @@ export default function Page() {
         <div className="flex flex-col justify-center items-center text-white font-opensans pt-10 gap-5">
           <div className="w-10/12 sm:w-8/12 lg:w-7/12 space-y-5">
             <div className="flex gap-5">
-              <h1 className="text-3xl lg:text-5xl font-extrabold border-l-2 border-red-700 pl-5">
-                ProDominicana y Consulado General de Barcelona organizan misión
-                comercial en Barcelona
+              <h1 className="text-3xl lg:text-5xl font-extrabold border-l-2 border-red-700 pl-5 line-clamp-3">
+                {article?.title}
               </h1>
             </div>
-            <p className="ml-6 text-sm lg:text-base font-semibold">
-              La Sra. Riveiro, en su presentación, hizo énfasis en los diversos
-              incentivos sectoriales con los que cuenta el país, brindó una
-              visión general de la situación política, económica y social a los
-              empresarios invitados, lo cual ayudó a definir estrategias y
-              modelos de negocios a los interesados en entrar y competir en el
-              mercado dominicano, puntualizó.
-            </p>
+            {/* <div dangerouslySetInnerHTML={  } className="ml-6 text-sm lg:text-base font-semibold">
+              {article?.description}
+            </div> */}
+            {/* insertar el article.description como innerHTML */}
+            <div
+              className="ml-6 text-sm lg:text-base"
+              dangerouslySetInnerHTML={{ __html: article?.description }}
+            ></div>
           </div>
           <div className="w-10/12 lg:w-8/12">
             <Image
               width={3840}
               height={2160}
               alt="new"
-              src={"/images/event1.jpg"}
-              className="w-full object-cover object-center relative"
+              src={`${process.env.NEXT_PUBLIC_API_URL}/news/images/${article?.id}/${article?.image}`}
+              className="w-full object-cover object-center relative min-h-[50vh] max-h-[80vh]"
             />
           </div>
         </div>

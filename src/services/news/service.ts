@@ -3,11 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 var CryptoJS = require("crypto-js");
 
-export function useEsNews() {
+export function useNews(lang: string) {
   return useQuery({
-    queryKey: ["news"],
+    queryKey: ["newsEs"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/es/news`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/${lang}/news`;
       const { data } = await axios.get(url);
       return data;
     },
@@ -16,7 +16,7 @@ export function useEsNews() {
 
 export function useEnNews() {
   return useQuery({
-    queryKey: ["news"],
+    queryKey: ["newsEn"],
     queryFn: async () => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/en/news`;
       const { data } = await axios.get(url);
@@ -25,13 +25,13 @@ export function useEnNews() {
   });
 }
 
-export function useNewsById(id: string) {
+export function useNewsById(lang: string, id: string) {
   return useQuery({
     queryKey: ["newsById", id],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/news/${id}`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/${lang}/news/${id}`;
       const { data } = await axios.get(url);
-      return data;
+      return data[0];
     },
   });
 }

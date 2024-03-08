@@ -43,6 +43,7 @@ import { createNews, useCategoriesNews } from "@/services/news/service";
 import { Autocomplete } from "@mantine/core";
 import DragNDrop from "../tools/dropzone/dropzone";
 import TextEditorWithConfig from "../tools/textEditor/textEditor";
+import Day_Picker from "../tools/daypicker";
 
 export function NewsDialog({
   open,
@@ -70,6 +71,7 @@ export function NewsDialog({
   const [spanishCategories, setSpanishCategories] = useState([]);
   const [englishCategories, setEnglishCategories] = useState([]);
   const [submittion, setSubmittion] = useState(false);
+  const [date, setDate] = useState<any>(new Date());
   const {
     data: categories,
     refetch: categoriesRefetch,
@@ -179,6 +181,7 @@ export function NewsDialog({
       const formData = new FormData();
       formData.append("es", JSON.stringify(es_data));
       formData.append("en", JSON.stringify(en_data));
+      formData.append("date", date.toISOString());
       formData.append("image", image);
       files.length > 0 && files.map((file) => formData.append("files", file));
       filesBody.length > 0 &&
@@ -462,6 +465,14 @@ export function NewsDialog({
       step: 3,
       section: (
         <div className="w-full h-full flex flex-col gap-5 justify-center items-center">
+          <div className="w-11/12 flex flex-col">
+            <label className="font-semibold text-black text-lg">
+              Fecha de la noticia
+            </label>
+            <div className="w-6/12">
+              <Day_Picker date={date} setDate={setDate} />
+            </div>
+          </div>
           <div className="w-11/12 h-[30vh] relative flex justify-center items-center group">
             {files.length > 0 && (
               <button
