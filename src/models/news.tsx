@@ -4,7 +4,7 @@ import { Subsection } from "./subsection";
 export interface News {
   id?: string;
   image?: string;
-  news_metadata?: NewsMetadata;
+  metadata?: NewsMetadata;
   created_At?: Date;
   updated_At?: Date;
   status?: boolean;

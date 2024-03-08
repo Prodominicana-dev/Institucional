@@ -94,7 +94,7 @@ export default function Card({
           alt={news.title}
           width={1920}
           height={1080}
-          className="w-full h-[75%] rounded-t-lg shadow-sm"
+          className="w-full h-[75%] rounded-t-lg shadow-sm object-cover"
         />
         <div className="w-11/12 h-[25%] flex flex-col justify-center">
           <h1 className="text-2xl text-black font-montserrat font-bold truncate w-full">

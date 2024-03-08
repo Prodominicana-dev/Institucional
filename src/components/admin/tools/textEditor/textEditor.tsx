@@ -22,7 +22,6 @@ export default function TextEditorWithConfig({
     placeholder: "Cuerpo de la noticia",
     content: content ? content : "",
   });
-
   useEffect(() => {
     const info = {
       id,
@@ -34,7 +33,7 @@ export default function TextEditorWithConfig({
 
     const exist2 = data.filter((d: any) => d.id === id);
     exist2 && setData([...exist, info]);
-  }, [editor1, isSubmitting]);
+  }, [editor1?.getHTML(), isSubmitting]);
   return (
     <div className="w-full gap-5">
       <TextEditor editor={editor1} description={content ? content : ""} />

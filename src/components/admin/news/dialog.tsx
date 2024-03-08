@@ -77,6 +77,7 @@ export function NewsDialog({
   } = useCategoriesNews();
 
   const [contentEs, setContentEs] = useState<any>([]);
+  const [contentEn, setContentEn] = useState<any>([]);
   const [options, setOptions] = useState<any>([]);
 
   useEffect(() => {
@@ -115,7 +116,7 @@ export function NewsDialog({
   };
 
   const editorSpanish = Editor({
-    placeholder: "Cuerpo de la noticia",
+    placeholder: "Breve descripción...",
     contentEs: description ? description : "",
   });
 
@@ -163,11 +164,13 @@ export function NewsDialog({
         title: spanishTitle,
         category: spanishCategory,
         content: contentEs,
+        description: editorSpanish?.getHTML(),
         language: "es",
       };
       const en_data = {
         title: englishTitle,
         category: englishCategory,
+        content: contentEn,
         description: editorEnglish?.getHTML(),
         language: "en",
       };
@@ -258,10 +261,16 @@ export function NewsDialog({
           </div>
           <div className="flex flex-col gap-5 pb-5">
             <label className="font-semibold text-black text-lg">
+              Breve descripción de la noticia{" "}
+              <span className="text-bold text-red-700">*</span>
+            </label>
+            <TextEditor editor={editorSpanish} number={15} />
+          </div>
+          <div className="flex flex-col gap-5 pb-5">
+            <label className="font-semibold text-black text-lg">
               Cuerpo de la noticia{" "}
               <span className="text-bold text-red-700">*</span>
             </label>
-            <TextEditor editor={editorSpanish} number={30} />
             {options.map((option: any, index: number) => {
               switch (option) {
                 case "text":
@@ -395,22 +404,57 @@ export function NewsDialog({
               </div>
             </div>
           </div>
-          <div className="flex flex-col">
+          <div className="flex flex-col gap-5 pb-5">
             <label className="font-semibold text-black text-lg">
-              News body
+              Short News Overview{" "}
+              <span className="text-bold text-red-700">*</span>
             </label>
-            <TextEditor editor={editorEnglish} number={30} />
+            <TextEditor editor={editorEnglish} number={15} />
           </div>
-          <label
-            className={`${
-              warningAlert && !editorEnglish?.getText() && activeStep === 1
-                ? "block"
-                : "hidden"
-            } text-red-600 text-sm text-start flex items-center gap-1`}
-          >
-            <ExclamationCircleIcon className="size-5 inline-block" /> The body
-            news is required.
-          </label>
+          <div className="flex flex-col gap-5 pb-5">
+            <label className="font-semibold text-black text-lg">
+              News Body <span className="text-bold text-red-700">*</span>
+            </label>
+            {options.map((option: any, index: number) => {
+              switch (option) {
+                case "text":
+                  return (
+                    <TextEditorWithConfig
+                      key={index}
+                      data={contentEn}
+                      setData={setContentEn}
+                      id={index}
+                      isSubmitting={submittion}
+                    />
+                  );
+                case "image":
+                  return (
+                    <DragNDrop
+                      key={index}
+                      data={contentEn}
+                      setData={setContentEn}
+                      _files={filesBody}
+                      _setFiles={setFilesBody}
+                      id={index}
+                      isSubmitting={submittion}
+                    />
+                  );
+                default:
+                  return null; // Opción desconocida, podrías manejarla de otra manera si es necesario
+              }
+            })}
+
+            {/* <DragNDrop
+              data={contentEs}
+              setData={setContentEs}
+              isSubmitting={submittion}
+            />
+            <TextEditorWithConfig
+              data={contentEs}
+              setData={setContentEs}
+              isSubmitting={submittion}
+            /> */}
+          </div>
         </div>
       ),
     },
