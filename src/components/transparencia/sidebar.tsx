@@ -15,7 +15,7 @@ export default function TransparencySidebar() {
         }
     }, [data, isLoading]);
   return (
-    <div className='w-8/12 h-5/6 bg-blue-dark flex flex-col gap-2 rounded-lg items-center p-5'>
+    <div className=' hidden lg:flex w-full h-full bg-blue-dark flex-col gap-2 rounded-lg items-center p-5'>
         <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
         {sections.map((section: any, index) => (
             <div key={index} className='w-full flex justify-center'>
@@ -24,7 +24,24 @@ export default function TransparencySidebar() {
                 {section.type === 'document' && <SidebarDocs title={section.name} id={section.id} />}
             </div>
         ))}
-        
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
+        <SidebarLink  title={'Inicio'} link={'/transparency'} openNewPage={false}/>
     </div>
   )
 }

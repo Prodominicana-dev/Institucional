@@ -196,7 +196,7 @@ export default function Page() {
                       </div>
                       <Button
                         placeholder={undefined}
-                        className="bg-transparent border-2 border-red-600 text-red-600 w-full sm:w-auto"
+                        className="bg-transparent border-2 border-red-600 text-red-600 hover:text-white hover:bg-red-600 duration-300 w-full sm:w-auto"
                       >
                         {t2("download")}
                       </Button>

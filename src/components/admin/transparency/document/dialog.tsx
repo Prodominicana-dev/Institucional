@@ -76,7 +76,7 @@ export function DocumentDialog({
   useEffect(() => {
     if (data && !dataLoaded) {
       const section = data
-        .filter((e: Section) => e.type === "")
+        .filter((e: Section) => e.type === "" || e.type === "document")
         .map((section: Section) => ({
           value: section.id,
           label: section.name,
@@ -323,8 +323,8 @@ export function DocumentDialog({
                 : files.length === 0 ||
                   !sectionId ||
                   !date ||
-                  submitLoading ||
-                  (subsectionChecked && !subsectionId)
+                   submitLoading 
+                  // (subsectionChecked && !subsectionId)
             }
             onClick={handleSubmit}
             className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center"

@@ -79,11 +79,22 @@ export function useSubsectionFilter() {
   });
 }
 
-export function useSectionById(id: number) {
+export function useSubsectionById(id: string) {
   return useQuery({
-    queryKey: ["sectionById", id],
+    queryKey: ["subsectionById", id],
     queryFn: async () => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/subsection/${id}`;
+      const { data } = await axios.get(url);
+      return data;
+    },
+  });
+}
+
+export function useSubsectionTranspFilter(id: string){
+  return useQuery({
+    queryKey: ["sbsFilterBYId", id],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/subsection/filters/${id}`;
       const { data } = await axios.get(url);
       return data;
     },

@@ -58,9 +58,6 @@ export default function Day_Picker({
           onSelect={setDate}
           showOutsideDays
           required={true}
-          fromYear={year}
-          fromMonth={month}
-          fromDate={fromDate ? fromDate : new Date(year, monthNumber, day)}
           className="border-0 "
           classNames={{
             caption: "flex justify-center py-2 mb-4 relative items-center",
