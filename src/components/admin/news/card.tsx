@@ -17,7 +17,7 @@ import ActivateButton from "../active";
 import DeleteButton from "../delete";
 import { deleteNews, disableNews, enableNews } from "@/services/news/service";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { NewsEditDialog } from "./edit";
+import { EditNewsDialog } from "./edit";
 
 export default function Card({
   news,
@@ -175,7 +175,7 @@ export default function Card({
         )}
       </div>
       {edit && (
-        <NewsEditDialog
+        <EditNewsDialog
           id={news.id}
           open={edit}
           handler={handleEditOpen}

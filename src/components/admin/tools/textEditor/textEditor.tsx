@@ -17,6 +17,7 @@ export default function TextEditorWithConfig({
   content?: any;
   isSubmitting: boolean;
 }) {
+  console.log(data);
   const [warningAlert, setWarningAlert] = useState(false);
   const editor1 = Editor({
     placeholder: "Cuerpo de la noticia",

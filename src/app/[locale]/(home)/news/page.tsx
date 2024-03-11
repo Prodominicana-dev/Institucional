@@ -44,6 +44,7 @@ export default function Page({ params: { locale } }: any) {
               category={item.category}
               date={item.date}
               image={item.image}
+              locale={locale}
             />
           ))}
         </div>

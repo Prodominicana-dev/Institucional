@@ -9,10 +9,55 @@ interface Props {
   category: string;
   date: string;
   image: string;
+  locale?: string;
 }
 
-export default function NewsCard({ id, title, category, date, image }: Props) {
+export default function NewsCard({
+  id,
+  title,
+  category,
+  date,
+  image,
+  locale,
+}: Props) {
   console.log(id, title, category, date, image);
+  // Convertir la fecha en este formato: "1hr ago, 1d, 7d, 31d, 344d"
+  const dateFormated = new Date(date);
+  const dateNow = new Date();
+  const diffTime = Math.abs(dateNow.getTime() - dateFormated.getTime());
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  let dateFormatedString = "";
+  if (locale === "en") {
+    if (diffDays <= 1) {
+      dateFormatedString = `${Math.ceil(diffTime / (1000 * 60 * 60))}hr ago`;
+    } else if (diffDays <= 7) {
+      dateFormatedString = `${diffDays}d ago`;
+    } else if (diffDays < 30) {
+      const options = {
+        year: "numeric" as any, // Cambiado a "numeric"
+        month: "long" as any, // Cambiado a "long"
+        day: "numeric" as any, // Cambiado a "numeric"
+      };
+
+      dateFormatedString = dateFormated.toLocaleDateString("en", options);
+    }
+  } else {
+    if (diffDays <= 1) {
+      dateFormatedString = `Hace ${Math.ceil(diffTime / (1000 * 60 * 60))}hr`;
+    } else if (diffDays <= 7) {
+      dateFormatedString = `Hace ${diffDays}d`;
+    } else if (diffDays < 31) {
+      // Luego de 7 días mostrar la fecha en formato "18 de diciembre 2023"
+      const options = {
+        year: "numeric" as any, // Cambiado a "numeric"
+        month: "long" as any, // Cambiado a "long"
+        day: "numeric" as any, // Cambiado a "numeric"
+      };
+
+      dateFormatedString = dateFormated.toLocaleDateString("es-ES", options);
+    }
+  }
+
   return (
     <Link
       href={`/news/${id}`}
@@ -41,9 +86,9 @@ export default function NewsCard({ id, title, category, date, image }: Props) {
         <div className="bg-red-700 rounded-full h-2 w-2/12"></div>
         <Typography
           placeholder={undefined}
-          className="text-cyan-600 font-normal font-montserrat text-lg uppercase"
+          className="text-cyan-600 font-normal font-montserrat text-lg"
         >
-          {date}
+          {dateFormatedString}
         </Typography>
       </div>
     </Link>

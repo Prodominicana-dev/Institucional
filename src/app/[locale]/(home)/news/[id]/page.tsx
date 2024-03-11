@@ -13,23 +13,41 @@ import {
   SpeedDialAction,
   SpeedDialContent,
   SpeedDialHandler,
+  Spinner,
 } from "@material-tailwind/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useNewsById } from "@/services/news/service";
+import { useNewsById, usePrevNextById } from "@/services/news/service";
+import NewsContent from "@/components/news/content";
 
 export default function Page({ params: { locale, id } }: any) {
   const { data, isLoading } = useNewsById(locale, id);
+  const { data: nextPrev, isLoading: nextPrevLoading } = usePrevNextById(
+    locale,
+    id
+  );
   const [article, setArticle] = useState<any>();
+  const route = `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/news/${id}`;
+  console.log(route);
 
   useEffect(() => {
     if (!isLoading && data) {
       setArticle(data);
-      console.log(data.content);
+      console.log(data.id);
     }
-  }, [data, isLoading]);
+    if (!nextPrevLoading && nextPrev) {
+      console.log(nextPrev);
+    }
+  }, [data, isLoading, nextPrev, nextPrevLoading]);
+  if (isLoading && nextPrevLoading) {
+    return (
+      <div className="w-full h-[85vh] flex justify-center items-center bg-white">
+        <Spinner className="size-8 text-white" />
+      </div>
+    );
+  }
   return (
     <div className="bg-white w-full h-full relative">
       <div className="bg-blue-950 h-[60vh] absolute inset-0 "></div>
@@ -37,7 +55,7 @@ export default function Page({ params: { locale, id } }: any) {
         <div className="flex flex-col justify-center items-center text-white font-opensans pt-10 gap-5">
           <div className="w-10/12 sm:w-8/12 lg:w-7/12 space-y-5">
             <div className="flex gap-5">
-              <h1 className="text-3xl lg:text-5xl font-extrabold border-l-2 border-red-700 pl-5 line-clamp-3">
+              <h1 className="text-3xl lg:text-5xl font-extrabold border-l-2 border-red-700 pl-5 py-2 line-clamp-3">
                 {article?.title}
               </h1>
             </div>
@@ -61,28 +79,8 @@ export default function Page({ params: { locale, id } }: any) {
           </div>
         </div>
         <div className="flex flex-col items-center justify-center py-10 gap-10 text-gray-900">
-          <div className="w-10/12 lg:w-8/12">
-            <p>
-              Barcelona.- El Centro de Exportación y Exportación de la República
-              Dominicana (Prodominicana) y el Consulado General de Barcelona
-              organizaron una misión para promover el comercio y la inversión de
-              empresarios de Cataluña en República Dominicana, con el objetivo
-              de maximizar el intercambio comercial gracias al clima de negocios
-              y la promoción de los productos dominicanos que lideran los
-              mercados internacionales.
-            </p>
-            <br />
-            <p>
-              La Sra. Biviana Riveiro Disla, directora ejecutiva del Centro de
-              Exportación e Inversión de la República Dominicana (ProDominicana)
-              participó en un exitoso el Foro Empresarial titulado “¿Cómo hacer
-              negocios en la República Dominicana?” organizado por el Consulado
-              General de la República Dominicana y la Cámara de Comercio de
-              Barcelona. El objetivo principal de este evento fue fomentar y
-              fortalecer las relaciones comerciales entre España y la República
-              Dominicana, con el fin de aumentar el comercio internacional entre
-              ambos países.
-            </p>
+          <div className="w-10/12 lg:w-8/12 ">
+            <NewsContent id={article?.id} content={article?.content} />
           </div>
           <div className="w-10/12 lg:w-8/12">
             <SpeedDial placement="right">
@@ -104,7 +102,7 @@ export default function Page({ params: { locale, id } }: any) {
                   className="bg-blue-500"
                 >
                   <Link
-                    href={`https://www.facebook.com/sharer/sharer.php?u=${`https://www.diariolibre.com/actualidad/politica/2024/02/18/elecciones-municipales-2024--presentacion-de-resultados/2617649`}&src=sdkpreparse`}
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${route}&src=sdkpreparse`}
                     target="_blank"
                   >
                     <FontAwesomeIcon
@@ -119,7 +117,7 @@ export default function Page({ params: { locale, id } }: any) {
                   className="bg-green-500"
                 >
                   <Link
-                    href={`https://api.whatsapp.com/send?text=${`ProDominicana y Consulado General de Barcelona organizan misión comercial en Barcelona`} ${`https://www.diariolibre.com/actualidad/politica/2024/02/18/elecciones-municipales-2024--presentacion-de-resultados/2617649`}`}
+                    href={`https://api.whatsapp.com/send?text=${article?.title} ${route}`}
                     target="_blank"
                   >
                     <FontAwesomeIcon
@@ -133,7 +131,7 @@ export default function Page({ params: { locale, id } }: any) {
                   className="bg-lightBlue-600"
                 >
                   <Link
-                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${`https://www.diariolibre.com/actualidad/politica/2024/02/18/elecciones-municipales-2024--presentacion-de-resultados/2617649`}`}
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${route}`}
                     target="_blank"
                   >
                     <FontAwesomeIcon
@@ -144,7 +142,7 @@ export default function Page({ params: { locale, id } }: any) {
                 </SpeedDialAction>
                 <SpeedDialAction placeholder={undefined} className="bg-black">
                   <Link
-                    href={`https://www.x.com/share?url=${`https://www.diariolibre.com/actualidad/politica/2024/02/18/elecciones-municipales-2024--presentacion-de-resultados/2617649`}&text=${`ProDominicana y Consulado General de Barcelona organizan misión comercial en Barcelona`}`}
+                    href={`https://www.x.com/share?url=${route}&text=${article?.title}`}
                     target="_blank"
                   >
                     <FontAwesomeIcon
@@ -155,7 +153,7 @@ export default function Page({ params: { locale, id } }: any) {
                 </SpeedDialAction>
                 <SpeedDialAction placeholder={undefined} className="bg-black">
                   <Link
-                    href={`https://threads.net/intent/post?text=${`ProDominicana y Consulado General de Barcelona organizan misión comercial en Barcelona`} ${`https://www.diariolibre.com/actualidad/politica/2024/02/18/elecciones-municipales-2024--presentacion-de-resultados/2617649`}`}
+                    href={`https://threads.net/intent/post?text=${article?.title} ${route}`}
                     target="_blank"
                   >
                     <FontAwesomeIcon
@@ -166,7 +164,7 @@ export default function Page({ params: { locale, id } }: any) {
                 </SpeedDialAction>
                 <SpeedDialAction placeholder={undefined}>
                   <Link
-                    href={`mailto:?subject=${`ProDominicana y Consulado General de Barcelona organizan misión comercial en Barcelona`}&body=${`https://www.diariolibre.com/actualidad/politica/2024/02/18/elecciones-municipales-2024--presentacion-de-resultados/2617649`}`}
+                    href={`mailto:?subject=${article?.title}&body=${route}`}
                     target="_blank"
                   >
                     <FontAwesomeIcon
@@ -177,7 +175,7 @@ export default function Page({ params: { locale, id } }: any) {
                 </SpeedDialAction>
                 <SpeedDialAction placeholder={undefined}>
                   <Link
-                    href={`https://www.t.me/share?url=${`https://www.diariolibre.com/actualidad/politica/2024/02/18/elecciones-municipales-2024--presentacion-de-resultados/2617649`}&text=${`ProDominicana y Consulado General de Barcelona organizan misión comercial en Barcelona`}`}
+                    href={`https://www.t.me/share?url=${route}&text=${article?.title}`}
                     target="_blank"
                   >
                     <FontAwesomeIcon
@@ -190,32 +188,34 @@ export default function Page({ params: { locale, id } }: any) {
             </SpeedDial>
           </div>
           <div className="w-10/12 lg:w-8/12 flex justify-between gap-10">
-            <Link
-              href={"/news/anterior"}
-              className="w-6/12 cursor-pointer text-left space-y-3"
-            >
-              <div className="flex items-center gap-3 font-bold text-gray-500">
-                <ArrowLeftIcon className="w-6" />
-                Anterior
-              </div>
-              <p className="font-bold text-sm lg:text-2xl text-gray-700">
-                ProDominicana reconoce la innovacion y liderazgo de las mujeres
-                exportadoras dominicanas
-              </p>
-            </Link>
-            <Link
-              href={"/news/anterior"}
-              className="w-6/12 flex flex-col items-end cursor-pointer text-right space-y-3"
-            >
-              <div className="flex items-center gap-3 font-bold text-gray-500">
-                Proximo
-                <ArrowRightIcon className="w-6" />
-              </div>
-              <p className="font-bold text-sm lg:text-2xl text-gray-700">
-                MIREX y JCE firman acuerdo de colaboracion para celebracion de
-                las elecciones en el exterior
-              </p>
-            </Link>
+            {nextPrev?.prev && nextPrev?.prev.id !== null && (
+              <Link
+                href={`${nextPrev?.prev.id}`}
+                className="w-6/12 cursor-pointer text-left space-y-3"
+              >
+                <div className="flex items-center gap-3 font-bold text-gray-500">
+                  <ArrowLeftIcon className="w-6" />
+                  {locale === "en" ? "Previous" : "Anterior"}
+                </div>
+                <p className="font-bold text-sm lg:text-2xl text-gray-700 line-clamp-3">
+                  {nextPrev?.prev.title}
+                </p>
+              </Link>
+            )}
+            {nextPrev?.next && nextPrev?.next.id !== null && (
+              <Link
+                href={`${nextPrev?.next.id}`}
+                className="w-6/12 cursor-pointer flex flex-col items-end text-right space-y-3"
+              >
+                <div className="flex items-center gap-3 font-bold text-gray-500">
+                  {locale === "en" ? "Next" : "Siguiente"}
+                  <ArrowRightIcon className="w-6" />
+                </div>
+                <p className="font-bold text-sm lg:text-2xl text-gray-700 line-clamp-3">
+                  {nextPrev?.next.title}
+                </p>
+              </Link>
+            )}
           </div>
         </div>
       </div>

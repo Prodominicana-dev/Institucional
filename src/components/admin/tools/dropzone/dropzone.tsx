@@ -54,7 +54,7 @@ export default function DragNDrop({
     const display = {
       id,
       type: "image",
-      content: [filesData],
+      content: filesData,
     };
     console.log(display);
     // Pushear filesData a data
