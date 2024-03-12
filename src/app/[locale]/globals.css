@@ -54,3 +54,16 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+.yarl__container, .yarl__thumbnails_container{
+  background-color: rgba(0, 0, 0, .8) !important;
+  
+  
+}
+
+.yarl__thumbnails_vignette{
+  background: linear-gradient(to right, var(--yarl__color_backdrop, none #000) 0,  var(--yarl__color_backdrop, none #000) )!important
+
+}
+
+
