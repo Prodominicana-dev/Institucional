@@ -519,19 +519,19 @@ export default function RootLayout({
   ];
   return (
     <div className="w-full bg-white flex flex-col items-center py-10">
-      <div className="w-10/12 flex justify-between">
-        <h1 className="text-4xl font-bold text-blue-dark">
+      <div className="w-10/12 flex flex-col sm:flex-row justify-between gap-5">
+        <h1 className="text-2xl sm:text-4xl font-bold text-blue-dark">
           Estructura Organizacional
         </h1>
         <Link
           href={""}
-          className="p-3 rounded-lg border-2 border-blue-dark bg-transparent hover:bg-blue-dark text-blue-dark hover:text-white duration-300 font-bold"
+          className="p-3 rounded-lg border-2 text-center border-blue-dark bg-transparent hover:bg-blue-dark text-blue-dark hover:text-white duration-300 font-bold"
         >
           Descargar PDF
         </Link>
       </div>
       <div className="w-full py-10 flex flex-row justify-center">
-        <div className="w-10/12 flex flex-col lg:flex-row justify-center gap-10">
+        <div className="w-10/12 flex flex-col lg:flex-row justify-center sm:gap-10">
           <div className="w-full lg:w-3/12  flex justify-center">
             <div className="hidden lg:flex w-full h-full bg-white border-2 border-gray-300 flex-col justify-between gap-3 rounded-lg p-5">
               {organazionalStructure.map((item, index) => (
@@ -549,7 +549,7 @@ export default function RootLayout({
               ))}
             </div>
           </div>
-          <div className="w-full lg:w-9/12 text-black overflow-auto lg:p-5 rounded-lg flex justify-center">
+          <div className="w-full lg:w-9/12 text-black overflow-auto rounded-lg flex justify-center">
             {children}
           </div>
         </div>
