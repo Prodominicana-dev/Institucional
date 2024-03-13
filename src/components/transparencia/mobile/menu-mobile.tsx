@@ -39,7 +39,7 @@ export default function TransparencyMenuMobile() {
             link={"/transparency"}
             openNewPage={false}
           />
-          {sections.map((section: any, index) => (
+          {sections?.map((section: any, index) => (
             <div key={index} className="w-full flex justify-center">
               {section.type === "url" && (
                 <CollapseLink title={section.name} link={section.url} />
