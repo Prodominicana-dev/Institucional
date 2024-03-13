@@ -23,13 +23,19 @@ import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import Select from "react-select";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { set } from "date-fns";
-import { createMember } from "@/services/structure-organizational/members/service";
+import {
+  createMember,
+  editMember,
+  useMemberById,
+} from "@/services/structure-organizational/members/service";
 
-export function MembersDialog({
+export function MembersEditDialog({
+  id,
   open,
   handler,
   update,
 }: {
+  id: any;
   open: boolean;
   handler: () => void;
   update: () => void;
@@ -54,6 +60,21 @@ export function MembersDialog({
   const [isFirstStep, setIsFirstStep] = React.useState(false);
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const { data: directions, isLoading: directionsLoading } = useDirections();
+  const { data: member, isLoading: memberLoading } = useMemberById(id);
+
+  useEffect(() => {
+    if (member && !memberLoading) {
+      setName(member.name);
+      setRoleEs(member.es.role);
+      setRoleEn(member.en.role);
+      setRegulationEs(member.es.regulation);
+      setRegulationEn(member.en.regulation);
+      setFunctionsEs(member.es.functions);
+      setFunctionsEn(member.en.functions);
+      setImage(member.image);
+      setDirectionId(member.departmentId);
+    }
+  }, [member, memberLoading]);
 
   useEffect(() => {
     if (!directionsLoading && directions) {
@@ -85,10 +106,7 @@ export function MembersDialog({
 
   const handleSubmit = async () => {
     if (!isLoading) {
-      if (
-        activeStep === 0 &&
-        (name === "" || files.length === 0 || !directionId)
-      ) {
+      if (activeStep === 0 && (name === "" || !directionId)) {
         return setWarning(true);
       }
 
@@ -133,7 +151,7 @@ export function MembersDialog({
         formData.append("en", JSON.stringify(en));
         formData.append("image", image);
         if (files.length > 0) formData.append("images", files[0] as any);
-        await createMember(formData, update, user?.sub as string);
+        await editMember(id, formData, update, user?.sub as string);
         setIsLoading(false);
         handler();
       }
@@ -154,7 +172,7 @@ export function MembersDialog({
             className="w-full"
             onChange={(e) => setName(e.target.value)}
             value={name}
-            placeholder="Nombre de la dirección"
+            placeholder="Nombre del colaborador"
           />
           <label
             htmlFor="nameEs"
@@ -182,6 +200,11 @@ export function MembersDialog({
                 primary: "black",
               },
             })}
+            value={
+              directionsOptions.find(
+                (option: any) => option.value === directionId
+              ) || null
+            }
           />
           <label
             htmlFor="nameEs"
@@ -196,10 +219,11 @@ export function MembersDialog({
             className={` text-black text-sm text-start flex items-start gap-1 w-11/12`}
           >
             <ExclamationCircleIcon className="size-5 inline-block" /> La imagen
-            debe ser .JPG, .PNG o .JPEG y no debe pesar más de 2MB.
+            debe ser .JPG, .PNG o .JPEG y no debe pesar más de 2MB. Si no se
+            agrega una imagen se usará la que ya existía.
           </label>
           <div className="w-full h-[30vh] relative flex justify-center items-center group">
-            {files.length > 0 && (
+            {files?.length > 0 ? (
               <button
                 onClick={() => openRef.current?.()}
                 className="w-full h-full z-10 absolute flex justify-center items-center group"
@@ -212,7 +236,20 @@ export function MembersDialog({
                   className="w-full h-full absolute rounded-lg object-cover group-hover:blur-[2px] group-hover:opacity-40 duration-300" // Add bg-white for visibility
                 />
               </button>
-            )}
+            ) : member ? (
+              <button
+                onClick={() => openRef.current?.()}
+                className="w-full h-full z-10 absolute flex justify-center items-center group"
+              >
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_API_URL}/files/member/${id}/img/${member.image}`} // Use the preview URL directly
+                  alt=""
+                  width="500"
+                  height="500"
+                  className="w-full h-full absolute rounded-lg object-cover group-hover:blur-[2px] group-hover:opacity-40 duration-300" // Add bg-white for visibility
+                />
+              </button>
+            ) : null}
 
             <Dropzone
               multiple={false}
@@ -516,6 +553,23 @@ export function MembersDialog({
       ),
     },
   ];
+
+  if (memberLoading || !member) {
+    return (
+      <Dialog
+        placeholder={undefined}
+        open={open}
+        handler={handler}
+        className="p-2"
+      >
+        <DialogBody placeholder={undefined}>
+          <div className="w-full h-full flex justify-center items-center">
+            <Spinner className="size-7" />
+          </div>
+        </DialogBody>
+      </Dialog>
+    );
+  }
 
   return (
     <>

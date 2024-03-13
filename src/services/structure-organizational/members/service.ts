@@ -3,30 +3,30 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 var CryptoJS = require("crypto-js");
 
-export function useDirections() {
+export function useMembers(lang: string) {
   return useQuery({
-    queryKey: ["directions"],
+    queryKey: ["members"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/so/direction`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/so/${lang}/member`;
       const { data } = await axios.get(url);
       return data;
     },
   });
 }
 
-export function useDirectionById(id: string) {
+export function useMemberById(id: string) {
   return useQuery({
-    queryKey: ["directionById", id],
+    queryKey: ["memberById", id],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/so/direction/${id}`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/so/member/${id}`;
       const { data } = await axios.get(url);
       return data;
     },
   });
 }
 
-export async function createDirection(
-  direction: any,
+export async function createMember(
+  member: any,
   update: () => void,
   userId: string
 ) {
@@ -37,8 +37,8 @@ export async function createDirection(
     ).toString();
 
     const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/so/direction`,
-      direction,
+      `${process.env.NEXT_PUBLIC_API_URL}/so/member`,
+      member,
       {
         headers: {
           Authorization: userIdEncrypted,
@@ -48,11 +48,11 @@ export async function createDirection(
 
     if (res.status === 201) {
       notifications.show({
-        id: "direction",
+        id: "member",
         autoClose: 5000,
         withCloseButton: false,
-        title: "Dirección creada",
-        message: "La dirección ha sido creada correctamente.",
+        title: "Colaborador creada",
+        message: "El colaborador ha sido creada correctamente.",
         color: "green",
         loading: false,
       });
@@ -62,12 +62,11 @@ export async function createDirection(
     }
   } catch (error) {
     notifications.show({
-      id: "direction",
+      id: "member",
       autoClose: 5000,
       withCloseButton: false,
-      title: "Error creando la dirección",
-      message:
-        "Existe una dirección con el mismo nombre. Por favor, cambia el nombre de la dirección.",
+      title: "Error creando al colaborador",
+      message: "Ocurrió un error creando al colaborador.",
       color: "red",
       loading: false,
     });
@@ -78,12 +77,11 @@ function handleErrorResponse(response: any) {
   switch (response.status) {
     case 500:
       notifications.show({
-        id: "direction",
+        id: "member",
         autoClose: 5000,
         withCloseButton: false,
-        title: "Error creando la dirección",
-        message:
-          "Existe una dirección con el mismo nombre. Por favor, cambia el nombre de la dirección.",
+        title: "Error creando al colaborador",
+        message: "Ocurrió un error creando al colaborador.",
         color: "red",
         loading: false,
       });
@@ -91,11 +89,11 @@ function handleErrorResponse(response: any) {
 
     case 401:
       notifications.show({
-        id: "direction",
+        id: "member",
         autoClose: 5000,
         withCloseButton: false,
         title: "Usuario no autorizado",
-        message: "No tienes permisos para crear una dirección.",
+        message: "No tienes permisos para crear un colaborador.",
         color: "red",
         loading: false,
       });
@@ -106,9 +104,9 @@ function handleErrorResponse(response: any) {
   }
 }
 
-export async function editDirection(
+export async function editMember(
   id: string,
-  direction: any,
+  member: any,
   update: () => void,
   userId: string
 ) {
@@ -118,8 +116,8 @@ export async function editDirection(
       process.env.NEXT_PUBLIC_CRYPTOJS_KEY
     ).toString();
     const res = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/so/direction/${id}`,
-      direction,
+      `${process.env.NEXT_PUBLIC_API_URL}/so/member/${id}`,
+      member,
       {
         headers: {
           Authorization: `${userIdEncrypted}`,
@@ -129,11 +127,11 @@ export async function editDirection(
 
     if (res.status === 200) {
       notifications.show({
-        id: "direction",
+        id: "member",
         autoClose: 5000,
         withCloseButton: false,
-        title: "Dirección actualizada",
-        message: "La dirección ha sido actualizada correctamente.",
+        title: "Colaborador actualizada",
+        message: "El colaborador ha sido actualizado correctamente.",
         color: "green",
         loading: false,
       });
@@ -143,12 +141,12 @@ export async function editDirection(
     }
   } catch (error) {
     notifications.show({
-      id: "direction",
+      id: "member",
       autoClose: 5000,
       withCloseButton: false,
-      title: "Error editando la dirección",
+      title: "Error editando al colaborador",
       message:
-        "Existe una dirección con el mismo nombre. Por favor, cambia el nombre de la dirección.",
+        "Ocurrió un error editando al colaborador. Por favor, intenta de nuevo.",
       color: "red",
       loading: false,
     });
@@ -159,12 +157,12 @@ function handleEditErrorResponse(response: any) {
   switch (response.status) {
     case 500:
       notifications.show({
-        id: "direction",
+        id: "member",
         autoClose: 5000,
         withCloseButton: false,
-        title: "Error creando la dirección",
+        title: "Error editando al colaborador",
         message:
-          "Existe una dirección con el mismo nombre. Por favor, cambia el nombre de la dirección.",
+          "Ocurrió un error editando al colaborador. Por favor, intenta de nuevo.",
         color: "red",
         loading: false,
       });
@@ -172,11 +170,11 @@ function handleEditErrorResponse(response: any) {
 
     case 401:
       notifications.show({
-        id: "direction",
+        id: "member",
         autoClose: 5000,
         withCloseButton: false,
         title: "Usuario inautorizado",
-        message: "No tienes permisos para editar una dirección.",
+        message: "No tienes permisos para editar un colaborador.",
         color: "red",
         loading: false,
       });
@@ -187,7 +185,7 @@ function handleEditErrorResponse(response: any) {
   }
 }
 
-export function deleteDirection(
+export function deleteMember(
   id: string,
   handleOpen: () => void,
   update: () => void,
@@ -199,7 +197,7 @@ export function deleteDirection(
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
   ).toString();
   return axios
-    .delete(`${process.env.NEXT_PUBLIC_API_URL}/so/direction/${id}`, {
+    .delete(`${process.env.NEXT_PUBLIC_API_URL}/so/member/${id}`, {
       headers: {
         Authorization: `${userIdEncrypted}`,
       },
@@ -207,12 +205,12 @@ export function deleteDirection(
     .then((res) => {
       if (res.status === 200) {
         notifications.show({
-          id: "direction",
+          id: "member",
           autoClose: 5000,
           withCloseButton: false,
-          title: "Dirección eliminada",
+          title: "Colaborador eliminada",
           message:
-            "La dirección ha sido eliminada correctamente. No podrás recuperarla.",
+            "El colaborador ha sido eliminado correctamente. No podrás recuperarlo.",
           color: "green",
           loading: false,
         });
@@ -221,22 +219,22 @@ export function deleteDirection(
       }
       if (res.status === 500) {
         notifications.show({
-          id: "direction",
+          id: "member",
           autoClose: 5000,
           withCloseButton: false,
           title: "Error",
-          message: "Hubo un error borrando la dirección.",
+          message: "Hubo un error borrando al colaborador.",
           color: "red",
           loading: false,
         });
       }
       if (res.status === 401) {
         notifications.show({
-          id: "direction",
+          id: "member",
           autoClose: 5000,
           withCloseButton: false,
           title: "Usuario inautorizado",
-          message: "No tienes permisos para desactivar una dirección.",
+          message: "No tienes permisos para eliminar un colaborador.",
           color: "red",
           loading: false,
         });

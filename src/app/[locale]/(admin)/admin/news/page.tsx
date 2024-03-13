@@ -12,7 +12,6 @@ import Select from "react-select";
 export default function Page({ params: { locale } }: any) {
   const [open, setOpen] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
-
   const [editHover, setEditHover] = useState(false);
   const [enableHover, setEnableHover] = useState(false);
   const [disabledHover, setDisabledHover] = useState(false);

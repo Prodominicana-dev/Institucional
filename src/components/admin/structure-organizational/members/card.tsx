@@ -11,13 +11,15 @@ import DeactiveButton from "../../inactive";
 import ActivateButton from "../../active";
 import DeleteButton from "../../delete";
 import { deleteDirection } from "@/services/structure-organizational/service";
-import { DirectionsEditDialog } from "./eDialog";
+import { MembersEditDialog } from "./eDialog";
+import Image from "next/image";
+import { deleteMember } from "@/services/structure-organizational/members/service";
 
 export default function Card({
-  direction,
+  member,
   update,
 }: {
-  direction: any;
+  member: any;
   update: () => void;
 }) {
   const { user, isLoading } = useUser();
@@ -35,8 +37,8 @@ export default function Card({
 
   const handleDelete = () => {
     if (user && !isLoading) {
-      deleteDirection(
-        direction.id as string,
+      deleteMember(
+        member.id as string,
         handleDeleteOpen,
         update,
         user.sub as string
@@ -45,8 +47,19 @@ export default function Card({
   };
   return (
     <>
-      <div className="grid items-center w-full h-24 grid-cols-2 p-5 text-center bg-white rounded-lg  ring-2 ring-gray-100">
-        <div>{direction.nameEs}</div>
+      <div className="grid items-center w-full h-24 grid-cols-2 lg:grid-cols-5 p-5 text-center bg-white rounded-lg  ring-2 ring-gray-100">
+        <div className="w-full flex justify-center items-center">
+          <Image
+            src={`${process.env.NEXT_PUBLIC_API_URL}/files/member/${member?.id}/img/${member?.image}`} // Use the preview URL directly
+            alt=""
+            width="500"
+            height="500"
+            className="size-14 rounded-full " // Add bg-white for visibility
+          />
+        </div>
+        <div>{member?.name}</div>
+        <div>{member?.department.nameEs}</div>
+        <div>{member?.role}</div>
         <div className="flex justify-center space-x-5 ">
           <button
             onClick={handleEditOpen}
@@ -63,8 +76,8 @@ export default function Card({
         </div>
       </div>
       {editOpen && (
-        <DirectionsEditDialog
-          direction={direction}
+        <MembersEditDialog
+          id={member?.id}
           open={editOpen}
           handler={handleEditOpen}
           update={update}
@@ -74,8 +87,8 @@ export default function Card({
       {deleted && (
         <DeleteButton
           open={deleted}
-          title="Eliminar Dirección"
-          message="¿Estás seguro de que deseas eliminar esta dirección? Esta acción no se puede deshacer y podría tener un impacto significativo."
+          title="Eliminar Colaborador"
+          message="¿Estás seguro de que deseas eliminar este colaborador? Esta acción no se puede deshacer."
           handleOpen={handleDeleteOpen}
           funct={handleDelete}
         />

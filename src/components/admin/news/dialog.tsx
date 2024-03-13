@@ -1,44 +1,27 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  Button,
   Dialog,
   DialogHeader,
   DialogBody,
   DialogFooter,
-  Tooltip,
   Input,
-  Textarea,
   Spinner,
-  Switch,
   Menu,
   MenuHandler,
   MenuList,
   MenuItem,
 } from "@material-tailwind/react";
-import { Stepper, Step, Typography } from "@material-tailwind/react";
-import {
-  CogIcon,
-  UserIcon,
-  BuildingLibraryIcon,
-  ExclamationTriangleIcon,
-  ExclamationCircleIcon,
-} from "@heroicons/react/24/outline";
-import { createSection } from "@/services/section/service";
+import { Stepper, Step } from "@material-tailwind/react";
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { Montserrat } from "next/font/google";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import { set } from "date-fns";
 import { FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
-import { createDocument } from "@/services/document/service";
 import Editor from "../tools/rich-editor/config";
 import TextEditor from "../tools/rich-editor/rich-editor";
-import DropzoneImpl from "../transparency/document/dropzone";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Dropzone } from "@mantine/dropzone";
 import Image from "next/image";
-import Select from "react-select";
-import { is } from "date-fns/locale";
 import { createNews, useCategoriesNews } from "@/services/news/service";
 import { Autocomplete } from "@mantine/core";
 import DragNDrop from "../tools/dropzone/dropzone";
