@@ -12,7 +12,6 @@ import Select from "react-select";
 export default function Page({ params: { locale } }: any) {
   const [open, setOpen] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
-
   const [editHover, setEditHover] = useState(false);
   const [enableHover, setEnableHover] = useState(false);
   const [disabledHover, setDisabledHover] = useState(false);
@@ -22,24 +21,19 @@ export default function Page({ params: { locale } }: any) {
   const [isFirstStep, setIsFirstStep] = React.useState(false);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
-  const { data, isLoading, refetch } = useNews(locale);
+  const { data, isLoading, refetch } = useNews("es");
   const [news, setNews] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [categoriesOptions, setCategoriesOptions] = useState([]);
-  const {
-    data: categories,
-    isLoading: categoriesLoading,
-    refetch: catRefetch,
-  } = useCategoriesNews();
 
-  useEffect(() => {
-    if (categories && !categoriesLoading) {
-      const options = categories.es.map((c: any) => {
-        return { value: c.category, label: c.category };
-      });
-      setCategoriesOptions(options);
-    }
-  }, [categories, categoriesLoading]);
+  // useEffect(() => {
+  //   if (categories && !categoriesLoading) {
+  //     const options = categories.es.map((c: any) => {
+  //       return { value: c.category, label: c.category };
+  //     });
+  //     setCategoriesOptions(options);
+  //   }
+  // }, [categories, categoriesLoading]);
 
   const handleRefresh = () => {
     setRefresh(!refresh);
@@ -47,6 +41,7 @@ export default function Page({ params: { locale } }: any) {
 
   useEffect(() => {
     if (data && !isLoading) {
+      console.log(data);
       setNews(data);
     }
   }, [data, isLoading]);

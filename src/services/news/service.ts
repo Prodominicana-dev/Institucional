@@ -36,6 +36,28 @@ export function useNewsById(lang: string, id: string) {
   });
 }
 
+export function useNewsConfById(id: string) {
+  return useQuery({
+    queryKey: ["newsConfById", id],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/news/${id}`;
+      const { data } = await axios.get(url);
+      return data;
+    },
+  });
+}
+
+export function usePrevNextById(lang: string, id: string) {
+  return useQuery({
+    queryKey: ["prevNext", id],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/${lang}/news/prnxt/${id}`;
+      const { data } = await axios.get(url);
+      return data;
+    },
+  });
+}
+
 export function useCategoriesNews() {
   return useQuery({
     queryKey: ["categories"],

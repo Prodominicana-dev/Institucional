@@ -1,49 +1,34 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  Button,
   Dialog,
   DialogHeader,
   DialogBody,
   DialogFooter,
-  Tooltip,
   Input,
-  Textarea,
   Spinner,
-  Switch,
   Menu,
   MenuHandler,
   MenuList,
   MenuItem,
 } from "@material-tailwind/react";
-import { Stepper, Step, Typography } from "@material-tailwind/react";
-import {
-  CogIcon,
-  UserIcon,
-  BuildingLibraryIcon,
-  ExclamationTriangleIcon,
-  ExclamationCircleIcon,
-} from "@heroicons/react/24/outline";
-import { createSection } from "@/services/section/service";
+import { Stepper, Step } from "@material-tailwind/react";
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { Montserrat } from "next/font/google";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import { set } from "date-fns";
 import { FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
-import { createDocument } from "@/services/document/service";
 import Editor from "../tools/rich-editor/config";
 import TextEditor from "../tools/rich-editor/rich-editor";
-import DropzoneImpl from "../transparency/document/dropzone";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Dropzone } from "@mantine/dropzone";
 import Image from "next/image";
-import Select from "react-select";
-import { is } from "date-fns/locale";
 import { createNews, useCategoriesNews } from "@/services/news/service";
 import { Autocomplete } from "@mantine/core";
 import DragNDrop from "../tools/dropzone/dropzone";
 import TextEditorWithConfig from "../tools/textEditor/textEditor";
 import Day_Picker from "../tools/daypicker";
+import { useNewsCategories } from "@/services/news/categories/service";
+import Select from "react-select";
 
 export function NewsDialog({
   open,
@@ -56,9 +41,7 @@ export function NewsDialog({
 }) {
   const { user } = useUser();
   const [spanishTitle, setSpanishTitle] = useState("");
-  const [spanishCategory, setSpanishCategory] = useState("");
   const [englishTitle, setEnglishTitle] = useState("");
-  const [englishCategory, setEnglishCategory] = useState("");
   const [description] = useState("");
   const [image, setImage] = useState("");
   const [warningAlert, setWarningAlert] = useState(false);
@@ -68,19 +51,28 @@ export function NewsDialog({
   const [isFirstStep, setIsFirstStep] = React.useState(false);
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const [filesBody, setFilesBody] = useState<FileWithPath[]>([]);
-  const [spanishCategories, setSpanishCategories] = useState([]);
-  const [englishCategories, setEnglishCategories] = useState([]);
+
   const [submittion, setSubmittion] = useState(false);
   const [date, setDate] = useState<any>(new Date());
-  const {
-    data: categories,
-    refetch: categoriesRefetch,
-    isLoading: categoriesLoading,
-  } = useCategoriesNews();
+  const [categoryOptions, setCategoryOptions] = useState<any>([]);
+  const [categoryId, setCategoryId] = useState("");
+  const { data: categories, isLoading: categoriesLoading } =
+    useNewsCategories();
 
   const [contentEs, setContentEs] = useState<any>([]);
   const [contentEn, setContentEn] = useState<any>([]);
   const [options, setOptions] = useState<any>([]);
+
+  useEffect(() => {
+    if (!categoriesLoading && categories) {
+      setCategoryOptions(
+        categories.map(({ id, nameEs }: { id: string; nameEs: string }) => ({
+          value: id,
+          label: nameEs,
+        }))
+      );
+    }
+  }, [categories, categoriesLoading]);
 
   useEffect(() => {
     console.log("contentEs:");
@@ -91,22 +83,6 @@ export function NewsDialog({
     console.log(options);
   }, [options]);
 
-  useEffect(() => {
-    if (!categoriesLoading) {
-      const { es, en } = categories;
-      const es_options = es.map((category: any) => {
-        return category.category;
-      });
-      console.log(es_options);
-      const en_options = en.map((category: any) => {
-        return category.category;
-      });
-      setSpanishCategories(es_options);
-      setEnglishCategories(en_options);
-    }
-  }, [categories, categoriesLoading]);
-
-  console.log(spanishCategories, englishCategories);
   const openRef = useRef<() => void>(null);
   const handleNext = () => {
     !isLastStep && setActiveStep((cur) => cur + 1);
@@ -137,41 +113,35 @@ export function NewsDialog({
   const handleButton = async () => {
     if (
       activeStep === 0 &&
-      (spanishTitle === "" ||
-        spanishCategory === "" ||
-        editorSpanish?.getText() === "")
+      (spanishTitle === "" || editorSpanish?.getText() === "")
     ) {
       return setWarningAlert(true);
     }
 
     if (
       activeStep === 1 &&
-      (englishTitle === "" ||
-        englishCategory === "" ||
-        editorEnglish?.getText() === "")
+      (englishTitle === "" || editorEnglish?.getText() === "")
     ) {
       return setWarningAlert(true);
     }
 
     !isLastStep && handleNext();
 
-    if (isLastStep && files.length === 0) {
+    if (isLastStep && (files.length === 0 || !categoryId)) {
       return setWarningAlert(true);
     }
 
-    if (isLastStep && files.length > 0) {
+    if (isLastStep && files.length > 0 && categoryId) {
       setSubmittion(true);
       // setSubmitLoading(true);
       const es_data = {
         title: spanishTitle,
-        category: spanishCategory,
         content: contentEs,
         description: editorSpanish?.getHTML(),
         language: "es",
       };
       const en_data = {
         title: englishTitle,
-        category: englishCategory,
         content: contentEn,
         description: editorEnglish?.getHTML(),
         language: "en",
@@ -183,6 +153,7 @@ export function NewsDialog({
       formData.append("en", JSON.stringify(en_data));
       formData.append("date", date.toISOString());
       formData.append("image", image);
+      formData.append("categoryId", categoryId);
       files.length > 0 && files.map((file) => formData.append("files", file));
       filesBody.length > 0 &&
         filesBody.map((file) => formData.append("files", file));
@@ -203,7 +174,7 @@ export function NewsDialog({
               que digitar la misma noticia, pero en inglés.
             </label>
             <div className="w-full flex gap-4">
-              <div className="flex flex-col gap-2 w-6/12">
+              <div className="flex flex-col gap-2 w-full">
                 <div>
                   <label
                     htmlFor="title"
@@ -228,36 +199,6 @@ export function NewsDialog({
                 >
                   <ExclamationCircleIcon className="size-5 inline-block" /> El
                   título es obligatorio.
-                </label>
-              </div>
-              <div className="flex flex-col gap-2 w-6/12">
-                <div className="w-full">
-                  <label
-                    htmlFor="title"
-                    className="font-semibold text-black text-lg"
-                  >
-                    Categoría <span className="text-bold text-red-700">*</span>
-                  </label>
-                  <Autocomplete
-                    onChange={(e) => {
-                      setSpanishCategory(e);
-                    }}
-                    value={spanishCategory}
-                    data={spanishCategories}
-                    onFocus={() => {
-                      console.log(spanishCategories);
-                    }}
-                  />
-                </div>
-                <label
-                  className={`${
-                    warningAlert && !spanishCategory && activeStep === 0
-                      ? "block"
-                      : "hidden"
-                  } text-red-600 text-sm text-start flex items-center gap-1`}
-                >
-                  <ExclamationCircleIcon className="size-5 inline-block" /> La
-                  categoría es obligatoria.
                 </label>
               </div>
             </div>
@@ -350,7 +291,7 @@ export function NewsDialog({
         <div className={`flex flex-col gap-3`}>
           <div className="flex flex-col w-full">
             <div className="w-full flex gap-4">
-              <div className="flex flex-col gap-2 w-6/12">
+              <div className="flex flex-col gap-2 w-full">
                 <div>
                   <label
                     htmlFor="title"
@@ -376,33 +317,6 @@ export function NewsDialog({
                 >
                   <ExclamationCircleIcon className="size-5 inline-block" /> The
                   title is required.
-                </label>
-              </div>
-              <div className="flex flex-col gap-2 w-6/12">
-                <div>
-                  <label
-                    htmlFor="title"
-                    className="font-semibold text-black text-lg"
-                  >
-                    Category <span className="text-bold text-red-700">*</span>
-                  </label>
-                  <Autocomplete
-                    onChange={(e) => {
-                      setEnglishCategory(e);
-                    }}
-                    value={englishCategory}
-                    data={englishCategories}
-                  />
-                </div>
-                <label
-                  className={`${
-                    warningAlert && !englishCategory && activeStep === 1
-                      ? "block"
-                      : "hidden"
-                  } text-red-600 text-sm text-start flex items-center gap-1`}
-                >
-                  <ExclamationCircleIcon className="size-5 inline-block" /> The
-                  category is required.
                 </label>
               </div>
             </div>
@@ -465,14 +379,50 @@ export function NewsDialog({
       step: 3,
       section: (
         <div className="w-full h-full flex flex-col gap-5 justify-center items-center">
-          <div className="w-11/12 flex flex-col">
-            <label className="font-semibold text-black text-lg">
-              Fecha de la noticia
-            </label>
-            <div className="w-6/12">
-              <Day_Picker date={date} setDate={setDate} />
+          <div className="w-11/12 flex flex-col lg:flex-row gap-4">
+            <div className="w-full lg:w-6/12">
+              <label className="font-semibold text-black text-lg">
+                Fecha de la noticia
+              </label>
+              <div className="w-full">
+                <Day_Picker date={date} setDate={setDate} />
+              </div>
+            </div>
+            <div className="w-full lg:w-6/12">
+              <label
+                htmlFor="nameEs"
+                className="font-semibold text-black text-lg"
+              >
+                Dirección a la que pertenece{" "}
+                <span className="text-red-600">*</span>
+              </label>
+              <Select
+                onChange={(e: any) => {
+                  setCategoryId(e.value);
+                }}
+                className="w-full z-50"
+                options={categoryOptions}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 2,
+                  colors: {
+                    ...theme.colors,
+                    primary: "black",
+                  },
+                })}
+              />
+              <label
+                htmlFor="nameEs"
+                className={`${
+                  warningAlert && !categoryId ? "block" : "hidden"
+                } text-red-600 text-sm`}
+              >
+                <ExclamationCircleIcon className="size-5 inline-block" /> La
+                categoría es obligatoria.
+              </label>
             </div>
           </div>
+
           <div className="w-11/12 h-[30vh] relative flex justify-center items-center group">
             {files.length > 0 && (
               <button

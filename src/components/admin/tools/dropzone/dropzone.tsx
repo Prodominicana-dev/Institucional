@@ -13,6 +13,7 @@ export default function DragNDrop({
   _files,
   _setFiles,
   isSubmitting,
+  content,
 }: {
   id: number;
   data: any;
@@ -20,9 +21,17 @@ export default function DragNDrop({
   _files: FileWithPath[];
   _setFiles: any;
   isSubmitting: boolean;
+  content?: any;
 }) {
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const [warningAlert, setWarningAlert] = useState(false);
+
+  useEffect(() => {
+    if (content) {
+      console.log(content);
+      setData(content);
+    }
+  }, [content]);
 
   const handleDrop = (file: FileWithPath[]) => {
     if (files.length < 4) {
@@ -54,7 +63,7 @@ export default function DragNDrop({
     const display = {
       id,
       type: "image",
-      content: [filesData],
+      content: filesData,
     };
     console.log(display);
     // Pushear filesData a data

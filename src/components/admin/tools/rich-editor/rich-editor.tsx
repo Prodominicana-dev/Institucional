@@ -20,7 +20,7 @@ export default function TextEditor({
 }) {
   useEffect(() => {
     if (description !== "" && description !== undefined && description !== null)
-      editor.commands.setContent(description);
+      editor?.commands.setContent(description);
   }, [description]);
   return (
     <RichTextEditor editor={editor}>
