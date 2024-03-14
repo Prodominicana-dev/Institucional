@@ -22,7 +22,6 @@ import Image from "next/image";
 import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import Select from "react-select";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { set } from "date-fns";
 import { createMember } from "@/services/structure-organizational/members/service";
 
 export function MembersDialog({
@@ -43,11 +42,9 @@ export function MembersDialog({
   const [functionsEs, setFunctionsEs] = useState<string[]>([""]);
   const [functionsEn, setFunctionsEn] = useState<string[]>([""]);
   const [image, setImage] = useState("");
-  const [options, setOptions] = useState<any>(0);
   const [directionId, setDirectionId] = useState<any>("");
   const [directionsOptions, setDirectionsOptions] = useState<any>([]);
   const [warning, setWarning] = useState(false);
-  const [error, setError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
   const [isLastStep, setIsLastStep] = React.useState(false);
@@ -154,7 +151,7 @@ export function MembersDialog({
             className="w-full"
             onChange={(e) => setName(e.target.value)}
             value={name}
-            placeholder="Nombre de la dirección"
+            placeholder="Nombre del colaborador"
           />
           <label
             htmlFor="nameEs"

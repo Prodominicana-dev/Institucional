@@ -101,7 +101,7 @@ export default function Card({
             {news.title}
           </h1>
           <p className="text-lg text-black/90 font-montserrat truncate w-full">
-            {news.category}
+            {news.category.nameEs}
           </p>
         </div>
       </div>

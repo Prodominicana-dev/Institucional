@@ -15,13 +15,14 @@ import {
   editDirection,
 } from "@/services/structure-organizational/service";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
-export function DirectionsEditDialog({
-  direction,
+import { editNewsCategory } from "@/services/news/categories/service";
+export function CategoryEditDialog({
+  category,
   open,
   handler,
   update,
 }: {
-  direction: any;
+  category: any;
   open: boolean;
   handler: () => void;
   update: () => void;
@@ -37,11 +38,11 @@ export function DirectionsEditDialog({
   const [isFirstStep, setIsFirstStep] = React.useState(false);
 
   useEffect(() => {
-    if (direction) {
-      setNameEs(direction.nameEs);
-      setNameEn(direction.nameEn);
+    if (category) {
+      setNameEs(category.nameEs);
+      setNameEn(category.nameEn);
     }
-  }, [direction]);
+  }, [category]);
 
   const handleNext = () => {
     !isLastStep && setActiveStep((cur) => cur + 1);
@@ -69,7 +70,7 @@ export function DirectionsEditDialog({
           nameEs,
           nameEn,
         };
-        await editDirection(direction.id, data, update, user?.sub as string);
+        await editNewsCategory(category.id, data, update, user?.sub as string);
         setIsLoading(false);
         handler();
       }
@@ -90,7 +91,7 @@ export function DirectionsEditDialog({
             className="w-full"
             onChange={(e) => setNameEs(e.target.value)}
             value={nameEs}
-            placeholder="Nombre de la dirección"
+            placeholder="Nombre de la categoría"
           />
           <label
             htmlFor="nameEs"
@@ -122,7 +123,7 @@ export function DirectionsEditDialog({
             className="w-full"
             onChange={(e) => setNameEn(e.target.value)}
             value={nameEn}
-            placeholder="Nombre de la dirección en inglés"
+            placeholder="Nombre de la categoría en inglés"
           />
           <label
             htmlFor="nameEn"

@@ -10,18 +10,17 @@ import {
 } from "@material-tailwind/react";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { Stepper, Step } from "@material-tailwind/react";
+import { createDirection } from "@/services/structure-organizational/service";
 import {
-  createDirection,
-  editDirection,
-} from "@/services/structure-organizational/service";
-import { InformationCircleIcon } from "@heroicons/react/24/outline";
-export function DirectionsEditDialog({
-  direction,
+  ExclamationCircleIcon,
+  InformationCircleIcon,
+} from "@heroicons/react/24/outline";
+import { createNewsCategory } from "@/services/news/categories/service";
+export function NewsCategoriesDialog({
   open,
   handler,
   update,
 }: {
-  direction: any;
   open: boolean;
   handler: () => void;
   update: () => void;
@@ -35,13 +34,6 @@ export function DirectionsEditDialog({
   const [activeStep, setActiveStep] = React.useState(0);
   const [isLastStep, setIsLastStep] = React.useState(false);
   const [isFirstStep, setIsFirstStep] = React.useState(false);
-
-  useEffect(() => {
-    if (direction) {
-      setNameEs(direction.nameEs);
-      setNameEn(direction.nameEn);
-    }
-  }, [direction]);
 
   const handleNext = () => {
     !isLastStep && setActiveStep((cur) => cur + 1);
@@ -69,7 +61,7 @@ export function DirectionsEditDialog({
           nameEs,
           nameEn,
         };
-        await editDirection(direction.id, data, update, user?.sub as string);
+        await createNewsCategory(data, update, user?.sub as string);
         setIsLoading(false);
         handler();
       }
@@ -90,12 +82,15 @@ export function DirectionsEditDialog({
             className="w-full"
             onChange={(e) => setNameEs(e.target.value)}
             value={nameEs}
-            placeholder="Nombre de la dirección"
+            placeholder="Nombre de la categoría"
           />
           <label
             htmlFor="nameEs"
-            className={`${warning ? "block" : "hidden"} text-red-600 text-sm`}
+            className={`${
+              warning ? "block" : "hidden"
+            } text-red-600 text-sm flex items-center gap-2`}
           >
+            <ExclamationCircleIcon className="size-5" />
             El nombre es obligatorio.
           </label>
         </div>
@@ -122,13 +117,16 @@ export function DirectionsEditDialog({
             className="w-full"
             onChange={(e) => setNameEn(e.target.value)}
             value={nameEn}
-            placeholder="Nombre de la dirección en inglés"
+            placeholder="Nombre de la categoría en inglés"
           />
           <label
             htmlFor="nameEn"
-            className={`${warning ? "block" : "hidden"} text-red-600 text-sm`}
+            className={`${
+              warning ? "block" : "hidden"
+            } text-red-600 text-sm flex items-center gap-2`}
           >
-            El nombre en inglés es obligatorio.
+            <ExclamationCircleIcon className="size-5" />
+            El nombre es obligatorio.
           </label>
         </div>
       ),
@@ -145,9 +143,9 @@ export function DirectionsEditDialog({
       >
         <DialogHeader
           placeholder={undefined}
-          className="font-semibold flex flex-col font-montserrat"
+          className="font-semibold flex flex-col font-montserrat items-start gap-2"
         >
-          Editar dirección
+          Agregar categoría
           <Stepper
             placeholder={undefined}
             activeStep={activeStep}

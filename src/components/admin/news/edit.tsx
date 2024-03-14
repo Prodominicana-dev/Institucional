@@ -81,11 +81,7 @@ export function EditNewsDialog({
   const [date, setDate] = useState<any>(new Date());
   const [spanishDescription, setSpanishDescription] = useState("");
   const [englishDescription, setEnglishDescription] = useState("");
-  const {
-    data: categories,
-    refetch: categoriesRefetch,
-    isLoading: categoriesLoading,
-  } = useCategoriesNews();
+
   const { data: news, isLoading: newsLoading } = useNewsConfById(id);
   const [contentEs, setContentEs] = useState<any>([]);
   const [contentEn, setContentEn] = useState<any>([]);
@@ -95,36 +91,21 @@ export function EditNewsDialog({
   useEffect(() => {
     if (!newsLoading && news) {
       const { es, en } = news;
+      console.log(news);
       setSpanishTitle(es.title);
-      setSpanishCategory(es.category);
       setSpanishDescription(es.description);
       setOptionEs(es.content);
       setEnglishTitle(en.title);
-      setEnglishCategory(en.category);
       setEnglishDescription(en.description);
       setOptionEn(en.content);
       setDate(new Date(news.date));
       console.log(es.content, en.content);
-      setContentEs(es.content);
-      setContentEn(en.content);
+      // Ordernar content por id para que no se desordene al agregar nuevos componentes
+      setContentEs(es.content.sort((a: any, b: any) => a.id - b.id));
+      setContentEn(en.content.sort((a: any, b: any) => a.id - b.id));
       setImage(news.image);
     }
   }, [news, newsLoading]);
-
-  useEffect(() => {
-    if (!categoriesLoading) {
-      const { es, en } = categories;
-      const es_options = es.map((category: any) => {
-        return category.category;
-      });
-
-      const en_options = en.map((category: any) => {
-        return category.category;
-      });
-      setSpanishCategories(es_options);
-      setEnglishCategories(en_options);
-    }
-  }, [categories, categoriesLoading]);
 
   const openRef = useRef<() => void>(null);
   const handleNext = () => {
@@ -182,14 +163,12 @@ export function EditNewsDialog({
       // setSubmitLoading(true);
       const es_data = {
         title: spanishTitle,
-        category: spanishCategory,
         content: contentEs,
         description: editorSpanish?.getHTML(),
         language: "es",
       };
       const en_data = {
         title: englishTitle,
-        category: englishCategory,
         content: contentEn,
         description: editorEnglish?.getHTML(),
         language: "en",
@@ -303,6 +282,7 @@ export function EditNewsDialog({
                       setData={setContentEs}
                       id={index}
                       isSubmitting={submittion}
+                      content={option.content}
                     />
                   );
                 case "image":
@@ -315,6 +295,7 @@ export function EditNewsDialog({
                       _setFiles={setFilesBody}
                       id={index}
                       isSubmitting={submittion}
+                      content={option.content}
                     />
                   );
                 default:

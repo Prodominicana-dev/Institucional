@@ -28,6 +28,7 @@ export function SideBar() {
   const hoverNewnessRef = useRef(null);
   const [openStructure, setOpenStructure] = useState(0);
   const isHoveringNewness = useHover(hoverRef);
+  const [newsOpen, setNewsOpen] = useState(0);
   const [isConfig, setIsConfig] = useState(false);
   const [isVisible, setIsVisible] = useAtom(sideBarAtom);
 
@@ -43,11 +44,16 @@ export function SideBar() {
     setOpenStructure(openStructure === value ? 0 : value);
   };
 
+  const handleNewsOpen = (value: any) => {
+    setNewsOpen(newsOpen === value ? 0 : value);
+  };
+
   useEffect(() => {
     if (!isHover) {
       setOpen(0);
       setOpenNewness(0);
       setOpenStructure(0);
+      setNewsOpen(0);
     }
   }, [setOpen, isHover]);
 
@@ -138,6 +144,10 @@ export function SideBar() {
               {openNewness === 1 && (
                 <List placeholder={undefined} className="p-0 text-white">
                   <SidebarMenuItem title={"Noticias"} url={"/admin/news"} />
+                  <SidebarMenuItem
+                    title={"Categorías de Noticias"}
+                    url={"/admin/news/categories"}
+                  />
                   <SidebarMenuItem title={"Eventos"} url={"/admin/events"} />
                   <SidebarMenuItem
                     title={"Galería de Fotos"}
