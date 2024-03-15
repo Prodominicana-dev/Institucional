@@ -11,30 +11,24 @@ export default function TextEditorWithConfig({
   content,
   isSubmitting,
 }: {
-  id?: number;
+  id: number;
   data: any;
   setData: any;
   content?: any;
   isSubmitting: boolean;
 }) {
-  console.log(data);
   const [warningAlert, setWarningAlert] = useState(false);
   const editor1 = Editor({
     placeholder: "Cuerpo de la noticia",
     content: content ? content : "",
   });
   useEffect(() => {
-    const info = {
-      id,
-      type: "text",
-      content: editor1?.getHTML(),
-    };
-    const exist = data.filter((d: any) => d.id !== id);
-    !exist && setData([...data, info]);
-
-    const exist2 = data.filter((d: any) => d.id === id);
-    exist2 && setData([...exist, info]);
-  }, [editor1?.getHTML(), isSubmitting]);
+    setData(
+      ...data.slice(0, id),
+      { type: "text", content: editor1?.getHTML() },
+      ...data.slice(id + 1)
+    );
+  }, [editor1?.getHTML()]);
   return (
     <div className="w-full gap-5">
       <TextEditor editor={editor1} description={content ? content : ""} />

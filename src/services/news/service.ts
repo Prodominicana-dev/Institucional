@@ -140,11 +140,11 @@ export function editNews(
     .then((res) => {
       if (res.status === 200) {
         notifications.show({
-          id: "section",
+          id: "news",
           autoClose: 5000,
           withCloseButton: false,
-          title: "Sección actualizada",
-          message: "La sección ha sido actualizada correctamente.",
+          title: "Noticia actualizada",
+          message: "La noticia ha sido actualizada correctamente.",
           color: "green",
           loading: false,
         });
@@ -152,22 +152,22 @@ export function editNews(
       }
       if (res.status === 500) {
         notifications.show({
-          id: "section",
+          id: "news",
           autoClose: 5000,
           withCloseButton: false,
           title: "Error",
-          message: "Hubo un error creando la nueva sección.",
+          message: "Hubo un error creando la nueva noticia.",
           color: "red",
           loading: false,
         });
       }
       if (res.status === 401) {
         notifications.show({
-          id: "section",
+          id: "news",
           autoClose: 5000,
           withCloseButton: false,
           title: "Usuario inautorizado",
-          message: "No tienes permisos para crear una sección.",
+          message: "No tienes permisos para crear una noticia.",
           color: "red",
           loading: false,
         });
@@ -320,7 +320,7 @@ export function deleteNews(
       }
       if (res.status === 500) {
         notifications.show({
-          id: "section",
+          id: "news",
           autoClose: 5000,
           withCloseButton: false,
           title: "Error",
@@ -331,7 +331,7 @@ export function deleteNews(
       }
       if (res.status === 401) {
         notifications.show({
-          id: "section",
+          id: "news",
           autoClose: 5000,
           withCloseButton: false,
           title: "Usuario inautorizado",

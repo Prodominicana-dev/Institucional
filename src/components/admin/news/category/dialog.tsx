@@ -60,6 +60,7 @@ export function NewsCategoriesDialog({
         const data = {
           nameEs,
           nameEn,
+          created_By: user?.email,
         };
         await createNewsCategory(data, update, user?.sub as string);
         setIsLoading(false);
