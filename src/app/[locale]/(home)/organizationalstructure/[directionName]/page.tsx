@@ -513,7 +513,7 @@ export default function Page() {
   ];
   return (
     <div>
-      <MembersGrid members={organazionalStructure[5].members} />
+      <MembersGrid members={organazionalStructure[1].members} />
     </div>
   );
 }

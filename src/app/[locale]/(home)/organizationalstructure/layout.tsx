@@ -524,7 +524,12 @@ export default function RootLayout({
           Estructura Organizacional
         </h1>
         <Link
-          href={""}
+          href={
+            "https://www.prodominicana.gob.do/Documentos/Estructura_Organica_de_la_Institucion_2023.pdf"
+          }
+          target="_blank"
+          rel="noopener noreferrer"
+          download
           className="p-3 rounded-lg border-2 text-center border-blue-dark bg-transparent hover:bg-blue-dark text-blue-dark hover:text-white duration-300 font-bold"
         >
           Descargar PDF

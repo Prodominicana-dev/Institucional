@@ -27,9 +27,7 @@ function ThreeOrMoreMembersGrid({ members }: { members: any[] }) {
           <div className="w-full md:w-1/3 p-3">
             <MemberCard
               key="director"
-              name={director.name}
-              role={director.role}
-              image={director.image}
+              member={director}
               className="aspect-square"
             />
           </div>
@@ -38,12 +36,7 @@ function ThreeOrMoreMembersGrid({ members }: { members: any[] }) {
       <div className="flex flex-wrap justify-center w-full">
         {otherMembers.map((member, index) => (
           <div key={index} className="w-full md:w-1/3 p-3">
-            <MemberCard
-              name={member.name}
-              role={member.role}
-              image={member.image}
-              className="aspect-square w-full"
-            />
+            <MemberCard member={member} className="aspect-square w-full" />
           </div>
         ))}
       </div>
@@ -55,12 +48,7 @@ function TwoMembersGrid({ members }: { members: any[] }) {
   return (
     <div className="grid grid-cols-2 w-full gap-5">
       {members.map((member, index) => (
-        <MemberCard
-          key={index}
-          name={member.name}
-          role={member.role}
-          image={member.image}
-        />
+        <MemberCard key={index} member={member} />
       ))}
     </div>
   );
@@ -71,12 +59,7 @@ function SingleMemberGrid({ member }: { member: any[] }) {
     <div className="flex justify-center">
       {member.map((member, index) => (
         <div key={index} className="w-full md:w-3/6 p-3">
-          <MemberCard
-            key={index}
-            name={member.name}
-            role={member.role}
-            image={member.image}
-          />
+          <MemberCard key={index} member={member} />
         </div>
       ))}
     </div>
