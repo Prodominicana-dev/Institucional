@@ -27,9 +27,17 @@ export default createMiddleware({
       en: "/news",
       es: "/noticias",
     },
+    "/news/[Id]": {
+      en: "/news/[Id]",
+      es: "/noticias/[Id]",
+    },
     "/events": {
       en: "/events",
       es: "/eventos",
+    },
+    "/events/[eventId]": {
+      en: "/events/[Id]",
+      es: "/eventos/[Id]",
     },
     "/transparency": {
       en: "/transparency",
