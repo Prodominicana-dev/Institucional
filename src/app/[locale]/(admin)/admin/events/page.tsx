@@ -5,7 +5,6 @@ import Card from "@/components/admin/events/card";
 import { NewsDialog } from "@/components/admin/news/dialog";
 import Sketch from "@/components/admin/sketch";
 import { useEvents } from "@/services/events/service";
-import { useEsNews } from "@/services/news/service";
 import { Autocomplete } from "@mantine/core";
 import React, { useState, useEffect, useRef } from "react";
 import { useHover } from "usehooks-ts";

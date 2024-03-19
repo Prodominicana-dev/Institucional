@@ -51,21 +51,19 @@ export function EventDialog({
 }) {
   const { user } = useUser();
   const [spanishTitle, setSpanishTitle] = useState("");
-  const [spanishCategory, setSpanishCategory] = useState("");
   const [englishTitle, setEnglishTitle] = useState("");
-  const [englishCategory, setEnglishCategory] = useState("");
-  const [description] = useState("");
   const [warningAlert, setWarningAlert] = useState(false);
   const [submitLoading, setSubmitLoading] = useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
   const [isLastStep, setIsLastStep] = React.useState(false);
   const [isFirstStep, setIsFirstStep] = React.useState(false);
   const [files, setFiles] = useState<FileWithPath[]>([]);
-  const [spanishCategories, setSpanishCategories] = useState([]);
-  const [englishCategories, setEnglishCategories] = useState([]);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
-  const [link, setLink] = useState("");
+  const [address, setAddress] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [coordinates, setCoordinates] = useState("");
 
   useEffect(() => {
     if (startDate > endDate) {
@@ -79,28 +77,6 @@ export function EventDialog({
     }
   }, [endDate]);
 
-  const {
-    data: categories,
-    refetch: categoriesRefetch,
-    isLoading: categoriesLoading,
-  } = useCategoriesNews();
-
-  useEffect(() => {
-    if (!categoriesLoading) {
-      const { es, en } = categories;
-      const es_options = es.map((category: any) => {
-        return category.category;
-      });
-      console.log(es_options);
-      const en_options = en.map((category: any) => {
-        return category.category;
-      });
-      setSpanishCategories(es_options);
-      setEnglishCategories(en_options);
-    }
-  }, [categories, categoriesLoading]);
-
-  console.log(spanishCategories, englishCategories);
   const openRef = useRef<() => void>(null);
   const handleNext = () => {
     !isLastStep && setActiveStep((cur) => cur + 1);
@@ -112,14 +88,19 @@ export function EventDialog({
   };
 
   const editorSpanish = Editor({
-    placeholder: "Cuerpo de la noticia",
-    content: description ? description : "",
+    placeholder: "Descripción del evento...",
   });
 
   const editorEnglish = Editor({
-    placeholder: "News body",
-    content: description ? description : "",
+    placeholder: "Descripción del evento en inglés...",
   });
+
+  useEffect(() => {
+    const [lat, lng] = coordinates.split(",");
+    setLatitude(lat);
+    setLongitude(lng);
+    console.log(lat, lng);
+  }, [coordinates]);
 
   /* Funcion para cuando droppeen un documento se agregue a la lista ya existente */
   const handleDrop = (acceptedFiles: FileWithPath[]) => {
@@ -144,7 +125,10 @@ export function EventDialog({
 
     !isLastStep && handleNext();
 
-    if (isLastStep && !startDate) {
+    if (
+      isLastStep &&
+      (!startDate || !coordinates || !address || !latitude || !longitude)
+    ) {
       return setWarningAlert(true);
     }
 
@@ -162,11 +146,14 @@ export function EventDialog({
       };
 
       const formData = new FormData();
-      formData.append("formLink", link);
       formData.append("start_Date", startDate.toISOString());
       formData.append("end_Date", endDate.toISOString());
+      formData.append("lat", latitude.trim());
+      formData.append("lng", longitude.trim());
+      formData.append("address", address.trim());
       formData.append("es", JSON.stringify(es_data));
       formData.append("en", JSON.stringify(en_data));
+      formData.append("created_By", user?.email as string);
       files.length > 0 && files.map((file) => formData.append("files", file));
       await createEvents(formData, update, user?.sub as string);
       setSubmitLoading(false);
@@ -197,16 +184,14 @@ export function EventDialog({
                     crossOrigin={""}
                     id="title"
                     className="w-full"
-                    onChange={(e) => setSpanishTitle(e.target.value)}
+                    onChange={(e) => setSpanishTitle(e.target.value.trim())}
                     value={spanishTitle}
                     placeholder="Título de la noticia"
                   />
                 </div>
                 <label
                   className={`${
-                    warningAlert && !spanishTitle && activeStep === 0
-                      ? "block"
-                      : "hidden"
+                    warningAlert && !spanishTitle ? "block" : "hidden"
                   } text-red-600 text-sm text-start flex items-center gap-1`}
                 >
                   <ExclamationCircleIcon className="size-5 inline-block" /> El
@@ -224,9 +209,7 @@ export function EventDialog({
           </div>
           <label
             className={`${
-              warningAlert && !editorSpanish?.getText() && activeStep === 0
-                ? "block"
-                : "hidden"
+              warningAlert && !editorSpanish?.getText() ? "block" : "hidden"
             } text-red-600 text-sm text-start flex items-center gap-1`}
           >
             <ExclamationCircleIcon className="size-5 inline-block" /> La
@@ -247,45 +230,43 @@ export function EventDialog({
                     htmlFor="title"
                     className="font-semibold text-black text-lg"
                   >
-                    Title <span className="text-bold text-red-700">*</span>
+                    Título en inglés{" "}
+                    <span className="text-bold text-red-700">*</span>
                   </label>
                   <Input
                     crossOrigin={""}
                     id="title"
                     className="w-full"
-                    onChange={(e) => setEnglishTitle(e.target.value)}
+                    onChange={(e) => setEnglishTitle(e.target.value.trim())}
                     value={englishTitle}
-                    placeholder="Title of the news"
+                    placeholder="Título del evento en inglés..."
                   />
                 </div>
                 <label
                   className={`${
-                    warningAlert && !englishTitle && activeStep === 1
-                      ? "block"
-                      : "hidden"
+                    warningAlert && !englishTitle ? "block" : "hidden"
                   } text-red-600 text-sm text-start flex items-center gap-1`}
                 >
-                  <ExclamationCircleIcon className="size-5 inline-block" /> The
-                  title is required.
+                  <ExclamationCircleIcon className="size-5 inline-block" /> El
+                  título en inglés es obligatorio.
                 </label>
               </div>
             </div>
           </div>
           <div className="flex flex-col">
             <label className="font-semibold text-black text-lg">
-              Event description{" "}
+              Descripción del evento en inglés{" "}
+              <span className="text-bold text-red-700">*</span>
             </label>
             <TextEditor editor={editorEnglish} number={30} />
           </div>
           <label
             className={`${
-              warningAlert && !editorEnglish?.getText() && activeStep === 1
-                ? "block"
-                : "hidden"
+              warningAlert && !editorEnglish?.getText() ? "block" : "hidden"
             } text-red-600 text-sm text-start flex items-center gap-1`}
           >
-            <ExclamationCircleIcon className="size-5 inline-block" /> The
-            description of the event is required.
+            <ExclamationCircleIcon className="size-5 inline-block" /> La
+            descripción en inglés es obligatoria.
           </label>
         </div>
       ),
@@ -294,21 +275,7 @@ export function EventDialog({
       step: 3,
       section: (
         <div className="w-full h-full flex flex-col gap-5 justify-center items-center">
-          <div className="w-11/12 ">
-            <label htmlFor="link" className="font-semibold text-black text-lg">
-              Enlace al formulario de inscripción
-            </label>
-            <Input
-              crossOrigin={""}
-              id="link"
-              type="url"
-              className="w-full"
-              onChange={(e) => setLink(e.target.value)}
-              value={link}
-              placeholder="Enlace del formulario"
-            />
-          </div>
-          <div className="w-11/12 flex flex-col md:flex-row gap-4">
+          <div className="w-full flex flex-col md:flex-row gap-4">
             <div className="w-full md:w-6/12">
               <label className="font-semibold text-black text-lg">
                 Fecha inicio del evento{" "}
@@ -337,7 +304,62 @@ export function EventDialog({
               />
             </div>
           </div>
-          <div className="w-11/12 h-[30vh] relative flex justify-center items-center group">
+          <div className="flex flex-col gap-2 w-full">
+            <div>
+              <label
+                htmlFor="title"
+                className="font-semibold text-black text-lg"
+              >
+                Coordenadas de la ubicación extraídas de Google Maps{" "}
+                <span className="text-bold text-red-700">*</span>
+              </label>
+              <Input
+                crossOrigin={""}
+                id="title"
+                className="w-full"
+                onChange={(e) => setCoordinates(e.target.value.trim())}
+                value={coordinates}
+                placeholder="Coordenadas extraídas de Google Maps..."
+              />
+            </div>
+            <label
+              className={`${
+                warningAlert && !coordinates ? "block" : "hidden"
+              } text-red-600 text-sm text-start flex items-center gap-1`}
+            >
+              <ExclamationCircleIcon className="size-5 inline-block" /> Las
+              coordenadas son obligatorias. Además, deben estar separadas por
+              una coma (,).
+            </label>
+          </div>
+          <div className="flex flex-col gap-2 w-full">
+            <div>
+              <label
+                htmlFor="title"
+                className="font-semibold text-black text-lg"
+              >
+                Dirección del lugar{" "}
+                <span className="text-bold text-red-700">*</span>
+              </label>
+              <Input
+                crossOrigin={""}
+                id="title"
+                className="w-full"
+                onChange={(e) => setAddress(e.target.value.trim())}
+                value={address}
+                placeholder="Dirección del lugar..."
+              />
+            </div>
+            <label
+              className={`${
+                warningAlert && !coordinates ? "block" : "hidden"
+              } text-red-600 text-sm text-start flex items-center gap-1`}
+            >
+              <ExclamationCircleIcon className="size-5 inline-block" /> La
+              dirección es obligatoria.
+            </label>
+          </div>
+          <div className="w-full h-[30vh] relative flex justify-center items-center group">
             {files.length > 0 && (
               <button
                 onClick={() => openRef.current?.()}
@@ -369,7 +391,7 @@ export function EventDialog({
               </button>
             </Dropzone>
           </div>
-          <label className="text-gray-500 text-sm text-center w-11/12">
+          <label className="text-black text-sm text-center w-11/12">
             <InformationCircleIcon className="size-5 inline-block" /> Agregue la
             imagen de la noticia, no importa si se ve "cortada" o "agrandada",
             en este cuadro la imagen se centrara, pero no perderá su tamaño
