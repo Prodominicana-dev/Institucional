@@ -38,11 +38,13 @@ export default function RootLayout({ children, locale }: RootLayoutProps) {
   return (
     <div>
       <QueryClientProvider client={queryClient}>
-        <Navbar />
-        <NavBarMobile />
-        {children}
-        <Footer />
-        <FooterMobile />
+        <APIProvider apiKey={`${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`}>
+          <Navbar />
+          <NavBarMobile />
+          {children}
+          <Footer />
+          <FooterMobile />
+        </APIProvider>
       </QueryClientProvider>
     </div>
   );

@@ -105,13 +105,14 @@ export default function Navbar() {
       <GovPagesInfo />
       <div className="h-24 w-full bg-white flex justify-center">
         <div className="flex items-center justify-between w-10/12">
-          <Image
-            alt=""
-            width={1920}
-            height={1080}
-            src={"/prodominicana.svg"}
-            className="w-56 cursor-pointer"
-          />
+          <Link href={"/"} className="w-56 cursor-pointer">
+            <Image
+              alt="prodominicana"
+              width={1920}
+              height={1080}
+              src={"/prodominicana.svg"}
+            />
+          </Link>
           <div className="flex flex-col space-y-4 w-3/12 ">
             <div className="w-full flex items-center justify-center gap-4">
               <div className="h-12 w-10/12 border-2 border-blue-950 rounded-full p-2 flex items-center justify-between">

@@ -116,17 +116,18 @@ export default function NavBarMobile() {
   ];
 
   return (
-    <section className="xl:hidden">
-      <div className="w-full flex justify-center items-center bg-white">
+    <section className="xl:hidden bg-white">
+      <div className="w-full flex justify-center items-center">
         <div className="w-11/12 h-24 flex justify-between items-center">
           <div className="w-6/12 h-full flex items-center">
-            <Image
-              alt=""
-              width={1920}
-              height={1080}
-              src={"/prodominicana.svg"}
-              className="w-56 cursor-pointer"
-            />
+            <Link href={"/"} className="w-56 cursor-pointer">
+              <Image
+                alt="prodominicana"
+                width={1920}
+                height={1080}
+                src={"/prodominicana.svg"}
+              />
+            </Link>
           </div>
           <div className="w-6/12 h-full flex space-x-2 sm:space-x-4 items-center justify-end">
             <IconButton
