@@ -16,7 +16,7 @@ import {
   faLinkedinIn,
 } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
-import { useLocale } from "next-intl";
+import { APIProvider } from "@vis.gl/react-google-maps";
 
 library.add(
   faFacebookF,
@@ -28,11 +28,12 @@ library.add(
   faLinkedinIn
 );
 
-export default function RootLayout({
-  children,
-}: {
+interface RootLayoutProps {
   children: React.ReactNode;
-}) {
+  locale: string;
+}
+
+export default function RootLayout({ children, locale }: RootLayoutProps) {
   const queryClient = new QueryClient();
   return (
     <div>

@@ -132,7 +132,24 @@
     "title": "Redes Sociales"
   },
   "events": {
-    "title": "EVENTOS, FERIAS Y MISIONES INTERNACIONALES"
+    "title": "EVENTOS, FERIAS Y MISIONES INTERNACIONALES",
+    "eventInfo": "Información del Evento",
+    "shareEvent": "Compartir evento",
+    "receiveReminder": "Recibir Recordatorio",
+    "wantToParticipate": "Quiero Participar",
+    "address": "Dirección",
+    "imageGallery": {
+      "title": "Galería",
+      "title2": "de imágenes"
+    },
+    "form": {
+      "title": "Participar",
+      "title2": "en este evento",
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "entity": "Entidad",
+      "button": "Únete ahora"
+    }
   },
   "CEO": {
     "name": "Biviana Riveiro",

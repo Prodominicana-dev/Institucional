@@ -10,9 +10,9 @@ import React from "react";
 
 export default function Page() {
   const events = [
-    { title: "Americas Lodging Investment Summit", date: "enero" },
-    { title: "Americas Lodging Investment Summit", date: "enero" },
-    { title: "Americas Lodging Investment Summit", date: "enero" },
+    { id: "1", title: "Americas Lodging Investment Summit", date: "enero" },
+    { id: "2", title: "Americas Lodging Investment Summit", date: "enero" },
+    { id: "3", title: "Americas Lodging Investment Summit", date: "enero" },
   ];
   const t = useTranslations("events");
   return (
@@ -64,7 +64,9 @@ export default function Page() {
               className="w-22 sm:w-9 md:w-16 lg:w-30 xl:w-32 2xl:w-36"
             />
             <div className="text-base font-bold uppercase sm:text-xs md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
-              <p className="font-normal md:xl lg:text-2xl xl:text-3xl 2xl:text-4xl">17</p>
+              <p className="font-normal md:xl lg:text-2xl xl:text-3xl 2xl:text-4xl">
+                17
+              </p>
               <p>FERIAS</p>
               <p>Comerciales</p>
             </div>
@@ -79,7 +81,9 @@ export default function Page() {
               className="w-22 sm:w-9 md:w-16 lg:w-30 xl:w-32 2xl:w-36"
             />
             <div className="text-base font-bold uppercase sm:text-xs md:text-base lg:text-lg xl:text-xl 2xl:text-2xl">
-              <p className="font-normal md:xl lg:text-2xl xl:text-3xl 2xl:text-4xl">260</p>
+              <p className="font-normal md:xl lg:text-2xl xl:text-3xl 2xl:text-4xl">
+                260
+              </p>
               <p>Empresas</p>
               <p>Beneficiadas</p>
             </div>
@@ -97,9 +101,12 @@ export default function Page() {
   );
 }
 
-function EventCard({ title, date }: any) {
+function EventCard({ id, title, date }: any) {
   return (
-    <div className="w-full h-full relative text-white cursor-pointer">
+    <Link
+      href={`/events/${id}`}
+      className="w-full h-full relative text-white cursor-pointer"
+    >
       <Image
         src="/images/event1.jpg"
         alt="events"
@@ -107,9 +114,10 @@ function EventCard({ title, date }: any) {
         height={500}
         className="w-full object-cover"
       />
-      <div className="absolute inset-x-0 bg-blue-950/80 h-[7rem] bottom-0  flex justify-center">
+      <div className="absolute inset-x-0 bg-blue-950/80 h-s bottom-0 flex justify-center">
         <div className="w-11/12 flex justify-between items-center py-5 ">
-          <div className="w-6/12 h-3/6 flex flex-col self-start">
+          <p className="w-8/12 sm:text-sm xl:text-xl font-bold">{title}</p>
+          <div className="h-full flex flex-col items-end gap-2 justify-end">
             <Image
               src="https://flagcdn.com/es.svg"
               alt="es"
@@ -117,23 +125,13 @@ function EventCard({ title, date }: any) {
               height={100}
               className="w-8"
             />
-            <p className="text-xs sm:text-sm md:text-base lg:text-sm xl:text-base 2xl:text-xl font-bold">{title}</p>
-          </div>
-          <div className="w-6/12 h-full flex flex-col items-end gap-2 justify-end">
             <div className="flex items-center gap-2 uppercase font-semibold">
               <CalendarDaysIcon className="w-5" />
               <p className=" text-[12px] 2xl:text-[16px]">{date}</p>
             </div>
-            <Link
-              href="/es/home/events/fitur"
-              className="bg-[#9B1E2E] px-2 py-1 font-bold rounded-full flex gap-2"
-            >
-              <ArrowRightCircleIcon className="w-5" />
-              <p className=" text-[12px] sm:text-[10px] md:text-[10px] lg:text-[15px]   2xl:text-[16px]">Conoce más</p>
-            </Link>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

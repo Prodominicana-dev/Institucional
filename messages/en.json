@@ -132,7 +132,24 @@
     "title": "Social Media"
   },
   "events": {
-    "title": "EVENTS, TRADE SHOWS AND INTERNATIONAL MISSIONS"
+    "title": "EVENTS, TRADE SHOWS AND INTERNATIONAL MISSIONS",
+    "eventInfo": "Event Information",
+    "shareEvent": "Share event",
+    "receiveReminder": "Receive Reminder",
+    "wantToParticipate": "I Want to Participate",
+    "address": "Address",
+    "imageGallery": {
+      "title": "Image",
+      "title2": "Gallery"
+    },
+    "form": {
+      "title": "Participate",
+      "title2": "in this event",
+      "name": "Name",
+      "email": "Email",
+      "entity": "Entity",
+      "button": "Join Now"
+    }
   },
   "CEO": {
     "name": "Biviana Riveiro",
