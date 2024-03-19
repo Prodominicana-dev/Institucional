@@ -24,7 +24,7 @@ import LanguagePicker from "./languagePicker";
 import HistoryIcon from "@/components/icons/historyIcon";
 
 export default function Navbar() {
-  const t = useTranslations("Navbar");
+  const t = useTranslations("navbar");
   const aboutListItems = [
     {
       title: t("aboutUs.menuList.whoWeAre"),
@@ -90,13 +90,13 @@ export default function Navbar() {
       title: t("services.menuList.invest"),
       description: t("services.menuList.investDesc"),
       icon: NewspaperIcon,
-      link: "/servicios/exportacion",
+      link: "/services/investment",
     },
     {
       title: t("services.menuList.export"),
       description: t("services.menuList.exportDesc"),
       icon: CalendarDaysIcon,
-      link: "/servicios/exportacion",
+      link: "/services/export",
     },
   ];
 
@@ -171,12 +171,12 @@ export default function Navbar() {
             <div className="h-10 flex space-x-3 text-white self-center">
               <NavbarButton
                 title={t("investButton")}
-                link={"/inversion"}
+                link={"/investment"}
                 icon={"/svg/icons/InvestIcon.svg"}
               />
               <NavbarButton
                 title={t("exportButton")}
-                link={"/exportacion"}
+                link={"/export"}
                 icon={"/svg/icons/ExportIcon.svg"}
               />
             </div>

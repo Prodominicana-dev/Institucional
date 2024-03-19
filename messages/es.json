@@ -7,7 +7,8 @@
     "size": "Peso",
     "date": "Fecha"
   },
-  "Navbar": {
+  "navbar": {
+    "home": "Inicio",
     "aboutUs": {
       "title": "Nosotros",
       "menuList": {
