@@ -7,7 +7,8 @@
     "size": "Size",
     "date": "Date"
   },
-  "Navbar": {
+  "navbar": {
+    "home": "Home",
     "aboutUs": {
       "title": "About Us",
       "menuList": {
@@ -132,7 +133,24 @@
     "title": "Social Media"
   },
   "events": {
-    "title": "EVENTS, TRADE SHOWS AND INTERNATIONAL MISSIONS"
+    "title": "EVENTS, TRADE SHOWS AND INTERNATIONAL MISSIONS",
+    "eventInfo": "Event Information",
+    "shareEvent": "Share event",
+    "receiveReminder": "Receive Reminder",
+    "wantToParticipate": "I Want to Participate",
+    "address": "Address",
+    "imageGallery": {
+      "title": "Image",
+      "title2": "Gallery"
+    },
+    "form": {
+      "title": "Participate",
+      "title2": "in this event",
+      "name": "Name",
+      "email": "Email",
+      "entity": "Entity",
+      "button": "Join Now"
+    }
   },
   "CEO": {
     "name": "Biviana Riveiro",
@@ -249,6 +267,108 @@
   },
   "history": {
     "title": "Our History"
+  },
+  "shetrades": {
+    "navbarMenuItems": {
+      "home": "Home",
+      "about": "About",
+      "trainings": "Trainings",
+      "initiatives": "Initiatives",
+      "benefits": "Benefits",
+      "register": "Register"
+    },
+    "home": {
+      "title": "Empowering Women in E-commerce",
+      "desc": "Join the International Trade Centre's (ITC) virtual learning program to venture into e-commerce and expand your online sales channels nationally and internationally.",
+      "buttonText": "Register for the Program"
+    },
+    "about": {
+      "title": "About the Program",
+      "desc": "The SheTrades initiative, along with the ecomConnect program of the International Trade Centre, aims to empower women-led businesses to sell their products online and access domestic and international markets through training with virtual resources, continuous support, and access to an entrepreneurial community for networking and sharing experiences.",
+      "benefits": [
+        {
+          "name": "Technical Assistance"
+        },
+        {
+          "name": "Digital Tools"
+        },
+        {
+          "name": "Trainings"
+        }
+      ]
+    },
+    "trainings": {
+      "title": "Trainings",
+      "list": [
+        {
+          "name": "Adoption of International Certifications in Agro-exports"
+        },
+        {
+          "name": "Basic Notions of International Trade"
+        },
+        {
+          "name": "Business Intelligence"
+        },
+        {
+          "name": "Internationalization of SMEs"
+        },
+        {
+          "name": "Building Trust in Export"
+        },
+        {
+          "name": "Certification as an Access Tool"
+        }
+      ]
+    },
+    "initiatives": {
+      "title": "Initiatives",
+      "title2": "of Prodominicana",
+      "list": [
+        {
+          "name": "Creating Spaces for Women Exporters and Aspiring Exporters"
+        },
+        {
+          "name": "Focus on Specialized Services"
+        },
+        {
+          "name": "Expansion of Financial Services"
+        },
+        {
+          "name": "Prioritization of Modern Services Promotion"
+        },
+        {
+          "name": "Participation in International Trade Fairs"
+        },
+        {
+          "name": "Participation of the Dominican Republic in International Forums on Gender and Trade"
+        }
+      ]
+    },
+    "benefits": {
+      "title": "Benefits",
+      "list": [
+        {
+          "title": "Integration into the SheTrades Hub International Network",
+          "desc": "SheTrades facilitates the possibility for women entrepreneurs to connect with female entrepreneurs from other countries, creating an ideal space to share experiences and learn from effective business development practices. Likewise, it allows business support institutions to share initiatives, projects, and programs to support women in international trade."
+        },
+        {
+          "title": "Access to Tools and Resources",
+          "desc": "ITC offers various tools to facilitate women's participation in the international market and identify potential opportunities; similarly, it produces reports detailing the importance of promoting women's economic empowerment, gender-sensitive public procurement, investment facilitation, gender mainstreaming in trade agreements and trade policies, including recommendations to countries and multilateral trade-related organizations."
+        },
+        {
+          "title": "Capacity Development",
+          "desc": "SheTrades provides exclusive access to training and virtual training programs focused on skill development, digital tool management, competitiveness, enterprise risk management, export readiness, and market intelligence and sustainability tools. The Hubs disseminate these training programs to women-led companies in their countries. In addition to this, through the SheTrades Academy42 web portal, women entrepreneurs can access multiple free asynchronous programs on the international business environment, value chains, competitiveness, export markets, e-commerce to sell their products online, export procedures; also providing the opportunity to use self-assessment tools to diagnose training needs, as well as risk assessment and crisis management methods in their businesses."
+        },
+        {
+          "title": "Business Activity Development",
+          "desc": "Through the Hubs, SheTrades channels support and guidance to women-led companies from different countries for their participation in regional and international trade fairs and missions, fostering the creation of commercial opportunities."
+        },
+        {
+          "title": "Access to Financing",
+          "desc": "The SheTrades initiative enables entrepreneurs from developing countries to access information about available financing opportunities through the SheTrades Invest project, which includes events, activities, and an online platform (https://shetradesinvest.converve.io/) to connect women-led businesses or SMEs that benefit eligible women, with capital providers."
+        }
+      ]
+    }
   },
   "Footer": {
     "aboutUs": {

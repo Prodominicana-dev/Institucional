@@ -23,13 +23,29 @@ export default createMiddleware({
       en: "/organizationalstructure",
       es: "/organigrama",
     },
+    "/services/export": {
+      en: "/services/export",
+      es: "/servicios/exportacion",
+    },
+    "/services/investment": {
+      en: "/services/investment",
+      es: "/servicios/inversion",
+    },
     "/news": {
       en: "/news",
       es: "/noticias",
     },
+    "/news/[Id]": {
+      en: "/news/[Id]",
+      es: "/noticias/[Id]",
+    },
     "/events": {
       en: "/events",
       es: "/eventos",
+    },
+    "/events/[eventId]": {
+      en: "/events/[Id]",
+      es: "/eventos/[Id]",
     },
     "/transparency": {
       en: "/transparency",

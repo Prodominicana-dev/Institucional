@@ -14,8 +14,10 @@ import NavbarCollapseMobile from "./navbarCollapseMobile";
 import NavbarLinkMobile from "./navbarLinkMobile";
 import NavbarButtonMobile from "./navbarButtonMobile";
 import LanguagePicker from "./languagePicker";
+import { useTranslations } from "next-intl";
 
 export default function NavBarMobile() {
+  const t = useTranslations("navbar");
   const [menuOpen, setMenuOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const toggleOpen = () => setOpen((cur) => !cur);
@@ -68,59 +70,64 @@ export default function NavBarMobile() {
   ];
 
   const routes = [
-    { title: "Inicio", link: "/", type: "link" },
+    { title: t("home"), link: "/", type: "link" },
     {
-      title: "Nosotros",
+      title: t("aboutUs.title"),
       type: "menu",
       content: [
-        { title: "Quiénes Somos", link: "/whoarewe" },
-        { title: "Despacho de la directora", link: "/ceo" },
-        { title: "Estructura organizacional", link: "/" },
-        { title: "Marco legal", link: "/legalframework" },
+        { title: t("aboutUs.menuList.whoWeAre"), link: "/whoarewe" },
+        { title: t("aboutUs.menuList.history"), link: "/history" },
+        { title: t("aboutUs.menuList.CEODispach"), link: "/ceo" },
+        {
+          title: t("aboutUs.menuList.organizationalChart"),
+          link: "/organizationalstructure",
+        },
+        { title: t("aboutUs.menuList.legal"), link: "/legalframework" },
       ],
     },
     {
-      title: "Servicios",
+      title: t("services.title"),
       type: "menu",
       content: [
-        { title: "Inversión", link: "/invest" },
-        { title: "Exportación", link: "/export" },
+        { title: t("services.menuList.invest"), link: "/services/investment" },
+        { title: t("services.menuList.export"), link: "/services/export" },
       ],
     },
     {
-      title: "Novedades",
+      title: t("news.title"),
       type: "menu",
       content: [
-        { title: "Noticias", link: "/news" },
-        { title: "Eventos", link: "/events" },
-        { title: "Prodominicana TV", link: "/tv" },
-        { title: "Galería de fotos", link: "/imagegallery" },
+        { title: t("news.menuList.news"), link: "/news" },
+        { title: t("news.menuList.event"), link: "/events" },
+        { title: t("news.menuList.prodomTV"), link: "/tv" },
+        { title: t("news.menuList.gallery"), link: "/imagegallery" },
       ],
     },
-    { title: "SheTrades", link: "/shetrades", type: "link" },
-    { title: "Transparencia", link: "/transparency", type: "link" },
-    { title: "Contacto", link: "/contact", type: "link" },
+    { title: t("shetrades"), link: "/shetrades", type: "link" },
+    { title: t("transparency"), link: "/transparency", type: "link" },
+    { title: t("contact"), link: "/contact", type: "link" },
     {
-      title: "Instituto",
+      title: t("institute"),
       link: "https://instituto.prodominicana.gob.do",
       type: "link",
     },
-    { title: "Invertir", link: "/", type: "button" },
-    { title: "Exportar", link: "/", type: "button" },
+    { title: t("investButton"), link: "/investment", type: "button" },
+    { title: t("exportButton"), link: "/export", type: "button" },
   ];
 
   return (
-    <section className="xl:hidden">
-      <div className="w-full flex justify-center items-center bg-white">
+    <section className="xl:hidden bg-white">
+      <div className="w-full flex justify-center items-center">
         <div className="w-11/12 h-24 flex justify-between items-center">
           <div className="w-6/12 h-full flex items-center">
-            <Image
-              alt=""
-              width={1920}
-              height={1080}
-              src={"/prodominicana.svg"}
-              className="w-56 cursor-pointer"
-            />
+            <Link href={"/"} className="w-56 cursor-pointer">
+              <Image
+                alt="prodominicana"
+                width={1920}
+                height={1080}
+                src={"/prodominicana.svg"}
+              />
+            </Link>
           </div>
           <div className="w-6/12 h-full flex space-x-2 sm:space-x-4 items-center justify-end">
             <IconButton

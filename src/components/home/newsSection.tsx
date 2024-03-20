@@ -38,7 +38,7 @@ export default function NewsSection() {
           >
             {t("title")}
           </Typography>
-          <div className="flex-wrap w-full space-x-4 sm:h-4/6 order-last sm:order-none hidden xl:flex">
+          <div className="flex-wrap w-full space-x-4 order-last sm:order-none hidden xl:flex">
             <Button
               placeholder={undefined}
               className="font-gotham bg-red-700 sm:px-8 uppercase text-xs sm:text-base text-white rounded-full font-medium"
@@ -60,7 +60,7 @@ export default function NewsSection() {
             <div className="bg-cyan-600 rounded-full h-1 w-7/12 group-hover:w-full duration-500"></div>
           </Link>
         </div>
-        <div className="flex flex-col lg:flex-row lg:space-x-10 space-y-10 lg:space-y-0">
+        <div className="flex flex-col lg:flex-row gap-10">
           {news.map((item, index) => (
             <NewsCard
               key={index}

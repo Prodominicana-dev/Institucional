@@ -14,9 +14,9 @@ import { useTranslations } from "next-intl";
 export default function Schedule() {
   const t = useTranslations("Schedule");
   return (
-    <div className="w-full lg:w-4/12 lg:h-16 space-y-10">
+    <div className="w-full h-full space-y-10">
       <div className="flex w-full h-full">
-        <div className="w-16 h-16 absolute  flex items-center justify-center bg-red-700  rounded-l-lg">
+        <div className="size-16 absolute  flex items-center justify-center bg-red-700  rounded-l-lg">
           <CalendarDaysIcon className="text-white h-10 w-10" />
         </div>
         <div className="w-full h-16 flex items-center justify-center bg-blue-950 rounded-lg">

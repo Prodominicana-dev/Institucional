@@ -7,31 +7,31 @@ export default function page() {
       year: 2020,
       description:
         "El Centro de Exportación e Inversión de la República Dominicana (ProDominicana) mantiene un elevado compromiso con el desarrollo del país al fomentar el incremento de la exportación y la inversión extranjera directa, a través de un servicio integral que satisface las necesidades de exportadores",
-      image: "/images/2020.png",
+      image: "/images/prodominicanabuilding.jpg",
     },
     {
       year: 2020,
       description:
         "El Centro de Exportación e Inversión de la República Dominicana (ProDominicana) mantiene un elevado compromiso con el desarrollo del país al fomentar el incremento de la exportación y la inversión extranjera directa, a través de un servicio integral que satisface las necesidades de exportadores",
-      image: "/images/2020.png",
+      image: "/images/prodominicanabuilding.jpg",
     },
     {
       year: 2020,
       description:
         "El Centro de Exportación e Inversión de la República Dominicana (ProDominicana) mantiene un elevado compromiso con el desarrollo del país al fomentar el incremento de la exportación y la inversión extranjera directa, a través de un servicio integral que satisface las necesidades de exportadores",
-      image: "/images/2020.png",
+      image: "/images/prodominicanabuilding.jpg",
     },
     {
       year: 2020,
       description:
         "El Centro de Exportación e Inversión de la República Dominicana (ProDominicana) mantiene un elevado compromiso con el desarrollo del país al fomentar el incremento de la exportación y la inversión extranjera directa, a través de un servicio integral que satisface las necesidades de exportadores",
-      image: "/images/2020.png",
+      image: "/images/prodominicanabuilding.jpg",
     },
     {
       year: 2020,
       description:
         "El Centro de Exportación e Inversión de la República Dominicana (ProDominicana) mantiene un elevado compromiso con el desarrollo del país al fomentar el incremento de la exportación y la inversión extranjera directa, a través de un servicio integral que satisface las necesidades de exportadores",
-      image: "/images/2020.png",
+      image: "/images/prodominicanabuilding.jpg",
     },
   ];
   const t = useTranslations("history");
@@ -71,10 +71,10 @@ function HistoryYear({ history, index }: any) {
         <div className="w-full h-full xl:flex">
           <div className="w-full">
             <Image
-              src={"/images/prodominicanabuilding.jpg"}
+              src={history.image}
               width={1500}
               height={1500}
-              className="   items-start w-full h-full mt-[2px] "
+              className="object-cover w-full h-full"
               alt=""
             />
           </div>
