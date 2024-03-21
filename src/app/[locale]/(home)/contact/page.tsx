@@ -22,7 +22,7 @@ import Link from "next/link";
 import { Map, AdvancedMarker, Pin, useMap } from "@vis.gl/react-google-maps";
 import { useTranslations } from "next-intl";
 
-export default function page() {
+export default function Page() {
   const map = useMap();
   const t = useTranslations("contact");
   const [openMenu, setOpenMenu] = React.useState(false);

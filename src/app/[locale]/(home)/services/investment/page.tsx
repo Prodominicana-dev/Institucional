@@ -3,7 +3,7 @@ import { Typography } from "@material-tailwind/react";
 import { useTranslations } from "next-intl";
 import React from "react";
 
-export default function page() {
+export default function Page() {
   const t = useTranslations("navbar");
   return (
     <div className="bg-white py-10 flex justify-center">

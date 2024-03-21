@@ -353,7 +353,7 @@ export function MembersEditDialog({
           {functionsEs.map((func, index) => {
             if (index === 0) return null;
             return (
-              <div className="flex flex-col w-full space-y-4">
+              <div key={index} className="flex flex-col w-full space-y-4">
                 <div className="w-full flex flex-row gap-2">
                   <Input
                     crossOrigin={""}
@@ -497,7 +497,7 @@ export function MembersEditDialog({
           {functionsEn.map((func, index) => {
             if (index === 0) return null;
             return (
-              <div className="flex flex-col w-full space-y-4">
+              <div key={index} className="flex flex-col w-full space-y-4">
                 <div className="w-full flex flex-row gap-2">
                   <Input
                     crossOrigin={""}

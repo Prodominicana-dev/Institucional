@@ -2,7 +2,7 @@
 import Image from "next/image";
 import React from "react";
 
-export default function page() {
+export default function Page() {
   return (
     <div className="w-full py-10 flex flex-col gap-5 font-montserrat">
       <Image

@@ -396,10 +396,11 @@ export function EventDialog({
             </Dropzone>
           </div>
           <label className="text-black text-sm text-center w-11/12">
-            <InformationCircleIcon className="size-5 inline-block" /> Agregue la
+            <InformationCircleIcon className="size-5 inline-block" />
+            {` Agregue la
             imagen de la noticia, no importa si se ve "cortada" o "agrandada",
             en este cuadro la imagen se centrara, pero no perderá su tamaño
-            original.
+            original.`}
           </label>
         </div>
       ),

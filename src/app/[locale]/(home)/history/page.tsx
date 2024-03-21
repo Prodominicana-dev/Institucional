@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import React from "react";
-export default function page() {
+export default function Page() {
   const historyYears = [
     {
       year: 2020,

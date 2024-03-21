@@ -270,10 +270,11 @@ export function NewsDialog({
           </label>
 
           <label className="text-black text-sm text-start w-full">
-            <InformationCircleIcon className="size-5 inline-block" /> Agregue la
+            <InformationCircleIcon className="size-5 inline-block" />{" "}
+            {`Agregue la
             imagen de la noticia, no importa si se ve "cortada" o "agrandada",
             en este cuadro la imagen se centrara, pero no perderá su tamaño
-            original.
+            original.`}
           </label>
           {/* <div className="w-full flex flex-col gap-5">
             <label className="font-semibold text-black text-lg">
