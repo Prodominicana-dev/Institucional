@@ -6,28 +6,11 @@ const nextConfig = withNextIntl({
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "images.unsplash.com",
-        pathname: "**",
-      },
-      {
-        protocol: "https",
-        hostname: "img.icons8.com",
-        pathname: "**",
-      },
-      {
-        protocol: "https",
-        hostname: "prodominicana.gob.do",
-        pathname: "**",
+        hostname: "**",
       },
       {
         protocol: "http",
         hostname: "localhost",
-        pathname: "**",
-      },
-
-      {
-        protocol: "https",
-        hostname: "hoy.com.do",
         pathname: "**",
       },
     ],
