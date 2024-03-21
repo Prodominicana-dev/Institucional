@@ -51,6 +51,10 @@ export default createMiddleware({
       en: "/transparency",
       es: "/transparencia",
     },
+    "/contact": {
+      en: "/contact",
+      es: "/contacto",
+    },
   },
 });
 

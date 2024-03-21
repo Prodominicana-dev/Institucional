@@ -370,6 +370,39 @@
       ]
     }
   },
+  "contact": {
+    "title": "Contact",
+    "description": "If you have any questions, Write to us!",
+    "form": {
+      "name": "Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "identity": "ID",
+      "activity": "Activity",
+      "message": "Message",
+      "button": "Send"
+    },
+    "contactInfo": {
+      "title": "Contact us directly",
+      "description": "Use any of our contact channels",
+      "phone": {
+        "title": "Call us",
+        "description": "Contact us from Monday to Friday, 8:30AM - 4:30PM."
+      },
+      "email": {
+        "title": "Talk to us",
+        "description": "Send us an email if you have any questions."
+      },
+      "address": {
+        "title": "Visit us",
+        "info": "Open in Google Maps"
+      }
+    },
+    "regionalOffices": {
+      "title": "Regional Offices",
+      "description": "Find the office nearest to you."
+    }
+  },
   "Footer": {
     "aboutUs": {
       "title": "ABOUT US",

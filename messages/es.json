@@ -370,6 +370,39 @@
       ]
     }
   },
+  "contact": {
+    "title": "Contacto",
+    "description": "Si tienes alguna duda, ¡Escríbenos!",
+    "form": {
+      "name": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo electrónico",
+      "identity": "Cédula o RNC",
+      "activity": "Actividad",
+      "message": "Mensaje",
+      "button": "Enviar"
+    },
+    "contactInfo": {
+      "title": "Contactanos directamente",
+      "description": "Utiliza cualquiera de nuestras vias de contacto",
+      "phone": {
+        "title": "Llamanos",
+        "description": "Contactate con nosotros de lunes a viernes, 8:30AM - 4:30PM."
+      },
+      "email": {
+        "title": "Habla con nosotros",
+        "description": "Envianos un correo si tienes alguna duda."
+      },
+      "address": {
+        "title": "Visitanos",
+        "info": "Abrir en Google Maps"
+      }
+    },
+    "regionalOffices": {
+      "title": "Oficinas regionales",
+      "description": "Encuentra la oficina más cercana a ti."
+    }
+  },
   "Footer": {
     "aboutUs": {
       "title": "CONÓCENOS",
