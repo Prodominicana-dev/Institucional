@@ -8,6 +8,26 @@ import { useTranslations } from "next-intl";
 
 export default function NewsSection() {
   const t = useTranslations("PressRoom");
+  const news = [
+    {
+      id: "20240404",
+      title:
+        "República Dominicana Tendrá Nuevo Centro “Shetrades Hub” Para Impulsar El Desarrollo De Las Mujeres Empresarias",
+      category: "Mision internacional",
+      date: "18 DE DICIEMBRE 2023 | 09:23",
+      image:
+        "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg",
+    },
+    {
+      id: "20240404",
+      title:
+        "República Dominicana Tendrá Nuevo Centro “Shetrades Hub” Para Impulsar El Desarrollo De Las Mujeres Empresarias",
+      category: "Mision internacional",
+      date: "18 DE DICIEMBRE 2023 | 09:23",
+      image:
+        "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg",
+    },
+  ];
   return (
     <section className="p-10 sm:p-16 flex flex-col lg:flex-row lg:space-x-10 space-y-10 lg:space-y-0">
       <div className="w-full lg:w-8/12 space-y-10">
@@ -18,7 +38,7 @@ export default function NewsSection() {
           >
             {t("title")}
           </Typography>
-          <div className="flex flex-wrap w-full space-x-4 sm:h-4/6 order-last sm:order-none hidden xl:block">
+          <div className="flex-wrap w-full space-x-4 order-last sm:order-none hidden xl:flex">
             <Button
               placeholder={undefined}
               className="font-gotham bg-red-700 sm:px-8 uppercase text-xs sm:text-base text-white rounded-full font-medium"
@@ -40,9 +60,17 @@ export default function NewsSection() {
             <div className="bg-cyan-600 rounded-full h-1 w-7/12 group-hover:w-full duration-500"></div>
           </Link>
         </div>
-        <div className="flex flex-col lg:flex-row lg:space-x-10 space-y-10 lg:space-y-0">
-          <NewsCard />
-          <NewsCard />
+        <div className="flex flex-col lg:flex-row gap-10">
+          {news.map((item, index) => (
+            <NewsCard
+              key={index}
+              id={item.id}
+              title={item.title}
+              category={item.category}
+              date={item.date}
+              image={item.image}
+            />
+          ))}
         </div>
       </div>
       <Schedule />

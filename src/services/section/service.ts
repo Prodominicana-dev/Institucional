@@ -10,7 +10,7 @@ export function useSection() {
     queryFn: async () => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/section`;
       const { data } = await axios.get(url);
-      return data.sections;
+      return data;
     },
   });
 }
@@ -21,16 +21,27 @@ export function useSectionAdmin() {
     queryFn: async () => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/section/adm/all`;
       const { data } = await axios.get(url);
-      return data.sections;
+      return data;
     },
   });
 }
 
-export function useSectionById(id: number) {
+export function useSectionById(id: string) {
   return useQuery({
     queryKey: ["sectionById", id],
     queryFn: async () => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/section/${id}`;
+      const { data } = await axios.get(url);
+      return data;
+    },
+  });
+}
+
+export function useSectionTranspFilter(id: string){
+  return useQuery({
+    queryKey: ["filterBYId", id],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/section/filters/${id}`;
       const { data } = await axios.get(url);
       return data;
     },

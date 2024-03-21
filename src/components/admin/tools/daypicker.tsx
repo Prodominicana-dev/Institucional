@@ -21,10 +21,24 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 export default function Day_Picker({
   date,
   setDate,
+  fromDate,
 }: {
   date: Date;
   setDate: any;
+  fromDate?: Date;
 }) {
+  // Month in Date format
+  const month = new Date();
+  month.setMonth(month.getMonth() - 1);
+
+  // Month in number
+  const monthNumber = new Date().getMonth();
+
+  // Year
+  const year = new Date().getFullYear();
+
+  const day = new Date().getDate();
+
   return (
     <Popover placement="bottom-start">
       <PopoverHandler>
@@ -39,6 +53,7 @@ export default function Day_Picker({
         <DayPicker
           locale={es}
           mode="single"
+          defaultMonth={new Date(year, monthNumber, day)}
           selected={date}
           onSelect={setDate}
           showOutsideDays

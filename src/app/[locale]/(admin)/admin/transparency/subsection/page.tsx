@@ -112,7 +112,6 @@ export default function Page() {
         <Sketch
           title="Subsecciones"
           subtitle="Transparencia"
-          handleOpen={handleOpen}
           handleFilterOpen={handleFilterOpen}
           buttons={[{ name: "Agregar", onClick: handleOpen }]}
         >

@@ -2,12 +2,20 @@
   "Index": {
     "title": "Hola mundo!"
   },
-  "Navbar": {
+  "commonWords": {
+    "download": "Descargar",
+    "size": "Peso",
+    "date": "Fecha"
+  },
+  "navbar": {
+    "home": "Inicio",
     "aboutUs": {
       "title": "Nosotros",
       "menuList": {
         "whoWeAre": "Quiénes somos",
         "whoWeAreDesc": "Explora la pasión que nos impulsa",
+        "history": "Historia",
+        "historyDesc": "Descubre nuestra trayectoria",
         "CEODispach": "Despacho de la directora ",
         "CEODispachDesc": "Conoce el corazón de nuestro liderazgo",
         "organizationalChart": "Estructura organizacional",
@@ -19,23 +27,23 @@
     "services": {
       "title": "Servicios",
       "menuList": {
-        "invest": "Inversión",
-        "investDesc": "Explora la pasión que nos impulsa",
-        "export": "Exportación",
-        "exportDesc": "Conoce el corazón de nuestro liderazgo"
+        "invest": "Servicios de Inversión",
+        "investDesc": "Te ayudamos a invertir en la República Dominicana",
+        "export": "Servicios de Exportación",
+        "exportDesc": "Maximizamos tu presencia internacional"
       }
     },
     "news": {
       "title": "Novedades",
       "menuList": {
         "news": "Noticias",
-        "newsDesc": "Explora la pasión que nos impulsa",
+        "newsDesc": "Mantente al tanto de las últimas novedades",
         "event": "Eventos",
-        "eventDesc": "Conoce el corazón de nuestro liderazgo",
+        "eventDesc": "Descubre y participa en eventos destacados",
         "prodomTV": "ProDominicana TV",
-        "prodomTVDesc": "Nuestro organigrama detallado",
+        "prodomTVDesc": "Explora contenido exclusivo de ProDominicana",
         "gallery": "Galería de fotos",
-        "galleryDesc": "Nuestro compromiso legal"
+        "galleryDesc": "Descubre momentos visuales impactantes"
       }
     },
     "shetrades": "SheTrades",
@@ -124,10 +132,276 @@
     "miniTitle": "SÍGUENOS EN NUESTRAS",
     "title": "Redes Sociales"
   },
+  "events": {
+    "title": "EVENTOS, FERIAS Y MISIONES INTERNACIONALES",
+    "eventInfo": "Información del Evento",
+    "shareEvent": "Compartir evento",
+    "receiveReminder": "Recibir Recordatorio",
+    "wantToParticipate": "Quiero Participar",
+    "address": "Dirección",
+    "imageGallery": {
+      "title": "Galería",
+      "title2": "de imágenes"
+    },
+    "form": {
+      "title": "Participar",
+      "title2": "en este evento",
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "entity": "Entidad",
+      "button": "Únete ahora"
+    }
+  },
   "CEO": {
     "name": "Biviana Riveiro",
     "title": "Directora Ejecutiva del Centro de Exportación e Inversión de la República Dominicana",
-    "description": "Queremos que nuestros exportadores cuenten, además, con servicios de facilitación del comercio mediante la participación en ferias y misiones comerciales alrededor del mundo, rondas de negocios con compradores internacionales y agendas de encadenamiento productivo."
+    "about": "Licenciada en Derecho con mención Magna Cum Laude de la Pontificia Universidad Católica Madre y Maestra PUCMM, Santo Domingo en el año 2002.",
+    "description": "Queremos que nuestros exportadores cuenten, además, con servicios de facilitación del comercio mediante la participación en ferias y misiones comerciales alrededor del mundo, rondas de negocios con compradores internacionales y agendas de encadenamiento productivo.",
+    "studies": {
+      "title": "Estudios",
+      "data": [
+        {
+          "desc": "Graduada del Colegio Dominicano de la Salle en el año 1998 y como abogada mención Magna Cum Laude de la Pontificia Universidad Católica Madre y Maestra PUCMM, Santo Domingo en el año 2002."
+        },
+        {
+          "desc": "Ha realizado numerosos estudios y cursos nacionales e internacionales en instituciones como la Organización Mundial del Comercio, la Unión Internacional de Telecomunicaciones y cuenta con las siguientes maestrías, postgrados y diplomados: Maestría en Derecho de los Negocios Corporativos y Postgrados en Economía para Negocios; Diplomados en Derecho Internacional, Propiedad Intelectual, Derecho Bancario, Derecho Administrativo, Arbitraje, auspiciados por distintas universidades tanto locales como extranjeras. Asimismo, realizó el Programa de Alta Dirección Ejecutiva de Barna Business School."
+        }
+      ]
+    },
+    "experience": {
+      "title": "Experiencia",
+      "data": [
+        {
+          "desc": "Inició sus trabajos en el ámbito legal en el año 2000, cuando ejerció como Paralegal y luego como Investigadora Asociada de la Fundación Institucionalidad y Justicia (FINJUS) hasta el año 2003."
+        },
+        {
+          "desc": "Fungió como Asesora Legal de la Gerencia de Políticas Regulatorias y Asesora Legal de la Gerencia de Asuntos Internacionales del Instituto Dominicano de Telecomunicaciones (INDOTEL), donde participó en la elaboración y revisión de reglamentos y normas relacionadas al sector de telecomunicaciones, manejo de temas como la sociedad de la información, comercio electrónico y delitos de alta tecnología; y representó a la institución en eventos y ante organismos internacionales como la Unión Internacional de Telecomunicaciones (UIT); la Comisión Interamericana de Telecomunicaciones de la OEA (CITEL); REGULATEL, entre otros organismos. Igualmente, trabajó como Abogada en la firma de Abogados, Oficina Melo Guerrero (OMG) desarrollando su práctica en el ámbito del derecho corporativo."
+        },
+        {
+          "desc": "Desde el año 2006 hasta el 2011, se desempeñó como Directora Ejecutiva de la Asociación Nacional de Jóvenes Empresarios (ANJE), pasando en el 2012 a ser parte de la Junta Directiva y en octubre de 2014 a ocupar la Presidencia de dicha entidad hasta octubre de 2015, impulsando desde la misma la mejora del clima de inversión, la seguridad jurídica, el emprendimiento, la innovación y la institucionalidad en República Dominicana."
+        },
+        {
+          "desc": "En el año 2010, fundó oficina de consultoría legal y empresarial Grupo Legalia, desde donde ejerce la profesión de derecho en sus distintas áreas de práctica especializándose en derecho empresarial, civil, comercial, turismo, inversión extranjera, telecomunicaciones, cine, derecho de la competencia y del consumidor, aviación civil y propiedad intelectual. Ha desarrollado proyectos para la simplificación de trámites administrativos y colaborando en numerosas iniciativas y reformas legislativas."
+        },
+        {
+          "desc": "En agosto de 2016, se integró a la gestión del Ex Alcalde David Collado como Directora Jurídica Interina y Secretaria General de Ayuntamiento del Distrito Nacional. Desde abril a agosto de 2020, ocupó la Secretaría Técnica de la entidad edilicia, la cual mediante la Resolución 34/20 la declaró Munícipe Distinguida de la Ciudad de Santo Domingo por su gestión transparente y eficiente en el Ayuntamiento del Distrito Nacional. Durante su mandato, coordinó la creación del primer Plan Municipal de Seguridad Ciudadana de la ciudad de Santo Domingo."
+        },
+        {
+          "desc": "Desde el 16 de agosto de 2020, se desempeña como Directora Ejecutiva del Centro de Exportación e Inversión de la República Dominicana designada mediante Decreto 329-20 del Presidente Constitucional, Luis Rodolfo Abinader Estrella."
+        },
+        {
+          "desc": "Ha sido docente universitaria y representante en distintos consejos en el ámbito empresarial. Ha obtenido diversos reconocimientos por su trayectoria profesional y social entre los que se destacan galardón por Mercado Social (2015); reconocimiento en el marco del Premio Nacional de la Juventud de República Dominicana, renglón Superación, Logros Personales y Desarrollo Empresarial, Ministerio de la Juventud (2015); por el Consejo Nacional de Seguridad Social, por sus aportes y trabajo como miembro del Consejo en representación de sector empleador (2013); por la Asociación Nacional de Jóvenes Empresarios por sus aportes al país (2010); galardonada de la XXXVII Premiación de Jóvenes Sobresalientes del año 2009 de la República Dominicana de Jaycees 72 (2010); reconocimiento de la Cámara de Comercio y Producción de Santo Domingo por su participación en la Ley General de Sociedades Comerciales (2009)."
+        }
+      ]
+    }
+  },
+  "legal": {
+    "title": "Marco legal",
+    "laws": {
+      "title": "Leyes"
+    },
+    "decrees": {
+      "title": "Decretos"
+    },
+    "resolutions": {
+      "title": "Resoluciones"
+    },
+    "regulations": {
+      "title": "Normativas"
+    }
+  },
+  "whoarewe": {
+    "title": "¿Quiénes somos?",
+    "desc": "Somos el Centro para la promoción de las exportaciones e inversiones en el país, responsables de promover nuestros productos, servicios y oportunidades de negocio por el mundo.",
+    "mission": {
+      "title": "Misión",
+      "desc": "Crear valor y servir para optimizar la atracción de inversión y mejorar nuestra presencia exportadora en los mercados internacionales, incentivando empleos de calidad."
+    },
+    "vision": {
+      "title": "Visión",
+      "desc": "Ser la agencia de promoción de exportación e inversión más eficiente de la región, para una República Dominicana más competitiva, productiva y desarrollada."
+    },
+    "qualityPolicy": {
+      "title": "Política de calidad",
+      "desc": "El Centro de Exportación e Inversión de la República Dominicana (ProDominicana) mantiene un elevado compromiso con el desarrollo del país al fomentar el incremento de la exportación y la inversión extranjera directa, a través de un servicio integral que satisface las necesidades de exportadores y potenciales exportadores, inversionistas extranjeros y ciudadanía en general. Siempre apegados a los más elevados estándares de excelencia y calidad, la organización promueve la mejora continua de sus procesos y el cumplimiento de las leyes y normas vigentes."
+    },
+    "values": {
+      "title": "Valores",
+      "excellence": {
+        "title": "Excelencia",
+        "desc": "Ponemos todo nuestro empeño en hacer nuestro trabajo del mejor modo posible, para mantenernos como institución modelo."
+      },
+      "teamWork": {
+        "title": "Trabajo en Equipo",
+        "desc": "Creemos que nuestro trabajo se enriquece y nuestros servicios mejoran cuando compartimos valor e información en equipo."
+      },
+      "integrity": {
+        "title": "Integridad",
+        "desc": "Nos mueve el amor al servicio público y por ello actuamos correctamente, con apego a la ley y a los valores éticos."
+      },
+      "efficiency": {
+        "title": "Eficiencia",
+        "desc": "Optimizamos los recursos disponibles para ofrecer los servicios en el menor tiempo y con la mayor calidad posible."
+      },
+      "confidence": {
+        "title": "Confianza",
+        "desc": "La palabra dada y la consistencia de las acciones con esta, es parte importante de nuestro intercambio de negocios. Por eso cuidamos nuestras relaciones profesionales y de inversión generando confianza."
+      },
+      "transparency": {
+        "title": "Transparencia",
+        "desc": "Trabajamos con apertura y transparencia para que nuestra labor pueda ser fiscalizada y reconocida asegurando la confianza."
+      },
+      "serviceVocation": {
+        "title": "Vocación de Servicio",
+        "desc": "Creemos en el servicio público. Atendemos con esmero, calidad y de manera oportuna, los requerimientos de nuestros clientes internos y externos."
+      },
+      "proactivity": {
+        "title": "Proactividad",
+        "desc": "Nos anticipamos, gestionamos, conocemos y satisfacemos las expectativas del cliente en función de los objetivos propuestos para garantizar el éxito."
+      },
+      "equity": {
+        "title": "Equidad",
+        "desc": "Actuamos de manera justa con nuestros clientes, sin importar condición económica, social, política y de género, respetando y sirviendo a todos los seres humanos por igual."
+      }
+    }
+  },
+  "history": {
+    "title": "Nuestra Historia"
+  },
+  "shetrades": {
+    "navbarMenuItems": {
+      "home": "Inicio",
+      "about": "Acerca de",
+      "trainings": "Capacitaciones",
+      "initiatives": "Iniciativas",
+      "benefits": "Beneficios",
+      "register": "Registro"
+    },
+    "home": {
+      "title": "Empoderando a mujeres en e-commerce",
+      "desc": "Únete al programa de aprendizaje virtual del Centro de Comercio Internacional (ITC) para incursionar en el e-commerce y expandir tus canales de venta en línea a nivel nacional e internacional.",
+      "buttonText": "Registrate en el Programa"
+    },
+    "about": {
+      "title": "Sobre el Programa",
+      "desc": "La iniciativa SheTrades junto con el programa de ecomConnect del Centro de Comercio Internacional pretende impulsar a las empresas lideradas por mujeres para que vendan sus productos en línea y accedan a mercados nacionales e internacionales a través de una formación con recursos virtuales, apoyo continuo y acceso a una comunidad de emprendedores para hacer networking y compartir experiencias.",
+      "benefits": [
+        {
+          "name": "Asistencia técnica"
+        },
+        {
+          "name": "Herramientas digitales"
+        },
+        {
+          "name": "Capacitaciones"
+        }
+      ]
+    },
+    "trainings": {
+      "title": "Capacitaciones",
+      "list": [
+        {
+          "name": "Adopción de certificaciones internacionales en las agroexportaciones"
+        },
+        {
+          "name": "Nociones básicas de comercio internacional"
+        },
+        {
+          "name": "Inteligencia en los negocios"
+        },
+        {
+          "name": "Internacionalización de las pymes"
+        },
+        {
+          "name": "Generación de confianza en la exportación"
+        },
+        {
+          "name": "Certificación como herramienta de acceso"
+        }
+      ]
+    },
+    "initiatives": {
+      "title": "Iniciativas",
+      "title2": "De Prodominicana",
+      "list": [
+        {
+          "name": "Crear espacios para mujeres exportadoras y aspirantes a exportar"
+        },
+        {
+          "name": "Focalización de servicios especializados"
+        },
+        {
+          "name": "Ampliación de servicios financieros"
+        },
+        {
+          "name": "Priorización de servicios de promoción de Servicios Modernos"
+        },
+        {
+          "name": "Participación en ferias internacionales"
+        },
+        {
+          "name": "Participación de República Dominicana en foros internacionales sobre género y comercio"
+        }
+      ]
+    },
+    "benefits": {
+      "title": "Beneficios",
+      "list": [
+        {
+          "title": "Integración a la red internacional SheTrades Hub",
+          "desc": "SheTrades facilita la posibilidad de que las mujeres empresarias conecten con mujeres emprendedoras de otros países, creando así un espacio idóneo para compartir experiencias y aprender de prácticas efectivas de desarrollo empresarial. Del mismo modo, permite que las instituciones de apoyo empresarial compartan entre sí iniciativas, proyectos y programas para brindar soporte a las mujeres en el comercio exterior."
+        },
+        {
+          "title": "Acceso a herramientas y recursos",
+          "desc": "El ITC ofrece diversas herramientas para facilitar la participación de la mujer en el mercado internacional e identificación de oportunidades potenciales; de igual manera, elabora informes que detallan la importancia de promover el empoderamiento económico de las mujeres, la contratación pública con perspectiva de género, facilitación de inversión, incorporación de perspectiva de género en los acuerdos comerciales y políticas comerciales, incluyendo recomendaciones a países y a organismos multilaterales relacionados con el comercio internacional."
+        },
+        {
+          "title": "Desarrollo de capacidades",
+          "desc": "SheTrades brinda oportunidades de acceso exclusivo a capacitaciones y a entrenamientos virtuales enfocados en el desarrollo de habilidades, manejo de herramientas digitales, competitividad, gestión de riesgo empresarial, preparación para exportar, y herramientas de inteligencia de mercados y sostenibilidad. Los Hubs difunden esos programas de formación con las empresas lideradas por mujeres de sus países. En adición a esto, a través del portal web SheTrades Academy42, la mujer emprendedora puede acceder a múltiples programas asincrónicos gratuitos sobre el entorno comercial internacional, cadenas de valor, competitividad, mercados de exportación, comercio electrónico para vender sus productos en línea, procedimientos para exportar; brindando también la oportunidad de utilizar herramientas de autoevaluación para diagnosticar necesidades de capacitación, así como métodos de evaluación de riesgos y gestión de crisis en sus negocios."
+        },
+        {
+          "title": "Desarrollo de actividades empresariales",
+          "desc": "A través de los Hubs, SheTrades canaliza apoyo y orientación a empresas lideradas por mujeres de los diferentes países para su participación en ferias comerciales regionales e internacionales y misiones, propiciando la creación de oportunidades comerciales."
+        },
+        {
+          "title": "Acceso a financiamiento",
+          "desc": "La iniciativa SheTrades permite que las emprendedoras de países en vías de desarrollo puedan acceder a información acerca de oportunidades de financiamiento disponibles a través del proyecto SheTrades Invest, que contempla eventos, actividades y una plataforma en línea (https://shetradesinvest.converve.io/) para conectar a empresas dirigidas por mujeres o pymes que benefician las mujeres elegibles, con proveedores de capital."
+        }
+      ]
+    }
+  },
+  "contact": {
+    "title": "Contacto",
+    "description": "Si tienes alguna duda, ¡Escríbenos!",
+    "form": {
+      "name": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo electrónico",
+      "identity": "Cédula o RNC",
+      "activity": "Actividad",
+      "message": "Mensaje",
+      "button": "Enviar"
+    },
+    "contactInfo": {
+      "title": "Contactanos directamente",
+      "description": "Utiliza cualquiera de nuestras vias de contacto",
+      "phone": {
+        "title": "Llamanos",
+        "description": "Contactate con nosotros de lunes a viernes, 8:30AM - 4:30PM."
+      },
+      "email": {
+        "title": "Habla con nosotros",
+        "description": "Envianos un correo si tienes alguna duda."
+      },
+      "address": {
+        "title": "Visitanos",
+        "info": "Abrir en Google Maps"
+      }
+    },
+    "regionalOffices": {
+      "title": "Oficinas regionales",
+      "description": "Encuentra la oficina más cercana a ti."
+    }
   },
   "Footer": {
     "aboutUs": {

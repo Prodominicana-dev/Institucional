@@ -1,11 +1,31 @@
 "use client";
 import NewsCard from "@/components/home/newsCard";
+import { useNews } from "@/services/news/service";
 import { Typography } from "@material-tailwind/react";
 import { useTranslations } from "next-intl";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-export default function Page() {
+export default function Page({ params: { locale } }: any) {
   const t = useTranslations("PressRoom");
+  const { data, isLoading } = useNews(locale);
+  const [news, setNews] = useState<any>();
+  useEffect(() => {
+    if (!isLoading && data) {
+      setNews(data);
+    }
+  }, [data, isLoading]);
+
+  // const news = [
+  //   {
+  //     id: "20240404",
+  //     title:
+  //       "República Dominicana Tendrá Nuevo Centro “Shetrades Hub” Para Impulsar El Desarrollo De Las Mujeres Empresarias",
+  //     category: "Mision internacional",
+  //     date: "18 DE DICIEMBRE 2023 | 09:23",
+  //     image:
+  //       "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg",
+  //   },
+  // ];
   return (
     <div className="w-full bg-white flex justify-center ">
       <div className="p-10 lg:p-20 space-y-5">
@@ -15,12 +35,18 @@ export default function Page() {
         >
           {t("title")}
         </Typography>
-        <div className="grid grid-cols-1 sm:grid-cols-3 w-full gap-10">
-          <NewsCard />
-          <NewsCard />
-          <NewsCard />
-          <NewsCard />
-          <NewsCard />
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 w-full gap-10">
+          {news?.map((item: any, index: number) => (
+            <NewsCard
+              key={index}
+              id={item.id}
+              title={item.title}
+              category={item.category}
+              date={item.date}
+              image={item.image}
+              locale={locale}
+            />
+          ))}
         </div>
       </div>
     </div>

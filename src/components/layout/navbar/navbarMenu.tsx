@@ -6,6 +6,7 @@ import {
   MenuList,
   MenuItem,
 } from "@material-tailwind/react";
+import Link from "next/link";
 import React from "react";
 
 interface Props {
@@ -22,7 +23,7 @@ export default function NavbarMenu({ title, navListMenuItems }: Props) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const renderItems = navListMenuItems.map(
     ({ icon, title, description, link }: any, key: any) => (
-      <a href={link} key={key}>
+      <Link href={link} key={key}>
         <MenuItem
           placeholder={undefined}
           className="flex items-center gap-3 rounded-lg"
@@ -31,7 +32,7 @@ export default function NavbarMenu({ title, navListMenuItems }: Props) {
             {" "}
             {React.createElement(icon, {
               strokeWidth: 2,
-              className: "h-6 text-gray-900 w-6",
+              className: "h-6 w-6 text-gray-900",
             })}
           </div>
           <div>
@@ -52,7 +53,7 @@ export default function NavbarMenu({ title, navListMenuItems }: Props) {
             </Typography>
           </div>
         </MenuItem>
-      </a>
+      </Link>
     )
   );
 

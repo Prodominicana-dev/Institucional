@@ -26,7 +26,9 @@ export function SideBar() {
   const isHover = useHover(hoverRef);
   const [openNewness, setOpenNewness] = useState(0);
   const hoverNewnessRef = useRef(null);
+  const [openStructure, setOpenStructure] = useState(0);
   const isHoveringNewness = useHover(hoverRef);
+  const [newsOpen, setNewsOpen] = useState(0);
   const [isConfig, setIsConfig] = useState(false);
   const [isVisible, setIsVisible] = useAtom(sideBarAtom);
 
@@ -38,9 +40,20 @@ export function SideBar() {
     setOpen(open === value ? 0 : value);
   };
 
+  const handleStructureOpen = (value: any) => {
+    setOpenStructure(openStructure === value ? 0 : value);
+  };
+
+  const handleNewsOpen = (value: any) => {
+    setNewsOpen(newsOpen === value ? 0 : value);
+  };
+
   useEffect(() => {
     if (!isHover) {
       setOpen(0);
+      setOpenNewness(0);
+      setOpenStructure(0);
+      setNewsOpen(0);
     }
   }, [setOpen, isHover]);
 
@@ -100,7 +113,7 @@ export function SideBar() {
           >
             <ListItem
               placeholder={undefined}
-              className="p-0"
+              className="p-0 bg-transparent"
               selected={openNewness === 0}
             >
               <AccordionHeader
@@ -130,17 +143,15 @@ export function SideBar() {
             <AccordionBody className="py-1">
               {openNewness === 1 && (
                 <List placeholder={undefined} className="p-0 text-white">
+                  <SidebarMenuItem title={"Noticias"} url={"/admin/news"} />
                   <SidebarMenuItem
-                    title={"Secciones"}
-                    url={"/admin/transparency/section"}
+                    title={"Categorías de Noticias"}
+                    url={"/admin/news/categories"}
                   />
+                  <SidebarMenuItem title={"Eventos"} url={"/admin/events"} />
                   <SidebarMenuItem
-                    title={"Subsecciones"}
-                    url={"/admin/transparency/subsection"}
-                  />
-                  <SidebarMenuItem
-                    title={"Documentos"}
-                    url={"/admin/transparency/documents"}
+                    title={"Galería de Fotos"}
+                    url={"/admin/gallery"}
                   />
                 </List>
               )}
@@ -157,6 +168,62 @@ export function SideBar() {
             url={"/admin/export"}
             iconUrl={"/svg/layout/sidebar/export.svg"}
           />
+          <Accordion
+            placeholder={undefined}
+            open={openStructure === 1}
+            icon={
+              <ChevronDownIcon
+                strokeWidth={2.5}
+                className={`mx-auto h-4 w-4 transition-transform opacity-0 group-hover:opacity-100 hidden group-hover:flex text-white ${
+                  openStructure === 1 ? "rotate-180" : ""
+                }`}
+              />
+            }
+          >
+            <ListItem
+              placeholder={undefined}
+              className="p-0 bg-transparent"
+              selected={openStructure === 0}
+            >
+              <AccordionHeader
+                placeholder={undefined}
+                onClick={() => handleStructureOpen(1)}
+                className="p-3 border-b-0 "
+              >
+                <ListItemPrefix placeholder={undefined} className="">
+                  <Image
+                    src={"/svg/layout/sidebar/organizational.svg"}
+                    width={600}
+                    height={600}
+                    draggable={false}
+                    alt=""
+                    className="w-8 h-8 text-white duration-700 group-hover:h-5 group-hover:w-5 mr-5"
+                  />
+                </ListItemPrefix>
+                <Typography
+                  placeholder={undefined}
+                  color="white"
+                  className="hidden mr-auto font-normal duration-300 opacity-0 group-hover:flex group-hover:opacity-100"
+                >
+                  Estructura Organizacional
+                </Typography>
+              </AccordionHeader>
+            </ListItem>
+            <AccordionBody className="py-1">
+              {openStructure === 1 && (
+                <List placeholder={undefined} className="p-0 text-white">
+                  <SidebarMenuItem
+                    title={"Direcciones"}
+                    url={"/admin/structure-organizational/directions"}
+                  />
+                  <SidebarMenuItem
+                    title={"Subsecciones"}
+                    url={"/admin/structure-organizational/members"}
+                  />
+                </List>
+              )}
+            </AccordionBody>
+          </Accordion>
           <SidebarItem
             title={"Capacitación"}
             url={"/admin/training"}
@@ -176,13 +243,13 @@ export function SideBar() {
           >
             <ListItem
               placeholder={undefined}
-              className="p-0"
+              className="p-0 bg-transparent"
               selected={open === 0}
             >
               <AccordionHeader
                 placeholder={undefined}
                 onClick={() => handleOpen(1)}
-                className="p-3 border-b-0"
+                className="p-3 border-b-0 "
               >
                 <ListItemPrefix placeholder={undefined} className="">
                   <Image
@@ -237,10 +304,7 @@ export function SideBar() {
 function SidebarItem({ title, url, iconUrl }: any) {
   return (
     <Link href={url}>
-      <ListItem
-        placeholder={undefined}
-        className="focus:bg-transparent space-x-5"
-      >
+      <ListItem placeholder={undefined} className="bg-transparent space-x-5">
         <ListItemPrefix placeholder={undefined}>
           <Image
             src={iconUrl}
@@ -248,7 +312,7 @@ function SidebarItem({ title, url, iconUrl }: any) {
             height={600}
             draggable={false}
             alt=""
-            className="w-8 h-8 text-white duration-700 group-hover:h-5 group-hover:w-5"
+            className="w-8 h-8 fill-white text-white duration-700 group-hover:h-5 group-hover:w-5"
           />
         </ListItemPrefix>
         <Typography
@@ -266,10 +330,7 @@ function SidebarItem({ title, url, iconUrl }: any) {
 function SidebarMenuItem({ title, url }: any) {
   return (
     <Link href={url}>
-      <ListItem
-        placeholder={undefined}
-        className="focus:bg-transparent space-x-5"
-      >
+      <ListItem placeholder={undefined} className="bg-transparent space-x-5">
         <ListItemPrefix placeholder={undefined}>
           <div></div>
         </ListItemPrefix>

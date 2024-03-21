@@ -5,9 +5,8 @@ import "@mantine/core/styles.css";
 import "@mantine/dropzone/styles.css";
 import "@mantine/notifications/styles.css";
 import "@mantine/carousel/styles.css";
-import { NextIntlClientProvider, useMessages } from "next-intl";
+import { NextIntlClientProvider, useMessages, useLocale } from "next-intl";
 import { MantineProvider } from "@mantine/core";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -24,6 +23,7 @@ export default function RootLayout({
   params: { locale: string };
 }) {
   const messages = useMessages();
+
   return (
     <html lang={locale}>
       <head>

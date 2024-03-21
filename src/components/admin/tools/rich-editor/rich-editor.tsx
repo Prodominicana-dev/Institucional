@@ -12,12 +12,15 @@ import Image from "next/image";
 export default function TextEditor({
   editor,
   description,
+  number = 20,
 }: {
   editor: any;
   description?: any;
+  number?: number;
 }) {
   useEffect(() => {
-    editor.commands.setContent(description);
+    if (description !== "" && description !== undefined && description !== null)
+      editor?.commands.setContent(description);
   }, [description]);
   return (
     <RichTextEditor editor={editor}>
@@ -133,7 +136,9 @@ export default function TextEditor({
           </Menu>
         </RichTextEditor.ControlsGroup>
       </RichTextEditor.Toolbar>
-      <RichTextEditor.Content className="h-[20vh] overflow-y-auto no-scrollbar" />
+      <RichTextEditor.Content
+        className={`h-[${number}vh] w-full overflow-y-auto no-scrollbar`}
+      />
     </RichTextEditor>
   );
 }

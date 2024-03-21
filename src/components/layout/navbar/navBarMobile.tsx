@@ -13,8 +13,11 @@ import Link from "next/link";
 import NavbarCollapseMobile from "./navbarCollapseMobile";
 import NavbarLinkMobile from "./navbarLinkMobile";
 import NavbarButtonMobile from "./navbarButtonMobile";
+import LanguagePicker from "./languagePicker";
+import { useTranslations } from "next-intl";
 
 export default function NavBarMobile() {
+  const t = useTranslations("navbar");
   const [menuOpen, setMenuOpen] = useState(false);
   const [open, setOpen] = useState(false);
   const toggleOpen = () => setOpen((cur) => !cur);
@@ -24,37 +27,37 @@ export default function NavBarMobile() {
     {
       title: "Portal del Estado Dominicano",
       link: "https://www.gob.do/",
-      icon: "svg/logos/portals/gobdo.svg",
+      icon: "/svg/logos/portals/gobdo.svg",
     },
     {
       title: "Sistema de Atención Ciudadana",
       link: "https://311.gob.do/",
-      icon: "svg/logos/portals/311.svg",
+      icon: "/svg/logos/portals/311.svg",
     },
     {
       title: "911",
       link: "https://911.gob.do/",
-      icon: "svg/logos/portals/911.svg",
+      icon: "/svg/logos/portals/911.svg",
     },
     {
       title: "Observatorio Nacional",
       link: "https://observatorioserviciospublicos.gob.do",
-      icon: "svg/logos/portals/observatorioserviciospublicos.svg",
+      icon: "/svg/logos/portals/observatorioserviciospublicos.svg",
     },
     {
       title: "Beca tu futuro",
       link: "https://becas.gob.do",
-      icon: "svg/logos/portals/becatufuturo.svg",
+      icon: "/svg/logos/portals/becatufuturo.svg",
     },
     {
       title: "Reporte de Abuso Sexual Infantil",
       link: "https://report.iwf.org.uk/do/",
-      icon: "svg/logos/portals/iwf.svg",
+      icon: "/svg/logos/portals/iwf.svg",
     },
     {
       title: "Centro Nacional de Ciberseguridad",
       link: "https://cncs.gob.do",
-      icon: "svg/logos/portals/cncs.svg",
+      icon: "/svg/logos/portals/cncs.svg",
     },
   ];
 
@@ -62,76 +65,87 @@ export default function NavBarMobile() {
     {
       title: "Ventanilla Única de Inversión",
       link: "https://vui.gob.do/",
-      icon: "svg/logos/vuiIcon.svg",
+      icon: "/svg/logos/vuiIcon.svg",
     },
   ];
 
   const routes = [
-    { title: "Inicio", link: "/", type: "link" },
+    { title: t("home"), link: "/", type: "link" },
     {
-      title: "Nosotros",
+      title: t("aboutUs.title"),
       type: "menu",
       content: [
-        { title: "Quiénes Somos", link: "/" },
-        { title: "Despacho de la directora", link: "/" },
-        { title: "Estructura organizacional", link: "/" },
-        { title: "Marco legal", link: "/" },
+        { title: t("aboutUs.menuList.whoWeAre"), link: "/whoarewe" },
+        { title: t("aboutUs.menuList.history"), link: "/history" },
+        { title: t("aboutUs.menuList.CEODispach"), link: "/ceo" },
+        {
+          title: t("aboutUs.menuList.organizationalChart"),
+          link: "/organizationalstructure",
+        },
+        { title: t("aboutUs.menuList.legal"), link: "/legalframework" },
       ],
     },
     {
-      title: "Servicios",
+      title: t("services.title"),
       type: "menu",
       content: [
-        { title: "Inversión", link: "/" },
-        { title: "Exportación", link: "/" },
+        { title: t("services.menuList.invest"), link: "/services/investment" },
+        { title: t("services.menuList.export"), link: "/services/export" },
       ],
     },
     {
-      title: "Novedades",
+      title: t("news.title"),
       type: "menu",
       content: [
-        { title: "Noticias", link: "/" },
-        { title: "Eventos", link: "/" },
-        { title: "Prodominicana TV", link: "/" },
-        { title: "Galería de fotos", link: "/" },
+        { title: t("news.menuList.news"), link: "/news" },
+        { title: t("news.menuList.event"), link: "/events" },
+        { title: t("news.menuList.prodomTV"), link: "/tv" },
+        { title: t("news.menuList.gallery"), link: "/imagegallery" },
       ],
     },
-    { title: "SheTrades", link: "/", type: "link" },
-    { title: "Transparencia", link: "/", type: "link" },
-    { title: "Contacto", link: "/contacto", type: "link" },
-    { title: "Instituto", link: "/", type: "link" },
-    { title: "Invertir", link: "/", type: "button" },
-    { title: "Exportar", link: "/", type: "button" },
+    { title: t("shetrades"), link: "/shetrades", type: "link" },
+    { title: t("transparency"), link: "/transparency", type: "link" },
+    { title: t("contact"), link: "/contact", type: "link" },
+    {
+      title: t("institute"),
+      link: "https://instituto.prodominicana.gob.do",
+      type: "link",
+    },
+    { title: t("investButton"), link: "/investment", type: "button" },
+    { title: t("exportButton"), link: "/export", type: "button" },
   ];
 
   return (
-    <section className="xl:hidden">
+    <section className="xl:hidden bg-white">
       <div className="w-full flex justify-center items-center">
         <div className="w-11/12 h-24 flex justify-between items-center">
           <div className="w-6/12 h-full flex items-center">
-            <Image
-              alt=""
-              width={1920}
-              height={1080}
-              src={"/prodominicana.svg"}
-              className="w-56 cursor-pointer"
-            />
+            <Link href={"/"} className="w-56 cursor-pointer">
+              <Image
+                alt="prodominicana"
+                width={1920}
+                height={1080}
+                src={"/prodominicana.svg"}
+              />
+            </Link>
           </div>
-          <div className="w-6/12 h-full flex space-x-4 items-center justify-end">
+          <div className="w-6/12 h-full flex space-x-2 sm:space-x-4 items-center justify-end">
             <IconButton
               className="bg-red-700 rounded-full w-8 h-8"
               placeholder={undefined}
             >
               <MagnifyingGlassIcon className="w-5 h-5" />
             </IconButton>
-            <div className="w-[2px] h-3/6 bg-gray-300 rounded-full"></div>
+            <div className="w-[2px] h-2/6 bg-gray-300 rounded-full"></div>
+            <LanguagePicker />
+            <div className="w-[2px] h-2/6 bg-gray-300 rounded-full"></div>
             <button onClick={toggleOpen}>
               <Bars3Icon className="w-8 h-8 text-blue-950" />
             </button>
           </div>
         </div>
       </div>
-      <Collapse open={open} className="px-5">
+      <Collapse open={open} className="px-5 bg-white">
         <button
           className="w-full h-12 flex items-center justify-between "
           onClick={toggleMenuOpen}
@@ -141,7 +155,7 @@ export default function NavBarMobile() {
               alt=""
               width={50}
               height={50}
-              src={"svg/icons/appsIcon.svg"}
+              src={"/svg/icons/appsIcon.svg"}
               className="w-8 cursor-pointer"
             />
 

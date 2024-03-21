@@ -1,41 +1,96 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Typography } from "@material-tailwind/react";
 
-export default function NewsCard() {
+interface Props {
+  id: string;
+  title: string;
+  category: string;
+  date: string;
+  image: string;
+  locale?: string;
+}
+
+export default function NewsCard({
+  id,
+  title,
+  category,
+  date,
+  image,
+  locale,
+}: Props) {
+  console.log(id, title, category, date, image);
+  // Convertir la fecha en este formato: "1hr ago, 1d, 7d, 31d, 344d"
+  const dateFormated = new Date(date);
+  const dateNow = new Date();
+  const diffTime = Math.abs(dateNow.getTime() - dateFormated.getTime());
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  let dateFormatedString = "";
+  if (locale === "en") {
+    if (diffDays <= 1) {
+      dateFormatedString = `${Math.ceil(diffTime / (1000 * 60 * 60))}hr ago`;
+    } else if (diffDays <= 7) {
+      dateFormatedString = `${diffDays}d ago`;
+    } else if (diffDays < 30) {
+      const options = {
+        year: "numeric" as any, // Cambiado a "numeric"
+        month: "long" as any, // Cambiado a "long"
+        day: "numeric" as any, // Cambiado a "numeric"
+      };
+
+      dateFormatedString = dateFormated.toLocaleDateString("en", options);
+    }
+  } else {
+    if (diffDays <= 1) {
+      dateFormatedString = `Hace ${Math.ceil(diffTime / (1000 * 60 * 60))}hr`;
+    } else if (diffDays <= 7) {
+      dateFormatedString = `Hace ${diffDays}d`;
+    } else if (diffDays < 31) {
+      // Luego de 7 días mostrar la fecha en formato "18 de diciembre 2023"
+      const options = {
+        year: "numeric" as any, // Cambiado a "numeric"
+        month: "long" as any, // Cambiado a "long"
+        day: "numeric" as any, // Cambiado a "numeric"
+      };
+
+      dateFormatedString = dateFormated.toLocaleDateString("es-ES", options);
+    }
+  }
+
   return (
-    <div className="h-full w-full space-y-2">
+    <Link
+      href={`/news/${id}`}
+      className="h-full w-full space-y-2 cursor-pointer"
+    >
       <Image
         width={2048}
         height={1080}
-        src={
-          "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg"
-        }
-        alt={"news"}
-        className="h-[30vh] w-full object-cover object-center rounded-md"
+        src={`${process.env.NEXT_PUBLIC_API_URL}/files/news/${id}/img/${image}`}
+        alt={title}
+        className="sm:h-[25vh] xl:h-[30vh] w-full object-cover object-center rounded-md"
       />
       <Typography
         placeholder={undefined}
         className="text-red-700 font-normal tracking-widest uppercase font-montserrat"
       >
-        Mision internacional
+        {category}
       </Typography>
       <Typography
         placeholder={undefined}
         className="text-blue-950 font-bold font-montserrat text-2xl"
       >
-        República Dominicana Tendrá Nuevo Centro “Shetrades Hub” Para Impulsar
-        El Desarrollo De Las Mujeres Empresarias
+        {title}
       </Typography>
       <div className="flex items-center space-x-3">
         <div className="bg-red-700 rounded-full h-2 w-2/12"></div>
         <Typography
           placeholder={undefined}
-          className="text-cyan-600 font-normal font-montserrat text-lg uppercase"
+          className="text-cyan-600 font-normal font-montserrat text-lg"
         >
-          18 DE DICIEMBRE 2023 | 09:23
+          {dateFormatedString}
         </Typography>
       </div>
-    </div>
+    </Link>
   );
 }
