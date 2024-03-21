@@ -37,6 +37,17 @@ export function useEventById(id: string) {
   });
 }
 
+export function useEventByIdAndLang(id: string, locale: string) {
+  return useQuery({
+    queryKey: ["newsById", id],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/${locale}/events/${id}`;
+      const { data } = await axios.get(url);
+      return data[0];
+    },
+  });
+}
+
 export function createEvents(
   event: FormData,
   update: () => void,

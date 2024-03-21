@@ -148,9 +148,9 @@ export function EventDialog({
       const formData = new FormData();
       formData.append("start_Date", startDate.toISOString());
       formData.append("end_Date", endDate.toISOString());
-      formData.append("lat", latitude.trim());
-      formData.append("lng", longitude.trim());
-      formData.append("address", address.trim());
+      formData.append("lat", latitude.trimStart());
+      formData.append("lng", longitude.trimStart());
+      formData.append("address", address.trimStart());
       formData.append("es", JSON.stringify(es_data));
       formData.append("en", JSON.stringify(en_data));
       formData.append("created_By", user?.email as string);
@@ -184,7 +184,9 @@ export function EventDialog({
                     crossOrigin={""}
                     id="title"
                     className="w-full"
-                    onChange={(e) => setSpanishTitle(e.target.value.trim())}
+                    onChange={(e) =>
+                      setSpanishTitle(e.target.value.trimStart())
+                    }
                     value={spanishTitle}
                     placeholder="Título de la noticia"
                   />
@@ -237,7 +239,9 @@ export function EventDialog({
                     crossOrigin={""}
                     id="title"
                     className="w-full"
-                    onChange={(e) => setEnglishTitle(e.target.value.trim())}
+                    onChange={(e) =>
+                      setEnglishTitle(e.target.value.trimStart())
+                    }
                     value={englishTitle}
                     placeholder="Título del evento en inglés..."
                   />
@@ -317,7 +321,7 @@ export function EventDialog({
                 crossOrigin={""}
                 id="title"
                 className="w-full"
-                onChange={(e) => setCoordinates(e.target.value.trim())}
+                onChange={(e) => setCoordinates(e.target.value)}
                 value={coordinates}
                 placeholder="Coordenadas extraídas de Google Maps..."
               />
@@ -345,7 +349,7 @@ export function EventDialog({
                 crossOrigin={""}
                 id="title"
                 className="w-full"
-                onChange={(e) => setAddress(e.target.value.trim())}
+                onChange={(e) => setAddress(e.target.value.trimStart())}
                 value={address}
                 placeholder="Dirección del lugar..."
               />
