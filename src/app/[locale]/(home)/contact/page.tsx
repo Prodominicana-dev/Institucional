@@ -82,7 +82,7 @@ export default function Page() {
     {
       province: "Pedernales",
       phone: "+1 829 745 1870",
-      address: "Calle braulio mendez esq.mella, Pedernales.",
+      address: "Calle Dubergé 2, esq. duarte, Pedernales.",
       coords: { lat: 18.036363807306678, lng: -71.7459708340409 },
     },
     {
@@ -135,6 +135,13 @@ export default function Page() {
       coords: { lat: 19.548204838188294, lng: -71.70900997817222 },
     },
     {
+      province: "Constanza",
+      phone: "+1 829 603 5244",
+      address:
+        "Avenida General Jiménez Moya , frente a la fábrica de sazón al lado de Alfridonsa.",
+      coords: { lat: 18.9112342694184, lng: -70.71746749354624 },
+    },
+    {
       province: "San Juan",
       phone: "+1 849 873 6316",
       address: "Calle Mella esquina Independencia, San Juan.",
@@ -170,9 +177,9 @@ export default function Page() {
             height={2000}
             src={"/images/prodominicanabuilding.jpg"}
             alt={""}
-            className="rounded-3xl object-cover h-[70vh] w-6/12 hidden xl:block"
+            className="rounded-3xl object-cover h-full w-6/12 hidden xl:block"
           />
-          <div className="flex flex-col gap-5 py-2 text-blue-950 w-full">
+          <div className="flex flex-col gap-5 py-2 text-blue-950 w-6/12">
             <div>
               <h1 className="text-4xl font-extrabold">{t("title")}</h1>
               <p className="font-semibold">{t("description")}</p>
@@ -268,7 +275,10 @@ export default function Page() {
                   />
                 </Button>
               </MenuHandler>
-              <MenuList className="w-10/12 sm:max-h-72" placeholder={undefined}>
+              <MenuList
+                className="w-10/12 sm:w-72 sm:max-h-72"
+                placeholder={undefined}
+              >
                 {branches.map((branch: any, index: number) => (
                   <MenuItem
                     key={index}
@@ -333,14 +343,14 @@ function ContactCard({ title, description, info, link, icon }: any) {
       </div>
       <div className="flex flex-col h-3/6 justify-between">
         <div>
-          <div className="font-bold text-lg group-hover:text-white">
+          <div className="font-bold text-lg text-black group-hover:text-white">
             {title}
           </div>
           <div className="text-gray-500 text-sm group-hover:text-gray-200">
             {description}
           </div>
         </div>
-        <div className="font-bold group-hover:underline group-hover:text-white break-words">
+        <div className="text-black font-bold group-hover:underline group-hover:text-white break-words">
           {info}
         </div>
       </div>

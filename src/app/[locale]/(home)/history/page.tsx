@@ -36,12 +36,12 @@ export default function Page() {
   ];
   const t = useTranslations("history");
   return (
-    <div className="  mx-auto w-full h-full bg-white flex justify-center items-center">
-      <div className=" bg-whiteh-[135vh] w-full">
+    <div className="w-full bg-white flex justify-center items-center">
+      <div className="w-full">
         <h2 className=" text-[#1E3059] font-bold font-montserrat text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-5xl underline flex justify-center items-center py-10">
           {t("title")}
         </h2>
-        <div className="flex flex-col p-10 h-full w-full  ">
+        <div className="flex flex-col p-10 h-full w-full">
           {historyYears.map((history, index) => (
             <HistoryYear history={history} index={index} key={index} />
           ))}
@@ -78,8 +78,8 @@ function HistoryYear({ history, index }: any) {
               alt=""
             />
           </div>
-          <div className=" text-xs  lg:text-sm 2xl:text-base ">
-            <p className=" p-5  h-full   tracking-wide text-gray-900 text-opacity-100 bg-[#F6F6F6] ">
+          <div className=" text-xs lg:text-sm 2xl:text-base ">
+            <p className=" p-5 h-full tracking-wide text-gray-900 text-opacity-100 bg-[#F6F6F6] ">
               {history.description}
             </p>
           </div>
