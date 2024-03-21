@@ -12,7 +12,7 @@ import Image from "next/image";
 export default function TextEditor({
   editor,
   description,
-  number = 20,
+  number,
 }: {
   editor: any;
   description?: any;
@@ -137,7 +137,9 @@ export default function TextEditor({
         </RichTextEditor.ControlsGroup>
       </RichTextEditor.Toolbar>
       <RichTextEditor.Content
-        className={`h-[${number}vh] w-full overflow-y-auto no-scrollbar`}
+        className={`${
+          number && `h-[${number}vh]`
+        } w-full overflow-y-auto no-scrollbar`}
       />
     </RichTextEditor>
   );

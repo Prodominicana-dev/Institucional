@@ -1,4 +1,5 @@
 "use client";
+import { useEvents } from "@/services/events/service";
 import {
   ArrowRightCircleIcon,
   CalendarDaysIcon,
@@ -6,14 +7,20 @@ import {
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-export default function Page() {
-  const events = [
-    { id: "1", title: "Americas Lodging Investment Summit", date: "enero" },
-    { id: "2", title: "Americas Lodging Investment Summit", date: "enero" },
-    { id: "3", title: "Americas Lodging Investment Summit", date: "enero" },
-  ];
+export default function Page({ params: { locale } }: any) {
+  const [eventss, setEvents] = useState<any>([]);
+
+  const { data, isLoading, refetch } = useEvents(locale);
+
+  useEffect(() => {
+    if (data && !isLoading) {
+      console.log(data);
+      setEvents(data);
+    }
+  }, [data, isLoading]);
+
   const t = useTranslations("events");
   return (
     <div>
@@ -92,8 +99,15 @@ export default function Page() {
       </div>
       <div className="flex justify-center bg-white py-10">
         <div className="w-10/12 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-10">
-          {events.map((event, index) => (
-            <EventCard key={index} title={event.title} date={event.date} />
+          {eventss?.map((event: any, index: number) => (
+            <EventCard
+              key={index}
+              id={event.id}
+              title={event.title}
+              date={event.start_Date}
+              locale={locale}
+              image={event.image}
+            />
           ))}
         </div>
       </div>
@@ -101,19 +115,55 @@ export default function Page() {
   );
 }
 
-function EventCard({ id, title, date }: any) {
+function EventCard({
+  id,
+  title,
+  date,
+  image,
+  locale,
+}: {
+  id: string;
+  title: string;
+  date: string;
+  image: string;
+  locale: string;
+}) {
+  // Extraer mes y ponerlo en español o ingles dependiendo el locale como "enero" o "january"
+  const dateFormated = new Date(date);
+  // Extraer el mes
+  const month = dateFormated.toLocaleString(locale, { month: "long" });
+
   return (
     <Link
       href={`/events/${id}`}
-      className="w-full h-full relative text-white cursor-pointer"
+      className="w-full h-80 relative text-white cursor-pointer"
     >
-      <Image
-        src="/images/event1.jpg"
-        alt="events"
-        width={500}
-        height={500}
-        className="w-full object-cover"
-      />
+      {!image ? (
+        // <Image
+        //   src={`/svg/prodominicana-logo.svg`}
+        //   alt={title}
+        //   width={200}
+        //   height={200}
+        //   className="w-full scale-50 object-center"
+        // />
+        <div className="w-full h-full flex justify-center items-center bg-white">
+          <Image
+            src="/svg/prodominicana-logo.svg"
+            alt="events"
+            width={100}
+            height={100}
+            className="size-36 object-cover"
+          />
+        </div>
+      ) : (
+        <Image
+          src={`${process.env.NEXT_PUBLIC_API_URL}/events/images/${id}/${image}`}
+          alt={title}
+          width={1920}
+          height={1080}
+          className="w-full object-cover h-full"
+        />
+      )}
       <div className="absolute inset-x-0 bg-blue-950/80 h-s bottom-0 flex justify-center">
         <div className="w-11/12 flex justify-between items-center py-5 ">
           <p className="w-8/12 sm:text-sm xl:text-xl font-bold">{title}</p>
@@ -127,7 +177,7 @@ function EventCard({ id, title, date }: any) {
             />
             <div className="flex items-center gap-2 uppercase font-semibold">
               <CalendarDaysIcon className="w-5" />
-              <p className=" text-[12px] 2xl:text-[16px]">{date}</p>
+              <p className=" text-[12px] 2xl:text-[16px]">{month}</p>
             </div>
           </div>
         </div>

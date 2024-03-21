@@ -21,6 +21,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useNewsById, usePrevNextById } from "@/services/news/service";
 import NewsContent from "@/components/news/content";
+import TextContent from "@/components/news/text";
 
 export default function Page({ params: { locale, id } }: any) {
   const { data, isLoading } = useNewsById(locale, id);
@@ -35,6 +36,7 @@ export default function Page({ params: { locale, id } }: any) {
   useEffect(() => {
     if (!isLoading && data) {
       setArticle(data);
+      console.log(data);
       console.log(data.id);
     }
     if (!nextPrevLoading && nextPrev) {
@@ -73,14 +75,15 @@ export default function Page({ params: { locale, id } }: any) {
               width={3840}
               height={2160}
               alt="new"
-              src={`${process.env.NEXT_PUBLIC_API_URL}/news/images/${article?.id}/${article?.image}`}
+              src={`${process.env.NEXT_PUBLIC_API_URL}/news/images/${article?.id}/${article?.cover}`}
               className="w-full object-cover object-center relative min-h-[50vh] max-h-[80vh]"
             />
           </div>
         </div>
         <div className="flex flex-col items-center justify-center py-10 gap-10 text-gray-900">
           <div className="w-10/12 lg:w-8/12 ">
-            <NewsContent id={article?.id} content={article?.content} />
+            <TextContent text={article?.content} />
+            {/* <NewsContent id={article?.id} content={article?.content} /> */}
           </div>
           <div className="w-10/12 lg:w-8/12">
             <SpeedDial placement="right">
@@ -187,7 +190,13 @@ export default function Page({ params: { locale, id } }: any) {
               </SpeedDialContent>
             </SpeedDial>
           </div>
-          <div className="w-10/12 lg:w-8/12 flex justify-between gap-10">
+          <div
+            className={`${
+              nextPrev?.prev && nextPrev?.prev.id !== null
+                ? "justify-between"
+                : "justify-end"
+            } w-10/12 lg:w-8/12 flex gap-10`}
+          >
             {nextPrev?.prev && nextPrev?.prev.id !== null && (
               <Link
                 href={`${nextPrev?.prev.id}`}

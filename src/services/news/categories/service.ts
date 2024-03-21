@@ -235,7 +235,7 @@ export function deleteNewsCategory(
           autoClose: 5000,
           withCloseButton: false,
           title: "Usuario inautorizado",
-          message: "No tienes permisos para desactivar una dirección.",
+          message: "No tienes permisos para desactivar una categorías.",
           color: "red",
           loading: false,
         });

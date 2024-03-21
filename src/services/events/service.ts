@@ -37,6 +37,17 @@ export function useEventById(id: string) {
   });
 }
 
+export function useEventByIdAndLang(id: string, locale: string) {
+  return useQuery({
+    queryKey: ["newsById", id],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/${locale}/events/${id}`;
+      const { data } = await axios.get(url);
+      return data[0];
+    },
+  });
+}
+
 export function createEvents(
   event: FormData,
   update: () => void,
@@ -149,21 +160,25 @@ export function editEvents(
 
 export function enableEvents(
   id: string,
+  updated_By: string,
   handleOpen: () => void,
   update: () => void,
   userId: string
 ) {
-  console.log(userId);
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
   ).toString();
   return axios
-    .patch(`${process.env.NEXT_PUBLIC_API_URL}/events/enable/${id}`, null, {
-      headers: {
-        Authorization: `${userIdEncrypted}`,
-      },
-    })
+    .patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/events/enable/${id}`,
+      { updated_By },
+      {
+        headers: {
+          Authorization: `${userIdEncrypted}`,
+        },
+      }
+    )
     .then((res) => {
       if (res.status === 200) {
         notifications.show({
@@ -205,6 +220,7 @@ export function enableEvents(
 
 export function disableEvents(
   id: string,
+  updated_By: string,
   handleOpen: () => void,
   update: () => void,
   userId: string
@@ -215,11 +231,15 @@ export function disableEvents(
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
   ).toString();
   return axios
-    .patch(`${process.env.NEXT_PUBLIC_API_URL}/events/disable/${id}`, null, {
-      headers: {
-        Authorization: `${userIdEncrypted}`,
-      },
-    })
+    .patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/events/disable/${id}`,
+      { updated_By },
+      {
+        headers: {
+          Authorization: `${userIdEncrypted}`,
+        },
+      }
+    )
     .then((res) => {
       if (res.status === 200) {
         notifications.show({

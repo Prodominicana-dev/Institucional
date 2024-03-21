@@ -69,6 +69,7 @@ export function CategoryEditDialog({
         const data = {
           nameEs,
           nameEn,
+          updated_By: user?.email,
         };
         await editNewsCategory(category.id, data, update, user?.sub as string);
         setIsLoading(false);

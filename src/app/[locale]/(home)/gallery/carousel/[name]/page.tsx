@@ -370,6 +370,54 @@ const photos = [
   },
 ];
 
+// const test2 = [
+//   {
+//     id: 1,
+//     width: 1920,
+//     height: 1080,
+//     src: "/images/prodominicanabuilding.jpg",
+//     srcSet: [
+//       {
+//         src: "/images/event1.jpg",
+//       },
+//       {
+//         src: "/images/prodominicanabuilding.jpg",
+//       },
+//       {
+//         src: "/images/edgar.jpg",
+//       },
+//       {
+//         src: "/images/prodominicanabuilding.jpg",
+//       },
+//     ],
+//   },
+//   {
+//     id: 33,
+//     src: "/images/prodominicanabuilding.jpg",
+//     width: 6720,
+//     height: 4480,
+//     srcSet: [
+//       { src: "/images/prodominicanabuilding.jpg", width: 3360, height: 2240 },
+//       { src: "/images/prodominicanabuilding.jpg", width: 1680, height: 1120 },
+//     ],
+//   },
+// ];
+
+const test = [
+  {
+    src: "/images/event1.jpg",
+  },
+  {
+    src: "/images/prodominicanabuilding.jpg",
+  },
+  {
+    src: "/images/edgar.jpg",
+  },
+  {
+    src: "/images/prodominicanabuilding.jpg",
+  },
+];
+
 export default function Carousel({ params }: Props) {
   const [index, setIndex] = useState(-1);
   const galleryTitle = decodeURIComponent(params.name);
@@ -381,31 +429,29 @@ export default function Carousel({ params }: Props) {
         </h1>
       </div>
       <div className="sm:6/12 w-8/12 overflow-hidden ">
-      <PhotoAlbum
-       
-        key={index}
-        photos={photos}
-        layout="columns"
-        spacing={7}
-        columns={(containerWidth) => {
-          if (containerWidth < 500) return 1;
-          if (containerWidth < 800) return 2;
-          if (containerWidth < 1200) return 2;
-          return 3;
-        }}
-        targetRowHeight={50}
-        onClick={({ index }) => setIndex(index)}
-      
-      />
+        <PhotoAlbum
+          key={index}
+          photos={photos}
+          layout="columns"
+          spacing={7}
+          columns={(containerWidth) => {
+            if (containerWidth < 500) return 1;
+            if (containerWidth < 800) return 2;
+            if (containerWidth < 1200) return 2;
+            return 3;
+          }}
+          targetRowHeight={50}
+          onClick={({ index }) => setIndex(index)}
+        />
 
-      <Lightbox
-        slides={photos}
-        open={index >= 0}
-        index={index}
-        close={() => setIndex(-1)}
-        // enable optional lightbox plugins
-        plugins={[Fullscreen, Slideshow, Thumbnails, Zoom]}
-      />
+        <Lightbox
+          slides={test}
+          open={index >= 0}
+          index={index}
+          close={() => setIndex(-1)}
+          // enable optional lightbox plugins
+          plugins={[Fullscreen, Slideshow, Thumbnails, Zoom]}
+        />
       </div>
     </div>
   );

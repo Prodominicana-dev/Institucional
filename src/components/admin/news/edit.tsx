@@ -1,46 +1,30 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  Button,
   Dialog,
   DialogHeader,
   DialogBody,
   DialogFooter,
-  Tooltip,
   Input,
-  Textarea,
   Spinner,
-  Switch,
   Menu,
   MenuHandler,
   MenuList,
   MenuItem,
 } from "@material-tailwind/react";
-import { Stepper, Step, Typography } from "@material-tailwind/react";
-import {
-  CogIcon,
-  UserIcon,
-  BuildingLibraryIcon,
-  ExclamationTriangleIcon,
-  ExclamationCircleIcon,
-} from "@heroicons/react/24/outline";
-import { createSection } from "@/services/section/service";
+import { Stepper, Step } from "@material-tailwind/react";
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import { Montserrat } from "next/font/google";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import { set } from "date-fns";
 import { FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
-import { createDocument } from "@/services/document/service";
 import Editor from "../tools/rich-editor/config";
 import TextEditor from "../tools/rich-editor/rich-editor";
-import DropzoneImpl from "../transparency/document/dropzone";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Dropzone } from "@mantine/dropzone";
 import Image from "next/image";
-import Select from "react-select";
-import { is } from "date-fns/locale";
 import {
   createNews,
+  editNews,
   useCategoriesNews,
   useNewsById,
   useNewsConfById,
@@ -49,6 +33,10 @@ import { Autocomplete } from "@mantine/core";
 import DragNDrop from "../tools/dropzone/dropzone";
 import TextEditorWithConfig from "../tools/textEditor/textEditor";
 import Day_Picker from "../tools/daypicker";
+import { useNewsCategories } from "@/services/news/categories/service";
+import Select from "react-select";
+import { set } from "date-fns";
+import axios from "axios";
 
 export function EditNewsDialog({
   id,
@@ -63,49 +51,46 @@ export function EditNewsDialog({
 }) {
   const { user } = useUser();
   const [spanishTitle, setSpanishTitle] = useState("");
-  const [spanishCategory, setSpanishCategory] = useState("");
   const [englishTitle, setEnglishTitle] = useState("");
-  const [englishCategory, setEnglishCategory] = useState("");
   const [description] = useState("");
-  const [image, setImage] = useState("");
+  const [cover, setCover] = useState("");
   const [warningAlert, setWarningAlert] = useState(false);
   const [submitLoading, setSubmitLoading] = useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
   const [isLastStep, setIsLastStep] = React.useState(false);
   const [isFirstStep, setIsFirstStep] = React.useState(false);
   const [files, setFiles] = useState<FileWithPath[]>([]);
-  const [filesBody, setFilesBody] = useState<FileWithPath[]>([]);
-  const [spanishCategories, setSpanishCategories] = useState([]);
-  const [englishCategories, setEnglishCategories] = useState([]);
+  const [imagesRelated, setImagesRelated] = useState<FileWithPath[]>([]);
+  const [images, setImages] = useState<string[]>([]);
   const [submittion, setSubmittion] = useState(false);
   const [date, setDate] = useState<any>(new Date());
-  const [spanishDescription, setSpanishDescription] = useState("");
-  const [englishDescription, setEnglishDescription] = useState("");
-
+  const [categoryOptions, setCategoryOptions] = useState<any>([]);
+  const [categoryId, setCategoryId] = useState("");
+  const { data: categories, isLoading: categoriesLoading } =
+    useNewsCategories();
   const { data: news, isLoading: newsLoading } = useNewsConfById(id);
-  const [contentEs, setContentEs] = useState<any>([]);
-  const [contentEn, setContentEn] = useState<any>([]);
-  const [optionEs, setOptionEs] = useState<any>([]);
-  const [optionEn, setOptionEn] = useState<any>([]);
 
   useEffect(() => {
     if (!newsLoading && news) {
-      const { es, en } = news;
       console.log(news);
-      setSpanishTitle(es.title);
-      setSpanishDescription(es.description);
-      setOptionEs(es.content);
-      setEnglishTitle(en.title);
-      setEnglishDescription(en.description);
-      setOptionEn(en.content);
-      setDate(new Date(news.date));
-      console.log(es.content, en.content);
-      // Ordernar content por id para que no se desordene al agregar nuevos componentes
-      setContentEs(es.content.sort((a: any, b: any) => a.id - b.id));
-      setContentEn(en.content.sort((a: any, b: any) => a.id - b.id));
-      setImage(news.image);
+      setSpanishTitle(news.es.title);
+      setEnglishTitle(news.en.title);
+      setCover(news.cover);
+      setImages(news.images);
+      setCategoryId(news.category.id);
     }
   }, [news, newsLoading]);
+
+  useEffect(() => {
+    if (!categoriesLoading && categories) {
+      setCategoryOptions(
+        categories.map(({ id, nameEs }: { id: string; nameEs: string }) => ({
+          value: id,
+          label: nameEs,
+        }))
+      );
+    }
+  }, [categories, categoriesLoading]);
 
   const openRef = useRef<() => void>(null);
   const handleNext = () => {
@@ -117,60 +102,76 @@ export function EditNewsDialog({
     setWarningAlert(false);
   };
 
-  const editorSpanish = Editor({
+  const minidescriptionEs = Editor({
     placeholder: "Breve descripción...",
     contentEs: description ? description : "",
   });
 
-  const editorEnglish = Editor({
-    placeholder: "News body",
+  const contentEs = Editor({
+    placeholder: "Contenido de la noticia...",
+    contentEs: description ? description : "",
+  });
+
+  const minidescriptionEn = Editor({
+    placeholder: "Breve descripción en inglés...",
+    contentEs: description ? description : "",
+  });
+
+  const contentEn = Editor({
+    placeholder: "Contenido de la noticia en inglés...",
     contentEs: description ? description : "",
   });
 
   /* Funcion para cuando droppeen un documento se agregue a la lista ya existente */
   const handleDrop = (acceptedFiles: FileWithPath[]) => {
-    setImage(acceptedFiles[0].name);
+    setCover(acceptedFiles[0].name);
     setFiles(acceptedFiles);
   };
 
+  useEffect(() => {
+    if (imagesRelated.length > 0) {
+      setImages(imagesRelated.map((file) => file.name));
+    }
+    if (imagesRelated.length === 0) {
+      setImages([]);
+    }
+  }, [imagesRelated]);
+
+  useEffect(() => {
+    console.log(images);
+  }, [images]);
+
   const handleButton = async () => {
-    if (
-      activeStep === 0 &&
-      (spanishTitle === "" ||
-        spanishCategory === "" ||
-        editorSpanish?.getText() === "")
-    ) {
+    if (activeStep === 0 && !categoryId) {
       return setWarningAlert(true);
     }
 
     if (
       activeStep === 1 &&
-      (englishTitle === "" ||
-        englishCategory === "" ||
-        editorEnglish?.getText() === "")
+      (spanishTitle === "" || contentEs?.getText() === "")
     ) {
       return setWarningAlert(true);
     }
 
     !isLastStep && handleNext();
 
-    if (isLastStep && files.length === 0) {
+    if (isLastStep && (englishTitle === "" || contentEn?.getText() === "")) {
       return setWarningAlert(true);
     }
 
-    if (isLastStep && files.length > 0) {
+    if (isLastStep && englishTitle !== "" && contentEn?.getText() !== "") {
       setSubmittion(true);
       // setSubmitLoading(true);
       const es_data = {
         title: spanishTitle,
-        content: contentEs,
-        description: editorSpanish?.getHTML(),
+        content: contentEs?.getHTML(),
+        description: minidescriptionEs?.getHTML(),
         language: "es",
       };
       const en_data = {
         title: englishTitle,
-        content: contentEn,
-        description: editorEnglish?.getHTML(),
+        content: contentEn?.getHTML(),
+        description: minidescriptionEn?.getHTML(),
         language: "en",
       };
       setSubmittion(false);
@@ -179,11 +180,14 @@ export function EditNewsDialog({
       formData.append("es", JSON.stringify(es_data));
       formData.append("en", JSON.stringify(en_data));
       formData.append("date", date.toISOString());
-      formData.append("image", image);
+      formData.append("cover", cover);
+      formData.append("categoryId", categoryId);
+      formData.append("images", JSON.stringify(images));
+      formData.append("updated_By", user?.email as string);
       files.length > 0 && files.map((file) => formData.append("files", file));
-      filesBody.length > 0 &&
-        filesBody.map((file) => formData.append("files", file));
-      await createNews(formData, update, user?.sub as string);
+      // imagesRelated.length > 0 &&
+      //   imagesRelated.map((file) => formData.append("files", file));
+      await editNews(news?.id, formData, update, user?.sub as string);
       setSubmitLoading(false);
       handler();
     }
@@ -193,293 +197,63 @@ export function EditNewsDialog({
     {
       step: 1,
       section: (
-        <div className={`flex flex-col gap-3`}>
-          <div className="flex flex-col w-full">
-            <label className="text-gray-700 text-xs font-light italic text-center">
-              <InformationCircleIcon className="w-4 h-4 inline-block" /> Tienes
-              que digitar la misma noticia, pero en inglés.
-            </label>
-            <div className="w-full flex gap-4">
-              <div className="flex flex-col gap-2 w-6/12">
-                <div>
-                  <label
-                    htmlFor="title"
-                    className="font-semibold text-black text-lg"
-                  >
-                    Título <span className="text-bold text-red-700">*</span>
-                  </label>
-                  <input
-                    id="title"
-                    className="w-full h-9 ring-1 ring-gray-300 rounded-md px-2"
-                    onChange={(e) => setSpanishTitle(e.target.value)}
-                    value={spanishTitle}
-                    placeholder="Título de la noticia"
-                  />
-                </div>
-                <label
-                  className={`${
-                    warningAlert && !spanishTitle && activeStep === 0
-                      ? "block"
-                      : "hidden"
-                  } text-red-600 text-sm text-start flex items-center gap-1`}
-                >
-                  <ExclamationCircleIcon className="size-5 inline-block" /> El
-                  título es obligatorio.
-                </label>
-              </div>
-              <div className="flex flex-col gap-2 w-6/12">
-                <div className="w-full">
-                  <label
-                    htmlFor="title"
-                    className="font-semibold text-black text-lg"
-                  >
-                    Categoría <span className="text-bold text-red-700">*</span>
-                  </label>
-                  <Autocomplete
-                    onChange={(e) => {
-                      setSpanishCategory(e);
-                    }}
-                    value={spanishCategory}
-                    data={spanishCategories}
-                  />
-                </div>
-                <label
-                  className={`${
-                    warningAlert && !spanishCategory && activeStep === 0
-                      ? "block"
-                      : "hidden"
-                  } text-red-600 text-sm text-start flex items-center gap-1`}
-                >
-                  <ExclamationCircleIcon className="size-5 inline-block" /> La
-                  categoría es obligatoria.
-                </label>
+        <div className="w-full h-full flex flex-col gap-5 justify-center items-center ">
+          <div className="w-full flex flex-col lg:flex-row gap-4">
+            <div className="w-full lg:w-6/12">
+              <label className="font-semibold text-black text-lg">
+                Fecha de la noticia
+              </label>
+              <div className="w-full">
+                <Day_Picker date={date} setDate={setDate} />
               </div>
             </div>
+            <div className="w-full lg:w-6/12">
+              <label
+                htmlFor="nameEs"
+                className="font-semibold text-black text-lg"
+              >
+                Categoría a la que pertenece la noticia{" "}
+                <span className="text-red-600">*</span>
+              </label>
+              <Select
+                onChange={(e: any) => {
+                  setCategoryId(e.value);
+                }}
+                className="w-full z-50"
+                options={categoryOptions}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 2,
+                  colors: {
+                    ...theme.colors,
+                    primary: "black",
+                  },
+                })}
+                value={categoryOptions.find(
+                  (option: any) => option.value === categoryId
+                )}
+              />
+              <label
+                htmlFor="nameEs"
+                className={`${
+                  warningAlert && !categoryId ? "block" : "hidden"
+                } text-red-600 text-sm pt-3`}
+              >
+                <ExclamationCircleIcon className="size-5 inline-block" /> La
+                categoría es obligatoria.
+              </label>
+            </div>
           </div>
-          <div className="flex flex-col gap-5 pb-5">
-            <label className="font-semibold text-black text-lg">
-              Breve descripción de la noticia{" "}
-              <span className="text-bold text-red-700">*</span>
-            </label>
-            <TextEditor
-              editor={editorSpanish}
-              description={spanishDescription}
-              number={15}
-            />
-          </div>
-          <div className="flex flex-col gap-5 pb-5">
-            <label className="font-semibold text-black text-lg">
-              Cuerpo de la noticia{" "}
-              <span className="text-bold text-red-700">*</span>
-            </label>
-            {optionEs?.map((option: any, index: number) => {
-              switch (option.type) {
-                case "text":
-                  return (
-                    <TextEditorWithConfig
-                      key={index}
-                      data={contentEs}
-                      setData={setContentEs}
-                      id={index}
-                      isSubmitting={submittion}
-                      content={option.content}
-                    />
-                  );
-                case "image":
-                  return (
-                    <DragNDrop
-                      key={index}
-                      data={contentEs}
-                      setData={setContentEs}
-                      _files={filesBody}
-                      _setFiles={setFilesBody}
-                      id={index}
-                      isSubmitting={submittion}
-                      content={option.content}
-                    />
-                  );
-                default:
-                  return null; // Opción desconocida, podrías manejarla de otra manera si es necesario
-              }
-            })}
-            <Menu allowHover>
-              <MenuHandler>
-                <button className="ring-1 ring-gray-200 w-56 h-10 text-black rounded-md">
-                  Agregar Componente
-                </button>
-              </MenuHandler>
-              <MenuList placeholder={undefined} className="z-[9999]">
-                <MenuItem
-                  placeholder={undefined}
-                  onClick={() => {
-                    setOptionEs([...optionEs, "text"]);
-                    setOptionEn([...optionEn, "text"]);
-                  }}
-                  className="text-black font-montserrat font-light"
-                >
-                  Agregar texto
-                </MenuItem>
-                <MenuItem
-                  placeholder={undefined}
-                  onClick={() => {
-                    setOptionEs([...optionEs, "image"]);
-                    setOptionEn([...optionEn, "image"]);
-                  }}
-                  className="text-black font-montserrat font-light"
-                >
-                  Agregar imagen
-                </MenuItem>
-              </MenuList>
-            </Menu>
 
-            {/* <DragNDrop
-              data={contentEs}
-              setData={setContentEs}
-              isSubmitting={submittion}
-            />
-            <TextEditorWithConfig
-              data={contentEs}
-              setData={setContentEs}
-              isSubmitting={submittion}
-            /> */}
-          </div>
-        </div>
-      ),
-    },
-    {
-      step: 2,
-      section: (
-        <div className={`flex flex-col gap-3`}>
-          <div className="flex flex-col w-full">
-            <div className="w-full flex gap-4">
-              <div className="flex flex-col gap-2 w-6/12">
-                <div>
-                  <label
-                    htmlFor="title"
-                    className="font-semibold text-black text-lg"
-                  >
-                    Title <span className="text-bold text-red-700">*</span>
-                  </label>
-                  <Input
-                    crossOrigin={""}
-                    id="title"
-                    className="w-full"
-                    onChange={(e) => setEnglishTitle(e.target.value)}
-                    value={englishTitle}
-                    placeholder="Title of the news"
-                  />
-                </div>
-                <label
-                  className={`${
-                    warningAlert && !englishTitle && activeStep === 1
-                      ? "block"
-                      : "hidden"
-                  } text-red-600 text-sm text-start flex items-center gap-1`}
-                >
-                  <ExclamationCircleIcon className="size-5 inline-block" /> The
-                  title is required.
-                </label>
-              </div>
-              <div className="flex flex-col gap-2 w-6/12">
-                <div>
-                  <label
-                    htmlFor="title"
-                    className="font-semibold text-black text-lg"
-                  >
-                    Category <span className="text-bold text-red-700">*</span>
-                  </label>
-                  <Autocomplete
-                    onChange={(e) => {
-                      setEnglishCategory(e);
-                    }}
-                    value={englishCategory}
-                    data={englishCategories}
-                  />
-                </div>
-                <label
-                  className={`${
-                    warningAlert && !englishCategory && activeStep === 1
-                      ? "block"
-                      : "hidden"
-                  } text-red-600 text-sm text-start flex items-center gap-1`}
-                >
-                  <ExclamationCircleIcon className="size-5 inline-block" /> The
-                  category is required.
-                </label>
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col gap-5 pb-5">
-            <label className="font-semibold text-black text-lg">
-              Short News Overview{" "}
-              <span className="text-bold text-red-700">*</span>
+          <div className="w-full">
+            <label
+              htmlFor="nameEs"
+              className="font-semibold text-black text-lg"
+            >
+              Portada de la noticia <span className="text-red-600">*</span>
             </label>
-            <TextEditor
-              editor={editorEnglish}
-              description={englishDescription}
-              number={15}
-            />
           </div>
-          <div className="flex flex-col gap-5 pb-5">
-            <label className="font-semibold text-black text-lg">
-              News Body <span className="text-bold text-red-700">*</span>
-            </label>
-            {optionEn?.map((option: any, index: number) => {
-              switch (option.type) {
-                case "text":
-                  return (
-                    <TextEditorWithConfig
-                      key={index}
-                      data={contentEn}
-                      setData={setContentEn}
-                      id={index}
-                      isSubmitting={submittion}
-                    />
-                  );
-                case "image":
-                  return (
-                    <DragNDrop
-                      key={index}
-                      data={contentEn}
-                      setData={setContentEn}
-                      _files={filesBody}
-                      _setFiles={setFilesBody}
-                      id={index}
-                      isSubmitting={submittion}
-                    />
-                  );
-                default:
-                  return null; // Opción desconocida, podrías manejarla de otra manera si es necesario
-              }
-            })}
-
-            {/* <DragNDrop
-              data={contentEs}
-              setData={setContentEs}
-              isSubmitting={submittion}
-            />
-            <TextEditorWithConfig
-              data={contentEs}
-              setData={setContentEs}
-              isSubmitting={submittion}
-            /> */}
-          </div>
-        </div>
-      ),
-    },
-    {
-      step: 3,
-      section: (
-        <div className="w-full h-full flex flex-col gap-5 justify-center items-center">
-          <div className="w-11/12 flex flex-col">
-            <label className="font-semibold text-black text-lg">
-              Fecha de la noticia
-            </label>
-            <div className="w-6/12">
-              <Day_Picker date={date} setDate={setDate} />
-            </div>
-          </div>
-          <div className="w-11/12 h-[30vh] relative flex justify-center items-center group">
+          <div className="w-full h-[50vh] relative flex justify-center items-center group">
             {files.length > 0 && (
               <button
                 onClick={() => openRef.current?.()}
@@ -487,6 +261,20 @@ export function EditNewsDialog({
               >
                 <Image
                   src={URL.createObjectURL(files[0])} // Use the preview URL directly
+                  alt=""
+                  width="500"
+                  height="500"
+                  className="w-full h-full absolute rounded-lg object-cover group-hover:blur-[2px] group-hover:opacity-40 duration-300" // Add bg-white for visibility
+                />
+              </button>
+            )}
+            {cover && files.length === 0 && (
+              <button
+                onClick={() => openRef.current?.()}
+                className="w-full h-full z-10 absolute flex justify-center items-center group"
+              >
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_API_URL}/files/news/${id}/img/${cover}`} // Use the preview URL directly
                   alt=""
                   width="500"
                   height="500"
@@ -513,19 +301,162 @@ export function EditNewsDialog({
           </div>
           <label
             className={`${
-              warningAlert && activeStep === 2 ? "block" : "hidden"
-            } text-red-600 text-sm text-start flex items-start gap-1 w-11/12`}
+              warningAlert && files.length === 0 ? "block" : "hidden"
+            } text-red-600 text-sm text-start flex items-start gap-1 w-full`}
           >
             <ExclamationCircleIcon className="size-5 inline-block" /> La imagen
             es obligatoria.
           </label>
 
-          <label className="text-gray-500 text-sm text-center w-11/12">
+          <label className="text-black text-sm text-start w-full">
             <InformationCircleIcon className="size-5 inline-block" /> Agregue la
             imagen de la noticia, no importa si se ve "cortada" o "agrandada",
             en este cuadro la imagen se centrara, pero no perderá su tamaño
             original.
           </label>
+          {/* <div className="w-full flex flex-col gap-5">
+            <label className="font-semibold text-black text-lg">
+              Fotos relacionadas con la noticia
+            </label>
+            <DragNDrop
+              data={imagesRelated}
+              setData={setImagesRelated}
+              id={news?.id}
+              images={images}
+              setImages={setImages}
+            />
+          </div> */}
+        </div>
+      ),
+    },
+    {
+      step: 2,
+      section: (
+        <div className={`flex flex-col gap-3`}>
+          <div className="flex flex-col w-full">
+            <label className="text-black text-sm font-light  text-center py-3">
+              <InformationCircleIcon className="w-4 h-4 inline-block" /> Tienes
+              que digitar la misma noticia, pero en inglés.
+            </label>
+            <div className="w-full flex gap-4">
+              <div className="flex flex-col gap-2 w-full">
+                <div>
+                  <label
+                    htmlFor="title"
+                    className="font-semibold text-black text-lg"
+                  >
+                    Título <span className="text-bold text-red-700">*</span>
+                  </label>
+                  <input
+                    id="title"
+                    className="w-full h-9 ring-1 ring-gray-300 rounded-md px-2"
+                    onChange={(e) => setSpanishTitle(e.target.value)}
+                    value={spanishTitle}
+                    placeholder="Título de la noticia"
+                  />
+                </div>
+                <label
+                  className={`${
+                    warningAlert && !spanishTitle ? "block" : "hidden"
+                  } text-red-600 text-sm text-start flex items-center gap-1`}
+                >
+                  <ExclamationCircleIcon className="size-5 inline-block" /> El
+                  título es obligatorio.
+                </label>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col ">
+            <label className="font-semibold text-black text-lg">
+              Breve descripción de la noticia
+            </label>
+            <TextEditor
+              editor={minidescriptionEs}
+              number={15}
+              description={news?.es.description}
+            />
+          </div>
+          <div className="flex flex-col ">
+            <label className="font-semibold text-black text-lg">
+              Cuerpo de la noticia{" "}
+              <span className="text-bold text-red-700">*</span>
+            </label>
+            <TextEditor editor={contentEs} description={news?.es.content} />
+            <label
+              className={`${
+                warningAlert && !contentEs?.getText() ? "block" : "hidden"
+              } text-red-600 text-sm text-start flex items-center gap-1 py-2`}
+            >
+              <ExclamationCircleIcon className="size-5 inline-block" /> El
+              cuerpo de la noticia en inglés es obligatorio.
+            </label>
+          </div>
+        </div>
+      ),
+    },
+    {
+      step: 3,
+      section: (
+        <div className={`flex flex-col gap-3`}>
+          <div className="flex flex-col w-full">
+            <label className="text-black text-sm font-light  text-center py-3">
+              <InformationCircleIcon className="w-4 h-4 inline-block" /> Tienes
+              que digitar la misma noticia, pero en inglés.
+            </label>
+            <div className="w-full flex gap-4">
+              <div className="flex flex-col gap-2 w-full">
+                <div>
+                  <label
+                    htmlFor="title"
+                    className="font-semibold text-black text-lg"
+                  >
+                    Título en inglés{" "}
+                    <span className="text-bold text-red-700">*</span>
+                  </label>
+                  <input
+                    id="title"
+                    className="w-full h-9 ring-1 ring-gray-300 rounded-md px-2"
+                    onChange={(e) => setEnglishTitle(e.target.value)}
+                    value={englishTitle}
+                    placeholder="Título de la noticia"
+                  />
+                </div>
+                <label
+                  className={`${
+                    warningAlert && !englishTitle ? "block" : "hidden"
+                  } text-red-600 text-sm text-start flex items-center gap-1`}
+                >
+                  <ExclamationCircleIcon className="size-5 inline-block" /> El
+                  título en inglés es obligatorio.
+                </label>
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold text-black text-lg">
+              Breve descripción de la noticia en inglés
+            </label>
+            <TextEditor
+              editor={minidescriptionEn}
+              number={15}
+              description={news?.en.content}
+            />
+          </div>
+          <div className="flex flex-col ">
+            <label className="font-semibold text-black text-lg">
+              Cuerpo de la noticia en inglés{" "}
+              <span className="text-bold text-red-700">*</span>
+            </label>
+            <TextEditor editor={contentEn} description={news?.en.content} />
+            <label
+              className={`${
+                warningAlert && !contentEn?.getText() ? "block" : "hidden"
+              } text-red-600 text-sm text-start flex items-center gap-1 py-2`}
+            >
+              <ExclamationCircleIcon className="size-5 inline-block" /> El
+              cuerpo de la noticia en inglés es obligatorio.
+            </label>
+          </div>
         </div>
       ),
     },

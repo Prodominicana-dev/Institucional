@@ -4,6 +4,7 @@ import {
   EyeIcon,
   EyeSlashIcon,
   PencilSquareIcon,
+  TrashIcon,
 } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
@@ -32,6 +33,7 @@ export default function Card({
   const [editHover, setEditHover] = useState(false);
   const [enableHover, setEnableHover] = useState(false);
   const [disabledHover, setDisabledHover] = useState(false);
+  const [deleteHover, setDeleteHover] = useState(false);
   const [activate, setActivate] = useState(false);
   const [deleted, setDelete] = useState(false);
   const [inactive, setInactive] = useState(false);
@@ -49,6 +51,7 @@ export default function Card({
     if (user && !isLoading) {
       disableEvents(
         event.id as string,
+        user?.email as string,
         handleInactiveOpen,
         update,
         user.sub as string
@@ -64,6 +67,7 @@ export default function Card({
     if (user && !isLoading) {
       enableEvents(
         event.id as string,
+        user?.email as string,
         handleActivateOpen,
         update,
         user.sub as string
@@ -119,7 +123,9 @@ export default function Card({
           onMouseEnter={() => setEditHover(true)}
           onMouseLeave={() => setEditHover(false)}
           className={`w-1/3 h-full relative duration-100 flex items-center justify-center ${
-            disabledHover || enableHover ? "hidden" : "group-hover:w-full"
+            disabledHover || enableHover || deleteHover
+              ? "hidden"
+              : "group-hover:w-full"
           }`}
         >
           <button
@@ -142,7 +148,9 @@ export default function Card({
             onMouseEnter={() => setDisabledHover(true)}
             onMouseLeave={() => setDisabledHover(false)}
             className={`w-1/3 h-full relative  duration-100 flex justify-center items-center ${
-              editHover || enableHover ? "hidden" : "group-hover:w-full"
+              editHover || enableHover || deleteHover
+                ? "hidden"
+                : "group-hover:w-full"
             }`}
           >
             <button
@@ -164,7 +172,9 @@ export default function Card({
             onMouseEnter={() => setEnableHover(true)}
             onMouseLeave={() => setEnableHover(false)}
             className={`w-1/3 h-full relative duration-100 flex items-center justify-center ${
-              disabledHover || editHover ? "hidden" : "group-hover:w-full"
+              disabledHover || editHover || deleteHover
+                ? "hidden"
+                : "group-hover:w-full"
             }`}
           >
             <button
@@ -174,7 +184,7 @@ export default function Card({
               <EyeIcon className="size-8 text-white" />
               <p
                 className={`${
-                  disabledHover ? "block" : "hidden"
+                  enableHover ? "block" : "hidden"
                 } text-white font-semibold font-montserrat`}
               >
                 Publicar
@@ -182,6 +192,29 @@ export default function Card({
             </button>
           </div>
         )}
+        <div
+          onMouseEnter={() => setDeleteHover(true)}
+          onMouseLeave={() => setDeleteHover(false)}
+          className={`w-1/3 h-full relative  duration-100 flex justify-center items-center ${
+            editHover || enableHover || disabledHover
+              ? "hidden"
+              : "group-hover:w-full"
+          }`}
+        >
+          <button
+            onClick={handleDeleteOpen}
+            className={` bg-red-600 gap-2 flex justify-center items-center w-8/12 h-4/6 rounded-lg  group-hover:absolute group-hover:w-full group-hover:h-full group-hover:rounded-t-none group-hover:rounded-b-lg group-hover:animate-pulse duration-100`}
+          >
+            <TrashIcon className="size-8 text-white" />
+            <p
+              className={`${
+                deleteHover ? "block" : "hidden"
+              } text-white font-semibold font-montserrat`}
+            >
+              Eliminar
+            </p>
+          </button>
+        </div>
       </div>
       {edit && (
         <EventEditDialog
@@ -194,8 +227,8 @@ export default function Card({
       {inactive && (
         <DeactiveButton
           open={inactive}
-          title="Ocultar Noticia"
-          message="¿Estás seguro que deseas ocultar esta noticia? "
+          title="Ocultar Evento"
+          message="¿Estás seguro que deseas ocultar este evento? Nadie podrán verlo, pero podrás volver a activarlo más adelante."
           handleOpen={handleInactiveOpen}
           funct={handleDeactivate}
         />
@@ -203,8 +236,8 @@ export default function Card({
       {activate && (
         <ActivateButton
           open={activate}
-          title="Activar Sección"
-          message="¿Estás seguro que deseas activar esta sección? Será visible para trabajar con ella más adelante. Además, será pública para todo el público."
+          title="Activar Evento"
+          message="¿Estás seguro que deseas activar este evento? Será público para todos los usuarios."
           handleOpen={handleActivateOpen}
           funct={handleActivate}
         />
@@ -212,8 +245,8 @@ export default function Card({
       {deleted && (
         <DeleteButton
           open={deleted}
-          title="Eliminar Sección"
-          message="¿Estás seguro de que deseas eliminar esta sección? Esta acción no se puede deshacer y podría tener un impacto significativo en la obtención de información."
+          title="Eliminar Evento"
+          message="¿Estás seguro de que deseas eliminar este evento? Esta acción no se puede deshacer y podría tener un impacto más adelante."
           handleOpen={handleDeleteOpen}
           funct={handleDelete}
         />

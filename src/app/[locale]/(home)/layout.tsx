@@ -36,16 +36,18 @@ interface RootLayoutProps {
 export default function RootLayout({ children, locale }: RootLayoutProps) {
   const queryClient = new QueryClient();
   return (
-    <div>
-      <QueryClientProvider client={queryClient}>
-        <APIProvider apiKey={`${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`}>
-          <Navbar />
-          <NavBarMobile />
-          {children}
-          <Footer />
-          <FooterMobile />
-        </APIProvider>
-      </QueryClientProvider>
-    </div>
+    <html className="scroll-smooth">
+      <body>
+        <QueryClientProvider client={queryClient}>
+          <APIProvider apiKey={`${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`}>
+            <Navbar />
+            <NavBarMobile />
+            {children}
+            <Footer />
+            <FooterMobile />
+          </APIProvider>
+        </QueryClientProvider>
+      </body>
+    </html>
   );
 }
