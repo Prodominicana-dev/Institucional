@@ -4,9 +4,9 @@ import MemberCard from "./memberCard";
 export default function MembersGrid({ members }: { members: any[] }) {
   return (
     <div>
-      {members.length > 2 ? (
+      {members?.length > 2 ? (
         <ThreeOrMoreMembersGrid members={members} />
-      ) : members.length === 2 ? (
+      ) : members?.length === 2 ? (
         <TwoMembersGrid members={members} />
       ) : (
         <SingleMemberGrid member={members} />

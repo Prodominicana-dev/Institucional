@@ -21,7 +21,7 @@ export default function MemberCard({ member, className }: memberCardProps) {
           width={1000}
           height={1000}
           alt="emp"
-          src={"/images/EdgarEspinal.jpg"}
+          src={`${process.env.NEXT_PUBLIC_API_URL}/files/member/${member.id}/img/${member.image}`}
           className="rounded-full object-cover w-6/12 aspect-square"
         />
         <div className="w-11/12 text-center">

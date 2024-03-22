@@ -39,7 +39,10 @@ export default function RootLayout({ children, locale }: RootLayoutProps) {
     <html className="scroll-smooth">
       <body>
         <QueryClientProvider client={queryClient}>
-          <APIProvider apiKey={`${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`}>
+          <APIProvider
+            apiKey={`${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`}
+            language={locale}
+          >
             <Navbar />
             <NavBarMobile />
             {children}

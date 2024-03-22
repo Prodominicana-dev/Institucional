@@ -13,6 +13,16 @@ export function useMembers(lang: string) {
     },
   });
 }
+export function useMembersByDepartment(lang: string, id: string) {
+  return useQuery({
+    queryKey: ["members"],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/so/${lang}/member/direction/${id}`;
+      const { data } = await axios.get(url);
+      return data;
+    },
+  });
+}
 
 export function useMemberById(id: string) {
   return useQuery({
