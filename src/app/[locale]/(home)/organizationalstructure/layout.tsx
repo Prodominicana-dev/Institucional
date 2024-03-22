@@ -50,7 +50,7 @@ export default function RootLayout({
       <div className="w-full py-10 flex flex-row justify-center">
         <div className="w-10/12 flex flex-col lg:flex-row justify-center sm:gap-10">
           <div className="w-full lg:w-3/12  flex justify-center">
-            <div className="hidden lg:flex w-full h-full bg-white border-2 border-gray-300 flex-col justify-between gap-3 rounded-lg p-5">
+            <div className="hidden lg:flex w-full h-full bg-white border-2 border-gray-300 flex-col gap-8 rounded-lg p-5">
               {directions.map((item: any, index) => (
                 <Link
                   href={`/organizationalstructure/${item.id}`}
@@ -66,7 +66,7 @@ export default function RootLayout({
               ))}
             </div>
           </div>
-          <div className="w-full lg:w-9/12 text-black overflow-auto rounded-lg flex justify-center">
+          <div className="w-full lg:w-9/12 text-black overflow-auto rounded-lg flex justify-center items-center">
             {children}
           </div>
         </div>

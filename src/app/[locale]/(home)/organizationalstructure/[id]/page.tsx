@@ -8,10 +8,10 @@ export default function Page({ params: { locale, id } }: any) {
   const { data, isLoading } = useMembersByDepartment(locale, id);
   const [members, setMembers] = useState([]);
   useEffect(() => {
-    if (!isLoading) {
+    if (!isLoading && data) {
       setMembers(data);
     }
-  });
+  }, [isLoading, data]);
   return (
     <div>
       <MembersGrid members={members} />
