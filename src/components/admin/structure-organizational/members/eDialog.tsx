@@ -255,7 +255,7 @@ export function MembersEditDialog({
               multiple={false}
               openRef={openRef}
               onDrop={handleDrop}
-              accept={IMAGE_MIME_TYPE} // Ensure only images are accepted
+              accept={["image/png", "image/jpeg"]} // Ensure only images are accepted
               activateOnClick={true}
               className="w-full h-full border-dashed hover:border-double bg-transparent hover:bg-gray-100 hover:text-blue-dark hover:border-gray-100 duration-300 border-2 rounded-lg border-gray-200 flex justify-center items-center"
             >
