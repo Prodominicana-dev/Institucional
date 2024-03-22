@@ -23,13 +23,13 @@ export default function MemberCard({ member, className }: memberCardProps) {
     <div>
       <div
         onClick={handleOpen}
-        className={`group w-full border-2 border-gray-300 rounded-2xl flex flex-col items-center justify-center gap-3 p-5 hover:bg-blue-dark hover:text-white duration-300 cursor-pointer ${className} min-h-40`}
+        className={`group w-full border-2 border-gray-300 rounded-2xl flex flex-col items-center justify-center gap-3 p-5 hover:bg-blue-dark hover:text-white duration-300 cursor-pointer ${className} h-full min-h-80`}
       >
         <Image
           width={1000}
           height={1000}
           alt="emp"
-          src={`${process.env.NEXT_PUBLIC_API_URL}/files/member/${member.id}/img/${member.image}`}
+          src={imageUrl}
           className={`rounded-full object-cover w-6/12 aspect-square bg-blue-dark ring-2 ring-white ${
             imageUrl !== "/svg/avatar.svg" && "bg-white"
           }`}
