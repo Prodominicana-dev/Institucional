@@ -23,6 +23,10 @@ export default createMiddleware({
       en: "/organizationalstructure",
       es: "/organigrama",
     },
+    "/organizationalstructure/[id]": {
+      en: "/organizationalstructure/[id]",
+      es: "/organigrama/[id]",
+    },
     "/services/export": {
       en: "/services/export",
       es: "/servicios/exportacion",
