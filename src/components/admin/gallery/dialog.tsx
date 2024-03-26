@@ -60,7 +60,6 @@ export function GalleryDialog({
 
   const handleDrop = (acceptedFiles: FileWithPath[]) => {
     setImage(acceptedFiles[0].name);
-    console.log(acceptedFiles[0].name);
     setFiles(acceptedFiles);
   };
 
@@ -192,9 +191,6 @@ export function GalleryDialog({
               onDrop={handleDrop}
               accept={["image/png", "image/jpeg"]} // Ensure only images are accepted
               activateOnClick={true}
-              onError={(error) => {
-                console.log(error);
-              }}
               className="w-full h-full border-dashed hover:border-double bg-transparent hover:bg-gray-100 hover:text-blue-dark hover:border-gray-100 duration-300 border-2 rounded-lg border-gray-200 flex justify-center items-center"
             >
               <button

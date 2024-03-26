@@ -44,12 +44,10 @@ export function OrderDialog({
   const [sections, setSections] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [quantityOptions, setQuantityOptions] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [taLoading, setLoading] = useState(false);
 
   useEffect(() => {
     if (data && !isLoading) {
-      console.log(data);
-
       setSections(data);
       setQuantityOptions(
         data.map((e: any, i: any) => ({ value: i + 1, label: i + 1 }))
@@ -103,7 +101,7 @@ export function OrderDialog({
             <div className="w-full">Nombre</div>
             <div className="w-full">Posición</div>
           </div>
-          {loading ? (
+          {taLoading ? (
             <></>
           ) : (
             <>
@@ -116,6 +114,7 @@ export function OrderDialog({
                   <div className="w-full flex justify-center">
                     <Select
                       placeholder="Seleccione..."
+                      menuPosition="fixed"
                       id="order"
                       className="w-6/12"
                       maxMenuHeight={200}

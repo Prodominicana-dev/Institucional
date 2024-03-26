@@ -51,7 +51,6 @@ export function OrderDialog({
 
   useEffect(() => {
     if (data && !isLoading) {
-      console.log(data);
       const sectionsWithSubsections = data.filter(
         (e: any) => e.subsection.length > 0
       );

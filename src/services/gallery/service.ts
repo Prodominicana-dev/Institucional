@@ -191,7 +191,6 @@ export function deleteGallery(
   update: () => void,
   userId: string
 ) {
-  console.log(userId);
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY

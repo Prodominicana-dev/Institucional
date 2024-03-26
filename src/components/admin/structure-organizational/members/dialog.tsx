@@ -76,7 +76,6 @@ export function MembersDialog({
 
   const handleDrop = (acceptedFiles: FileWithPath[]) => {
     setImage(acceptedFiles[0].name);
-    console.log(acceptedFiles[0].name);
     setFiles(acceptedFiles);
   };
 

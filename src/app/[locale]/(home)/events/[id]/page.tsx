@@ -12,7 +12,6 @@ import React, { useEffect, useState } from "react";
 export default function Page({ params: { locale, id } }: any) {
   const [event, setEvent] = useState<any>();
   const t = useTranslations("events");
-  console.log(id);
   const { data, isLoading } = useEventByIdAndLang(id, locale);
   const [latitude, setLatitude] = useState<number>(18);
   const [longitude, setLongitude] = useState<number>(69);

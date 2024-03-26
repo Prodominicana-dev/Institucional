@@ -90,7 +90,7 @@ export function useSubsectionById(id: string) {
   });
 }
 
-export function useSubsectionTranspFilter(id: string){
+export function useSubsectionTranspFilter(id: string) {
   return useQuery({
     queryKey: ["sbsFilterBYId", id],
     queryFn: async () => {
@@ -130,7 +130,6 @@ export function createSubsection(
         });
         update();
         if (subsectionId) {
-          console.log(res.data);
           subsectionId(res.data.subsection.id);
         }
       }

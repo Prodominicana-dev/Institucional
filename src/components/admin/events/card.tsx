@@ -26,7 +26,6 @@ export default function Card({
   event: any;
   update: () => void;
 }) {
-  console.log(event);
   const [open, setOpen] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
   const { user, isLoading } = useUser();

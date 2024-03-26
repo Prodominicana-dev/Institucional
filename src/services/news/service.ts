@@ -116,9 +116,7 @@ export function createNews(news: FormData, update: () => void, userId: string) {
         });
       }
     })
-    .catch((error) => {
-      console.log(error);
-    });
+    .catch((error) => {});
 }
 
 export function editNews(
@@ -181,7 +179,6 @@ export function enableNews(
   update: () => void,
   userId: string
 ) {
-  console.log(userId);
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
@@ -237,7 +234,6 @@ export function disableNews(
   update: () => void,
   userId: string
 ) {
-  console.log(userId);
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
@@ -293,7 +289,6 @@ export function deleteNews(
   update: () => void,
   userId: string
 ) {
-  console.log(userId);
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY

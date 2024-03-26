@@ -99,13 +99,11 @@ export function EventDialog({
     const [lat, lng] = coordinates.split(",");
     setLatitude(lat);
     setLongitude(lng);
-    console.log(lat, lng);
   }, [coordinates]);
 
   /* Funcion para cuando droppeen un documento se agregue a la lista ya existente */
   const handleDrop = (acceptedFiles: FileWithPath[]) => {
     setFiles(acceptedFiles);
-    console.log(acceptedFiles);
   };
 
   const handleButton = async () => {

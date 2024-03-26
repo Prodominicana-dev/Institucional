@@ -40,8 +40,6 @@ export default function Page({ params: { locale } }: any) {
     if (!isLoading && !userLoading) updateGallery;
   }, [data, isLoading, userLoading, user]);
 
-  console.log(gallery);
-
   useEffect(() => {
     refetch().then((e) => {
       setGallery(e.data);

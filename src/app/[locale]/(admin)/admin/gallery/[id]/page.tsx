@@ -55,7 +55,6 @@ export default function Page({ params: { locale, id } }: any) {
 
   useEffect(() => {
     refetch().then((e) => {
-      console.log(e.data);
       setGallery(e.data);
     });
   }, [_refetch]);

@@ -40,8 +40,6 @@ export default function Page() {
     if (!isLoading && !userLoading) updateSections;
   }, [data, isLoading, userLoading, user]);
 
-  console.log(sections);
-
   useEffect(() => {
     refetch().then((e) => {
       setSections(e.data);

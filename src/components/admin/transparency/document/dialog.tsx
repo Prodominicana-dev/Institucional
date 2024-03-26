@@ -103,12 +103,10 @@ export function DocumentDialog({
       const subsection = data
         .filter((e: Section) => e.type === "" && e.id === sectionId)
         .flatMap((section: Section) => {
-          console.log(section);
           return (section.subsection ?? [])
             .filter((e: Subsection) => e.type === "document")
             .map((e: Subsection) => ({ value: e.id, label: e.name }));
         });
-      console.log(subsection);
       if (subsection.length === 0) setSubsectionChecked(true);
       setSubsection(subsection);
     }

@@ -97,7 +97,6 @@ export function EventEditDialog({
 
   useEffect(() => {
     if (data && !isLoading) {
-      console.log(data);
       setSpanishTitle(data.es.title);
       setSpanishDescription(data.es.description);
       setEnglishTitle(data.en.title);
@@ -117,7 +116,6 @@ export function EventEditDialog({
       const es_options = es.map((category: any) => {
         return category.category;
       });
-      console.log(es_options);
       const en_options = en.map((category: any) => {
         return category.category;
       });
@@ -126,7 +124,6 @@ export function EventEditDialog({
     }
   }, [categories, categoriesLoading]);
 
-  console.log(spanishCategories, englishCategories);
   const openRef = useRef<() => void>(null);
   const handleNext = () => {
     !isLastStep && setActiveStep((cur) => cur + 1);
@@ -150,7 +147,6 @@ export function EventEditDialog({
   /* Funcion para cuando droppeen un documento se agregue a la lista ya existente */
   const handleDrop = (acceptedFiles: FileWithPath[]) => {
     setFiles(acceptedFiles);
-    console.log(acceptedFiles);
   };
 
   const handleButton = async () => {

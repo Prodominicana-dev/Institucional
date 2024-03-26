@@ -35,11 +35,8 @@ export default function Page({ params: { locale, id } }: any) {
   useEffect(() => {
     if (!isLoading && data) {
       setArticle(data);
-      console.log(data);
-      console.log(data.id);
     }
     if (!nextPrevLoading && nextPrev) {
-      console.log(nextPrev);
     }
   }, [data, isLoading, nextPrev, nextPrevLoading]);
   if (isLoading && nextPrevLoading) {

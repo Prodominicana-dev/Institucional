@@ -41,8 +41,6 @@ export default function Page() {
     if (!isLoading && !userLoading) updateSubsection();
   }, [data, isLoading, userLoading, user]);
 
-  console.log(subsections);
-
   useEffect(() => {
     refetch().then((e) => {
       setSubsection(e.data);

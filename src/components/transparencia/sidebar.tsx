@@ -3,9 +3,6 @@ import React, { useState, useEffect } from "react";
 import SidebarLink from "./sidebar-link";
 import SidebarMenu from "./sidebar-menu";
 import SidebarDocs from "./sidebar-docs";
-import { useSection } from "@/services/section/service";
-import { useAtom } from "jotai";
-import { transparencyLoading } from "@/app/[locale]/(home)/transparency/layout";
 
 export default function TransparencySidebar({ sections }: { sections: any }) {
   return (
@@ -32,96 +29,6 @@ export default function TransparencySidebar({ sections }: { sections: any }) {
           )}
         </div>
       ))}
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
-      <SidebarLink
-        title={"Inicio"}
-        link={"/transparency"}
-        openNewPage={false}
-      />
     </div>
   );
 }

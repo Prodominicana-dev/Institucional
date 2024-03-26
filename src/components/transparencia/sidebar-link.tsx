@@ -16,7 +16,11 @@ export default function SidebarLink({
     <>
       {openNewPage ? (
         <Link
-          href={link}
+          href={
+            !link.includes("http") || !link.includes("https")
+              ? `https://${link}`
+              : link
+          }
           target="_blank"
           className="w-11/12 h-14 bg-transparent hover:bg-white/30 duration-300 flex flex-row items-center justify-between rounded-lg px-5"
         >

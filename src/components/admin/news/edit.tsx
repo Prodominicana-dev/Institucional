@@ -72,7 +72,6 @@ export function EditNewsDialog({
 
   useEffect(() => {
     if (!newsLoading && news) {
-      console.log(news);
       setSpanishTitle(news.es.title);
       setEnglishTitle(news.en.title);
       setCover(news.cover);
@@ -137,9 +136,7 @@ export function EditNewsDialog({
     }
   }, [imagesRelated]);
 
-  useEffect(() => {
-    console.log(images);
-  }, [images]);
+  useEffect(() => {}, [images]);
 
   const handleButton = async () => {
     if (activeStep === 0 && !categoryId) {

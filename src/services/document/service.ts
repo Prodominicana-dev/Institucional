@@ -10,7 +10,6 @@ export function useDocuments() {
     queryFn: async () => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/documents`;
       const { data } = await axios.get(url);
-      console.log(data.documents);
       return data.documents;
     },
   });
@@ -54,7 +53,6 @@ export function createDocument(
         message: "No se ha podido crear el documento",
         color: "red",
       });
-      console.log(error);
     });
 }
 
@@ -97,7 +95,6 @@ export function editDocument(
         message: "No se ha podido editar el documento",
         color: "red",
       });
-      console.log(error);
     });
 }
 
@@ -141,6 +138,5 @@ export function deleteDocument(
         message: "No se ha podido eliminar el documento",
         color: "red",
       });
-      console.log(error);
     });
 }

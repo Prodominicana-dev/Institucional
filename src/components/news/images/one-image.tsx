@@ -8,7 +8,6 @@ export default function OneImageContent({
   id: string;
   images: any;
 }) {
-  console.log(images);
   return (
     <div className="w-full flex justify-center">
       <Image

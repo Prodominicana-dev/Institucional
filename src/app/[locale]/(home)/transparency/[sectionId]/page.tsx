@@ -35,15 +35,15 @@ export default function Page({ params }: { params: { sectionId: string } }) {
   }, [data, isLoading]);
 
   useEffect(() => {
-    if (!filtersLoading) {
+    if (!filtersLoading && filters.length > 0) {
       // Asignar la posicion 0 del arreglo de años a la variable years y asignar el arreglo de meses a la variable months pero como un arreglo de objetos con la propiedad value y label
-      const year = { value: filters[0].year, label: filters[0].year };
+      const year = { value: filters[0]?.year, label: filters[0]?.year };
       setYearSelected(year);
-      const month = filters[0].months.map(({ month, name }: any) => ({
+      const month = filters[0]?.months.map(({ month, name }: any) => ({
         value: month,
         label: name,
       }));
-      setMonthSelected(month[month.length - 1]);
+      setMonthSelected(month[month?.length - 1]);
       setMonths(month);
       const years = filters.map(({ year }: any) => ({
         value: year,
@@ -57,7 +57,6 @@ export default function Page({ params }: { params: { sectionId: string } }) {
     let docs = [];
     // Filtrar los documentos por año y mes seleccionados
     if (section && section.documents) {
-      console.log(monthSelected);
       docs = section.documents.filter((doc: any) => {
         const date = new Date(doc.date);
         return (
@@ -138,11 +137,15 @@ export default function Page({ params }: { params: { sectionId: string } }) {
             <h1 className="font-montserrat text-black font-bold text-lg">
               Documentos
             </h1>
-            <div className="w-full flex flex-col gap-3">
-              {docsFiltered?.map((doc: any, index: number) => (
-                <DocsCard doc={doc} key={index} />
-              ))}
-            </div>
+            {docsFiltered ? (
+              <div className="w-full flex flex-col gap-3">
+                {docsFiltered?.map((doc: any, index: number) => (
+                  <DocsCard doc={doc} key={index} />
+                ))}
+              </div>
+            ) : (
+              <div>No hay documentos</div>
+            )}
           </>
         )}
       </div>

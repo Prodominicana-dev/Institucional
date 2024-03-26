@@ -56,7 +56,6 @@ export function SubsectionDialog({
           ?.filter((e: Section) => e.type === "" || e.type === null)
           .map((e: Section) => ({ value: e.id, label: e.name })) || [];
       setSection(sectionData);
-      console.log(sectionData);
     }
   }, [data, dataLoaded]);
 

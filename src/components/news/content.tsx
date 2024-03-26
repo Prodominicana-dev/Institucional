@@ -12,7 +12,6 @@ export default function NewsContent({
   id: string;
   content: any;
 }) {
-  console.log(content);
   return (
     <div className="flex flex-col gap-5 w-full">
       {content?.map((item: any, index: number) => (

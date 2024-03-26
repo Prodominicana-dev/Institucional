@@ -20,7 +20,6 @@ export default function NewsCard({
   image,
   locale,
 }: Props) {
-  console.log(id, title, category, date, image);
   // Convertir la fecha en este formato: "1hr ago, 1d, 7d, 31d, 344d"
   const dateFormated = new Date(date);
   const dateNow = new Date();

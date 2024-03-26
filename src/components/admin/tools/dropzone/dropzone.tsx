@@ -42,7 +42,6 @@ export default function DragNDrop({
         multiple
         // maxFiles={4 - images?.length}
         onError={(error) => {
-          console.log(error);
           notifications.show({
             title: "Error",
             message: "La imagen no puede sobrepasar los 2MB.",

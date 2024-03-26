@@ -16,7 +16,6 @@ export default function Page({ params: { locale } }: any) {
 
   useEffect(() => {
     if (data && !isLoading) {
-      console.log(data);
       setEvents(data);
     }
   }, [data, isLoading]);

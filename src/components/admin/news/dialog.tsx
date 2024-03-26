@@ -115,10 +115,6 @@ export function NewsDialog({
     }
   }, [imagesRelated]);
 
-  useEffect(() => {
-    console.log(images);
-  }, [images]);
-
   const handleButton = async () => {
     if (activeStep === 0 && (files.length === 0 || !categoryId)) {
       return setWarningAlert(true);

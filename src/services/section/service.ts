@@ -37,7 +37,7 @@ export function useSectionById(id: string) {
   });
 }
 
-export function useSectionTranspFilter(id: string){
+export function useSectionTranspFilter(id: string) {
   return useQuery({
     queryKey: ["filterBYId", id],
     queryFn: async () => {
@@ -191,7 +191,6 @@ export function activeSection(
   update: () => void,
   userId: string
 ) {
-  console.log(userId);
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
@@ -251,7 +250,6 @@ export function inactiveSection(
   update: () => void,
   userId: string
 ) {
-  console.log(userId);
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
@@ -311,7 +309,6 @@ export function deleteSection(
   update: () => void,
   userId: string
 ) {
-  console.log(userId);
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY

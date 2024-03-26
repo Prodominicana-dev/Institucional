@@ -16,7 +16,6 @@ export async function generateToken() {
     const { data } = await axios.request(options);
     return data.access_token;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 }
@@ -41,7 +40,6 @@ export async function validateUser(
     const userPermissions = response.data;
 
     if (response.status === 500 || response.status === 404) {
-      console.log("Error al validar el usuario");
       return false;
     }
 
@@ -55,7 +53,6 @@ export async function validateUser(
 
     return false;
   } catch (error) {
-    console.log(error);
     return false;
   }
 }

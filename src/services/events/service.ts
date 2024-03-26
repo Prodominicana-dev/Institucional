@@ -9,7 +9,6 @@ export function useEvents(lang: string) {
     queryFn: async () => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/${lang}/events`;
       const { data } = await axios.get(url);
-      console.log(data);
       return data;
     },
   });
@@ -99,9 +98,7 @@ export function createEvents(
         });
       }
     })
-    .catch((error) => {
-      console.log(error);
-    });
+    .catch((error) => {});
 }
 
 export function editEvents(
@@ -225,7 +222,6 @@ export function disableEvents(
   update: () => void,
   userId: string
 ) {
-  console.log(userId);
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
@@ -285,7 +281,6 @@ export function deleteEvents(
   update: () => void,
   userId: string
 ) {
-  console.log(userId);
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY

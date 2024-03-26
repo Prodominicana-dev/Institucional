@@ -38,8 +38,6 @@ export default function Page() {
     if (!isLoading && !userLoading) updateDirections;
   }, [data, isLoading, userLoading, user]);
 
-  console.log(members);
-
   useEffect(() => {
     refetch().then((e) => {
       setMembers(e.data);

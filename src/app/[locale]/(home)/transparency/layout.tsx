@@ -21,7 +21,6 @@ export default function RootLayout({
   useEffect(() => {
     if (!isLoading) {
       setSections(data);
-      console.log(data);
     }
   }, [data, isLoading]);
   if (isLoading)

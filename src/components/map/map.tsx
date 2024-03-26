@@ -8,7 +8,6 @@ interface Props {
 }
 
 export default function GoogleMap({ lat, lng }: Props) {
-  console.log(lat, lng);
   const center = {
     lat: lat,
     lng: lng,

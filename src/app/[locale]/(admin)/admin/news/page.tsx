@@ -41,7 +41,6 @@ export default function Page({ params: { locale } }: any) {
 
   useEffect(() => {
     if (data && !isLoading) {
-      console.log(data);
       setNews(data);
     }
   }, [data, isLoading]);

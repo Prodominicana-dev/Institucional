@@ -13,7 +13,6 @@ export default function Page({
 }: {
   params: { sectionId: string; subsectionId: string };
 }) {
-  console.log(params.sectionId, params.subsectionId);
   const { data, isLoading } = useSubsectionById(params.subsectionId);
   const { data: filters, isLoading: filtersLoading } =
     useSubsectionTranspFilter(params.subsectionId);
@@ -32,7 +31,6 @@ export default function Page({
 
   useEffect(() => {
     if (!filtersLoading) {
-      console.log(filters);
       // Asignar la posicion 0 del arreglo de años a la variable years y asignar el arreglo de meses a la variable months pero como un arreglo de objetos con la propiedad value y label
       const year = { value: filters[0].year, label: filters[0].year };
       setYearSelected(year);
@@ -54,7 +52,6 @@ export default function Page({
     let docs = [];
     // Filtrar los documentos por año y mes seleccionados
     if (subsection && subsection.documents) {
-      console.log(monthSelected);
       docs = subsection.documents.filter((doc: any) => {
         const date = new Date(doc.date);
         return (
@@ -93,48 +90,52 @@ export default function Page({
           className="text-black"
           dangerouslySetInnerHTML={{ __html: subsection?.description }}
         ></div>
-        {subsection?.documents && (
-          <>
-            <div className="w-full flex flex-col lg:flex-row gap-4 h-14">
-              <Select
-                placeholder="Seleccione un año"
-                id="section"
-                className="w-full"
-                maxMenuHeight={200}
-                options={years}
-                onChange={(e) => {
-                  setYearSelected(e);
-                }}
-                value={
-                  years?.find(
-                    (option: any) => option.value === yearSelected?.value
-                  ) || null
-                }
-              />
-              <Select
-                isDisabled={years === ""}
-                placeholder="Seleccione un mes"
-                id="subsection"
-                className="w-full"
-                maxMenuHeight={200}
-                options={months}
-                onChange={(e) => {
-                  setMonthSelected(e);
-                }}
-                value={
-                  months?.find(
-                    (option: any) => option.value === monthSelected?.value
-                  ) || null
-                }
-              />
-            </div>
+
+        <>
+          <div className="w-full flex flex-col lg:flex-row gap-4 h-14">
+            <Select
+              placeholder="Seleccione un año"
+              id="section"
+              className="w-full"
+              maxMenuHeight={200}
+              options={years}
+              onChange={(e) => {
+                setYearSelected(e);
+              }}
+              value={
+                years?.find(
+                  (option: any) => option.value === yearSelected?.value
+                ) || null
+              }
+            />
+            <Select
+              isDisabled={years === ""}
+              placeholder="Seleccione un mes"
+              id="subsection"
+              className="w-full"
+              maxMenuHeight={200}
+              options={months}
+              onChange={(e) => {
+                setMonthSelected(e);
+              }}
+              value={
+                months?.find(
+                  (option: any) => option.value === monthSelected?.value
+                ) || null
+              }
+            />
+          </div>
+
+          {docsFiltered ? (
             <div className="w-full flex flex-col gap-3">
               {docsFiltered?.map((doc: any, index: number) => (
                 <DocsCard doc={doc} key={index} />
               ))}
             </div>
-          </>
-        )}
+          ) : (
+            <div>No hay documentos</div>
+          )}
+        </>
       </div>
     </div>
   );
