@@ -403,6 +403,39 @@
       "description": "Encuentra la oficina más cercana a ti."
     }
   },
+  "invest": {
+    "why": {
+      "title1": "¿Por qué invertir en la",
+      "title2": "República Dominicana?",
+      "description": "La República Dominicana ofrece múltiples oportunidades de inversión como resultado de una amplia variedad de factores que han elevado la competitividad, convirtiéndola en un destino integral para los negocios.",
+      "reasons": [
+        {
+          "title": "Estratégica ubicación geográfica.",
+          "description": "Su ubicación, en el mismo centro del Caribe, ha convertido a la República Dominicana en un importante punto de enlace comercial entre Europa, Norteamérica y el resto de Latinoamérica, ofreciendo acceso preferencial a más de 1,200 millones de consumidores por vía de tratados de libre comercio con los Estados Unidos y Centroamérica, a través del DR-CAFTA y con la Unión Europea, a través del Acuerdo de Asociación Económica (EPA)."
+        },
+        {
+          "title": "Sólido marco legal e incentivos.",
+          "description": "La República Dominicana cuenta con un gobierno que favorece la inversión extranjera directa (IED), a través de un sólido marco legal, que no sólo ofrece seguridad jurídica a los inversionistas, sino que, ofrece un conjunto de incentivos y exenciones fiscales que les garantizan mayor rentabilidad a sus inversiones, al tiempo que generan empleos dignos, dinamizan la economía y promueven el desarrollo del país."
+        },
+        {
+          "title": "Avanzada infraestructura.",
+          "description": "El país cuenta con una infraestructura física amplia, desarrollada y ajustada a los requerimientos de una sociedad enfocada hacia la producción y comercialización de bienes y servicios. Su red de carreteras es una de las mejores de la región, enlazando, prácticamente, todos los destinos del país. También, cuenta con un sistema de aeropuertos y puertos modernos, extensos y eficientes. De acuerdo con el último Reporte Global de Competitividad 2019-2020, del Foro Económico Mundial, el país ocupa el primer lugar en la región en infraestructura de transporte, donde destaca por la conectividad y la calidad de la red vial. A su vez, su avanzada y confiable infraestructura de telecomunicaciones constituye una de sus principales ventajas competitivas."
+        },
+        {
+          "title": "Riqueza y variedad de recursos naturales.",
+          "description": "En la República Dominicana se conjugan una diversidad de atractivos recursos naturales, como sus bellas playas, fértiles suelos, cálido clima y yacimientos minerales, que nos hace un lugar idóneo para explorar e invertir."
+        },
+        {
+          "title": "Estabilidad económica, social y política.",
+          "description": "La seguridad jurídica, el dinamismo económico y el atractivo clima de negocios continúan haciendo de la República Dominicana el destino por excelencia de atracción de Inversión Extranjera Directa de la región y una de las economías más vibrantes de Latinoamérica y el Caribe."
+        },
+        {
+          "title": "Talento humano.",
+          "description": "La República Dominicana apuesta a un futuro que se construye con talento humano competitivo, sostenibilidad ambiental e innovación tecnológica como el camino que guía hacia el desarrollo; así pues, ProDominicana se complace en brindarle toda la colaboración, acompañamiento y asistencia necesaria para el desarrollo de sus negocios en el país."
+        }
+      ]
+    }
+  },
   "Footer": {
     "aboutUs": {
       "title": "CONÓCENOS",
