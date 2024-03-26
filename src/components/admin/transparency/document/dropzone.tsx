@@ -9,6 +9,8 @@ export default function DropzoneImpl({
   files,
   name,
   link,
+  title,
+  setTitle,
   setName,
   setLink,
   dropzoneError,
@@ -21,6 +23,8 @@ export default function DropzoneImpl({
   files: FileWithPath[];
   name: string;
   link: string;
+  title: string;
+  setTitle: any;
   setName: any;
   setLink: any;
   dropzoneError: boolean;
@@ -42,7 +46,7 @@ export default function DropzoneImpl({
             "application/vnd.ms-excel",
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
           ]}
-          multiple
+          multiple={false}
         >
           <Group
             justify="center"

@@ -3,6 +3,7 @@ import AuthUser from "@/components/admin/auth";
 import Sketch from "@/components/admin/sketch";
 import Card from "@/components/admin/transparency/section/card";
 import { SectionDialog } from "@/components/admin/transparency/section/dialog";
+import { OrderDialog } from "@/components/admin/transparency/section/order";
 import { Section } from "@/models/section";
 import { useSectionAdmin } from "@/services/section/service";
 import { useUser } from "@auth0/nextjs-auth0/client";
@@ -20,7 +21,7 @@ export default function Page() {
   const [_refetch, setRefetch] = useState(false);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<any>(null);
-
+  const [order, setOrder] = useState<any>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
 
@@ -50,6 +51,10 @@ export default function Page() {
 
   const updateSections = () => {
     setRefetch(!_refetch);
+  };
+
+  const handleOrderOpen = () => {
+    setOrder(!order);
   };
 
   const handleOpen = () => {
@@ -103,7 +108,7 @@ export default function Page() {
   if (isLoading) {
     return (
       <div className="w-full h-[80vh] flex justify-center items-center">
-        <Spinner className="w-7 h-7" />
+        <Spinner className="size-7" />
       </div>
     );
   }
@@ -114,7 +119,10 @@ export default function Page() {
           title="Secciones"
           subtitle="Transparencia"
           handleFilterOpen={handleFilterOpen}
-          buttons={[{ name: "Agregar", onClick: handleOpen }]}
+          buttons={[
+            { name: "Agregar", onClick: handleOpen },
+            { name: "Ordenar", onClick: handleOrderOpen },
+          ]}
         >
           <div
             className={`${
@@ -233,6 +241,13 @@ export default function Page() {
           <SectionDialog
             open={open}
             handler={handleOpen}
+            update={updateSections}
+          />
+        )}
+        {order && (
+          <OrderDialog
+            open={order}
+            handler={handleOrderOpen}
             update={updateSections}
           />
         )}

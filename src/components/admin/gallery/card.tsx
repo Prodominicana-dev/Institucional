@@ -2,6 +2,7 @@ import {
   EyeIcon,
   EyeSlashIcon,
   PencilSquareIcon,
+  PhotoIcon,
   TrashIcon,
 } from "@heroicons/react/24/solid";
 import React, { useState } from "react";
@@ -15,6 +16,7 @@ import Image from "next/image";
 import { deleteMember } from "@/services/structure-organizational/members/service";
 import { deleteGallery } from "@/services/gallery/service";
 import { GalleryEditDialog } from "./edit";
+import Link from "next/link";
 
 export default function Card({
   gallery,
@@ -60,6 +62,12 @@ export default function Card({
         </div>
         <div>{gallery?.title}</div>
         <div className="flex justify-center space-x-5 ">
+          <Link
+            href={`/admin/gallery/${gallery?.id}`}
+            className="flex items-center justify-center text-black hover:text-white hover:bg-blue-dark duration-300 bg-white rounded-lg w-14 h-14 ring-1 ring-gray-100"
+          >
+            <PhotoIcon className="w-7" />
+          </Link>
           <button
             onClick={handleEditOpen}
             className="flex items-center justify-center text-black hover:text-white hover:bg-blue-dark duration-300 bg-white rounded-lg w-14 h-14 ring-1 ring-gray-100"

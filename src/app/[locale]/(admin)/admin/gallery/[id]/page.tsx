@@ -1,67 +1,85 @@
 "use client";
+import AuthUser from "@/components/admin/auth";
+import DeleteButton from "@/components/admin/delete";
+import Card from "@/components/admin/gallery/card";
+import { GalleryDialog } from "@/components/admin/gallery/dialog";
+import { PhotoDialog } from "@/components/admin/gallery/photo/dialog";
 import Sketch from "@/components/admin/sketch";
-import Card from "@/components/admin/transparency/subsection/card";
-import { Subsection } from "@/models/subsection";
-import { useSubsection } from "@/services/subsection/service";
+import { deletePhoto, usePhotoGallery } from "@/services/gallery/photo/service";
+import { useGallery, useGalleryById } from "@/services/gallery/service";
+import { useDirections } from "@/services/structure-organizational/service";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import { Spinner } from "@material-tailwind/react";
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import { SubsectionDialog } from "@/components/admin/transparency/subsection/dialog";
-import AuthUser from "@/components/admin/auth";
-import { Spinner } from "@material-tailwind/react";
-import { OrderDialog } from "@/components/admin/transparency/subsection/order";
 
-export default function Page() {
+export default function Page({ params: { locale, id } }: any) {
   const [open, setOpen] = useState(false);
   const { user, isLoading: userLoading } = useUser();
   const [filterOpen, setFilterOpen] = useState(false);
-  const { data, isLoading, refetch } = useSubsection();
-  const [subsections, setSubsection] = useState([]);
+  const { data, isLoading, refetch } = usePhotoGallery(id);
+  const { data: galleryData, isLoading: galleryLoading } = useGalleryById(id);
+  const [gallery, setGallery] = useState([]);
   const [_refetch, setRefetch] = useState(false);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<any>(null);
-  const [order, setOrder] = useState<any>(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [deleted, isDeleted] = useState(false);
+  const [title, setTitle] = useState("");
 
-  const indexOfLastSection = currentPage * itemsPerPage;
-  const indexOfFirstSection = indexOfLastSection - itemsPerPage;
-  const currentSubsections = subsections?.slice(
-    indexOfFirstSection,
-    indexOfLastSection
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(15);
+
+  const indexOfLastDirection = currentPage * itemsPerPage;
+  const indexOfFirstDirection = indexOfLastDirection - itemsPerPage;
+  const currentGallery = gallery?.slice(
+    indexOfFirstDirection,
+    indexOfLastDirection
   );
-  const totalPages = Math.ceil(subsections?.length / itemsPerPage);
+  const totalPages = Math.ceil(gallery?.length / itemsPerPage);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
   useEffect(() => {
-    if (!isLoading && !userLoading) updateSubsection();
+    if (!isLoading && !userLoading) updateGallery;
   }, [data, isLoading, userLoading, user]);
 
-  console.log(subsections);
+  useEffect(() => {
+    if (galleryData && !galleryLoading) {
+      setTitle(galleryData?.title);
+    }
+  }, [galleryData, galleryLoading]);
 
   useEffect(() => {
     refetch().then((e) => {
-      setSubsection(e.data);
+      console.log(e.data);
+      setGallery(e.data);
     });
   }, [_refetch]);
 
-  const handleOrderOpen = () => {
-    setOrder(!order);
-  };
-
-  const updateSubsection = () => {
+  const updateGallery = () => {
     setRefetch(!_refetch);
   };
 
   const handleOpen = () => {
     setOpen(!open);
   };
+
+  const handleDeleteOpen = () => {
+    isDeleted(!deleted);
+  };
+
   const handleFilterOpen = () => {
     setFilterOpen(!filterOpen);
+  };
+
+  const handleDelete = (galleryId: string, photoId: string) => {
+    if (user && !userLoading) {
+      deletePhoto(galleryId, photoId, updateGallery, user?.sub as string);
+    }
   };
 
   const handleFilter = () => {
@@ -77,7 +95,7 @@ export default function Page() {
           (section) => section.status === filter
         );
       }
-      setSubsection(filteredData as any);
+      setGallery(filteredData as any);
       setCurrentPage(1); // Reset page to 1 when applying filters
     }
   };
@@ -93,10 +111,9 @@ export default function Page() {
   ];
 
   const totalOption = [
-    { value: 5, label: "5" },
-    { value: 10, label: "10" },
     { value: 15, label: "15" },
     { value: 20, label: "20" },
+    { value: 25, label: "25" },
   ];
 
   const nextEmpty =
@@ -104,6 +121,7 @@ export default function Page() {
 
   const nextNotEmpty =
     "w-6/12 h-full text-white bg-blue-dark border-2 border-blue-dark hover:bg-white hover:text-blue-dark duration-300 hover:shadow-lg rounded-lg justify-center items-center";
+
   if (isLoading) {
     return (
       <div className="w-full h-[80vh] flex justify-center items-center">
@@ -115,66 +133,25 @@ export default function Page() {
     <>
       <AuthUser permission="create:transparency">
         <Sketch
-          title="Subsecciones"
-          subtitle="Transparencia"
+          title={`${title}`}
           handleFilterOpen={handleFilterOpen}
-          buttons={[
-            { name: "Agregar", onClick: handleOpen },
-            { name: "Ordenar", onClick: handleOrderOpen },
-          ]}
+          buttons={[{ name: "Agregar", onClick: handleOpen }]}
+          hasFilter={false}
         >
-          <div
-            className={`${
-              filterOpen ? "flex" : "hidden"
-            } w-11/12 h-10 flex-row justify-end items-end space-x-4`}
-          >
-            <div className="flex flex-col">
-              <input
-                type="text"
-                className="w-56 h-10 border-2 p-4 border-gray-200 rounded-full focus:outline-none focus:border-blue-dark"
-                placeholder="Buscar por nombre..."
-                onChange={(e) => setSearch(e.target.value)}
-                value={search}
-              />
-            </div>
-            <div className="flex flex-col">
-              <label className="text-gray-400">Filtrar por...</label>
-              <Select
-                id="subsection"
-                className="w-56"
-                menuPlacement="auto"
-                options={statusOption}
-                defaultValue={statusOption[0]}
-                onChange={(e) => setFilter(e?.value as boolean)}
-              />
-            </div>
-            <button
-              onClick={() => {
-                setSearch("");
-                setFilter(null);
-              }}
-              className=" w-10 h-10 flex justify-center items-center rounded-lg bg-red-500 text-white hover:shadow-lg hover:bg-red-700 duration-300 "
-            >
-              <XMarkIcon className="w-7 h-7" />
-            </button>
-          </div>
-          {subsections?.length > 0 ? (
+          {gallery?.length > 0 ? (
             <>
               <div className="w-11/12 flex flex-col space-y-4">
                 <div className="w-full flex justify-between">
                   <div className="text-black flex items-center">
-                    {subsections?.length > 0 && (
+                    {gallery?.length > 0 && (
                       <>
-                        Mostrando las subsecciones del{" "}
+                        Mostrando las galerías del{" "}
                         {currentPage === 1
                           ? 1
                           : (currentPage - 1) * itemsPerPage + 1}{" "}
                         al{" "}
-                        {Math.min(
-                          currentPage * itemsPerPage,
-                          subsections?.length
-                        )}{" "}
-                        de {subsections?.length} totales.
+                        {Math.min(currentPage * itemsPerPage, gallery?.length)}{" "}
+                        de {gallery?.length} totales.
                       </>
                     )}
                   </div>
@@ -190,29 +167,48 @@ export default function Page() {
                       )}
                       onChange={(e) => setItemsPerPage(e?.value as number)}
                     />
-                    <span>secciones por página.</span>
+                    <span>galerías por página.</span>
                   </div>
                 </div>
                 <div className="w-full  space-y-5 text-black">
                   <>
-                    <div className="grid items-center justify-between w-full h-24 grid-cols-4 p-5 font-bold text-center bg-white rounded-lg ring-2 ring-gray-100">
-                      <div className="text-center">Nombre</div>
-                      <div className="text-center">Sección</div>
-                      <div className="">Estado</div>
-                      <div>Acción</div>
-                    </div>
-
-                    {currentSubsections?.map(
-                      (subsection: Subsection, key: number) => {
+                    <div className="grid items-center justify-between w-full gap-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-5 font-bold text-center bg-white rounded-lg">
+                      {currentGallery?.map((gallery: any, key: number) => {
                         return (
-                          <Card
+                          <div
                             key={key}
-                            subsection={subsection}
-                            update={updateSubsection}
-                          />
+                            className="w-full rounded-lg p-5 relative"
+                          >
+                            <Image
+                              src={`${process.env.NEXT_PUBLIC_API_URL}/gallery/${gallery?.galleryId}/img/${gallery?.name}`}
+                              alt={gallery.name}
+                              width={1920}
+                              height={1080}
+                              className="w-full object-cover"
+                            />
+                            <button
+                              onClick={() => {
+                                handleDelete(gallery.galleryId, gallery.id);
+                              }}
+                              className="absolute size-10 rounded-full bg-red flex items-center justify-center bg-red-500 hover:bg-red-500/80 duration-200 text-white z-10 top-2 right-2"
+                            >
+                              <XMarkIcon className="size-5" />
+                            </button>
+                            {deleted && (
+                              <DeleteButton
+                                open={deleted}
+                                title="Eliminar Galería de Fotos"
+                                message="¿Estás seguro de que deseas eliminar esta galería de fotos? Esta acción no se puede deshacer y además se eliminarán todas las imágenes asociadas a la galería."
+                                handleOpen={handleDeleteOpen}
+                                funct={() =>
+                                  handleDelete(gallery.galleryId, gallery.id)
+                                }
+                              />
+                            )}
+                          </div>
                         );
-                      }
-                    )}
+                      })}
+                    </div>
 
                     <div className="flex flex-row space-x-4 w-full h-12">
                       <button
@@ -243,17 +239,11 @@ export default function Page() {
           )}
         </Sketch>
         {open && (
-          <SubsectionDialog
+          <PhotoDialog
+            galleryId={id}
             open={open}
             handler={handleOpen}
-            update={updateSubsection}
-          />
-        )}
-        {order && (
-          <OrderDialog
-            open={order}
-            handler={handleOrderOpen}
-            update={updateSubsection}
+            update={updateGallery}
           />
         )}
       </AuthUser>

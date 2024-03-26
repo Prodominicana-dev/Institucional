@@ -38,7 +38,7 @@ export default function DragNDrop({
           handleDrop(file);
         }}
         maxSize={20 * 1024 ** 2}
-        accept={IMAGE_MIME_TYPE}
+        accept={["image/png", "image/jpeg"]}
         multiple
         // maxFiles={4 - images?.length}
         onError={(error) => {

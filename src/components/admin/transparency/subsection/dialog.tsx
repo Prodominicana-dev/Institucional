@@ -1,38 +1,24 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import {
-  Button,
   Dialog,
   DialogHeader,
   DialogBody,
   DialogFooter,
-  Tooltip,
   Input,
-  Textarea,
-  Popover,
-  PopoverHandler,
-  PopoverContent,
-  Typography,
-  Chip,
   Spinner,
   Switch,
 } from "@material-tailwind/react";
 import { createSection, useSection } from "@/services/section/service";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Select from "react-select";
-import {
-  createSubsection,
-  useSectionSubsAdmin,
-} from "@/services/subsection/service";
-import { InformationCircleIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { createSubsection } from "@/services/subsection/service";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { Montserrat } from "next/font/google";
 import SectionPopover from "../section/popover";
 import Editor from "../../tools/rich-editor/config";
 import TextEditor from "../../tools/rich-editor/rich-editor";
 import { Section } from "@/models/section";
-import { FileWithPath } from "@mantine/dropzone";
-import DropzoneImpl from "../document/dropzone";
-import { createDocument } from "@/services/document/service";
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 
 export function SubsectionDialog({
@@ -62,82 +48,6 @@ export function SubsectionDialog({
   const [isUrl, setIsUrl] = useState(false);
   const [isDocument, setIsDocument] = useState(false);
   const [type, setType] = useState("");
-  const [fileType, setFileType] = useState("document" as string);
-  const [files, setFiles] = useState<FileWithPath[]>([]);
-  const [fileName, setFileName] = useState("");
-  const [fileLink, setFileLink] = useState("");
-  const [dropzoneLoading, setDropzoneLoading] = useState(false);
-  const [dropzoneError, setDropzoneError] = useState(false);
-  const [subsectionId, setSubsectionId] = useState("");
-
-  /* Funcion para cuando droppeen un documento se agregue a la lista ya existente */
-  const handleDrop = (acceptedFiles: FileWithPath[]) => {
-    setDropzoneLoading(true);
-    const newFiles = [...files, ...acceptedFiles];
-    setTimeout(() => {
-      setFiles(newFiles);
-      setDropzoneError(false);
-      setDropzoneLoading(false);
-    }, 1500);
-  };
-
-  /* Handle para manejar cuando haya un error, de esta manera activamos el texto del error. */
-  const handleError = () => {
-    setDropzoneLoading(true);
-    setTimeout(() => {
-      setDropzoneError(true);
-      setDropzoneLoading(false);
-    }, 1500);
-  };
-
-  /* Handle para manejar cuando se elimine un documento del arreglo, lo actualizamos. */
-  const handleDelete = (index: number) => () => {
-    const newFiles = [...files];
-    newFiles.splice(index, 1);
-    setFiles(newFiles);
-  };
-
-  const typeOptions = [
-    { value: "document", label: "Documento" },
-    { value: "url", label: "Enlace" },
-  ];
-
-  useEffect(() => {
-    if (subsectionId) {
-      console.log(subsectionId);
-      // Acciones que se deben realizar después de que sectId se actualice
-      // Crear el documento utilizando el ID de la sección
-      const docDataForm = new FormData();
-
-      // Agrega cada archivo al FormData
-      if (files.length > 0) {
-        files.forEach((file) => {
-          docDataForm.append(`files`, file);
-        });
-      }
-
-      if (fileType === "url" && fileLink !== "" && fileName !== "") {
-        docDataForm.append("url", fileLink);
-        docDataForm.append("name", fileName);
-      }
-
-      if ((fileLink !== "" && fileName !== "") || files.length > 0) {
-        console.log("toca crear el doc");
-        docDataForm.append("sectionId", sectionId);
-        docDataForm.append("subsectionId", subsectionId);
-        createDocument(docDataForm, update, user?.sub as string).then(() => {
-          setDataLoading(false);
-          setName("");
-          setLink("");
-          setFiles([]);
-          setFileName("");
-          setFileLink("");
-          handler();
-        });
-      }
-      handler();
-    }
-  }, [subsectionId]); // useEffect se ejecutará cuando sectId cambie
 
   useEffect(() => {
     if (data && !dataLoaded) {
@@ -146,6 +56,7 @@ export function SubsectionDialog({
           ?.filter((e: Section) => e.type === "" || e.type === null)
           .map((e: Section) => ({ value: e.id, label: e.name })) || [];
       setSection(sectionData);
+      console.log(sectionData);
     }
   }, [data, dataLoaded]);
 
@@ -154,7 +65,7 @@ export function SubsectionDialog({
   };
 
   useEffect(() => {
-    refetch().then((e) => {
+    refetch().then((e: any) => {
       setSection(e.data);
     });
   }, [refresh]);
@@ -187,27 +98,6 @@ export function SubsectionDialog({
         url: link,
         type: type,
       };
-      if (
-        type === "document" &&
-        ((files.length === 0 &&
-          (fileName !== "" || fileName !== null) &&
-          (fileLink !== "" || fileLink !== null)) ||
-          files.length > 0)
-      ) {
-        console.log(
-          "es documento y tiene archivos",
-          fileName,
-          fileLink,
-          files.length
-        );
-        // Crear la sección y obtener el ID
-        return await createSubsection(
-          data,
-          update,
-          user.sub as string,
-          setSubsectionId
-        );
-      }
       createSubsection(data, update, user.sub as string).then(() => {
         setDataLoading(false);
         setName("");
@@ -216,10 +106,6 @@ export function SubsectionDialog({
       });
     }
   };
-  const statusOption = [
-    { value: true, label: "Activo" },
-    { value: false, label: "Inactivo" },
-  ];
 
   const editor = Editor({
     placeholder: "Descripción de la sección",
@@ -230,6 +116,14 @@ export function SubsectionDialog({
     onMouseEnter: () => setOpenPopover(true),
     onMouseLeave: () => setOpenPopover(false),
   };
+
+  if (dataLoaded) {
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <Spinner className="size-5" />
+      </div>
+    );
+  }
   return (
     <>
       <Dialog
@@ -366,35 +260,7 @@ export function SubsectionDialog({
               <span className="font-normal text-xs italic">(?)</span>
             </label>
             <TextEditor editor={editor} />
-            <div className="w-6/12 flex flex-col">
-              <label className="font-semibold text-black text-lg">
-                Tipo de documento
-              </label>
-              <Select
-                placeholder="Seleccione..."
-                id="type"
-                className="w-full"
-                maxMenuHeight={200}
-                options={typeOptions}
-                onChange={(e) => {
-                  setFileType(e?.value as string);
-                }}
-                defaultValue={typeOptions[0]}
-              />
-            </div>
-            <DropzoneImpl
-              type={fileType}
-              files={files}
-              name={fileName}
-              link={fileLink}
-              setName={setFileName}
-              setLink={setFileLink}
-              dropzoneError={dropzoneError}
-              dropzoneLoading={dropzoneLoading}
-              handleDelete={handleDelete}
-              handleDrop={handleDrop}
-              handleError={handleError}
-            />
+
             <label className="text-black text-xs font-light italic text-right">
               (?) = Opcional
             </label>
