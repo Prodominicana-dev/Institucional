@@ -31,7 +31,6 @@ export default function Page({ params: { locale, id } }: any) {
   );
   const [article, setArticle] = useState<any>();
   const route = `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/news/${id}`;
-  console.log(route);
 
   useEffect(() => {
     if (!isLoading && data) {

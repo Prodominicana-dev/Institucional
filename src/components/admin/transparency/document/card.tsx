@@ -27,6 +27,7 @@ export default function Card({
   document: any;
   update: () => void;
 }) {
+  console.log(document);
   const { user, isLoading } = useUser();
   const [editOpen, setEditOpen] = useState(false);
   const [inactive, setInactive] = useState(false);
@@ -97,7 +98,7 @@ export default function Card({
           {document.subsection?.name ? document.subsection.name : "-"}
         </div>
         <div className="truncate">
-          {document.url ? document.url : document.name}
+          {document.url ? document.url : document.title}
         </div>
         <div className="flex justify-center space-x-5 ">
           <button

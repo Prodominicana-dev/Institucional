@@ -4,16 +4,10 @@ import SidebarLink from "./sidebar-link";
 import SidebarMenu from "./sidebar-menu";
 import SidebarDocs from "./sidebar-docs";
 import { useSection } from "@/services/section/service";
+import { useAtom } from "jotai";
+import { transparencyLoading } from "@/app/[locale]/(home)/transparency/layout";
 
-export default function TransparencySidebar() {
-  const { data, isLoading } = useSection();
-  const [sections, setSections] = useState([]);
-  useEffect(() => {
-    if (!isLoading) {
-      setSections(data);
-      console.log(data);
-    }
-  }, [data, isLoading]);
+export default function TransparencySidebar({ sections }: { sections: any }) {
   return (
     <div className=" hidden lg:flex w-full h-full bg-blue-dark flex-col gap-2 rounded-lg items-center p-5">
       <SidebarLink
@@ -21,7 +15,7 @@ export default function TransparencySidebar() {
         link={"/transparency"}
         openNewPage={false}
       />
-      {sections?.map((section: any, index) => (
+      {sections?.map((section: any, index: number) => (
         <div key={index} className="w-full flex justify-center">
           {section.type === "url" && (
             <SidebarLink title={section.name} link={section.url} />

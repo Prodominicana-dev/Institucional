@@ -8,17 +8,13 @@ import { useSection } from "@/services/section/service";
 import CollapseMenu from "./collapse-menu";
 import CollapseDocs from "./collapse-docs";
 
-export default function TransparencyMenuMobile() {
+export default function TransparencyMenuMobile({
+  sections,
+}: {
+  sections: any;
+}) {
   const [title, setTitle] = useState("Menú de Transparencia");
   const [open, setOpen] = useState(false);
-  const { data, isLoading } = useSection();
-  const [sections, setSections] = useState([]);
-  useEffect(() => {
-    if (!isLoading) {
-      setSections(data);
-      console.log(data);
-    }
-  }, [data, isLoading]);
   const toggleOpen = () => setOpen((cur) => !cur);
 
   return (
@@ -39,7 +35,7 @@ export default function TransparencyMenuMobile() {
             link={"/transparency"}
             openNewPage={false}
           />
-          {sections?.map((section: any, index) => (
+          {sections?.map((section: any, index: number) => (
             <div key={index} className="w-full flex justify-center">
               {section.type === "url" && (
                 <CollapseLink title={section.name} link={section.url} />

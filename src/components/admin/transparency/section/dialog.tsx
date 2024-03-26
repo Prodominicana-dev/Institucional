@@ -1,28 +1,20 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-  Button,
   Dialog,
   DialogHeader,
   DialogBody,
   DialogFooter,
-  Tooltip,
   Input,
-  Textarea,
   Spinner,
   Switch,
 } from "@material-tailwind/react";
 import { createSection } from "@/services/section/service";
 import { useUser } from "@auth0/nextjs-auth0/client";
-import Select from "react-select";
 import { Montserrat } from "next/font/google";
 import Editor from "../../tools/rich-editor/config";
 import TextEditor from "../../tools/rich-editor/rich-editor";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import { set } from "date-fns";
-import { FileWithPath } from "@mantine/dropzone";
-import DropzoneImpl from "../document/dropzone";
-import { createDocument } from "@/services/document/service";
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 export function SectionDialog({
   open,
@@ -39,83 +31,9 @@ export function SectionDialog({
   const [link, setLink] = useState("");
   const [submitLoading, setSubmitLoading] = useState(false);
   const [isUrl, setIsUrl] = useState(false);
-  const [isParent, setIsParent] = useState(false);
+  const [, setIsParent] = useState(false);
   const [isDocument, setIsDocument] = useState(false);
   const [type, setType] = useState("");
-  const [fileType, setFileType] = useState("document" as string);
-  const [files, setFiles] = useState<FileWithPath[]>([]);
-  const [fileName, setFileName] = useState("");
-  const [fileLink, setFileLink] = useState("");
-  const [dropzoneLoading, setDropzoneLoading] = useState(false);
-  const [dropzoneError, setDropzoneError] = useState(false);
-  const [sectId, setSectId] = useState("");
-
-  /* Funcion para cuando droppeen un documento se agregue a la lista ya existente */
-  const handleDrop = (acceptedFiles: FileWithPath[]) => {
-    setDropzoneLoading(true);
-    const newFiles = [...files, ...acceptedFiles];
-    setTimeout(() => {
-      setFiles(newFiles);
-      setDropzoneError(false);
-      setDropzoneLoading(false);
-    }, 1500);
-  };
-
-  /* Handle para manejar cuando haya un error, de esta manera activamos el texto del error. */
-  const handleError = () => {
-    setDropzoneLoading(true);
-    setTimeout(() => {
-      setDropzoneError(true);
-      setDropzoneLoading(false);
-    }, 1500);
-  };
-
-  /* Handle para manejar cuando se elimine un documento del arreglo, lo actualizamos. */
-  const handleDelete = (index: number) => () => {
-    const newFiles = [...files];
-    newFiles.splice(index, 1);
-    setFiles(newFiles);
-  };
-
-  const typeOptions = [
-    { value: "document", label: "Documento" },
-    { value: "url", label: "Enlace" },
-  ];
-
-  useEffect(() => {
-    if (sectId) {
-      // Acciones que se deben realizar después de que sectId se actualice
-      // Crear el documento utilizando el ID de la sección
-      const docDataForm = new FormData();
-
-      // Agrega cada archivo al FormData
-      if (files.length > 0) {
-        files.forEach((file) => {
-          docDataForm.append(`files`, file);
-        });
-      }
-
-      if (fileType === "url" && fileLink !== "" && fileName !== "") {
-        docDataForm.append("url", fileLink);
-        docDataForm.append("name", fileName);
-      }
-
-      if ((fileLink !== "" && fileName !== "") || files.length > 0) {
-        console.log("toca crear el doc");
-        docDataForm.append("sectionId", sectId);
-        createDocument(docDataForm, update, user?.sub as string).then(() => {
-          setSubmitLoading(false);
-          setName("");
-          setLink("");
-          setFiles([]);
-          setFileName("");
-          setFileLink("");
-          handler();
-        });
-      }
-      handler();
-    }
-  }, [sectId]); // useEffect se ejecutará cuando sectId cambie
 
   const handleSubmit = async () => {
     if (user) {
@@ -126,30 +44,10 @@ export function SectionDialog({
         url: link,
         type: type,
       };
-      if (
-        type === "document" &&
-        ((files.length === 0 &&
-          (fileName !== "" || fileName !== null) &&
-          (fileLink !== "" || fileLink !== null)) ||
-          files.length > 0)
-      ) {
-        console.log(
-          "es documento y tiene archivos",
-          fileName,
-          fileLink,
-          files.length
-        );
-        // Crear la sección y obtener el ID
-        return await createSection(data, update, user.sub as string, setSectId);
-      }
-      // Si el tipo no es "document", simplemente crear la sección
       await createSection(data, update, user.sub as string).then(() => {
         setSubmitLoading(false);
         setName("");
         setLink("");
-        setFiles([]);
-        setFileName("");
-        setFileLink("");
         handler();
       });
     }
@@ -281,35 +179,6 @@ export function SectionDialog({
               <span className="font-normal text-xs italic">(?)</span>
             </label>
             <TextEditor editor={editor} />
-            <div className="w-6/12 flex flex-col">
-              <label className="font-semibold text-black text-lg">
-                Tipo de documento
-              </label>
-              <Select
-                placeholder="Seleccione..."
-                id="type"
-                className="w-full"
-                maxMenuHeight={200}
-                options={typeOptions}
-                onChange={(e) => {
-                  setFileType(e?.value as string);
-                }}
-                defaultValue={typeOptions[0]}
-              />
-            </div>
-            <DropzoneImpl
-              type={fileType}
-              files={files}
-              name={fileName}
-              link={fileLink}
-              setName={setFileName}
-              setLink={setFileLink}
-              dropzoneError={dropzoneError}
-              dropzoneLoading={dropzoneLoading}
-              handleDelete={handleDelete}
-              handleDrop={handleDrop}
-              handleError={handleError}
-            />
             <label className="text-black text-xs font-light italic text-right">
               (?) = Opcional
             </label>

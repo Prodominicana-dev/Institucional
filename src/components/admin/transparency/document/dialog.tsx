@@ -6,6 +6,7 @@ import {
   DialogBody,
   DialogFooter,
   Spinner,
+  Input,
 } from "@material-tailwind/react";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import Select from "react-select";
@@ -51,9 +52,7 @@ export function DocumentDialog({
 
   const [sectionId, setSectionId] = useState("");
   const [refresh, setRefresh] = useState(false);
-  const [openPopover, setOpenPopover] = useState(false);
-  const [sectionName, setSectionName] = useState("");
-  const [sectionDescription, setSectionDescription] = useState("");
+  const [title, setTitle] = useState("");
 
   /* Subsection const */
   const {
@@ -118,12 +117,12 @@ export function DocumentDialog({
   /* Funcion para cuando droppeen un documento se agregue a la lista ya existente */
   const handleDrop = (acceptedFiles: FileWithPath[]) => {
     setDropzoneLoading(true);
-    const newFiles = [...files, ...acceptedFiles];
     setTimeout(() => {
-      setFiles(newFiles);
+      setFiles(acceptedFiles);
+      setTitle(acceptedFiles[0].name);
       setDropzoneError(false);
       setDropzoneLoading(false);
-    }, 1500);
+    }, 500);
   };
 
   /* Handle para manejar cuando haya un error, de esta manera activamos el texto del error. */
@@ -170,7 +169,7 @@ export function DocumentDialog({
       formData.append("sectionId", sectionId);
       formData.append("subsectionId", subsectionId);
       formData.append("date", date.toISOString());
-
+      formData.append("title", title);
       // Agrega cada archivo al FormData
       files.forEach((file) => {
         formData.append(`files`, file);
@@ -255,6 +254,7 @@ export function DocumentDialog({
               </div>
             </div>
           </div>
+
           <div className="w-full">
             <label
               className={`${
@@ -291,11 +291,39 @@ export function DocumentDialog({
               />
             </div>
           </div>
+          {type === "document" && (
+            <div className="flex flex-col w-full gap-1">
+              <label
+                htmlFor="section"
+                className="font-semibold text-black text-lg"
+              >
+                Nombre del documento <span className="text-red-500">*</span>
+              </label>
+              <label
+                htmlFor="section"
+                className="font-light text-black text-sm flex gap-1"
+              >
+                <InformationCircleIcon className="size-5" /> Este nombre será el
+                que se muestre en la página.
+              </label>
+              <Input
+                disabled={files.length === 0}
+                crossOrigin={undefined}
+                className="w-full h-12"
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                }}
+                value={title}
+              />
+            </div>
+          )}
           <DropzoneImpl
             type={type}
             files={files}
             name={name}
             link={link}
+            title={title}
+            setTitle={setTitle}
             setName={setName}
             setLink={setLink}
             dropzoneError={dropzoneError}
@@ -320,11 +348,8 @@ export function DocumentDialog({
             disabled={
               type === "url"
                 ? !link || !name || !sectionId || !date || submitLoading
-                : files.length === 0 ||
-                  !sectionId ||
-                  !date ||
-                   submitLoading 
-                  // (subsectionChecked && !subsectionId)
+                : files.length === 0 || !sectionId || !date || submitLoading
+              // (subsectionChecked && !subsectionId)
             }
             onClick={handleSubmit}
             className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center"

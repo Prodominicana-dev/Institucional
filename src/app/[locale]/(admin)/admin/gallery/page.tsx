@@ -1,59 +1,54 @@
 "use client";
+import AuthUser from "@/components/admin/auth";
+import Card from "@/components/admin/gallery/card";
+import { GalleryDialog } from "@/components/admin/gallery/dialog";
 import Sketch from "@/components/admin/sketch";
-import Card from "@/components/admin/transparency/subsection/card";
-import { Subsection } from "@/models/subsection";
-import { useSubsection } from "@/services/subsection/service";
+import { useGallery } from "@/services/gallery/service";
+import { useDirections } from "@/services/structure-organizational/service";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import { Spinner } from "@material-tailwind/react";
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import { SubsectionDialog } from "@/components/admin/transparency/subsection/dialog";
-import AuthUser from "@/components/admin/auth";
-import { Spinner } from "@material-tailwind/react";
-import { OrderDialog } from "@/components/admin/transparency/subsection/order";
 
-export default function Page() {
+export default function Page({ params: { locale } }: any) {
   const [open, setOpen] = useState(false);
   const { user, isLoading: userLoading } = useUser();
   const [filterOpen, setFilterOpen] = useState(false);
-  const { data, isLoading, refetch } = useSubsection();
-  const [subsections, setSubsection] = useState([]);
+  const { data, isLoading, refetch } = useGallery();
+  const [gallery, setGallery] = useState([]);
   const [_refetch, setRefetch] = useState(false);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<any>(null);
-  const [order, setOrder] = useState<any>(null);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
 
-  const indexOfLastSection = currentPage * itemsPerPage;
-  const indexOfFirstSection = indexOfLastSection - itemsPerPage;
-  const currentSubsections = subsections?.slice(
-    indexOfFirstSection,
-    indexOfLastSection
+  const indexOfLastDirection = currentPage * itemsPerPage;
+  const indexOfFirstDirection = indexOfLastDirection - itemsPerPage;
+  const currentGallery = gallery?.slice(
+    indexOfFirstDirection,
+    indexOfLastDirection
   );
-  const totalPages = Math.ceil(subsections?.length / itemsPerPage);
+  const totalPages = Math.ceil(gallery?.length / itemsPerPage);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
 
   useEffect(() => {
-    if (!isLoading && !userLoading) updateSubsection();
+    if (!isLoading && !userLoading) updateGallery;
   }, [data, isLoading, userLoading, user]);
 
-  console.log(subsections);
+  console.log(gallery);
 
   useEffect(() => {
     refetch().then((e) => {
-      setSubsection(e.data);
+      setGallery(e.data);
     });
   }, [_refetch]);
 
-  const handleOrderOpen = () => {
-    setOrder(!order);
-  };
-
-  const updateSubsection = () => {
+  const updateGallery = () => {
     setRefetch(!_refetch);
   };
 
@@ -77,7 +72,7 @@ export default function Page() {
           (section) => section.status === filter
         );
       }
-      setSubsection(filteredData as any);
+      setGallery(filteredData as any);
       setCurrentPage(1); // Reset page to 1 when applying filters
     }
   };
@@ -104,6 +99,7 @@ export default function Page() {
 
   const nextNotEmpty =
     "w-6/12 h-full text-white bg-blue-dark border-2 border-blue-dark hover:bg-white hover:text-blue-dark duration-300 hover:shadow-lg rounded-lg justify-center items-center";
+
   if (isLoading) {
     return (
       <div className="w-full h-[80vh] flex justify-center items-center">
@@ -115,13 +111,9 @@ export default function Page() {
     <>
       <AuthUser permission="create:transparency">
         <Sketch
-          title="Subsecciones"
-          subtitle="Transparencia"
+          title="Galerías de Fotos"
           handleFilterOpen={handleFilterOpen}
-          buttons={[
-            { name: "Agregar", onClick: handleOpen },
-            { name: "Ordenar", onClick: handleOrderOpen },
-          ]}
+          buttons={[{ name: "Agregar", onClick: handleOpen }]}
         >
           <div
             className={`${
@@ -158,23 +150,20 @@ export default function Page() {
               <XMarkIcon className="w-7 h-7" />
             </button>
           </div>
-          {subsections?.length > 0 ? (
+          {gallery?.length > 0 ? (
             <>
               <div className="w-11/12 flex flex-col space-y-4">
                 <div className="w-full flex justify-between">
                   <div className="text-black flex items-center">
-                    {subsections?.length > 0 && (
+                    {gallery?.length > 0 && (
                       <>
-                        Mostrando las subsecciones del{" "}
+                        Mostrando las galerías del{" "}
                         {currentPage === 1
                           ? 1
                           : (currentPage - 1) * itemsPerPage + 1}{" "}
                         al{" "}
-                        {Math.min(
-                          currentPage * itemsPerPage,
-                          subsections?.length
-                        )}{" "}
-                        de {subsections?.length} totales.
+                        {Math.min(currentPage * itemsPerPage, gallery?.length)}{" "}
+                        de {gallery?.length} totales.
                       </>
                     )}
                   </div>
@@ -190,29 +179,26 @@ export default function Page() {
                       )}
                       onChange={(e) => setItemsPerPage(e?.value as number)}
                     />
-                    <span>secciones por página.</span>
+                    <span>galerías por página.</span>
                   </div>
                 </div>
                 <div className="w-full  space-y-5 text-black">
                   <>
-                    <div className="grid items-center justify-between w-full h-24 grid-cols-4 p-5 font-bold text-center bg-white rounded-lg ring-2 ring-gray-100">
+                    <div className="grid items-center justify-between w-full h-24 grid-cols-2 lg:grid-cols-3 p-5 font-bold text-center bg-white rounded-lg ring-2 ring-gray-100">
+                      <div className="text-center hidden lg:block">Portada</div>
                       <div className="text-center">Nombre</div>
-                      <div className="text-center">Sección</div>
-                      <div className="">Estado</div>
                       <div>Acción</div>
                     </div>
 
-                    {currentSubsections?.map(
-                      (subsection: Subsection, key: number) => {
-                        return (
-                          <Card
-                            key={key}
-                            subsection={subsection}
-                            update={updateSubsection}
-                          />
-                        );
-                      }
-                    )}
+                    {currentGallery?.map((gallery: any, key: number) => {
+                      return (
+                        <Card
+                          key={key}
+                          gallery={gallery}
+                          update={updateGallery}
+                        />
+                      );
+                    })}
 
                     <div className="flex flex-row space-x-4 w-full h-12">
                       <button
@@ -243,17 +229,10 @@ export default function Page() {
           )}
         </Sketch>
         {open && (
-          <SubsectionDialog
+          <GalleryDialog
             open={open}
             handler={handleOpen}
-            update={updateSubsection}
-          />
-        )}
-        {order && (
-          <OrderDialog
-            open={order}
-            handler={handleOrderOpen}
-            update={updateSubsection}
+            update={updateGallery}
           />
         )}
       </AuthUser>
