@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 export default function Page() {
@@ -6,42 +7,42 @@ export default function Page() {
     {
       name: "Turismo",
       image: "/images/flags.jpg",
-      icon: "",
+      icon: "/svg/invest/energyIcon.svg",
     },
     {
       name: "Energía",
       image: "/images/flags.jpg",
-      icon: "",
+      icon: "/svg/invest/energyIcon.svg",
     },
     {
       name: "Tecnología",
       image: "/images/flags.jpg",
-      icon: "",
+      icon: "/svg/invest/energyIcon.svg",
     },
     {
       name: "Manufactura",
       image: "/images/flags.jpg",
-      icon: "",
+      icon: "/svg/invest/energyIcon.svg",
     },
     {
       name: "Semiconductores",
       image: "/images/flags.jpg",
-      icon: "",
+      icon: "/svg/invest/energyIcon.svg",
     },
     {
       name: "Agricultura",
       image: "/images/flags.jpg",
-      icon: "",
+      icon: "/svg/invest/energyIcon.svg",
     },
     {
       name: "Alimentos y bebidas",
       image: "/images/flags.jpg",
-      icon: "",
+      icon: "/svg/invest/energyIcon.svg",
     },
     {
       name: "Biomédicina",
       image: "/images/flags.jpg",
-      icon: "",
+      icon: "/svg/invest/energyIcon.svg",
     },
   ];
 
@@ -82,7 +83,7 @@ export default function Page() {
 
 function SectorCard({ name, image, icon }: any) {
   return (
-    <div className="h-full relative">
+    <Link href={""} className="h-full relative">
       <Image
         width={1000}
         height={1000}
@@ -90,11 +91,21 @@ function SectorCard({ name, image, icon }: any) {
         alt={name}
         className="object-cover aspect-square rounded-xl"
       />
-      <div className="absolute inset-0 p-10">
-        <h1 className="rounded-full p-3 border-2 border-white text-white uppercase font-bold">
+      <div className="absolute inset-0 p-5 xl:p-10 flex flex-col justify-between">
+        <div className="flex w-full h-full items-end">
+          <div className="border-t-2 border-l-2 rounded-tl-3xl border-white translate-y-6 w-full h-[98%]"></div>
+          <Image
+            width={100}
+            height={100}
+            src={icon}
+            alt={name}
+            className="w-16 aspect-square self-start border-l-2 border-white p-1"
+          />
+        </div>
+        <h1 className="rounded-full p-3 border-2 border-white text-white uppercase font-bold text-sm lg:text-lg">
           {name}
         </h1>
       </div>
-    </div>
+    </Link>
   );
 }
