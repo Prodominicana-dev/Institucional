@@ -92,7 +92,7 @@ export default function Page({
         ></div>
 
         <>
-          <div className="w-full flex flex-col lg:flex-row gap-4 h-14">
+          <div className="w-full flex flex-col lg:flex-row gap-4 pb-5">
             <Select
               placeholder="Seleccione un año"
               id="section"
@@ -125,16 +125,15 @@ export default function Page({
               }
             />
           </div>
-
-          {docsFiltered ? (
-            <div className="w-full flex flex-col gap-3">
-              {docsFiltered?.map((doc: any, index: number) => (
+          <div className="w-full flex flex-col gap-3">
+            {docsFiltered ? (
+              docsFiltered?.map((doc: any, index: number) => (
                 <DocsCard doc={doc} key={index} />
-              ))}
-            </div>
-          ) : (
-            <div>No hay documentos</div>
-          )}
+              ))
+            ) : (
+              <div>No hay documentos</div>
+            )}
+          </div>
         </>
       </div>
     </div>
