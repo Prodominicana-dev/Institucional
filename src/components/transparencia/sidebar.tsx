@@ -1,12 +1,12 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import SidebarLink from "./sidebar-link";
 import SidebarMenu from "./sidebar-menu";
 import SidebarDocs from "./sidebar-docs";
 
 export default function TransparencySidebar({ sections }: { sections: any }) {
   return (
-    <div className=" hidden lg:flex w-full h-full bg-blue-dark flex-col gap-2 rounded-lg items-center p-5">
+    <div className="hidden lg:flex w-full h-full bg-blue-dark flex-col gap-2 rounded-lg items-center p-5">
       <SidebarLink
         title={"Inicio"}
         link={"/transparency"}

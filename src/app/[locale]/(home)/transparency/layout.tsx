@@ -7,8 +7,6 @@ import { atom } from "jotai";
 import { useSection } from "@/services/section/service";
 import { Spinner } from "@material-tailwind/react";
 
-export const transparencyLoading = atom(true);
-
 export default function RootLayout({
   children,
 }: {
@@ -34,7 +32,7 @@ export default function RootLayout({
       <QueryClientProvider client={queryClient}>
         <div className="w-full py-10 bg-white flex flex-row justify-center">
           <div className="w-10/12 flex flex-col lg:flex-row justify-center gap-10">
-            <div className="w-full lg:w-3/12  flex justify-center">
+            <div className="w-full lg:w-3/12 flex justify-center">
               <TransparencySidebar sections={sections} />
               <TransparencyMenuMobile sections={sections} />
             </div>

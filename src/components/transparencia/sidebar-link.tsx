@@ -22,9 +22,9 @@ export default function SidebarLink({
               : link
           }
           target="_blank"
-          className="w-11/12 h-14 bg-transparent hover:bg-white/30 duration-300 flex flex-row items-center justify-between rounded-lg px-5"
+          className="w-11/12 p-4 bg-transparent hover:bg-white/30 duration-300 flex flex-row items-center justify-between rounded-lg px-5"
         >
-          <h1 className="text-white font-montserrat text-lg font-semibold">
+          <h1 className="text-white font-montserrat  font-semibold line-clamp-4">
             {title}
           </h1>
           {/* <LinkIcon className='size-6 text-white' /> */}
@@ -32,9 +32,9 @@ export default function SidebarLink({
       ) : (
         <Link
           href={link}
-          className="w-11/12 h-14 bg-transparent hover:bg-white/30 duration-300 flex flex-row items-center justify-between rounded-lg px-5"
+          className="w-11/12 p-4 bg-transparent hover:bg-white/30 duration-300 flex flex-row items-center justify-between rounded-lg px-5"
         >
-          <h1 className="text-white font-montserrat text-lg font-semibold">
+          <h1 className="text-white font-montserrat  font-semibold line-clamp-4">
             {title}
           </h1>
           {/* <LinkIcon className='size-6 text-white' /> */}
