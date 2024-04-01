@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import TransparencySidebar from "@/components/transparencia/sidebar";
 import TransparencyMenuMobile from "@/components/transparencia/mobile/menu-mobile";
-import { atom } from "jotai";
 import { useSection } from "@/services/section/service";
 import { Spinner } from "@material-tailwind/react";
 

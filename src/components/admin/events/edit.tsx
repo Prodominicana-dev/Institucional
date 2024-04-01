@@ -43,6 +43,7 @@ import {
   editEvents,
   useEventById,
 } from "@/services/events/service";
+import { useEventCategory } from "@/services/events/categories/service";
 
 export function EventEditDialog({
   id,
@@ -75,7 +76,22 @@ export function EventEditDialog({
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [coordinates, setCoordinates] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [categoriesOptions, setCategoriesOptions] = useState([]);
   const { data, isLoading } = useEventById(id);
+
+  const { data: catEvent, isLoading: catLoading } = useEventCategory();
+
+  useEffect(() => {
+    if (catEvent && !catLoading) {
+      setCategoriesOptions(
+        catEvent.map((category: any) => ({
+          value: category.id,
+          label: category.name,
+        }))
+      );
+    }
+  }, [catEvent, catLoading]);
 
   useEffect(() => {
     if (startDate > endDate) {
@@ -107,6 +123,7 @@ export function EventEditDialog({
       setCoordinates(`${data.lat}, ${data.lng}`);
       setStartDate(new Date(data.start_Date));
       setEndDate(new Date(data.end_Date));
+      setCategoryId(data.categoryId);
     }
   }, [data, isLoading]);
 
@@ -166,7 +183,7 @@ export function EventEditDialog({
 
     !isLastStep && handleNext();
 
-    if (isLastStep && !startDate) {
+    if (isLastStep && (!startDate || !categoryId || !coordinates)) {
       return setWarningAlert(true);
     }
 
@@ -191,6 +208,7 @@ export function EventEditDialog({
       formData.append("address", address.trimStart());
       formData.append("es", JSON.stringify(es_data));
       formData.append("en", JSON.stringify(en_data));
+      formData.append("categoryId", categoryId);
       formData.append("updated_By", user?.email as string);
       files.length > 0 && files.map((file) => formData.append("files", file));
       await editEvents(id, formData, update, user?.sub as string);
@@ -357,6 +375,38 @@ export function EventEditDialog({
                 fromDate={startDate}
               />
             </div>
+          </div>
+          <div className="flex flex-col gap-2 w-full">
+            <label htmlFor="title" className="font-semibold text-black text-lg">
+              Categoría del evento{" "}
+              <span className="text-bold text-red-700">*</span>
+            </label>
+            <Select
+              onChange={(e: any) => {
+                setCategoryId(e.value);
+              }}
+              className="w-full z-50"
+              options={categoriesOptions}
+              theme={(theme) => ({
+                ...theme,
+                borderRadius: 2,
+                colors: {
+                  ...theme.colors,
+                  primary: "black",
+                },
+              })}
+              value={categoriesOptions.find(
+                (option: any) => option.value === categoryId
+              )}
+            />
+            <label
+              className={`${
+                warningAlert && !categoryId ? "block" : "hidden"
+              } text-red-600 text-sm text-start flex items-center gap-1`}
+            >
+              <ExclamationCircleIcon className="size-5 inline-block" /> La
+              categoría es obligatoria.
+            </label>
           </div>
           <div className="flex flex-col gap-2 w-full">
             <div>

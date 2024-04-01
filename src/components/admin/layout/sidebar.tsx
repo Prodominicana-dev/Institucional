@@ -145,10 +145,14 @@ export function SideBar() {
                 <List placeholder={undefined} className="p-0 text-white">
                   <SidebarMenuItem title={"Noticias"} url={"/admin/news"} />
                   <SidebarMenuItem
-                    title={"Categorías de Noticias"}
+                    title={"Categoría de Noticias"}
                     url={"/admin/news/categories"}
                   />
                   <SidebarMenuItem title={"Eventos"} url={"/admin/events"} />
+                  <SidebarMenuItem
+                    title={"Categoría de Eventos"}
+                    url={"/admin/events/categories"}
+                  />
                   <SidebarMenuItem
                     title={"Galería de Fotos"}
                     url={"/admin/gallery"}
