@@ -42,9 +42,9 @@ export default function Page() {
         <Image
           width={3840}
           height={2160}
-          src="/images/flags.jpg"
+          src="/images/invest/flags.jpg"
           alt="Turismo"
-          className="object-cover w-full h-[40vh] sm:h-[70vh]"
+          className="object-cover object-center w-full h-[40vh] sm:h-[70vh]"
         />
         <div className="absolute inset-0 xl:p-32 pb-20 flex items-end justify-center lg:justify-start">
           <div className="w-8/12 xl:w-6/12 text-center text-white flex flex-col gap-[2px]">

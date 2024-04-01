@@ -32,7 +32,10 @@ export default function Navbar(options: any) {
 function NavBarLink({ title, icon, link }: any) {
   return (
     <div>
-      <Link href={link} className="flex flex-col items-center gap-3">
+      <Link
+        href={link}
+        className="flex flex-col items-center gap-3 hover:scale-110 transition-transform duration-500 ease-in-out"
+      >
         <Image
           width={100}
           height={100}
@@ -40,7 +43,7 @@ function NavBarLink({ title, icon, link }: any) {
           src={icon}
           className="object-cover w-10"
         />
-        <div className="text-blue-dark text-center text-sm w-44">{title}</div>
+        <div className="text-blue-dark text-center text-sm w-40">{title}</div>
       </Link>
     </div>
   );

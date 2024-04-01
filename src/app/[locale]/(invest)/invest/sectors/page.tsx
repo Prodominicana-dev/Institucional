@@ -83,7 +83,7 @@ export default function Page() {
 
 function SectorCard({ name, image, icon }: any) {
   return (
-    <Link href={""} className="h-full relative">
+    <Link href={`invest/sectors/${name}`} className="h-full relative">
       <Image
         width={1000}
         height={1000}
@@ -92,7 +92,7 @@ function SectorCard({ name, image, icon }: any) {
         className="object-cover aspect-square rounded-xl"
       />
       <div className="absolute inset-0 p-5 xl:p-10 flex flex-col justify-between">
-        <div className="flex w-full h-full items-end">
+        <div className="flex h-full items-end">
           <div className="border-t-2 border-l-2 rounded-tl-3xl border-white translate-y-6 w-full h-[98%]"></div>
           <Image
             width={100}
