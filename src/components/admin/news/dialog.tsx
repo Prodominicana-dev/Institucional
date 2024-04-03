@@ -45,7 +45,7 @@ export function NewsDialog({
   const [description] = useState("");
   const [cover, setCover] = useState("");
   const [warningAlert, setWarningAlert] = useState(false);
-  const [submitLoading, setSubmitLoading] = useState(false);
+  const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [activeStep, setActiveStep] = React.useState(0);
   const [isLastStep, setIsLastStep] = React.useState(false);
   const [isFirstStep, setIsFirstStep] = React.useState(false);
@@ -133,9 +133,14 @@ export function NewsDialog({
       return setWarningAlert(true);
     }
 
-    if (isLastStep && englishTitle !== "" && contentEn?.getText() !== "") {
+    if (
+      isLastStep &&
+      englishTitle !== "" &&
+      contentEn?.getText() !== "" &&
+      !submitLoading
+    ) {
       setSubmittion(true);
-      // setSubmitLoading(true);
+      setSubmitLoading(true);
       const es_data = {
         title: spanishTitle,
         content: contentEs?.getHTML(),

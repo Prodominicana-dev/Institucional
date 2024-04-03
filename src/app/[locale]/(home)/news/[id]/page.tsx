@@ -47,7 +47,7 @@ export default function Page({ params: { locale, id } }: any) {
     );
   }
   return (
-    <div className="bg-white w-full h-full relative">
+    <div className="bg-white w-full relative">
       <div className="bg-blue-950 h-[60vh] absolute inset-0 "></div>
       <div className="w-full h-full relative">
         <div className="flex flex-col justify-center items-center text-white font-opensans pt-10 gap-5">
