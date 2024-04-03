@@ -1,48 +1,52 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
 export default function Page() {
+  const t = useTranslations("invest.sectors");
   const sectors = [
     {
-      name: "Turismo",
+      name: t("list.0.name"),
       image: "/images/flags.jpg",
-      icon: "/svg/invest/energyIcon.svg",
+      icon: "/svg/invest/sectors/tourismIcon.svg",
+      link: "tourism",
     },
     {
-      name: "Energía",
+      name: t("list.1.name"),
       image: "/images/flags.jpg",
-      icon: "/svg/invest/energyIcon.svg",
+      icon: "/svg/invest/sectors/energyIcon.svg",
+      link: "energy",
     },
     {
-      name: "Tecnología",
+      name: t("list.2.name"),
       image: "/images/flags.jpg",
-      icon: "/svg/invest/energyIcon.svg",
+      icon: "/svg/invest/sectors/technologyIcon.svg",
+      link: "technology",
     },
     {
-      name: "Manufactura",
+      name: t("list.3.name"),
       image: "/images/flags.jpg",
-      icon: "/svg/invest/energyIcon.svg",
+      icon: "/svg/invest/sectors/manufacturingIcon.svg",
+      link: "manufacturing",
     },
     {
-      name: "Semiconductores",
+      name: t("list.4.name"),
       image: "/images/flags.jpg",
-      icon: "/svg/invest/energyIcon.svg",
+      icon: "/svg/invest/sectors/semiconductorsIcon.svg",
+      link: "semiconductors",
     },
     {
-      name: "Agricultura",
+      name: t("list.5.name"),
       image: "/images/flags.jpg",
-      icon: "/svg/invest/energyIcon.svg",
+      icon: "/svg/invest/sectors/agricultureIcon.svg",
+      link: "agriculture-and-livestock-farming",
     },
     {
-      name: "Alimentos y bebidas",
+      name: t("list.6.name"),
       image: "/images/flags.jpg",
-      icon: "/svg/invest/energyIcon.svg",
-    },
-    {
-      name: "Biomédicina",
-      image: "/images/flags.jpg",
-      icon: "/svg/invest/energyIcon.svg",
+      icon: "/svg/invest/sectors/biomedicineIcon.svg",
+      link: "biomedicine",
     },
   ];
 
@@ -52,7 +56,7 @@ export default function Page() {
         <Image
           width={3840}
           height={2160}
-          src="/images/flags.jpg"
+          src="/images/puntacatalina.jpg"
           alt="Turismo"
           className="object-cover w-full h-[40vh] sm:h-[70vh]"
         />
@@ -60,11 +64,9 @@ export default function Page() {
       <div className="bg-white h-full flex flex-col items-center py-10 gap-10">
         <div className="text-center">
           <h1 className="uppercase text-4xl font-bold text-blue-dark">
-            sectores para invertir en RD
+            {t("title")}
           </h1>
-          <p className="text-gray-400">
-            Sectores que representan oportunidades de inversion en el pais
-          </p>
+          <p className="text-gray-400">{t("description")}</p>
         </div>
         <div className="w-10/12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {sectors.map((sector, index) => (
@@ -72,6 +74,7 @@ export default function Page() {
               name={sector.name}
               image={sector.image}
               icon={sector.icon}
+              link={sector.link}
               key={index}
             />
           ))}
@@ -81,9 +84,9 @@ export default function Page() {
   );
 }
 
-function SectorCard({ name, image, icon }: any) {
+function SectorCard({ name, image, icon, link }: any) {
   return (
-    <Link href={`invest/sectors/${name}`} className="h-full relative">
+    <Link href={`sectors/${link}`} className="h-full relative">
       <Image
         width={1000}
         height={1000}
@@ -99,7 +102,7 @@ function SectorCard({ name, image, icon }: any) {
             height={100}
             src={icon}
             alt={name}
-            className="w-16 aspect-square self-start border-l-2 border-white p-1"
+            className="w-16 aspect-square self-start border-l-2 border-white pl-2"
           />
         </div>
         <h1 className="rounded-full p-3 border-2 border-white text-white uppercase font-bold text-sm lg:text-lg">

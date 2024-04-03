@@ -434,6 +434,345 @@
           "description": "La República Dominicana apuesta a un futuro que se construye con talento humano competitivo, sostenibilidad ambiental e innovación tecnológica como el camino que guía hacia el desarrollo; así pues, ProDominicana se complace en brindarle toda la colaboración, acompañamiento y asistencia necesaria para el desarrollo de sus negocios en el país."
         }
       ]
+    },
+    "sectors": {
+      "title": "Sectores para invertir en RD",
+      "description": "Sectores que representan oportunidades de inversión en el país.",
+      "list": [
+        {
+          "name": "Turismo",
+          "description": "Explora un sector líder en la región, reconocido por sus resorts de lujo, playas de ensueño, exuberantes paisajes y una interminable lista de actividades para turistas de todo el mundo. Invierte en hoteles boutique, ecoturismo sostenible, experiencias culturales vibrantes o turismo deportivo de primer nivel.",
+          "subsectors": [
+            {
+              "name": "Hoteles y resorts"
+            },
+            {
+              "name": "Ecoturismo"
+            },
+            {
+              "name": "Turismo de aventura"
+            },
+            {
+              "name": "Turismo cultural"
+            },
+            {
+              "name": "Turismo de salud"
+            }
+          ],
+          "incentives": {
+            "title": "Incentivos",
+            "subtitle": "Exención de impuestos del 100% sobre:",
+            "list": [
+              {
+                "name": "Impuesto sobre la renta"
+              },
+              {
+                "name": "Permisos de construcción"
+              },
+              {
+                "name": "Compra de terrenos"
+              },
+              {
+                "name": "Equipos, materiales y mobiliario necesarios para las primeras instalaciones y el inicio de operaciones"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Energía renovable",
+          "description": "",
+          "subsectors": [
+            {
+              "name": "Energía solar"
+            },
+            {
+              "name": "Energía eólica"
+            },
+            {
+              "name": "Energía geotérmica"
+            },
+            {
+              "name": "Biomasa"
+            }
+          ],
+          "incentives": {
+            "title": "Incentivos",
+            "subtitle": "Exención de impuestos del 100% sobre:",
+            "list": [
+              {
+                "name": "Impuesto sobre la renta"
+              },
+              {
+                "name": "Permisos de construcción"
+              },
+              {
+                "name": "Compra de terrenos"
+              },
+              {
+                "name": "Equipos, materiales y mobiliario necesarios para las primeras instalaciones y el inicio de operaciones"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Tecnología",
+          "description": "Aprovecha el auge tecnológico impulsado por la Ley de Zonas Francas Especiales y la creciente demanda de servicios digitales. Invierte en empresas de software innovadoras, desarrollo de aplicaciones móviles de vanguardia, centros de datos de última generación, soluciones de inteligencia artificial que revolucionan las industrias e iniciativas de tecnología financiera (fintech) que están transformando el panorama bancario.",
+          "subsectors": [
+            {
+              "name": "Desarrollo de software"
+            },
+            {
+              "name": "Centros de atención al cliente"
+            },
+            {
+              "name": "Neoshoring"
+            }
+          ],
+          "incentives": {
+            "title": "Incentivos",
+            "subtitle": "Exención de impuestos del 100% sobre:",
+            "list": [
+              {
+                "name": "Impuesto sobre la renta"
+              },
+              {
+                "name": "Permisos de construcción"
+              },
+              {
+                "name": "Compra de terrenos"
+              },
+              {
+                "name": "Equipos, materiales y mobiliario necesarios para las primeras instalaciones y el inicio de operaciones"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Manufactura",
+          "description": "Sé parte de un sector diversificado y en constante crecimiento que abarca desde textiles de alta calidad y productos farmacéuticos de vanguardia hasta dispositivos médicos que salvan vidas, componentes electrónicos de precisión y una próspera agroindustria. Las oportunidades incluyen empresas de manufactura ligera, nearshoring estratégico para optimizar cadenas de suministro y parques industriales con infraestructura de primer nivel.",
+          "subsectors": [
+            {
+              "name": "Zonas francas"
+            },
+            {
+              "name": "Textiles"
+            },
+            {
+              "name": "Productos farmacéuticos"
+            },
+            {
+              "name": "Alimentos y bebidas"
+            }
+          ],
+          "incentives": {
+            "title": "Incentivos",
+            "subtitle": "Exención de impuestos del 100% sobre:",
+            "list": [
+              {
+                "name": "Impuesto sobre la renta"
+              },
+              {
+                "name": "Permisos de construcción"
+              },
+              {
+                "name": "Compra de terrenos"
+              },
+              {
+                "name": "Equipos, materiales y mobiliario necesarios para las primeras instalaciones y el inicio de operaciones"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Semiconductores",
+          "description": "Sé pionero en un sector emergente con la instalación de la primera planta de fabricación de chips en la región. Invierte en empresas de ensamblaje de chips de última generación, diseño de circuitos integrados que impulsan la innovación tecnológica y fabricación de materiales semiconductores, la base fundamental de la electrónica moderna.",
+          "subsectors": [
+            {
+              "name": "Fabricación de chips"
+            },
+            {
+              "name": "Investigación y desarrollo"
+            },
+            {
+              "name": "Diseño de chips"
+            }
+          ],
+          "incentives": {
+            "title": "Incentivos",
+            "subtitle": "Exención de impuestos del 100% sobre:",
+            "list": [
+              {
+                "name": "Impuesto sobre la renta"
+              },
+              {
+                "name": "Permisos de construcción"
+              },
+              {
+                "name": "Compra de terrenos"
+              },
+              {
+                "name": "Equipos, materiales y mobiliario necesarios para las primeras instalaciones y el inicio de operaciones"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Agropecuario",
+          "description": "Desbloquea el enorme potencial de un sector con tierras fértiles, un clima tropical ideal y una creciente demanda de productos frescos en los mercados internacionales. Invierte en agricultura tecnificada que maximiza la producción, ganadería sostenible para un consumo responsable, producción de alimentos orgánicos que satisfacen las exigencias de los consumidores más conscientes y modernos invernaderos que garantizan la calidad y frescura durante todo el año.",
+          "subsectors": [
+            {
+              "name": "Cultivos tropicales"
+            },
+            {
+              "name": "Ganadería"
+            },
+            {
+              "name": "Acuicultura"
+            }
+          ],
+          "incentives": {
+            "title": "Incentivos",
+            "subtitle": "Exención de impuestos del 100% sobre:",
+            "list": [
+              {
+                "name": "Impuesto sobre la renta"
+              },
+              {
+                "name": "Permisos de construcción"
+              },
+              {
+                "name": "Compra de terrenos"
+              },
+              {
+                "name": "Equipos, materiales y mobiliario necesarios para las primeras instalaciones y el inicio de operaciones"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Biomedicina",
+          "description": "Contribuye al bienestar de la población y aprovecha la creciente demanda de servicios de salud de calidad. Invierte en investigación médica que abre camino a nuevos descubrimientos, producción de medicamentos innovadores que mejoran la vida de las personas, biotecnología que revoluciona la atención médica y turismo de salud que atrae a pacientes internacionales en busca de tratamientos de primer nivel.",
+          "subsectors": [
+            {
+              "name": "Fabricación de dispositivos médicos"
+            },
+            {
+              "name": "Desarrollo de medicamentos"
+            },
+            {
+              "name": "Biotecnología"
+            }
+          ],
+          "incentives": {
+            "title": "Incentivos",
+            "subtitle": "Exención de impuestos del 100% sobre:",
+            "list": [
+              {
+                "name": "Impuesto sobre la renta"
+              },
+              {
+                "name": "Permisos de construcción"
+              },
+              {
+                "name": "Compra de terrenos"
+              },
+              {
+                "name": "Equipos, materiales y mobiliario necesarios para las primeras instalaciones y el inicio de operaciones"
+              }
+            ]
+          }
+        }
+      ],
+      "procedures": {
+        "title": "Trámites",
+        "list": [
+          {
+            "name": "Nombre Comercial (ONAPI)",
+            "deliverable": "Registro de nombre comercial"
+          },
+          {
+            "name": "Pago Impuesto Constitución (DGII)",
+            "deliverable": "Certificación pago de impuesto"
+          },
+          {
+            "name": "Registro de Compañía (Cámara de Comercio correspondiente)",
+            "deliverable": "Registro mercantil"
+          },
+          {
+            "name": "Registro Nacional de Contribuyente (RNC)",
+            "deliverable": "Certificado Acta RNC"
+          },
+          {
+            "name": "Registro de empleador en la Tesorería de la Seguridad Social",
+            "deliverable": "Certificación TSS"
+          },
+          {
+            "name": "No Objeción a Uso de Suelo (Ayuntamiento)",
+            "deliverable": "Carta de no objeción"
+          },
+          {
+            "name": "Análisis Previo (MITUR)",
+            "deliverable": "Evaluación de la formulación del proyecto"
+          },
+          {
+            "name": "Resolución de No Objeción Uso de Suelo (MITUR)",
+            "deliverable": "Resolución de no objeción"
+          },
+          {
+            "name": "No Objeción anteproyecto (Ayuntamiento)",
+            "deliverable": "Certificación de anteproyecto"
+          },
+          {
+            "name": "Parametro de Diseño (MITUR) - Opcional",
+            "deliverable": "Documento con recomendaciones aplicables al proyecto"
+          },
+          {
+            "name": "Autorización Ambiental (Ministerio de Medioambiente)",
+            "deliverable": "Resolución de permiso ambiental"
+          },
+          {
+            "name": "Licencia de Construcción (Ministerio de Vivienda, Hábitat, y Edificaciones)",
+            "deliverable": "Licencia de construcción"
+          },
+          {
+            "name": "Clasificación Provisional (CONFOTUR)",
+            "deliverable": "Resolución de clasificación provisional"
+          },
+          {
+            "name": "Análisis Costo-Beneficio (Ministerio de Hacienda)",
+            "deliverable": "Análisis costo beneficio"
+          },
+          {
+            "name": "Clasificación Definitiva (CONFOTUR)",
+            "deliverable": "Resolución de clasificación definitiva"
+          },
+          {
+            "name": "Solicitud de Exoneración de Importación de Bienes de Construcción (MITUR)",
+            "deliverable": "Carta aprobación de exoneración"
+          },
+          {
+            "name": "Solicitud de exoneración de impuestos (Ministerio de Hacienda)",
+            "deliverable": "Carta de exoneración de impuesto"
+          }
+        ]
+      },
+      "relatedEntities": "Entidades Relacionadas"
+    },
+    "contact": {
+      "title": "Contactanos",
+      "description": "Ponte en contacto con uno de nuestros representantes de inversion para obtener una asesoria personalizada de como invertir.",
+      "form": {
+        "name": "Nombre",
+        "lastName": "Apellido",
+        "jobTitle": "Puesto",
+        "company": "Empresa",
+        "email": "Correo electrónico",
+        "phone": "Teléfono",
+        "country": "País",
+        "sector": "Sector de interés",
+        "message": "Mensaje",
+        "button": "Enviar"
+      }
     }
   },
   "Footer": {

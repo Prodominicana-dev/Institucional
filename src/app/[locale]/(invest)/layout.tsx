@@ -23,12 +23,7 @@ export default function RootLayout({
     {
       title: "Sectores de inversión",
       icon: "/svg/invest/sectorsIcon.svg",
-      link: "/invest/why-dominican-republic",
-    },
-    {
-      title: "Establecerse en República Dominicana",
-      icon: "/svg/invest/settleindrIcon.svg",
-      link: "/invest/why-dominican-republic",
+      link: "/invest/sectors",
     },
     {
       title: "Guía de inversión",
@@ -36,8 +31,13 @@ export default function RootLayout({
       link: "/invest/why-dominican-republic",
     },
     {
+      title: "Contacto",
+      icon: "/svg/invest/contactIcon.svg",
+      link: "/invest/contact",
+    },
+    {
       title: "Ventanilla única de inversión",
-      icon: "/svg/logos/VuiIcon.svg",
+      icon: "/svg/logos/vuiIcon.svg",
       link: "https://vui.gob.do",
     },
   ];
