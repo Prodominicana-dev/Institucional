@@ -40,7 +40,7 @@ export default function CollapseMenu({
       </button>
       <Collapse open={open}>
         {subsections.map((subsection: any, index: number) => (
-          <>
+          <div key={index}>
             {subsection.type === "url" && (
               <CollapseMenuLink title={subsection.name} link={subsection.url} />
             )}
@@ -51,7 +51,7 @@ export default function CollapseMenu({
                 subsectionId={subsection.id}
               />
             )}
-          </>
+          </div>
         ))}
       </Collapse>
     </div>

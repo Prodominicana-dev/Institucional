@@ -35,7 +35,7 @@ export default function Page({ params }: { params: { sectionId: string } }) {
   }, [data, isLoading]);
 
   useEffect(() => {
-    if (!filtersLoading && filters.length > 0) {
+    if (!filtersLoading && filters && filters.length > 0) {
       // Asignar la posicion 0 del arreglo de años a la variable years y asignar el arreglo de meses a la variable months pero como un arreglo de objetos con la propiedad value y label
       const year = { value: filters[0]?.year, label: filters[0]?.year };
       setYearSelected(year);

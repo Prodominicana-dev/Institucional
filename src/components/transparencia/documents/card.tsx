@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { format } from "path";
 import React from "react";
+import prettyBytes from "pretty-bytes";
 
 export default function DocsCard({
   doc,
@@ -14,6 +15,7 @@ export default function DocsCard({
     size: string;
     url: string;
     sectionId: string;
+    title: string;
   };
 }) {
   const handleClick = async () => {
@@ -55,7 +57,6 @@ export default function DocsCard({
       : extension === "xlsx"
       ? "xls"
       : doc.url !== "" && "url";
-
   return (
     <div
       className={`w-full border-2 border-gray-300 rounded-xl p-5 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-3`}
@@ -70,7 +71,7 @@ export default function DocsCard({
         />
         <div className="space-y-3 sm:space-y-0">
           <p className="text-lg text-black uppercase font-bold font-montserrat line-clamp-2">
-            {doc.name}
+            {doc.title}
           </p>
           <div className="w-full flex gap-5">
             <p
@@ -78,7 +79,7 @@ export default function DocsCard({
                 !doc.url ? "block" : "hidden"
               } text-black font-medium w-auto font-montserrat`}
             >
-              {size} MB
+              {prettyBytes(Number(doc.size))}
             </p>
             <p className=" text-black font-medium font-montserrat">{date}</p>
           </div>
