@@ -53,7 +53,7 @@ export default function Page({ params: { locale, id } }: any) {
         <div className="flex flex-col justify-center items-center text-white font-opensans pt-10 gap-5">
           <div className="w-10/12 sm:w-8/12 lg:w-7/12 space-y-5">
             <div className="flex gap-5">
-              <h1 className="text-3xl lg:text-5xl font-extrabold border-l-2 border-red-700 pl-5 py-2 line-clamp-3">
+              <h1 className="text-3xl lg:text-5xl font-extrabold border-l-2 border-red-700 pl-5 py-2 line-clamp-3 break-words">
                 {article?.title}
               </h1>
             </div>

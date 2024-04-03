@@ -80,7 +80,7 @@ export default function Page({ params: { locale, id } }: any) {
       deletePhoto(galleryId, photoId, updateGallery, user?.sub as string);
     }
   };
-
+  console.log(gallery);
   const handleFilter = () => {
     if (data) {
       let filteredData = [...data];

@@ -46,5 +46,5 @@ module.exports = withMT({
       ...colors,
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/line-clamp")],
 });

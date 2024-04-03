@@ -58,10 +58,7 @@ export default function NewsCard({
   }
 
   return (
-    <Link
-      href={`/news/${id}`}
-      className="h-full w-full space-y-2 cursor-pointer"
-    >
+    <Link href={`/news/${id}`} className="w-full space-y-2 cursor-pointer">
       <Image
         width={2048}
         height={1080}
@@ -71,13 +68,13 @@ export default function NewsCard({
       />
       <Typography
         placeholder={undefined}
-        className="text-red-700 font-normal tracking-widest uppercase font-montserrat"
+        className="text-red-700 font-normal tracking-widest uppercase font-montserrat line-clamp-2 break-words"
       >
         {category}
       </Typography>
       <Typography
         placeholder={undefined}
-        className="text-blue-950 font-bold font-montserrat text-2xl"
+        className="text-blue-950 font-bold font-montserrat text-2xl w-full break-words line-clamp-3"
       >
         {title}
       </Typography>

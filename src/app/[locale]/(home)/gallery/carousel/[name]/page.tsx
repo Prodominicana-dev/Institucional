@@ -429,21 +429,6 @@ export default function Carousel({ params }: Props) {
         </h1>
       </div>
       <div className="sm:6/12 w-8/12 overflow-hidden ">
-        <PhotoAlbum
-          key={index}
-          photos={photos}
-          layout="columns"
-          spacing={7}
-          columns={(containerWidth) => {
-            if (containerWidth < 500) return 1;
-            if (containerWidth < 800) return 2;
-            if (containerWidth < 1200) return 2;
-            return 3;
-          }}
-          targetRowHeight={50}
-          onClick={({ index }) => setIndex(index)}
-        />
-
         <Lightbox
           slides={test}
           open={index >= 0}
