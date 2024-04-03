@@ -77,7 +77,7 @@ export default function FooterMobile() {
                 {t("aboutUs.title")}
               </h1>
               <Link
-                href={"/about"}
+                href={"/whoarewe"}
                 className="text-sm font-light h-full w-full "
               >
                 <p>{t("aboutUs.name")}</p>

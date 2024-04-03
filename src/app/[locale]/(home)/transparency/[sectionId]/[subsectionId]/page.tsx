@@ -30,7 +30,7 @@ export default function Page({
   }, [data, isLoading]);
 
   useEffect(() => {
-    if (!filtersLoading) {
+    if (!filtersLoading && filters && filters.length > 0) {
       // Asignar la posicion 0 del arreglo de años a la variable years y asignar el arreglo de meses a la variable months pero como un arreglo de objetos con la propiedad value y label
       const year = { value: filters[0].year, label: filters[0].year };
       setYearSelected(year);
@@ -92,7 +92,7 @@ export default function Page({
         ></div>
 
         <>
-          <div className="w-full flex flex-col lg:flex-row gap-4 h-14">
+          <div className="w-full flex flex-col lg:flex-row gap-4 pb-5">
             <Select
               placeholder="Seleccione un año"
               id="section"
@@ -125,16 +125,15 @@ export default function Page({
               }
             />
           </div>
-
-          {docsFiltered ? (
-            <div className="w-full flex flex-col gap-3">
-              {docsFiltered?.map((doc: any, index: number) => (
+          <div className="w-full flex flex-col gap-3">
+            {docsFiltered ? (
+              docsFiltered?.map((doc: any, index: number) => (
                 <DocsCard doc={doc} key={index} />
-              ))}
-            </div>
-          ) : (
-            <div>No hay documentos</div>
-          )}
+              ))
+            ) : (
+              <div>No hay documentos</div>
+            )}
+          </div>
         </>
       </div>
     </div>

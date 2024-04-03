@@ -172,7 +172,7 @@ export default function Navbar() {
             <div className="h-10 flex space-x-3 text-white self-center">
               <NavbarButton
                 title={t("investButton")}
-                link={"/investment"}
+                link={"/invest"}
                 icon={"/svg/icons/InvestIcon.svg"}
               />
               <NavbarButton
