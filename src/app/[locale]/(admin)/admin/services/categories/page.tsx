@@ -1,23 +1,23 @@
 "use client";
 import AuthUser from "@/components/admin/auth";
 import Sketch from "@/components/admin/sketch";
-import Card from "@/components/admin/structure-organizational/members/card";
 import { DirectionsDialog } from "@/components/admin/structure-organizational/directions/dialog";
-import { MembersDialog } from "@/components/admin/structure-organizational/members/dialog";
-import { useMembers } from "@/services/structure-organizational/members/service";
 import { useDirections } from "@/services/structure-organizational/service";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Spinner } from "@material-tailwind/react";
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
+import { ServiceCategoriesDialog } from "@/components/admin/service/category/dialog";
+import { useServiceCategory } from "@/services/service/categories/service";
+import Card from "@/components/admin/service/category/card";
 
 export default function Page() {
   const [open, setOpen] = useState(false);
   const { user, isLoading: userLoading } = useUser();
   const [filterOpen, setFilterOpen] = useState(false);
-  const { data, isLoading, refetch } = useMembers("es");
-  const [members, setMembers] = useState([]);
+  const { data, isLoading, refetch } = useServiceCategory();
+  const [categories, setCategories] = useState([]);
   const [_refetch, setRefetch] = useState(false);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<any>(null);
@@ -27,8 +27,8 @@ export default function Page() {
 
   const indexOfLast = currentPage * itemsPerPage;
   const indexOfFirst = indexOfLast - itemsPerPage;
-  const currentMembers = members?.slice(indexOfFirst, indexOfLast);
-  const totalPages = Math.ceil(members?.length / itemsPerPage);
+  const currentMembers = categories?.slice(indexOfFirst, indexOfLast);
+  const totalPages = Math.ceil(categories?.length / itemsPerPage);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -40,7 +40,7 @@ export default function Page() {
 
   useEffect(() => {
     refetch().then((e) => {
-      setMembers(e.data);
+      setCategories(e.data);
     });
   }, [_refetch]);
 
@@ -68,7 +68,7 @@ export default function Page() {
           (section) => section.status === filter
         );
       }
-      setMembers(filteredData as any);
+      setCategories(filteredData as any);
       setCurrentPage(1); // Reset page to 1 when applying filters
     }
   };
@@ -107,8 +107,8 @@ export default function Page() {
     <>
       <AuthUser permission="create:transparency">
         <Sketch
-          title="Miembros"
-          subtitle="Estructura Organizacional"
+          title="Categorías"
+          subtitle="Servicios"
           handleFilterOpen={handleFilterOpen}
           buttons={[{ name: "Agregar", onClick: handleOpen }]}
         >
@@ -147,20 +147,23 @@ export default function Page() {
               <XMarkIcon className="w-7 h-7" />
             </button>
           </div>
-          {members?.length > 0 ? (
+          {categories?.length > 0 ? (
             <>
               <div className="w-11/12 flex flex-col space-y-4">
                 <div className="w-full flex justify-between">
                   <div className="text-black flex items-center">
-                    {members?.length > 0 && (
+                    {categories?.length > 0 && (
                       <>
-                        Mostrando los miembros del{" "}
+                        Mostrando las categorías del{" "}
                         {currentPage === 1
                           ? 1
                           : (currentPage - 1) * itemsPerPage + 1}{" "}
                         al{" "}
-                        {Math.min(currentPage * itemsPerPage, members?.length)}{" "}
-                        de {members?.length} totales.
+                        {Math.min(
+                          currentPage * itemsPerPage,
+                          categories?.length
+                        )}{" "}
+                        de {categories?.length} totales.
                       </>
                     )}
                   </div>
@@ -176,24 +179,22 @@ export default function Page() {
                       )}
                       onChange={(e) => setItemsPerPage(e?.value as number)}
                     />
-                    <span>miembros por página.</span>
+                    <span>categorías por página.</span>
                   </div>
                 </div>
                 <div className="w-full  space-y-5 text-black">
                   <>
-                    <div className="grid items-center justify-between w-full h-24 grid-cols-3 lg:grid-cols-5 p-5 font-bold text-center bg-white rounded-lg ring-2 ring-gray-100">
-                      <div className="text-center">Imagen</div>
+                    <div className="grid items-center justify-between w-full h-24 grid-cols-2 p-5 font-bold text-center bg-white rounded-lg ring-2 ring-gray-100">
                       <div className="text-center">Nombre</div>
-                      <div className="text-center">Departamento</div>
-                      <div className="text-center">Puesto</div>
+
                       <div>Acción</div>
                     </div>
 
-                    {currentMembers?.map((member: any, key: number) => {
+                    {currentMembers?.map((category: any, key: number) => {
                       return (
                         <Card
                           key={key}
-                          member={member}
+                          category={category}
                           update={updateDirections}
                         />
                       );
@@ -228,7 +229,7 @@ export default function Page() {
           )}
         </Sketch>
         {open && (
-          <MembersDialog
+          <ServiceCategoriesDialog
             open={open}
             handler={handleOpen}
             update={updateDirections}

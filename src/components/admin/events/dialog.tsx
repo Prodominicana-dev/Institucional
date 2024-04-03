@@ -39,6 +39,7 @@ import { createNews, useCategoriesNews } from "@/services/news/service";
 import { Autocomplete } from "@mantine/core";
 import Day_Picker from "../tools/daypicker";
 import { createEvents } from "@/services/events/service";
+import { useEventCategory } from "@/services/events/categories/service";
 
 export function EventDialog({
   open,
@@ -64,6 +65,21 @@ export function EventDialog({
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
   const [coordinates, setCoordinates] = useState("");
+  const [categoryId, setCategoryId] = useState("");
+  const [categoriesOptions, setCategoriesOptions] = useState([]);
+
+  const { data, isLoading } = useEventCategory();
+
+  useEffect(() => {
+    if (data && !isLoading) {
+      setCategoriesOptions(
+        data.map((category: any) => ({
+          value: category.id,
+          label: category.name,
+        }))
+      );
+    }
+  }, [data, isLoading]);
 
   useEffect(() => {
     if (startDate > endDate) {
@@ -125,7 +141,12 @@ export function EventDialog({
 
     if (
       isLastStep &&
-      (!startDate || !coordinates || !address || !latitude || !longitude)
+      (!startDate ||
+        !coordinates ||
+        !address ||
+        !latitude ||
+        !longitude ||
+        !categoryId)
     ) {
       return setWarningAlert(true);
     }
@@ -152,6 +173,7 @@ export function EventDialog({
       formData.append("es", JSON.stringify(es_data));
       formData.append("en", JSON.stringify(en_data));
       formData.append("created_By", user?.email as string);
+      formData.append("categoryId", categoryId);
       files.length > 0 && files.map((file) => formData.append("files", file));
       await createEvents(formData, update, user?.sub as string);
       setSubmitLoading(false);
@@ -305,6 +327,35 @@ export function EventDialog({
                 fromDate={startDate}
               />
             </div>
+          </div>
+          <div className="flex flex-col gap-2 w-full">
+            <label htmlFor="title" className="font-semibold text-black text-lg">
+              Categoría del evento{" "}
+              <span className="text-bold text-red-700">*</span>
+            </label>
+            <Select
+              onChange={(e: any) => {
+                setCategoryId(e.value);
+              }}
+              className="w-full z-50"
+              options={categoriesOptions}
+              theme={(theme) => ({
+                ...theme,
+                borderRadius: 2,
+                colors: {
+                  ...theme.colors,
+                  primary: "black",
+                },
+              })}
+            />
+            <label
+              className={`${
+                warningAlert && !categoryId ? "block" : "hidden"
+              } text-red-600 text-sm text-start flex items-center gap-1`}
+            >
+              <ExclamationCircleIcon className="size-5 inline-block" /> La
+              categoría es obligatoria.
+            </label>
           </div>
           <div className="flex flex-col gap-2 w-full">
             <div>

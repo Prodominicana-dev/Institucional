@@ -3,41 +3,29 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 var CryptoJS = require("crypto-js");
 
-export function useGallery() {
+export function useEventCategory() {
   return useQuery({
-    queryKey: ["members"],
+    queryKey: ["eventCategory"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/gallery`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/event-category`;
+      const { data } = await axios.get(url);
+      return data;
+    },
+  });
+}
+export function useEventCategoryById(id: string) {
+  return useQuery({
+    queryKey: ["eventCategoryById", id],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/event-category/${id}`;
       const { data } = await axios.get(url);
       return data;
     },
   });
 }
 
-export function useGalleryById(id: string) {
-  return useQuery({
-    queryKey: ["memberById", id],
-    queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/gallery/${id}`;
-      const { data } = await axios.get(url);
-      return data;
-    },
-  });
-}
-
-export function useGalleryByNameAndLang(name: string) {
-  return useQuery({
-    queryKey: ["members"],
-    queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/gallery/nm/${name}`;
-      const { data } = await axios.get(url);
-      return data;
-    },
-  });
-}
-
-export async function createGallery(
-  gallery: any,
+export async function createEventCategory(
+  member: any,
   update: () => void,
   userId: string
 ) {
@@ -48,8 +36,8 @@ export async function createGallery(
     ).toString();
 
     const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/gallery`,
-      gallery,
+      `${process.env.NEXT_PUBLIC_API_URL}/event-category`,
+      member,
       {
         headers: {
           Authorization: userIdEncrypted,
@@ -59,11 +47,11 @@ export async function createGallery(
 
     if (res.status === 201) {
       notifications.show({
-        id: "member",
+        id: "category",
         autoClose: 5000,
         withCloseButton: false,
-        title: "Colaborador creada",
-        message: "El colaborador ha sido creada correctamente.",
+        title: "Categoría del evento creada",
+        message: "La categoría del evento ha sido creada correctamente.",
         color: "green",
         loading: false,
       });
@@ -73,11 +61,11 @@ export async function createGallery(
     }
   } catch (error) {
     notifications.show({
-      id: "member",
+      id: "category",
       autoClose: 5000,
       withCloseButton: false,
-      title: "Error creando al colaborador",
-      message: "Ocurrió un error creando al colaborador.",
+      title: "Error creando la categoría del evento",
+      message: "Ocurrió un error creando la categoría del evento.",
       color: "red",
       loading: false,
     });
@@ -88,11 +76,11 @@ function handleErrorResponse(response: any) {
   switch (response.status) {
     case 500:
       notifications.show({
-        id: "member",
+        id: "category",
         autoClose: 5000,
         withCloseButton: false,
-        title: "Error creando al colaborador",
-        message: "Ocurrió un error creando al colaborador.",
+        title: "Error creando la categoría del evento",
+        message: "Ocurrió un error creando la categoría del evento.",
         color: "red",
         loading: false,
       });
@@ -115,9 +103,9 @@ function handleErrorResponse(response: any) {
   }
 }
 
-export async function editGallery(
+export async function editEventCategory(
   id: string,
-  gallery: any,
+  member: any,
   update: () => void,
   userId: string
 ) {
@@ -127,8 +115,8 @@ export async function editGallery(
       process.env.NEXT_PUBLIC_CRYPTOJS_KEY
     ).toString();
     const res = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/gallery/${id}`,
-      gallery,
+      `${process.env.NEXT_PUBLIC_API_URL}/event-category/${id}`,
+      member,
       {
         headers: {
           Authorization: `${userIdEncrypted}`,
@@ -196,7 +184,7 @@ function handleEditErrorResponse(response: any) {
   }
 }
 
-export function deleteGallery(
+export function deleteEventCategory(
   id: string,
   handleOpen: () => void,
   update: () => void,
@@ -207,7 +195,7 @@ export function deleteGallery(
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
   ).toString();
   return axios
-    .delete(`${process.env.NEXT_PUBLIC_API_URL}/gallery/${id}`, {
+    .delete(`${process.env.NEXT_PUBLIC_API_URL}/event-category/${id}`, {
       headers: {
         Authorization: `${userIdEncrypted}`,
       },
@@ -218,9 +206,9 @@ export function deleteGallery(
           id: "member",
           autoClose: 5000,
           withCloseButton: false,
-          title: "Galería eliminada",
+          title: "Colaborador eliminada",
           message:
-            "La galería y todas las fotos asociadas a esta galería han sido eliminada correctamente.",
+            "El colaborador ha sido eliminado correctamente. No podrás recuperarlo.",
           color: "green",
           loading: false,
         });
@@ -233,7 +221,7 @@ export function deleteGallery(
           autoClose: 5000,
           withCloseButton: false,
           title: "Error",
-          message: "Hubo un error borrando la galería.",
+          message: "Hubo un error borrando al colaborador.",
           color: "red",
           loading: false,
         });
@@ -244,7 +232,7 @@ export function deleteGallery(
           autoClose: 5000,
           withCloseButton: false,
           title: "Usuario inautorizado",
-          message: "No tienes permisos para eliminar la galería.",
+          message: "No tienes permisos para eliminar un colaborador.",
           color: "red",
           loading: false,
         });

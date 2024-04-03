@@ -31,9 +31,14 @@ export function SideBar() {
   const [newsOpen, setNewsOpen] = useState(0);
   const [isConfig, setIsConfig] = useState(false);
   const [isVisible, setIsVisible] = useAtom(sideBarAtom);
+  const [openServices, setOpenServices] = useState(0);
 
   const handleNewnessOpen = (value: any) => {
     setOpenNewness(openNewness === value ? 0 : value);
+  };
+
+  const handleServicesOpen = (value: any) => {
+    setOpenServices(openServices === value ? 0 : value);
   };
 
   const handleOpen = (value: any) => {
@@ -54,6 +59,7 @@ export function SideBar() {
       setOpenNewness(0);
       setOpenStructure(0);
       setNewsOpen(0);
+      setOpenServices(0);
     }
   }, [setOpen, isHover]);
 
@@ -98,6 +104,66 @@ export function SideBar() {
             url={"/admin/documents"}
             iconUrl={"/svg/layout/sidebar/documents.svg"}
           />
+          <Accordion
+            placeholder={undefined}
+            open={openServices === 1}
+            icon={
+              <ChevronDownIcon
+                strokeWidth={2.5}
+                className={`mx-auto h-4 w-4 transition-transform opacity-0 group-hover:opacity-100 hidden group-hover:flex text-white ${
+                  openServices === 1 ? "rotate-180" : ""
+                }`}
+              />
+            }
+          >
+            <ListItem
+              placeholder={undefined}
+              className="p-0 bg-transparent"
+              selected={openServices === 0}
+            >
+              <AccordionHeader
+                placeholder={undefined}
+                onClick={() => handleServicesOpen(1)}
+                className="p-3 border-b-0"
+              >
+                <ListItemPrefix placeholder={undefined} className="">
+                  <Image
+                    src={"/svg/layout/sidebar/news.svg"}
+                    width={600}
+                    height={600}
+                    draggable={false}
+                    alt=""
+                    className="w-8 h-8 text-white duration-700 group-hover:h-5 group-hover:w-5 mr-5"
+                  />
+                </ListItemPrefix>
+                <Typography
+                  placeholder={undefined}
+                  color="white"
+                  className="hidden mr-auto font-normal duration-300 opacity-0 group-hover:flex group-hover:opacity-100"
+                >
+                  Servicios
+                </Typography>
+              </AccordionHeader>
+            </ListItem>
+            <AccordionBody className="py-1">
+              {openServices === 1 && (
+                <List placeholder={undefined} className="p-0 text-white">
+                  <SidebarMenuItem
+                    title={"Categoría de servicios"}
+                    url={"/admin/services/categories"}
+                  />
+                  <SidebarMenuItem
+                    title={"Tipo de servicios"}
+                    url={"/admin/services/types"}
+                  />
+                  <SidebarMenuItem
+                    title={"Servicios"}
+                    url={"/admin/services"}
+                  />
+                </List>
+              )}
+            </AccordionBody>
+          </Accordion>
           <Accordion
             ref={hoverNewnessRef}
             placeholder={undefined}
@@ -145,10 +211,14 @@ export function SideBar() {
                 <List placeholder={undefined} className="p-0 text-white">
                   <SidebarMenuItem title={"Noticias"} url={"/admin/news"} />
                   <SidebarMenuItem
-                    title={"Categorías de Noticias"}
+                    title={"Categoría de Noticias"}
                     url={"/admin/news/categories"}
                   />
                   <SidebarMenuItem title={"Eventos"} url={"/admin/events"} />
+                  <SidebarMenuItem
+                    title={"Categoría de Eventos"}
+                    url={"/admin/events/categories"}
+                  />
                   <SidebarMenuItem
                     title={"Galería de Fotos"}
                     url={"/admin/gallery"}
