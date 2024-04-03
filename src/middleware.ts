@@ -63,6 +63,10 @@ export default createMiddleware({
       en: "/transparency/[sectionId]/[subsectionId]",
       es: "/transparencia/[sectionId]/[subsectionId]",
     },
+    "/gallery": {
+      en: "/gallery",
+      es: "/galeria",
+    },
     "/contact": {
       en: "/contact",
       es: "/contacto",

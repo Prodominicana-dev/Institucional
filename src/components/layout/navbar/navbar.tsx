@@ -81,7 +81,7 @@ export default function Navbar() {
       title: t("news.menuList.gallery"),
       description: t("news.menuList.galleryDesc"),
       icon: PhotoIcon,
-      link: "/photosgallery",
+      link: "/gallery",
     },
   ];
 

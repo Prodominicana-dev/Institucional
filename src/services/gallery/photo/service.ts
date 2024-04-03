@@ -14,6 +14,17 @@ export function usePhotoGallery(id: string) {
   });
 }
 
+export function usePhotoGalleryByNameAndLang(name: string) {
+  return useQuery({
+    queryKey: ["members"],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/gallery/nm/${name}/photo`;
+      const { data } = await axios.get(url);
+      return data;
+    },
+  });
+}
+
 export function useGalleryById(id: string) {
   return useQuery({
     queryKey: ["memberById", id],
