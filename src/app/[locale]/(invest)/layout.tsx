@@ -1,14 +1,17 @@
+"use client";
 import Navbar from "@/components/layout/invest/navbar";
 import LanguagePicker from "@/components/layout/navbar/languagePicker";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { APIProvider } from "@vis.gl/react-google-maps";
 
-export default function RootLayout({
-  children,
-}: {
+interface RootLayoutProps {
   children: React.ReactNode;
-}) {
+  locale: string;
+}
+
+export default function RootLayout({ children, locale }: RootLayoutProps) {
   const navbarOptions = [
     {
       title: "¿Por qué República Dominicana?",
@@ -16,9 +19,9 @@ export default function RootLayout({
       link: "/invest/why-dominican-republic",
     },
     {
-      title: "Mapa de oportunidades",
+      title: "Mapa de desarrollo estratégico",
       icon: "/svg/invest/reasonIcon.svg",
-      link: "/invest/why-dominican-republic",
+      link: "/invest/map",
     },
     {
       title: "Sectores de inversión",
@@ -31,11 +34,6 @@ export default function RootLayout({
       link: "/invest/why-dominican-republic",
     },
     {
-      title: "Contacto",
-      icon: "/svg/invest/contactIcon.svg",
-      link: "/invest/contact",
-    },
-    {
       title: "Ventanilla única de inversión",
       icon: "/svg/logos/vuiIcon.svg",
       link: "https://vui.gob.do",
@@ -44,8 +42,13 @@ export default function RootLayout({
   return (
     <html className="scroll-smooth">
       <body>
-        <Navbar options={navbarOptions} />
-        {children}
+        <APIProvider
+          apiKey={`${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`}
+          language={locale}
+        >
+          <Navbar options={navbarOptions} />
+          {children}
+        </APIProvider>
       </body>
     </html>
   );

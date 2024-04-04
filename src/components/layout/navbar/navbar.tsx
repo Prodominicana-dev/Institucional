@@ -90,7 +90,7 @@ export default function Navbar() {
       title: t("services.menuList.invest"),
       description: t("services.menuList.investDesc"),
       icon: NewspaperIcon,
-      link: "/services/investment",
+      link: "/services/invest",
     },
     {
       title: t("services.menuList.export"),
@@ -172,7 +172,7 @@ export default function Navbar() {
             <div className="h-10 flex space-x-3 text-white self-center">
               <NavbarButton
                 title={t("investButton")}
-                link={"/investment"}
+                link={"/invest"}
                 icon={"/svg/icons/InvestIcon.svg"}
               />
               <NavbarButton

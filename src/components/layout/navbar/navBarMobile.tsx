@@ -111,7 +111,7 @@ export default function NavBarMobile() {
       link: "https://instituto.prodominicana.gob.do",
       type: "link",
     },
-    { title: t("investButton"), link: "/investment", type: "button" },
+    { title: t("investButton"), link: "/invest", type: "button" },
     { title: t("exportButton"), link: "/export", type: "button" },
   ];
 

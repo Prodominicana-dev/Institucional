@@ -16,7 +16,7 @@ export default function Navbar(options: any) {
             className="object-cover w-64"
           />
         </Link>
-        <div className="bg-white/60 backdrop-blur-lg p-7 h-min rounded-full grid grid-cols-6 gap-3 w-9/12">
+        <div className="bg-white/60 backdrop-blur-lg p-7 h-min rounded-full grid grid-cols-5 gap-3 w-9/12">
           {options.options.map((option: any, index: number) => (
             <NavBarLink
               title={option.title}
