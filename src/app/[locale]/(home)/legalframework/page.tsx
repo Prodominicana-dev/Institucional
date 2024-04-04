@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   Tabs,
@@ -9,12 +9,16 @@ import {
   TabPanel,
   Typography,
   Button,
+  Spinner,
 } from "@material-tailwind/react";
 import { useTranslations } from "next-intl";
-import { title } from "process";
+import { useMarcoLegalDocs } from "@/services/subsection/service";
+import DocsCard from "@/components/transparencia/documents/card";
 
 export default function Page() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [marcoLegalDocs, setMarcoLegalDocs] = useState<any>([]);
+  const { data: marcoLegal, isLoading } = useMarcoLegalDocs();
   const selectType = (value: number) => {
     setActiveIndex(value);
   };
@@ -110,6 +114,50 @@ export default function Page() {
       ],
     },
   ];
+
+  useEffect(() => {
+    if (marcoLegal && !isLoading) {
+      const data = marcoLegal.map((item: any) => {
+        if (item.name.toLowerCase().includes("ley")) {
+          return {
+            label: t("laws.title"),
+            value: "ied",
+            files: item.documents,
+          };
+        }
+        if (item.name.toLowerCase().includes("decreto")) {
+          return {
+            label: t("decrees.title"),
+            value: "idt",
+            files: item.documents,
+          };
+        }
+        if (item.name.toLowerCase().includes("resolucion")) {
+          return {
+            label: t("resolutions.title"),
+            value: "ezf",
+            files: item.documents,
+          };
+        }
+        if (item.name.toLowerCase().includes("normativa")) {
+          return {
+            label: t("regulations.title"),
+            value: "pm",
+            files: item.documents,
+          };
+        }
+      });
+      console.log(data);
+      setMarcoLegalDocs(data);
+    }
+  }, [marcoLegal, isLoading]);
+
+  if (isLoading)
+    return (
+      <div className="w-full h-[85vh] flex justify-center items-center bg-white">
+        <Spinner className="size-7" />
+      </div>
+    );
   return (
     <div>
       <section className="h-[40vh]">
@@ -131,81 +179,46 @@ export default function Page() {
           </div>
         </div>
       </section>
-      <div className="bg-white flex justify-center py-10 min-h-screen">
+      <div className="bg-white flex justify-center py-10 min-h-[60vh]">
         <div className="w-10/12 xl:w-8/12">
-          <Tabs value={data[0].value}>
-            <TabsHeader
-              placeholder={undefined}
-              className="!bg-blue-950 p-5"
-              indicatorProps={{ className: "bg-lightBlue-600" }}
-            >
-              {data.map(({ label, value }, index) => (
-                <Tab
-                  key={index}
-                  value={value}
-                  placeholder={undefined}
-                  onClick={() => selectType(index)}
-                  className="text-white"
-                >
-                  {label}
-                </Tab>
-              ))}
-            </TabsHeader>
-            <TabsBody placeholder={undefined} className="">
-              {data.map(({ value, files }: any) => (
-                <TabPanel
-                  key={value}
-                  value={value}
-                  className="flex flex-col justify-center items-center gap-5"
-                >
-                  {files.map((file: any, index: any) => (
-                    <div
-                      className={`w-full border-2 border-gray-300 rounded-xl p-5 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-3`}
-                      key={index}
-                    >
-                      <div className="flex flex-col sm:flex-row items-center gap-3">
-                        <Image
-                          width={100}
-                          height={100}
-                          alt={file.title}
-                          src={"/svg/icons/PdfIcon.svg"}
-                          className="w-12"
-                        />
-                        <div className="space-y-3 sm:space-y-0">
-                          <Typography
-                            placeholder={undefined}
-                            className="text-lg text-black uppercase font-bold"
-                          >
-                            {file.title}
-                          </Typography>
-                          <div className="w-full flex gap-5">
-                            <Typography
-                              placeholder={undefined}
-                              className=" text-black font-medium w-auto"
-                            >
-                              {t2("size")}: {file.size}
-                            </Typography>
-                            <Typography
-                              placeholder={undefined}
-                              className=" text-black font-medium"
-                            >
-                              {t2("date")}: {"12/12/2021"}
-                            </Typography>
-                          </div>
-                        </div>
-                      </div>
-                      <Button
-                        placeholder={undefined}
-                        className="bg-transparent border-2 border-red-600 text-red-600 hover:text-white hover:bg-red-600 duration-300 w-full sm:w-auto"
-                      >
-                        {t2("download")}
-                      </Button>
-                    </div>
-                  ))}
-                </TabPanel>
-              ))}
-            </TabsBody>
-          </Tabs>
+          {marcoLegalDocs.length > 0 ? (
+            <Tabs value={data[0].value}>
+              <TabsHeader
+                placeholder={undefined}
+                className="!bg-blue-950 p-5 "
+                indicatorProps={{ className: "bg-lightBlue-600" }}
+              >
+                {marcoLegalDocs.map(({ label, value }: any, index: number) => (
+                  <Tab
+                    key={index}
+                    value={value}
+                    placeholder={undefined}
+                    onClick={() => selectType(index)}
+                    className="text-white "
+                  >
+                    {label}
+                  </Tab>
+                ))}
+              </TabsHeader>
+              <TabsBody placeholder={undefined} className="">
+                {marcoLegalDocs.map(({ value, files }: any) => (
+                  <TabPanel
+                    key={value}
+                    value={value}
+                    className="flex flex-col justify-center items-center gap-5"
+                  >
+                    {files.map((file: any, index: any) => (
+                      <DocsCard doc={file} key={index} />
+                    ))}
+                  </TabPanel>
+                ))}
+              </TabsBody>
+            </Tabs>
+          ) : (
+            <h1 className="font-bold text-3xl text-black font-montserrat p-2 relative">
+              No hay documentos
+            </h1>
+          )}
         </div>
       </div>
     </div>

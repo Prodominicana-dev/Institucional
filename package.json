@@ -46,6 +46,7 @@
     "date-fns": "^3.2.0",
     "embla-carousel-autoplay": "^7.1.0",
     "framer-motion": "^10.18.0",
+    "image-size": "^1.1.1",
     "jotai": "^2.6.1",
     "next": "14.0.4",
     "next-intl": "^3.5.1",

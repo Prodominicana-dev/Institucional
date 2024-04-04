@@ -79,6 +79,17 @@ export function useSubsectionFilter() {
   });
 }
 
+export function useMarcoLegalDocs() {
+  return useQuery({
+    queryKey: ["marcolegal"],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/subsection/legal/docs`;
+      const { data } = await axios.get(url);
+      return data;
+    },
+  });
+}
+
 export function useSubsectionById(id: string) {
   return useQuery({
     queryKey: ["subsectionById", id],
