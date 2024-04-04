@@ -47,35 +47,35 @@ export default function Page({ params }: { params: { locale: string } }) {
 
   return (
     <div className="w-full  flex flex-col p-10 lg:p-20 items-center bg-white gap-10">
-      {galleries.length > 0 && (
-        <>
-          <div>
-            <h1 className=" text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-montserrat font-extrabold text-[#1E3059]">
-              Galería de Imágenes
-            </h1>
-          </div>
-          <div className="w-5/6 flex flex-col gap-10 items-center justify-center">
-            <div className="w-full text-lg">
-              <label
-                htmlFor="search"
-                className="w-full flex flex-row border-2 border-black rounded-lg px-1 py-4 hover:cursor-text"
-              >
-                <label
-                  htmlFor="search"
-                  className="flex justify-center items-center w-1/12 hover:cursor-text"
-                >
-                  <MagnifyingGlassIcon className="size-8" />
-                </label>
-                <input
-                  id="search"
-                  type="text"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                  className="text-xl line-clamp-3 w-full px-4 outline-none bg-white"
-                  placeholder="Buscar galería de imágenes"
-                />
-              </label>
-            </div>
+      <div>
+        <h1 className=" text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-montserrat font-extrabold text-[#1E3059]">
+          Galería de Imágenes
+        </h1>
+      </div>
+      <div className="w-5/6 flex flex-col gap-10 items-center justify-center">
+        <div className="w-full text-lg">
+          <label
+            htmlFor="search"
+            className="w-full flex flex-row border-2 border-black rounded-lg px-1 py-4 hover:cursor-text"
+          >
+            <label
+              htmlFor="search"
+              className="flex justify-center items-center w-1/12 hover:cursor-text"
+            >
+              <MagnifyingGlassIcon className="size-8" />
+            </label>
+            <input
+              id="search"
+              type="text"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="text-xl line-clamp-3 w-full px-4 outline-none bg-white"
+              placeholder="Buscar galería de imágenes"
+            />
+          </label>
+        </div>
+        {galleries.length > 0 ? (
+          <>
             <div className="w-full flex flex-col gap-2">
               <p className="w-full text-sm text-gray-800 ">
                 Total: {galleries?.length} galerías de imágenes
@@ -115,9 +115,11 @@ export default function Page({ params }: { params: { locale: string } }) {
                 ))}
               </div>
             </div>
-          </div>
-        </>
-      )}
+          </>
+        ) : (
+          <div className="min-h-[35vh]">No hay</div>
+        )}
+      </div>
     </div>
   );
 }

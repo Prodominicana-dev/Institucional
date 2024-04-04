@@ -69,6 +69,7 @@ export function ServiceDialog({
   const [categoryId, setCategoryId] = useState("");
   const [typeId, setTypeId] = useState("");
   const [typeOptions, setTypeOptions] = useState<any>([]);
+  const [files, setFiles] = useState<FileWithPath[]>([]);
   const { data: categories, isLoading: categoriesLoading } =
     useServiceCategory();
 
@@ -95,6 +96,10 @@ export function ServiceDialog({
       );
     }
   }, [types, typesLoading]);
+
+  const handleDrop = (acceptedFiles: FileWithPath[]) => {
+    setFiles(acceptedFiles);
+  };
 
   const openRef = useRef<() => void>(null);
   const handleNext = () => {
@@ -159,7 +164,7 @@ export function ServiceDialog({
   });
 
   const handleButton = async () => {
-    if (activeStep === 0 && (!typeId || !categoryId)) {
+    if (activeStep === 0 && (!typeId || !categoryId || files.length === 0)) {
       return setWarningAlert(true);
     }
 
@@ -241,6 +246,16 @@ export function ServiceDialog({
         email: email,
         language: "en",
       };
+
+      const formData = new FormData();
+
+      formData.append("es", JSON.stringify(es_data));
+      formData.append("en", JSON.stringify(en_data));
+      formData.append("categoryId", categoryId);
+      formData.append("typeId", typeId);
+      formData.append("created_By", user?.email as string);
+      files.length > 0 && files.map((file) => formData.append("image", file));
+
       const data2 = {
         es: es_data,
         en: en_data,
@@ -248,7 +263,7 @@ export function ServiceDialog({
         typeId: typeId,
         created_By: user?.email as string,
       };
-      await createService(data2, update, user?.sub as string);
+      await createService(formData, update, user?.sub as string);
       setSubmitLoading(false);
       handler();
     }
@@ -332,12 +347,62 @@ export function ServiceDialog({
             </div>
           </div>
 
-          {/* <div className="w-full flex flex-col gap-5">
-            <label className="font-semibold text-black text-lg">
-              Fotos relacionadas con la noticia
+          <div className="w-full flex flex-col">
+            <label
+              htmlFor="nameEs"
+              className="font-semibold text-black text-lg"
+            >
+              Ícono del servicio <span className="text-red-600">*</span>
             </label>
-            <DragNDrop data={imagesRelated} setData={setImagesRelated} />
-          </div> */}
+            <label
+              htmlFor="nameEs"
+              className={` text-black text-sm pt-3 flex items-center gap-1`}
+            >
+              <ExclamationCircleIcon className="size-5 inline-block" /> El único
+              formato permitido para el ícono es .SVG
+            </label>
+          </div>
+          <div className="w-full h-[40vh] relative flex justify-center items-center group">
+            {files.length > 0 && (
+              <button
+                onClick={() => openRef.current?.()}
+                className="w-full h-full z-10 absolute flex justify-center items-center group"
+              >
+                <Image
+                  src={URL.createObjectURL(files[0])} // Use the preview URL directly
+                  alt=""
+                  width="500"
+                  height="500"
+                  className="w-full h-full absolute rounded-lg object-center scale-75 group-hover:blur-[2px] group-hover:opacity-40 duration-300" // Add bg-white for visibility
+                />
+              </button>
+            )}
+
+            <Dropzone
+              multiple={false}
+              openRef={openRef}
+              onDrop={handleDrop}
+              accept={["image/svg+xml"]} // Ensure only images are accepted
+              activateOnClick={true}
+              className="w-full h-full border-dashed hover:border-double bg-transparent hover:bg-gray-100 hover:text-blue-dark hover:border-gray-100 duration-300 border-2 rounded-lg border-gray-200 flex justify-center items-center"
+            >
+              <button
+                onClick={() => openRef.current?.()}
+                className="w-full h-full"
+              >
+                Seleccione una imagen
+              </button>
+            </Dropzone>
+          </div>
+          <label
+            htmlFor="nameEs"
+            className={`${
+              warningAlert && files.length === 0 ? "block" : "hidden"
+            } text-red-600 text-sm pt-3 w-full text-left`}
+          >
+            <ExclamationCircleIcon className="size-5 inline-block" /> El ícono
+            es obligatorio.
+          </label>
         </div>
       ),
     },

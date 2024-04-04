@@ -36,6 +36,7 @@ import {
   editService,
   useServicesById,
 } from "@/services/service/service";
+import { set } from "date-fns";
 
 export function EditServiceDialog({
   id,
@@ -85,6 +86,8 @@ export function EditServiceDialog({
   const [accesoEnEditor, setAccesoEnEditor] = useState<any>("");
   const [informacionesEsEditor, setInformacionesEsEditor] = useState<any>("");
   const [informacionesEnEditor, setInformacionesEnEditor] = useState<any>("");
+  const [files, setFiles] = useState<FileWithPath[]>([]);
+  const [image, setImage] = useState("");
 
   const { data: categories, isLoading: categoriesLoading } =
     useServiceCategory();
@@ -95,6 +98,11 @@ export function EditServiceDialog({
 
   useEffect(() => {
     if (!serviceLoading && service) {
+      console.log(
+        id,
+        service.image,
+        `${process.env.NEXT_PUBLIC_API_URL}/service/images/${id}/${service.image}`
+      );
       setSpanishName(service.es.name);
       setEnglishName(service.en.name);
       setTelefono(service.es.tel);
@@ -123,6 +131,7 @@ export function EditServiceDialog({
       setDescriptionEsEditor(service.es.description);
       setCategoryId(service.categoryId);
       setTypeId(service.typeId);
+      setImage(service.image);
     }
   }, [service, serviceLoading]);
 
@@ -147,6 +156,10 @@ export function EditServiceDialog({
       );
     }
   }, [types, typesLoading]);
+
+  const handleDrop = (acceptedFiles: FileWithPath[]) => {
+    setFiles(acceptedFiles);
+  };
 
   const openRef = useRef<() => void>(null);
   const handleNext = () => {
@@ -291,6 +304,16 @@ export function EditServiceDialog({
         email: email,
         language: "en",
       };
+
+      const formData = new FormData();
+
+      formData.append("es", JSON.stringify(es_data));
+      formData.append("en", JSON.stringify(en_data));
+      formData.append("categoryId", categoryId);
+      formData.append("typeId", typeId);
+      formData.append("updated_By", user?.email as string);
+      files.length > 0 && files.map((file) => formData.append("image", file));
+
       const data2 = {
         es: es_data,
         en: en_data,
@@ -298,7 +321,7 @@ export function EditServiceDialog({
         typeId: typeId,
         created_By: user?.email as string,
       };
-      await editService(id, data2, update, user?.sub as string);
+      await editService(id, formData, update, user?.sub as string);
       setSubmitLoading(false);
       handler();
     }
@@ -384,6 +407,67 @@ export function EditServiceDialog({
                 tipo es obligatorio.
               </label>
             </div>
+          </div>
+          <div className="w-full flex flex-col">
+            <label
+              htmlFor="nameEs"
+              className="font-semibold text-black text-lg"
+            >
+              Ícono del servicio <span className="text-red-600">*</span>
+            </label>
+            <label
+              htmlFor="nameEs"
+              className={` text-black text-sm pt-3 flex items-center gap-1`}
+            >
+              <ExclamationCircleIcon className="size-5 inline-block" /> El único
+              formato permitido para el ícono es .SVG
+            </label>
+          </div>
+          <div className="w-full h-[40vh] relative flex justify-center items-center group">
+            {files.length > 0 && (
+              <button
+                onClick={() => openRef.current?.()}
+                className="w-full h-full z-10 absolute flex justify-center items-center group"
+              >
+                <Image
+                  src={URL.createObjectURL(files[0])} // Use the preview URL directly
+                  alt=""
+                  width="500"
+                  height="500"
+                  className="w-full h-full absolute rounded-lg object-center scale-75 group-hover:blur-[2px] group-hover:opacity-40 duration-300" // Add bg-white for visibility
+                />
+              </button>
+            )}
+            {image && files.length === 0 && (
+              <button
+                onClick={() => openRef.current?.()}
+                className="w-full h-full z-10 absolute flex justify-center items-center group"
+              >
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_API_URL}/service/images/${id}/${image}`} // Use the preview URL directly
+                  alt={spanishName}
+                  width="500"
+                  height="500"
+                  className="w-full h-full absolute rounded-lg object-center scale-75 group-hover:blur-[2px] group-hover:opacity-40 duration-300" // Add bg-white for visibility
+                />
+              </button>
+            )}
+
+            <Dropzone
+              multiple={false}
+              openRef={openRef}
+              onDrop={handleDrop}
+              accept={["image/svg+xml"]} // Ensure only images are accepted
+              activateOnClick={true}
+              className="w-full h-full border-dashed hover:border-double bg-transparent hover:bg-gray-100 hover:text-blue-dark hover:border-gray-100 duration-300 border-2 rounded-lg border-gray-200 flex justify-center items-center"
+            >
+              <button
+                onClick={() => openRef.current?.()}
+                className="w-full h-full"
+              >
+                Seleccione una imagen
+              </button>
+            </Dropzone>
           </div>
 
           {/* <div className="w-full flex flex-col gap-5">
