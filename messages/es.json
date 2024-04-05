@@ -266,7 +266,49 @@
     }
   },
   "history": {
-    "title": "Nuestra Historia"
+    "title": "Nuestra Historia",
+    "info": [
+      {
+        "year": 2003,
+        "description": "El 17 de junio del 2003 surge la fusión de CEDOPEX y OPI-RD, para ser creado el Centro de Exportación e Inversión de la República Dominicana (CEI-RD) a través de la Ley 98-03, bajo el mandato del Expresidente Hipólito Mejía, con el objetivo principal de promoción y fomento de las exportaciones dominicanas."
+      },
+      {
+        "year": 2012,
+        "description": "Desde 2012, tras la conformación de la Comisión Multisectorial mediante el decreto NO. 22-12 se designó al CEI-RD para el desarrollo de la Marca País República Dominicana para cimentar las bases y articular todo un plan estratégico, teniendo a Colombia como país asesor."
+      },
+      {
+        "year": 2017,
+        "description": "Se crea ProDominicana, con el decreto 275-17, como un mecanismo de coordinación y ejecución de los planes del estado dominicano con el proceso de implementación de una estrategia Nacional de Promoción de la exportación e Inversión. Así como una denominación que identifique de manera clara a la República Dominicana con el desarrollo de sus actividades de promoción de exportaciones y capitación de inversiones."
+      },
+      {
+        "year": 2020,
+        "description": "Se presentó el primer Encuentro de Mujeres en Exportación en el cual se lanzó el Estudio de Mujeres en Exportación para prescindir de las brechas de género como estrategia de promoción de una mayor participación de las mujeres en la actividad productiva y comercial; busca generar más empleo y un esquema de desarrollo económico sostenible. Para el 2024 realizamos la 4ta edición."
+      },
+      {
+        "year": 2020,
+        "description": "Presentación del “Plan Nacional de Fomento a las Exportaciones de la República Dominicana PNFE-RD 2020–2030” que ha sido formulado de manera consensuada y coherente, para garantizar el impulso de las exportaciones, que conecta con las políticas en favor del desarrollo productivo. Así como el trabajo conjunto de las instituciones que inciden en el proceso de exportación para atender los retos a corto, mediano y largo plazo que permiten la participación del país en el comercio internacional."
+      },
+      {
+        "year": 2021,
+        "description": "Lanzamiento de la primera Guía de Inversión Extranjera en inglés y español, orientada a brindar información básica para el desarrollo de inversiones y negocios en el país, así como las oportunidades y facilidades que les ofrece R.D a los inversionistas extranjeros. Al 2024 contamos con la Guía de Inversión en 11 idiomas."
+      },
+      {
+        "year": 2021,
+        "description": "Lanzamiento de la Guía de Exportación, la cual es un resumen que presenta los elementos más importantes que deben conocer y aplicar los exportadores y potenciales exportadores del país a fin de desarrollar con éxito sus negocios de exportación. Asimismo, es una herramienta de altísimo valor, desarrollada por ProDominicana a favor de los productores y exportadores dominicanos, en cumplimiento al Plan Nacional de Fomento a las Exportaciones (PNFE) y la estrategia de promoción comercial, trazada por el Gobierno del presidente Luis Abinader."
+      },
+      {
+        "year": 2021,
+        "description": "Presentación del primer Estudio de la Moda en República Dominicana D con el objetivo de crear un Plan de Promoción Comercial para estimular las exportaciones de la industria de la moda."
+      },
+      {
+        "year": 2021,
+        "description": "Puesta en funcionamiento del sistema Ventanilla Única de Inversión (VUIRD) la cual tiene como objetivo agilizar los procesos de las inversiones nacionales y extranjeras que tengan el propósito de desarrollar operaciones en los diferentes sectores productivos de bienes y servicios del país, para que el inversionista tenga un punto único de contacto, más eficiente con menos burocracia."
+      },
+      {
+        "year": 2023,
+        "description": "En 2023 ProDominicana realizó 17 acuerdos institucionales con el propósito de instaurar oficinas provinciales con presencia de Ejecutivos Regionales de ProDominicana para contribuir en la consecución de las metas y objetivos de promover las exportaciones y la captación de las inversiones. Las provincias donde la institución tiene presencian son: Bonao, La Vega, San Cristóbal, Samaná, La Altagracia, Pedernales, La Romana, Puerto Plata, Espaillat, Peravia, Miches, El Seibo, Hermanas Mirabal, Hato Mayor, Constanza, San Juan y Santiago."
+      }
+    ]
   },
   "shetrades": {
     "navbarMenuItems": {

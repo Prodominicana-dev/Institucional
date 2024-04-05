@@ -266,7 +266,49 @@
     }
   },
   "history": {
-    "title": "Our History"
+    "title": "Our History",
+    "info": [
+      {
+        "year": 2003,
+        "description": "On June 17, 2003, the merger of CEDOPEX and OPI-RD gave rise to the creation of the Center for Export and Investment of the Dominican Republic (CEI-RD) through Law 98-03, under the mandate of former President Hipólito Mejía, with the main objective of promoting and fostering Dominican exports."
+      },
+      {
+        "year": 2012,
+        "description": "Since 2012, after the formation of the Multisectoral Commission through decree NO. 22-12, CEI-RD was designated for the development of the Dominican Republic Country Brand to lay the groundwork and articulate a comprehensive strategic plan, with Colombia serving as the advisory country."
+      },
+      {
+        "year": 2017,
+        "description": "ProDominicana is created, by decree 275-17, as a mechanism for coordinating and executing the plans of the Dominican state with the process of implementing a National Export and Investment Promotion strategy. As well as a denomination that clearly identifies the Dominican Republic with the development of its export promotion and investment attraction activities."
+      },
+      {
+        "year": 2020,
+        "description": "The first Women in Export Meeting was held in 2020, during which the Women in Export Study was launched to eliminate gender gaps as a strategy to promote greater participation of women in productive and commercial activities; it seeks to generate more employment and a sustainable economic development scheme. In 2024, we held the 4th edition."
+      },
+      {
+        "year": 2020,
+        "description": "Presentation of the “National Export Promotion Plan of the Dominican Republic PNFE-RD 2020–2030” which has been formulated in a consensual and coherent manner, to guarantee the boost of exports, connecting with policies in favor of productive development. As well as the joint work of the institutions that impact the export process to address short, medium, and long-term challenges that allow the country's participation in international trade."
+      },
+      {
+        "year": 2021,
+        "description": "Launch of the first Foreign Investment Guide in English and Spanish, aimed at providing basic information for the development of investments and businesses in the country, as well as the opportunities and facilities offered by the Dominican Republic to foreign investors. By 2024, we have the Investment Guide available in 11 languages."
+      },
+      {
+        "year": 2021,
+        "description": "Launch of the Export Guide, which is a summary that presents the most important elements that exporters and potential exporters in the country must know and apply in order to successfully develop their export businesses. It is also a highly valuable tool, developed by ProDominicana in favor of Dominican producers and exporters, in compliance with the National Export Promotion Plan (PNFE) and the commercial promotion strategy outlined by President Luis Abinader's Government."
+      },
+      {
+        "year": 2021,
+        "description": "Presentation of the first Fashion Study in the Dominican Republic with the aim of creating a Commercial Promotion Plan to stimulate exports from the fashion industry."
+      },
+      {
+        "year": 2021,
+        "description": "Implementation of the Single Investment Window (VUIRD) system, which aims to streamline the processes of national and foreign investments that intend to develop operations in the country's different productive sectors of goods and services, so that the investor has a single point of contact, more efficient with less bureaucracy."
+      },
+      {
+        "year": 2023,
+        "description": "In 2023, ProDominicana carried out 17 institutional agreements with the purpose of establishing provincial offices with the presence of Regional Executives from ProDominicana to contribute to the achievement of the goals and objectives of promoting exports and attracting investments. The provinces where the institution is present are: Bonao, La Vega, San Cristóbal, Samaná, La Altagracia, Pedernales, La Romana, Puerto Plata, Espaillat, Peravia, Miches, El Seibo, Hermanas Mirabal, Hato Mayor, Constanza, San Juan, and Santiago."
+      }
+    ]
   },
   "shetrades": {
     "navbarMenuItems": {
