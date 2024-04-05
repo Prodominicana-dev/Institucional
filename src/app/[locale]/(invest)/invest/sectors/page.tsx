@@ -8,7 +8,7 @@ export default function Page() {
   const sectors = [
     {
       name: t("list.0.name"),
-      image: "/images/flags.jpg",
+      image: "/images/invest/sectors/tourism.jpg",
       icon: "/svg/invest/sectors/tourismIcon.svg",
       link: "tourism",
     },
@@ -26,7 +26,7 @@ export default function Page() {
     },
     {
       name: t("list.3.name"),
-      image: "/images/flags.jpg",
+      image: "/images/invest/sectors/manufacturing.jpg",
       icon: "/svg/invest/sectors/manufacturingIcon.svg",
       link: "manufacturing",
     },
@@ -44,9 +44,21 @@ export default function Page() {
     },
     {
       name: t("list.6.name"),
-      image: "/images/flags.jpg",
+      image: "/images/invest/sectors/biomedicine.jpg",
       icon: "/svg/invest/sectors/biomedicineIcon.svg",
       link: "biomedicine",
+    },
+    {
+      name: t("list.7.name"),
+      image: "/images/invest/sectors/biomedicine.jpg",
+      icon: "/svg/invest/sectors/biomedicineIcon.svg",
+      link: "film",
+    },
+    {
+      name: t("list.8.name"),
+      image: "/images/invest/sectors/biomedicine.jpg",
+      icon: "/svg/invest/sectors/biomedicineIcon.svg",
+      link: "real-estate",
     },
   ];
 
