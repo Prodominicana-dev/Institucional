@@ -5,29 +5,18 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
-  Input,
   Spinner,
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
 } from "@material-tailwind/react";
 import { Stepper, Step } from "@material-tailwind/react";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import { FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { FileWithPath } from "@mantine/dropzone";
 import Editor from "../tools/rich-editor/config";
 import TextEditor from "../tools/rich-editor/rich-editor";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Dropzone } from "@mantine/dropzone";
 import Image from "next/image";
-import { createNews, useCategoriesNews } from "@/services/news/service";
-import { Autocomplete } from "@mantine/core";
-import DragNDrop from "../tools/dropzone/dropzone";
-import TextEditorWithConfig from "../tools/textEditor/textEditor";
-import Day_Picker from "../tools/daypicker";
-import { useNewsCategories } from "@/services/news/categories/service";
 import Select from "react-select";
 import { useServiceCategory } from "@/services/service/categories/service";
 import { useServiceType } from "@/services/service/type/service";
@@ -48,14 +37,14 @@ export function ServiceDialog({
   const [email, setEmail] = useState("");
   const [dirigidoEs, setDirigidoEs] = useState("");
   const [areaEs, setAreaEs] = useState("");
-  const [costoEs, setCostoEs] = useState("");
+  const [costoEs, setCostoEs] = useState("RD$ ");
   const [tiempoEs, setTiempoEs] = useState("");
   const [horarioEs, setHorarioEs] = useState("");
   const [canalesEs, setCanalesEs] = useState("");
   const [englishName, setEnglishName] = useState("");
   const [dirigidoEn, setDirigidoEn] = useState("");
   const [areaEn, setAreaEn] = useState("");
-  const [costoEn, setCostoEn] = useState("");
+  const [costoEn, setCostoEn] = useState("RD$ ");
   const [tiempoEn, setTiempoEn] = useState("");
   const [horarioEn, setHorarioEn] = useState("");
   const [canalesEn, setCanalesEn] = useState("");
@@ -68,7 +57,9 @@ export function ServiceDialog({
   const [categoryOptions, setCategoryOptions] = useState<any>([]);
   const [categoryId, setCategoryId] = useState("");
   const [typeId, setTypeId] = useState("");
+  const [access, setAccess] = useState("");
   const [typeOptions, setTypeOptions] = useState<any>([]);
+  const [files, setFiles] = useState<FileWithPath[]>([]);
   const { data: categories, isLoading: categoriesLoading } =
     useServiceCategory();
 
@@ -96,6 +87,10 @@ export function ServiceDialog({
     }
   }, [types, typesLoading]);
 
+  const handleDrop = (acceptedFiles: FileWithPath[]) => {
+    setFiles(acceptedFiles);
+  };
+
   const openRef = useRef<() => void>(null);
   const handleNext = () => {
     !isLastStep && setActiveStep((cur) => cur + 1);
@@ -121,11 +116,6 @@ export function ServiceDialog({
     contentEs: description ? description : "",
   });
 
-  const accesoEs = Editor({
-    placeholder: "Colocar el acceso al servicio...",
-    contentEs: description ? description : "",
-  });
-
   const informacionesEs = Editor({
     placeholder: "Colocar toda la información extra necesaria...",
     contentEs: description ? description : "",
@@ -148,18 +138,13 @@ export function ServiceDialog({
     contentEs: description ? description : "",
   });
 
-  const accesoEn = Editor({
-    placeholder: "Colocar el acceso al servicio en inglés...",
-    contentEs: description ? description : "",
-  });
-
   const informacionesEn = Editor({
     placeholder: "Colocar toda la información extra necesaria en inglés...",
     contentEs: description ? description : "",
   });
 
   const handleButton = async () => {
-    if (activeStep === 0 && (!typeId || !categoryId)) {
+    if (activeStep === 0 && (!typeId || !categoryId || files.length === 0)) {
       return setWarningAlert(true);
     }
 
@@ -175,10 +160,13 @@ export function ServiceDialog({
         !tiempoEs ||
         !horarioEs ||
         !canalesEs ||
-        !accesoEs?.getHTML() ||
-        !informacionesEs?.getHTML() ||
+        !access ||
         !requerimientosEs?.getHTML() ||
-        !procedimientosEs?.getHTML())
+        !procedimientosEs?.getHTML() ||
+        !access.startsWith("https://") ||
+        costoEs === "RD$ " ||
+        costoEs === "RD$" ||
+        costoEs === "RD")
     ) {
       return setWarningAlert(true);
     }
@@ -186,21 +174,24 @@ export function ServiceDialog({
     !isLastStep && handleNext();
 
     if (
-      isLastStep &&
-      (englishName === "" ||
-        descriptionEn?.getText() === "" ||
-        !telefono ||
-        !email ||
-        !dirigidoEn ||
-        !areaEn ||
-        !costoEn ||
-        !tiempoEn ||
-        !horarioEn ||
-        !canalesEn ||
-        !accesoEn?.getHTML() ||
-        !informacionesEn?.getHTML() ||
-        !requerimientosEn?.getHTML() ||
-        !procedimientosEn?.getHTML())
+      (isLastStep &&
+        (englishName === "" ||
+          descriptionEn?.getText() === "" ||
+          !telefono ||
+          !email ||
+          !dirigidoEn ||
+          !areaEn ||
+          !costoEn ||
+          !tiempoEn ||
+          !horarioEn ||
+          !canalesEn ||
+          !access ||
+          !requerimientosEn?.getHTML() ||
+          !procedimientosEn?.getHTML() ||
+          !access.startsWith("https://"))) ||
+      costoEn === "RD$ " ||
+      costoEn === "RD$" ||
+      costoEn === "RD"
     ) {
       return setWarningAlert(true);
     }
@@ -216,7 +207,7 @@ export function ServiceDialog({
         time: tiempoEs,
         horario: horarioEs,
         channel: canalesEs,
-        access: accesoEs?.getHTML(),
+        access: access,
         info: informacionesEs?.getHTML(),
         requirement: requerimientosEs?.getHTML(),
         process: procedimientosEs?.getHTML(),
@@ -233,7 +224,7 @@ export function ServiceDialog({
         time: tiempoEn,
         horario: horarioEn,
         channel: canalesEn,
-        access: accesoEn?.getHTML(),
+        access: access,
         info: informacionesEn?.getHTML(),
         requirement: requerimientosEn?.getHTML(),
         process: procedimientosEn?.getHTML(),
@@ -241,6 +232,16 @@ export function ServiceDialog({
         email: email,
         language: "en",
       };
+
+      const formData = new FormData();
+
+      formData.append("es", JSON.stringify(es_data));
+      formData.append("en", JSON.stringify(en_data));
+      formData.append("categoryId", categoryId);
+      formData.append("typeId", typeId);
+      formData.append("created_By", user?.email as string);
+      files.length > 0 && files.map((file) => formData.append("image", file));
+
       const data2 = {
         es: es_data,
         en: en_data,
@@ -248,7 +249,7 @@ export function ServiceDialog({
         typeId: typeId,
         created_By: user?.email as string,
       };
-      await createService(data2, update, user?.sub as string);
+      await createService(formData, update, user?.sub as string);
       setSubmitLoading(false);
       handler();
     }
@@ -332,12 +333,62 @@ export function ServiceDialog({
             </div>
           </div>
 
-          {/* <div className="w-full flex flex-col gap-5">
-            <label className="font-semibold text-black text-lg">
-              Fotos relacionadas con la noticia
+          <div className="w-full flex flex-col">
+            <label
+              htmlFor="nameEs"
+              className="font-semibold text-black text-lg"
+            >
+              Ícono del servicio <span className="text-red-600">*</span>
             </label>
-            <DragNDrop data={imagesRelated} setData={setImagesRelated} />
-          </div> */}
+            <label
+              htmlFor="nameEs"
+              className={` text-black text-sm pt-3 flex items-center gap-1`}
+            >
+              <ExclamationCircleIcon className="size-5 inline-block" /> El único
+              formato permitido para el ícono es .SVG
+            </label>
+          </div>
+          <div className="w-full h-[40vh] relative flex justify-center items-center group">
+            {files.length > 0 && (
+              <button
+                onClick={() => openRef.current?.()}
+                className="w-full h-full z-10 absolute flex justify-center items-center group"
+              >
+                <Image
+                  src={URL.createObjectURL(files[0])} // Use the preview URL directly
+                  alt=""
+                  width="500"
+                  height="500"
+                  className="w-full h-full absolute rounded-lg object-center scale-75 group-hover:blur-[2px] group-hover:opacity-40 duration-300" // Add bg-white for visibility
+                />
+              </button>
+            )}
+
+            <Dropzone
+              multiple={false}
+              openRef={openRef}
+              onDrop={handleDrop}
+              accept={["image/svg+xml"]} // Ensure only images are accepted
+              activateOnClick={true}
+              className="w-full h-full border-dashed hover:border-double bg-transparent hover:bg-gray-100 hover:text-blue-dark hover:border-gray-100 duration-300 border-2 rounded-lg border-gray-200 flex justify-center items-center"
+            >
+              <button
+                onClick={() => openRef.current?.()}
+                className="w-full h-full"
+              >
+                Seleccione una imagen
+              </button>
+            </Dropzone>
+          </div>
+          <label
+            htmlFor="nameEs"
+            className={`${
+              warningAlert && files.length === 0 ? "block" : "hidden"
+            } text-red-600 text-sm pt-3 w-full text-left`}
+          >
+            <ExclamationCircleIcon className="size-5 inline-block" /> El ícono
+            es obligatorio.
+          </label>
         </div>
       ),
     },
@@ -493,6 +544,7 @@ export function ServiceDialog({
                     className="w-full h-9 ring-1 ring-gray-300 rounded-md px-2"
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
+                    type="email"
                     placeholder="Correo electrónico para contactar..."
                   />
                 </div>
@@ -560,7 +612,13 @@ export function ServiceDialog({
               </div>
               <label
                 className={`${
-                  warningAlert && !costoEs ? "block" : "hidden"
+                  warningAlert &&
+                  (!costoEs ||
+                    costoEs === "RD$ " ||
+                    costoEs === "RD$" ||
+                    costoEs === "RD")
+                    ? "block"
+                    : "hidden"
                 } text-red-600 text-sm text-start flex items-center gap-1`}
               >
                 <ExclamationCircleIcon className="size-5 inline-block" /> Este
@@ -651,18 +709,37 @@ export function ServiceDialog({
           </div>
           <div className="flex flex-col ">
             <label className="font-semibold text-black text-lg">
-              Acceso al servicio
+              Acceso al servicio (enlace)
             </label>
-            <TextEditor editor={accesoEs} number={15} />
-            <label
-              className={`${
-                warningAlert && accesoEs?.getText() === "" ? "block" : "hidden"
-              } text-red-600 text-sm text-start flex items-center gap-1`}
-            >
-              <ExclamationCircleIcon className="size-5 inline-block" /> Este
-              campo es obligatorio.
-            </label>
+            <input
+              id="title"
+              className="w-full h-9 ring-1 ring-gray-300 rounded-md px-2"
+              onChange={(e) => setAccess(e.target.value)}
+              value={access}
+              type="url"
+              placeholder="https://ejemplo.com"
+            />
           </div>
+          <label
+            className={`${
+              access !== "" || !access.startsWith("https://")
+                ? "block"
+                : "hidden"
+            } text-red-600 text-sm text-start flex items-center gap-1`}
+          >
+            <ExclamationCircleIcon className="size-5 inline-block" /> El enlace
+            debe empezar con https://. Puedes copiarlo directamente desde el
+            navegador.
+          </label>
+          <label
+            className={`${
+              warningAlert && access === "" ? "block" : "hidden"
+            } text-red-600 text-sm text-start flex items-center gap-1`}
+          >
+            <ExclamationCircleIcon className="size-5 inline-block" /> Este campo
+            es obligatorio.
+          </label>
+
           <div className="flex flex-col ">
             <label className="font-semibold text-black text-lg">
               Informaciones adicionales del servicio
@@ -901,7 +978,13 @@ export function ServiceDialog({
               </div>
               <label
                 className={`${
-                  warningAlert && !costoEn ? "block" : "hidden"
+                  warningAlert &&
+                  (!costoEn ||
+                    costoEn === "RD$ " ||
+                    costoEn === "RD$" ||
+                    costoEn === "RD")
+                    ? "block"
+                    : "hidden"
                 } text-red-600 text-sm text-start flex items-center gap-1`}
               >
                 <ExclamationCircleIcon className="size-5 inline-block" /> Este
@@ -992,33 +1075,41 @@ export function ServiceDialog({
           </div>
           <div className="flex flex-col ">
             <label className="font-semibold text-black text-lg">
-              Acceso al servicio en inglés
+              Acceso al servicio (enlace)
             </label>
-            <TextEditor editor={accesoEn} number={15} />
-            <label
-              className={`${
-                warningAlert && accesoEn?.getText() === "" ? "block" : "hidden"
-              } text-red-600 text-sm text-start flex items-center gap-1`}
-            >
-              <ExclamationCircleIcon className="size-5 inline-block" /> Este
-              campo es obligatorio.
-            </label>
+            <input
+              id="title"
+              className="w-full h-9 ring-1 ring-gray-300 rounded-md px-2"
+              onChange={(e) => setAccess(e.target.value)}
+              value={access}
+              type="url"
+              placeholder="https://ejemplo.com"
+            />
           </div>
+          <label
+            className={`${access !== "" || !access.startsWith("https://")})
+                ? "block"
+                : "hidden"
+            } text-red-600 text-sm text-start flex items-center gap-1`}
+          >
+            <ExclamationCircleIcon className="size-5 inline-block" /> El enlace
+            debe empezar con https://. Puedes copiarlo directamente desde el
+            navegador.
+          </label>
+          <label
+            className={`${
+              warningAlert && access === "" ? "block" : "hidden"
+            } text-red-600 text-sm text-start flex items-center gap-1`}
+          >
+            <ExclamationCircleIcon className="size-5 inline-block" /> Este campo
+            es obligatorio.
+          </label>
+
           <div className="flex flex-col ">
             <label className="font-semibold text-black text-lg">
               Informaciones adicionales del servicio en inglés
             </label>
             <TextEditor editor={informacionesEn} number={15} />
-            <label
-              className={`${
-                warningAlert && informacionesEn?.getText() === ""
-                  ? "block"
-                  : "hidden"
-              } text-red-600 text-sm text-start flex items-center gap-1`}
-            >
-              <ExclamationCircleIcon className="size-5 inline-block" /> Este
-              campo es obligatorio.
-            </label>
           </div>
         </div>
       ),
@@ -1040,7 +1131,7 @@ export function ServiceDialog({
           className="font-black text-black font-montserrat flex flex-col gap-5 w-8/12"
         >
           <div className="w-full flex justify-between items-center">
-            Agrega una nueva noticia
+            Agrega un nuevo servicio
             <button onClick={handler}>
               <XMarkIcon className="size-7 text-black" />
             </button>

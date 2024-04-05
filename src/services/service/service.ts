@@ -14,9 +14,31 @@ export function useServices() {
   });
 }
 
+export function useInvestmentServices() {
+  return useQuery({
+    queryKey: ["invServ"],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/service/category/c/investment`;
+      const { data } = await axios.get(url);
+      return data;
+    },
+  });
+}
+
+export function useExportServices() {
+  return useQuery({
+    queryKey: ["exportServ"],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/service/category/c/export`;
+      const { data } = await axios.get(url);
+      return data;
+    },
+  });
+}
+
 export function useServicesByLanguage(lang: string) {
   return useQuery({
-    queryKey: ["newsEs"],
+    queryKey: ["servLeng"],
     queryFn: async () => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/service/lng/${lang}`;
       const { data } = await axios.get(url);
