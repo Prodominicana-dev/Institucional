@@ -82,12 +82,11 @@ export function EditServiceDialog({
   const [requerimientosEnEditor, setRequerimientosEnEditor] = useState<any>("");
   const [procedimientosEsEditor, setProcedimientosEsEditor] = useState<any>("");
   const [procedimientosEnEditor, setProcedimientosEnEditor] = useState<any>("");
-  const [accesoEsEditor, setAccesoEsEditor] = useState<any>("");
-  const [accesoEnEditor, setAccesoEnEditor] = useState<any>("");
   const [informacionesEsEditor, setInformacionesEsEditor] = useState<any>("");
   const [informacionesEnEditor, setInformacionesEnEditor] = useState<any>("");
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const [image, setImage] = useState("");
+  const [access, setAccess] = useState("");
 
   const { data: categories, isLoading: categoriesLoading } =
     useServiceCategory();
@@ -119,8 +118,7 @@ export function EditServiceDialog({
       setHorarioEn(service.en.horario);
       setCanalesEs(service.es.channel);
       setCanalesEn(service.en.channel);
-      setAccesoEsEditor(service.es.access);
-      setAccesoEnEditor(service.en.access);
+      setAccess(service.es.access);
       setInformacionesEsEditor(service.es.info);
       setInformacionesEnEditor(service.en.info);
       setRequerimientosEsEditor(service.es.requirement);
@@ -186,11 +184,6 @@ export function EditServiceDialog({
     contentEs: description ? description : "",
   });
 
-  const accesoEs = Editor({
-    placeholder: "Colocar el acceso al servicio...",
-    contentEs: description ? description : "",
-  });
-
   const informacionesEs = Editor({
     placeholder: "Colocar toda la información extra necesaria...",
     contentEs: description ? description : "",
@@ -210,11 +203,6 @@ export function EditServiceDialog({
   const procedimientosEn = Editor({
     placeholder:
       "Colocar los procedimientos para obtener el servicio en inglés...",
-    contentEs: description ? description : "",
-  });
-
-  const accesoEn = Editor({
-    placeholder: "Colocar el acceso al servicio en inglés...",
     contentEs: description ? description : "",
   });
 
@@ -240,9 +228,13 @@ export function EditServiceDialog({
         !tiempoEs ||
         !horarioEs ||
         !canalesEs ||
-        !accesoEs?.getHTML() ||
+        !access ||
         !requerimientosEs?.getHTML() ||
-        !procedimientosEs?.getHTML())
+        !procedimientosEs?.getHTML() ||
+        !access.startsWith("https://") ||
+        costoEs === "RD$ " ||
+        costoEs === "RD$" ||
+        costoEs === "RD")
     ) {
       return setWarningAlert(true);
     }
@@ -261,9 +253,13 @@ export function EditServiceDialog({
         !tiempoEn ||
         !horarioEn ||
         !canalesEn ||
-        !accesoEn?.getHTML() ||
+        !access ||
         !requerimientosEn?.getHTML() ||
-        !procedimientosEn?.getHTML())
+        !procedimientosEn?.getHTML() ||
+        !access.startsWith("https://") ||
+        costoEs === "RD$ " ||
+        costoEs === "RD$" ||
+        costoEs === "RD")
     ) {
       return setWarningAlert(true);
     }
@@ -279,7 +275,7 @@ export function EditServiceDialog({
         time: tiempoEs,
         horario: horarioEs,
         channel: canalesEs,
-        access: accesoEs?.getHTML(),
+        access: access,
         info: informacionesEs?.getHTML(),
         requirement: requerimientosEs?.getHTML(),
         process: procedimientosEs?.getHTML(),
@@ -296,7 +292,7 @@ export function EditServiceDialog({
         time: tiempoEn,
         horario: horarioEn,
         channel: canalesEn,
-        access: accesoEn?.getHTML(),
+        access: access,
         info: informacionesEn?.getHTML(),
         requirement: requerimientosEn?.getHTML(),
         process: procedimientosEn?.getHTML(),
@@ -307,20 +303,14 @@ export function EditServiceDialog({
 
       const formData = new FormData();
 
+      console.log(typeId, categoryId);
+
       formData.append("es", JSON.stringify(es_data));
       formData.append("en", JSON.stringify(en_data));
       formData.append("categoryId", categoryId);
       formData.append("typeId", typeId);
       formData.append("updated_By", user?.email as string);
       files.length > 0 && files.map((file) => formData.append("image", file));
-
-      const data2 = {
-        es: es_data,
-        en: en_data,
-        categoryId: categoryId,
-        typeId: typeId,
-        created_By: user?.email as string,
-      };
       await editService(id, formData, update, user?.sub as string);
       setSubmitLoading(false);
       handler();
@@ -348,6 +338,7 @@ export function EditServiceDialog({
               <Select
                 onChange={(e: any) => {
                   setCategoryId(e.value);
+                  console.log(e.value);
                 }}
                 className="w-full z-50"
                 options={categoryOptions}
@@ -384,6 +375,7 @@ export function EditServiceDialog({
               <Select
                 onChange={(e: any) => {
                   setTypeId(e.value);
+                  console.log(e.value);
                 }}
                 className="w-full z-50"
                 options={typeOptions}
@@ -801,22 +793,37 @@ export function EditServiceDialog({
           </div>
           <div className="flex flex-col ">
             <label className="font-semibold text-black text-lg">
-              Acceso al servicio
+              Acceso al servicio (enlace)
             </label>
-            <TextEditor
-              editor={accesoEs}
-              number={15}
-              description={accesoEsEditor}
+            <input
+              id="title"
+              className="w-full h-9 ring-1 ring-gray-300 rounded-md px-2"
+              onChange={(e) => setAccess(e.target.value)}
+              value={access}
+              type="url"
+              placeholder="https://ejemplo.com"
             />
-            <label
-              className={`${
-                warningAlert && accesoEs?.getText() === "" ? "block" : "hidden"
-              } text-red-600 text-sm text-start flex items-center gap-1`}
-            >
-              <ExclamationCircleIcon className="size-5 inline-block" /> Este
-              campo es obligatorio.
-            </label>
           </div>
+          <label
+            className={`${
+              access !== "" || !access.startsWith("https://")
+                ? "block"
+                : "hidden"
+            } text-red-600 text-sm text-start flex items-center gap-1`}
+          >
+            <ExclamationCircleIcon className="size-5 inline-block" /> El enlace
+            debe empezar con https://. Puedes copiarlo directamente desde el
+            navegador.
+          </label>
+          <label
+            className={`${
+              warningAlert && access === "" ? "block" : "hidden"
+            } text-red-600 text-sm text-start flex items-center gap-1`}
+          >
+            <ExclamationCircleIcon className="size-5 inline-block" /> Este campo
+            es obligatorio.
+          </label>
+
           <div className="flex flex-col ">
             <label className="font-semibold text-black text-lg">
               Informaciones adicionales del servicio
@@ -1162,22 +1169,37 @@ export function EditServiceDialog({
           </div>
           <div className="flex flex-col ">
             <label className="font-semibold text-black text-lg">
-              Acceso al servicio en inglés
+              Acceso al servicio (enlace)
             </label>
-            <TextEditor
-              editor={accesoEn}
-              number={15}
-              description={accesoEnEditor}
+            <input
+              id="title"
+              className="w-full h-9 ring-1 ring-gray-300 rounded-md px-2"
+              onChange={(e) => setAccess(e.target.value)}
+              value={access}
+              type="url"
+              placeholder="https://ejemplo.com"
             />
-            <label
-              className={`${
-                warningAlert && accesoEn?.getText() === "" ? "block" : "hidden"
-              } text-red-600 text-sm text-start flex items-center gap-1`}
-            >
-              <ExclamationCircleIcon className="size-5 inline-block" /> Este
-              campo es obligatorio.
-            </label>
           </div>
+          <label
+            className={`${
+              access !== "" || !access.startsWith("https://")
+                ? "block"
+                : "hidden"
+            } text-red-600 text-sm text-start flex items-center gap-1`}
+          >
+            <ExclamationCircleIcon className="size-5 inline-block" /> El enlace
+            debe empezar con https://. Puedes copiarlo directamente desde el
+            navegador.
+          </label>
+          <label
+            className={`${
+              warningAlert && access === "" ? "block" : "hidden"
+            } text-red-600 text-sm text-start flex items-center gap-1`}
+          >
+            <ExclamationCircleIcon className="size-5 inline-block" /> Este campo
+            es obligatorio.
+          </label>
+
           <div className="flex flex-col ">
             <label className="font-semibold text-black text-lg">
               Informaciones adicionales del servicio en inglés
@@ -1218,7 +1240,7 @@ export function EditServiceDialog({
           className="font-black text-black font-montserrat flex flex-col gap-5 w-8/12"
         >
           <div className="w-full flex justify-between items-center">
-            Agrega una nueva noticia
+            Editar servicio
             <button onClick={handler}>
               <XMarkIcon className="size-7 text-black" />
             </button>
