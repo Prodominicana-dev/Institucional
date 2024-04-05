@@ -681,6 +681,81 @@
               }
             ]
           }
+        },
+        {
+          "name": "Cine",
+          "description": "",
+          "subsectors": [
+            {
+              "name": "Producción cinematográfica"
+            },
+            {
+              "name": "Distribución cinematográfica"
+            },
+            {
+              "name": "Servicios cinematográfica"
+            },
+            {
+              "name": "Cine independiente"
+            },
+            {
+              "name": "Cine comercial"
+            }
+          ],
+          "incentives": {
+            "title": "Incentivos",
+            "subtitle": "Exención de impuestos del 100% sobre:",
+            "list": [
+              {
+                "name": "Impuesto sobre la renta"
+              },
+              {
+                "name": "Permisos de construcción"
+              },
+              {
+                "name": "Compra de terrenos"
+              },
+              {
+                "name": "Equipos, materiales y mobiliario necesarios para las primeras instalaciones y el inicio de operaciones"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Inmobiliario",
+          "description": "",
+          "subsectors": [
+            {
+              "name": "Residencial"
+            },
+            {
+              "name": "Comercial"
+            },
+            {
+              "name": "Industrial"
+            },
+            {
+              "name": "Turístico"
+            }
+          ],
+          "incentives": {
+            "title": "Incentivos",
+            "subtitle": "Exención de impuestos del 100% sobre:",
+            "list": [
+              {
+                "name": "Impuesto sobre la renta"
+              },
+              {
+                "name": "Permisos de construcción"
+              },
+              {
+                "name": "Compra de terrenos"
+              },
+              {
+                "name": "Equipos, materiales y mobiliario necesarios para las primeras instalaciones y el inicio de operaciones"
+              }
+            ]
+          }
         }
       ],
       "procedures": {
