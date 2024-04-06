@@ -371,7 +371,7 @@ function PortPin({ name, description, link, image, coords }: any) {
         <Image
           width={100}
           height={100}
-          src="/svg/invest/whydrIcon.svg"
+          src="/svg/invest/shipPinIcon.svg"
           alt=""
           className="w-10"
         />
@@ -414,7 +414,7 @@ function AirportPin({ name, description, link, image, coords }: any) {
         <Image
           width={100}
           height={100}
-          src="/svg/avatar.svg"
+          src="/svg/invest/planePinIcon.svg"
           alt=""
           className="w-10"
         />

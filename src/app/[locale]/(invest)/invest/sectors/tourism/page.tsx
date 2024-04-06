@@ -16,23 +16,23 @@ export default function Page() {
     subSectors: [
       {
         name: t("subsectors.0.name"),
-        icon: "/svg/invest/subsectors/subsectorIcon5.svg",
+        icon: "/svg/invest/subsectors/subsectorIcon.svg",
       },
       {
         name: t("subsectors.1.name"),
-        icon: "/svg/invest/subsectors/subsectorIcon6.svg",
+        icon: "/svg/invest/subsectors/subsectorIcon1.svg",
       },
       {
         name: t("subsectors.2.name"),
-        icon: "/svg/invest/subsectors/subsectorIcon7.svg",
+        icon: "/svg/invest/subsectors/subsectorIcon2.svg",
       },
       {
         name: t("subsectors.3.name"),
-        icon: "/svg/invest/subsectors/subsectorIcon8.svg",
+        icon: "/svg/invest/subsectors/subsectorIcon3.svg",
       },
       {
         name: t("subsectors.4.name"),
-        icon: "/svg/invest/subsectors/subsectorIcon8.svg",
+        icon: "/svg/invest/subsectors/subsectorIcon4.svg",
       },
     ],
     incentives: {

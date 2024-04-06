@@ -16,15 +16,15 @@ export default function Page() {
     subSectors: [
       {
         name: t("subsectors.0.name"),
-        icon: "/svg/invest/subsectors/subsectorIcon12.svg",
+        icon: "/svg/invest/subsectors/subsectorIcon27.svg",
       },
       {
         name: t("subsectors.1.name"),
-        icon: "/svg/invest/subsectors/subsectorIcon13.svg",
+        icon: "/svg/invest/subsectors/subsectorIcon28.svg",
       },
       {
         name: t("subsectors.2.name"),
-        icon: "/svg/invest/subsectors/subsectorIcon14.svg",
+        icon: "/svg/invest/subsectors/subsectorIcon29.svg",
       },
     ],
     incentives: {
@@ -40,24 +40,19 @@ export default function Page() {
 
     relatedEntities: [
       {
-        name: "OGTIC",
-        link: "https://ogtic.gob.do",
-        logo: "/svg/invest/relatedEntities/ogtic.svg",
+        name: "Ministerio de Cultura",
+        link: "https://cultura.gob.do",
+        logo: "/svg/invest/relatedEntities/cultura.svg",
       },
       {
-        name: "Clustersoft",
-        link: "https://www.clustersoft.org.do",
-        logo: "/svg/invest/relatedEntities/clustersoft.svg",
+        name: "Asociación Dominicana de Profesionales del Cine",
+        link: "https://adocine.do",
+        logo: "/svg/invest/relatedEntities/adocine.svg",
       },
       {
-        name: "ADOFINTECH",
-        link: "https://www.adofintech.org",
-        logo: "/svg/invest/relatedEntities/adofintech.svg",
-      },
-      {
-        name: "Cámara TIC",
-        link: "https://camaratic.org.do/",
-        logo: "/svg/invest/relatedEntities/camaratic.svg",
+        name: "Dirección General de Cine",
+        link: "https://dgcine.gob.do",
+        logo: "/svg/invest/relatedEntities/dgcine.svg",
       },
     ],
     procedures: [

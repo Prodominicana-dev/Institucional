@@ -14,13 +14,13 @@ export default function Page() {
     },
     {
       name: t("list.1.name"),
-      image: "/images/flags.jpg",
+      image: "/images/invest/sectors/energy.jpg",
       icon: "/svg/invest/sectors/energyIcon.svg",
       link: "energy",
     },
     {
       name: t("list.2.name"),
-      image: "/images/flags.jpg",
+      image: "/images/invest/sectors/technology.jpg",
       icon: "/svg/invest/sectors/technologyIcon.svg",
       link: "technology",
     },
@@ -32,13 +32,13 @@ export default function Page() {
     },
     {
       name: t("list.4.name"),
-      image: "/images/flags.jpg",
+      image: "/images/invest/sectors/semiconductors.jpg",
       icon: "/svg/invest/sectors/semiconductorsIcon.svg",
       link: "semiconductors",
     },
     {
       name: t("list.5.name"),
-      image: "/images/flags.jpg",
+      image: "/images/invest/sectors/agriculture.jpg",
       icon: "/svg/invest/sectors/agricultureIcon.svg",
       link: "agriculture-and-livestock-farming",
     },
@@ -50,14 +50,14 @@ export default function Page() {
     },
     {
       name: t("list.7.name"),
-      image: "/images/invest/sectors/biomedicine.jpg",
-      icon: "/svg/invest/sectors/biomedicineIcon.svg",
+      image: "/images/invest/sectors/film.jpg",
+      icon: "/svg/invest/sectors/filmIcon.svg",
       link: "film",
     },
     {
       name: t("list.8.name"),
-      image: "/images/invest/sectors/biomedicine.jpg",
-      icon: "/svg/invest/sectors/biomedicineIcon.svg",
+      image: "/images/invest/sectors/realestate.jpg",
+      icon: "/svg/invest/sectors/realestateIcon.svg",
       link: "real-estate",
     },
   ];
@@ -98,13 +98,16 @@ export default function Page() {
 
 function SectorCard({ name, image, icon, link }: any) {
   return (
-    <Link href={`sectors/${link}`} className="h-full relative">
+    <Link
+      href={`sectors/${link}`}
+      className="h-full rounded-xl overflow-hidden relative group"
+    >
       <Image
         width={1000}
         height={1000}
         src={image}
         alt={name}
-        className="object-cover aspect-square rounded-xl"
+        className="object-cover aspect-square  group-hover:scale-110 transition-transform duration-500 ease-in-out"
       />
       <div className="absolute inset-0 p-5 xl:p-10 flex flex-col justify-between">
         <div className="flex h-full items-end">
