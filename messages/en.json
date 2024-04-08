@@ -370,6 +370,469 @@
       ]
     }
   },
+  "invest": {
+    "navbar": {
+      "whydominicanrepublic": "Why Dominican Republic?",
+      "strategicdevelopmentmap": "Strategic Development Map",
+      "sectors": "Investment Sectors",
+      "investmentguide": "Investment Guide",
+      "vui": "One-Stop Investment Hub"
+    },
+    "why": {
+      "title1": "Why invest in the",
+      "title2": "Dominican Republic?",
+      "description": "The Dominican Republic offers multiple investment opportunities as a result of a wide variety of factors that have increased competitiveness, making it a comprehensive destination for businesses.",
+      "reasons": [
+        {
+          "title": "Strategic geographical location.",
+          "description": "Its location, in the heart of the Caribbean, has made the Dominican Republic an important commercial hub between Europe, North America, and the rest of Latin America, offering preferential access to over 1.2 billion consumers through free trade agreements with the United States and Central America, via DR-CAFTA, and with the European Union, through the Economic Partnership Agreement (EPA)."
+        },
+        {
+          "title": "Solid legal framework and incentives.",
+          "description": "The Dominican Republic has a government that favors foreign direct investment (FDI) through a solid legal framework, which not only provides legal security to investors but also offers a set of incentives and tax exemptions that guarantee greater profitability to their investments, while generating decent jobs, boosting the economy, and promoting the country's development."
+        },
+        {
+          "title": "Advanced infrastructure.",
+          "description": "The country has extensive, developed physical infrastructure tailored to the requirements of a society focused on the production and marketing of goods and services. Its road network is one of the best in the region, linking virtually all destinations in the country. It also has modern, extensive, and efficient airport and port systems. According to the latest Global Competitiveness Report 2019-2020 by the World Economic Forum, the country ranks first in the region in transport infrastructure, standing out for connectivity and the quality of its road network. Additionally, its advanced and reliable telecommunications infrastructure is one of its main competitive advantages."
+        },
+        {
+          "title": "Richness and variety of natural resources.",
+          "description": "The Dominican Republic combines a diversity of attractive natural resources, such as its beautiful beaches, fertile soils, warm climate, and mineral deposits, making it an ideal place to explore and invest."
+        },
+        {
+          "title": "Economic, social, and political stability.",
+          "description": "Legal security, economic dynamism, and an attractive business climate continue to make the Dominican Republic the preferred destination for attracting Foreign Direct Investment in the region and one of the most vibrant economies in Latin America and the Caribbean."
+        },
+        {
+          "title": "Human talent.",
+          "description": "The Dominican Republic is committed to a future built on competitive human talent, environmental sustainability, and technological innovation as the path to development; thus, ProDominicana is pleased to provide all the collaboration, support, and assistance necessary for the development of your businesses in the country."
+        }
+      ]
+    },
+    "sectors": {
+      "title": "Sectors to invest in DR",
+      "description": "Sectors representing investment opportunities in the country.",
+      "list": [
+        {
+          "name": "Tourism",
+          "description": "Explore a leading sector in the region, renowned for its luxury resorts, dreamy beaches, lush landscapes, and an endless list of activities for tourists worldwide. Invest in boutique hotels, sustainable ecotourism, vibrant cultural experiences, or top-notch sports tourism.",
+          "subsectors": [
+            {
+              "name": "Hotels and resorts"
+            },
+            {
+              "name": "Ecotourism"
+            },
+            {
+              "name": "Adventure tourism"
+            },
+            {
+              "name": "Cultural tourism"
+            },
+            {
+              "name": "Health tourism"
+            }
+          ],
+          "incentives": {
+            "title": "Incentives",
+            "subtitle": "100% tax exemption on:",
+            "list": [
+              {
+                "name": "Income tax"
+              },
+              {
+                "name": "Construction permits"
+              },
+              {
+                "name": "Land purchase"
+              },
+              {
+                "name": "Equipment, materials, and furniture necessary for initial installations and start-up operations"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Renewable Energy",
+          "description": "Participate in the transformation of the Dominican energy sector towards a sustainable and resilient future. Invest in renewable energy projects such as solar, wind, and hydroelectric energy, infrastructure development for energy generation and distribution, clean and innovative technologies that reduce environmental footprint, and diversification of the country's energy matrix.",
+          "subsectors": [
+            {
+              "name": "Solar energy"
+            },
+            {
+              "name": "Wind energy"
+            },
+            {
+              "name": "Geothermal energy"
+            },
+            {
+              "name": "Biomass"
+            }
+          ],
+          "incentives": {
+            "title": "Incentives",
+            "subtitle": "100% tax exemption on:",
+            "list": [
+              {
+                "name": "Income tax"
+              },
+              {
+                "name": "Construction permits"
+              },
+              {
+                "name": "Land purchase"
+              },
+              {
+                "name": "Equipment, materials, and furniture necessary for initial installations and start-up operations"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Technology",
+          "description": "Take advantage of the technological boom driven by the Special Free Trade Zone Law and the growing demand for digital services. Invest in innovative software companies, cutting-edge mobile application development, state-of-the-art data centers, artificial intelligence solutions revolutionizing industries, and financial technology (fintech) initiatives transforming the banking landscape.",
+          "subsectors": [
+            {
+              "name": "Software development"
+            },
+            {
+              "name": "Customer service centers"
+            },
+            {
+              "name": "Neoshoring"
+            }
+          ],
+          "incentives": {
+            "title": "Incentives",
+            "subtitle": "100% tax exemption on:",
+            "list": [
+              {
+                "name": "Income tax"
+              },
+              {
+                "name": "Construction permits"
+              },
+              {
+                "name": "Land purchase"
+              },
+              {
+                "name": "Equipment, materials, and furniture necessary for initial installations and start-up operations"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Manufacturing",
+          "description": "Be part of a diversified and constantly growing sector ranging from high-quality textiles and cutting-edge pharmaceutical products to life-saving medical devices, precision electronic components, and a thriving agro-industry. Opportunities include light manufacturing companies, strategic nearshoring to optimize supply chains, and industrial parks with first-class infrastructure.",
+          "subsectors": [
+            {
+              "name": "Free trade zones"
+            },
+            {
+              "name": "Textiles"
+            },
+            {
+              "name": "Pharmaceuticals"
+            },
+            {
+              "name": "Food and beverages"
+            }
+          ],
+          "incentives": {
+            "title": "Incentives",
+            "subtitle": "100% tax exemption on:",
+            "list": [
+              {
+                "name": "Income tax"
+              },
+              {
+                "name": "Construction permits"
+              },
+              {
+                "name": "Land purchase"
+              },
+              {
+                "name": "Equipment, materials, and furniture necessary for initial installations and start-up operations"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Semiconductors",
+          "description": "Pioneer in an emerging sector with the installation of the first chip manufacturing plant in the region. Invest in state-of-the-art chip assembly companies, integrated circuit design driving technological innovation, and semiconductor material manufacturing, the fundamental basis of modern electronics.",
+          "subsectors": [
+            {
+              "name": "Chip manufacturing"
+            },
+            {
+              "name": "Research and development"
+            },
+            {
+              "name": "Chip design"
+            }
+          ],
+          "incentives": {
+            "title": "Incentives",
+            "subtitle": "100% tax exemption on:",
+            "list": [
+              {
+                "name": "Income tax"
+              },
+              {
+                "name": "Construction permits"
+              },
+              {
+                "name": "Land purchase"
+              },
+              {
+                "name": "Equipment, materials, and furniture necessary for initial installations and start-up operations"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Agriculture",
+          "description": "Unlock the enormous potential of a sector with fertile lands, an ideal tropical climate, and a growing demand for fresh products in international markets. Invest in technified agriculture that maximizes production, sustainable livestock farming for responsible consumption, organic food production meeting the demands of the most conscious consumers, and modern greenhouses ensuring quality and freshness year-round.",
+          "subsectors": [
+            {
+              "name": "Tropical crops"
+            },
+            {
+              "name": "Livestock farming"
+            },
+            {
+              "name": "Aquaculture"
+            }
+          ],
+          "incentives": {
+            "title": "Incentives",
+            "subtitle": "100% tax exemption on:",
+            "list": [
+              {
+                "name": "Income tax"
+              },
+              {
+                "name": "Construction permits"
+              },
+              {
+                "name": "Land purchase"
+              },
+              {
+                "name": "Equipment, materials, and furniture necessary for initial installations and start-up operations"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Biomedicine",
+          "description": "Contribute to the well-being of the population and take advantage of the growing demand for quality health services. Invest in medical research paving the way for new discoveries, production of innovative drugs improving people's lives, biotechnology revolutionizing healthcare, and health tourism attracting international patients seeking top-notch treatments.",
+          "subsectors": [
+            {
+              "name": "Medical device manufacturing"
+            },
+            {
+              "name": "Drug development"
+            },
+            {
+              "name": "Biotechnology"
+            }
+          ],
+          "incentives": {
+            "title": "Incentives",
+            "subtitle": "100% tax exemption on:",
+            "list": [
+              {
+                "name": "Income tax"
+              },
+              {
+                "name": "Construction permits"
+              },
+              {
+                "name": "Land purchase"
+              },
+              {
+                "name": "Equipment, materials, and furniture necessary for initial installations and start-up operations"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Film Industry",
+          "description": "Immerse yourself in the vibrant Dominican film industry, which has experienced exponential growth in recent years. Invest in the production of domestic and international films, state-of-the-art recording studios, high-quality post-production services, local talent development, and attractive tax incentives for the industry.",
+          "subsectors": [
+            {
+              "name": "Film production"
+            },
+            {
+              "name": "Film distribution"
+            },
+            {
+              "name": "Film services"
+            },
+            {
+              "name": "Independent cinema"
+            },
+            {
+              "name": "Commercial cinema"
+            }
+          ],
+          "incentives": {
+            "title": "Incentives",
+            "subtitle": "100% tax exemption on:",
+            "list": [
+              {
+                "name": "Income tax"
+              },
+              {
+                "name": "Construction permits"
+              },
+              {
+                "name": "Land purchase"
+              },
+              {
+                "name": "Equipment, materials, and furniture necessary for initial installations and start-up operations"
+              }
+            ]
+          }
+        },
+        {
+          "name": "Real Estate",
+          "description": "Take advantage of the boom in the Dominican real estate sector, driven by tourism growth, economic expansion, and housing demand. Invest in hotel construction projects, luxury resorts, apartments, villas, commercial properties, shopping centers, and real estate investments for tourism purposes.",
+          "subsectors": [
+            {
+              "name": "Residential"
+            },
+            {
+              "name": "Commercial"
+            },
+            {
+              "name": "Industrial"
+            },
+            {
+              "name": "Touristic"
+            }
+          ],
+          "incentives": {
+            "title": "Incentives",
+            "subtitle": "100% tax exemption on:",
+            "list": [
+              {
+                "name": "Income tax"
+              },
+              {
+                "name": "Construction permits"
+              },
+              {
+                "name": "Land purchase"
+              },
+              {
+                "name": "Equipment, materials, and furniture necessary for initial installations and start-up operations"
+              }
+            ]
+          }
+        }
+      ],
+      "procedures": {
+        "title": "Procedures",
+        "list": [
+          {
+            "name": "Commercial Name (ONAPI)",
+            "deliverable": "Commercial name registration"
+          },
+          {
+            "name": "Constitution Tax Payment (DGII)",
+            "deliverable": "Tax payment certification"
+          },
+          {
+            "name": "Company Registration (Respective Chamber of Commerce)",
+            "deliverable": "Commercial registry"
+          },
+          {
+            "name": "National Taxpayer Registry (RNC)",
+            "deliverable": "RNC Act Certificate"
+          },
+          {
+            "name": "Employer Registration at the Social Security Treasury",
+            "deliverable": "TSS certification"
+          },
+          {
+            "name": "Land Use No Objection (City Hall)",
+            "deliverable": "No objection letter"
+          },
+          {
+            "name": "Previous Analysis (MITUR)",
+            "deliverable": "Project formulation evaluation"
+          },
+          {
+            "name": "Land Use No Objection Resolution (MITUR)",
+            "deliverable": "No objection resolution"
+          },
+          {
+            "name": "Pre-project No Objection (City Hall)",
+            "deliverable": "Pre-project certification"
+          },
+          {
+            "name": "Design Parameter (MITUR) - Optional",
+            "deliverable": "Document with project applicable recommendations"
+          },
+          {
+            "name": "Environmental Authorization (Ministry of Environment)",
+            "deliverable": "Environmental permit resolution"
+          },
+          {
+            "name": "Construction License (Ministry of Housing, Habitat, and Buildings)",
+            "deliverable": "Construction license"
+          },
+          {
+            "name": "Provisional Classification (CONFOTUR)",
+            "deliverable": "Provisional classification resolution"
+          },
+          {
+            "name": "Cost-Benefit Analysis (Ministry of Finance)",
+            "deliverable": "Cost-benefit analysis"
+          },
+          {
+            "name": "Definitive Classification (CONFOTUR)",
+            "deliverable": "Definitive classification resolution"
+          },
+          {
+            "name": "Request for Exemption from Import Duties on Construction Goods (MITUR)",
+            "deliverable": "Exemption approval letter"
+          },
+          {
+            "name": "Request for Tax Exemption (Ministry of Finance)",
+            "deliverable": "Tax exemption letter"
+          }
+        ]
+      },
+      "relatedEntities": "Related Entities"
+    },
+    "investmentguide": {
+      "title": "Investment Guide",
+      "description": "Download our investment guide to learn about the necessary procedures for investing in the Dominican Republic.",
+      "download": "Download",
+      "dialog": {
+        "title": "Download Investment Guide",
+        "subtitle": "Select your preferred language"
+      }
+    },
+    "contact": {
+      "title": "Contact Us",
+      "description": "Get in touch with one of our investment representatives for personalized advice on how to invest.",
+      "form": {
+        "name": "Name",
+        "lastName": "Last Name",
+        "jobTitle": "Job Title",
+        "company": "Company",
+        "email": "Email",
+        "phone": "Phone",
+        "country": "Country",
+        "sector": "Sector of Interest",
+        "message": "Message",
+        "button": "Send"
+      }
+    }
+  },
   "contact": {
     "title": "Contact",
     "description": "If you have any questions, Write to us!",

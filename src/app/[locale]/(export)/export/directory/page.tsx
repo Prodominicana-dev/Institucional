@@ -3,8 +3,15 @@ import {
   AdjustmentsHorizontalIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import { Collapse, Select, Option } from "@material-tailwind/react";
+import {
+  Collapse,
+  Select,
+  Option,
+  Dialog,
+  DialogBody,
+} from "@material-tailwind/react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useState } from "react";
 
 const exportDirectoryFilters = [
@@ -21,7 +28,70 @@ const exportDirectoryFilters = [
     name: "Artesanía",
   },
 ];
+
 export default function page() {
+  const exportDirectoryData = [
+    {
+      name: "Cormidom",
+      sector: "Industrial",
+      logo: "https://cormidom.com.do/wp-content/uploads/2022/09/Cormidom-Logo__001-Completo-color.png",
+      telephone: "8096854684",
+      email: "sperez@cormidom.com",
+      address:
+        "Jose A. Brea Peña #14, District Tower, 3er nivel, Evaristo Morales",
+      web: "https://cormidom.com.do/",
+      products: [
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+      ],
+    },
+    {
+      name: "Cormidom",
+      sector: "Industrial",
+      logo: "https://cormidom.com.do/wp-content/uploads/2022/09/Cormidom-Logo__001-Completo-color.png",
+      telephone: "8096854684",
+      email: "sperez@cormidom.com",
+      address:
+        "Jose A. Brea Peña #14, District Tower, 3er nivel, Evaristo Morales",
+      web: "https://cormidom.com.do/",
+      products: [
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+      ],
+    },
+    {
+      name: "Cormidom",
+      sector: "Industrial",
+      logo: "https://cormidom.com.do/wp-content/uploads/2022/09/Cormidom-Logo__001-Completo-color.png",
+      telephone: "8096854684",
+      email: "sperez@cormidom.com",
+      address:
+        "Jose A. Brea Peña #14, District Tower, 3er nivel, Evaristo Morales",
+      web: "https://cormidom.com.do/",
+      products: [
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+        "Mineral concentrado",
+      ],
+    },
+  ];
   const [search, setSearch] = React.useState("");
   const [sector, setSector] = useState(exportDirectoryFilters[0].name);
   const [filtersOpen, setFiltersOpen] = React.useState(false);
@@ -143,15 +213,19 @@ export default function page() {
               </Collapse>
             </div>
             <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-              <ExporterCard />
-              <ExporterCard />
-              <ExporterCard />
-              <ExporterCard />
-              <ExporterCard />
-              <ExporterCard />
-              <ExporterCard />
-              <ExporterCard />
-              <ExporterCard />
+              {exportDirectoryData.map((exporter, index) => (
+                <ExporterCard
+                  key={index}
+                  name={exporter.name}
+                  sector={exporter.sector}
+                  logo={exporter.logo}
+                  telephone={exporter.telephone}
+                  email={exporter.email}
+                  address={exporter.address}
+                  web={exporter.web}
+                  products={exporter.products}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -160,24 +234,115 @@ export default function page() {
   );
 }
 
-function ExporterCard() {
+function ExporterCard({
+  name,
+  sector,
+  logo,
+  telephone,
+  email,
+  address,
+  web,
+  products,
+}: any) {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(!open);
   return (
-    <div className="flex flex-col text-gray-700 bg-white shadow-md rounded-xl h-full cursor-pointer group">
-      <div className="mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-80">
-        <Image
-          width={2000}
-          height={2000}
-          src="https://cormidom.com.do/wp-content/uploads/2022/09/Cormidom-Logo__001-Completo-color.png"
-          alt="logo"
-          className="object-contain object-center w-full h-full group-hover:scale-110 transition-transform duration-500 ease-in-out"
-        />
+    <div>
+      <div
+        className="flex flex-col text-gray-700 bg-white shadow-md rounded-xl h-full cursor-pointer group"
+        onClick={handleOpen}
+      >
+        <div className="mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-80">
+          <Image
+            width={2000}
+            height={2000}
+            src={logo}
+            alt="logo"
+            className="object-contain object-center w-full h-full group-hover:scale-110 transition-transform duration-500 ease-in-out"
+          />
+        </div>
+        <div className="p-6 text-center">
+          <h4 className="block mb-2 font-sans text-2xl font-semibold tracking-normal text-blue-gray-900">
+            {name}
+          </h4>
+          <p>{sector}</p>
+        </div>
       </div>
-      <div className="p-6 text-center">
-        <h4 className="block mb-2 font-sans text-2xl font-semibold tracking-normal text-blue-gray-900">
-          Cormidom
-        </h4>
-        <p>Industrial</p>
-      </div>
+      <Dialog open={open} handler={handleOpen} placeholder={undefined}>
+        <DialogBody placeholder={undefined}>
+          <div className="flex flex-col justify-center items-center gap-10 py-10">
+            <div className="flex flex-col items-center">
+              <Image
+                width={2000}
+                height={2000}
+                src={logo}
+                alt="logo"
+                className="size-60 object-cover aspect-square rounded-full"
+              />
+              <h4 className="block mb-2 font-sans text-2xl font-semibold tracking-normal text-blue-gray-900">
+                {name}
+              </h4>
+              <p>{sector}</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="flex flex-col items-center gap-4">
+                <Image
+                  width={500}
+                  height={500}
+                  src="/svg/export/telephoneIcon.svg"
+                  alt="telephone"
+                  className="size-12 object-cover"
+                />
+                <div className="text-center">{telephone}</div>
+              </div>
+              <div className="flex flex-col items-center gap-4">
+                <Image
+                  width={500}
+                  height={500}
+                  src="/svg/export/emailIcon.svg"
+                  alt="email"
+                  className="size-12 object-cover"
+                />
+                <div className="text-center">{email}</div>
+              </div>
+              <div className="flex flex-col items-center gap-4">
+                <Image
+                  width={500}
+                  height={500}
+                  src="/svg/export/addressIcon.svg"
+                  alt="address"
+                  className="size-12 object-cover"
+                />
+                <div className="text-center">{address}</div>
+              </div>
+            </div>
+            <div className="flex justify-center">
+              <div className="w-11/12 flex flex-col gap-5">
+                <h1 className="text-xl text-blue-dark font-bold">
+                  Productos que exporta:
+                </h1>
+                <div className="flex flex-wrap gap-5">
+                  {products.map((product: string, index: number) => (
+                    <div
+                      key={index}
+                      className="bg-blue-dark text-white rounded-full px-5 py-3"
+                    >
+                      {product}
+                    </div>
+                  ))}
+                </div>
+                <Link
+                  href={web}
+                  target="_blank"
+                  className="text-xl text-blue-dark font-bold underline"
+                >
+                  Conoce más en su página web
+                </Link>
+              </div>
+            </div>
+          </div>
+        </DialogBody>
+      </Dialog>
     </div>
   );
 }

@@ -404,6 +404,13 @@
     }
   },
   "invest": {
+    "navbar": {
+      "whydominicanrepublic": "¿Por qué República Dominicana?",
+      "strategicdevelopmentmap": "Mapa de desarrollo estratégico",
+      "sectors": "Sectores de inversión",
+      "investmentguide": "Guía de inversión",
+      "vui": "Ventanilla única de inversión"
+    },
     "why": {
       "title1": "¿Por qué invertir en la",
       "title2": "República Dominicana?",
@@ -480,7 +487,7 @@
         },
         {
           "name": "Energía renovable",
-          "description": "",
+          "description": "Participa en la transformación del sector energético dominicano hacia un futuro sostenible y resiliente. Invierte en proyectos de energía renovable como energía solar, eólica e hidráulica, desarrollo de infraestructura para la generación y distribución de energía, tecnologías limpias e innovadoras que reduzcan la huella ambiental y diversificación de la matriz energética del país.",
           "subsectors": [
             {
               "name": "Energía solar"
@@ -684,7 +691,7 @@
         },
         {
           "name": "Cine",
-          "description": "",
+          "description": "Sumérgete en la vibrante industria cinematográfica dominicana, que ha experimentado un crecimiento exponencial en los últimos años. Invierte en la producción de películas nacionales e internacionales, estudios de grabación de última generación, servicios de postproducción de alta calidad, desarrollo de talentos locales e incentivos fiscales atractivos para la industria.",
           "subsectors": [
             {
               "name": "Producción cinematográfica"
@@ -723,7 +730,7 @@
         },
         {
           "name": "Inmobiliario",
-          "description": "",
+          "description": "Aprovecha el auge del sector inmobiliario dominicano, impulsado por el crecimiento del turismo, la economía y la demanda de vivienda. Invierte en proyectos de construcción de hoteles, resorts de lujo, apartamentos, villas, propiedades comerciales, centros comerciales e inversiones inmobiliarias con fines turísticos.",
           "subsectors": [
             {
               "name": "Residencial"
@@ -832,6 +839,15 @@
         ]
       },
       "relatedEntities": "Entidades Relacionadas"
+    },
+    "investmentguide": {
+      "title": "Guía de inversión",
+      "description": "Descarga nuestra guía de inversión para conocer los trámites y procedimientos necesarios para invertir en la República Dominicana.",
+      "download": "Descargar",
+      "dialog": {
+        "title": "Descargar Guía de inversión",
+        "subtitle": "Selecciona el idioma de tu preferencia"
+      }
     },
     "contact": {
       "title": "Contactanos",

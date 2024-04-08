@@ -27,11 +27,6 @@ export default function RootLayout({ children, locale }: RootLayoutProps) {
       link: "/export/directory",
     },
     {
-      title: "Testimonios",
-      icon: "/svg/icons/exportIcon.svg",
-      link: "/export/why-dominican-republic",
-    },
-    {
       title: "Documentos",
       icon: "/svg/icons/exportIcon.svg",
       link: "/export/documents",
