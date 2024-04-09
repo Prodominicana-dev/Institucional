@@ -106,9 +106,7 @@ export default function page() {
         <Image
           width={5378}
           height={3589}
-          src={
-            "https://images.unsplash.com/photo-1590497008432-598f04441de8?q=80&w=3491&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-          }
+          src={"/images/export/containers.jpg"}
           alt="directory"
           className="w-full h-full object-cover"
         />

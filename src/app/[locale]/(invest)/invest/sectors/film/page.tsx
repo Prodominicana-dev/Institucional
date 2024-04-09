@@ -42,17 +42,17 @@ export default function Page() {
       {
         name: "Ministerio de Cultura",
         link: "https://cultura.gob.do",
-        logo: "/svg/invest/relatedEntities/cultura.svg",
+        logo: "/svg/logos/cultura.svg",
       },
       {
         name: "Asociación Dominicana de Profesionales del Cine",
         link: "https://adocine.do",
-        logo: "/svg/invest/relatedEntities/adocine.svg",
+        logo: "/svg/logos/adocine.svg",
       },
       {
         name: "Dirección General de Cine",
         link: "https://dgcine.gob.do",
-        logo: "/svg/invest/relatedEntities/dgcine.svg",
+        logo: "/svg/logos/dgcine.svg",
       },
     ],
     procedures: [

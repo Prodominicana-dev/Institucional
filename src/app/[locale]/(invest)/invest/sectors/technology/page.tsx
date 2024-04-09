@@ -42,22 +42,22 @@ export default function Page() {
       {
         name: "OGTIC",
         link: "https://ogtic.gob.do",
-        logo: "/svg/invest/relatedEntities/ogtic.svg",
+        logo: "/svg/logos/ogtic.svg",
       },
       {
         name: "Clustersoft",
         link: "https://www.clustersoft.org.do",
-        logo: "/svg/invest/relatedEntities/clustersoft.svg",
+        logo: "/svg/logos/clustersoft.svg",
       },
       {
         name: "ADOFINTECH",
         link: "https://www.adofintech.org",
-        logo: "/svg/invest/relatedEntities/adofintech.svg",
+        logo: "/svg/logos/adofintech.svg",
       },
       {
         name: "Cámara TIC",
         link: "https://camaratic.org.do/",
-        logo: "/svg/invest/relatedEntities/camaratic.svg",
+        logo: "/svg/logos/camaratic.svg",
       },
     ],
     procedures: [

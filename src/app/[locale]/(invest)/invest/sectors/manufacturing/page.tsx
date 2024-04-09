@@ -46,12 +46,12 @@ export default function Page() {
       {
         name: "Consejo Nacional de Zonas Francas de Exportación (CNZFE)",
         link: "https://cnzfe.gob.do",
-        logo: "/svg/invest/relatedEntities/cnzfe.svg",
+        logo: "/svg/logos/cnzfe.svg",
       },
       {
         name: "Asociación de Industrias de la República Dominicana (AIRD)",
         link: "https://www.aird.org.do",
-        logo: "/svg/invest/relatedEntities/aird.svg",
+        logo: "/svg/logos/aird.svg",
       },
     ],
     procedures: [

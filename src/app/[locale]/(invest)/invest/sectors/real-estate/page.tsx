@@ -46,17 +46,17 @@ export default function Page() {
       {
         name: "Ministerio de Vivienda y Edificaciones",
         link: "https://mived.gob.do/",
-        logo: "/svg/invest/relatedEntities/mived.svg",
+        logo: "/svg/logos/mived.svg",
       },
       {
         name: "Colegio Dominicano de Ingenieros, Arquitectos y Agrimensores",
         link: "https://www.codia.org.do",
-        logo: "/svg/invest/relatedEntities/codia.svg",
+        logo: "/svg/logos/codia.svg",
       },
       {
         name: "ACOPROVI",
         link: "https://acoprovi.org",
-        logo: "/svg/invest/relatedEntities/acoprovi.svg",
+        logo: "/svg/logos/acoprovi.svg",
       },
     ],
     procedures: [

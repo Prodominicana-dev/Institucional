@@ -50,12 +50,12 @@ export default function Page() {
       {
         name: "Ministerio de Turismo de la República Dominicana",
         link: "https://mitur.gob.do",
-        logo: "/svg/invest/relatedEntities/mitur.svg",
+        logo: "/svg/logos/mitur.svg",
       },
       {
         name: "Asociación Nacional de Hoteles y Restaurantes",
         link: "https://www.asonahores.com",
-        logo: "/svg/invest/relatedEntities/asonahores.svg",
+        logo: "/svg/logos/asonahores.svg",
       },
     ],
     procedures: [
