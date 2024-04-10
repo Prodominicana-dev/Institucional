@@ -6,6 +6,32 @@ import Link from "next/link";
 import { useTranslations } from "next-intl";
 
 export default function DigitalToolsSection() {
+  const tools = [
+    {
+      title: "Prointeligencia",
+      link: "https://prointeligencia.prodominicana.gob.do/",
+      icon: "svg/logos/prointeligencia-white.svg",
+      className: "bg-blue-900",
+    },
+    {
+      title: "Capacita",
+      link: "https://capacita.prodominicana.gob.do/",
+      icon: "svg/logos/capacita.svg",
+      className: "bg-red-700",
+    },
+    {
+      title: "Connect",
+      link: "https://connectprodominicana.gob.do/",
+      icon: "svg/logos/connect.svg",
+      className: "bg-red-700",
+    },
+    {
+      title: "VUI",
+      link: "https://vui.gob.do",
+      icon: "svg/logos/vui.svg",
+      className: "bg-blue-900",
+    },
+  ];
   const t = useTranslations("DigitalTools");
   return (
     <section className="flex flex-col lg:flex-row items-center justify-evenly p-10 sm:p-20 space-y-10 lg:space-y-0">
@@ -22,63 +48,35 @@ export default function DigitalToolsSection() {
         >
           {t("description")}
         </Typography>
-        <Button
-          placeholder={undefined}
-          className="bg-transparent border-2 border-cyan-600 text-cyan-600 shadow-none"
-        >
-          {t("buttonText")}
-        </Button>
       </div>
       <div className="lg:w-6/12 grid grid-cols-2 gap-10 lg:gap-16">
-        <div className="bg-blue-900 w-full h-20 lg:h-40">
-          <Link href="https://sinim.prodominicana.gob.do/" target="_blank">
-            <Image
-              width={2048}
-              height={1080}
-              src={"svg/logos/Sinim.svg"}
-              alt={"sinim"}
-              key={"sinim"}
-              className="h-full w-full object-contain object-center p-7 lg:p-12"
-            />
-          </Link>
-        </div>
-        <div className="bg-red-700 w-full h-20 lg:h-40">
-          <Link href="https://capacita.prodominicana.gob.do/" target="_blank">
-            <Image
-              width={2048}
-              height={1080}
-              src={"svg/logos/capacita.svg"}
-              alt={"capacita"}
-              key={"capacita"}
-              className="h-full w-full object-contain object-center p-7 lg:p-14"
-            />
-          </Link>
-        </div>
-        <div className="bg-red-700 w-full h-20 lg:h-40">
-          <Link href="https://connectprodominicana.gob.do/" target="_blank">
-            <Image
-              width={2048}
-              height={1080}
-              src={"svg/logos/connect.svg"}
-              alt={"connect"}
-              key={"connect"}
-              className="h-full w-full object-contain object-center p-7 lg:p-14"
-            />
-          </Link>
-        </div>
-        <div className="bg-blue-900 w-full h-20 lg:h-40">
-          <Link href="https://vui.gob.do" target="_blank">
-            <Image
-              width={2048}
-              height={1080}
-              src={"svg/logos/vui.svg"}
-              alt={"vui"}
-              key={"vui"}
-              className="h-full w-full object-contain object-center p-7 lg:p-14"
-            />
-          </Link>
-        </div>
+        {tools.map((tool, index) => (
+          <ToolCard
+            title={tool.title}
+            link={tool.link}
+            icon={tool.icon}
+            className={tool.className}
+            key={index}
+          />
+        ))}
       </div>
     </section>
+  );
+}
+
+function ToolCard({ title, link, icon, className }: any) {
+  return (
+    <Link href={link} target="_blank">
+      <div className={`w-full h-20 lg:h-40 ${className}`}>
+        <Image
+          width={2048}
+          height={1080}
+          src={icon}
+          alt={title}
+          key={title}
+          className="h-full w-full object-contain object-center p-7 lg:p-14 hover:scale-110 duration-500 ease-in-out"
+        />
+      </div>
+    </Link>
   );
 }

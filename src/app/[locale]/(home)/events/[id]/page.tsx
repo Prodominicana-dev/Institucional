@@ -114,7 +114,7 @@ export default function Page({ params: { locale, id } }: any) {
                 {event?.title}
               </h1>
               <p
-                className="xl:w-8/12 uppercase"
+                className="xl:w-8/12"
                 dangerouslySetInnerHTML={{ __html: event?.description }}
               ></p>
             </div>
@@ -193,13 +193,23 @@ export default function Page({ params: { locale, id } }: any) {
             </div>
           </div>
           <div className="xl:w-4/12 order-first xl:order-last">
-            <Image
-              src="/images/event1.jpg"
-              width={2000}
-              height={2000}
-              alt=""
-              className="border-[16px] object-cover border-white"
-            />
+            {event?.image ? (
+              <Image
+                src={`${process.env.NEXT_PUBLIC_API_URL}/events/images/${id}/${data.image}`}
+                width={2000}
+                height={2000}
+                alt=""
+                className="h-80 border-[16px] object-cover border-white"
+              />
+            ) : (
+              <Image
+                src={"/svg/prodominicana-logo.svg"}
+                width={2000}
+                height={2000}
+                alt=""
+                className="h-80 border-[16px] object-contain border-white bg-white"
+              />
+            )}
           </div>
         </div>
       </section>

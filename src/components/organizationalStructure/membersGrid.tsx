@@ -16,7 +16,9 @@ export default function MembersGrid({ members }: { members: any[] }) {
 }
 
 function ThreeOrMoreMembersGrid({ members }: { members: any[] }) {
-  const director = members.find((member) => member.role.includes("Director"));
+  const director = members.find((member: any) =>
+    member.role.toLowerCase().includes("director")
+  );
   const otherMembers = members.filter(
     (member) => !member.role.includes("Director")
   );

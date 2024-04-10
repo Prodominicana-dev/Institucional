@@ -1,5 +1,6 @@
 import React from "react";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 export default function BusinessFacilitation() {
   const t = useTranslations("BusinessFacilitation");
@@ -25,9 +26,12 @@ export default function BusinessFacilitation() {
             <p>{t("paragraph1")}</p>
             <p>{t("paragraph2")}</p>
           </div>
-          <button className="w-40 h-12 flex items-center justify-center rounded-lg bg-blue-dark hover:shadow-md duration-300 text-white hover:text-white/80">
+          <Link
+            href={"/invest"}
+            className="w-40 h-12 flex items-center justify-center rounded-lg bg-blue-dark hover:shadow-md duration-300 text-white hover:text-white/80"
+          >
             {t("buttonText")}
-          </button>
+          </Link>
         </div>
       </div>
     </section>

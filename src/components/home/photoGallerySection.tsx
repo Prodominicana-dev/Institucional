@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Carousel } from "@mantine/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 
 export default function PhotoGallerySection() {
   const t = useTranslations("PhotoGallery");
@@ -16,28 +17,36 @@ export default function PhotoGallerySection() {
         <div className="z-10 absolute w-full xl:h-[10vh] bottom-0 border-l-red-700 border-l-[30vw] lg:border-t-[10vh] border-t-[5vh] border-b-transparent lg:border-b-[20vh] border-b-[10vh] border-t-transparent"></div>
       </div>
       <div className="absolute z-20 w-10/12 xl:w-8/12 space-y-5">
-        <div className="flex items-center space-x-2">
-          <Image
-            width={100}
-            height={100}
-            src={"svg/icons/PicIcon.svg"}
-            alt={"news"}
-            className="w-14 sm:w-20"
-          />
-          <div>
-            <Typography
-              placeholder={undefined}
-              className="sm:text-lg text-white uppercase font-light font-opensans"
-            >
-              {t("miniTitle")}
-            </Typography>
-            <Typography
-              placeholder={undefined}
-              className="text-2xl sm:text-4xl text-white font-bold font-opensans"
-            >
-              {t("title")}
-            </Typography>
+        <div className="flex justify-between items-center">
+          <div className="flex gap-5">
+            <Image
+              width={100}
+              height={100}
+              src={"svg/icons/PicIcon.svg"}
+              alt={"news"}
+              className="w-14 sm:w-20"
+            />
+            <div>
+              <Typography
+                placeholder={undefined}
+                className="sm:text-lg text-white uppercase font-light font-opensans"
+              >
+                {t("miniTitle")}
+              </Typography>
+              <Typography
+                placeholder={undefined}
+                className="text-2xl sm:text-4xl text-white font-bold font-opensans"
+              >
+                {t("title")}
+              </Typography>
+            </div>
           </div>
+          <Link
+            href="/gallery"
+            className="px-10 py-2 text-lg bg-transparent border-2 rounded-full border-white text-white font-gotham hover:bg-white hover:text-blue-950 hover:border-transparent transition-all duration-500 ease-in-out"
+          >
+            {t("buttonText")}
+          </Link>
         </div>
         <div className="hidden sm:grid grid-cols-2 gap-10">
           <div className="col-span-2 md:col-span-1">

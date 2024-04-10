@@ -38,26 +38,12 @@ export default function NewsSection() {
           >
             {t("title")}
           </Typography>
-          <div className="flex-wrap w-full space-x-4 order-last sm:order-none hidden xl:flex">
-            <Button
-              placeholder={undefined}
-              className="font-gotham bg-red-700 sm:px-8 uppercase text-xs sm:text-base text-white rounded-full font-medium"
-            >
-              {t("postButton")}
-            </Button>
-            <Button
-              placeholder={undefined}
-              className="font-gotham bg-white border-2 border-cyan-600 sm:px-8 uppercase text-xs sm:text-base text-cyan-600 rounded-full font-semibold"
-            >
-              {t("mediaButton")}
-            </Button>
-          </div>
           <Link
             href="/news"
             className="sm:w-2/12 text-cyan-600 flex flex-col items-end group font-gotham"
           >
             {t("buttonText")}
-            <div className="bg-cyan-600 rounded-full h-1 w-7/12 group-hover:w-full duration-500"></div>
+            <div className="bg-cyan-600 rounded-full h-1 w-8 group-hover:w-16 duration-500"></div>
           </Link>
         </div>
         <div className="flex flex-col lg:flex-row gap-10">

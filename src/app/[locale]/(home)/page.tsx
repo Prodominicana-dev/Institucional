@@ -12,7 +12,7 @@ import DataDashboard from "@/components/home/dataDashboard";
 import DataDashboardMobile from "@/components/home/dataDashboardMobile";
 import CEOSection from "@/components/home/CEOSection";
 
-export default function Home() {
+export default function Home({ params }: { params: { locale: string } }) {
   return (
     <div className="w-full bg-white">
       <MantineProvider>
@@ -21,7 +21,7 @@ export default function Home() {
         <DigitalToolsSection />
         <InstituteSection />
         <NewsSection />
-        <UpcomingEvents />
+        <UpcomingEvents locale={params.locale} />
         <PhotoGallerySection />
         <ProdominicanaTvSection />
         <DataDashboard />
