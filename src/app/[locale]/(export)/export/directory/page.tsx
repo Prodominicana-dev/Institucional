@@ -102,7 +102,7 @@ export default function page() {
   };
   return (
     <div className="bg-white h-full">
-      <div className="relative h-[40vh] sm:h-[80vh]">
+      <div className="relative h-[40vh] sm:h-[90vh]">
         <Image
           width={5378}
           height={3589}
@@ -128,10 +128,10 @@ export default function page() {
               ))}
             </div>
             <div className="flex flex-col items-center gap-3">
-              <div className="uppercase w-full font-bold text-xl sm:text-5xl">
+              <div className="uppercase w-full font-bold text-xl xl:text-3xl">
                 Directorio de exportadores
               </div>
-              <div className="w-8/12 text-lg">
+              <div className="w-8/12">
                 Descubre el Potencial Exportador Dominicano. ¡Conéctate con
                 Oportunidades Globales Ahora!
               </div>
