@@ -15,7 +15,7 @@ export default function NavbarButton({ title, link, icon, className }: props) {
   return (
     <Link
       href={link}
-      className={`flex justify-center items-center  w-28 bg-red-700 py-2  rounded-full gap-1 ${className}}`}
+      className={`flex justify-center items-center bg-red-700 py-2 px-3 rounded-full gap-1 ${className}}`}
     >
       <Image
         alt=""

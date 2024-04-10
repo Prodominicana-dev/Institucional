@@ -46,12 +46,12 @@ export default function Page() {
       {
         name: "Comisión Nacional de Energía (CNE)",
         link: "https://www.cne.gob.do",
-        logo: "/svg/invest/relatedEntities/cne.svg",
+        logo: "/svg/logos/cne.svg",
       },
       {
         name: "Asociación Dominicana de la Industria Eléctrica (ADIE)",
         link: "https://www.adie.org.do",
-        logo: "/svg/invest/relatedEntities/adie.svg",
+        logo: "/svg/logos/adie.svg",
       },
     ],
     procedures: [

@@ -1,42 +1,42 @@
+"use client";
 import Navbar from "@/components/layout/invest/navbar";
 import LanguagePicker from "@/components/layout/navbar/languagePicker";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { use } from "react";
+import { APIProvider } from "@vis.gl/react-google-maps";
+import { useTranslations } from "next-intl";
 
-export default function RootLayout({
-  children,
-}: {
+interface RootLayoutProps {
   children: React.ReactNode;
-}) {
+  locale: string;
+}
+
+export default function RootLayout({ children, locale }: RootLayoutProps) {
+  const t = useTranslations("invest");
   const navbarOptions = [
     {
-      title: "¿Por qué República Dominicana?",
+      title: t("navbar.whydominicanrepublic"),
       icon: "/svg/invest/whydrIcon.svg",
       link: "/invest/why-dominican-republic",
     },
     {
-      title: "Mapa de oportunidades",
+      title: t("navbar.strategicdevelopmentmap"),
       icon: "/svg/invest/reasonIcon.svg",
-      link: "/invest/why-dominican-republic",
+      link: "/invest/map",
     },
     {
-      title: "Sectores de inversión",
+      title: t("navbar.sectors"),
       icon: "/svg/invest/sectorsIcon.svg",
       link: "/invest/sectors",
     },
     {
-      title: "Guía de inversión",
+      title: t("navbar.investmentguide"),
       icon: "/svg/invest/investmentGuideIcon.svg",
-      link: "/invest/why-dominican-republic",
+      link: "/invest/investment-guide",
     },
     {
-      title: "Contacto",
-      icon: "/svg/invest/contactIcon.svg",
-      link: "/invest/contact",
-    },
-    {
-      title: "Ventanilla única de inversión",
+      title: t("navbar.vui"),
       icon: "/svg/logos/vuiIcon.svg",
       link: "https://vui.gob.do",
     },
@@ -44,8 +44,13 @@ export default function RootLayout({
   return (
     <html className="scroll-smooth">
       <body>
-        <Navbar options={navbarOptions} />
-        {children}
+        <APIProvider
+          apiKey={`${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`}
+          language={locale}
+        >
+          <Navbar options={navbarOptions} />
+          {children}
+        </APIProvider>
       </body>
     </html>
   );

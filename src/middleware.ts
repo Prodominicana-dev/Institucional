@@ -71,6 +71,78 @@ export default createMiddleware({
       en: "/contact",
       es: "/contacto",
     },
+    "/invest": {
+      en: "/invest",
+      es: "/inversion",
+    },
+    "/invest/why-dominican-republic": {
+      en: "/invest/why-dominican-republic",
+      es: "/inversion/por-que-republica-dominicana",
+    },
+    "/invest/map": {
+      en: "/invest/map",
+      es: "/inversion/mapa-de-desarrollo-estrategico",
+    },
+    "/invest/sectors": {
+      en: "/invest/sectors",
+      es: "/inversion/sectores",
+    },
+    "/invest/sectors/tourism": {
+      en: "/invest/sectors/tourism",
+      es: "/inversion/sectores/turismo",
+    },
+    "/invest/sectors/energy": {
+      en: "/invest/sectors/energy",
+      es: "/inversion/sectores/energia",
+    },
+    "/invest/sectors/technology": {
+      en: "/invest/sectors/technology",
+      es: "/inversion/sectores/tecnologia",
+    },
+    "/invest/sectors/manufacturing": {
+      en: "/invest/sectors/manufacturing",
+      es: "/inversion/sectores/manufactura",
+    },
+    "/invest/sectors/semiconductors": {
+      en: "/invest/sectors/semiconductors",
+      es: "/inversion/sectores/semiconductores",
+    },
+    "/invest/sectors/agriculture-and-livestock-farming": {
+      en: "/invest/sectors/agriculture-and-livestock-farming",
+      es: "/inversion/sectores/agropecuario",
+    },
+    "/invest/sectors/biomedicine": {
+      en: "/invest/sectors/biomedicine",
+      es: "/inversion/sectores/biomedicina",
+    },
+    "/invest/sectors/film": {
+      en: "/invest/sectors/film",
+      es: "/inversion/sectores/cine",
+    },
+    "/invest/sectors/real-estate": {
+      en: "/invest/sectors/real-estate",
+      es: "/inversion/sectores/inmobiliario",
+    },
+    "/export": {
+      en: "/export",
+      es: "/exportacion",
+    },
+    "/export/services": {
+      en: "/export/services",
+      es: "/exportacion/servicios",
+    },
+    "/export/how-to-export": {
+      en: "/export/how-to-export",
+      es: "/exportacion/como-exportar",
+    },
+    "/export/directory": {
+      en: "/export/directory",
+      es: "/exportacion/directorio-de-exportadores",
+    },
+    "/export/documents": {
+      en: "/export/documents",
+      es: "/exportacion/documentos",
+    },
   },
 });
 

@@ -42,12 +42,12 @@ export default function Page() {
       {
         name: "Ministerio de Agricultura",
         link: "https://agricultura.gob.do",
-        logo: "/svg/invest/relatedEntities/agricultura.svg",
+        logo: "/svg/logos/agricultura.svg",
       },
       {
         name: "Junta Agroempresarial Dominicana (JAD)",
         link: "https://www.jad.org.do",
-        logo: "/svg/invest/relatedEntities/jad.svg",
+        logo: "/svg/logos/jad.svg",
       },
     ],
     procedures: [

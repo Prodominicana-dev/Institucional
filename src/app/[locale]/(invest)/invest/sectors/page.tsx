@@ -8,45 +8,57 @@ export default function Page() {
   const sectors = [
     {
       name: t("list.0.name"),
-      image: "/images/flags.jpg",
+      image: "/images/invest/sectors/tourism.jpg",
       icon: "/svg/invest/sectors/tourismIcon.svg",
-      link: "tourism",
+      link: "/invest/sectors/tourism",
     },
     {
       name: t("list.1.name"),
-      image: "/images/flags.jpg",
+      image: "/images/invest/sectors/energy.jpg",
       icon: "/svg/invest/sectors/energyIcon.svg",
-      link: "energy",
+      link: "/invest/sectors/energy",
     },
     {
       name: t("list.2.name"),
-      image: "/images/flags.jpg",
+      image: "/images/invest/sectors/technology.jpg",
       icon: "/svg/invest/sectors/technologyIcon.svg",
-      link: "technology",
+      link: "/invest/sectors/technology",
     },
     {
       name: t("list.3.name"),
-      image: "/images/flags.jpg",
+      image: "/images/invest/sectors/manufacturing.jpg",
       icon: "/svg/invest/sectors/manufacturingIcon.svg",
-      link: "manufacturing",
+      link: "/invest/sectors/manufacturing",
     },
     {
       name: t("list.4.name"),
-      image: "/images/flags.jpg",
+      image: "/images/invest/sectors/semiconductors.jpg",
       icon: "/svg/invest/sectors/semiconductorsIcon.svg",
-      link: "semiconductors",
+      link: "/invest/sectors/semiconductors",
     },
     {
       name: t("list.5.name"),
-      image: "/images/flags.jpg",
+      image: "/images/invest/sectors/agriculture.jpg",
       icon: "/svg/invest/sectors/agricultureIcon.svg",
-      link: "agriculture-and-livestock-farming",
+      link: "/invest/sectors/agriculture-and-livestock-farming",
     },
     {
       name: t("list.6.name"),
-      image: "/images/flags.jpg",
+      image: "/images/invest/sectors/biomedicine.jpg",
       icon: "/svg/invest/sectors/biomedicineIcon.svg",
-      link: "biomedicine",
+      link: "/invest/sectors/biomedicine",
+    },
+    {
+      name: t("list.7.name"),
+      image: "/images/invest/sectors/film.jpg",
+      icon: "/svg/invest/sectors/filmIcon.svg",
+      link: "/invest/sectors/film",
+    },
+    {
+      name: t("list.8.name"),
+      image: "/images/invest/sectors/realestate.jpg",
+      icon: "/svg/invest/sectors/realestateIcon.svg",
+      link: "/invest/sectors/real-estate",
     },
   ];
 
@@ -86,13 +98,16 @@ export default function Page() {
 
 function SectorCard({ name, image, icon, link }: any) {
   return (
-    <Link href={`sectors/${link}`} className="h-full relative">
+    <Link
+      href={`${link}`}
+      className="h-full rounded-xl overflow-hidden relative group"
+    >
       <Image
         width={1000}
         height={1000}
         src={image}
         alt={name}
-        className="object-cover aspect-square rounded-xl"
+        className="object-cover aspect-square  group-hover:scale-110 transition-transform duration-500 ease-in-out"
       />
       <div className="absolute inset-0 p-5 xl:p-10 flex flex-col justify-between">
         <div className="flex h-full items-end">

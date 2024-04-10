@@ -38,20 +38,22 @@ export default function Page() {
   ];
   return (
     <div className="bg-white h-full">
-      <div className="relative">
-        <Image
-          width={3840}
-          height={2160}
-          src="/images/invest/flags.jpg"
-          alt="Turismo"
-          className="object-cover object-center w-full h-[40vh] sm:h-[70vh]"
-        />
-        <div className="absolute inset-0 xl:p-32 pb-20 flex items-end justify-center lg:justify-start">
+      <div className="relative h-[40vh] sm:h-[80vh]">
+        <video
+          playsInline
+          autoPlay
+          loop
+          muted
+          className="w-full h-full object-cover"
+        >
+          <source src={"/videos/invest/whyinvestindr.mp4"} type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 left-10 bottom-10 flex items-end justify-center lg:justify-start">
           <div className="w-8/12 xl:w-6/12 text-center text-white flex flex-col gap-[2px]">
             <div className="uppercase bg-blue-dark w-full font-light text-xl sm:text-3xl p-2">
               {t("title1")}
             </div>
-            <div className="uppercase bg-blue-dark w-full font-bold text-xl sm:text-5xl p-2">
+            <div className="uppercase bg-blue-dark w-full font-bold text-xl sm:text-4xl p-2">
               {t("title2")}
             </div>
           </div>
