@@ -30,10 +30,10 @@ library.add(
 
 interface RootLayoutProps {
   children: React.ReactNode;
-  locale: string;
+  params: { locale: string };
 }
 
-export default function RootLayout({ children, locale }: RootLayoutProps) {
+export default function RootLayout({ children, params }: RootLayoutProps) {
   const queryClient = new QueryClient();
   return (
     <html className="scroll-smooth">
@@ -41,7 +41,7 @@ export default function RootLayout({ children, locale }: RootLayoutProps) {
         <QueryClientProvider client={queryClient}>
           <APIProvider
             apiKey={`${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`}
-            language={locale}
+            language={params.locale}
           >
             <Navbar />
             <NavBarMobile />

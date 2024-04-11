@@ -29,7 +29,7 @@ const exportDirectoryFilters = [
   },
 ];
 
-export default function page() {
+export default function Page() {
   const exportDirectoryData = [
     {
       name: "Cormidom",

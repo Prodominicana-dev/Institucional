@@ -1,16 +1,13 @@
 "use client";
 import Navbar from "@/components/layout/export/navbar";
-import LanguagePicker from "@/components/layout/navbar/languagePicker";
 import React from "react";
-import { APIProvider } from "@vis.gl/react-google-maps";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-interface RootLayoutProps {
+export default function RootLayout({
+  children,
+}: {
   children: React.ReactNode;
-  locale: string;
-}
-
-export default function RootLayout({ children, locale }: RootLayoutProps) {
+}) {
   const navbarOptions = [
     {
       title: "Servicios",

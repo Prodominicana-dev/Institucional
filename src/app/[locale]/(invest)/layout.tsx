@@ -9,10 +9,10 @@ import { useTranslations } from "next-intl";
 
 interface RootLayoutProps {
   children: React.ReactNode;
-  locale: string;
+  params: { locale: string };
 }
 
-export default function RootLayout({ children, locale }: RootLayoutProps) {
+export default function RootLayout({ children, params }: RootLayoutProps) {
   const t = useTranslations("invest");
   const navbarOptions = [
     {
@@ -46,7 +46,7 @@ export default function RootLayout({ children, locale }: RootLayoutProps) {
       <body>
         <APIProvider
           apiKey={`${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`}
-          language={locale}
+          language={params.locale}
         >
           <Navbar options={navbarOptions} />
           {children}
