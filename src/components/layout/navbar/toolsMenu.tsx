@@ -73,7 +73,7 @@ export default function ToolsMenu() {
           width={50}
           height={50}
           src={"/svg/icons/appsIcon.svg"}
-          className="w-16 cursor-pointer"
+          className="w-12 cursor-pointer"
         />
       </MenuHandler>
       <MenuList

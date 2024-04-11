@@ -18,7 +18,7 @@ export default function Page() {
           placeholder={undefined}
           className="text-blue-900 uppercase font-extrabold text-xl lg:text-3xl font-opensans"
         >
-          TV
+          Prodominicana TV
         </Typography>
         <div className="grid grid-cols-1 sm:grid-cols-3 w-full gap-10">
           {videos.map((video: any, key) => (

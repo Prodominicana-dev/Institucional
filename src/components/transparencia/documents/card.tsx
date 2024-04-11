@@ -61,7 +61,7 @@ export default function DocsCard({
     <div
       className={`w-full border-2 border-gray-300 rounded-xl p-5 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-3`}
     >
-      <div className="flex flex-col sm:flex-row items-center gap-3">
+      <div className="flex flex-col sm:flex-row items-center gap-3 w-10/12">
         <Image
           width={100}
           height={100}

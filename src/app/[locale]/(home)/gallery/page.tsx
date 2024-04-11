@@ -8,17 +8,18 @@ import {
 } from "@heroicons/react/24/solid";
 import { useGallery } from "@/services/gallery/service";
 import { Spinner } from "@material-tailwind/react";
+import { useTranslations } from "next-intl";
 
 export default function Page({ params }: { params: { locale: string } }) {
   const [galleries, setGalleries] = useState<any>([]);
   const [galleryFilter, setGalleryFilter] = useState<any>([]);
   const [search, setSearch] = useState("");
   const { data, isLoading } = useGallery();
+  const t = useTranslations("imageGallery");
 
   useEffect(() => {
     if (!isLoading && data) {
       setGalleries(data);
-      console.log(data);
     }
   }, [data, isLoading]);
 
@@ -49,20 +50,20 @@ export default function Page({ params }: { params: { locale: string } }) {
     <div className="w-full  flex flex-col p-10 lg:p-20 items-center bg-white gap-10">
       <div>
         <h1 className=" text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-montserrat font-extrabold text-[#1E3059]">
-          Galería de Imágenes
+          {t("title")}
         </h1>
       </div>
       <div className="w-5/6 flex flex-col gap-10 items-center justify-center">
         <div className="w-full text-lg">
           <label
             htmlFor="search"
-            className="w-full flex flex-row border-2 border-black rounded-lg px-1 py-4 hover:cursor-text"
+            className="w-full flex flex-row border-2 border-gray-400 rounded-lg px-1 py-4 hover:cursor-text"
           >
             <label
               htmlFor="search"
               className="flex justify-center items-center w-1/12 hover:cursor-text"
             >
-              <MagnifyingGlassIcon className="size-8" />
+              <MagnifyingGlassIcon className="size-8 text-gray-400" />
             </label>
             <input
               id="search"
@@ -70,15 +71,15 @@ export default function Page({ params }: { params: { locale: string } }) {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="text-xl line-clamp-3 w-full px-4 outline-none bg-white"
-              placeholder="Buscar galería de imágenes"
+              placeholder={`${t("search")} ${t("imagesGalleries")}`}
             />
           </label>
         </div>
         {galleries.length > 0 ? (
           <>
             <div className="w-full flex flex-col gap-2">
-              <p className="w-full text-sm text-gray-800 ">
-                Total: {galleries?.length} galerías de imágenes
+              <p className="w-full text-sm text-gray-800 text-end">
+                {`${t("total")}: ${galleries?.length} ${t("imagesGalleries")}`}
               </p>
               <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {galleries?.map((item: any, index: number) => (
@@ -104,7 +105,7 @@ export default function Page({ params }: { params: { locale: string } }) {
                           {params.locale === "es" ? item.title : item.titleEn}
                         </h1>
                         <p className="text-xs font-semibold text-white font-montserrat">
-                          {item.photo?.length} imágenes
+                          {`${item.photo?.length} ${t("images")}`}
                         </p>
                       </div>
                       <div className="w-2/12 flex justify-center items-center">
@@ -117,7 +118,7 @@ export default function Page({ params }: { params: { locale: string } }) {
             </div>
           </>
         ) : (
-          <div className="min-h-[35vh]">No hay</div>
+          <div className="min-h-[35vh]">No existen registros</div>
         )}
       </div>
     </div>

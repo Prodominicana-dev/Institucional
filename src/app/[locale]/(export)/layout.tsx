@@ -3,6 +3,7 @@ import Navbar from "@/components/layout/export/navbar";
 import LanguagePicker from "@/components/layout/navbar/languagePicker";
 import React from "react";
 import { APIProvider } from "@vis.gl/react-google-maps";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -14,7 +15,7 @@ export default function RootLayout({ children, locale }: RootLayoutProps) {
     {
       title: "Servicios",
       icon: "/svg/icons/exportIcon.svg",
-      link: "/invest/services",
+      link: "/export/services",
     },
     {
       title: "Como exportar paso a paso",
@@ -32,11 +33,14 @@ export default function RootLayout({ children, locale }: RootLayoutProps) {
       link: "/export/documents",
     },
   ];
+  const queryClient = new QueryClient();
   return (
     <html className="scroll-smooth">
       <body>
-        <Navbar options={navbarOptions} />
-        {children}
+        <QueryClientProvider client={queryClient}>
+          <Navbar options={navbarOptions} />
+          {children}
+        </QueryClientProvider>
       </body>
     </html>
   );

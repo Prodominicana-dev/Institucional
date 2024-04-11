@@ -152,6 +152,13 @@
       "button": "Join Now"
     }
   },
+  "imageGallery": {
+    "title": "Image Gallery",
+    "imagesGalleries": "Image Galleries",
+    "search": "Search",
+    "total": "Total",
+    "images": "images"
+  },
   "CEO": {
     "name": "Biviana Riveiro",
     "title": "Executive Director of the Center for Export and Investment of the Dominican Republic",

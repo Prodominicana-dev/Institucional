@@ -58,12 +58,12 @@ export default function LanguagePicker() {
               width={100}
               height={100}
               alt={selected.label}
-              className="w-10 h-7 sm:w-16 xl:w-20 sm:h-10 object-cover"
+              className="w-10 h-7 sm:w-10 xl:w-12 sm:h-6 object-cover"
             />
           </Group>
         </UnstyledButton>
       </Menu.Target>
-      <Menu.Dropdown className="flex flex-col items-center justify-center">
+      <Menu.Dropdown className="flex flex-col items-center justify-center bg-white">
         {items}
       </Menu.Dropdown>
     </Menu>

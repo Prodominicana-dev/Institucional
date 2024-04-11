@@ -31,8 +31,8 @@ export default createMiddleware({
       en: "/services/export",
       es: "/servicios/exportacion",
     },
-    "/services/investment": {
-      en: "/services/investment",
+    "/services/invest": {
+      en: "/services/invest",
       es: "/servicios/inversion",
     },
     "/news": {

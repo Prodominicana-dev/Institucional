@@ -152,6 +152,13 @@
       "button": "Únete ahora"
     }
   },
+  "imageGallery": {
+    "title": "Galería de imágenes",
+    "imagesGalleries": "galerías de imágenes",
+    "search": "Buscar",
+    "total": "Total",
+    "images": "imágenes"
+  },
   "CEO": {
     "name": "Biviana Riveiro",
     "title": "Directora Ejecutiva del Centro de Exportación e Inversión de la República Dominicana",

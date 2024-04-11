@@ -286,7 +286,7 @@ export default function Page() {
             alt="building"
             className="absolute inset-0 object-cover object-center w-full h-full -z-10"
           />
-          <div className="bg-[#042236]/80 z-10 flex flex-col items-center text-center text-white py-20 h-full">
+          <div className="bg-[#042236]/80 z-10 flex flex-col items-center text-center text-white py-20 h-full gap-5">
             <div className="text-2xl lg:text-5xl flex flex-col sm:flex-row gap-2 font-light uppercase">
               {t("initiatives.title")}{" "}
               <h1 className="font-bold">{t("initiatives.title2")}</h1>
@@ -302,7 +302,7 @@ export default function Page() {
                     alt={item.title}
                     width={100}
                     height={100}
-                    className="size-32"
+                    className="size-20"
                   />
                   <p className="text-sm text-center h-3/6">{item.title}</p>
                 </div>
