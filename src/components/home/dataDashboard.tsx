@@ -19,86 +19,86 @@ export default function DataDashboard() {
       value: "ied",
       dataset: [
         {
-          title: "IED stock últimos 10 años",
-          total: "USD$27,401.5 MM",
+          title: t("ied.data.0.title"),
+          value: t("ied.data.0.value"),
         },
         {
-          title: "IED 2021",
-          total: "USD$3,102.1 MM",
+          title: t("ied.data.1.title"),
+          value: t("ied.data.1.value"),
         },
         {
-          title: "IED enero-septiembre 2022",
-          total: "USD$3,957.7 MM",
+          title: t("ied.data.2.title"),
+          value: t("ied.data.2.value"),
         },
         {
-          title: "Proyecciones de IED a cierre del año 2022",
-          total: "USD$4,000 MM",
-        },
-      ],
-    },
-    {
-      label: t("it.title"),
-      value: "idt",
-      dataset: [
-        {
-          title: "IED stock últimos 10 años",
-          total: "USD$27,401.5 MM",
-        },
-        {
-          title: "IED 2021",
-          total: "USD$3,102.1 MM",
-        },
-        {
-          title: "IED enero-septiembre 2022",
-          total: "USD$3,957.7 MM",
-        },
-        {
-          title: "Proyecciones de IED a cierre del año 2022",
-          total: "USD$4,000 MM",
+          title: t("ied.data.3.title"),
+          value: t("ied.data.3.value"),
         },
       ],
     },
     {
-      label: t("ezf.title"),
-      value: "ezf",
+      label: t("en.title"),
+      value: "en",
       dataset: [
         {
-          title: "IED stock últimos 20 años",
-          total: "USD$27,401.5 MM",
+          title: t("en.data.0.title"),
+          value: t("en.data.0.value"),
         },
         {
-          title: "IED 2021",
-          total: "USD$3,102.1 MM",
+          title: t("en.data.1.title"),
+          value: t("en.data.1.value"),
         },
         {
-          title: "IED enero-septiembre 2022",
-          total: "USD$3,957.7 MM",
+          title: t("en.data.2.title"),
+          value: t("en.data.2.value"),
         },
         {
-          title: "Proyecciones de IED a cierre del año 2022",
-          total: "USD$4,000 MM",
+          title: t("en.data.3.title"),
+          value: t("en.data.3.value"),
         },
       ],
     },
     {
-      label: t("pm.title"),
-      value: "pm",
+      label: t("cap.title"),
+      value: "cap",
       dataset: [
         {
-          title: "IED stock últimos 10 años",
-          total: "USD$27,401.5 MM",
+          title: t("cap.data.0.title"),
+          value: t("cap.data.0.value"),
         },
         {
-          title: "IED 2021",
-          total: "USD$3,102.1 MM",
+          title: t("cap.data.1.title"),
+          value: t("cap.data.1.value"),
         },
         {
-          title: "IED enero-septiembre 2022",
-          total: "USD$3,957.7 MM",
+          title: t("cap.data.2.title"),
+          value: t("cap.data.2.value"),
         },
         {
-          title: "Proyecciones de IED a cierre del año 2022",
-          total: "USD$4,000 MM",
+          title: t("cap.data.3.title"),
+          value: t("cap.data.3.value"),
+        },
+      ],
+    },
+    {
+      label: t("pg.title"),
+      value: "pg",
+      dataset: [
+        {
+          title: t("pg.data.0.title"),
+          value: t("pg.data.0.value"),
+        },
+        {
+          title: t("pg.data.1.title"),
+          value: t("pg.data.1.value"),
+        },
+        {
+          title: t("pg.data.2.title"),
+          value: t("pg.data.2.value"),
+        },
+        {
+          title: t("pg.data.3.title"),
+          value: t("pg.data.3.value"),
         },
       ],
     },
@@ -162,7 +162,7 @@ export default function DataDashboard() {
                     {dataset.map((dataset: any, index: any) => (
                       <div className={`w-3/12 text-center p-2`} key={index}>
                         <h1 className="font-black text-cyan-600 sm:text-lg lg:text-xl xl:text-3xl">
-                          {dataset.total}
+                          {dataset.value}
                         </h1>
                         <p className="font-bold text-white sm:text-sm lg:text-base">
                           {dataset.title}

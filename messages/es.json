@@ -123,10 +123,90 @@
   },
   "DataDashboard": {
     "title": "Tablero de datos",
-    "ied": { "title": "Inversión Extranjera Directa" },
-    "it": { "title": "Inversión de Turismo" },
-    "ezf": { "title": "Estadísticas de Zonas Francas" },
-    "pm": { "title": "Posicionamiento Mundial" }
+    "ied": {
+      "title": "Inversión Extranjera Directa",
+      "data": [
+        {
+          "title": "Récord en IED 2023​",
+          "value": "USD$4,390 MM"
+        },
+        {
+          "title": "Crecimiento interanual de la IED en 2023",
+          "value": "7%"
+        },
+        {
+          "title": "Récord de IED en sector turismo en 2023",
+          "value": "USD$ 1,182.1 MM"
+        },
+        {
+          "title": "Récord de IED en energía en 2023",
+          "value": "USD$ 1,071.1 MM"
+        }
+      ]
+    },
+    "en": {
+      "title": "Exportaciones Nacionales",
+      "data": [
+        {
+          "title": "Crecimiento Interanual de exportaciones de bienes y servicios 2023​",
+          "value": "3%"
+        },
+        {
+          "title": "Crecimiento promedio de las exportaciones de bienes y servicios 2021-2023",
+          "value": "21%"
+        },
+        {
+          "title": "Destinos de exportación",
+          "value": "+ 150"
+        },
+        {
+          "title": "Productos de exportación",
+          "value": "+ 3,000"
+        }
+      ]
+    },
+    "cap": {
+      "title": "Capacitación",
+      "data": [
+        {
+          "title": "Empresas exportadoras capacitadas 2023​",
+          "value": "849"
+        },
+        {
+          "title": "Potenciales Exportadoras capacitadas 2023",
+          "value": "308"
+        },
+        {
+          "title": "Formación a la sociedad en general 2023",
+          "value": "6,582"
+        },
+        {
+          "title": "Graduados de diplomados especializados 2023",
+          "value": "122"
+        }
+      ]
+    },
+    "pg": {
+      "title": "Posicionamiento global",
+      "data": [
+        {
+          "title": "Destino de IED la región de Centroamérica y Caribe ​",
+          "value": "1er"
+        },
+        {
+          "title": "Exportador de cigarros puros ​al mundo​ ",
+          "value": "1er"
+        },
+        {
+          "title": "Exportador de Ron a España",
+          "value": "1er"
+        },
+        {
+          "title": "Exportador ​de disyuntores automáticos, para una tensión <= 1,000 Voltios (breaker) a Estados Unidos",
+          "value": "1er"
+        }
+      ]
+    }
   },
   "SocialMedia": {
     "miniTitle": "SÍGUENOS EN NUESTRAS",
