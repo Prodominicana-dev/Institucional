@@ -97,7 +97,7 @@ function SectorVideo({ sector }: any) {
             href={`/invest/sectors/${sector.link}`}
             className="bg-white w-2/12 p-4 text-blue-dark font-bold text-xl text-center rounded-full"
           >
-            Conoce Mas
+            Conoce Más
           </Link>
         </div>
       </div>

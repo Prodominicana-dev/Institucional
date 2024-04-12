@@ -68,7 +68,7 @@
     "telCodeLabel": "Telephone Code",
     "telCode": "+1-809, +1-829, +1-849",
     "govDivisionLabel": "Administrative Division",
-    "govDivision": "32 provinces and one national district",
+    "govDivision": "32 provinces and one National District",
     "govFormLabel": "Form of Government",
     "govForm": "Democratic, representative, and presidential system of government",
     "weatherLabel": "Climate",
@@ -548,7 +548,7 @@
               "name": "Customer service centers"
             },
             {
-              "name": "Neoshoring"
+              "name": "Nearshoring"
             }
           ],
           "incentives": {

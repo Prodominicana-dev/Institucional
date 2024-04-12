@@ -68,7 +68,7 @@
     "telCodeLabel": "Código de teléfono",
     "telCode": "+1-809, +1-829, +1-849",
     "govDivisionLabel": "División administrativa",
-    "govDivision": "32 provincias y un distrito nacional",
+    "govDivision": "32 provincias y un Distrito Nacional",
     "govFormLabel": "Forma del Estado",
     "govForm": "Sistema de gobierno democrático, representativo y presidencial",
     "weatherLabel": "Clima",
@@ -83,14 +83,14 @@
     "area": "48,442 km2"
   },
   "BusinessFacilitation": {
-    "title": "Te asistimos en tus procesos de negocios en el pais",
-    "paragraph1": "Nuestro Objetivo es promover y facilitar la iniciativas empresariales de la Republica Dominicana.",
+    "title": "Te asistimos en tus procesos de negocios en el país",
+    "paragraph1": "Nuestro Objetivo es promover y facilitar las iniciativas empresariales de la República Dominicana.",
     "paragraph2": "Brindamos servicios integrales a todos los inversionistas, exportadores y compradores sin costo alguno.",
     "buttonText": "Conoce más"
   },
   "DigitalTools": {
     "title": "Ecosistema digital",
-    "description": "Herramientas digitales que ofrece el centro de exportación e importación de la Republica Dominicana",
+    "description": "Herramientas digitales que ofrece el centro de exportación e importación de la República Dominicana",
     "buttonText": "Ver todas las herramientas digitales"
   },
   "Institute": {
@@ -432,18 +432,18 @@
       "button": "Enviar"
     },
     "contactInfo": {
-      "title": "Contactanos directamente",
-      "description": "Utiliza cualquiera de nuestras vias de contacto",
+      "title": "Contáctanos directamente",
+      "description": "Utiliza cualquiera de nuestras vías de contacto",
       "phone": {
-        "title": "Llamanos",
-        "description": "Contactate con nosotros de lunes a viernes, 8:30AM - 4:30PM."
+        "title": "Llámanos",
+        "description": "Contáctate con nosotros de lunes a viernes, 8:30AM - 4:30PM."
       },
       "email": {
         "title": "Habla con nosotros",
-        "description": "Envianos un correo si tienes alguna duda."
+        "description": "Envíanos un correo si tienes alguna duda."
       },
       "address": {
-        "title": "Visitanos",
+        "title": "Visítanos",
         "info": "Abrir en Google Maps"
       }
     },
@@ -581,7 +581,7 @@
               "name": "Centros de atención al cliente"
             },
             {
-              "name": "Neoshoring"
+              "name": "Nearshoring"
             }
           ],
           "incentives": {
@@ -899,7 +899,7 @@
       }
     },
     "contact": {
-      "title": "Contactanos",
+      "title": "Contáctanos",
       "description": "Ponte en contacto con uno de nuestros representantes de inversion para obtener una asesoria personalizada de como invertir.",
       "form": {
         "name": "Nombre",

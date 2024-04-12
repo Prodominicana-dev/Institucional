@@ -168,7 +168,7 @@ export default function SectorPage(sector: Sector) {
                 href={"/invest/contact"}
                 className="px-10 py-3 text-blue-dark text-lg font-bold bg-white rounded-full w-min"
               >
-                Contactanos
+                Contáctanos
               </Link>
             </div>
           </div>
