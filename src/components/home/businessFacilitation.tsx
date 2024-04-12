@@ -11,7 +11,7 @@ export default function BusinessFacilitation() {
       <div className="w-10/12 h-full flex flex-col-reverse sm:flex-row  sm:space-x-8 justify-center items-center ">
         <div className="pt-8 sm:pt-0 w-full sm:w-7/12 h-full rounded-lg">
           <iframe
-            src="https://www.youtube.com/embed/NS30pnAaj3w?si=0e2lQ6iDd-QBSMPv"
+            src="https://www.youtube.com/embed/s140FPt_RVw?si=F1gIGnVfeon8hy2s"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             className="w-full h-full "

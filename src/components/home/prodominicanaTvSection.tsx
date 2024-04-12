@@ -1,10 +1,18 @@
 "use client";
 import { Typography } from "@material-tailwind/react";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { useLastVideo } from "@/services/tv/service";
 
 export default function ProdominicanaTvSection() {
+  const { data, isLoading } = useLastVideo();
+  const [video, setVideo] = React.useState();
+  useEffect(() => {
+    if (!isLoading) {
+      setVideo(data);
+    }
+  }, [data, isLoading]);
   const t = useTranslations("ProdominicanaTV");
   return (
     <section className="bg-slate-300 space-y-10 md:space-y-0">
@@ -34,7 +42,7 @@ export default function ProdominicanaTvSection() {
           </div>
           <div className="w-full md:w-8/12">
             <iframe
-              src="https://www.youtube.com/embed/NS30pnAaj3w?si=0e2lQ6iDd-QBSMPv"
+              src={`https://www.youtube.com/embed/${video}`}
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               className="w-full h-[20vh] xl:h-[30vh]"

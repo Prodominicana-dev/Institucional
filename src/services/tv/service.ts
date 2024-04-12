@@ -20,3 +20,15 @@ export function useTV() {
     },
   });
 }
+
+export function useLastVideo() {
+  return useQuery({
+    queryKey: ["lastVideo"],
+    queryFn: async () => {
+      const url = `https://youtube.googleapis.com/youtube/v3/playlistItems?part=contentDetails&maxResults=1&playlistId=${process.env.NEXT_PUBLIC_YOUTUBE_PLAYLIST_ID}&key=${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`;
+      const { data } = await axios.get(url);
+      const videoId = data.items[0].contentDetails.videoId;
+      return videoId;
+    },
+  });
+}

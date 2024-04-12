@@ -20,7 +20,7 @@ export default function Home({ params }: { params: { locale: string } }) {
         <BusinessFacilitation />
         <DigitalToolsSection />
         <InstituteSection />
-        <NewsSection />
+        <NewsSection locale={params.locale} />
         <UpcomingEvents locale={params.locale} />
         <PhotoGallerySection />
         <ProdominicanaTvSection />

@@ -14,11 +14,11 @@ export function useNews(lang: string) {
   });
 }
 
-export function useEnNews() {
+export function useLastTwoNews(lang: string) {
   return useQuery({
-    queryKey: ["newsEn"],
+    queryKey: ["lastTwoNews"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/en/news`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/${lang}/lastTwoNews`;
       const { data } = await axios.get(url);
       return data;
     },
