@@ -74,6 +74,7 @@ export function EditNewsDialog({
     if (!newsLoading && news) {
       setSpanishTitle(news.es.title);
       setEnglishTitle(news.en.title);
+      setDate(new Date(news.date));
       setCover(news.cover);
       setImages(news.images);
       setCategoryId(news.category.id);

@@ -25,6 +25,7 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { createMember } from "@/services/structure-organizational/members/service";
 import DragNDrop from "../tools/dropzone/dropzone";
 import { createGallery } from "@/services/gallery/service";
+import Day_Picker from "../tools/daypicker";
 
 export function GalleryDialog({
   open,
@@ -38,6 +39,7 @@ export function GalleryDialog({
   const { user } = useUser();
   const [titleEs, setTitleEs] = useState("");
   const [titleEn, setTitleEn] = useState("");
+  const [date, setDate] = useState<Date>(new Date());
   const [image, setImage] = useState("");
   const [warning, setWarning] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -79,6 +81,7 @@ export function GalleryDialog({
         setIsLoading(true);
         formData.append("title", titleEs);
         formData.append("titleEn", titleEn);
+        formData.append("date", date.toISOString());
         formData.append("cover", image);
         formData.append("created_By", user?.email as string);
         if (files.length > 0) formData.append("images", files[0] as any);
@@ -160,6 +163,12 @@ export function GalleryDialog({
       step: 3,
       section: (
         <div className="flex flex-col w-full space-y-4 max-h-[60vh] overflow-auto">
+          <label className="font-semibold text-black text-lg">
+            Fecha de la galería
+          </label>
+          <div className="w-full">
+            <Day_Picker date={date} setDate={setDate} />
+          </div>
           <label className="font-semibold text-black text-lg">
             Portada de la galería
           </label>

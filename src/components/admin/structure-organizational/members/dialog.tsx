@@ -42,6 +42,7 @@ export function MembersDialog({
   const [functionsEs, setFunctionsEs] = useState<string[]>([""]);
   const [functionsEn, setFunctionsEn] = useState<string[]>([""]);
   const [image, setImage] = useState("");
+  const [isDirector, setIsDirector] = useState(false);
   const [directionId, setDirectionId] = useState<any>("");
   const [directionsOptions, setDirectionsOptions] = useState<any>([]);
   const [warning, setWarning] = useState(false);
@@ -127,6 +128,7 @@ export function MembersDialog({
         formData.append("departmentId", directionId);
         formData.append("es", JSON.stringify(es));
         formData.append("en", JSON.stringify(en));
+        formData.append("isDirector", JSON.stringify(isDirector));
         formData.append("image", image);
         if (files.length > 0) formData.append("images", files[0] as any);
         await createMember(formData, update, user?.sub as string);
@@ -161,24 +163,60 @@ export function MembersDialog({
             <ExclamationCircleIcon className="size-5 inline-block" /> El nombre
             es obligatorio.
           </label>
-          <label htmlFor="nameEs" className="font-semibold text-black text-lg">
-            Dirección a la que pertenece <span className="text-red-600">*</span>
-          </label>
-          <Select
-            onChange={(e: any) => {
-              setDirectionId(e.value);
-            }}
-            className="w-full z-50"
-            options={directionsOptions}
-            theme={(theme) => ({
-              ...theme,
-              borderRadius: 2,
-              colors: {
-                ...theme.colors,
-                primary: "black",
-              },
-            })}
-          />
+          <div className="flex gap-5">
+            <div className="w-full">
+              {" "}
+              <label
+                htmlFor="nameEs"
+                className="font-semibold text-black text-lg"
+              >
+                Dirección a la que pertenece{" "}
+                <span className="text-red-600">*</span>
+              </label>
+              <Select
+                onChange={(e: any) => {
+                  setDirectionId(e.value);
+                }}
+                className="w-full z-50"
+                options={directionsOptions}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 2,
+                  colors: {
+                    ...theme.colors,
+                    primary: "black",
+                  },
+                })}
+              />
+            </div>
+            <div className="w-full">
+              {" "}
+              <label
+                htmlFor="nameEs"
+                className="font-semibold text-black text-lg"
+              >
+                Es director? <span className="text-red-600">*</span>
+              </label>
+              <Select
+                onChange={(e: any) => {
+                  setIsDirector(e.value);
+                }}
+                className="w-full z-50"
+                options={[
+                  { value: true, label: "Sí" },
+                  { value: false, label: "No" },
+                ]}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 2,
+                  colors: {
+                    ...theme.colors,
+                    primary: "black",
+                  },
+                })}
+              />
+            </div>
+          </div>
           <label
             htmlFor="nameEs"
             className={`${
