@@ -21,7 +21,7 @@ export default function UpcomingEvents({ locale }: { locale: string }) {
   const autoplay = useRef(Autoplay({ delay: 5000 }));
   return (
     <section className="bg-blue-950 py-10 flex flex-col items-center justify-center gap-5">
-      <div className="w-8/12 space-y-5">
+      <div className="w-11/12 space-y-5">
         <div className="flex justify-between items-center">
           <Typography
             placeholder={undefined}

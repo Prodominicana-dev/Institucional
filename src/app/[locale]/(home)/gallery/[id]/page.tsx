@@ -16,13 +16,13 @@ import { usePhotoGalleryByNameAndLang } from "@/services/gallery/photo/service";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useGalleryByNameAndLang } from "@/services/gallery/service";
+import { useGalleryById } from "@/services/gallery/service";
 import { Spinner } from "@material-tailwind/react";
 import { useTranslations } from "next-intl";
 // const sizeOf = require("image-size");
 
 interface Props {
-  params: { title: string; locale: string };
+  params: { id: string; locale: string };
 }
 
 export default function Carousel({ params }: Props) {
@@ -31,13 +31,9 @@ export default function Carousel({ params }: Props) {
   const [photosSrc, setPhotosSrc] = useState<any[]>([]);
   const [titleEs, setTitleEs] = useState("");
   const [titleEn, setTitleEn] = useState("");
-  const galleryTitle = decodeURIComponent(params.title);
-  const [galleryData, setGallery] = useState<any>();
   const t = useTranslations("imageGallery");
 
-  const { data: photoss, isLoading: photoLoading } = useGalleryByNameAndLang(
-    params.title
-  );
+  const { data: photoss, isLoading: photoLoading } = useGalleryById(params.id);
 
   useEffect(() => {
     if (photoss && !photoLoading) {

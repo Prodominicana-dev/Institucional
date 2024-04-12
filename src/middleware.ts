@@ -67,6 +67,10 @@ export default createMiddleware({
       en: "/gallery",
       es: "/galeria",
     },
+    "/gallery/[id]": {
+      en: "/gallery/[id]",
+      es: "/galeria/[id]",
+    },
     "/contact": {
       en: "/contact",
       es: "/contacto",

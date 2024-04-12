@@ -84,11 +84,7 @@ export default function Page({ params }: { params: { locale: string } }) {
               <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                 {galleries?.map((item: any, index: number) => (
                   <Link
-                    href={
-                      params.locale === "es"
-                        ? `/gallery/${item.title}`
-                        : `/gallery/${item.titleEn}`
-                    }
+                    href={`/gallery/${item.id}`}
                     key={index}
                     className="w-full flex flex-col group"
                   >

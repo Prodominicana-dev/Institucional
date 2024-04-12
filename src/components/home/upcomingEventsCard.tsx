@@ -30,7 +30,7 @@ export default function UpcomingEventsCard({
             height={1080}
             src={`${process.env.NEXT_PUBLIC_API_URL}/events/images/${id}/${image}`}
             alt={"news"}
-            className="h-48 object-cover rounded-sm"
+            className="h-60 object-cover rounded-sm"
           />
         ) : (
           <Image
@@ -38,7 +38,7 @@ export default function UpcomingEventsCard({
             height={1080}
             src={"/svg/prodominicana-logo.svg"}
             alt={"news"}
-            className="h-48 object-contain rounded-sm bg-white"
+            className="h-60 object-contain rounded-sm bg-white"
           />
         )}
         <div className="flex flex-col gap-2">
