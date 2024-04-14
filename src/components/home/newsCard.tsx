@@ -59,13 +59,15 @@ export default function NewsCard({
 
   return (
     <Link href={`/news/${id}`} className="w-full space-y-2 cursor-pointer">
-      <Image
-        width={2048}
-        height={1080}
-        src={`${process.env.NEXT_PUBLIC_API_URL}/files/news/${id}/img/${image}`}
-        alt={title}
-        className="sm:h-[25vh] xl:h-[30vh] w-full object-cover object-center rounded-md"
-      />
+      <div className="sm:h-[25vh] xl:h-[30vh] w-full overflow-hidden rounded-md">
+        <Image
+          width={2048}
+          height={1080}
+          src={`${process.env.NEXT_PUBLIC_API_URL}/files/news/${id}/img/${image}`}
+          alt={title}
+          className="w-full h-full object-cover object-center hover:scale-110 duration-300"
+        />
+      </div>
       <Typography
         placeholder={undefined}
         className="text-red-700 font-normal tracking-widest uppercase font-montserrat line-clamp-2 break-words"

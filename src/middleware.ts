@@ -5,6 +5,7 @@ export default createMiddleware({
   defaultLocale: "es",
   locales: locales,
   localePrefix: localePrefix,
+  localeDetection: false,
 
   pathnames: {
     "/whoarewe": {
