@@ -14,9 +14,20 @@ export function usePhotoGallery(id: string) {
   });
 }
 
+export function useLastPhotoGallery() {
+  return useQuery({
+    queryKey: ["lastphotos"],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/gallery/photo/limit`;
+      const { data } = await axios.get(url);
+      return data;
+    },
+  });
+}
+
 export function usePhotoGalleryByNameAndLang(name: string) {
   return useQuery({
-    queryKey: ["members"],
+    queryKey: ["photosbyLang"],
     queryFn: async () => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/gallery/nm/${name}/photo`;
       const { data } = await axios.get(url);

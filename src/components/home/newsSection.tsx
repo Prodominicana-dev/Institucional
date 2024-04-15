@@ -48,7 +48,7 @@ export default function NewsSection({ locale }: { locale: string }) {
           ))}
         </div>
       </div>
-      <Schedule />
+      <Schedule locale={locale} />
     </section>
   );
 }
