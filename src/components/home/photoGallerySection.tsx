@@ -1,25 +1,19 @@
 "use client";
 import { Carousel, Typography } from "@material-tailwind/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
+import { useLastPhotoGallery } from "@/services/gallery/photo/service";
 
 export default function PhotoGallerySection() {
-  const images = [
-    {
-      src: "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg",
-      alt: "news",
-    },
-    {
-      src: "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg",
-      alt: "news",
-    },
-    {
-      src: "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg",
-      alt: "news",
-    },
-  ];
+  const [images, setImages] = useState<any>([]);
+  const { data, isLoading, isError } = useLastPhotoGallery();
+  useEffect(() => {
+    if (data && !isLoading) {
+      setImages(data);
+    }
+  }, [data, isLoading, isError]);
   const t = useTranslations("PhotoGallery");
   return (
     <div className="relative w-full h-[60vh] xl:h-screen overflow-hidden flex pt-10 justify-center">
@@ -64,54 +58,22 @@ export default function PhotoGallerySection() {
             <Image
               width={2048}
               height={1080}
-              src={
-                "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg"
-              }
+              src={`${process.env.NEXT_PUBLIC_API_URL}/gallery/${images[0]?.galleryId}/img/${images[0]?.name}`}
               alt={"news"}
               className="w-full h-full"
             />
           </div>
-          <div className="md:flex md:flex-col md:col-span-1 gap-10">
-            <div className="flex gap-10">
+          <div className="grid grid-cols-2 gap-10">
+            {images?.slice(1, 5).map((image: any, index: number) => (
               <Image
+                key={index}
                 width={2048}
                 height={1080}
-                src={
-                  "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg"
-                }
-                alt={"news"}
-                className="w-6/12"
+                src={`${process.env.NEXT_PUBLIC_API_URL}/gallery/${image?.galleryId}/img/${image?.name}`}
+                alt={image.alt}
+                className="w-full rounded-sm"
               />
-              <Image
-                width={2048}
-                height={1080}
-                src={
-                  "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg"
-                }
-                alt={"news"}
-                className="w-6/12"
-              />
-            </div>
-            <div className="flex gap-10">
-              <Image
-                width={2048}
-                height={1080}
-                src={
-                  "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg"
-                }
-                alt={"news"}
-                className="w-6/12"
-              />
-              <Image
-                width={2048}
-                height={1080}
-                src={
-                  "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg"
-                }
-                alt={"news"}
-                className="w-6/12"
-              />
-            </div>
+            ))}
           </div>
         </div>
         <div className="block xl:hidden">
@@ -122,12 +84,12 @@ export default function PhotoGallerySection() {
             placeholder={undefined}
             navigation={() => <></>}
           >
-            {images.map((image, index) => (
+            {images?.map((image: any, index: number) => (
               <Image
                 key={index}
                 width={2048}
                 height={1080}
-                src={image.src}
+                src={`${process.env.NEXT_PUBLIC_API_URL}/gallery/${image?.galleryId}/img/${image?.name}`}
                 alt={image.alt}
                 className="w-full h-full rounded-lg"
               />
