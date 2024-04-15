@@ -42,7 +42,8 @@ export default function Schedule({ locale }: { locale: string }) {
           <ScheduleTimeLineItem
             key={index}
             date={item.date}
-            title={locale === "es" ? item.titleEs : item.titleEn}
+            locale={locale}
+            title={locale === "es" ? item.title : item.titleEn}
           />
         ))}
       </Timeline>
@@ -50,7 +51,12 @@ export default function Schedule({ locale }: { locale: string }) {
   );
 }
 
-function ScheduleTimeLineItem({ date, title }: any) {
+function ScheduleTimeLineItem({ date, title, locale }: any) {
+  const formatDate = new Date(date).toLocaleString(locale, {
+    month: "long",
+    year: "numeric",
+  });
+  const day = new Date(date).getDate();
   return (
     <TimelineItem>
       <TimelineConnector />
@@ -60,14 +66,14 @@ function ScheduleTimeLineItem({ date, title }: any) {
           <div className="flex items-center justify-center relative">
             <CalendarIcon className="text-red-700 h-8 w-8 absolute" />
             <div className="absolute text-red-700 text-xs pt-2 font-semibold">
-              22
+              {day}
             </div>
           </div>
           <Typography
-            className="text-red-700 leading-none"
+            className="text-red-700 leading-none pt-1"
             placeholder={undefined}
           >
-            DE DICIEMBRE 2023 | 09:23
+            {formatDate}
           </Typography>
         </div>
       </TimelineHeader>
@@ -77,7 +83,7 @@ function ScheduleTimeLineItem({ date, title }: any) {
           placeholder={undefined}
           className="font-semibold uppercase text-zinc-500 text-xl"
         >
-          FIRMA ACUERDO INTERINSTITUCIONAL CON INPOSDOM A FAVOR DE LA MIPYMES
+          {title}
         </Typography>
       </TimelineBody>
     </TimelineItem>
