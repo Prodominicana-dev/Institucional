@@ -995,6 +995,15 @@
       "description": "Find the office nearest to you."
     }
   },
+  "termsofuse": {
+    "title": "Terms of Use"
+  },
+  "privacypolicy": {
+    "title": "Privacy Policy"
+  },
+  "faqs": {
+    "title": "Frequently Asked Questions"
+  },
   "Footer": {
     "aboutUs": {
       "title": "ABOUT US",

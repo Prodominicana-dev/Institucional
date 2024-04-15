@@ -139,19 +139,19 @@ export default function Footer() {
             </h1>
             <div className="text-sm font-light h-3/6 w-full flex flex-col space-y-2">
               <Link
-                href="/"
+                href="/terms-of-use"
                 className="text-white hover:text-cyan-600 duration-300"
               >
                 {t("stayInformed.useTerms")}
               </Link>
               <Link
-                href="/"
+                href="/privacy-policy"
                 className="text-white hover:text-cyan-600 duration-300"
               >
                 {t("stayInformed.privacyPolicy")}
               </Link>
               <Link
-                href="/"
+                href="/frequently-asked-questions"
                 className="text-white hover:text-cyan-600 duration-300"
               >
                 {t("stayInformed.frequentlyQuestions")}

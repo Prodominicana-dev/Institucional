@@ -5,7 +5,6 @@ export default createMiddleware({
   defaultLocale: "es",
   locales: locales,
   localePrefix: localePrefix,
-  localeDetection: false,
 
   pathnames: {
     "/whoarewe": {
@@ -147,6 +146,18 @@ export default createMiddleware({
     "/export/documents": {
       en: "/export/documents",
       es: "/exportacion/documentos",
+    },
+    "/privacy-policy": {
+      en: "/privacy-policy",
+      es: "/politicas-de-privacidad",
+    },
+    "/terms-of-use": {
+      en: "/terms-of-use",
+      es: "/terminos-y-condiciones",
+    },
+    "/frequently-asked-questions": {
+      en: "/frequently-asked-questions",
+      es: "/preguntas-frecuentes",
     },
   },
 });

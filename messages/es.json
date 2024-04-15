@@ -995,6 +995,15 @@
       }
     }
   },
+  "termsofuse": {
+    "title": "Términos de uso"
+  },
+  "privacypolicy": {
+    "title": "Políticas de privacidad"
+  },
+  "faqs": {
+    "title": "Preguntas frecuentes"
+  },
   "Footer": {
     "aboutUs": {
       "title": "CONÓCENOS",
