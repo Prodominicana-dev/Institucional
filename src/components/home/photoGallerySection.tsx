@@ -1,15 +1,26 @@
 "use client";
-import { Typography } from "@material-tailwind/react";
-import React, { useRef } from "react";
+import { Carousel, Typography } from "@material-tailwind/react";
+import React from "react";
 import Image from "next/image";
-import { Carousel } from "@mantine/carousel";
-import Autoplay from "embla-carousel-autoplay";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 
 export default function PhotoGallerySection() {
+  const images = [
+    {
+      src: "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg",
+      alt: "news",
+    },
+    {
+      src: "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg",
+      alt: "news",
+    },
+    {
+      src: "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg",
+      alt: "news",
+    },
+  ];
   const t = useTranslations("PhotoGallery");
-  const autoplay = useRef(Autoplay({ delay: 5000 }));
   return (
     <div className="relative w-full h-[60vh] xl:h-screen overflow-hidden flex pt-10 justify-center">
       <div className="absolute inset-0">
@@ -43,12 +54,12 @@ export default function PhotoGallerySection() {
           </div>
           <Link
             href="/gallery"
-            className="px-10 py-2 text-lg bg-transparent border-2 rounded-full border-white text-white font-gotham hover:bg-white hover:text-blue-950 hover:border-transparent transition-all duration-500 ease-in-out"
+            className="w-32 text-center py-2 text-lg bg-transparent border-2 rounded-full border-white text-white font-gotham hover:bg-white hover:text-blue-950 hover:border-transparent transition-all duration-500 ease-in-out"
           >
             {t("buttonText")}
           </Link>
         </div>
-        <div className="hidden sm:grid grid-cols-2 gap-10">
+        <div className="hidden xl:grid grid-cols-2 gap-10">
           <div className="col-span-2 md:col-span-1">
             <Image
               width={2048}
@@ -105,46 +116,22 @@ export default function PhotoGallerySection() {
         </div>
         <div className="block xl:hidden">
           <Carousel
-            withIndicators={false}
-            withControls={false}
-            slideSize={{ base: "100%" }}
-            slideGap={{ base: 0, sm: "md" }}
-            height={260}
+            autoplay
             loop
-            align="start"
-            plugins={[autoplay.current]}
-            onMouseEnter={autoplay.current.stop}
-            onMouseLeave={autoplay.current.reset}
-            classNames={{ indicators: "fill-black" }}
             className=""
+            placeholder={undefined}
+            navigation={() => <></>}
           >
-            <Image
-              width={2048}
-              height={1080}
-              src={
-                "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg"
-              }
-              alt={"news"}
-              className="w-full h-full"
-            />
-            <Image
-              width={2048}
-              height={1080}
-              src={
-                "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg"
-              }
-              alt={"news"}
-              className="w-full h-full"
-            />
-            <Image
-              width={2048}
-              height={1080}
-              src={
-                "https://hoy.com.do/wp-content/uploads/2023/09/WhatsApp-Image-2023-09-05-at-1.36.14-PM-1.jpeg"
-              }
-              alt={"news"}
-              className="w-full h-full"
-            />
+            {images.map((image, index) => (
+              <Image
+                key={index}
+                width={2048}
+                height={1080}
+                src={image.src}
+                alt={image.alt}
+                className="w-full h-full rounded-lg"
+              />
+            ))}
           </Carousel>
         </div>
       </div>

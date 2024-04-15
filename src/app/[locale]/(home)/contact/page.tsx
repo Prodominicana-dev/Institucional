@@ -179,7 +179,7 @@ export default function Page() {
             alt={""}
             className="rounded-3xl object-cover h-full w-6/12 hidden xl:block"
           />
-          <div className="flex flex-col gap-5 py-2 text-blue-950 w-6/12">
+          <div className="flex flex-col gap-5 py-2 text-blue-950 xl:w-6/12 w-full">
             <div>
               <h1 className="text-4xl font-extrabold">{t("title")}</h1>
               <p className="font-semibold">{t("description")}</p>
@@ -252,7 +252,7 @@ export default function Page() {
       </section>
       <section className="flex justify-center py-10">
         <div className="w-10/12 flex flex-col gap-5">
-          <div className="flex flex-col sm:flex-row justify-between">
+          <div className="flex flex-col gap-3 sm:flex-row justify-between">
             <div className="text-blue-950 sm:w-10/12">
               <h1 className="text-3xl sm:text-4xl font-extrabold">
                 {t("regionalOffices.title")}
@@ -263,7 +263,7 @@ export default function Page() {
               <MenuHandler>
                 <Button
                   variant="text"
-                  className="flex justify-between items-center gap-3 text-base font-normal capitalize tracking-normal"
+                  className="flex justify-between items-center gap-3 text-base font-normal capitalize tracking-normal px-3 hover:text-gray-300 hover:bg-blue-dark bg-blue-dark text-white"
                   placeholder={undefined}
                 >
                   {activeMarker.province}{" "}

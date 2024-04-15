@@ -134,14 +134,15 @@ export default function Page() {
     <div className="bg-white h-full">
       <div>
         <div className="bg-red-700 p-5 flex xl:justify-center items-center">
-          <div></div>
-          <Image
-            src="/svg/shetrades/itcshetrades-white.svg"
-            alt="2020"
-            width={100}
-            height={100}
-            className="w-6/12 lg:w-4/12"
-          />
+          <Link href={"/"} className="w-6/12 lg:w-4/12">
+            <Image
+              src="/svg/shetrades/itcshetrades-white.svg"
+              alt="2020"
+              width={100}
+              height={100}
+              className="w-full"
+            />
+          </Link>
           <div className="absolute right-5 flex gap-3">
             <div className="bg-white p-[2px] sm:p-1 rounded-sm flex justify-center items-center">
               <LanguagePicker />

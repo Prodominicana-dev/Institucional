@@ -6,23 +6,23 @@ export default function BusinessFacilitation() {
   const t = useTranslations("BusinessFacilitation");
   return (
     <section
-      className={`w-full h-full sm:h-[60vh] p-5 lg:p-20 flex justify-center items-center`}
+      className={`w-full h-full xl:h-[60vh] p-5 lg:p-20 flex justify-center items-center`}
     >
-      <div className="w-10/12 h-full flex flex-col-reverse sm:flex-row  sm:space-x-8 justify-center items-center ">
-        <div className="pt-8 sm:pt-0 w-full sm:w-7/12 h-full rounded-lg">
+      <div className="w-10/12 h-full flex flex-col-reverse xl:flex-row gap-5 justify-center items-center ">
+        <div className="w-full xl:w-7/12 md:h-96 rounded-lg overflow-hidden">
           <iframe
             src="https://www.youtube.com/embed/s140FPt_RVw?si=F1gIGnVfeon8hy2s"
             title="YouTube video player"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            className="w-full h-full "
+            className="w-full h-full object-cover"
           ></iframe>
         </div>
 
-        <div className="w-full sm:w-5/12 flex flex-col space-y-4 justify-center items-center text-center ">
+        <div className="w-full xl:w-5/12 flex flex-col space-y-4 justify-center items-center text-center ">
           <h1 className="w-full font-extrabold text-gray-600 text-4xl font-opensans">
             {t("title")}
           </h1>
-          <div className="text-gray-500 text-base sm:text-lg font-montserrat">
+          <div className="text-gray-500 text-base xl:text-lg font-montserrat">
             <p>{t("paragraph1")}</p>
             <p>{t("paragraph2")}</p>
           </div>

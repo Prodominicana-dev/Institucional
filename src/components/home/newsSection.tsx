@@ -13,13 +13,12 @@ export default function NewsSection({ locale }: { locale: string }) {
   const [news, setNews] = React.useState([]);
   React.useEffect(() => {
     if (!isLoading) {
-      console.log(data);
       setNews(data);
     }
   }, [data, isLoading]);
   return (
-    <section className="p-10 sm:p-16 flex flex-col lg:flex-row lg:space-x-10 space-y-10 lg:space-y-0">
-      <div className="w-full lg:w-8/12 space-y-10">
+    <section className="p-10 sm:p-16 flex flex-col xl:flex-row gap-10">
+      <div className="w-full xl:w-8/12 space-y-10">
         <div className="w-full flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 sm:gap-0">
           <Typography
             placeholder={undefined}
@@ -36,7 +35,7 @@ export default function NewsSection({ locale }: { locale: string }) {
           </Link>
         </div>
         <div className="flex flex-col lg:flex-row gap-10">
-          {news.map((item: any, index) => (
+          {news?.map((item: any, index) => (
             <NewsCard
               key={index}
               id={item.id}

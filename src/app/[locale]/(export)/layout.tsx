@@ -11,22 +11,22 @@ export default function RootLayout({
   const navbarOptions = [
     {
       title: "Servicios",
-      icon: "/svg/icons/ExportIcon.svg",
+      icon: "/svg/export/servicesIcon.svg",
       link: "/export/services",
     },
     {
       title: "Como exportar paso a paso",
-      icon: "/svg/icons/ExportIcon.svg",
+      icon: "/svg/export/howtoexportIcon.svg",
       link: "/export/how-to-export",
     },
     {
       title: "Directorio de exportadores",
-      icon: "/svg/icons/ExportIcon.svg",
+      icon: "/svg/export/exportersDirectoryIcon.svg",
       link: "/export/directory",
     },
     {
       title: "Documentos",
-      icon: "/svg/icons/ExportIcon.svg",
+      icon: "/svg/export/docsIcon.svg",
       link: "/export/documents",
     },
   ];

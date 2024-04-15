@@ -36,9 +36,9 @@ export default function UpcomingEventsCard({
           <Image
             width={2048}
             height={1080}
-            src={"/svg/prodominicana-logo.svg"}
+            src={"/images/prodominicanabuilding.jpg"}
             alt={"news"}
-            className="h-60 object-contain rounded-sm bg-white"
+            className="h-60 object-cover rounded-sm bg-white"
           />
         )}
         <div className="flex flex-col gap-2">

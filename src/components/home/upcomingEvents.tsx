@@ -31,7 +31,7 @@ export default function UpcomingEvents({ locale }: { locale: string }) {
           </Typography>
           <Link
             href="/events"
-            className="px-10 py-2 text-lg bg-transparent border-2 rounded-full border-white text-white font-gotham hover:bg-white hover:text-blue-950 hover:border-transparent transition-all duration-500 ease-in-out"
+            className="w-32 text-center py-2 text-lg bg-transparent border-2 rounded-full border-white text-white font-gotham hover:bg-white hover:text-blue-950 hover:border-transparent transition-all duration-500 ease-in-out"
           >
             {t("buttonText")}
           </Link>

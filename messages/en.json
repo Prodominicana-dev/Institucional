@@ -208,6 +208,12 @@
       ]
     }
   },
+  "organizationalChart": {
+    "title": "Organizational Chart",
+    "buttonText": "Download PDF",
+    "regulation": "Regulation",
+    "functions": "Functions"
+  },
   "SocialMedia": {
     "miniTitle": "FOLLOW US ON OUR",
     "title": "Social Media"
