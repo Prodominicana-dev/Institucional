@@ -18,6 +18,7 @@ import { deleteGallery } from "@/services/gallery/service";
 
 import Link from "next/link";
 import { EditScheduleDialog } from "./edit";
+import { Tooltip } from "@material-tailwind/react";
 
 export default function Card({
   schedule,
@@ -56,7 +57,9 @@ export default function Card({
   return (
     <>
       <div className="grid items-center w-full h-24 grid-cols-2 lg:grid-cols-3 p-5 text-center bg-white rounded-lg  ring-2 ring-gray-100">
-        <div>{schedule?.title}</div>
+        <div className="w-full line-clamp-2">
+          <Tooltip>{schedule?.title}</Tooltip>
+        </div>
         <div>
           {date.toLocaleString("es", {
             month: "long",
