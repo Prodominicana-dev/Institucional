@@ -75,7 +75,7 @@ export default function Page({ params }: { params: { locale: string } }) {
             onChange={(e: any) => {
               setSelectedType(e === null ? "" : e.value);
             }}
-            className="w-4/12 z-50"
+            className="md:w-4/12 z-50"
             options={typeOptions}
             theme={(theme) => ({
               ...theme,

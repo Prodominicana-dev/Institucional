@@ -19,7 +19,7 @@ export default function Home({ params }: { params: { locale: string } }) {
         <Banner />
         <BusinessFacilitation />
         <DigitalToolsSection />
-        <InstituteSection />
+        {/* <InstituteSection /> */}
         <NewsSection locale={params.locale} />
         <UpcomingEvents locale={params.locale} />
         <PhotoGallerySection />

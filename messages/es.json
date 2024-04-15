@@ -208,6 +208,12 @@
       ]
     }
   },
+  "organizationalChart": {
+    "title": "Estructura Organizacional",
+    "buttonText": "Descargar PDF",
+    "regulation": "Normativa",
+    "functions": "Funciones"
+  },
   "SocialMedia": {
     "miniTitle": "SÍGUENOS EN NUESTRAS",
     "title": "Redes Sociales"

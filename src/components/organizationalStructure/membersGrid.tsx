@@ -44,7 +44,7 @@ function ThreeOrMoreMembersGrid({ members }: { members: any[] }) {
 
 function TwoMembersGrid({ members }: { members: any[] }) {
   return (
-    <div className="grid grid-cols-2 w-full gap-5">
+    <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-5">
       {members.map((member, index) => (
         <MemberCard key={index} member={member} />
       ))}

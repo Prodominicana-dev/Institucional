@@ -57,7 +57,7 @@ export default function Page() {
   return (
     <div className="bg-white">
       <div className="w-full lg:h-[40vh] bg-blue-950 flex py-5">
-        <div className="w-5/12 p-16 flex justify-center items-center">
+        <div className="w-full sm:w-5/12 p-16 flex justify-center items-center text-center">
           <Typography
             placeholder={undefined}
             className="text-white font-extrabold text-5xl"
@@ -65,13 +65,13 @@ export default function Page() {
             {t("title")}
           </Typography>
         </div>
-        <div className="w-7/12">
+        <div className="hidden sm:block w-7/12">
           <Image
             width={3840}
             height={2160}
             src={"/images/flags.jpg"}
             alt={"news"}
-            className="h-full w-full object-cover object-center rounded-l-3xl"
+            className=" h-full w-full object-cover object-center rounded-l-3xl"
           />
         </div>
       </div>
@@ -196,7 +196,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div className="w-full bg-white flex justify-center items-center py-10">
+      <div className="w-full bg-white flex justify-center items-center p-10">
         <div className="w-full lg:w-10/12 flex flex-col lg:flex-row gap-10">
           <Image
             width={100}

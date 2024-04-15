@@ -1,7 +1,16 @@
+"use client";
 import React from "react";
 import Image from "next/image";
+import DocsCard from "@/components/docs/docsCard";
 
 export default function page() {
+  const docs = [
+    {
+      name: "Estructura Organica de la Institucion 2023",
+      document: "/documents/Estructura_Organica_de_la_Institucion_2023.pdf",
+      cover: "/images/export/ship.jpg",
+    },
+  ];
   return (
     <div>
       <div className="relative h-[40vh] sm:h-[80vh]">
@@ -24,7 +33,18 @@ export default function page() {
           </div>
         </div>
       </div>
-      <div className="h-full bg-white flex justify-center py-10"></div>
+      <div className="h-full bg-white flex justify-center py-10">
+        <div className="w-10/12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          {docs.map((doc, index) => (
+            <DocsCard
+              key={index}
+              id={index}
+              title={doc.name}
+              pdf={doc.document}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

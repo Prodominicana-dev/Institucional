@@ -61,7 +61,7 @@ export default function Carousel({ params }: Props) {
   return (
     <div className=" bg-white p-7 flex flex-col items-center overflow-hidden ">
       <div>
-        <h1 className=" flex justify-center items-center text-base sm:text-xl md:text-3xl lg:text-3xl xl:text-4xl 2xl:text-4xl font-montserrat font-extrabold text-[#1E3059] mb-3 py-3 overflow-hidden">
+        <h1 className=" flex justify-center items-center text-2xl md:text-3xl lg:text-3xl xl:text-4xl 2xl:text-4xl font-montserrat font-extrabold text-[#1E3059] mb-3 py-3 overflow-hidden">
           {params.locale === "es" ? titleEs : titleEn}
         </h1>
       </div>
@@ -69,7 +69,7 @@ export default function Carousel({ params }: Props) {
         <p className="w-full text-gray-800 text-end">
           {`${t("total")}: ${photos?.length} ${t("images")}`}
         </p>
-        <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
           {photos?.length > 0 &&
             photos?.map((item: any, index: number) => (
               <div
@@ -84,7 +84,7 @@ export default function Carousel({ params }: Props) {
                   alt="gallery"
                   width={1920}
                   height={1080}
-                  className="w-full object-cover rounded-lg z-10 cursor-pointer h-96"
+                  className="w-full object-cover rounded-lg z-10 cursor-pointer xl:h-96"
                 />
               </div>
             ))}

@@ -84,7 +84,9 @@ export default function Page() {
               src={CEO.studies.icon}
               className="w-20"
             />
-            <div className="text-5xl font-extrabold">{CEO.studies.title}</div>
+            <div className="text-4xl xl:text-5xl font-extrabold">
+              {CEO.studies.title}
+            </div>
           </div>
           {CEO.studies.data.map((studies: any, key: any) => {
             return (
@@ -101,7 +103,7 @@ export default function Page() {
               src={CEO.experience.icon}
               className="w-20"
             />
-            <div className="text-5xl font-extrabold">
+            <div className="text-4xl xl:text-5xl font-extrabold">
               {CEO.experience.title}
             </div>
           </div>

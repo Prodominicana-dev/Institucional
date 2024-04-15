@@ -2,6 +2,7 @@
 import { Dialog, DialogBody } from "@material-tailwind/react";
 import React from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 interface props {
   member: any;
@@ -10,6 +11,7 @@ interface props {
 }
 
 export default function MemberDialog({ member, open, handleOpen }: props) {
+  const t = useTranslations("organizationalChart");
   return (
     <Dialog
       open={open}
@@ -39,13 +41,13 @@ export default function MemberDialog({ member, open, handleOpen }: props) {
         </div>
         <div className="w-10/12 flex flex-col gap-3">
           <h1 className="text-2xl border-b-2 font-bold text-blue-dark border-blue-dark">
-            Normativa
+            {t("regulation")}
           </h1>
           <p className="text-black">{member.regulation}</p>
         </div>
         <div className="w-10/12 flex flex-col gap-3">
           <h1 className="text-2xl border-b-2 font-bold text-blue-dark border-blue-dark">
-            Funciones
+            {t("functions")}
           </h1>
           <ol className="text-black list-inside list-disc space-y-2">
             {member.functions.map((func: string, index: number) => (

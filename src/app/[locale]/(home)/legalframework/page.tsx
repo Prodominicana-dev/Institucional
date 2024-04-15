@@ -180,7 +180,7 @@ export default function Page() {
         </div>
       </section>
       <div className="bg-white flex justify-center py-10 min-h-[60vh]">
-        <div className="w-10/12 xl:w-8/12">
+        <div className="w-11/12 xl:w-8/12">
           {marcoLegalDocs.length > 0 ? (
             <Tabs value={data[0].value}>
               <TabsHeader

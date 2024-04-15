@@ -47,13 +47,13 @@ export default function Page({ params }: { params: { locale: string } }) {
     );
 
   return (
-    <div className="w-full  flex flex-col p-10 lg:p-20 items-center bg-white gap-10">
+    <div className="w-full flex flex-col items-center bg-white gap-10 py-10">
       <div>
-        <h1 className=" text-2xl sm:text-2xl md:text-2xl lg:text-3xl xl:text-4xl 2xl:text-5xl font-montserrat font-extrabold text-[#1E3059]">
+        <h1 className="text-3xl xl:text-4xl font-montserrat font-extrabold text-[#1E3059]">
           {t("title")}
         </h1>
       </div>
-      <div className="w-5/6 flex flex-col gap-10 items-center justify-center">
+      <div className="w-10/12 flex flex-col gap-10 items-center justify-center">
         <div className="w-full text-lg">
           <label
             htmlFor="search"

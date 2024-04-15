@@ -69,7 +69,7 @@ const airports = {
       link: "https://aeropuertosamana.com",
       description:
         "El Aeropuerto Internacional El Catey (AZS) también conocido como Aeropuerto Internacional Juan Bosch, se encuentra a media hora de la ciudad de Santa Bárbara de Samaná, a media hora de Las Terrenas y a solo una hora de Las Galeras. Permite manejar adecuadamente la salida y entrada de un promedio de 600 pasajeros por hora.",
-      coords: { lat: 19.25, lng: -69.745 },
+      coords: { lat: 19.2705, lng: -69.7348 },
     },
     {
       name: "Aeropuerto Internacional General Gregorio Luperón (Puerto Plata)",
@@ -77,7 +77,7 @@ const airports = {
       link: "https://aeropuertopuertoplata.com",
       description:
         "Es un aeropuerto internacional ubicado en la Provincia de Puerto Plata y que también es una de los aeropuertos principales de turismo de la República Dominicana. Es el cuarto aeropuerto más transitado del país por tráfico de pasajeros y movimientos de aeronaves, después de los aeropuertos Punta Cana, Las Américas, y Cibao. y es el tercero en tamaño y capacidad de pasajeros. teniendo la capacidad de operar hasta 2 millones de pasajeros al año.",
-      coords: { lat: 19.25, lng: -69.745 },
+      coords: { lat: 19.756, lng: -70.5636 },
     },
   ],
 };
