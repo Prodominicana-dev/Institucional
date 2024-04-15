@@ -64,14 +64,16 @@ export default function Page() {
 
   return (
     <div>
-      <div className="relative">
-        <Image
-          width={3840}
-          height={2160}
-          src="/images/puntacatalina.jpg"
-          alt="Turismo"
-          className="object-cover w-full h-[40vh] sm:h-[70vh]"
-        />
+      <div className="relative h-[40vh] sm:h-[70vh]">
+        <video
+          playsInline
+          autoPlay
+          loop
+          muted
+          className="w-full h-full object-cover"
+        >
+          <source src={"/videos/invest/sectors.mp4"} type="video/mp4" />
+        </video>
       </div>
       <div className="bg-white h-full flex flex-col items-center py-10 gap-10">
         <div className="text-center">
