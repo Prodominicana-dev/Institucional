@@ -32,6 +32,11 @@ export function SideBar() {
   const [isConfig, setIsConfig] = useState(false);
   const [isVisible, setIsVisible] = useAtom(sideBarAtom);
   const [openServices, setOpenServices] = useState(0);
+  const [openExport, setOpenExport] = useState(0);
+
+  const handleExportOpen = (value: any) => {
+    setOpenExport(openExport === value ? 0 : value);
+  };
 
   const handleNewnessOpen = (value: any) => {
     setOpenNewness(openNewness === value ? 0 : value);
@@ -60,6 +65,7 @@ export function SideBar() {
       setOpenStructure(0);
       setNewsOpen(0);
       setOpenServices(0);
+      setOpenExport(0);
     }
   }, [setOpen, isHover]);
 
@@ -233,11 +239,66 @@ export function SideBar() {
             url={"/admin/investment"}
             iconUrl={"/svg/layout/sidebar/investment.svg"}
           />
-          <SidebarItem
-            title={"Exportación"}
-            url={"/admin/export"}
-            iconUrl={"/svg/layout/sidebar/export.svg"}
-          />
+          <Accordion
+            placeholder={undefined}
+            open={openExport === 1}
+            icon={
+              <ChevronDownIcon
+                strokeWidth={2.5}
+                className={`mx-auto h-4 w-4 transition-transform opacity-0 group-hover:opacity-100 hidden group-hover:flex text-white ${
+                  openExport === 1 ? "rotate-180" : ""
+                }`}
+              />
+            }
+          >
+            <ListItem
+              placeholder={undefined}
+              className="p-0 bg-transparent"
+              selected={openExport === 0}
+            >
+              <AccordionHeader
+                placeholder={undefined}
+                onClick={() => handleExportOpen(1)}
+                className="p-3 border-b-0"
+              >
+                <ListItemPrefix placeholder={undefined} className="">
+                  <Image
+                    src={"/svg/layout/sidebar/export.svg"}
+                    width={600}
+                    height={600}
+                    draggable={false}
+                    alt=""
+                    className="w-8 h-8 text-white duration-700 group-hover:h-5 group-hover:w-5 mr-5"
+                  />
+                </ListItemPrefix>
+                <Typography
+                  placeholder={undefined}
+                  color="white"
+                  className="hidden mr-auto font-normal duration-300 opacity-0 group-hover:flex group-hover:opacity-100"
+                >
+                  Exportación
+                </Typography>
+              </AccordionHeader>
+            </ListItem>
+            <AccordionBody className="py-1">
+              {openExport === 1 && (
+                <List placeholder={undefined} className="p-0 text-white">
+                  <SidebarMenuItem
+                    title={"Directorio de Exportadores"}
+                    url={"/admin/export/directory"}
+                  />
+                  <SidebarMenuItem
+                    title={"Sectores de Exportación"}
+                    url={"/admin/export/sector"}
+                  />
+                  <SidebarMenuItem
+                    title={"Productos de Exportación"}
+                    url={"/admin/export/product"}
+                  />
+                </List>
+              )}
+            </AccordionBody>
+          </Accordion>
           <Accordion
             placeholder={undefined}
             open={openStructure === 1}

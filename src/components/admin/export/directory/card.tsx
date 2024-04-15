@@ -11,15 +11,17 @@ import DeactiveButton from "../../inactive";
 import ActivateButton from "../../active";
 import DeleteButton from "../../delete";
 import { deleteDirection } from "@/services/structure-organizational/service";
-import { MembersEditDialog } from "./eDialog";
+
 import Image from "next/image";
 import { deleteMember } from "@/services/structure-organizational/members/service";
+import { deleteExporter } from "@/services/export/directory/service";
+import { EditExporterDialog } from "./edit";
 
 export default function Card({
-  member,
+  exporter,
   update,
 }: {
-  member: any;
+  exporter: any;
   update: () => void;
 }) {
   const { user, isLoading } = useUser();
@@ -37,8 +39,8 @@ export default function Card({
 
   const handleDelete = () => {
     if (user && !isLoading) {
-      deleteMember(
-        member.id as string,
+      deleteExporter(
+        exporter.id as string,
         handleDeleteOpen,
         update,
         user.sub as string
@@ -47,9 +49,9 @@ export default function Card({
   };
   return (
     <>
-      <div className="grid items-center w-full h-24 grid-cols-2 lg:grid-cols-5 p-5 text-center bg-white rounded-lg  ring-2 ring-gray-100">
-        <div>{member?.name}</div>
-        <div>{member?.department.nameEs}</div>
+      <div className="grid items-center w-full h-24 grid-cols-2 lg:grid-cols-3 p-5 text-center bg-white rounded-lg  ring-2 ring-gray-100">
+        <div>{exporter?.name}</div>
+        <div>{exporter?.rnc}</div>
         <div className="flex justify-center space-x-5 ">
           <button
             onClick={handleEditOpen}
@@ -66,8 +68,8 @@ export default function Card({
         </div>
       </div>
       {editOpen && (
-        <MembersEditDialog
-          id={member?.id}
+        <EditExporterDialog
+          exporter={exporter}
           open={editOpen}
           handler={handleEditOpen}
           update={update}

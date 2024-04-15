@@ -1,4 +1,5 @@
 "use client";
+import { useExportersPerPage } from "@/services/export/directory/service";
 import {
   AdjustmentsHorizontalIcon,
   MagnifyingGlassIcon,
@@ -12,7 +13,7 @@ import {
 } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const exportDirectoryFilters = [
   {
@@ -95,6 +96,25 @@ export default function Page() {
   const [search, setSearch] = React.useState("");
   const [sector, setSector] = useState(exportDirectoryFilters[0].name);
   const [filtersOpen, setFiltersOpen] = React.useState(false);
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(27);
+  const [exportersPage, setExportersPage] = useState([]);
+  const [exporters, setExporters] = useState([]);
+  const {
+    data: exportersPerPage,
+    isLoading: exportersPerPageLoading,
+    refetch: exportersPerPageRefetch,
+  } = useExportersPerPage(perPage, page);
+
+  useEffect(() => {
+    if (!exportersPerPageLoading && exportersPerPage) {
+      console.log(exportersPerPage);
+      setExportersPage(exportersPerPage);
+    }
+  }, [exportersPerPage, exportersPerPageLoading]);
+
+  useEffect(() => {}, [page, perPage]);
+
   const toggleFiltersOpen = () => setFiltersOpen((cur) => !cur);
   const handleSearchChange = () => {};
   const handleFilter = (selectedSector: string) => {
@@ -303,16 +323,18 @@ function ExporterCard({
                 />
                 <div className="text-center">{email}</div>
               </div>
-              <div className="flex flex-col items-center gap-4">
-                <Image
-                  width={500}
-                  height={500}
-                  src="/svg/export/addressIcon.svg"
-                  alt="address"
-                  className="size-12 object-cover"
-                />
-                <div className="text-center">{address}</div>
-              </div>
+              {address && (
+                <div className="flex flex-col items-center gap-4">
+                  <Image
+                    width={500}
+                    height={500}
+                    src="/svg/export/addressIcon.svg"
+                    alt="address"
+                    className="size-12 object-cover"
+                  />
+                  <div className="text-center">{address}</div>
+                </div>
+              )}
             </div>
             <div className="flex justify-center">
               <div className="w-11/12 flex flex-col gap-5">
@@ -329,13 +351,15 @@ function ExporterCard({
                     </div>
                   ))}
                 </div>
-                <Link
-                  href={web}
-                  target="_blank"
-                  className="text-xl text-blue-dark font-bold underline"
-                >
-                  Conoce más en su página web
-                </Link>
+                {web && (
+                  <Link
+                    href={web}
+                    target="_blank"
+                    className="text-xl text-blue-dark font-bold underline"
+                  >
+                    Conoce más en su página web
+                  </Link>
+                )}
               </div>
             </div>
           </div>
