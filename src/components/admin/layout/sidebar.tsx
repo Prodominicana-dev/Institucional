@@ -215,6 +215,7 @@ export function SideBar() {
             <AccordionBody className="py-1">
               {openNewness === 1 && (
                 <List placeholder={undefined} className="p-0 text-white">
+                  <SidebarMenuItem title={"Agenda"} url={"/admin/schedule"} />
                   <SidebarMenuItem title={"Noticias"} url={"/admin/news"} />
                   <SidebarMenuItem
                     title={"Categoría de Noticias"}
