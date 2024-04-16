@@ -422,42 +422,44 @@ function ExporterCard({ exporter }: { exporter: any }) {
                 </div>
               )}
             </div>
-            <div className="flex justify-center">
-              <div className="w-11/12 flex flex-col gap-5">
-                <h1 className="text-xl text-blue-dark font-bold">
-                  Productos que exporta:
-                </h1>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 w-full">
-                  {exporter.product
-                    .slice(0, 11)
-                    .map((product: any, index: number) => (
-                      <Tooltip
-                        content={product.product.name}
-                        placement="top"
-                        key={index}
-                      >
-                        <div className="bg-blue-dark text-white rounded-full px-5 py-3 text-sm truncate w-full">
-                          {product.product.name}
-                        </div>
-                      </Tooltip>
-                    ))}
-                  {exporter.product.length - 11 > 11 && (
-                    <div className="bg-blue-dark text-white rounded-full px-5 py-3 text-sm truncate w-full flex justify-center">
-                      {exporter.product.length - 11} productos más
-                    </div>
+            {exporter.product.length > 0 && (
+              <div className="flex justify-center">
+                <div className="w-11/12 flex flex-col gap-5">
+                  <h1 className="text-xl text-blue-dark font-bold">
+                    Productos que exporta:
+                  </h1>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 w-full">
+                    {exporter.product
+                      .slice(0, 11)
+                      .map((product: any, index: number) => (
+                        <Tooltip
+                          content={product.product.name}
+                          placement="top"
+                          key={index}
+                        >
+                          <div className="bg-blue-dark text-white rounded-full px-5 py-3 text-sm truncate w-full">
+                            {product.product.name}
+                          </div>
+                        </Tooltip>
+                      ))}
+                    {exporter.product.length - 11 > 11 && (
+                      <div className="bg-blue-dark text-white rounded-full px-5 py-3 text-sm truncate w-full flex justify-center">
+                        {exporter.product.length - 11} productos más
+                      </div>
+                    )}
+                  </div>
+                  {exporter?.website && (
+                    <Link
+                      href={exporter?.website}
+                      target="_blank"
+                      className="text-xl text-blue-dark font-bold underline"
+                    >
+                      Conoce más en su página web
+                    </Link>
                   )}
                 </div>
-                {exporter?.website && (
-                  <Link
-                    href={exporter?.website}
-                    target="_blank"
-                    className="text-xl text-blue-dark font-bold underline"
-                  >
-                    Conoce más en su página web
-                  </Link>
-                )}
               </div>
-            </div>
+            )}
           </div>
         </DialogBody>
       </Dialog>
