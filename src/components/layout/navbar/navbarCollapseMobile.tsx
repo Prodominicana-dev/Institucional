@@ -6,9 +6,10 @@ import React, { useState } from "react";
 export default function NavbarCollapseMobile({
   title,
   content,
+  closeCollapse,
 }: {
   title: string;
-
+  closeCollapse: () => void;
   content: { title: string; link: string }[];
 }) {
   const [open, setOpen] = useState(false);
@@ -32,6 +33,10 @@ export default function NavbarCollapseMobile({
         {content?.map(({ title, link }, index) => (
           <div key={index} className="px-5">
             <Link
+              onClick={() => {
+                closeCollapse();
+                toggleOpen();
+              }}
               href={link ? link : "/"}
               className="w-full flex justify-between outline-none items-center text-blue-950 text-left font-normal text-base py-2"
             >

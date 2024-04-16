@@ -14,7 +14,7 @@ export default function Banner() {
     {
       title: t("name"),
       desc: t("slogan"),
-      image: "/images/home/juandolio.jpg",
+      image: "/videos/home.mp4",
     },
   ];
 
@@ -81,11 +81,13 @@ export default function Banner() {
             className="relative h-[40vh] sm:h-[80vh] w-full"
             key={index}
           >
-            <Image
+            <video
               width={3840}
               height={2160}
               src={image}
-              alt={title}
+              autoPlay
+              loop
+              muted
               className="h-full w-full object-cover object-center"
             />
             <div className="w-6/12 sm:w-5/12 absolute inset-0 flex flex-col justify-center space-y-5 text-center">

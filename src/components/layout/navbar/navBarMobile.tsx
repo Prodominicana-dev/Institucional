@@ -89,7 +89,7 @@ export default function NavBarMobile() {
       title: t("services.title"),
       type: "menu",
       content: [
-        { title: t("services.menuList.invest"), link: "/services/investment" },
+        { title: t("services.menuList.invest"), link: "/services/invest" },
         { title: t("services.menuList.export"), link: "/services/export" },
       ],
     },
@@ -106,11 +106,11 @@ export default function NavBarMobile() {
     { title: t("shetrades"), link: "/shetrades", type: "link" },
     { title: t("transparency"), link: "/transparency", type: "link" },
     { title: t("contact"), link: "/contact", type: "link" },
-    {
-      title: t("institute"),
-      link: "https://instituto.prodominicana.gob.do",
-      type: "link",
-    },
+    // {
+    //   title: t("institute"),
+    //   link: "https://instituto.prodominicana.gob.do",
+    //   type: "link",
+    // },
     { title: t("investButton"), link: "/invest", type: "button" },
     { title: t("exportButton"), link: "/export", type: "button" },
   ];
@@ -183,15 +183,27 @@ export default function NavBarMobile() {
         {routes.map(({ title, link, type, content }, index) => (
           <div key={index}>
             {type === "link" ? (
-              <NavbarLinkMobile title={title} link={link || "/"} />
+              <NavbarLinkMobile
+                title={title}
+                link={link || "/"}
+                closeCollapse={toggleOpen}
+              />
             ) : (
               <>
                 {type === "menu" ? (
-                  <NavbarCollapseMobile title={title} content={content || []} />
+                  <NavbarCollapseMobile
+                    closeCollapse={toggleOpen}
+                    title={title}
+                    content={content || []}
+                  />
                 ) : (
                   <>
                     {type === "button" ? (
-                      <NavbarButtonMobile title={title} link={link || "/"} />
+                      <NavbarButtonMobile
+                        closeCollapse={toggleOpen}
+                        title={title}
+                        link={link || "/"}
+                      />
                     ) : null}
                   </>
                 )}

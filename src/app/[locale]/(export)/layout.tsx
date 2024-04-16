@@ -1,5 +1,5 @@
 "use client";
-import Navbar from "@/components/layout/export/navbar";
+import Navbar, { NavbarExportMobile } from "@/components/layout/export/navbar";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -15,7 +15,7 @@ export default function RootLayout({
       link: "/export/services",
     },
     {
-      title: "Como exportar paso a paso",
+      title: "Cómo exportar paso a paso",
       icon: "/svg/export/howtoexportIcon.svg",
       link: "/export/how-to-export",
     },
@@ -35,6 +35,7 @@ export default function RootLayout({
     <html className="scroll-smooth">
       <body>
         <QueryClientProvider client={queryClient}>
+          <NavbarExportMobile options={navbarOptions} />
           <Navbar options={navbarOptions} />
           {children}
         </QueryClientProvider>

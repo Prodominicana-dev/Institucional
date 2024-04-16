@@ -1,5 +1,5 @@
 "use client";
-import Navbar from "@/components/layout/invest/navbar";
+import Navbar, { NavbarInvestMobile } from "@/components/layout/invest/navbar";
 import LanguagePicker from "@/components/layout/navbar/languagePicker";
 import Image from "next/image";
 import Link from "next/link";
@@ -48,6 +48,7 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
           apiKey={`${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`}
           language={params.locale}
         >
+          <NavbarInvestMobile options={navbarOptions} />
           <Navbar options={navbarOptions} />
           {children}
         </APIProvider>

@@ -90,12 +90,12 @@ function SectorVideo({ sector }: any) {
       </video>
       <div className="absolute inset-0 flex justify-center items-center">
         <div className="w-10/12 h-4/6 flex flex-col gap-5 justify-end">
-          <h1 className="text-6xl font-bold text-white uppercase">
+          <h1 className="text-3xl lg:text-6xl font-bold text-white uppercase">
             {sector.name}
           </h1>
           <Link
             href={`/invest/sectors/${sector.link}`}
-            className="bg-white w-2/12 p-4 text-blue-dark font-bold text-xl text-center rounded-full"
+            className="bg-white w-44 lg:w-2/12 p-2 lg:p-4 text-blue-dark font-bold text-lg lg:text-xl text-center rounded-full"
           >
             Conoce Más
           </Link>

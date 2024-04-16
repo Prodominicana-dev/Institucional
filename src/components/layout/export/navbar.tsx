@@ -1,6 +1,8 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
+import { Bars3Icon } from "@heroicons/react/24/solid";
+import { Drawer } from "@material-tailwind/react";
 
 export default function Navbar(options: any) {
   return (
@@ -46,6 +48,59 @@ function NavBarLink({ title, icon, link }: any) {
         />
         <div className="text-white text-center text-sm">{title}</div>
       </Link>
+    </div>
+  );
+}
+
+export function NavbarExportMobile({ options }: { options: any }) {
+  const [openMenu, setOpenMenu] = useState(false);
+  const openDrawer = () => setOpenMenu(true);
+  const closeDrawer = () => setOpenMenu(false);
+  return (
+    <div className="flex px-5 items-center absolute z-10 justify-between w-full py-2 lg:hidden">
+      <Image
+        src="/svg/prodominicanaFull-white.svg"
+        width={240}
+        height={240}
+        alt="prointeligencia"
+        className="size-32"
+      />
+
+      <div className="w-2/12">
+        <button className="outline-none" onClick={openDrawer}>
+          <Bars3Icon className="w-8 h-8 text-white" />
+        </button>
+        <Drawer
+          placeholder={undefined}
+          open={openMenu}
+          onClose={closeDrawer}
+          className=""
+          placement="right"
+        >
+          <div className="flex flex-col gap-8 ">
+            <div className="min-h-[8rem] py-3 flex justify-center items-center w-full bg-blue-950">
+              <Image
+                src="/svg/prodominicanaFull-white.svg"
+                width={240}
+                height={240}
+                alt="prointeligencia"
+                className="w-56"
+              />
+            </div>
+            <div className="flex flex-col gap-3 px-4">
+              {options.map((tool: any, index: number) => (
+                <Link
+                  key={index}
+                  className="flex flex-row items-center gap-1 px-5 py-3 text-black rounded-lg outline-none hover:bg-transparent hover:text-mint bg-gray-50"
+                  href={tool.link}
+                >
+                  {tool.title}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </Drawer>
+      </div>
     </div>
   );
 }
