@@ -10,7 +10,7 @@ import { MantineProvider } from "@mantine/core";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Prodominicana",
+  title: "ProDominicana",
   description: "Centro de Exportación e Inversión de la República Dominicana",
   manifest: "/site.webmanifest",
 };
