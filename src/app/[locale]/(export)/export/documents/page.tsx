@@ -4,7 +4,7 @@ import Image from "next/image";
 import DocsCard from "@/components/docs/docsCard";
 import { useDocs } from "@/services/gen-docs/service";
 
-export default function page() {
+export default function Page() {
   const [documents, setDocuments] = useState([]);
   const { data, isLoading } = useDocs();
 
