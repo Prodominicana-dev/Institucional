@@ -1,9 +1,20 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import DocsCard from "@/components/docs/docsCard";
+import { useDocs } from "@/services/gen-docs/service";
 
 export default function page() {
+  const [documents, setDocuments] = useState([]);
+  const { data, isLoading } = useDocs();
+
+  useEffect(() => {
+    if (!isLoading && data) {
+      setDocuments(data);
+      console.log(data);
+    }
+  }, [data, isLoading]);
+
   const docs = [
     {
       name: "Estructura Organica de la Institucion 2023",
@@ -35,13 +46,8 @@ export default function page() {
       </div>
       <div className="h-full bg-white flex justify-center py-10">
         <div className="w-10/12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {docs.map((doc, index) => (
-            <DocsCard
-              key={index}
-              id={index}
-              title={doc.name}
-              pdf={doc.document}
-            />
+          {documents.map((doc, index) => (
+            <DocsCard key={index} document={doc} />
           ))}
         </div>
       </div>

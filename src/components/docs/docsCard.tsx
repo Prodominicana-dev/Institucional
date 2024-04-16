@@ -10,7 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 
-export default function DocsCard({ id, title, pdf }: any) {
+export default function DocsCard({ document }: { document: any }) {
   const t = useTranslations("commonWords");
   return (
     <Card className="w-full h-[32rem]" placeholder={undefined}>
@@ -18,7 +18,7 @@ export default function DocsCard({ id, title, pdf }: any) {
         <Image
           width={1920}
           height={1080}
-          src={`${process.env.NEXT_PUBLIC_API_URL}/data/post/${id}`}
+          src={`${process.env.NEXT_PUBLIC_API_URL}/docs/cover/${document?.id}/${document?.image}`}
           alt="image"
           className="object-cover h-full"
         />
@@ -32,7 +32,7 @@ export default function DocsCard({ id, title, pdf }: any) {
           className="mb-2 text-lg"
           placeholder={undefined}
         >
-          {title}
+          {document.title}
         </Typography>
       </CardBody>
       <CardFooter
@@ -40,7 +40,7 @@ export default function DocsCard({ id, title, pdf }: any) {
         placeholder={undefined}
       >
         <Link
-          href={`${process.env.NEXT_PUBLIC_API_URL}/data/post/${id}/pdf/${pdf}`}
+          href={`${process.env.NEXT_PUBLIC_API_URL}/docs/pdf/${document.id}/${document.name}`}
           target="_blank"
           rel="noopener noreferrer"
           download

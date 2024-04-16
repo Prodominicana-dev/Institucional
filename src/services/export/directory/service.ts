@@ -14,6 +14,39 @@ export function useExportersPerPage(perPage: number, page: number) {
   });
 }
 
+export function useExporters() {
+  return useQuery({
+    queryKey: ["exportersAll"],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/export/`;
+      const { data } = await axios.get(url);
+      return data;
+    },
+  });
+}
+
+export function useExportersProducts() {
+  return useQuery({
+    queryKey: ["exportersProducts"],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/export/all/a/b/products`;
+      const { data } = await axios.get(url);
+      return data;
+    },
+  });
+}
+
+export function useExportersSectors() {
+  return useQuery({
+    queryKey: ["exportersSectors"],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/export/all/c/d/sectors`;
+      const { data } = await axios.get(url);
+      return data;
+    },
+  });
+}
+
 export function useGalleryById(id: string) {
   return useQuery({
     queryKey: ["memberById", id],

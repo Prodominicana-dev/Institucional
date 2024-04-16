@@ -1,19 +1,26 @@
 "use client";
-import { useExportersPerPage } from "@/services/export/directory/service";
+import {
+  useExporters,
+  useExportersPerPage,
+  useExportersProducts,
+  useExportersSectors,
+} from "@/services/export/directory/service";
 import {
   AdjustmentsHorizontalIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import {
   Collapse,
-  Select,
   Option,
   Dialog,
   DialogBody,
+  Tooltip,
+  Spinner,
 } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import Select from "react-select";
 
 const exportDirectoryFilters = [
   {
@@ -31,68 +38,6 @@ const exportDirectoryFilters = [
 ];
 
 export default function Page() {
-  const exportDirectoryData = [
-    {
-      name: "Cormidom",
-      sector: "Industrial",
-      logo: "https://cormidom.com.do/wp-content/uploads/2022/09/Cormidom-Logo__001-Completo-color.png",
-      telephone: "8096854684",
-      email: "sperez@cormidom.com",
-      address:
-        "Jose A. Brea Peña #14, District Tower, 3er nivel, Evaristo Morales",
-      web: "https://cormidom.com.do/",
-      products: [
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-      ],
-    },
-    {
-      name: "Cormidom",
-      sector: "Industrial",
-      logo: "https://cormidom.com.do/wp-content/uploads/2022/09/Cormidom-Logo__001-Completo-color.png",
-      telephone: "8096854684",
-      email: "sperez@cormidom.com",
-      address:
-        "Jose A. Brea Peña #14, District Tower, 3er nivel, Evaristo Morales",
-      web: "https://cormidom.com.do/",
-      products: [
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-      ],
-    },
-    {
-      name: "Cormidom",
-      sector: "Industrial",
-      logo: "https://cormidom.com.do/wp-content/uploads/2022/09/Cormidom-Logo__001-Completo-color.png",
-      telephone: "8096854684",
-      email: "sperez@cormidom.com",
-      address:
-        "Jose A. Brea Peña #14, District Tower, 3er nivel, Evaristo Morales",
-      web: "https://cormidom.com.do/",
-      products: [
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-        "Mineral concentrado",
-      ],
-    },
-  ];
   const [search, setSearch] = React.useState("");
   const [sector, setSector] = useState(exportDirectoryFilters[0].name);
   const [filtersOpen, setFiltersOpen] = React.useState(false);
@@ -100,20 +45,130 @@ export default function Page() {
   const [perPage, setPerPage] = useState(27);
   const [exportersPage, setExportersPage] = useState([]);
   const [exporters, setExporters] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [products, setProducts] = useState<any>([]);
+  const [sectors, setSectors] = useState<any>([]);
+  const [productsOptions, setProductsOptions] = useState([]);
+  const [sectorsOptions, setSectorsOptions] = useState([]);
   const {
     data: exportersPerPage,
     isLoading: exportersPerPageLoading,
     refetch: exportersPerPageRefetch,
   } = useExportersPerPage(perPage, page);
 
+  const {
+    data: exportersData,
+    isLoading: exportersDataLoading,
+    refetch: exportersDataRefetch,
+  } = useExporters();
+
+  const { data: productsData, isLoading: productsDataLoading } =
+    useExportersProducts();
+
+  const { data: sectorsData, isLoading: sectorsDataLoading } =
+    useExportersSectors();
+
+  useEffect(() => {
+    if (!sectorsDataLoading && sectorsData) {
+      setSectorsOptions(
+        sectorsData.map((sector: any) => ({
+          value: sector,
+          label: sector,
+        }))
+      );
+    }
+  }, [sectorsData, sectorsDataLoading]);
+
+  useEffect(() => {
+    if (!productsDataLoading && productsData) {
+      setProductsOptions(
+        productsData.map((product: any) => ({
+          value: product,
+          label: product,
+        }))
+      );
+    }
+  }, [productsData, productsDataLoading]);
+
   useEffect(() => {
     if (!exportersPerPageLoading && exportersPerPage) {
-      console.log(exportersPerPage);
-      setExportersPage(exportersPerPage);
+      setExportersPage(exportersPerPage.data);
     }
   }, [exportersPerPage, exportersPerPageLoading]);
 
-  useEffect(() => {}, [page, perPage]);
+  useEffect(() => {
+    if (!exportersDataLoading && exportersData) {
+      setExporters(exportersData);
+    }
+  }, [exportersData, exportersDataLoading]);
+
+  useEffect(() => {
+    if (exportersData && !exportersDataLoading) {
+      let filteredExporters = [];
+      setIsLoading(true);
+      const lowerSearch = search.toLowerCase();
+      if (search !== "") {
+        filteredExporters = exportersData.filter(
+          (exporter: any) =>
+            exporter.name?.toLowerCase().includes(lowerSearch) ||
+            exporter.province?.toLowerCase().includes(lowerSearch) ||
+            exporter.product
+              ?.map(
+                (product: any) =>
+                  product.product.name?.toLowerCase() ||
+                  product.product.nameEn?.toLowerCase()
+              )
+              .join(" ")
+              .includes(lowerSearch) ||
+            exporter.address?.toLowerCase().includes(lowerSearch) ||
+            exporter.sector
+              ?.map(
+                (sector: any) =>
+                  sector.name?.toLowerCase() || sector.nameEn?.toLowerCase()
+              )
+              .join(" ")
+              .includes(lowerSearch)
+        );
+      }
+
+      // Aplicar filtro por productos seleccionados
+      if (products.length > 0 && search !== "") {
+        filteredExporters = filteredExporters.filter((exporter: any) =>
+          exporter.product.some((product: any) =>
+            products.includes(product.product.name)
+          )
+        );
+      }
+
+      if (products.length > 0 && search === "") {
+        filteredExporters = exportersData?.filter((exporter: any) =>
+          exporter.product.some((product: any) =>
+            products.includes(product.product.name)
+          )
+        );
+      }
+
+      // Aplicar filtro por sectores seleccionados
+      if (sectors.length > 0 && search !== "") {
+        filteredExporters = filteredExporters.filter((exporter: any) =>
+          exporter.product.some((product: any) =>
+            sectors.includes(product.sector.name)
+          )
+        );
+      }
+
+      if (sectors.length > 0 && search === "") {
+        filteredExporters = exportersData?.filter((exporter: any) =>
+          exporter.product.some((product: any) =>
+            sectors.includes(product.sector.name)
+          )
+        );
+      }
+
+      setExporters(filteredExporters);
+      setIsLoading(false);
+    }
+  }, [search, products, sectors, exportersData, exportersDataLoading]);
 
   const toggleFiltersOpen = () => setFiltersOpen((cur) => !cur);
   const handleSearchChange = () => {};
@@ -121,7 +176,7 @@ export default function Page() {
     setSector(selectedSector);
   };
   return (
-    <div className="bg-white h-full">
+    <div className="bg-white h-full font-montserrat">
       <div className="relative h-[40vh] sm:h-[90vh]">
         <Image
           width={5378}
@@ -132,7 +187,7 @@ export default function Page() {
         />
         <div className="bg-black/30 absolute inset-0 flex items-center justify-center">
           <div className="w-8/12 xl:w-6/12 text-center text-white flex flex-col items-center gap-8 pt-10">
-            <div className="gap-3 sm:gap-5 lg:gap-10 text-[14px] sm:text-lg flex flex-row justify-center items-center flex-wrap lg:flex-nowrap sm:w-8/12">
+            {/* <div className="gap-3 sm:gap-5 lg:gap-10 text-[14px] sm:text-lg flex flex-row justify-center items-center flex-wrap lg:flex-nowrap sm:w-8/12">
               {exportDirectoryFilters.map((filter) => (
                 <button
                   key={filter.name}
@@ -146,7 +201,7 @@ export default function Page() {
                   {filter.name}
                 </button>
               ))}
-            </div>
+            </div> */}
             <div className="flex flex-col items-center gap-3">
               <div className="uppercase w-full font-bold text-xl xl:text-3xl">
                 Directorio de exportadores
@@ -163,7 +218,7 @@ export default function Page() {
                 className="w-10/12 text-blue-500 bg-white outline-none"
                 name="search"
                 value={search}
-                onChange={handleSearchChange}
+                onChange={(e) => setSearch(e.target.value)}
               />
             </div>
           </div>
@@ -185,66 +240,84 @@ export default function Page() {
                   <div className="w-full flex flex-col gap-2">
                     <div className="text-black font-bold">Sector</div>
                     <Select
-                      className=" !border-t-blue-gray-200 focus:!border-t-blue-950 bg-white"
-                      containerProps={{ className: "h-12" }}
-                      labelProps={{
-                        className: "before:content-none after:content-none",
+                      isMulti
+                      menuPosition="fixed"
+                      onChange={(e: any) => {
+                        // Agregar el seleccionado al array de sectores seleccionados
+                        setSectors(e.map((sector: any) => sector.value));
                       }}
-                      placeholder={undefined}
-                    >
-                      <Option>Exportador</Option>
-                      <Option>Inversionista</Option>
-                      <Option>Otro</Option>
-                    </Select>
+                      className="w-full z-50  overflow-auto"
+                      options={sectorsOptions}
+                      theme={(theme) => ({
+                        ...theme,
+                        borderRadius: 2,
+                        colors: {
+                          ...theme.colors,
+                          primary: "black",
+                        },
+                      })}
+                    />
                   </div>
                   <div className="w-full flex flex-col gap-2">
                     <div className="text-black font-bold">Producto</div>
                     <Select
-                      className=" !border-t-blue-gray-200 focus:!border-t-blue-950 bg-white"
-                      containerProps={{ className: "h-12" }}
-                      labelProps={{
-                        className: "before:content-none after:content-none",
+                      isMulti
+                      menuPosition="fixed"
+                      onChange={(e: any) => {
+                        // Agregar el seleccionado al array de productos seleccionados
+                        setProducts(e.map((product: any) => product.value));
                       }}
-                      placeholder={undefined}
-                    >
-                      <Option>Exportador</Option>
-                      <Option>Inversionista</Option>
-                      <Option>Otro</Option>
-                    </Select>
+                      className="w-full z-50  overflow-auto"
+                      options={productsOptions}
+                      theme={(theme) => ({
+                        ...theme,
+                        borderRadius: 2,
+                        colors: {
+                          ...theme.colors,
+                          primary: "black",
+                        },
+                      })}
+                    />
                   </div>
                   <div className="w-full flex flex-col gap-2">
                     <div className="text-black font-bold">Pais</div>
                     <Select
-                      className=" !border-t-blue-gray-200 focus:!border-t-blue-950 bg-white"
-                      containerProps={{ className: "h-12" }}
-                      labelProps={{
-                        className: "before:content-none after:content-none",
+                      isMulti
+                      menuPosition="fixed"
+                      onChange={(e: any) => {
+                        // Agregar el seleccionado al array de productos seleccionados
+                        setProducts(e.map((product: any) => product.value));
                       }}
-                      placeholder={undefined}
-                    >
-                      <Option>Exportador</Option>
-                      <Option>Inversionista</Option>
-                      <Option>Otro</Option>
-                    </Select>
+                      className="w-full z-50  overflow-auto"
+                      theme={(theme) => ({
+                        ...theme,
+                        borderRadius: 2,
+                        colors: {
+                          ...theme.colors,
+                          primary: "black",
+                        },
+                      })}
+                    />
                   </div>
                 </div>
               </Collapse>
             </div>
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-              {exportDirectoryData.map((exporter, index) => (
-                <ExporterCard
-                  key={index}
-                  name={exporter.name}
-                  sector={exporter.sector}
-                  logo={exporter.logo}
-                  telephone={exporter.telephone}
-                  email={exporter.email}
-                  address={exporter.address}
-                  web={exporter.web}
-                  products={exporter.products}
-                />
-              ))}
-            </div>
+            {isLoading ? (
+              <div className="w-full h-[85vh] bg-white flex justify-center items-center">
+                <Spinner className="size-7" />
+              </div>
+            ) : (
+              <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                {exporters.length > 0 &&
+                  exporters.map((exporter, index) => (
+                    <ExporterCard key={index} exporter={exporter} />
+                  ))}
+                {exporters.length === 0 &&
+                  exportersPage.map((exporter, index) => (
+                    <ExporterCard key={index} exporter={exporter} />
+                  ))}
+              </div>
+            )}
           </div>
         </div>
       </div>
@@ -252,79 +325,90 @@ export default function Page() {
   );
 }
 
-function ExporterCard({
-  name,
-  sector,
-  logo,
-  telephone,
-  email,
-  address,
-  web,
-  products,
-}: any) {
+function ExporterCard({ exporter }: { exporter: any }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(!open);
   return (
-    <div>
+    <div className="font-montserrat">
       <div
         className="flex flex-col text-gray-700 bg-white shadow-md rounded-xl h-full cursor-pointer group"
         onClick={handleOpen}
       >
-        <div className="mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-80">
-          <Image
-            width={2000}
-            height={2000}
-            src={logo}
-            alt="logo"
-            className="object-contain object-center w-full h-full group-hover:scale-110 transition-transform duration-500 ease-in-out"
-          />
+        <div className="mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-80 flex justify-center items-center">
+          {exporter.image && (
+            <Image
+              width={2000}
+              height={2000}
+              src={`${process.env.NEXT_PUBLIC_API_URL}/export/img/${exporter.id}/${exporter.image}`}
+              alt="logo"
+              className="size-60 object-cover aspect-square rounded-full"
+            />
+          )}
+          {!exporter.image && (
+            <div className="size-60 object-cover aspect-square rounded-full text-black font-black bg-gray-200 flex justify-center items-center text-6xl">
+              {exporter.name.substring(0, 2)}
+            </div>
+          )}
         </div>
         <div className="p-6 text-center">
-          <h4 className="block mb-2 font-sans text-2xl font-semibold tracking-normal text-blue-gray-900">
-            {name}
+          <h4 className="block mb-2 text-2xl font-semibold tracking-normal text-blue-gray-900 font-montserrat line-clamp-3">
+            <Tooltip content={exporter.name}>{exporter.name}</Tooltip>
           </h4>
-          <p>{sector}</p>
         </div>
       </div>
       <Dialog open={open} handler={handleOpen} placeholder={undefined}>
         <DialogBody placeholder={undefined}>
-          <div className="flex flex-col justify-center items-center gap-10 py-10">
-            <div className="flex flex-col items-center">
-              <Image
-                width={2000}
-                height={2000}
-                src={logo}
-                alt="logo"
-                className="size-60 object-cover aspect-square rounded-full"
-              />
-              <h4 className="block mb-2 font-sans text-2xl font-semibold tracking-normal text-blue-gray-900">
-                {name}
+          <div className="flex flex-col justify-center items-center gap-10 py-10 font-montserrat">
+            <div className="flex flex-col items-center gap-5">
+              {exporter.image && (
+                <Image
+                  width={2000}
+                  height={2000}
+                  src={`${process.env.NEXT_PUBLIC_API_URL}/export/img/${exporter.id}/${exporter.image}`}
+                  alt="logo"
+                  className="size-60 object-cover aspect-square rounded-full"
+                />
+              )}
+              {!exporter.image && (
+                <div className="size-60 object-cover aspect-square rounded-full text-black font-black bg-gray-200 flex justify-center items-center text-6xl">
+                  {exporter.name.substring(0, 2)}
+                </div>
+              )}
+              <h4 className="block mb-2 font-montserrat text-2xl font-semibold tracking-normal text-blue-gray-900">
+                {exporter.name}
               </h4>
-              <p>{sector}</p>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="flex flex-col items-center gap-4">
-                <Image
-                  width={500}
-                  height={500}
-                  src="/svg/export/telephoneIcon.svg"
-                  alt="telephone"
-                  className="size-12 object-cover"
-                />
-                <div className="text-center">{telephone}</div>
-              </div>
-              <div className="flex flex-col items-center gap-4">
-                <Image
-                  width={500}
-                  height={500}
-                  src="/svg/export/emailIcon.svg"
-                  alt="email"
-                  className="size-12 object-cover"
-                />
-                <div className="text-center">{email}</div>
-              </div>
-              {address && (
-                <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col lg:flex-row gap-5 justify-center items-center w-full ">
+              {exporter?.phone && (
+                <div className="w-full lg:w-1/3 flex flex-col items-center gap-4">
+                  <Image
+                    width={500}
+                    height={500}
+                    src="/svg/export/telephoneIcon.svg"
+                    alt="telephone"
+                    className="size-12 object-cover"
+                  />
+                  <div className="text-center break-words line-clamp-3">
+                    {exporter?.phone}
+                  </div>
+                </div>
+              )}
+              {exporter?.email && (
+                <div className="w-full lg:w-1/3 flex flex-col justify-center items-center gap-4">
+                  <Image
+                    width={500}
+                    height={500}
+                    src="/svg/export/emailIcon.svg"
+                    alt="email"
+                    className="size-12 object-cover"
+                  />
+                  <div className="text-center w-full break-words line-clamp-3">
+                    {exporter?.email}
+                  </div>
+                </div>
+              )}
+              {exporter?.address && (
+                <div className="w-full lg:w-1/3 flex flex-col items-center gap-4">
                   <Image
                     width={500}
                     height={500}
@@ -332,7 +416,9 @@ function ExporterCard({
                     alt="address"
                     className="size-12 object-cover"
                   />
-                  <div className="text-center">{address}</div>
+                  <div className="text-center break-words line-clamp-3">
+                    {exporter?.address}
+                  </div>
                 </div>
               )}
             </div>
@@ -341,19 +427,29 @@ function ExporterCard({
                 <h1 className="text-xl text-blue-dark font-bold">
                   Productos que exporta:
                 </h1>
-                <div className="flex flex-wrap gap-5">
-                  {products.map((product: string, index: number) => (
-                    <div
-                      key={index}
-                      className="bg-blue-dark text-white rounded-full px-5 py-3"
-                    >
-                      {product}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 w-full">
+                  {exporter.product
+                    .slice(0, 11)
+                    .map((product: any, index: number) => (
+                      <Tooltip
+                        content={product.product.name}
+                        placement="top"
+                        key={index}
+                      >
+                        <div className="bg-blue-dark text-white rounded-full px-5 py-3 text-sm truncate w-full">
+                          {product.product.name}
+                        </div>
+                      </Tooltip>
+                    ))}
+                  {exporter.product.length - 11 > 11 && (
+                    <div className="bg-blue-dark text-white rounded-full px-5 py-3 text-sm truncate w-full flex justify-center">
+                      {exporter.product.length - 11} productos más
                     </div>
-                  ))}
+                  )}
                 </div>
-                {web && (
+                {exporter?.website && (
                   <Link
-                    href={web}
+                    href={exporter?.website}
                     target="_blank"
                     className="text-xl text-blue-dark font-bold underline"
                   >
