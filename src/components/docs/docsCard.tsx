@@ -40,7 +40,7 @@ export default function DocsCard({ document }: { document: any }) {
         placeholder={undefined}
       >
         <Link
-          href={`${process.env.NEXT_PUBLIC_API_URL}/docs/pdf/${document.id}/${document.name}`}
+          href={`/Documentos/${document.name}`}
           target="_blank"
           rel="noopener noreferrer"
           download

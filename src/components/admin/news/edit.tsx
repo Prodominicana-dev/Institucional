@@ -435,7 +435,7 @@ export function EditNewsDialog({
             <TextEditor
               editor={minidescriptionEn}
               number={15}
-              description={news?.en.content}
+              description={news?.en.description}
             />
           </div>
           <div className="flex flex-col ">
