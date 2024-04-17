@@ -163,7 +163,10 @@ export default function Navbar() {
               navListMenuItems={newsListItems}
             />
             <NavbarLink title={t("shetrades")} link={"/shetrades"} />
-            <NavbarLink title={t("transparency")} link={"/transparency"} />
+            <NavbarLink
+              title={t("transparency")}
+              link={"https://old.prodominicana.gob.do/transparencia"}
+            />
             <NavbarLink title={t("contact")} link={"/contact"} />
             {/* <NavbarLink
               title={t("institute")}
