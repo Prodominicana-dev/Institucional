@@ -2,7 +2,7 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "path";
-import React from "react";
+import React, { useEffect } from "react";
 import prettyBytes from "pretty-bytes";
 
 export default function DocsCard({
@@ -16,34 +16,9 @@ export default function DocsCard({
     url: string;
     sectionId: string;
     title: string;
+    subsectionId: string;
   };
 }) {
-  const handleClick = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/files/docs/${doc.sectionId}/${doc.name}`
-      );
-
-      if (!response.ok) {
-        throw new Error(
-          `Error al descargar el archivo: ${response.statusText}`
-        );
-      }
-
-      const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = doc.name;
-      a.click();
-
-      URL.revokeObjectURL(url);
-    } catch (error) {
-      console.error("Error al descargar el archivo:", error);
-      // Mostrar mensaje al usuario o redirigir a página de error
-    }
-  };
   const date = new Date(doc.date).toLocaleDateString("es-ES");
 
   // Convertir el size a number, luego de KB a MB y solo mostrar 2 decimales
@@ -71,7 +46,7 @@ export default function DocsCard({
         />
         <div className="space-y-3 sm:space-y-0">
           <p className="text-lg text-black uppercase font-bold font-montserrat line-clamp-2">
-            {doc.title}
+            {doc.title ? doc.title : doc.name}
           </p>
           <div className="w-full flex gap-5">
             <p
@@ -85,12 +60,58 @@ export default function DocsCard({
           </div>
         </div>
       </div>
-      <button
-        onClick={handleClick}
-        className="bg-transparent border-2 border-red-600 text-red-600 hover:text-white hover:bg-red-600 duration-300 w-full md:w-44 h-12 rounded-lg flex justify-center items-center"
-      >
-        {!doc.url ? "Descargar" : "Ingresar"}
-      </button>
+      {!doc.url && !doc.subsectionId && (
+        <Link
+          href={
+            extension === "pdf"
+              ? `${process.env.NEXT_PUBLIC_API_URL}/section/pdf/${doc.sectionId}/${doc.name}`
+              : `${process.env.NEXT_PUBLIC_API_URL}/section/excel/${doc.sectionId}/${doc.name}`
+          }
+          target="_blank"
+          rel="noopener noreferrer"
+          download
+          //onClick={handleClick}
+          className="bg-transparent border-2 border-red-600 text-red-600 hover:text-white hover:bg-red-600 duration-300 w-full md:w-44 h-12 rounded-lg flex justify-center items-center"
+        >
+          {"Descargar"}
+        </Link>
+      )}
+      {doc.url && !doc.subsectionId && (
+        <a
+          href={doc.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-transparent border-2 border-red-600 text-red-600 hover:text-white hover:bg-red-600 duration-300 w-full md:w-44 h-12 rounded-lg flex justify-center items-center"
+        >
+          {"Ingresar"}
+        </a>
+      )}
+      {!doc.url && doc.subsectionId && (
+        <Link
+          href={
+            extension === "pdf"
+              ? `${process.env.NEXT_PUBLIC_API_URL}/subsection/pdf/${doc.sectionId}/${doc.subsectionId}/${doc.name}`
+              : `${process.env.NEXT_PUBLIC_API_URL}/subsection/excel/${doc.sectionId}/${doc.subsectionId}/${doc.name}`
+          }
+          target="_blank"
+          rel="noopener noreferrer"
+          download
+          //onClick={handleClick}
+          className="bg-transparent border-2 border-red-600 text-red-600 hover:text-white hover:bg-red-600 duration-300 w-full md:w-44 h-12 rounded-lg flex justify-center items-center"
+        >
+          {"Descargar"}
+        </Link>
+      )}
+      {doc.url && doc.subsectionId && (
+        <a
+          href={doc.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-transparent border-2 border-red-600 text-red-600 hover:text-white hover:bg-red-600 duration-300 w-full md:w-44 h-12 rounded-lg flex justify-center items-center"
+        >
+          {"Ingresar"}
+        </a>
+      )}
     </div>
   );
 }
