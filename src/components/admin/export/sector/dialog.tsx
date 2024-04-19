@@ -24,15 +24,14 @@ import Select from "react-select";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { createMember } from "@/services/structure-organizational/members/service";
 import axios from "axios";
-import { createProduct, editProduct } from "@/services/export/product/service";
+import { createProduct } from "@/services/export/product/service";
+import { createSector } from "@/services/export/sector/service";
 
-export function EditProductDialog({
-  product,
+export function SectorDialog({
   open,
   handler,
   update,
 }: {
-  product: any;
   open: boolean;
   handler: () => void;
   update: () => void;
@@ -43,7 +42,6 @@ export function EditProductDialog({
   const [nameEn, setNameEn] = useState("");
   const [aliasEn, setAliasEn] = useState("");
   const [code, setCode] = useState("");
-  const [productId, setProductId] = useState("");
   const [warning, setWarning] = useState(false);
   const [codeLoading, setCodeLoading] = useState(false);
   const [codeWarning, setCodeWarning] = useState(false);
@@ -53,27 +51,14 @@ export function EditProductDialog({
   const [isFirstStep, setIsFirstStep] = React.useState(false);
 
   useEffect(() => {
-    if (product) {
-      setName(product.name);
-      setAlias(product.alias);
-      setNameEn(product.nameEn);
-      setAliasEn(product.aliasEn);
-      setCode(product.code);
-      setProductId(product.code);
-    }
-  }, [product]);
-
-  useEffect(() => {
-    if (productId === code) return;
-    if (code.length > 3) {
+    if (code.length > 0) {
       (async () => {
         setCodeLoading(true);
-        const url = `${process.env.NEXT_PUBLIC_API_URL}/product/${code}`;
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/sector/${code}`;
         const { data } = await axios.get(url);
         data && setCodeWarning(true);
         data === "" && setCodeWarning(false);
         setCodeLoading(false);
-        console.log(data);
       })();
     } else {
       setCodeWarning(false);
@@ -110,7 +95,7 @@ export function EditProductDialog({
           aliasEn,
         };
 
-        await editProduct(product.id, data, update, user?.sub as string);
+        await createSector(data, update, user?.sub as string);
         setIsLoading(false);
         handler();
       }
@@ -123,8 +108,7 @@ export function EditProductDialog({
       section: (
         <div className="flex flex-col w-full space-y-4">
           <label htmlFor="nameEs" className="font-semibold text-black text-lg">
-            Código arancelario del producto{" "}
-            <span className="text-red-600">*</span>
+            Capítulo <span className="text-red-600">*</span>
           </label>
           <Input
             // disabled={codeLoading}
@@ -135,7 +119,7 @@ export function EditProductDialog({
             } duration-150`}
             onChange={(e) => setCode(e.target.value)}
             value={code}
-            placeholder="Código arancelario del producto"
+            placeholder="Capítulo del sector"
           />
           <label
             htmlFor="nameEs"
@@ -143,8 +127,8 @@ export function EditProductDialog({
               codeWarning ? "block" : "hidden"
             } text-red-600 text-sm`}
           >
-            <ExclamationCircleIcon className="size-5 inline-block" /> El código{" "}
-            {'"'}
+            <ExclamationCircleIcon className="size-5 inline-block" /> El
+            capítulo {'"'}
             {code}
             {'"'} ya existe.
           </label>
@@ -154,8 +138,8 @@ export function EditProductDialog({
               warning && !code ? "block" : "hidden"
             } text-red-600 text-sm`}
           >
-            <ExclamationCircleIcon className="size-5 inline-block" /> El código
-            es obligatorio.
+            <ExclamationCircleIcon className="size-5 inline-block" /> El
+            capítulo es obligatorio.
           </label>
           <label htmlFor="nameEs" className="font-semibold text-black text-lg">
             Nombre <span className="text-red-600">*</span>
@@ -166,7 +150,7 @@ export function EditProductDialog({
             className="w-full"
             onChange={(e) => setName(e.target.value)}
             value={name}
-            placeholder="Nombre del producto"
+            placeholder="Nombre del capítulo"
           />
           <label
             htmlFor="nameEs"
@@ -186,7 +170,7 @@ export function EditProductDialog({
             className="w-full"
             onChange={(e) => setAlias(e.target.value)}
             value={alias}
-            placeholder="Alias del producto"
+            placeholder="Alias del capítulo"
           />
         </div>
       ),
@@ -204,7 +188,7 @@ export function EditProductDialog({
             className="w-full"
             onChange={(e) => setNameEn(e.target.value)}
             value={nameEn}
-            placeholder="Nombre del producto en inglés"
+            placeholder="Nombre del capítulo en inglés"
           />
           <label
             htmlFor="nameEs"
@@ -224,7 +208,7 @@ export function EditProductDialog({
             className="w-full"
             onChange={(e) => setAliasEn(e.target.value)}
             value={aliasEn}
-            placeholder="Alias del producto en inglés"
+            placeholder="Alias del capítulo en inglés"
           />
         </div>
       ),
@@ -243,7 +227,7 @@ export function EditProductDialog({
           placeholder={undefined}
           className="font-semibold flex flex-col items-start gap-1 font-montserrat"
         >
-          Editar producto
+          Agregar sector
           <Stepper
             placeholder={undefined}
             activeStep={activeStep}

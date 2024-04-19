@@ -227,7 +227,7 @@ export function ProductDialog({
           placeholder={undefined}
           className="font-semibold flex flex-col items-start gap-1 font-montserrat"
         >
-          Agregar miembro
+          Agregar producto
           <Stepper
             placeholder={undefined}
             activeStep={activeStep}

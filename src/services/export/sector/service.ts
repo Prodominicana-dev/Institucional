@@ -14,30 +14,19 @@ export function useSector() {
   });
 }
 
-export function useGalleryById(id: string) {
+export function useSectorByCode(code: string) {
   return useQuery({
-    queryKey: ["memberById", id],
+    queryKey: ["sectorByCode", code],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/gallery/${id}`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/sector/${code}`;
       const { data } = await axios.get(url);
       return data;
     },
   });
 }
 
-export function useGalleryByNameAndLang(name: string) {
-  return useQuery({
-    queryKey: ["members"],
-    queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/gallery/nm/${name}`;
-      const { data } = await axios.get(url);
-      return data;
-    },
-  });
-}
-
-export async function createGallery(
-  gallery: any,
+export async function createSector(
+  sector: any,
   update: () => void,
   userId: string
 ) {
@@ -48,8 +37,8 @@ export async function createGallery(
     ).toString();
 
     const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/gallery`,
-      gallery,
+      `${process.env.NEXT_PUBLIC_API_URL}/sector`,
+      sector,
       {
         headers: {
           Authorization: userIdEncrypted,
@@ -59,11 +48,11 @@ export async function createGallery(
 
     if (res.status === 201) {
       notifications.show({
-        id: "member",
+        id: "sector",
         autoClose: 5000,
         withCloseButton: false,
-        title: "Colaborador creada",
-        message: "El colaborador ha sido creada correctamente.",
+        title: "Sector creado",
+        message: "El sector ha sido creado correctamente.",
         color: "green",
         loading: false,
       });
@@ -73,11 +62,11 @@ export async function createGallery(
     }
   } catch (error) {
     notifications.show({
-      id: "member",
+      id: "sector",
       autoClose: 5000,
       withCloseButton: false,
-      title: "Error creando al colaborador",
-      message: "Ocurrió un error creando al colaborador.",
+      title: "Error creando el sector",
+      message: "Ocurrió un error creando el sector.",
       color: "red",
       loading: false,
     });
@@ -91,8 +80,9 @@ function handleErrorResponse(response: any) {
         id: "member",
         autoClose: 5000,
         withCloseButton: false,
-        title: "Error creando al colaborador",
-        message: "Ocurrió un error creando al colaborador.",
+        title: "Error creando el sector",
+        message:
+          "Ocurrió un error creando el sector. Por favor, intenta de nuevo.",
         color: "red",
         loading: false,
       });
@@ -104,7 +94,7 @@ function handleErrorResponse(response: any) {
         autoClose: 5000,
         withCloseButton: false,
         title: "Usuario no autorizado",
-        message: "No tienes permisos para crear un colaborador.",
+        message: "No tienes permisos para crear un sector.",
         color: "red",
         loading: false,
       });
@@ -115,9 +105,9 @@ function handleErrorResponse(response: any) {
   }
 }
 
-export async function editGallery(
+export async function editSector(
   id: string,
-  gallery: any,
+  sector: any,
   update: () => void,
   userId: string
 ) {
@@ -127,8 +117,8 @@ export async function editGallery(
       process.env.NEXT_PUBLIC_CRYPTOJS_KEY
     ).toString();
     const res = await axios.patch(
-      `${process.env.NEXT_PUBLIC_API_URL}/gallery/${id}`,
-      gallery,
+      `${process.env.NEXT_PUBLIC_API_URL}/sector/${id}`,
+      sector,
       {
         headers: {
           Authorization: `${userIdEncrypted}`,
@@ -138,11 +128,11 @@ export async function editGallery(
 
     if (res.status === 200) {
       notifications.show({
-        id: "member",
+        id: "sector",
         autoClose: 5000,
         withCloseButton: false,
-        title: "Colaborador actualizada",
-        message: "El colaborador ha sido actualizado correctamente.",
+        title: "Sector actualizado",
+        message: "El sector ha sido actualizado correctamente.",
         color: "green",
         loading: false,
       });
@@ -152,12 +142,12 @@ export async function editGallery(
     }
   } catch (error) {
     notifications.show({
-      id: "member",
+      id: "sector",
       autoClose: 5000,
       withCloseButton: false,
-      title: "Error editando al colaborador",
+      title: "Error editando el sector",
       message:
-        "Ocurrió un error editando al colaborador. Por favor, intenta de nuevo.",
+        "Ocurrió un error editando el sector. Por favor, intenta de nuevo.",
       color: "red",
       loading: false,
     });
@@ -168,12 +158,12 @@ function handleEditErrorResponse(response: any) {
   switch (response.status) {
     case 500:
       notifications.show({
-        id: "member",
+        id: "sector",
         autoClose: 5000,
         withCloseButton: false,
-        title: "Error editando al colaborador",
+        title: "Error editando el sector",
         message:
-          "Ocurrió un error editando al colaborador. Por favor, intenta de nuevo.",
+          "Ocurrió un error editando el sector. Por favor, intenta de nuevo.",
         color: "red",
         loading: false,
       });
@@ -181,11 +171,11 @@ function handleEditErrorResponse(response: any) {
 
     case 401:
       notifications.show({
-        id: "member",
+        id: "sector",
         autoClose: 5000,
         withCloseButton: false,
         title: "Usuario inautorizado",
-        message: "No tienes permisos para editar un colaborador.",
+        message: "No tienes permisos para editar el sector.",
         color: "red",
         loading: false,
       });
@@ -196,7 +186,7 @@ function handleEditErrorResponse(response: any) {
   }
 }
 
-export function deleteGallery(
+export function deleteSector(
   id: string,
   handleOpen: () => void,
   update: () => void,
@@ -207,7 +197,7 @@ export function deleteGallery(
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
   ).toString();
   return axios
-    .delete(`${process.env.NEXT_PUBLIC_API_URL}/gallery/${id}`, {
+    .delete(`${process.env.NEXT_PUBLIC_API_URL}/sector/${id}`, {
       headers: {
         Authorization: `${userIdEncrypted}`,
       },
@@ -215,12 +205,11 @@ export function deleteGallery(
     .then((res) => {
       if (res.status === 200) {
         notifications.show({
-          id: "member",
+          id: "sector",
           autoClose: 5000,
           withCloseButton: false,
-          title: "Galería eliminada",
-          message:
-            "La galería y todas las fotos asociadas a esta galería han sido eliminada correctamente.",
+          title: "Sector eliminado",
+          message: "El sector ha sido eliminado correctamente.",
           color: "green",
           loading: false,
         });
@@ -229,22 +218,22 @@ export function deleteGallery(
       }
       if (res.status === 500) {
         notifications.show({
-          id: "member",
+          id: "sector",
           autoClose: 5000,
           withCloseButton: false,
           title: "Error",
-          message: "Hubo un error borrando la galería.",
+          message: "Hubo un error eliminando el sector.",
           color: "red",
           loading: false,
         });
       }
       if (res.status === 401) {
         notifications.show({
-          id: "member",
+          id: "sector",
           autoClose: 5000,
           withCloseButton: false,
           title: "Usuario inautorizado",
-          message: "No tienes permisos para eliminar la galería.",
+          message: "No tienes permisos para eliminar sectores.",
           color: "red",
           loading: false,
         });
