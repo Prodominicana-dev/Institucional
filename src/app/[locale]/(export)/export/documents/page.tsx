@@ -11,17 +11,9 @@ export default function Page() {
   useEffect(() => {
     if (!isLoading && data) {
       setDocuments(data);
-      console.log(data);
     }
   }, [data, isLoading]);
 
-  const docs = [
-    {
-      name: "Estructura Organica de la Institucion 2023",
-      document: "/documents/Estructura_Organica_de_la_Institucion_2023.pdf",
-      cover: "/images/export/ship.jpg",
-    },
-  ];
   return (
     <div>
       <div className="relative h-[40vh] sm:h-[80vh]">
