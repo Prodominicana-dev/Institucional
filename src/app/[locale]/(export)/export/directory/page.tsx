@@ -19,6 +19,8 @@ import {
 } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 
@@ -38,29 +40,19 @@ const exportDirectoryFilters = [
 ];
 
 export default function Page() {
-  const [search, setSearch] = React.useState("");
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const search = searchParams.get("search");
+  const [searchText, setSearchText] = React.useState("");
   const [sector, setSector] = useState(exportDirectoryFilters[0].name);
   const [filtersOpen, setFiltersOpen] = React.useState(false);
-  const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(27);
-  const [exportersPage, setExportersPage] = useState([]);
-  const [exporters, setExporters] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [perPage, setPerPage] = useState(6);
+  const [exporters, setExporters] = useState<any>([]);
   const [products, setProducts] = useState<any>([]);
   const [sectors, setSectors] = useState<any>([]);
   const [productsOptions, setProductsOptions] = useState([]);
   const [sectorsOptions, setSectorsOptions] = useState([]);
-  const {
-    data: exportersPerPage,
-    isLoading: exportersPerPageLoading,
-    refetch: exportersPerPageRefetch,
-  } = useExportersPerPage(perPage, page);
-
-  const {
-    data: exportersData,
-    isLoading: exportersDataLoading,
-    refetch: exportersDataRefetch,
-  } = useExporters();
+  const { data, isLoading, refetch } = useExportersPerPage(perPage);
 
   const { data: productsData, isLoading: productsDataLoading } =
     useExportersProducts();
@@ -91,24 +83,26 @@ export default function Page() {
   }, [productsData, productsDataLoading]);
 
   useEffect(() => {
-    if (!exportersPerPageLoading && exportersPerPage) {
-      setExportersPage(exportersPerPage.data);
+    if (data && !isLoading) {
+      setExporters(data?.pages.map((page) => page.data).flat());
     }
-  }, [exportersPerPage, exportersPerPageLoading]);
+  }, [data, isLoading]);
+
+  const handleEnterPress = (event: any) => {
+    if (event.key === "Enter" && searchText !== "") {
+      router.push(`/export/directory?search=${searchText}`, { scroll: false });
+    }
+    if (event.key === "Enter" && searchText === "") {
+      router.push(`/export/directory`, { scroll: false });
+    }
+  };
 
   useEffect(() => {
-    if (!exportersDataLoading && exportersData) {
-      setExporters(exportersData);
-    }
-  }, [exportersData, exportersDataLoading]);
-
-  useEffect(() => {
-    if (exportersData && !exportersDataLoading) {
-      let filteredExporters = [];
-      setIsLoading(true);
-      const lowerSearch = search.toLowerCase();
+    if (data && !isLoading) {
+      let filteredExporters = exporters;
+      const lowerSearch = search?.toLowerCase();
       if (search !== "") {
-        filteredExporters = exportersData.filter(
+        filteredExporters = exporters.filter(
           (exporter: any) =>
             exporter.name?.toLowerCase().includes(lowerSearch) ||
             exporter.province?.toLowerCase().includes(lowerSearch) ||
@@ -141,7 +135,7 @@ export default function Page() {
       }
 
       if (products.length > 0 && search === "") {
-        filteredExporters = exportersData?.filter((exporter: any) =>
+        filteredExporters = exporters?.filter((exporter: any) =>
           exporter.product.some((product: any) =>
             products.includes(product.product.name)
           )
@@ -158,7 +152,7 @@ export default function Page() {
       }
 
       if (sectors.length > 0 && search === "") {
-        filteredExporters = exportersData?.filter((exporter: any) =>
+        filteredExporters = exporters?.filter((exporter: any) =>
           exporter.product.some((product: any) =>
             sectors.includes(product.sector.name)
           )
@@ -166,9 +160,8 @@ export default function Page() {
       }
 
       setExporters(filteredExporters);
-      setIsLoading(false);
     }
-  }, [search, products, sectors, exportersData, exportersDataLoading]);
+  }, [search, products, sectors, data, isLoading]);
 
   const toggleFiltersOpen = () => setFiltersOpen((cur) => !cur);
   const handleSearchChange = () => {};
@@ -187,21 +180,6 @@ export default function Page() {
         />
         <div className="bg-black/30 absolute inset-0 flex items-center justify-center">
           <div className="w-8/12 xl:w-6/12 text-center text-white flex flex-col items-center gap-8 pt-10">
-            {/* <div className="gap-3 sm:gap-5 lg:gap-10 text-[14px] sm:text-lg flex flex-row justify-center items-center flex-wrap lg:flex-nowrap sm:w-8/12">
-              {exportDirectoryFilters.map((filter) => (
-                <button
-                  key={filter.name}
-                  onClick={() => handleFilter(filter.name)}
-                  className={`${
-                    sector === filter.name
-                      ? "bg-white text-black font-bold"
-                      : "bg-black/50 text-white hover:bg-white hover:text-black"
-                  } rounded-full p-3 sm:p-4 cursor-pointer text-center duration-200`}
-                >
-                  {filter.name}
-                </button>
-              ))}
-            </div> */}
             <div className="flex flex-col items-center gap-3">
               <div className="uppercase w-full font-bold text-xl xl:text-3xl">
                 Directorio de exportadores
@@ -217,8 +195,9 @@ export default function Page() {
                 placeholder="Buscar por nombre, sector, producto o país."
                 className="w-10/12 text-blue-500 bg-white outline-none"
                 name="search"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
+                value={searchText}
+                onChange={(e) => setSearchText(e.target.value)}
+                onKeyDown={handleEnterPress}
               />
             </div>
           </div>
@@ -302,22 +281,15 @@ export default function Page() {
                 </div>
               </Collapse>
             </div>
-            {isLoading ? (
-              <div className="w-full h-[85vh] bg-white flex justify-center items-center">
-                <Spinner className="size-7" />
-              </div>
-            ) : (
-              <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                {exporters.length > 0 &&
-                  exporters.map((exporter, index) => (
-                    <ExporterCard key={index} exporter={exporter} />
-                  ))}
-                {exporters.length === 0 &&
-                  exportersPage.map((exporter, index) => (
-                    <ExporterCard key={index} exporter={exporter} />
-                  ))}
-              </div>
-            )}
+
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+              {exporters.length > 0 &&
+                exporters.map((exporter: any, index: number) => {
+                  if (index === exporters.length - 1)
+                    return <ExporterCard key={index} exporter={exporter} />;
+                  return <ExporterCard key={index} exporter={exporter} />;
+                })}
+            </div>
           </div>
         </div>
       </div>

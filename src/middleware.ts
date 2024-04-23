@@ -141,7 +141,7 @@ export default createMiddleware({
     },
     "/export/directory": {
       en: "/export/directory",
-      es: "/exportacion/directorio-de-exportadores",
+      es: "/exportacion/directorio",
     },
     "/export/documents": {
       en: "/export/documents",

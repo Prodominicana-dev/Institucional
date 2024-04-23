@@ -1,16 +1,19 @@
 import { notifications } from "@mantine/notifications";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 var CryptoJS = require("crypto-js");
 
-export function useExportersPerPage(perPage: number, page: number) {
-  return useQuery({
+export function useExportersPerPage(perPage: number) {
+  const fetchExporters = async (pageParam: any) => {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/export/pagination/${perPage}/${pageParam}`;
+    const { data } = await axios.get(url);
+    return data;
+  };
+  return useInfiniteQuery({
     queryKey: ["exporters"],
-    queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/export/pagination/${perPage}/${page}`;
-      const { data } = await axios.get(url);
-      return data;
-    },
+    queryFn: ({ pageParam }) => fetchExporters(pageParam),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.meta.next,
   });
 }
 
