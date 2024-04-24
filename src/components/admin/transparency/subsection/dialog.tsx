@@ -12,7 +12,7 @@ import {
 import { createSection, useSection } from "@/services/section/service";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Select from "react-select";
-import { createSubsection } from "@/services/subsection/service";
+import { createSubsection, useSectionSubsAdmin } from "@/services/subsection/service";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { Montserrat } from "next/font/google";
 import SectionPopover from "../section/popover";
@@ -35,7 +35,7 @@ export function SubsectionDialog({
   const [description, setDescription] = useState("");
   const [link, setLink] = useState("");
   const [sectionId, setSectionId] = useState("");
-  const { data, refetch, isLoading: dataLoaded } = useSection();
+  const { data, refetch, isLoading: dataLoaded } = useSectionSubsAdmin();
   const [section, setSection] = useState([
     { value: "", label: "Selecciona una sección..." },
   ]);
@@ -51,11 +51,8 @@ export function SubsectionDialog({
 
   useEffect(() => {
     if (data && !dataLoaded) {
-      const sectionData =
-        data
-          ?.filter((e: Section) => e.type === "" || e.type === null)
-          .map((e: Section) => ({ value: e.id, label: e.name })) || [];
-      setSection(sectionData);
+      
+      setSection(data);
     }
   }, [data, dataLoaded]);
 

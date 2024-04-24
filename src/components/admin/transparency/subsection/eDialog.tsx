@@ -74,8 +74,7 @@ export function SubsectionEditDialog({
   };
 
   useEffect(() => {
-    if (data && !dataLoaded) {
-      setSection(data);
+    if(subsection){
       setName(subsection.name || "");
       setDescription(subsection.description || "");
       setSectionId(subsection.sectionId || "");
@@ -86,6 +85,12 @@ export function SubsectionEditDialog({
         : subsection.type === "url"
         ? setIsUrl(true)
         : null;
+    }
+  }, [subsection]);
+
+  useEffect(() => {
+    if (data && !dataLoaded) {
+      setSection(data);
     }
   }, [data, dataLoaded]);
 
@@ -148,8 +153,8 @@ export function SubsectionEditDialog({
                 type="text"
                 placeholder="Nombre de la subsección"
                 onChange={(e) => setName(e.target.value)}
-                defaultValue={name}
-              />
+                value={name}             
+                 />
             </div>
             <div className="flex flex-row justify-end items-end space-x-4 w-6/12">
               <div className="flex flex-col w-full">

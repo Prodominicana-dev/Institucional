@@ -22,13 +22,14 @@ export function useSectionSubsAdmin() {
     queryKey: ["secSubsAdmin"],
     queryFn: async () => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/section`;
-      const { data } = await axios.get(url);
-      const sectionsObject = data.sections.map((subsection: Section) => {
+      const res = await axios.get(url);
+      const sectionsObject = res.data.map((subsection: Section) => {
         return {
           value: subsection.id,
           label: subsection.name,
         };
       });
+      console.log(sectionsObject)
       return sectionsObject;
     },
   });
