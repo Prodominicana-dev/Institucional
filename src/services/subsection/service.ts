@@ -29,7 +29,6 @@ export function useSectionSubsAdmin() {
           label: subsection.name,
         };
       });
-      console.log(sectionsObject)
       return sectionsObject;
     },
   });
