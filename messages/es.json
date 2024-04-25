@@ -117,9 +117,9 @@
     "buttonText": "Ver más"
   },
   "ProdominicanaTV": {
-    "title": "Prodominicana TV",
-    "subtitle": "transmitirá el resto de episodios los últimos domingos de cada mes a las 3:00 p. m. por el Canal 4RD",
-    "description": "Espacio audiovisual cuyo propósito es impulsar a los productores nacionales, exportadores y potenciales exportadores, tanto como atraer las inversiones y proyectar lo mejor que tiene nuestro país para ofrecer."
+    "title": "ProDominicana TV",
+    "subtitle": "transmitirá el resto de episodios los últimos sábados de cada mes a las 5:30 p. m. por el Canal 4RD",
+    "description": "Programa televisivo cuyo propósito es impulsar a los productores nacionales, exportadores y potenciales exportadores, tanto como atraer las inversiones y proyectar lo mejor que tiene nuestro país para ofrecer."
   },
   "DataDashboard": {
     "title": "Tablero de datos",
@@ -415,7 +415,7 @@
     "home": {
       "title": "Empoderando a mujeres en e-commerce",
       "desc": "Únete al programa de aprendizaje virtual del Centro de Comercio Internacional (ITC) para incursionar en el e-commerce y expandir tus canales de venta en línea a nivel nacional e internacional.",
-      "buttonText": "Registrate en el Programa"
+      "buttonText": "Regístrate en el Programa"
     },
     "about": {
       "title": "Sobre el Programa",

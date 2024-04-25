@@ -43,7 +43,7 @@ export default function DigitalToolsSection() {
           {t("title")}
         </Typography>
         <Typography
-          className="text-xl xl:text-xl uppercase text-cyan-600 font-montserrat tracking-widest"
+          className="text-xl xl:text-xl uppercase text-cyan-600 font-opensans text-balance tracking-widest"
           placeholder={undefined}
         >
           {t("description")}

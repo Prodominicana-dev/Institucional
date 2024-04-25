@@ -37,7 +37,7 @@ export default function Page() {
     },
     {
       title: t("navbarMenuItems.register"),
-      link: "#register",
+      link: "https://forms.office.com/e/WW3rJ2Nett",
     },
   ];
 
@@ -182,21 +182,32 @@ export default function Page() {
           id="home"
           className="bg-white flex items-center justify-between py-10 lg:py-0"
         >
-          <div className="w-full lg:w-6/12 flex justify-center">
-            <div className="w-10/12 lg:w-8/12 flex flex-col items-center text-center gap-5 ">
+          <div className="w-full lg:w-6/12 flex flex-col items-center justify-center gap-4">
+          <div className="w-full flex flex-row items-center justify-center lg:flex-row gap-5 lg:gap-16">
               <Image
-                src="/svg/shetrades/itcshetrades.svg"
+                src="/prodominicana.svg"
                 alt="2020"
                 width={100}
                 height={100}
-                className="w-full xl:w-8/12"
+                className="w-5/12 xl:w-4/12"
               />
+              <Image
+                src="/svg/shetrades/itcshetradesplain.svg"
+                alt="2020"
+                width={100}
+                height={100}
+                className="w-5/12 xl:w-4/12"
+              />
+              </div>
+            <div className="w-10/12 lg:w-8/12 flex flex-col items-center text-center gap-5 ">
+              
               <div className="space-y-5 text-blueGray-400 text-xs lg:text-lg">
                 <p>{t("home.title")}</p>
                 <p>{t("home.desc")}</p>
               </div>
               <Link
-                href="#register"
+                href="https://forms.office.com/e/WW3rJ2Nett"
+                target="_blank"
                 className="bg-red-700 text-white lg:text-lg py-3 px-5 self-center rounded-full"
               >
                 {t("home.buttonText")}
@@ -320,7 +331,7 @@ export default function Page() {
             <ul className="list-[upper-roman] marker:text-lightBlue-400 marker:font-light marker:text-3xl sm:marker:text-5xl text-xl space-y-10">
               {benefits.map((item, index) => (
                 <li key={index}>
-                  <p className="text-gray-600">
+                  <p className="text-gray-600 break-words">
                     <strong className="text-trueGray-600">
                       {item.title}: {""}
                     </strong>

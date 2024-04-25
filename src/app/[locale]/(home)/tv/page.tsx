@@ -20,7 +20,7 @@ export default function Page() {
         >
           Prodominicana TV
         </Typography>
-        <div className="grid grid-cols-1 sm:grid-cols-3 w-full gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-3 w-full  gap-10">
           {videos.map((video: any, key) => (
             <iframe
               key={key}

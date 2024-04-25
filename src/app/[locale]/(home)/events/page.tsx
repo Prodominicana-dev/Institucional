@@ -167,13 +167,13 @@ function EventCard({
         <div className="w-11/12 flex justify-between items-center py-5 ">
           <p className="w-8/12 sm:text-sm xl:text-xl font-bold">{title}</p>
           <div className="h-full flex flex-col items-end gap-2 justify-end">
-            <Image
+            {/* <Image
               src="https://flagcdn.com/es.svg"
               alt="es"
               width={100}
               height={100}
               className="w-8"
-            />
+            /> */}
             <div className="flex items-center gap-2 uppercase font-semibold">
               <CalendarDaysIcon className="w-5" />
               <p className=" text-[12px] 2xl:text-[16px]">{month}</p>
