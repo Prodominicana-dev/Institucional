@@ -5,6 +5,7 @@ import {
   useExportersProducts,
   useExportersSectors,
 } from "@/services/export/directory/service";
+import { useDebounceValue } from "usehooks-ts";
 import {
   AdjustmentsHorizontalIcon,
   MagnifyingGlassIcon,
@@ -21,8 +22,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Select from "react-select";
+import { useIntersection } from "@mantine/hooks";
 
 const exportDirectoryFilters = [
   {
@@ -39,11 +41,12 @@ const exportDirectoryFilters = [
   },
 ];
 
-export default function Page() {
+export default function Page({ params }: { params: { locale: string } }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const search = searchParams.get("search");
-  const [searchText, setSearchText] = React.useState("");
+  const [searchText, setSearchText] = useState("");
+  const [debouncedSearch, setSearch] = useDebounceValue(searchText, 500);
   const [sector, setSector] = useState(exportDirectoryFilters[0].name);
   const [filtersOpen, setFiltersOpen] = React.useState(false);
   const [perPage, setPerPage] = useState(6);
@@ -52,122 +55,70 @@ export default function Page() {
   const [sectors, setSectors] = useState<any>([]);
   const [productsOptions, setProductsOptions] = useState([]);
   const [sectorsOptions, setSectorsOptions] = useState([]);
-  const { data, isLoading, refetch } = useExportersPerPage(perPage);
-
-  const { data: productsData, isLoading: productsDataLoading } =
-    useExportersProducts();
-
-  const { data: sectorsData, isLoading: sectorsDataLoading } =
-    useExportersSectors();
-
-  useEffect(() => {
-    if (!sectorsDataLoading && sectorsData) {
-      setSectorsOptions(
-        sectorsData.map((sector: any) => ({
-          value: sector,
-          label: sector,
-        }))
-      );
-    }
-  }, [sectorsData, sectorsDataLoading]);
+  const { data, isLoading, fetchNextPage, hasNextPage, refetch } =
+    useExportersPerPage({
+      perPage,
+      search,
+      products,
+      sectors,
+    });
+  const containerRef = useRef<HTMLElement>(null);
+  const { ref, entry } = useIntersection({
+    root: containerRef.current,
+    threshold: 1,
+  });
 
   useEffect(() => {
-    if (!productsDataLoading && productsData) {
-      setProductsOptions(
-        productsData.map((product: any) => ({
-          value: product,
-          label: product,
-        }))
-      );
-    }
-  }, [productsData, productsDataLoading]);
+    refetch();
+  }, [search]);
 
+  useEffect(() => {
+    if (hasNextPage && entry?.isIntersecting) fetchNextPage();
+  }, [entry, fetchNextPage, hasNextPage]);
   useEffect(() => {
     if (data && !isLoading) {
       setExporters(data?.pages.map((page) => page.data).flat());
     }
   }, [data, isLoading]);
 
-  const handleEnterPress = (event: any) => {
-    if (event.key === "Enter" && searchText !== "") {
-      router.push(`/export/directory?search=${searchText}`, { scroll: false });
-    }
-    if (event.key === "Enter" && searchText === "") {
-      router.push(`/export/directory`, { scroll: false });
-    }
-  };
+  const { data: productsData, isLoading: productsDataLoading } =
+    useExportersProducts(params.locale);
 
   useEffect(() => {
-    if (data && !isLoading) {
-      let filteredExporters = exporters;
-      const lowerSearch = search?.toLowerCase();
-      if (search !== "") {
-        filteredExporters = exporters.filter(
-          (exporter: any) =>
-            exporter.name?.toLowerCase().includes(lowerSearch) ||
-            exporter.province?.toLowerCase().includes(lowerSearch) ||
-            exporter.product
-              ?.map(
-                (product: any) =>
-                  product.product.name?.toLowerCase() ||
-                  product.product.nameEn?.toLowerCase()
-              )
-              .join(" ")
-              .includes(lowerSearch) ||
-            exporter.address?.toLowerCase().includes(lowerSearch) ||
-            exporter.sector
-              ?.map(
-                (sector: any) =>
-                  sector.name?.toLowerCase() || sector.nameEn?.toLowerCase()
-              )
-              .join(" ")
-              .includes(lowerSearch)
-        );
-      }
-
-      // Aplicar filtro por productos seleccionados
-      if (products.length > 0 && search !== "") {
-        filteredExporters = filteredExporters.filter((exporter: any) =>
-          exporter.product.some((product: any) =>
-            products.includes(product.product.name)
-          )
-        );
-      }
-
-      if (products.length > 0 && search === "") {
-        filteredExporters = exporters?.filter((exporter: any) =>
-          exporter.product.some((product: any) =>
-            products.includes(product.product.name)
-          )
-        );
-      }
-
-      // Aplicar filtro por sectores seleccionados
-      if (sectors.length > 0 && search !== "") {
-        filteredExporters = filteredExporters.filter((exporter: any) =>
-          exporter.product.some((product: any) =>
-            sectors.includes(product.sector.name)
-          )
-        );
-      }
-
-      if (sectors.length > 0 && search === "") {
-        filteredExporters = exporters?.filter((exporter: any) =>
-          exporter.product.some((product: any) =>
-            sectors.includes(product.sector.name)
-          )
-        );
-      }
-
-      setExporters(filteredExporters);
+    if (!productsDataLoading && productsData) {
+      console.log(productsData);
+      setProductsOptions(
+        productsData.map((product: any) => ({
+          value: product.name,
+          label: product.name,
+        }))
+      );
     }
-  }, [search, products, sectors, data, isLoading]);
+  }, [productsData, productsDataLoading]);
+
+  const { data: sectorsData, isLoading: sectorsDataLoading } =
+    useExportersSectors(params.locale);
+
+  useEffect(() => {
+    console.log(sectorsData);
+    if (!sectorsDataLoading && sectorsData) {
+      setSectorsOptions(
+        sectorsData.map((sector: any) => ({
+          value: sector.name,
+          label: sector.name,
+        }))
+      );
+    }
+  }, [sectorsData, sectorsDataLoading]);
+
+  useEffect(() => {
+    if (debouncedSearch === "") {
+      return router.push(`/export/directory`, { scroll: false });
+    }
+    router.push(`/export/directory?search=${searchText}`, { scroll: false });
+  }, [debouncedSearch]);
 
   const toggleFiltersOpen = () => setFiltersOpen((cur) => !cur);
-  const handleSearchChange = () => {};
-  const handleFilter = (selectedSector: string) => {
-    setSector(selectedSector);
-  };
   return (
     <div className="bg-white h-full font-montserrat">
       <div className="relative h-[40vh] sm:h-[90vh]">
@@ -195,9 +146,8 @@ export default function Page() {
                 placeholder="Buscar por nombre, sector, producto o país."
                 className="w-10/12 text-blue-500 bg-white outline-none"
                 name="search"
-                value={searchText}
+                value={searchText || ""}
                 onChange={(e) => setSearchText(e.target.value)}
-                onKeyDown={handleEnterPress}
               />
             </div>
           </div>
@@ -286,7 +236,11 @@ export default function Page() {
               {exporters.length > 0 &&
                 exporters.map((exporter: any, index: number) => {
                   if (index === exporters.length - 1)
-                    return <ExporterCard key={index} exporter={exporter} />;
+                    return (
+                      <div ref={ref}>
+                        <ExporterCard key={index} exporter={exporter} />
+                      </div>
+                    );
                   return <ExporterCard key={index} exporter={exporter} />;
                 })}
             </div>

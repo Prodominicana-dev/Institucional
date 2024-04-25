@@ -3,10 +3,22 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 var CryptoJS = require("crypto-js");
 
-export function useExportersPerPage(perPage: number) {
-  const fetchExporters = async (pageParam: any) => {
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/export/pagination/${perPage}/${pageParam}`;
-    const { data } = await axios.get(url);
+export function useExportersPerPage({
+  perPage,
+  search = "",
+  products = "",
+  sectors = "",
+}: any) {
+  const fetchExporters = async (page: any) => {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/export/pagination`;
+    const { data } = await axios.post(url, {
+      page,
+      perPage,
+      search,
+      products,
+      sectors,
+    });
+    console.log(data);
     return data;
   };
   return useInfiniteQuery({
@@ -28,23 +40,27 @@ export function useExporters() {
   });
 }
 
-export function useExportersProducts() {
+export function useExportersProducts(lang: string) {
   return useQuery({
     queryKey: ["exportersProducts"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/export/all/a/b/products`;
-      const { data } = await axios.get(url);
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/product/exported`;
+      const { data } = await axios.post(url, {
+        lang,
+      });
       return data;
     },
   });
 }
 
-export function useExportersSectors() {
+export function useExportersSectors(lang: string) {
   return useQuery({
     queryKey: ["exportersSectors"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/export/all/c/d/sectors`;
-      const { data } = await axios.get(url);
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/sector/exported`;
+      const { data } = await axios.post(url, {
+        lang,
+      });
       return data;
     },
   });
