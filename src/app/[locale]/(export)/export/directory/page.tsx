@@ -3,6 +3,7 @@ import {
   useExporters,
   useExportersPerPage,
   useExportersProducts,
+  useExportersProvinces,
   useExportersSectors,
 } from "@/services/export/directory/service";
 import { useDebounceValue } from "usehooks-ts";
@@ -51,16 +52,19 @@ export default function Page({ params }: { params: { locale: string } }) {
   const [filtersOpen, setFiltersOpen] = React.useState(false);
   const [perPage, setPerPage] = useState(6);
   const [exporters, setExporters] = useState<any>([]);
-  const [products, setProducts] = useState<any>([]);
-  const [sectors, setSectors] = useState<any>([]);
+  const [selectedProduct, setSelectedProduct] = useState<any>("");
+  const [selectedSector, SetSelectedSector] = useState<any>("");
+  const [selectedProvince, setSelectedProvince] = useState<any>("");
   const [productsOptions, setProductsOptions] = useState([]);
   const [sectorsOptions, setSectorsOptions] = useState([]);
+  const [provincesOptions, setProvincesOptions] = useState([]);
   const { data, isLoading, fetchNextPage, hasNextPage, refetch } =
     useExportersPerPage({
       perPage,
       search,
-      products,
-      sectors,
+      selectedProduct,
+      selectedSector,
+      selectedProvince,
     });
   const containerRef = useRef<HTMLElement>(null);
   const { ref, entry } = useIntersection({
@@ -70,7 +74,7 @@ export default function Page({ params }: { params: { locale: string } }) {
 
   useEffect(() => {
     refetch();
-  }, [search]);
+  }, [search, selectedSector, selectedProduct, selectedProvince]);
 
   useEffect(() => {
     if (hasNextPage && entry?.isIntersecting) fetchNextPage();
@@ -110,6 +114,20 @@ export default function Page({ params }: { params: { locale: string } }) {
       );
     }
   }, [sectorsData, sectorsDataLoading]);
+
+  const { data: provincesData, isLoading: provincesDataLoading } =
+    useExportersProvinces();
+
+  useEffect(() => {
+    if (!provincesDataLoading && provincesData) {
+      setProvincesOptions(
+        provincesData.map((province: any) => ({
+          value: province.province,
+          label: province.province,
+        }))
+      );
+    }
+  }, [provincesData, provincesDataLoading]);
 
   useEffect(() => {
     if (debouncedSearch === "") {
@@ -169,12 +187,10 @@ export default function Page({ params }: { params: { locale: string } }) {
                   <div className="w-full flex flex-col gap-2">
                     <div className="text-black font-bold">Sector</div>
                     <Select
-                      isMulti
                       menuPosition="fixed"
-                      onChange={(e: any) => {
-                        // Agregar el seleccionado al array de sectores seleccionados
-                        setSectors(e.map((sector: any) => sector.value));
-                      }}
+                      isClearable
+                      isSearchable
+                      onChange={(e: any) => SetSelectedSector(e ? e.value : "")}
                       className="w-full z-50  overflow-auto"
                       options={sectorsOptions}
                       theme={(theme) => ({
@@ -190,12 +206,12 @@ export default function Page({ params }: { params: { locale: string } }) {
                   <div className="w-full flex flex-col gap-2">
                     <div className="text-black font-bold">Producto</div>
                     <Select
-                      isMulti
                       menuPosition="fixed"
-                      onChange={(e: any) => {
-                        // Agregar el seleccionado al array de productos seleccionados
-                        setProducts(e.map((product: any) => product.value));
-                      }}
+                      isClearable
+                      isSearchable
+                      onChange={(e: any) =>
+                        setSelectedProduct(e ? e.value : "")
+                      }
                       className="w-full z-50  overflow-auto"
                       options={productsOptions}
                       theme={(theme) => ({
@@ -209,15 +225,16 @@ export default function Page({ params }: { params: { locale: string } }) {
                     />
                   </div>
                   <div className="w-full flex flex-col gap-2">
-                    <div className="text-black font-bold">Pais</div>
+                    <div className="text-black font-bold">Provincia</div>
                     <Select
-                      isMulti
                       menuPosition="fixed"
-                      onChange={(e: any) => {
-                        // Agregar el seleccionado al array de productos seleccionados
-                        setProducts(e.map((product: any) => product.value));
-                      }}
+                      isClearable
+                      isSearchable
+                      onChange={(e: any) =>
+                        setSelectedProvince(e ? e.value : "")
+                      }
                       className="w-full z-50  overflow-auto"
+                      options={provincesOptions}
                       theme={(theme) => ({
                         ...theme,
                         borderRadius: 2,

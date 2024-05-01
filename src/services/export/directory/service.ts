@@ -22,19 +22,21 @@ export function useExportersPaginated({ perpage, page, search }: any) {
 export function useExportersPerPage({
   perPage,
   search = "",
-  products = "",
-  sectors = "",
+  selectedProduct = "",
+  selectedSector = "",
+  selectedProvince = "",
 }: any) {
   const fetchExporters = async (page: any) => {
+    console.log(selectedProduct, selectedSector);
     const url = `${process.env.NEXT_PUBLIC_API_URL}/export/pagination`;
     const { data } = await axios.post(url, {
       page,
       perPage,
       search,
-      products,
-      sectors,
+      selectedProduct,
+      selectedSector,
+      selectedProvince,
     });
-    console.log(data);
     return data;
   };
   return useInfiniteQuery({
@@ -77,6 +79,17 @@ export function useExportersSectors(lang: string) {
       const { data } = await axios.post(url, {
         lang,
       });
+      return data;
+    },
+  });
+}
+
+export function useExportersProvinces() {
+  return useQuery({
+    queryKey: ["exportersProvinces"],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/export/provinces`;
+      const { data } = await axios.get(url);
       return data;
     },
   });
