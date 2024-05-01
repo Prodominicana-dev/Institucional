@@ -1,71 +1,49 @@
 "use client";
 import AuthUser from "@/components/admin/auth";
 import Sketch from "@/components/admin/sketch";
-import { DirectionsDialog } from "@/components/admin/structure-organizational/directions/dialog";
-import { MembersDialog } from "@/components/admin/structure-organizational/members/dialog";
-import { useMembers } from "@/services/structure-organizational/members/service";
-import { useDirections } from "@/services/structure-organizational/service";
-import { useUser } from "@auth0/nextjs-auth0/client";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Spinner } from "@material-tailwind/react";
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
-import { useExportersPerPage } from "@/services/export/directory/service";
+import { useExportersPaginated } from "@/services/export/directory/service";
 import Card from "@/components/admin/export/directory/card";
 import { ExporterDialog } from "@/components/admin/export/directory/dialog";
 
 export default function Page() {
   const [open, setOpen] = useState(false);
-  const { user, isLoading: userLoading } = useUser();
   const [filterOpen, setFilterOpen] = useState(false);
-  const { data, isLoading, refetch } = useMembers("es");
-  const [members, setMembers] = useState([]);
-  const [_refetch, setRefetch] = useState(false);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState<any>(null);
-  const [exportersPage, setExportersPage] = useState([]);
-  const [exporters, setExporters] = useState([]);
+  const [exporters, setExporters] = useState<any>([]);
   const [total, setTotal] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [perPage, setperPage] = useState(10);
 
-  const indexOfLast = currentPage * itemsPerPage;
-  const indexOfFirst = indexOfLast - itemsPerPage;
-  const currentMembers = members?.slice(indexOfFirst, indexOfLast);
-  const totalPages = Math.ceil(members?.length / itemsPerPage);
-
-  const {
-    data: exportersPerPage,
-    isLoading: exportersPerPageLoading,
-    refetch: exportersPerPageRefetch,
-  } = useExportersPerPage(itemsPerPage, currentPage);
+  const { data, isLoading, refetch } = useExportersPaginated({
+    perPage,
+    currentPage,
+  });
 
   useEffect(() => {
-    if (!exportersPerPageLoading && exportersPerPage) {
-      console.log(exportersPerPage);
-      setTotal(exportersPerPage.meta.total);
-      setExportersPage(exportersPerPage.data);
+    if (data && !isLoading) {
+      setTotal(data.meta.total);
+      setTotalPages(data.meta.lastPage);
+      setExporters(data.data);
     }
-  }, [exportersPerPage, exportersPerPageLoading]);
+  }, [data, isLoading]);
 
   useEffect(() => {
-    // Cuando cambie el itemsPerPage o currentPage se refetcheará la data
-    exportersPerPageRefetch().then((e) => {
-      setExportersPage(e.data);
-    });
-  }, [currentPage, itemsPerPage, _refetch]);
+    refetch();
+  }, [perPage]);
+
+  useEffect(() => {
+    refetch();
+  }, [currentPage]);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
-  };
-
-  useEffect(() => {
-    if (!isLoading && !userLoading) updateDirections;
-  }, [data, isLoading, userLoading, user]);
-
-  const updateDirections = () => {
-    setRefetch(!_refetch);
   };
 
   const handleOpen = () => {
@@ -74,28 +52,6 @@ export default function Page() {
   const handleFilterOpen = () => {
     setFilterOpen(!filterOpen);
   };
-
-  const handleFilter = () => {
-    if (data) {
-      let filteredData = [...data];
-      if (search !== "") {
-        filteredData = filteredData.filter((section) =>
-          section.name.toLowerCase().includes(search.toLowerCase())
-        );
-      }
-      if (filter !== null) {
-        filteredData = filteredData.filter(
-          (section) => section.status === filter
-        );
-      }
-      setMembers(filteredData as any);
-      setCurrentPage(1); // Reset page to 1 when applying filters
-    }
-  };
-
-  useEffect(() => {
-    handleFilter();
-  }, [search, filter]);
 
   const statusOption = [
     { value: null, label: "Todos" },
@@ -167,19 +123,19 @@ export default function Page() {
               <XMarkIcon className="w-7 h-7" />
             </button>
           </div>
-          {exportersPage?.length > 0 ? (
+          {exporters?.length > 0 ? (
             <>
               <div className="w-11/12 flex flex-col space-y-4">
                 <div className="w-full flex justify-between">
                   <div className="text-black flex items-center">
-                    {exportersPage?.length > 0 && (
+                    {exporters?.length > 0 && (
                       <>
                         Mostrando los exportadores del{" "}
                         {currentPage === 1
                           ? 1
-                          : (currentPage - 1) * itemsPerPage + 1}{" "}
-                        al {Math.min(currentPage * itemsPerPage, total)} de{" "}
-                        {total} totales.
+                          : (currentPage - 1) * perPage + 1}{" "}
+                        al {Math.min(currentPage * perPage, total)} de {total}{" "}
+                        totales.
                       </>
                     )}
                   </div>
@@ -191,9 +147,9 @@ export default function Page() {
                       menuPlacement="auto"
                       options={totalOption}
                       defaultValue={totalOption.find(
-                        (opt) => opt.value === itemsPerPage
+                        (opt) => opt.value === perPage
                       )}
-                      onChange={(e) => setItemsPerPage(e?.value as number)}
+                      onChange={(e) => setperPage(e?.value as number)}
                     />
                     <span>exportadores por página.</span>
                   </div>
@@ -206,13 +162,9 @@ export default function Page() {
                       <div>Acción</div>
                     </div>
 
-                    {exportersPage?.map((exporter: any, key: number) => {
+                    {exporters?.map((exporter: any, key: number) => {
                       return (
-                        <Card
-                          key={key}
-                          exporter={exporter}
-                          update={updateDirections}
-                        />
+                        <Card key={key} exporter={exporter} update={refetch} />
                       );
                     })}
 
@@ -245,11 +197,7 @@ export default function Page() {
           )}
         </Sketch>
         {open && (
-          <ExporterDialog
-            open={open}
-            handler={handleOpen}
-            update={updateDirections}
-          />
+          <ExporterDialog open={open} handler={handleOpen} update={refetch} />
         )}
       </AuthUser>
     </>

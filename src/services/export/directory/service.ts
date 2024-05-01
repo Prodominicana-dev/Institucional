@@ -3,6 +3,22 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 var CryptoJS = require("crypto-js");
 
+export function useExportersPaginated({ perpage, page, search }: any) {
+  const fetchExporters = async (page: any) => {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/export/pagination`;
+    const { data } = await axios.post(url, {
+      page,
+      perpage,
+      search,
+    });
+    return data;
+  };
+  return useQuery({
+    queryKey: ["exporters"],
+    queryFn: () => fetchExporters(page),
+  });
+}
+
 export function useExportersPerPage({
   perPage,
   search = "",
