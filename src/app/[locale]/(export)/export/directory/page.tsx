@@ -24,7 +24,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
-import Select from "react-select";
+import { Select } from "@mantine/core";
 import { useIntersection } from "@mantine/hooks";
 
 const exportDirectoryFilters = [
@@ -187,62 +187,34 @@ export default function Page({ params }: { params: { locale: string } }) {
                   <div className="w-full flex flex-col gap-2">
                     <div className="text-black font-bold">Sector</div>
                     <Select
-                      menuPosition="fixed"
-                      isClearable
-                      isSearchable
-                      onChange={(e: any) => SetSelectedSector(e ? e.value : "")}
-                      className="w-full z-50  overflow-auto"
-                      options={sectorsOptions}
-                      theme={(theme) => ({
-                        ...theme,
-                        borderRadius: 2,
-                        colors: {
-                          ...theme.colors,
-                          primary: "black",
-                        },
-                      })}
+                      clearable
+                      searchable
+                      placeholder="Sector"
+                      onChange={SetSelectedSector}
+                      className="w-full z-50  overflow-auto text-black"
+                      data={sectorsOptions}
                     />
                   </div>
                   <div className="w-full flex flex-col gap-2">
                     <div className="text-black font-bold">Producto</div>
                     <Select
-                      menuPosition="fixed"
-                      isClearable
-                      isSearchable
-                      onChange={(e: any) =>
-                        setSelectedProduct(e ? e.value : "")
-                      }
+                      clearable
+                      searchable
+                      placeholder="Producto"
+                      onChange={setSelectedProduct}
                       className="w-full z-50  overflow-auto"
-                      options={productsOptions}
-                      theme={(theme) => ({
-                        ...theme,
-                        borderRadius: 2,
-                        colors: {
-                          ...theme.colors,
-                          primary: "black",
-                        },
-                      })}
+                      data={productsOptions}
                     />
                   </div>
                   <div className="w-full flex flex-col gap-2">
                     <div className="text-black font-bold">Provincia</div>
                     <Select
-                      menuPosition="fixed"
-                      isClearable
-                      isSearchable
-                      onChange={(e: any) =>
-                        setSelectedProvince(e ? e.value : "")
-                      }
+                      clearable
+                      searchable
+                      placeholder="Provincia"
+                      onChange={setSelectedProvince}
                       className="w-full z-50  overflow-auto"
-                      options={provincesOptions}
-                      theme={(theme) => ({
-                        ...theme,
-                        borderRadius: 2,
-                        colors: {
-                          ...theme.colors,
-                          primary: "black",
-                        },
-                      })}
+                      data={provincesOptions}
                     />
                   </div>
                 </div>
