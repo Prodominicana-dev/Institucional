@@ -1,16 +1,31 @@
 import { notifications } from "@mantine/notifications";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 var CryptoJS = require("crypto-js");
 
-export function useExportersPerPage(perPage: number, page: number) {
-  return useQuery({
+export function useExportersPerPage({
+  perPage,
+  search = "",
+  products = "",
+  sectors = "",
+}: any) {
+  const fetchExporters = async (page: any) => {
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/export/pagination`;
+    const { data } = await axios.post(url, {
+      page,
+      perPage,
+      search,
+      products,
+      sectors,
+    });
+    console.log(data);
+    return data;
+  };
+  return useInfiniteQuery({
     queryKey: ["exporters"],
-    queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/export/pagination/${perPage}/${page}`;
-      const { data } = await axios.get(url);
-      return data;
-    },
+    queryFn: ({ pageParam }) => fetchExporters(pageParam),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) => lastPage.meta.next,
   });
 }
 
@@ -25,23 +40,27 @@ export function useExporters() {
   });
 }
 
-export function useExportersProducts() {
+export function useExportersProducts(lang: string) {
   return useQuery({
     queryKey: ["exportersProducts"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/export/all/a/b/products`;
-      const { data } = await axios.get(url);
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/product/exported`;
+      const { data } = await axios.post(url, {
+        lang,
+      });
       return data;
     },
   });
 }
 
-export function useExportersSectors() {
+export function useExportersSectors(lang: string) {
   return useQuery({
     queryKey: ["exportersSectors"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/export/all/c/d/sectors`;
-      const { data } = await axios.get(url);
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/sector/exported`;
+      const { data } = await axios.post(url, {
+        lang,
+      });
       return data;
     },
   });
