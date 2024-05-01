@@ -202,7 +202,7 @@ export default function Page({ params }: { params: { locale: string } }) {
                       searchable
                       placeholder="Producto"
                       onChange={setSelectedProduct}
-                      className="w-full z-50  overflow-auto"
+                      className="w-full z-50 overflow-auto text-black"
                       data={productsOptions}
                     />
                   </div>
@@ -213,7 +213,7 @@ export default function Page({ params }: { params: { locale: string } }) {
                       searchable
                       placeholder="Provincia"
                       onChange={setSelectedProvince}
-                      className="w-full z-50  overflow-auto"
+                      className="w-full z-50 overflow-auto text-black"
                       data={provincesOptions}
                     />
                   </div>
@@ -348,6 +348,7 @@ function ExporterCard({ exporter }: { exporter: any }) {
                       .slice(0, 11)
                       .map((product: any, index: number) => (
                         <Tooltip
+                          className="z-[9999]"
                           content={product.product.name}
                           placement="top"
                           key={index}
