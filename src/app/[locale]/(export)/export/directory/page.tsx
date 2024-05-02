@@ -130,11 +130,14 @@ export default function Page({ params }: { params: { locale: string } }) {
   }, [provincesData, provincesDataLoading]);
 
   useEffect(() => {
-    if (debouncedSearch === "") {
-      return router.push(`/export/directory`, { scroll: false });
-    }
-    router.push(`/export/directory?search=${searchText}`, { scroll: false });
-  }, [debouncedSearch]);
+    const queryParams = new URLSearchParams();
+    if (debouncedSearch) queryParams.append("search", debouncedSearch);
+    if (selectedProduct) queryParams.append("product", selectedProduct);
+    if (selectedSector) queryParams.append("sector", selectedSector);
+    if (selectedProvince) queryParams.append("province", selectedProvince);
+    const queryString = queryParams.toString();
+    router.push(`/export/directory?${queryString}`, { scroll: false });
+  }, [debouncedSearch, selectedProduct, selectedSector, selectedProvince]);
 
   const toggleFiltersOpen = () => setFiltersOpen((cur) => !cur);
   return (
@@ -259,7 +262,7 @@ function ExporterCard({ exporter }: { exporter: any }) {
               height={2000}
               src={`${process.env.NEXT_PUBLIC_API_URL}/export/img/${exporter.id}/${exporter.image}`}
               alt="logo"
-              className="size-60 object-cover aspect-square rounded-full"
+              className="w-8/12"
             />
           )}
           {!exporter.image && (
@@ -284,7 +287,7 @@ function ExporterCard({ exporter }: { exporter: any }) {
                   height={2000}
                   src={`${process.env.NEXT_PUBLIC_API_URL}/export/img/${exporter.id}/${exporter.image}`}
                   alt="logo"
-                  className="size-60 object-cover aspect-square rounded-full"
+                  className="size-60"
                 />
               )}
               {!exporter.image && (
