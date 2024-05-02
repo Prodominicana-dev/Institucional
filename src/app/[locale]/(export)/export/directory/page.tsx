@@ -277,8 +277,17 @@ function ExporterCard({ exporter }: { exporter: any }) {
           </h4>
         </div>
       </div>
-      <Dialog open={open} handler={handleOpen} placeholder={undefined}>
-        <DialogBody placeholder={undefined}>
+      <Dialog
+        open={open}
+        handler={handleOpen}
+        placeholder={undefined}
+        size="lg"
+        className="h-[90vh]"
+      >
+        <DialogBody
+          placeholder={undefined}
+          className="h-full overflow-y-auto no-scrollbar"
+        >
           <div className="flex flex-col justify-center items-center gap-10 py-10 font-montserrat">
             <div className="flex flex-col items-center gap-5">
               {exporter.image && (
@@ -287,7 +296,7 @@ function ExporterCard({ exporter }: { exporter: any }) {
                   height={2000}
                   src={`${process.env.NEXT_PUBLIC_API_URL}/export/img/${exporter.id}/${exporter.image}`}
                   alt="logo"
-                  className="size-60 object-cover"
+                  className="size-60 object-contain"
                 />
               )}
               {!exporter.image && (
