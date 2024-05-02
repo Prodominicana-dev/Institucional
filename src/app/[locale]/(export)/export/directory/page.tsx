@@ -192,6 +192,7 @@ export default function Page({ params }: { params: { locale: string } }) {
                       placeholder="Sector"
                       onChange={SetSelectedSector}
                       className="w-full z-50  overflow-auto text-black"
+                      classNames={{ option: "text-black" }}
                       data={sectorsOptions}
                     />
                   </div>
@@ -203,6 +204,7 @@ export default function Page({ params }: { params: { locale: string } }) {
                       placeholder="Producto"
                       onChange={setSelectedProduct}
                       className="w-full z-50 overflow-auto text-black"
+                      classNames={{ option: "text-black" }}
                       data={productsOptions}
                     />
                   </div>
@@ -214,6 +216,7 @@ export default function Page({ params }: { params: { locale: string } }) {
                       placeholder="Provincia"
                       onChange={setSelectedProvince}
                       className="w-full z-50 overflow-auto text-black"
+                      classNames={{ option: "text-black" }}
                       data={provincesOptions}
                     />
                   </div>
