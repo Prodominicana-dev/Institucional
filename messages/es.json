@@ -90,7 +90,7 @@
   },
   "DigitalTools": {
     "title": "Ecosistema digital",
-    "description": "Herramientas digitales que ofrece el centro de exportación e importación de la República Dominicana",
+    "description": "Herramientas digitales que ofrece el centro de exportación e inversión de la República Dominicana",
     "buttonText": "Ver todas las herramientas digitales"
   },
   "Institute": {
@@ -246,7 +246,7 @@
     "images": "imágenes"
   },
   "CEO": {
-    "name": "Biviana Riveiro",
+    "name": "Angelina Biviana Riveiro Disla",
     "title": "Directora Ejecutiva del Centro de Exportación e Inversión de la República Dominicana",
     "about": "Licenciada en Derecho con mención Magna Cum Laude de la Pontificia Universidad Católica Madre y Maestra PUCMM, Santo Domingo en el año 2002.",
     "description": "Queremos que nuestros exportadores cuenten, además, con servicios de facilitación del comercio mediante la participación en ferias y misiones comerciales alrededor del mundo, rondas de negocios con compradores internacionales y agendas de encadenamiento productivo.",
@@ -254,10 +254,10 @@
       "title": "Estudios",
       "data": [
         {
-          "desc": "Graduada del Colegio Dominicano de la Salle en el año 1998 y como abogada mención Magna Cum Laude de la Pontificia Universidad Católica Madre y Maestra PUCMM, Santo Domingo en el año 2002."
+          "desc": "Graduada del Colegio Dominicano de la Salle en el año 1998 y de la profesión de Derecho, mención Magna Cum Laude de la Pontificia Universidad Católica Madre y Maestra PUCMM, Santo Domingo en el año 2002."
         },
         {
-          "desc": "Ha realizado numerosos estudios y cursos nacionales e internacionales en instituciones como la Organización Mundial del Comercio, la Unión Internacional de Telecomunicaciones y cuenta con las siguientes maestrías, postgrados y diplomados: Maestría en Derecho de los Negocios Corporativos y Postgrados en Economía para Negocios; Diplomados en Derecho Internacional, Propiedad Intelectual, Derecho Bancario, Derecho Administrativo, Arbitraje, auspiciados por distintas universidades tanto locales como extranjeras. Asimismo, realizó el Programa de Alta Dirección Ejecutiva de Barna Business School."
+          "desc": "Ha realizado numerosos cursos nacionales e internacionales en instituciones como la Organización Mundial del Comercio, la Unión Internacional de Telecomunicaciones y cuenta con las siguientes maestrías, postgrados y diplomados: Maestría en Derecho de los Negocios Corporativos y Postgrado en Economía para Negocios; Programa de Gobierno Corporativo y Juntas Directivas y de Liderazgo Persuasivo de Wharton Executive Education de la Universidad de Pensilvania; Certificación del International Centre For Parliamentary Studies (ICPS), Reino Unido en materia de Inversión y Comercio Internacional; Diplomados en Derecho Internacional, Propiedad Intelectual, Derecho Bancario, Derecho Administrativo, Arbitraje, así como otros cursos auspiciados por distintas universidades tanto locales como extranjeras."
         }
       ]
     },
@@ -265,25 +265,25 @@
       "title": "Experiencia",
       "data": [
         {
-          "desc": "Inició sus trabajos en el ámbito legal en el año 2000, cuando ejerció como Paralegal y luego como Investigadora Asociada de la Fundación Institucionalidad y Justicia (FINJUS) hasta el año 2003."
+          "desc": "Inició sus trabajos en el ámbito legal en el año 2000, cuando trabajó como Paralegal y luego Investigadora Asociada de la Fundación Institucionalidad y Justicia (FINJUS) hasta el año 2003."
         },
         {
           "desc": "Fungió como Asesora Legal de la Gerencia de Políticas Regulatorias y Asesora Legal de la Gerencia de Asuntos Internacionales del Instituto Dominicano de Telecomunicaciones (INDOTEL), donde participó en la elaboración y revisión de reglamentos y normas relacionadas al sector de telecomunicaciones, manejo de temas como la sociedad de la información, comercio electrónico y delitos de alta tecnología; y representó a la institución en eventos y ante organismos internacionales como la Unión Internacional de Telecomunicaciones (UIT); la Comisión Interamericana de Telecomunicaciones de la OEA (CITEL); REGULATEL, entre otros organismos. Igualmente, trabajó como Abogada en la firma de Abogados, Oficina Melo Guerrero (OMG) desarrollando su práctica en el ámbito del derecho corporativo."
         },
         {
-          "desc": "Desde el año 2006 hasta el 2011, se desempeñó como Directora Ejecutiva de la Asociación Nacional de Jóvenes Empresarios (ANJE), pasando en el 2012 a ser parte de la Junta Directiva y en octubre de 2014 a ocupar la Presidencia de dicha entidad hasta octubre de 2015, impulsando desde la misma la mejora del clima de inversión, la seguridad jurídica, el emprendimiento, la innovación y la institucionalidad en República Dominicana."
+          "desc": "Desde el año 2006 hasta el 2011, se desempeñó como Directora Ejecutiva de la Asociación Nacional de Jóvenes Empresarios (ANJE), pasando en el 2012 a ser parte de la Junta Directiva y en octubre de 2014 a ocupar la Presidencia de dicha entidad hasta octubre de 2015. Desde dicha entidad impulsó la institucionalidad, el emprendimiento y la innovación en el país."
         },
         {
-          "desc": "En el año 2010, fundó oficina de consultoría legal y empresarial Grupo Legalia, desde donde ejerce la profesión de derecho en sus distintas áreas de práctica especializándose en derecho empresarial, civil, comercial, turismo, inversión extranjera, telecomunicaciones, cine, derecho de la competencia y del consumidor, aviación civil y propiedad intelectual. Ha desarrollado proyectos para la simplificación de trámites administrativos y colaborando en numerosas iniciativas y reformas legislativas."
+          "desc": "En el año 2010 fundó oficina de consultoría legal y empresarial Grupo Legalia, desde donde ejerció el derecho en sus distintas áreas de práctica especializándose en derecho civil y comercial, telecomunicaciones, cine, energía, derecho de la competencia y del consumidor, aviación civil y propiedad intelectual, inversión y comercio exterior."
         },
         {
-          "desc": "En agosto de 2016, se integró a la gestión del Ex Alcalde David Collado como Directora Jurídica Interina y Secretaria General de Ayuntamiento del Distrito Nacional. Desde abril a agosto de 2020, ocupó la Secretaría Técnica de la entidad edilicia, la cual mediante la Resolución 34/20 la declaró Munícipe Distinguida de la Ciudad de Santo Domingo por su gestión transparente y eficiente en el Ayuntamiento del Distrito Nacional. Durante su mandato, coordinó la creación del primer Plan Municipal de Seguridad Ciudadana de la ciudad de Santo Domingo."
+          "desc": "En agosto de 2016, se integró a la gestión del exalcalde David Collado como Directora Jurídica y Secretaria General en el Ayuntamiento del Distrito Nacional donde trabajó en los procesos de modernización, transparencia, simplificación de procesos en planeamiento urbano, reformas normativas para el tránsito, el Plan de Ordenamiento Territorial, Plan de Seguridad Ciudadana y el innovador centro de respuesta rápida para las demandas ciudadanas."
         },
         {
-          "desc": "Desde el 16 de agosto de 2020, se desempeña como Directora Ejecutiva del Centro de Exportación e Inversión de la República Dominicana designada mediante Decreto 329-20 del Presidente Constitucional, Luis Rodolfo Abinader Estrella."
+          "desc": "El 16 de agosto de 2020, mediante Decreto 329-20 del Presidente Luis Rodolfo Abinader fue designada como Directora Ejecutiva con rango por ley de Ministra de Estado del Centro de Exportación e Inversión de la República Dominicana (ProDominicana), desde donde ha impulsado el desarrollo del sector exportador y el volumen de exportaciones así como la atracción de inversión con récords sin precedentes para República Dominicana, siendo la agencia reconocida como una de las mejores en servicios innovadores con el galardón del Annual Investment Meeting del 2022 así como su rol de apoyo a la promoción de las exportaciones por la Asociación Dominicana de Exportadores (Adoexpo)."
         },
         {
-          "desc": "Ha sido docente universitaria y representante en distintos consejos en el ámbito empresarial. Ha obtenido diversos reconocimientos por su trayectoria profesional y social entre los que se destacan galardón por Mercado Social (2015); reconocimiento en el marco del Premio Nacional de la Juventud de República Dominicana, renglón Superación, Logros Personales y Desarrollo Empresarial, Ministerio de la Juventud (2015); por el Consejo Nacional de Seguridad Social, por sus aportes y trabajo como miembro del Consejo en representación de sector empleador (2013); por la Asociación Nacional de Jóvenes Empresarios por sus aportes al país (2010); galardonada de la XXXVII Premiación de Jóvenes Sobresalientes del año 2009 de la República Dominicana de Jaycees 72 (2010); reconocimiento de la Cámara de Comercio y Producción de Santo Domingo por su participación en la Ley General de Sociedades Comerciales (2009)."
+          "desc": "Ha sido docente universitaria y representante en distintos consejos en el ámbito empresarial. Ha obtenido diversos reconocimientos por su trayectoria profesional y social entre los que se destacan galardón por Mercado Social (2015); reconocimiento en el marco del Premio Nacional de la Juventud de República Dominicana, renglón Superación, Logros Personales y Desarrollo Empresarial, Ministerio de la Juventud (2015); por el Consejo Nacional de Seguridad Social, por sus aportes y trabajo como miembro del Consejo en representación de sector empleador (2013); por la Asociación Nacional de Jóvenes Empresarios por sus aportes al país (2010); galardonada de la XXXVII Premiación de Jóvenes Sobresalientes del año 2009 de la República Dominicana de Jaycees 72 (2010); reconocimiento de la Cámara de Comercio y Producción de Santo Domingo por su participación en la Ley General de Sociedades Comerciales y Empresas Individuales de Responsabilidad Limitada (2009)."
         }
       ]
     }
