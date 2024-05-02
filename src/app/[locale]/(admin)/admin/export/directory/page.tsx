@@ -23,7 +23,7 @@ export default function Page() {
 
   const { data, isLoading, refetch } = useExportersPaginated({
     perPage,
-    currentPage,
+    page: currentPage,
   });
 
   useEffect(() => {
@@ -36,11 +36,7 @@ export default function Page() {
 
   useEffect(() => {
     refetch();
-  }, [perPage]);
-
-  useEffect(() => {
-    refetch();
-  }, [currentPage]);
+  }, [perPage, currentPage, search, filter]);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);

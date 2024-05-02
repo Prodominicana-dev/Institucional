@@ -262,7 +262,7 @@ function ExporterCard({ exporter }: { exporter: any }) {
               height={2000}
               src={`${process.env.NEXT_PUBLIC_API_URL}/export/img/${exporter.id}/${exporter.image}`}
               alt="logo"
-              className="w-8/12"
+              className="w-8/12 object-cover"
             />
           )}
           {!exporter.image && (
@@ -287,7 +287,7 @@ function ExporterCard({ exporter }: { exporter: any }) {
                   height={2000}
                   src={`${process.env.NEXT_PUBLIC_API_URL}/export/img/${exporter.id}/${exporter.image}`}
                   alt="logo"
-                  className="size-60"
+                  className="size-60 object-cover"
                 />
               )}
               {!exporter.image && (
