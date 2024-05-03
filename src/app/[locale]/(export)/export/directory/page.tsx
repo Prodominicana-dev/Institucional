@@ -227,7 +227,7 @@ export default function Page({ params }: { params: { locale: string } }) {
               </Collapse>
             </div>
 
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-10">
               {exporters.length > 0 &&
                 exporters.map((exporter: any, index: number) => {
                   if (index === exporters.length - 1)
@@ -262,7 +262,7 @@ function ExporterCard({ exporter }: { exporter: any }) {
               height={2000}
               src={`${process.env.NEXT_PUBLIC_API_URL}/export/img/${exporter.id}/${exporter.image}`}
               alt="logo"
-              className="w-8/12 object-cover"
+              className="size-64 object-contain"
             />
           )}
           {!exporter.image && (
@@ -368,7 +368,7 @@ function ExporterCard({ exporter }: { exporter: any }) {
                           placement="top"
                           key={index}
                         >
-                          <div className="bg-blue-dark text-white rounded-full px-5 py-3 text-sm truncate w-full">
+                          <div className="bg-blue-dark text-white rounded-full px-5 py-3 text-sm truncate w-full text-center">
                             {product.product.name}
                           </div>
                         </Tooltip>
