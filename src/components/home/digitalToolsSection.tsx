@@ -36,18 +36,12 @@ export default function DigitalToolsSection() {
   return (
     <section className="flex flex-col xl:flex-row items-center justify-evenly p-10 sm:p-20 space-y-10 xl:space-y-0">
       <div className="flex flex-col space-y-5 xl:w-4/12 items-center text-center">
-        <Typography
-          className="text-3xl xl:text-4xl uppercase text-blue-950 font-extrabold font-opensans"
-          placeholder={undefined}
-        >
+        <div className="text-3xl xl:text-4xl uppercase text-blue-950 font-extrabold font-opensans">
           {t("title")}
-        </Typography>
-        <Typography
-          className="text-xl xl:text-xl uppercase text-cyan-600 font-opensans text-balance tracking-widest"
-          placeholder={undefined}
-        >
+        </div>
+        <div className="text-xl xl:text-xl uppercase text-cyan-600 font-opensans text-balance tracking-widest font-light">
           {t("description")}
-        </Typography>
+        </div>
       </div>
       <div className="xl:w-6/12 grid grid-cols-2 gap-10 xl:gap-16">
         {tools.map((tool, index) => (

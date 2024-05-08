@@ -6,7 +6,7 @@ import { usePathname, useRouter } from "@/navigation";
 import { useParams } from "next/navigation";
 
 const data = [
-  { label: "Español", code: "es", langcode: "es" },
+  { label: "Español", code: "do", langcode: "es" },
   { label: "English", code: "gb", langcode: "en" },
 ];
 
