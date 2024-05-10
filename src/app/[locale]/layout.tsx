@@ -6,6 +6,7 @@ import "@mantine/dropzone/styles.css";
 import "@mantine/notifications/styles.css";
 import "@mantine/carousel/styles.css";
 import { NextIntlClientProvider, useMessages, useLocale } from "next-intl";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { MantineProvider } from "@mantine/core";
 const inter = Inter({ subsets: ["latin"] });
 
@@ -56,6 +57,7 @@ export default function RootLayout({
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
           <MantineProvider>{children}</MantineProvider>
+          <GoogleAnalytics gaId="G-2026ZFW8SM" />
         </NextIntlClientProvider>
       </body>
     </html>
