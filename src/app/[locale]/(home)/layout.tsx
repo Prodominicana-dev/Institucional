@@ -3,6 +3,7 @@ import FooterMobile from "@/components/layout/footer/footerMobile";
 import NavBarMobile from "@/components/layout/navbar/navBarMobile";
 import Footer from "@/components/layout/footer/footer";
 import Navbar from "@/components/layout/navbar/navbar";
+import TawkMessenger from "@/components/chatbox/TawkMessenger";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -48,6 +49,7 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
             {children}
             <Footer />
             <FooterMobile />
+            <TawkMessenger />
           </APIProvider>
         </QueryClientProvider>
       </body>
