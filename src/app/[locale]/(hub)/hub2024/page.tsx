@@ -3,8 +3,12 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Countdown from "react-countdown";
-import LanguagePicker from "@/components/layout/navbar/languagePicker";
 import { useTranslations } from "next-intl";
+import { Menu, UnstyledButton } from "@mantine/core";
+import { usePathname, useRouter } from "@/navigation";
+import { useParams } from "next/navigation";
+import { GlobeAltIcon } from "@heroicons/react/24/outline";
+import { Button } from "@material-tailwind/react";
 
 export default function Page() {
   const t = useTranslations("hub");
@@ -37,10 +41,8 @@ export default function Page() {
         className="z-20 absolute inset-0 w-full h-full object-cover"
       />
       <div className="z-30 absolute inset-0 overflow-auto w-full h-full flex flex-col xl:flex-row xl:justify-center items-center gap-10 xl:gap-20 py-16 px-2">
-        <div className="absolute top-5 right-5">
-          <LanguagePicker />
-        </div>
         <div className="flex flex-col w-10/12 xl:w-4/12 gap-10">
+          <LanguagePicker />
           <div className="flex gap-10 w-full">
             <Image
               width={1920}
@@ -169,5 +171,54 @@ function HubCountDown() {
     <div className="flex gap-5" suppressHydrationWarning>
       <Countdown date={new Date("2024-09-04T09:00:00")} renderer={renderer} />
     </div>
+  );
+}
+const data = [
+  { label: "Español", code: "Esp", langcode: "es" },
+  { label: "English", code: "Eng", langcode: "en" },
+];
+
+function LanguagePicker() {
+  const locale = useParams().locale;
+  const router = useRouter();
+  const [opened, setOpened] = useState(false);
+  const [selected, setSelected] = useState(
+    data.find((item) => item.langcode === locale) || data[0]
+  );
+  const items = data.map((item) => (
+    <Menu.Item onClick={() => setSelected(item)} key={item.label}>
+      {item.label}
+    </Menu.Item>
+  ));
+
+  const pathname = usePathname();
+
+  function switchLocale(locale: string) {
+    router.replace(pathname, { locale: locale });
+  }
+  useEffect(() => {
+    switchLocale(selected.langcode);
+  }, [selected]);
+
+  return (
+    <Menu
+      onOpen={() => setOpened(true)}
+      onClose={() => setOpened(false)}
+      radius="md"
+    >
+      <Menu.Target>
+        <Button
+          data-expanded={opened || undefined}
+          placeholder={undefined}
+          className="flex items-center gap-2 rounded-full capitalize border-2 border-white bg-transparent hover:bg-white/10 duration-200 w-min px-5 py-2 text-white text-base"
+        >
+          <GlobeAltIcon className="size-5 text-white" />
+          {selected.code}
+        </Button>
+      </Menu.Target>
+      <Menu.Dropdown className="flex flex-col items-center justify-center bg-white">
+        {items}
+      </Menu.Dropdown>
+    </Menu>
   );
 }
