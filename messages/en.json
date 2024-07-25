@@ -1010,6 +1010,17 @@
   "faqs": {
     "title": "Frequently Asked Questions"
   },
+  "hub": {
+    "title": "Participate in the 6th Edition of the Multisectoral Event",
+    "title2": "The Power of Artificial Intelligence in Business",
+    "description": "Through the Business Rounds, international buyers will be able to establish new connections and contacts in a B2B environment, and strengthen trade relations with the Dominican Republic.",
+    "participate": "Access and participate in this great experience",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds",
+    "month": "September"
+  },
   "Footer": {
     "aboutUs": {
       "title": "ABOUT US",

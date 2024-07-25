@@ -1010,6 +1010,17 @@
   "faqs": {
     "title": "Preguntas frecuentes"
   },
+  "hub": {
+    "title": "Participa en la 6ta Edición del evento Multisectorial",
+    "title2": "El Poder de la Inteligencia Artificial en los negocios",
+    "description": "A través de las Rondas de Negocios, los compradoresinternacionales podrán establecer nuevos vínculos y contactos enun ambiente B2B, y reforzar las relaciones comerciales con la República Dominicana.",
+    "participate": "Accesa y participa de esta gran experiencia",
+    "days": "Días",
+    "hours": "Horas",
+    "minutes": "Minutos",
+    "seconds": "Segundos",
+    "month": "Septiembre"
+  },
   "Footer": {
     "aboutUs": {
       "title": "CONÓCENOS",
