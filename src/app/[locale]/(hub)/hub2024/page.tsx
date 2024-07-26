@@ -24,7 +24,13 @@ export default function Page() {
   ];
   return (
     <div className="w-full h-full xl:h-screen">
-      <video autoPlay loop muted className="w-full h-full object-cover">
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="w-full h-full object-cover"
+      >
         <source src="/videos/hub.mp4" type="video/mp4" />
       </video>
       <div className="z-10 absolute inset-0 w-full h-full bg-[#051628]/95"></div>
