@@ -14,16 +14,12 @@ export default function Page() {
   const t = useTranslations("hub");
   const forms = [
     {
-      title: "Buyers",
-      url: "https://wkf.ms/3UXk2hl",
+      title: t("buyers.title"),
+      url: t("buyers.url"),
     },
     {
-      title: "Exportadores",
-      url: "https://wkf.ms/3WdTfhu",
-    },
-    {
-      title: "Compradores",
-      url: "https://wkf.ms/3JUyhNt",
+      title: t("exporters.title"),
+      url: t("exporters.title"),
     },
   ];
   return (
@@ -31,7 +27,7 @@ export default function Page() {
       <video autoPlay loop muted className="w-full h-full object-cover">
         <source src="/videos/hub.mp4" type="video/mp4" />
       </video>
-      <div className="z-10 absolute inset-0 w-full h-full bg-gradient-to-tr from-[#5c1492]/95 to-[#263675]/95"></div>
+      <div className="z-10 absolute inset-0 w-full h-full bg-[#051628]/95"></div>
       <Image
         width={3840}
         height={2160}
@@ -40,7 +36,7 @@ export default function Page() {
         src="/images/hubCanvas.png"
         className="z-20 absolute inset-0 w-full h-full object-cover"
       />
-      <div className="z-30 absolute inset-0 overflow-auto w-full h-full flex flex-col xl:flex-row xl:justify-center items-center gap-10 xl:gap-20 py-16 px-2">
+      <div className="z-30 absolute inset-0 overflow-auto xl:overflow-hidden w-full h-full flex flex-col xl:flex-row xl:justify-center items-center gap-10 xl:gap-20 py-10 px-2">
         <div className="flex flex-col w-10/12 xl:w-4/12 gap-10">
           <LanguagePicker />
           <div className="flex gap-10 w-full">
@@ -61,24 +57,23 @@ export default function Page() {
               className="w-32 xl:w-5/12"
             />
           </div>
-          <div className="text-white flex flex-col gap-6 w-full">
-            <p className="text-2xl">
-              {t("title")}{" "}
-              <strong className="text-cyan-500">
-                &quot;{t("title2")}&quot;
-              </strong>
-            </p>
-            <p className="text-sm">{t("description")}</p>
-            <h1 className="uppercase text-xl">{t("participate")}</h1>
-            <div className="flex flex-wrap justify-center xl:justify-start gap-5">
-              {forms.map((form) => (
-                <FormButton
-                  key={form.title}
-                  title={form.title}
-                  url={form.url}
-                />
-              ))}
-            </div>
+          <div className="text-white flex flex-col gap-4 w-full">
+            <p className="text-xl xl:text-2xl">{t("title")}</p>
+            <Image
+              width={1920}
+              height={1080}
+              draggable={false}
+              alt="hubText"
+              src="/svg/hubText.svg"
+              className="w-96"
+            />
+            <p className="text-xs xl:text-sm">{t("description")}</p>
+            <h1 className="text-sm uppercase xl:text-xl">{t("participate")}</h1>
+          </div>
+          <div className="flex flex-wrap justify-center xl:justify-start gap-5">
+            {forms.map((form) => (
+              <FormButton key={form.title} title={form.title} url={form.url} />
+            ))}
           </div>
         </div>
         <DateTimeLocation />
@@ -122,7 +117,7 @@ function FormButton({ title, url }: { title: string; url: string }) {
     <Link
       href={url}
       target="_blank"
-      className="bg-cyan-500 hover:bg-cyan-500/80 duration-300 text-white px-6 py-3 rounded-full text-center"
+      className="bg-cyan-500 hover:bg-cyan-500/80 duration-300 text-[#051628] font-bold px-6 py-3 rounded-full text-center"
     >
       {title}
     </Link>

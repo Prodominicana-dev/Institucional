@@ -1019,7 +1019,15 @@
     "hours": "Horas",
     "minutes": "Minutos",
     "seconds": "Segundos",
-    "month": "Septiembre"
+    "month": "Septiembre",
+    "buyers": {
+      "title": "Compradores",
+      "url": "https://wkf.ms/3JUyhNt"
+    },
+    "exporters": {
+      "title": "Exportadores",
+      "url": "https://wkf.ms/3WdTfhu"
+    }
   },
   "Footer": {
     "aboutUs": {
