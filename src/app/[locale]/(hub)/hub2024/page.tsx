@@ -19,7 +19,7 @@ export default function Page() {
     },
     {
       title: t("exporters.title"),
-      url: t("exporters.title"),
+      url: t("exporters.url"),
     },
   ];
   return (
