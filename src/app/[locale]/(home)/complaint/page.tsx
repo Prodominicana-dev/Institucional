@@ -8,9 +8,7 @@ import {
   MenuHandler,
   MenuItem,
   MenuList,
-  Select,
-  Textarea,
-  Option,
+  Textarea
 } from "@material-tailwind/react";
 import {
   ChevronDownIcon,
@@ -21,17 +19,17 @@ import {
 import Link from "next/link";
 import { Map, AdvancedMarker, Pin, useMap } from "@vis.gl/react-google-maps";
 import { useTranslations } from "next-intl";
-import {createcontact} from '@/services/contact/service'
+import {createcomplaint} from '@/services/complait/service'
 
 export default function Page() {
   const map = useMap();
-  const t = useTranslations("contact");
+  const t = useTranslations("complaints");
   const [openMenu, setOpenMenu] = React.useState(false);
   const [name, setName] = React.useState('');
 
    const handleclick = (eName:any) => {
     setName(eName);
-    console.log('klk name',name);
+    // console.log('klk name',name);
     
    }
   const cards = [
@@ -178,22 +176,13 @@ export default function Page() {
   
   
     const [ formData,setFormData]= useState({
-      nameF: "",
+      name: "",
       lastName: "",
       email: "",
-      identity: "",
-      activity: "",
       message:"",
     });
 
-    const optionSelect =[
-
-      'Exportador',
-      'Inversionista',
-      'Otro'
-
-    ]
-
+   
     const handleInputChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
       const { name, value } = event.target;
       setFormData((prevData) => ({
@@ -203,12 +192,7 @@ export default function Page() {
     };
   
 
-  const handleSelectChange = ( value:string | undefined ) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      activity: value || '',
-    }));
-  };
+
 
   const handleTextAre = ( event:React.ChangeEvent<HTMLTextAreaElement>) => {
     const{ name, value } = event.target;
@@ -220,11 +204,9 @@ export default function Page() {
 
   const cleardataForm =() =>{
     setFormData({
-      nameF: "",
+      name: "",
       lastName: "",
       email: "",
-      identity: "",
-      activity: "",
       message:"",
     });
   }
@@ -234,7 +216,7 @@ export default function Page() {
   
     // console.log('Datos del formulario:', formData);
 
-    // await createcontact(formData,cleardataForm)
+    await createcomplaint(formData,cleardataForm)
   }
   return (
     <div className="bg-white">
@@ -254,9 +236,9 @@ export default function Page() {
             </div>
             <div className="flex flex-col sm:flex-row gap-5">
               <FormInput label={t("form.name")} placeholder="John"
-                value={formData.nameF}
+                value={formData.name}
                 onChange={handleInputChange}
-                name="nameF"
+                name="name"
               />
               <FormInput
                label={t("form.lastName")}
@@ -273,37 +255,7 @@ export default function Page() {
               onChange={handleInputChange}
               name="email"
             />
-            <div className="flex flex-col sm:flex-row gap-5">
-              <FormInput
-                label={t("form.identity")}
-                placeholder="000-00000000-0"
-                value={formData.identity}
-                onChange={handleInputChange}
-                name="identity"
-              />
-              <div className="w-full flex flex-col gap-2">
-                <div className="font-bold text-xl">{t("form.activity")}</div>
-                <Select
-                  className=" !border-t-blue-gray-200 focus:!border-t-blue-950 bg-white"
-                  value={formData.activity}
-                  onChange={handleSelectChange}
-                  containerProps={{ className: "h-12" }}
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
-                  placeholder={undefined}
-                >
-                 {
-                   optionSelect.map((option, index) => (
-                     <Option key={index} value={option}>
-                       {option}
-                     </Option>
-                   ))
-                 }
-              
-                </Select>
-              </div>
-            </div>
+            
             <div className="w-full flex flex-col gap-2">
               <div className="font-bold text-xl">{t("form.message")}</div>
               <Textarea
@@ -316,7 +268,7 @@ export default function Page() {
                 name="message"
               ></Textarea>
             </div>
-            <button type="submit" className="bg-blue-950 w-full py-5 text-xl text-white font-bold text-center rounded-xl">
+            <button type="submit" className=" bg-red-700 w-full py-5 text-xl text-white font-bold text-center rounded-xl">
               {t("form.button")}
             </button>
           </form>

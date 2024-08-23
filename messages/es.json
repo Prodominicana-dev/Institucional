@@ -56,6 +56,7 @@
   "GovPagesInfo": {
     "label": "Esta es una web oficial del Gobierno de la República Dominicana",
     "buttonText": "Así es como puedes saberlo",
+    "complaints":"Si tiene alguna queja o denuncia presione este link",
     "domainTitle": "Los sitios web oficiales utilizan .gob.do, .gov.do o .mil.do",
     "domainLabel": "Un sitio .gob.do, .gov.do o .mil.do significa que pertenece a una organización oficial del Estado dominicano.",
     "secureDomainTitle": "Los sitios web oficiales .gob.do, .gov.do o .mil.do seguros usan HTTPS",
@@ -517,6 +518,7 @@
       "message": "Mensaje",
       "button": "Enviar"
     },
+  
     "contactInfo": {
       "title": "Contáctanos directamente",
       "description": "Utiliza cualquiera de nuestras vías de contacto",
@@ -537,6 +539,40 @@
       "title": "Oficinas regionales",
       "description": "Encuentra la oficina más cercana a ti."
     }
+  },
+
+  "complaints": {
+    "title": "Denuncia",
+    "description": "Si tienes algun inconveniente, ¡Escríbenos!, tu información será manejada de forma confidencial.",
+    "form": {
+      "name": "Nombre",
+      "lastName": "Apellido",
+      "email": "Correo electrónico",
+      "message": "Mensaje",
+      "button": "Enviar"
+    },
+  
+    "contactInfo": {
+      "title": "Contáctanos directamente",
+      "description": "Utiliza cualquiera de nuestras vías de contacto",
+      "phone": {
+        "title": "Llámanos",
+        "description": "Contáctate con nosotros de lunes a viernes, 8:30AM - 4:30PM."
+      },
+      "email": {
+        "title": "Habla con nosotros",
+        "description": "Envíanos un correo si tienes alguna duda."
+      },
+      "address": {
+        "title": "Visítanos",
+        "info": "Abrir en Google Maps"
+      }
+    },
+    "regionalOffices": {
+      "title": "Oficinas regionales",
+      "description": "Encuentra la oficina más cercana a ti."
+    }
+      
   },
   "invest": {
     "navbar": {

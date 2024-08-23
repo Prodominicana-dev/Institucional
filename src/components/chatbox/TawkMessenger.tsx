@@ -4,7 +4,6 @@ import TawkMessengerReact from '@tawk.to/tawk-messenger-react';
 export default function TawkMessenger() {
     const tawkMessengerRef = useRef();
     const onLoad = () => {
-        // console.log('onLoad works!');
     };
   
     return (

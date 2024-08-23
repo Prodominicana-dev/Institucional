@@ -7,6 +7,9 @@ import { Collapse } from "@material-tailwind/react";
 import React, { useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
+
+
 
 export default function GovPagesInfo() {
   const [open, setOpen] = useState(false);
@@ -41,7 +44,14 @@ export default function GovPagesInfo() {
               </div>
             </button>
           </div>
+
         </div>
+          <Link
+          href='/complaint'
+          className="items-center flex justify-between text-red-700  text-start font-bold text-xs underline mb-1 -translate-x-14"
+          >
+          <p>{t("complaints")}</p>
+          </Link>
       </div>
       <Collapse open={open} className="flex justify-center bg-white">
         <div className="w-10/12 h-[150px] grid grid-cols-2">

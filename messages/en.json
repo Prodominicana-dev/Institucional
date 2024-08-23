@@ -1001,6 +1001,41 @@
       "description": "Find the office nearest to you."
     }
   },
+
+  "complaints": {
+
+    "title": "Complaints",
+    "description": "If you have any inconvenient, Write to us!",
+    "form": {
+      "name": "Name",
+      "lastName": "Last Name",
+      "email": "Email",
+      "message": "Message",
+      "button": "Send"
+    },
+    "contactInfo": {
+      "title": "Contact us directly",
+      "description": "Use any of our contact channels",
+      "phone": {
+        "title": "Call us",
+        "description": "Contact us from Monday to Friday, 8:30AM - 4:30PM."
+      },
+      "email": {
+        "title": "Talk to us",
+        "description": "Send us an email if you have any questions."
+      },
+      "address": {
+        "title": "Visit us",
+        "info": "Open in Google Maps"
+      }
+    },
+    "regionalOffices": {
+      "title": "Regional Offices",
+      "description": "Find the office nearest to you."
+    }
+
+  },
+
   "termsofuse": {
     "title": "Terms of Use"
   },
