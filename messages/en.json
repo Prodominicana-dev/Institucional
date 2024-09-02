@@ -56,6 +56,7 @@
   "GovPagesInfo": {
     "label": "This is an official website of the Government of the Dominican Republic",
     "buttonText": "Here's how you can verify it",
+    "complaints":"If you have any complaints or concerns,click here",
     "domainTitle": "Official websites use .gob.do, .gov.do, or .mil.do domains",
     "domainLabel": "A .gob.do, .gov.do, or .mil.do site signifies that it belongs to an official organization of the Dominican State.",
     "secureDomainTitle": "Secure official websites use HTTPS with .gob.do, .gov.do, or .mil.do domains",
@@ -1004,8 +1005,8 @@
 
   "complaints": {
 
-    "title": "Complaints",
-    "description": "If you have any inconvenient, Write to us!",
+    "title": "Complaint",
+    "description": "If you encounter any issues, feel free to contact us! Your information will be handled confidentially.",
     "form": {
       "name": "Name",
       "lastName": "Last Name",
