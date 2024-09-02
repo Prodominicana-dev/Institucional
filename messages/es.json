@@ -69,7 +69,7 @@
     "telCodeLabel": "Código de teléfono",
     "telCode": "+1-809, +1-829, +1-849",
     "govDivisionLabel": "División administrativa",
-    "govDivision": "32 provincias y un Distrito Nacional",
+    "govDivision": "31 provincias y un Distrito Nacional",
     "govFormLabel": "Forma del Estado",
     "govForm": "Sistema de gobierno democrático, representativo y presidencial",
     "weatherLabel": "Clima",
@@ -79,7 +79,7 @@
     "timeZoneLabel": "Zona Horaria",
     "timeZone": "GMT-4",
     "currencyLabel": "Moneda",
-    "currency": "Peso Dominicano (RD$)",
+    "currency": "Peso Dominicano (DOP)",
     "areaLabel": "Superficie",
     "area": "48,442 km2"
   },

@@ -68,7 +68,7 @@
     "telCodeLabel": "Telephone Code",
     "telCode": "+1-809, +1-829, +1-849",
     "govDivisionLabel": "Administrative Division",
-    "govDivision": "32 provinces and one National District",
+    "govDivision": "31 provinces and one National District",
     "govFormLabel": "Form of Government",
     "govForm": "Democratic, representative, and presidential system of government",
     "weatherLabel": "Climate",
@@ -78,7 +78,7 @@
     "timeZoneLabel": "Time Zone",
     "timeZone": "GMT-4",
     "currencyLabel": "Currency",
-    "currency": "Dominican Peso (RD$)",
+    "currency": "Dominican Peso (DOP)",
     "areaLabel": "Area",
     "area": "48,442 km2"
   },
