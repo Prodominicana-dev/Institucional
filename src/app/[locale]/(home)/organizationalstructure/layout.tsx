@@ -57,7 +57,7 @@ export default function RootLayout({
           {t("title")}
         </h1>
         <Link
-          href={"/documents/Estructura_Organica_de_la_Institucion_2023.pdf"}
+          href={"/documents/ORGANIGRAMA_GENERAL_2024.pdf"}
           target="_blank"
           rel="noopener noreferrer"
           download
