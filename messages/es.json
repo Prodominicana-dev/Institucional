@@ -51,7 +51,8 @@
     "contact": "Contacto",
     "institute": "Instituto",
     "investButton": "Inversión",
-    "exportButton": "Exportación"
+    "exportButton": "Exportación",
+    "complaint": "Denuncia"
   },
   "GovPagesInfo": {
     "label": "Esta es una web oficial del Gobierno de la República Dominicana",
@@ -543,13 +544,16 @@
 
   "complaints": {
     "title": "Denuncia",
-    "description": "Si tienes algun inconveniente, ¡Escríbenos!, tu información será manejada de forma confidencial.",
+    "description": "Si tiene algún inconveniente, escríbenos.La información proporcionada será manejada con confidencialidad.",
     "form": {
       "name": "Nombre",
       "lastName": "Apellido",
       "email": "Correo electrónico",
       "message": "Mensaje",
-      "button": "Enviar"
+      "button": "Enviar",
+      "department": " Institución Involucrada",
+      "companyName":"Nombre de Empresa",
+      "date":"Fecha"
     },
   
     "contactInfo": {

@@ -135,7 +135,7 @@ export default function Navbar() {
         </div>
       </div>
       <div className="w-full h-full bg-blue-950 flex justify-center ">
-        <div className="w-10/12 flex  items-center">
+        <div className=" w-11/12 flex  items-center">
           <div className="flex flex-wrap w-full h-full justify-center">
             <Link
               href={"/"}
@@ -168,6 +168,8 @@ export default function Navbar() {
               link={"https://old.prodominicana.gob.do/transparencia"}
             />
             <NavbarLink title={t("contact")} link={"/contact"} />
+
+            <NavbarLink title={t("complaint")} link={"/complaint"} />
             {/* <NavbarLink
               title={t("institute")}
               link={"https://instituto.prodominicana.gob.do"}

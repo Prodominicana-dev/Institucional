@@ -8,7 +8,9 @@ import {
   MenuHandler,
   MenuItem,
   MenuList,
-  Textarea
+  Textarea,
+  Select,
+  Option,
 } from "@material-tailwind/react";
 import {
   ChevronDownIcon,
@@ -19,19 +21,20 @@ import {
 import Link from "next/link";
 import { Map, AdvancedMarker, Pin, useMap } from "@vis.gl/react-google-maps";
 import { useTranslations } from "next-intl";
-import {createcomplaint} from '@/services/complait/service'
+import { createcomplaint } from "@/services/complait/service";
+import{optionSelect} from "./institutionsList"
 
 export default function Page() {
   const map = useMap();
   const t = useTranslations("complaints");
   const [openMenu, setOpenMenu] = React.useState(false);
-  const [name, setName] = React.useState('');
+  const [name, setName] = React.useState("");
 
-   const handleclick = (eName:any) => {
+  const handleclick = (eName: any) => {
     setName(eName);
     // console.log('klk name',name);
-    
-   }
+  };
+
   const cards = [
     {
       title: t("contactInfo.phone.title"),
@@ -173,51 +176,61 @@ export default function Page() {
     map.setCenter(activeMarker.coords);
     map.setZoom(15);
   }, [map, activeMarker]);
-  
-  
-    const [ formData,setFormData]= useState({
-      name: "",
-      lastName: "",
-      email: "",
-      message:"",
-    });
 
-   
-    const handleInputChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
-      const { name, value } = event.target;
-      setFormData((prevData) => ({
-        ...prevData,
-        [name!]: value,
-      }));
-    };
-  
+  const [formData, setFormData] = useState({
+    name: "",
+    lastName: "",
+    email: "",
+    message: "",
+    departmen: "",
+    companyName:"",
+    date: "",
+  });
 
-
-
-  const handleTextAre = ( event:React.ChangeEvent<HTMLTextAreaElement>) => {
-    const{ name, value } = event.target;
+  const handleInputChange = (
+    event: React.ChangeEvent<{ name?: string; value: unknown }>
+  ) => {
+    const { name, value } = event.target;
     setFormData((prevData) => ({
-     ...prevData,
-       [name]:value,
+      ...prevData,
+      [name!]: value,
     }));
   };
 
-  const cleardataForm =() =>{
+  const handleSelectChange = (value: string | undefined) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      departmen: value || "",
+    }));
+  };
+
+  const handleTextAre = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const cleardataForm = () => {
     setFormData({
       name: "",
       lastName: "",
       email: "",
-      message:"",
+      message: "",
+      departmen: "",
+      companyName:"",
+      date: "",
     });
-  }
+  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-  
-    // console.log('Datos del formulario:', formData);
 
-    await createcomplaint(formData,cleardataForm)
-  }
+    //  console.log('Datos del formulario:', formData);
+
+    await createcomplaint(formData, cleardataForm);
+  };
   return (
     <div className="bg-white">
       <section className="flex justify-center py-10">
@@ -229,33 +242,77 @@ export default function Page() {
             alt={""}
             className="rounded-3xl object-cover h-full w-6/12 hidden xl:block"
           />
-          <form onSubmit={handleSubmit}   className="flex flex-col gap-5 py-2 text-blue-950 xl:w-6/12 w-full">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-5 py-2 text-blue-950 xl:w-6/12 w-full"
+          >
             <div>
               <h1 className="text-4xl font-extrabold">{t("title")}</h1>
               <p className="font-semibold">{t("description")}</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-5">
-              <FormInput label={t("form.name")} placeholder="John"
+              <FormInput
+                label={t("form.name")}
+                placeholder="John"
                 value={formData.name}
                 onChange={handleInputChange}
                 name="name"
               />
               <FormInput
-               label={t("form.lastName")}
+                label={t("form.lastName")}
                 placeholder="Doe"
                 value={formData.lastName}
                 onChange={handleInputChange}
                 name="lastName"
-                />
+              />
             </div>
-            <FormInput
-              label={t("form.email")}
-              placeholder="example@email.com"
-              value={formData.email}
-              onChange={handleInputChange}
-              name="email"
-            />
-            
+            <div className="flex flex-col sm:flex-row gap-5">
+              <FormInput
+                label={t("form.email")}
+                placeholder="example@email.com"
+                value={formData.email}
+                onChange={handleInputChange}
+                name="email"
+              />
+
+              <FormInput
+                label={t("form.companyName")}
+                placeholder={t("form.companyName")}
+                value={formData.companyName}
+                onChange={handleInputChange}
+                name="companyName"
+              />
+            </div>
+            <div className="flex flex-col sm:flex-row gap-5">
+              <div className="w-full flex flex-col gap-2">
+                <div className="font-bold text-xl">{t("form.department")}</div>
+                <Select
+                  className=" !border-t-blue-gray-200 focus:!border-t-blue-950 bg-white"
+                  value={formData.departmen}
+                  onChange={handleSelectChange}
+                  containerProps={{ className: "h-12" }}
+                  labelProps={{
+                    className: "before:content-none after:content-none",
+                  }}
+                  placeholder={undefined}
+                >
+                  {optionSelect.map((option, index) => (
+                    <Option key={index} value={option}>
+                      {option}
+                    </Option>
+                  ))}
+                </Select>
+              </div>
+
+              <FormInput
+                label={t("form.date")}
+                placeholder="dd/mm/yyyy"
+                value={formData.date}
+                onChange={handleInputChange}
+                name="date"
+              />
+            </div>
+
             <div className="w-full flex flex-col gap-2">
               <div className="font-bold text-xl">{t("form.message")}</div>
               <Textarea
@@ -268,7 +325,10 @@ export default function Page() {
                 name="message"
               ></Textarea>
             </div>
-            <button type="submit" className=" bg-red-700 w-full py-5 text-xl text-white font-bold text-center rounded-xl">
+            <button
+              type="submit"
+              className=" bg-red-700 w-full py-5 text-xl text-white font-bold text-center rounded-xl"
+            >
               {t("form.button")}
             </button>
           </form>
@@ -357,7 +417,7 @@ export default function Page() {
   );
 }
 
-function FormInput({ label, placeholder,value,onChange,name }: any) {
+function FormInput({ label, placeholder, value, onChange, name }: any) {
   return (
     <div className="w-full flex flex-col gap-2">
       <div className="font-bold text-xl">{label}</div>

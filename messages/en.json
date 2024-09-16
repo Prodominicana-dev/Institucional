@@ -51,7 +51,8 @@
     "contact": "Contact",
     "institute": "Institute",
     "investButton": "Invest",
-    "exportButton": "Export"
+    "exportButton": "Export",
+     "complaint": "Complaint"
   },
   "GovPagesInfo": {
     "label": "This is an official website of the Government of the Dominican Republic",
@@ -1006,13 +1007,16 @@
   "complaints": {
 
     "title": "Complaint",
-    "description": "If you encounter any issues, feel free to contact us! Your information will be handled confidentially.",
+    "description": "If you have any issues, write to us. The information provided will be handled confidentially.",
     "form": {
       "name": "Name",
       "lastName": "Last Name",
       "email": "Email",
       "message": "Message",
-      "button": "Send"
+      "button": "Send",
+      "department": "Involved Institution",
+      "companyName":"Company Name",
+      "date":"Date"
     },
     "contactInfo": {
       "title": "Contact us directly",
