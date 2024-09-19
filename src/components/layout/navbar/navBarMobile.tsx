@@ -110,6 +110,8 @@ export default function NavBarMobile() {
       type: "link",
     },
     { title: t("contact"), link: "/contact", type: "link" },
+
+    { title: t("complaint"), link: "/complaint", type: "link" },
     // {
     //   title: t("institute"),
     //   link: "https://instituto.prodominicana.gob.do",
