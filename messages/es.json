@@ -553,7 +553,9 @@
       "button": "Enviar",
       "department": " Institución Involucrada",
       "companyName":"Nombre de Empresa",
-      "date":"Fecha"
+      "date":"Fecha del caso ",
+      "involvedPerson":" Funcionario involucrado",
+      "buttonnPopup":"Cerrar"
     },
   
     "contactInfo": {

@@ -1016,7 +1016,9 @@
       "button": "Send",
       "department": "Involved Institution",
       "companyName":"Company Name",
-      "date":"Date"
+      "date":"Case date",
+      "involvedPerson":"Involved person/official",
+      "buttonnPopup":"Close"
     },
     "contactInfo": {
       "title": "Contact us directly",

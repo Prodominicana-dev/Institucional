@@ -22,17 +22,29 @@ import Link from "next/link";
 import { Map, AdvancedMarker, Pin, useMap } from "@vis.gl/react-google-maps";
 import { useTranslations } from "next-intl";
 import { createcomplaint } from "@/services/complait/service";
-import{optionSelect} from "./institutionsList"
+import { optionSelect } from "./institutionsList";
+import { Popup } from "./popup";
 
 export default function Page() {
   const map = useMap();
   const t = useTranslations("complaints");
   const [openMenu, setOpenMenu] = React.useState(false);
   const [name, setName] = React.useState("");
+  const [searchOption, setSearchOption] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    lastName: "",
+    email: "",
+    message: "",
+    departmen: "",
+    companyName: "",
+    date: "",
+    involvedPerson: "",
+  });
 
   const handleclick = (eName: any) => {
     setName(eName);
-    // console.log('klk name',name);
+    
   };
 
   const cards = [
@@ -177,16 +189,6 @@ export default function Page() {
     map.setZoom(15);
   }, [map, activeMarker]);
 
-  const [formData, setFormData] = useState({
-    name: "",
-    lastName: "",
-    email: "",
-    message: "",
-    departmen: "",
-    companyName:"",
-    date: "",
-  });
-
   const handleInputChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>
   ) => {
@@ -211,6 +213,13 @@ export default function Page() {
       [name]: value,
     }));
   };
+  const filteredOptions = optionSelect.filter((option) =>
+    option.toLowerCase().includes(searchOption.toLowerCase())
+  );
+
+  const handleSearchChange = (e: any) => {
+    setSearchOption(e.target.value);
+  };
 
   const cleardataForm = () => {
     setFormData({
@@ -219,20 +228,22 @@ export default function Page() {
       email: "",
       message: "",
       departmen: "",
-      companyName:"",
+      companyName: "",
       date: "",
+      involvedPerson: "",
     });
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    //  console.log('Datos del formulario:', formData);
+    // console.log('Datos del formulario:', formData);
 
     await createcomplaint(formData, cleardataForm);
   };
   return (
     <div className="bg-white">
+      <Popup />
       <section className="flex justify-center py-10">
         <div className="w-10/12 flex items-center gap-10">
           <Image
@@ -286,6 +297,7 @@ export default function Page() {
             <div className="flex flex-col sm:flex-row gap-5">
               <div className="w-full flex flex-col gap-2">
                 <div className="font-bold text-xl">{t("form.department")}</div>
+
                 <Select
                   className=" !border-t-blue-gray-200 focus:!border-t-blue-950 bg-white"
                   value={formData.departmen}
@@ -295,8 +307,9 @@ export default function Page() {
                     className: "before:content-none after:content-none",
                   }}
                   placeholder={undefined}
+                  onInput={handleSearchChange}
                 >
-                  {optionSelect.map((option, index) => (
+                  {filteredOptions.map((option, index) => (
                     <Option key={index} value={option}>
                       {option}
                     </Option>
@@ -305,13 +318,20 @@ export default function Page() {
               </div>
 
               <FormInput
-                label={t("form.date")}
-                placeholder="dd/mm/yyyy"
-                value={formData.date}
+                label={t("form.involvedPerson")}
+                placeholder={t("form.involvedPerson")}
+                value={formData.involvedPerson}
                 onChange={handleInputChange}
-                name="date"
+                name="involvedPerson"
               />
             </div>
+            <FormInput
+              label={t("form.date")}
+              placeholder="dd/mm/yyyy"
+              value={formData.date}
+              onChange={handleInputChange}
+              name="date"
+            />
 
             <div className="w-full flex flex-col gap-2">
               <div className="font-bold text-xl">{t("form.message")}</div>
