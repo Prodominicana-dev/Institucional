@@ -10,12 +10,12 @@ export default function Page() {
     {
       name: "Español",
       code: "es",
-      link: "/documents/investmentGuides/InvestmentGuide_ES.pdf",
+      link: "/documents/investmentGuides/InvestmentGuide_ES_2024.pdf",
     },
     {
       name: "English",
       code: "gb",
-      link: "/documents/investmentGuides/InvestmentGuide_EN.pdf",
+      link: "/documents/investmentGuides/InvestmentGuide_EN_2024.pdf",
     },
     {
       name: "Français",
