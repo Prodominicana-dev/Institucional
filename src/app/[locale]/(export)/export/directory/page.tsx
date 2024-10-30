@@ -55,9 +55,12 @@ export default function Page({ params }: { params: { locale: string } }) {
   const [selectedProduct, setSelectedProduct] = useState<any>("");
   const [selectedSector, SetSelectedSector] = useState<any>("");
   const [selectedProvince, setSelectedProvince] = useState<any>("");
+  const [selectedisWoman, setSelectedIsWoman] = useState<any>("");
   const [productsOptions, setProductsOptions] = useState([]);
   const [sectorsOptions, setSectorsOptions] = useState([]);
   const [provincesOptions, setProvincesOptions] = useState([]);
+  const [isWomanOptions, setIsWomanOptions] = useState<{ value: string; label: string }[]>([]);
+  
   const { data, isLoading, fetchNextPage, hasNextPage, refetch } =
     useExportersPerPage({
       perPage,
@@ -65,7 +68,13 @@ export default function Page({ params }: { params: { locale: string } }) {
       selectedProduct,
       selectedSector,
       selectedProvince,
+      selectedisWoman
     });
+
+    const optionSelectIsWoman =[
+      'Si',
+    ]
+
   const containerRef = useRef<HTMLElement>(null);
   const { ref, entry } = useIntersection({
     root: containerRef.current,
@@ -74,7 +83,7 @@ export default function Page({ params }: { params: { locale: string } }) {
 
   useEffect(() => {
     refetch();
-  }, [search, selectedSector, selectedProduct, selectedProvince]);
+  }, [search, selectedSector, selectedProduct, selectedProvince,selectedisWoman]);
 
   useEffect(() => {
     if (hasNextPage && entry?.isIntersecting) fetchNextPage();
@@ -90,7 +99,7 @@ export default function Page({ params }: { params: { locale: string } }) {
 
   useEffect(() => {
     if (!productsDataLoading && productsData) {
-      console.log(productsData);
+      // console.log(productsData);
       setProductsOptions(
         productsData.map((product: any) => ({
           value: product.name,
@@ -103,18 +112,17 @@ export default function Page({ params }: { params: { locale: string } }) {
   const { data: sectorsData, isLoading: sectorsDataLoading } =
     useExportersSectors(params.locale);
 
-  useEffect(() => {
-    console.log(sectorsData);
-    if (!sectorsDataLoading && sectorsData) {
-      setSectorsOptions(
-        sectorsData.map((sector: any) => ({
-          value: sector.name,
-          label: sector.name,
-        }))
-      );
-    }
-  }, [sectorsData, sectorsDataLoading]);
-
+    useEffect(() => {
+      if (!sectorsDataLoading && sectorsData) {
+        setSectorsOptions(
+          sectorsData.map((sector: any) => ({
+            value: sector.name,
+            label: sector.name,
+          }))
+        );
+      }
+    }, [sectorsData, sectorsDataLoading]);
+    
   const { data: provincesData, isLoading: provincesDataLoading } =
     useExportersProvinces();
 
@@ -129,15 +137,31 @@ export default function Page({ params }: { params: { locale: string } }) {
     }
   }, [provincesData, provincesDataLoading]);
 
+  useEffect(() =>{
+    const isWomanOptions = optionSelectIsWoman.map((option) => ({
+      value: 'true',
+      label: option,
+    }));
+    
+    setIsWomanOptions(isWomanOptions);
+  
+    
+  },[]);
+
+  const isWoman = selectedisWoman === "true" ? true : selectedisWoman === "false" ? false : null;
   useEffect(() => {
     const queryParams = new URLSearchParams();
     if (debouncedSearch) queryParams.append("search", debouncedSearch);
     if (selectedProduct) queryParams.append("product", selectedProduct);
     if (selectedSector) queryParams.append("sector", selectedSector);
     if (selectedProvince) queryParams.append("province", selectedProvince);
+    if (isWoman !== null) {
+      queryParams.append("isWoman", isWoman ? "true" : "false");
+    }
     const queryString = queryParams.toString();
+    // console.log("Generated Query String:", isWoman);
     router.push(`/export/directory?${queryString}`, { scroll: false });
-  }, [debouncedSearch, selectedProduct, selectedSector, selectedProvince]);
+  }, [debouncedSearch, selectedProduct, selectedSector, selectedProvince,selectedisWoman]);
 
   const toggleFiltersOpen = () => setFiltersOpen((cur) => !cur);
   return (
@@ -221,6 +245,18 @@ export default function Page({ params }: { params: { locale: string } }) {
                       className="w-full z-50 overflow-auto text-black"
                       classNames={{ option: "text-black" }}
                       data={provincesOptions}
+                    />
+                  </div>
+                  <div className="w-full flex flex-col gap-2">
+                    <div className="text-black font-bold">Mujer</div>
+                    <Select
+                      clearable
+                      searchable
+                      placeholder="Mujer"
+                      onChange={setSelectedIsWoman}
+                      className="w-full z-80 overflow-auto text-black"
+                      classNames={{ option: "text-black" }}
+                      data={isWomanOptions}
                     />
                   </div>
                 </div>

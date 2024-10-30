@@ -55,6 +55,7 @@ export function ExporterDialog({
   const [web, setWeb] = useState("");
   const [fob, setFob] = useState("");
   const [authorized, setAuthorized] = useState(false);
+  const [isWoman, setIsWoman] = useState(false);
   const [warningAlert, setWarningAlert] = useState(false);
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [activeStep, setActiveStep] = React.useState(0);
@@ -65,7 +66,7 @@ export function ExporterDialog({
 
   useEffect(() => {
     if (!productsLoading && products) {
-      console.log(products);
+      // console.log(products);
       setProductOptions(
         products.map(({ code, name }: { code: string; name: string }) => ({
           value: code,
@@ -77,7 +78,7 @@ export function ExporterDialog({
 
   useEffect(() => {
     if (!sectorsLoading && sectors) {
-      console.log(sectors);
+      // console.log(sectors);
       setSectorOptions(
         sectors.map(({ code, name }: { code: string; name: string }) => ({
           value: code,
@@ -100,6 +101,18 @@ export function ExporterDialog({
     },
   ];
 
+  const IsWomanOptions = [
+    {
+      value: true,
+      label: "Si",
+    },
+    {
+      value: false,
+      label: "No",
+    },
+  ];
+
+
   /* Funcion para cuando droppeen un documento se agregue a la lista ya existente */
   const handleDrop = (acceptedFiles: FileWithPath[]) => {
     setFiles(acceptedFiles);
@@ -119,6 +132,7 @@ export function ExporterDialog({
       formData.append("email", email);
       formData.append("products", _products.toString());
       //formData.append("sectors", _sectors.toString());
+      formData.append("isWoman", isWoman.toString());
       formData.append("address", address);
       formData.append("website", web);
       formData.append("fob", fob);
@@ -275,7 +289,7 @@ export function ExporterDialog({
             original.`}
           </label>
           <div className="w-full flex flex-col lg:flex-row gap-4">
-            <div className="w-full ">
+            <div className="w-full lg:w-6/12 ">
               <label
                 htmlFor="nameEs"
                 className="font-semibold text-black text-lg"
@@ -310,6 +324,33 @@ export function ExporterDialog({
                 <ExclamationCircleIcon className="size-5 inline-block" /> Los
                 productos son obligatorios.
               </label>
+            </div>
+            <div className="w-full lg:w-6/12">
+              <label
+                htmlFor="nameEs"
+                className="font-semibold text-black text-lg"
+              >
+                ¿Es Mujer? <span className="text-red-600">*</span>
+              </label>
+              <Select
+                menuPosition="fixed"
+                onChange={(e: any) => {
+                  setIsWoman(e.value);
+                }}
+                className="w-full"
+                options={IsWomanOptions}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 2,
+                  colors: {
+                    ...theme.colors,
+                    primary: "black",
+                  },
+                })}
+                value={IsWomanOptions.find(
+                  options => options.value === isWoman
+                )}
+              />
             </div>
           </div>
           {/* <div className="w-full flex flex-col lg:flex-row gap-4">
@@ -350,6 +391,7 @@ export function ExporterDialog({
               </label>
             </div>
           </div> */}
+          
           <div className="w-full flex flex-col lg:flex-row gap-4">
             <div className="w-full lg:w-6/12">
               <label className="font-semibold text-black text-lg">

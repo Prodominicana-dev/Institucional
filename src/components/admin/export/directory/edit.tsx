@@ -61,6 +61,7 @@ export function EditExporterDialog({
   const [web, setWeb] = useState("");
   const [fob, setFob] = useState("");
   const [authorized, setAuthorized] = useState(false);
+  const [isWoman, setIsWoman] = useState(false);
   const [warningAlert, setWarningAlert] = useState(false);
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
   const [activeStep, setActiveStep] = React.useState(0);
@@ -71,7 +72,7 @@ export function EditExporterDialog({
 
   useEffect(() => {
     if (exporter) {
-      console.log(exporter);
+      // console.log(exporter);
       setName(exporter.name);
       setRNC(exporter.rnc);
       setPhone(exporter.phone);
@@ -81,13 +82,14 @@ export function EditExporterDialog({
       setFob(exporter.fob);
       setImage(exporter.image);
       setAuthorized(exporter.authorized);
+      setIsWoman(exporter.isWoman);
       setProducts(exporter.product.map((product: any) => product.productId));
     }
   }, [exporter]);
 
   useEffect(() => {
     if (!productsLoading && products) {
-      console.log(products);
+      // console.log(products);
       setProductOptions(
         products.map(({ code, name }: { code: string; name: string }) => ({
           value: code,
@@ -99,7 +101,7 @@ export function EditExporterDialog({
 
   useEffect(() => {
     if (!sectorsLoading && sectors) {
-      console.log(sectors);
+      // console.log(sectors);
       setSectorOptions(
         sectors.map(({ code, name }: { code: string; name: string }) => ({
           value: code,
@@ -112,6 +114,17 @@ export function EditExporterDialog({
   const openRef = useRef<() => void>(null);
 
   const authorizedOptions = [
+    {
+      value: true,
+      label: "Si",
+    },
+    {
+      value: false,
+      label: "No",
+    },
+  ];
+
+  const IsWomanOptions = [
     {
       value: true,
       label: "Si",
@@ -145,6 +158,7 @@ export function EditExporterDialog({
       formData.append("website", web);
       formData.append("fob", fob);
       formData.append("authorized", authorized.toString());
+      formData.append("isWoman", isWoman.toString());
       formData.append("created_By", user?.email as string);
       files.length > 0 && files.map((file) => formData.append("images", file));
       // imagesRelated.length > 0 &&
@@ -389,6 +403,7 @@ export function EditExporterDialog({
               </label>
             </div>
           </div> */}
+                 
           <div className="w-full flex flex-col lg:flex-row gap-4">
             <div className="w-full lg:w-6/12">
               <label className="font-semibold text-black text-lg">
@@ -459,6 +474,33 @@ export function EditExporterDialog({
                 })}
                 value={authorizedOptions.find(
                   (auth) => auth.value === authorized
+                )}
+              />
+            </div>
+            <div className="w-full lg:w-6/12">
+              <label
+                htmlFor="nameEs"
+                className="font-semibold text-black text-lg"
+              >
+                ¿Es Mujer? <span className="text-red-600">*</span>
+              </label>
+              <Select
+                menuPosition="fixed"
+                onChange={(e: any) => {
+                  setIsWoman(e.value);
+                }}
+                className="w-full"
+                options={IsWomanOptions}
+                theme={(theme) => ({
+                  ...theme,
+                  borderRadius: 2,
+                  colors: {
+                    ...theme.colors,
+                    primary: "black",
+                  },
+                })}
+                value={IsWomanOptions.find(
+                  options => options.value === isWoman
                 )}
               />
             </div>

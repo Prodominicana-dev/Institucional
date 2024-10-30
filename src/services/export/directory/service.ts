@@ -4,7 +4,7 @@ import axios from "axios";
 var CryptoJS = require("crypto-js");
 
 export function useExportersPaginated({ perPage, page, search }: any) {
-  console.log(perPage, page, search);
+  // console.log(perPage, page, search);
   const fetchExporters = async () => {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/export/pagination`;
     const { data } = await axios.post(url, {
@@ -26,9 +26,9 @@ export function useExportersPerPage({
   selectedProduct = "",
   selectedSector = "",
   selectedProvince = "",
+  selectedisWoman = "",
 }: any) {
   const fetchExporters = async (page: any) => {
-    console.log(selectedProduct, selectedSector);
     const url = `${process.env.NEXT_PUBLIC_API_URL}/export/pagination`;
     const { data } = await axios.post(url, {
       page,
@@ -37,6 +37,7 @@ export function useExportersPerPage({
       selectedProduct,
       selectedSector,
       selectedProvince,
+      selectedisWoman,
     });
     return data;
   };
@@ -128,7 +129,6 @@ export async function createExporter(
       userId,
       process.env.NEXT_PUBLIC_CRYPTOJS_KEY
     ).toString();
-
     const res = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/export`,
       exporter,

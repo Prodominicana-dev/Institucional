@@ -31,7 +31,18 @@
         "investDesc": "Te ayudamos a invertir en la República Dominicana",
         "export": "Servicios de Exportación",
         "exportDesc": "Maximizamos tu presencia internacional"
-      }
+      },
+      "formTitle": "Solicitud de Asistencia",
+     
+       "Name": "Nombre",
+       "LastName": "Apellido",
+       "Email": "Correo electrónico",
+       "Phone": "Numero de Contacto",
+       "Id": "Cédula o RNC",
+       "Select": "Via de preferencia de contacto",
+       "Message": "Asistencia Requerida",
+       "Btn": "Enviar"
+     
     },
     "news": {
       "title": "Novedades",
