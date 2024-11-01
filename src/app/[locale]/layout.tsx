@@ -26,7 +26,7 @@ export default function RootLayout({
   const messages = useMessages();
 
   return (
-    <html lang={locale}>
+    <html lang={locale} className="scroll-smooth">
       <head>
         <link
           rel="apple-touch-icon"

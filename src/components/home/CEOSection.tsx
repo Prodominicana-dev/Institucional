@@ -37,7 +37,7 @@ export default function CEOSection() {
               {t("description")}
             </div>
             <Image
-              src={"/svg/logos/prodominicana.svg"}
+              src={"/svg/logos/Prodominicana.svg"}
               width={1300}
               height={600}
               alt="CEO"
