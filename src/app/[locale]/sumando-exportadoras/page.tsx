@@ -179,7 +179,7 @@ function InfoSection() {
           <TabsBody placeholder={undefined} className="w-10/12">
             <TabPanel key={"requirements"} value={"requirements"}>
               {requirements.map((item, key) => (
-                <ul className="list-disc text-lg p-2" key={key}>
+                <ul className="list-disc text-lg p-2 font-bold" key={key}>
                   <li>{item}</li>
                 </ul>
               ))}
@@ -191,7 +191,7 @@ function InfoSection() {
           <TabsBody placeholder={undefined} className="w-10/12">
             <TabPanel key={"process"} value={"process"}>
               {process.map((item, key) => (
-                <ul className="list-disc text-lg p-2" key={key}>
+                <ul className="list-disc text-lg p-2 font-bold" key={key}>
                   <li>{item}</li>
                 </ul>
               ))}

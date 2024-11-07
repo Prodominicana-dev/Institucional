@@ -71,6 +71,7 @@ export default function Page({ params }: { params: { locale: string } }) {
       selectedSector,
       selectedProvince,
       selectedisWoman,
+      isAuthorized: true,
     });
 
   const optionSelectIsWoman = ["Mujer"];
