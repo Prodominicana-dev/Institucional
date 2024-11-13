@@ -253,10 +253,11 @@ function Benefits() {
   return (
     <div className="w-10/12 text-center space-y-10">
       <div className="w-full flex flex-col items-center gap-2">
-        <h1 className="font-bold text-4xl">Beneficios que obtendrán</h1>
-        <p className="xl:w-4/12">
-          Acompañamiento personalizado y especializado en el proceso de
-          preparación para exportar, que incluirá:
+        <h1 className="font-bold text-4xl">Beneficios que obtendrán:</h1>
+        <p className="xl:w-6/12">
+          Cada una de las 3 empresas seleccionadas recibirá acompañamiento
+          especializado en el proceso de preparación para exportar, que
+          incluirá:
         </p>
       </div>
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-16">
@@ -320,6 +321,15 @@ function Footer() {
         </Link>
       </div>
       <div className="flex flex-col gap-5 text-sm xl:text-lg">
+        <Link href="/shetrades" target="_blank">
+          <Image
+            width={2048}
+            height={1080}
+            src="/images/shetradesBanner.png"
+            alt="Shretrades"
+            className="w-90"
+          />
+        </Link>
         <h1 className="font-bold text-lg">Síguenos</h1>
         <div className="flex gap-5">
           <Link
