@@ -18,6 +18,7 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { APIProvider } from "@vis.gl/react-google-maps";
+import { Notifications } from "@mantine/notifications";
 
 library.add(
   faFacebookF,
@@ -49,6 +50,7 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
             {children}
             <Footer />
             <FooterMobile />
+            <Notifications zIndex={9999} />
             <TawkMessenger />
           </APIProvider>
         </QueryClientProvider>

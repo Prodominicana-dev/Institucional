@@ -160,10 +160,6 @@ export function ServiceDialog({
         !tiempoEs ||
         !horarioEs ||
         !canalesEs ||
-        !access ||
-        !requerimientosEs?.getHTML() ||
-        !procedimientosEs?.getHTML() ||
-        !access.startsWith("https://") ||
         costoEs === "RD$ " ||
         costoEs === "RD$" ||
         costoEs === "RD")
@@ -184,11 +180,7 @@ export function ServiceDialog({
           !costoEn ||
           !tiempoEn ||
           !horarioEn ||
-          !canalesEn ||
-          !access ||
-          !requerimientosEn?.getHTML() ||
-          !procedimientosEn?.getHTML() ||
-          !access.startsWith("https://"))) ||
+          !canalesEn)) ||
       costoEn === "RD$ " ||
       costoEn === "RD$" ||
       costoEn === "RD"

@@ -41,7 +41,29 @@
        "Id": "Cédula o RNC",
        "Select": "Via de preferencia de contacto",
        "Message": "Asistencia Requerida",
-       "Btn": "Enviar"
+       "Btn": "Enviar",
+
+       "contactInfo": {
+        "title": "Contáctanos directamente",
+        "description": "Utiliza cualquiera de nuestras vías de contacto",
+        "phone": {
+          "title": "Llámanos",
+          "description": "Contáctate con nosotros de lunes a viernes, 8:30AM - 4:30PM."
+        },
+        "email": {
+          "title": "Habla con nosotros",
+          "description": "Envíanos un correo si tienes alguna duda."
+        },
+        "address": {
+          "title": "Visítanos",
+          "info": "Abrir en Google Maps"
+        }
+      },
+
+      "regionalOffices": {
+        "title": "Oficinas regionales",
+        "description": "Encuentra la oficina más cercana a ti."
+      }
      
     },
     "news": {

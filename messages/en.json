@@ -31,7 +31,17 @@
         "investDesc": "We assist you in investing in the Dominican Republic",
         "export": "Export Services",
         "exportDesc": "Maximize your international presence"
-      }
+      },
+      
+        "formTitle": "Assistance Request",
+        "Name": "First Name",
+        "LastName": "Last Name",
+        "Email": "Email",
+        "Phone": "Contact Number",
+        "Id": "ID or Taxpayer Registry",
+        "Select": "Preferred Contact Method",
+        "Message": "Required Assistance",
+        "Btn": "Submit"
     },
     "news": {
       "title": "News",

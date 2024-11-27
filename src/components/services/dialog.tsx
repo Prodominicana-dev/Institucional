@@ -16,6 +16,7 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import { es } from "date-fns/locale";
 import Link from "next/link";
+import { ServicesFormDiag } from "../../app/[locale]/(home)/services/form/modalForm";
 export function ServiceDialog({
   investment,
   type,
@@ -43,6 +44,12 @@ export function ServiceDialog({
   const [access, setAccess] = useState("");
   const [channel, setChannel] = useState("");
   const [info, setInfo] = useState("");
+
+  const [openForm, setOpenForm] = useState(false);
+  const handleOpen = () => {
+    setOpenForm(!openForm);
+  };
+
   useEffect(() => {
     if (investment) {
       setTitle(investment.name);
@@ -59,7 +66,7 @@ export function ServiceDialog({
       setAccess(investment.access);
       setChannel(investment.channel);
       setInfo(investment.info);
-      console.log(investment);
+      // console.log(investment);
     }
   }, [investment]);
 
@@ -194,10 +201,15 @@ export function ServiceDialog({
                     <div key={index} className=" w-full lg:w-1/5">
                       {locale === "es" &&
                       title.es.toLocaleLowerCase().includes("acceso") ? (
-                        <Link
-                          href={data}
-                          target="_blank"
-                          className="w-full flex flex-col items-center gap-1 hover:scale-110 duration-75"
+                        <div
+                          onClick={() => {
+                            if (data) {
+                              window.open(data, "_blank");
+                            } else {
+                              handleOpen();
+                            }
+                          }}
+                          className="w-full flex flex-col items-center gap-1 cursor-pointer hover:scale-110 duration-75"
                         >
                           <Image
                             src={icon}
@@ -211,7 +223,15 @@ export function ServiceDialog({
                               {locale === "es" ? title.es : title.en}
                             </h1>
                           </div>
-                        </Link>
+
+                          {openForm && (
+                            <ServicesFormDiag
+                              open={openForm}
+                              handleOpen={handleOpen}
+                              handler={handler}
+                            />
+                          )}
+                        </div>
                       ) : (
                         <div className="w-full">
                           {locale === "es" ? (
@@ -238,24 +258,37 @@ export function ServiceDialog({
                               title.en
                                 .toLocaleLowerCase()
                                 .includes("access") ? (
-                                <Link
-                                  href={data}
-                                  target="_blank"
-                                  className="w-full flex flex-col items-center gap-1 hover:scale-110 duration-75"
+                                <div
+                                  onClick={() => {
+                                    if (data) {
+                                      window.open(data, "_blank");
+                                    } else {
+                                      handleOpen();
+                                    }
+                                  }}
+                                  className="w-full flex flex-col items-center gap-1 cursor-pointer hover:scale-110 duration-75"
                                 >
                                   <Image
                                     src={icon}
-                                    alt={title.en}
+                                    alt={locale === "en" ? title.es : title.en}
                                     width={400}
                                     height={400}
                                     className="size-16"
                                   />
                                   <div>
                                     <h1 className="font-bold text-sm text-center">
-                                      {title.en}
+                                      {locale === "en" ? title.es : title.en}
                                     </h1>
                                   </div>
-                                </Link>
+
+                                  {openForm && (
+                                    <ServicesFormDiag
+                                      open={openForm}
+                                      handleOpen={handleOpen}
+                                      handler={handler}
+                                    />
+                                  )}
+                                </div>
                               ) : (
                                 <div className="w-full flex flex-col items-center gap-1">
                                   <Image
