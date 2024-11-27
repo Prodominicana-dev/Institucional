@@ -37,7 +37,7 @@ export default function RootLayout({ children, params }: RootLayoutProps) {
     },
     {
       title: t("navbar.vui"),
-      icon: "/svg/logos/vuiIcon.svg",
+      icon: "/svg/logos/VuiIcon.svg",
       link: "https://vui.gob.do",
     },
   ];
