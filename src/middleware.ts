@@ -128,6 +128,10 @@ export default createMiddleware({
       en: "/invest/sectors/real-estate",
       es: "/inversion/sectores/inmobiliario",
     },
+    "/sumando-exportadoras": {
+      en: "/sumando-exportadoras",
+      es: "/sumando-exportadoras",
+    },
     "/export": {
       en: "/export",
       es: "/exportacion",
@@ -148,6 +152,7 @@ export default createMiddleware({
       en: "/export/documents",
       es: "/exportacion/documentos",
     },
+
     "/privacy-policy": {
       en: "/privacy-policy",
       es: "/politicas-de-privacidad",

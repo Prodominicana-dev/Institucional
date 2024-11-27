@@ -3,7 +3,12 @@ import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
 var CryptoJS = require("crypto-js");
 
-export function useExportersPaginated({ perPage, page, search }: any) {
+export function useExportersPaginated({
+  perPage,
+  page,
+  search,
+  isAuthorized,
+}: any) {
   // console.log(perPage, page, search);
   const fetchExporters = async () => {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/export/pagination`;
@@ -11,6 +16,7 @@ export function useExportersPaginated({ perPage, page, search }: any) {
       page,
       perPage,
       search,
+      isAuthorized,
     });
     return data;
   };
@@ -27,6 +33,7 @@ export function useExportersPerPage({
   selectedSector = "",
   selectedProvince = "",
   selectedisWoman = "",
+  isAuthorized = true,
 }: any) {
   const fetchExporters = async (page: any) => {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/export/pagination`;
@@ -38,6 +45,7 @@ export function useExportersPerPage({
       selectedSector,
       selectedProvince,
       selectedisWoman,
+      isAuthorized: true,
     });
     return data;
   };

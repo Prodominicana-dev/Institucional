@@ -59,8 +59,10 @@ export default function Page({ params }: { params: { locale: string } }) {
   const [productsOptions, setProductsOptions] = useState([]);
   const [sectorsOptions, setSectorsOptions] = useState([]);
   const [provincesOptions, setProvincesOptions] = useState([]);
-  const [isWomanOptions, setIsWomanOptions] = useState<{ value: string; label: string }[]>([]);
-  
+  const [isWomanOptions, setIsWomanOptions] = useState<
+    { value: string; label: string }[]
+  >([]);
+
   const { data, isLoading, fetchNextPage, hasNextPage, refetch } =
     useExportersPerPage({
       perPage,
@@ -68,12 +70,11 @@ export default function Page({ params }: { params: { locale: string } }) {
       selectedProduct,
       selectedSector,
       selectedProvince,
-      selectedisWoman
+      selectedisWoman,
+      isAuthorized: true,
     });
 
-    const optionSelectIsWoman =[
-      'Si',
-    ]
+  const optionSelectIsWoman = ["Mujer"];
 
   const containerRef = useRef<HTMLElement>(null);
   const { ref, entry } = useIntersection({
@@ -83,7 +84,13 @@ export default function Page({ params }: { params: { locale: string } }) {
 
   useEffect(() => {
     refetch();
-  }, [search, selectedSector, selectedProduct, selectedProvince,selectedisWoman]);
+  }, [
+    search,
+    selectedSector,
+    selectedProduct,
+    selectedProvince,
+    selectedisWoman,
+  ]);
 
   useEffect(() => {
     if (hasNextPage && entry?.isIntersecting) fetchNextPage();
@@ -112,17 +119,17 @@ export default function Page({ params }: { params: { locale: string } }) {
   const { data: sectorsData, isLoading: sectorsDataLoading } =
     useExportersSectors(params.locale);
 
-    useEffect(() => {
-      if (!sectorsDataLoading && sectorsData) {
-        setSectorsOptions(
-          sectorsData.map((sector: any) => ({
-            value: sector.name,
-            label: sector.name,
-          }))
-        );
-      }
-    }, [sectorsData, sectorsDataLoading]);
-    
+  useEffect(() => {
+    if (!sectorsDataLoading && sectorsData) {
+      setSectorsOptions(
+        sectorsData.map((sector: any) => ({
+          value: sector.name,
+          label: sector.name,
+        }))
+      );
+    }
+  }, [sectorsData, sectorsDataLoading]);
+
   const { data: provincesData, isLoading: provincesDataLoading } =
     useExportersProvinces();
 
@@ -137,18 +144,21 @@ export default function Page({ params }: { params: { locale: string } }) {
     }
   }, [provincesData, provincesDataLoading]);
 
-  useEffect(() =>{
+  useEffect(() => {
     const isWomanOptions = optionSelectIsWoman.map((option) => ({
-      value: 'true',
+      value: "true",
       label: option,
     }));
-    
-    setIsWomanOptions(isWomanOptions);
-  
-    
-  },[]);
 
-  const isWoman = selectedisWoman === "true" ? true : selectedisWoman === "false" ? false : null;
+    setIsWomanOptions(isWomanOptions);
+  }, []);
+
+  const isWoman =
+    selectedisWoman === "true"
+      ? true
+      : selectedisWoman === "false"
+      ? false
+      : null;
   useEffect(() => {
     const queryParams = new URLSearchParams();
     if (debouncedSearch) queryParams.append("search", debouncedSearch);
@@ -161,7 +171,13 @@ export default function Page({ params }: { params: { locale: string } }) {
     const queryString = queryParams.toString();
     // console.log("Generated Query String:", isWoman);
     router.push(`/export/directory?${queryString}`, { scroll: false });
-  }, [debouncedSearch, selectedProduct, selectedSector, selectedProvince,selectedisWoman]);
+  }, [
+    debouncedSearch,
+    selectedProduct,
+    selectedSector,
+    selectedProvince,
+    selectedisWoman,
+  ]);
 
   const toggleFiltersOpen = () => setFiltersOpen((cur) => !cur);
   return (
@@ -248,11 +264,11 @@ export default function Page({ params }: { params: { locale: string } }) {
                     />
                   </div>
                   <div className="w-full flex flex-col gap-2">
-                    <div className="text-black font-bold">Mujer</div>
+                    <div className="text-black font-bold">Género</div>
                     <Select
                       clearable
                       searchable
-                      placeholder="Mujer"
+                      placeholder="Género"
                       onChange={setSelectedIsWoman}
                       className="w-full z-80 overflow-auto text-black"
                       classNames={{ option: "text-black" }}
@@ -286,9 +302,22 @@ function ExporterCard({ exporter }: { exporter: any }) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(!open);
   return (
-    <div className="font-montserrat">
+    <div className="font-montserrat relative">
       <div
-        className="flex flex-col text-gray-700 bg-white shadow-md rounded-xl h-full cursor-pointer group"
+        className={`absolute flex items-end justify-center left-10 bg-[#F4AACB] h-20 w-14 rounded-b-full ${
+          exporter.isWoman ? "block" : "hidden"
+        }`}
+      >
+        <Image
+          width={500}
+          height={500}
+          src="/svg/icons/womanIcon.svg"
+          alt="woman"
+          className="size-10 object-contain mb-3"
+        />
+      </div>
+      <div
+        className={`flex flex-col text-gray-700 bg-white shadow-md rounded-xl h-full  cursor-pointer group`}
         onClick={handleOpen}
       >
         <div className="mx-4 mt-4 overflow-hidden text-gray-700 bg-white bg-clip-border rounded-xl h-80 flex justify-center items-center">

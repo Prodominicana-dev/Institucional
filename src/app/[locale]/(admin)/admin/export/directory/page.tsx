@@ -13,7 +13,7 @@ export default function Page() {
   const [open, setOpen] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const [filter, setFilter] = useState<any>(null);
+  const [status, setStatus] = useState<any>(undefined);
   const [exporters, setExporters] = useState<any>([]);
   const [total, setTotal] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
@@ -24,6 +24,8 @@ export default function Page() {
   const { data, isLoading, refetch } = useExportersPaginated({
     perPage,
     page: currentPage,
+    search,
+    isAuthorized: status,
   });
 
   useEffect(() => {
@@ -36,7 +38,7 @@ export default function Page() {
 
   useEffect(() => {
     refetch();
-  }, [perPage, currentPage, search, filter]);
+  }, [perPage, currentPage, search, status]);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
@@ -50,7 +52,7 @@ export default function Page() {
   };
 
   const statusOption = [
-    { value: null, label: "Todos" },
+    { value: undefined, label: "Todos" },
     { value: true, label: "Activo" },
     { value: false, label: "Inactivo" },
   ];
@@ -106,13 +108,14 @@ export default function Page() {
                 menuPlacement="auto"
                 options={statusOption}
                 defaultValue={statusOption[0]}
-                onChange={(e) => setFilter(e?.value as boolean)}
+                value={statusOption.find((opt) => opt.value === status)}
+                onChange={(e) => setStatus(e?.value as boolean)}
               />
             </div>
             <button
               onClick={() => {
                 setSearch("");
-                setFilter(null);
+                setStatus(undefined);
               }}
               className=" w-10 h-10 flex justify-center items-center rounded-lg bg-red-500 text-white hover:shadow-lg hover:bg-red-700 duration-300 "
             >

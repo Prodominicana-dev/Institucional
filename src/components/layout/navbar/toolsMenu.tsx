@@ -56,7 +56,7 @@ export default function ToolsMenu() {
     {
       title: "Ventanilla Única de Inversión",
       link: "https://vui.gob.do/",
-      icon: "/svg/logos/vuiIcon.svg",
+      icon: "/svg/logos/VuiIcon.svg",
     },
   ];
 

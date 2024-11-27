@@ -37,7 +37,16 @@ export default function BusinessFacilitation() {
           </div>
         </div>
       </section>
-      <Link href="/documents/16MemoriasdeGestiónPD-2020-24.pdf" target="_blank">
+      <Link href="/sumando-exportadoras" target="_blank">
+        <Image
+          width={2048}
+          height={1080}
+          src="/images/bannerSumandoExportadoras.jpg"
+          alt="Sumando Exportadoras"
+          className=" w-full "
+        />
+      </Link>
+      {/* <Link href="/documents/16MemoriasdeGestiónPD-2020-24.pdf" target="_blank">
         <Image
           width={2048}
           height={108}
@@ -45,7 +54,7 @@ export default function BusinessFacilitation() {
           alt="Memori-Post"
           className=" w-full "
         />
-      </Link>
+      </Link> */}
     </div>
   );
 }
