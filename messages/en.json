@@ -32,16 +32,16 @@
         "export": "Export Services",
         "exportDesc": "Maximize your international presence"
       },
-      
-        "formTitle": "Assistance Request",
-        "Name": "First Name",
-        "LastName": "Last Name",
-        "Email": "Email",
-        "Phone": "Contact Number",
-        "Id": "ID or Taxpayer Registry",
-        "Select": "Preferred Contact Method",
-        "Message": "Required Assistance",
-        "Btn": "Submit"
+
+      "formTitle": "Assistance Request",
+      "Name": "First Name",
+      "LastName": "Last Name",
+      "Email": "Email",
+      "Phone": "Contact Number",
+      "Id": "ID or Taxpayer Registry",
+      "Select": "Preferred Contact Method",
+      "Message": "Required Assistance",
+      "Btn": "Submit"
     },
     "news": {
       "title": "News",
@@ -62,12 +62,12 @@
     "institute": "Institute",
     "investButton": "Invest",
     "exportButton": "Export",
-     "complaint": "Complaint"
+    "complaint": "Complaint"
   },
   "GovPagesInfo": {
     "label": "This is an official website of the Government of the Dominican Republic",
     "buttonText": "Here's how you can verify it",
-    "complaints":"If you have any complaints or concerns,click here",
+    "complaints": "If you have any complaints or concerns,click here",
     "domainTitle": "Official websites use .gob.do, .gov.do, or .mil.do domains",
     "domainLabel": "A .gob.do, .gov.do, or .mil.do site signifies that it belongs to an official organization of the Dominican State.",
     "secureDomainTitle": "Secure official websites use HTTPS with .gob.do, .gov.do, or .mil.do domains",
@@ -1015,7 +1015,6 @@
   },
 
   "complaints": {
-
     "title": "Complaint",
     "description": "If you have any issues, write to us. The information provided will be handled confidentially.",
     "form": {
@@ -1025,10 +1024,10 @@
       "message": "Message",
       "button": "Send",
       "department": "Involved Institution",
-      "companyName":"Company Name",
-      "date":"Case date",
-      "involvedPerson":"Involved person/official",
-      "buttonnPopup":"Close"
+      "companyName": "Company Name",
+      "date": "Case date",
+      "involvedPerson": "Involved person/official",
+      "buttonnPopup": "Close"
     },
     "contactInfo": {
       "title": "Contact us directly",
@@ -1050,7 +1049,6 @@
       "title": "Regional Offices",
       "description": "Find the office nearest to you."
     }
-
   },
 
   "termsofuse": {
@@ -1079,6 +1077,25 @@
     "exporters": {
       "title": "Exporters",
       "url": "https://wkf.ms/3WdTfhu"
+    }
+  },
+  "agroalimentaria2025": {
+    "title": "",
+    "title2": "",
+    "description": "Participate in the 9th edition of the most important international fair of food, beverages, and tobacco in the Dominican Republic!",
+    "participate": "Access and register for this great experience",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "seconds": "Seconds",
+    "month": "May",
+    "buyers": {
+      "title": "Buyers",
+      "url": "https://wkf.ms/40GECFP"
+    },
+    "exporters": {
+      "title": "Exporters",
+      "url": "https://wkf.ms/4fXkuDq"
     }
   },
   "Footer": {

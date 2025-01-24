@@ -33,17 +33,17 @@
         "exportDesc": "Maximizamos tu presencia internacional"
       },
       "formTitle": "Solicitud de Asistencia",
-     
-       "Name": "Nombre",
-       "LastName": "Apellido",
-       "Email": "Correo electrónico",
-       "Phone": "Numero de Contacto",
-       "Id": "Cédula o RNC",
-       "Select": "Via de preferencia de contacto",
-       "Message": "Asistencia Requerida",
-       "Btn": "Enviar",
 
-       "contactInfo": {
+      "Name": "Nombre",
+      "LastName": "Apellido",
+      "Email": "Correo electrónico",
+      "Phone": "Numero de Contacto",
+      "Id": "Cédula o RNC",
+      "Select": "Via de preferencia de contacto",
+      "Message": "Asistencia Requerida",
+      "Btn": "Enviar",
+
+      "contactInfo": {
         "title": "Contáctanos directamente",
         "description": "Utiliza cualquiera de nuestras vías de contacto",
         "phone": {
@@ -64,7 +64,6 @@
         "title": "Oficinas regionales",
         "description": "Encuentra la oficina más cercana a ti."
       }
-     
     },
     "news": {
       "title": "Novedades",
@@ -90,7 +89,7 @@
   "GovPagesInfo": {
     "label": "Esta es una web oficial del Gobierno de la República Dominicana",
     "buttonText": "Así es como puedes saberlo",
-    "complaints":"Si tiene alguna queja o denuncia presione este link",
+    "complaints": "Si tiene alguna queja o denuncia presione este link",
     "domainTitle": "Los sitios web oficiales utilizan .gob.do, .gov.do o .mil.do",
     "domainLabel": "Un sitio .gob.do, .gov.do o .mil.do significa que pertenece a una organización oficial del Estado dominicano.",
     "secureDomainTitle": "Los sitios web oficiales .gob.do, .gov.do o .mil.do seguros usan HTTPS",
@@ -552,7 +551,7 @@
       "message": "Mensaje",
       "button": "Enviar"
     },
-  
+
     "contactInfo": {
       "title": "Contáctanos directamente",
       "description": "Utiliza cualquiera de nuestras vías de contacto",
@@ -585,12 +584,12 @@
       "message": "Mensaje",
       "button": "Enviar",
       "department": " Institución Involucrada",
-      "companyName":"Nombre de Empresa",
-      "date":"Fecha del caso ",
-      "involvedPerson":" Funcionario involucrado",
-      "buttonnPopup":"Cerrar"
+      "companyName": "Nombre de Empresa",
+      "date": "Fecha del caso ",
+      "involvedPerson": " Funcionario involucrado",
+      "buttonnPopup": "Cerrar"
     },
-  
+
     "contactInfo": {
       "title": "Contáctanos directamente",
       "description": "Utiliza cualquiera de nuestras vías de contacto",
@@ -611,7 +610,6 @@
       "title": "Oficinas regionales",
       "description": "Encuentra la oficina más cercana a ti."
     }
-      
   },
   "invest": {
     "navbar": {
@@ -1102,6 +1100,25 @@
     "exporters": {
       "title": "Exportadores",
       "url": "https://wkf.ms/3WdTfhu"
+    }
+  },
+  "agroalimentaria2025": {
+    "title": "",
+    "title2": "",
+    "description": "¡Participa en la 9na. edición de la feria internacional de alimentos, bebidas y tabaco más importante de la República Dominicana!",
+    "participate": "Accesa y regístrate en esta gran experiencia",
+    "days": "Días",
+    "hours": "Horas",
+    "minutes": "Minutos",
+    "seconds": "Segundos",
+    "month": "Mayo",
+    "buyers": {
+      "title": "Compradores",
+      "url": "https://wkf.ms/40twoR0"
+    },
+    "exporters": {
+      "title": "Exportadores",
+      "url": "https://wkf.ms/4fXkuDq"
     }
   },
   "Footer": {
