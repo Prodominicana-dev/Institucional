@@ -35,7 +35,7 @@ export default function Page() {
         className="w-full"
       />
       <div className="overflow-auto xl:overflow-hidden w-full h-full flex flex-col items-center justify-center xl:gap-10">
-        <div className="w-8/12">
+        <div className="w-10/12 xl:w-8/12 pb-2 xl:pb-0">
           <LanguagePicker />
           {locale === "es" ? (
             <Image
@@ -44,7 +44,7 @@ export default function Page() {
               draggable={false}
               alt="agroesp"
               src={`/svg/logos/agroalimentaria2025esp.svg`}
-              className="w-32 xl:w-full"
+              className="w-full"
             />
           ) : (
             <Image
@@ -53,7 +53,7 @@ export default function Page() {
               draggable={false}
               alt="agroeng"
               src={`/svg/logos/agroalimentaria2025eng.svg`}
-              className="w-32 xl:w-full"
+              className="w-full"
             />
           )}
         </div>
@@ -88,7 +88,7 @@ export default function Page() {
           <Link
             href={"https://maps.app.goo.gl/N2V84C5w5NZEiZez9"}
             target="_blank"
-            className="w-full text-sm xl:text-lg text-center text-[#519A4C] hover:text-[#ADCB54] duration-300"
+            className="w-full text-sm xl:text-lg text-center text-gray-500 hover:text-[#519A4C] duration-300"
           >
             Centro de Convenciones Hotel Dominican Fiesta, <br /> Santo Domingo,
             República Dominicana
