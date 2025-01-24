@@ -24,7 +24,7 @@ export default function Page() {
     },
   ];
   return (
-    <div className="w-full h-full bg-white">
+    <div className="w-full bg-white overflow-auto xl:overflow-hidden">
       <Image
         width={3840}
         height={2160}
@@ -34,7 +34,7 @@ export default function Page() {
         src="/images/agroalimentaria/agrotop.png"
         className="w-full"
       />
-      <div className="overflow-auto xl:overflow-hidden w-full h-full flex flex-col items-center justify-center xl:gap-10">
+      <div className="w-full flex flex-col items-center justify-center xl:gap-10">
         <div className="w-10/12 xl:w-8/12 pb-2 xl:pb-0">
           <LanguagePicker />
           {locale === "es" ? (
