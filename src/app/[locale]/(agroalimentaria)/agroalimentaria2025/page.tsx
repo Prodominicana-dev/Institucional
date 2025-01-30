@@ -77,7 +77,7 @@ export default function Page() {
           </div>
           <DateTimeLocation />
         </div>
-        <div className="flex flex-col items-center gap-2">
+        <div className="flex flex-col items-center gap-3">
           <div className="flex items-center font-bold gap-3 text-[#CB6431] text-lg xl:text-3xl">
             <div>28 -31</div>
             <Divider color="bg-[#CB6431]" />
@@ -93,6 +93,7 @@ export default function Page() {
             Centro de Convenciones Hotel Dominican Fiesta, <br /> Santo Domingo,
             República Dominicana
           </Link>
+          <FormButton title={t("info")} url={"https://qrco.de/bfMgfg"} />
         </div>
       </div>
       <Image
