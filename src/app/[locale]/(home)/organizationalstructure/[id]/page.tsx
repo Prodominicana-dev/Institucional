@@ -3,8 +3,10 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import MembersGrid from "@/components/organizationalStructure/membersGrid";
 import { useMembersByDepartment } from "@/services/structure-organizational/members/service";
+import { useParams } from "next/navigation";
 
-export default function Page({ params: { locale, id } }: any) {
+export default function Page() {
+  const { locale, id } = useParams<{ locale: string; id: string }>();
   const { data, isLoading } = useMembersByDepartment(locale, id);
   const [members, setMembers] = useState([]);
   useEffect(() => {

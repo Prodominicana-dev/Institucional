@@ -9,8 +9,10 @@ import {
 import { useGallery } from "@/services/gallery/service";
 import { Spinner } from "@material-tailwind/react";
 import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 
-export default function Page({ params }: { params: { locale: string } }) {
+export default function Page() {
+  const params = useParams<{ locale: string }>();
   const [galleries, setGalleries] = useState<any>([]);
   const [galleryFilter, setGalleryFilter] = useState<any>([]);
   const [search, setSearch] = useState("");
@@ -42,7 +44,11 @@ export default function Page({ params }: { params: { locale: string } }) {
   if (isLoading)
     return (
       <div className="w-full h-[85vh] bg-white flex justify-center items-center">
-        <Spinner className="size-7" />
+        <Spinner
+          className="size-7"
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        />
       </div>
     );
 

@@ -21,7 +21,7 @@ import {
 } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { Select } from "@mantine/core";
@@ -42,7 +42,8 @@ const exportDirectoryFilters = [
   },
 ];
 
-export default function Page({ params }: { params: { locale: string } }) {
+export default function Page() {
+  const params = useParams<{ locale: string }>();
   const router = useRouter();
   const searchParams = useSearchParams();
   const search = searchParams.get("search");

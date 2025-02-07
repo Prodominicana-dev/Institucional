@@ -70,7 +70,7 @@ export default function PhotoGallerySection() {
                 width={2048}
                 height={1080}
                 src={`${process.env.NEXT_PUBLIC_API_URL}/gallery/${image?.galleryId}/img/${image?.name}`}
-                alt={image.alt}
+                alt={image.name}
                 className="w-full rounded-sm"
               />
             ))}
@@ -90,7 +90,7 @@ export default function PhotoGallerySection() {
                 width={2048}
                 height={1080}
                 src={`${process.env.NEXT_PUBLIC_API_URL}/gallery/${image?.galleryId}/img/${image?.name}`}
-                alt={image.alt}
+                alt={image.name}
                 className="w-full h-full rounded-lg"
               />
             ))}

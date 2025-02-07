@@ -207,7 +207,11 @@ export function ServiceTypeDialog({
           >
             {isLastStep ? (
               isLoading ? (
-                <Spinner className="w-7 h-7" />
+                <Spinner
+                  className="w-7 h-7"
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                />
               ) : (
                 "Guardar"
               )

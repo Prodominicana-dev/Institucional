@@ -48,7 +48,15 @@ export default function DeactiveButton({
                   funct();
                 }}
               >
-                {isLoading ? <Spinner className="w-7 h-7" /> : "Ocultar"}
+                {isLoading ? (
+                  <Spinner
+                    className="w-7 h-7"
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  />
+                ) : (
+                  "Ocultar"
+                )}
               </button>
               <button
                 onClick={handleOpen}

@@ -87,7 +87,12 @@ export function OrderDialog({
   if (loading)
     return (
       <div className="w-full h-full flex items-center justify-center">
-        <Spinner className="size-7" />;
+        <Spinner
+          className="size-7"
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        />
+        ;
       </div>
     );
   return (

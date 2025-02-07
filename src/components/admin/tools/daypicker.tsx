@@ -54,7 +54,6 @@ export default function Day_Picker({
           defaultMonth={new Date(year, monthNumber, day)}
           selected={date}
           onSelect={setDate}
-          captionLayout="dropdown-buttons"
           fromYear={2000}
           toYear={year + 1}
           showOutsideDays

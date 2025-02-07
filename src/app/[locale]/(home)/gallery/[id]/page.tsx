@@ -15,17 +15,14 @@ import "yet-another-react-lightbox/plugins/thumbnails.css";
 import { usePhotoGalleryByNameAndLang } from "@/services/gallery/photo/service";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useGalleryById } from "@/services/gallery/service";
 import { Spinner } from "@material-tailwind/react";
 import { useTranslations } from "next-intl";
 // const sizeOf = require("image-size");
 
-interface Props {
-  params: { id: string; locale: string };
-}
-
-export default function Carousel({ params }: Props) {
+export default function Carousel() {
+  const params = useParams<{ id: string; locale: string }>();
   const [index, setIndex] = useState(-1);
   const [photos, setPhotos] = useState([]);
   const [photosSrc, setPhotosSrc] = useState<any[]>([]);
@@ -54,7 +51,11 @@ export default function Carousel({ params }: Props) {
   if (photoLoading)
     return (
       <div className="w-full h-[85vh] bg-white flex justify-center items-center ">
-        <Spinner className="size-7" />
+        <Spinner
+          className="size-7"
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        />
       </div>
     );
 

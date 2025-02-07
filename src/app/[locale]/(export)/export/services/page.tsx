@@ -5,8 +5,10 @@ import { Spinner, Typography } from "@material-tailwind/react";
 import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 
-export default function Page({ params }: { params: { locale: string } }) {
+export default function Page() {
+  const params = useParams<{ locale: string }>();
   const t = useTranslations("navbar");
   const [services, setServices] = useState<any>();
   const { data, isLoading } = useExportServices();
@@ -19,7 +21,11 @@ export default function Page({ params }: { params: { locale: string } }) {
   if (isLoading)
     return (
       <div className="w-full min-h-[85vh] bg-white flex justify-center items-center">
-        <Spinner className="size-7" />
+        <Spinner
+          className="size-7"
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        />
       </div>
     );
   return (

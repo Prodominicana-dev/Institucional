@@ -48,7 +48,15 @@ export default function ActivateButton({
                   funct();
                 }}
               >
-                {isLoading ? <Spinner className="w-7 h-7" /> : "Activar"}
+                {isLoading ? (
+                  <Spinner
+                    className="w-7 h-7"
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  />
+                ) : (
+                  "Activar"
+                )}
               </button>
               <button
                 onClick={handleOpen}

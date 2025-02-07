@@ -8,7 +8,6 @@ import "@mantine/carousel/styles.css";
 import { NextIntlClientProvider, useMessages, useLocale } from "next-intl";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { MantineProvider } from "@mantine/core";
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "ProDominicana",
@@ -18,15 +17,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-  params: { locale },
+  params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: any;
 }) {
   const messages = useMessages();
 
   return (
-    <html lang={locale} className="scroll-smooth">
+    <html className="scroll-smooth" suppressHydrationWarning>
       <head>
         <link
           rel="apple-touch-icon"
@@ -54,7 +53,7 @@ export default function RootLayout({
         <meta name="msapplication-TileColor" content="#ffffff" />
         <meta name="theme-color" content="#ffffff" />
       </head>
-      <body className={inter.className}>
+      <body suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
           <MantineProvider>{children}</MantineProvider>
           <GoogleAnalytics gaId="G-2026ZFW8SM" />

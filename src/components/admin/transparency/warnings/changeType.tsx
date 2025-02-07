@@ -48,7 +48,15 @@ export default function ChangeTypeMessage({
                 className="w-full h-12 font-normal text-black duration-300 bg-white rounded-lg hover:shadow-lg hover:text-white hover:bg-black border-2 border-black  flex justify-center items-center"
                 onClick={handleAccept}
               >
-                {isLoading ? <Spinner className="w-7 h-7" /> : "Cambiar"}
+                {isLoading ? (
+                  <Spinner
+                    className="w-7 h-7"
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  />
+                ) : (
+                  "Cambiar"
+                )}
               </button>
               <button
                 onClick={handleCancel}

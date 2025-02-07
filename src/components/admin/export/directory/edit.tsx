@@ -403,7 +403,7 @@ export function EditExporterDialog({
               </label>
             </div>
           </div> */}
-                 
+
           <div className="w-full flex flex-col lg:flex-row gap-4">
             <div className="w-full lg:w-6/12">
               <label className="font-semibold text-black text-lg">
@@ -500,7 +500,7 @@ export function EditExporterDialog({
                   },
                 })}
                 value={IsWomanOptions.find(
-                  options => options.value === isWoman
+                  (options) => options.value === isWoman
                 )}
               />
             </div>
@@ -553,7 +553,15 @@ export function EditExporterDialog({
             onClick={handleButton}
             className={`${"w-36 h-12 bg-white border-2 border-black text-black hover:bg-black hover:text-white hover:shadow-lg duration-300 rounded-xl"}`}
           >
-            {submitLoading ? <Spinner className="w-7 h-7" /> : "Guardar"}
+            {submitLoading ? (
+              <Spinner
+                className="w-7 h-7"
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              />
+            ) : (
+              "Guardar"
+            )}
           </button>
         </DialogFooter>
       </Dialog>

@@ -1,3 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colores */
+  --color-navy: #062381;
+  --color-purpurita: #4c12c4;
+  --color-mint: #1ad25d;
+  --color-light-blue: #0b256f;
+  --color-dark-blue: #040e2c;
+  --color-sky-blue: rgba(41, 151, 242, 0.7);
+  --color-celeste: #08a5ec;
+  --color-morado: #783cc8;
+  --color-sied-purple: #4a12c5;
+  --color-sied-pink: #e82d72;
+  --color-blue-dark: #01296d;
+
+  /* Fuentes */
+  --font-montserrat: "Montserrat", sans-serif;
+  --font-opensans: "OpenSans", sans-serif;
+  --font-noctura: "Noctura", georgia;
+  --font-adelia: "Adelia", normal;
+  --font-gotham: "Gotham", medium;
+  --font-glancyr: "Glancyr", regular;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

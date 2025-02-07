@@ -56,7 +56,11 @@ export default function AuthUser({
     return (
       <>
         <div className="w-full h-[85vh] flex justify-center items-center">
-          <Spinner className="w-7 h-7" />
+          <Spinner
+            className="w-7 h-7"
+            onPointerEnterCapture={undefined}
+            onPointerLeaveCapture={undefined}
+          />
         </div>
       </>
     );

@@ -74,7 +74,15 @@ export default function SectionPopover({
           onClick={handleSectionSubmit}
           className="w-full h-12 hover:bg-white border-2 border-blue-dark hover:text-blue-dark duration-300 hover:shadow-md bg-blue-dark rounded-lg text-white justify-center items-center flex"
         >
-          {sectionLoading ? <Spinner className="w-7 h-7" /> : "Agregar"}
+          {sectionLoading ? (
+            <Spinner
+              className="w-7 h-7"
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            />
+          ) : (
+            "Agregar"
+          )}
         </button>
       </PopoverContent>
     </Popover>

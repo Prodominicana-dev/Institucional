@@ -29,11 +29,11 @@ export default function CEOSection() {
             <div className="flex flex-col items-center space-y-2">
               <div className="font-noctura text-5xl">{t("name")}</div>
               <div className="h-1 bg-red-700 w-8/12"></div>
-              <div className="font-bold font-montserrat text-lg w-10/12">
+              <div className="font-bold font-montserrat text-base w-10/12">
                 {t("title")}
               </div>
             </div>
-            <div className="font-light font-montserrat text-xs sm:text-base">
+            <div className="font-light font-montserrat text-xs sm:text-sm">
               {t("description")}
             </div>
             <Image

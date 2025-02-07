@@ -112,7 +112,6 @@ export function ExporterDialog({
     },
   ];
 
-
   /* Funcion para cuando droppeen un documento se agregue a la lista ya existente */
   const handleDrop = (acceptedFiles: FileWithPath[]) => {
     setFiles(acceptedFiles);
@@ -348,7 +347,7 @@ export function ExporterDialog({
                   },
                 })}
                 value={IsWomanOptions.find(
-                  options => options.value === isWoman
+                  (options) => options.value === isWoman
                 )}
               />
             </div>
@@ -391,7 +390,7 @@ export function ExporterDialog({
               </label>
             </div>
           </div> */}
-          
+
           <div className="w-full flex flex-col lg:flex-row gap-4">
             <div className="w-full lg:w-6/12">
               <label className="font-semibold text-black text-lg">
@@ -514,7 +513,15 @@ export function ExporterDialog({
             onClick={handleButton}
             className={`${"w-36 h-12 bg-white border-2 border-black text-black hover:bg-black hover:text-white hover:shadow-lg duration-300 rounded-xl"}`}
           >
-            {submitLoading ? <Spinner className="w-7 h-7" /> : "Guardar"}
+            {submitLoading ? (
+              <Spinner
+                className="w-7 h-7"
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              />
+            ) : (
+              "Guardar"
+            )}
           </button>
         </DialogFooter>
       </Dialog>

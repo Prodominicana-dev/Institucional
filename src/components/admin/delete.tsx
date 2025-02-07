@@ -48,7 +48,15 @@ export default function DeleteButton({
                   funct();
                 }}
               >
-                {isLoading ? <Spinner className="w-7 h-7" /> : "Eliminar"}
+                {isLoading ? (
+                  <Spinner
+                    className="w-7 h-7"
+                    onPointerEnterCapture={undefined}
+                    onPointerLeaveCapture={undefined}
+                  />
+                ) : (
+                  "Eliminar"
+                )}
               </button>
               <button
                 onClick={handleOpen}

@@ -22,8 +22,10 @@ import React, { useEffect, useState } from "react";
 import { useNewsById, usePrevNextById } from "@/services/news/service";
 import NewsContent from "@/components/news/content";
 import TextContent from "@/components/news/text";
+import { useParams } from "next/navigation";
 
-export default function Page({ params: { locale, id } }: any) {
+export default function Page() {
+  const { locale, id } = useParams<{ locale: string; id: string }>();
   const { data, isLoading } = useNewsById(locale, id);
   const { data: nextPrev, isLoading: nextPrevLoading } = usePrevNextById(
     locale,
@@ -87,10 +89,10 @@ export default function Page({ params: { locale, id } }: any) {
               <SpeedDialHandler>
                 <IconButton
                   size="lg"
-                  className="rounded-full bg-blue-950"
+                  className="rounded-full bg-blue-950 flex justify-center items-center cursor-pointer"
                   placeholder={undefined}
                 >
-                  <ShareIcon className="w-5 hover:w-4 duration-300" />
+                  <ShareIcon className="size-4 duration-300" />
                 </IconButton>
               </SpeedDialHandler>
               <SpeedDialContent
@@ -99,7 +101,7 @@ export default function Page({ params: { locale, id } }: any) {
               >
                 <SpeedDialAction
                   placeholder={undefined}
-                  className="bg-blue-500"
+                  className="bg-blue-500 size-8 border-0"
                 >
                   <Link
                     href={`https://www.facebook.com/sharer/sharer.php?u=${route}&src=sdkpreparse`}
@@ -114,7 +116,7 @@ export default function Page({ params: { locale, id } }: any) {
 
                 <SpeedDialAction
                   placeholder={undefined}
-                  className="bg-green-500"
+                  className="bg-green-500 size-8 border-0"
                 >
                   <Link
                     href={`https://api.whatsapp.com/send?text=${article?.title} ${route}`}
@@ -128,7 +130,7 @@ export default function Page({ params: { locale, id } }: any) {
                 </SpeedDialAction>
                 <SpeedDialAction
                   placeholder={undefined}
-                  className="bg-lightBlue-600"
+                  className="bg-[#0077b5] size-8 border-0"
                 >
                   <Link
                     href={`https://www.linkedin.com/sharing/share-offsite/?url=${route}`}
@@ -140,7 +142,10 @@ export default function Page({ params: { locale, id } }: any) {
                     />
                   </Link>
                 </SpeedDialAction>
-                <SpeedDialAction placeholder={undefined} className="bg-black">
+                <SpeedDialAction
+                  placeholder={undefined}
+                  className="bg-black size-8 border-0"
+                >
                   <Link
                     href={`https://www.x.com/share?url=${route}&text=${article?.title}`}
                     target="_blank"
@@ -151,7 +156,10 @@ export default function Page({ params: { locale, id } }: any) {
                     />
                   </Link>
                 </SpeedDialAction>
-                <SpeedDialAction placeholder={undefined} className="bg-black">
+                <SpeedDialAction
+                  placeholder={undefined}
+                  className="bg-black size-8 border-0"
+                >
                   <Link
                     href={`https://threads.net/intent/post?text=${article?.title} ${route}`}
                     target="_blank"
@@ -162,25 +170,31 @@ export default function Page({ params: { locale, id } }: any) {
                     />
                   </Link>
                 </SpeedDialAction>
-                <SpeedDialAction placeholder={undefined}>
-                  <Link
-                    href={`mailto:?subject=${article?.title}&body=${route}`}
-                    target="_blank"
-                  >
-                    <FontAwesomeIcon
-                      icon={["far", "envelope"]}
-                      className="text-black"
-                    />
-                  </Link>
-                </SpeedDialAction>
-                <SpeedDialAction placeholder={undefined}>
+                <SpeedDialAction
+                  placeholder={undefined}
+                  className="border-0 p-0 m-0"
+                >
                   <Link
                     href={`https://www.t.me/share?url=${route}&text=${article?.title}`}
                     target="_blank"
                   >
                     <FontAwesomeIcon
                       icon={["fab", "telegram"]}
-                      className="text-lightBlue-500"
+                      className="text-[#24A1DE] text-4xl"
+                    />
+                  </Link>
+                </SpeedDialAction>
+                <SpeedDialAction
+                  placeholder={undefined}
+                  className="bg-white size-8 border-0 p-0 m-0"
+                >
+                  <Link
+                    href={`mailto:?subject=${article?.title}&body=${route}`}
+                    target="_blank"
+                  >
+                    <FontAwesomeIcon
+                      icon={["far", "envelope"]}
+                      className="text-black text-2xl"
                     />
                   </Link>
                 </SpeedDialAction>

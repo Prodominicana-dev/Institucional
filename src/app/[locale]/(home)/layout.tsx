@@ -19,6 +19,7 @@ import {
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { APIProvider } from "@vis.gl/react-google-maps";
 import { Notifications } from "@mantine/notifications";
+import { useParams } from "next/navigation";
 
 library.add(
   faFacebookF,
@@ -32,11 +33,11 @@ library.add(
 
 interface RootLayoutProps {
   children: React.ReactNode;
-  params: { locale: string };
 }
 
-export default function RootLayout({ children, params }: RootLayoutProps) {
+export default function RootLayout({ children }: RootLayoutProps) {
   const queryClient = new QueryClient();
+  const params = useParams<{ locale: string }>();
   return (
     <html className="scroll-smooth">
       <body>

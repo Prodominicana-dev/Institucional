@@ -7,9 +7,11 @@ import { Input, Spinner, Textarea } from "@material-tailwind/react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-export default function Page({ params: { locale, id } }: any) {
+export default function Page() {
+  const { id, locale } = useParams<{ id: string; locale: string }>();
   const [event, setEvent] = useState<any>();
   const t = useTranslations("events");
   const { data, isLoading } = useEventByIdAndLang(id, locale);
@@ -198,7 +200,7 @@ export default function Page({ params: { locale, id } }: any) {
                 src={`${process.env.NEXT_PUBLIC_API_URL}/events/images/${id}/${data.image}`}
                 width={2000}
                 height={2000}
-                alt=""
+                alt={event?.title}
                 className="h-80 border-[16px] object-cover border-white"
               />
             ) : (
@@ -206,7 +208,7 @@ export default function Page({ params: { locale, id } }: any) {
                 src={"/svg/prodominicana-logo.svg"}
                 width={2000}
                 height={2000}
-                alt=""
+                alt={event?.title}
                 className="h-80 border-[16px] object-contain border-white bg-white"
               />
             )}

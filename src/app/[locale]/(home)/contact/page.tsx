@@ -21,19 +21,18 @@ import {
 import Link from "next/link";
 import { Map, AdvancedMarker, Pin, useMap } from "@vis.gl/react-google-maps";
 import { useTranslations } from "next-intl";
-import {createcontact} from '@/services/contact/service'
+import { createcontact } from "@/services/contact/service";
 
 export default function Page() {
   const map = useMap();
   const t = useTranslations("contact");
   const [openMenu, setOpenMenu] = React.useState(false);
-  const [name, setName] = React.useState('');
+  const [name, setName] = React.useState("");
 
-   const handleclick = (eName:any) => {
+  const handleclick = (eName: any) => {
     setName(eName);
-    console.log('klk name',name);
-    
-   }
+    console.log("klk name", name);
+  };
   const cards = [
     {
       title: t("contactInfo.phone.title"),
@@ -175,67 +174,61 @@ export default function Page() {
     map.setCenter(activeMarker.coords);
     map.setZoom(15);
   }, [map, activeMarker]);
-  
-  
-    const [ formData,setFormData]= useState({
-      nameF: "",
-      lastName: "",
-      email: "",
-      identity: "",
-      activity: "",
-      message:"",
-    });
 
-    const optionSelect =[
+  const [formData, setFormData] = useState({
+    nameF: "",
+    lastName: "",
+    email: "",
+    identity: "",
+    activity: "",
+    message: "",
+  });
 
-      'Exportador',
-      'Inversionista',
-      'Otro'
+  const optionSelect = ["Exportador", "Inversionista", "Otro"];
 
-    ]
-
-    const handleInputChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
-      const { name, value } = event.target;
-      setFormData((prevData) => ({
-        ...prevData,
-        [name!]: value,
-      }));
-    };
-  
-
-  const handleSelectChange = ( value:string | undefined ) => {
+  const handleInputChange = (
+    event: React.ChangeEvent<{ name?: string; value: unknown }>
+  ) => {
+    const { name, value } = event.target;
     setFormData((prevData) => ({
       ...prevData,
-      activity: value || '',
+      [name!]: value,
     }));
   };
 
-  const handleTextAre = ( event:React.ChangeEvent<HTMLTextAreaElement>) => {
-    const{ name, value } = event.target;
+  const handleSelectChange = (value: string | undefined) => {
     setFormData((prevData) => ({
-     ...prevData,
-       [name]:value,
+      ...prevData,
+      activity: value || "",
     }));
   };
 
-  const cleardataForm =() =>{
+  const handleTextAre = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const cleardataForm = () => {
     setFormData({
       nameF: "",
       lastName: "",
       email: "",
       identity: "",
       activity: "",
-      message:"",
+      message: "",
     });
-  }
+  };
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-  
+
     // console.log('Datos del formulario:', formData);
 
     // await createcontact(formData,cleardataForm)
-  }
+  };
   return (
     <div className="bg-white">
       <section className="flex justify-center py-10">
@@ -244,27 +237,32 @@ export default function Page() {
             width={2000}
             height={2000}
             src={"/images/prodominicanabuilding.jpg"}
-            alt={""}
+            alt={"Building"}
             className="rounded-3xl object-cover h-full w-6/12 hidden xl:block"
           />
-          <form onSubmit={handleSubmit}   className="flex flex-col gap-5 py-2 text-blue-950 xl:w-6/12 w-full">
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col gap-5 py-2 text-blue-950 xl:w-6/12 w-full"
+          >
             <div>
               <h1 className="text-4xl font-extrabold">{t("title")}</h1>
               <p className="font-semibold">{t("description")}</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-5">
-              <FormInput label={t("form.name")} placeholder="John"
+              <FormInput
+                label={t("form.name")}
+                placeholder="John"
                 value={formData.nameF}
                 onChange={handleInputChange}
                 name="nameF"
               />
               <FormInput
-               label={t("form.lastName")}
+                label={t("form.lastName")}
                 placeholder="Doe"
                 value={formData.lastName}
                 onChange={handleInputChange}
                 name="lastName"
-                />
+              />
             </div>
             <FormInput
               label={t("form.email")}
@@ -293,14 +291,11 @@ export default function Page() {
                   }}
                   placeholder={undefined}
                 >
-                 {
-                   optionSelect.map((option, index) => (
-                     <Option key={index} value={option}>
-                       {option}
-                     </Option>
-                   ))
-                 }
-              
+                  {optionSelect.map((option, index) => (
+                    <Option key={index} value={option}>
+                      {option}
+                    </Option>
+                  ))}
                 </Select>
               </div>
             </div>
@@ -316,7 +311,10 @@ export default function Page() {
                 name="message"
               ></Textarea>
             </div>
-            <button type="submit" className="bg-blue-950 w-full py-5 text-xl text-white font-bold text-center rounded-xl">
+            <button
+              type="submit"
+              className="bg-blue-950 w-full py-5 text-xl text-white font-bold text-center rounded-xl"
+            >
               {t("form.button")}
             </button>
           </form>
@@ -405,7 +403,7 @@ export default function Page() {
   );
 }
 
-function FormInput({ label, placeholder,value,onChange,name }: any) {
+function FormInput({ label, placeholder, value, onChange, name }: any) {
   return (
     <div className="w-full flex flex-col gap-2">
       <div className="font-bold text-xl">{label}</div>

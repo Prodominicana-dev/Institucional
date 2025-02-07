@@ -91,7 +91,15 @@ export default function SubsectionPopover({
           onClick={handleSubsectionSubmit}
           className="w-full h-12 hover:bg-white border-2 border-blue-dark hover:text-blue-dark duration-300 hover:shadow-md bg-blue-dark rounded-lg text-white justify-center items-center flex"
         >
-          {subsectionLoading ? <Spinner className="w-7 h-7" /> : "Agregar"}
+          {subsectionLoading ? (
+            <Spinner
+              className="w-7 h-7"
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            />
+          ) : (
+            "Agregar"
+          )}
         </button>
       </PopoverContent>
     </Popover>
