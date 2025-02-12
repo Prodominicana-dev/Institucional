@@ -6,13 +6,14 @@ import Link from "next/link";
 import React, { use } from "react";
 import { APIProvider } from "@vis.gl/react-google-maps";
 import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 
 interface RootLayoutProps {
   children: React.ReactNode;
-  params: { locale: string };
 }
 
-export default function RootLayout({ children, params }: RootLayoutProps) {
+export default function RootLayout({ children }: RootLayoutProps) {
+  const params = useParams<{ locale: string }>();
   const t = useTranslations("invest");
   const navbarOptions = [
     {

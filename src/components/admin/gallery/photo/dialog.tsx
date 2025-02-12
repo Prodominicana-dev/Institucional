@@ -144,7 +144,15 @@ export function PhotoDialog({
                 
             `}
           >
-            {isLoading ? <Spinner className="w-7 h-7" /> : "Guardar"}
+            {isLoading ? (
+              <Spinner
+                className="w-7 h-7"
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              />
+            ) : (
+              "Guardar"
+            )}
           </button>
         </DialogFooter>
       </Dialog>

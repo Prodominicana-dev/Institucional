@@ -12,10 +12,12 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Spinner } from "@material-tailwind/react";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 
-export default function Page({ params: { locale, id } }: any) {
+export default function Page() {
+  const { id } = useParams<{ id: string }>();
   const [open, setOpen] = useState(false);
   const { user, isLoading: userLoading } = useUser();
   const [filterOpen, setFilterOpen] = useState(false);
@@ -124,7 +126,11 @@ export default function Page({ params: { locale, id } }: any) {
   if (isLoading) {
     return (
       <div className="w-full h-[80vh] flex justify-center items-center">
-        <Spinner className="w-7 h-7" />
+        <Spinner
+          className="size-7"
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        />
       </div>
     );
   }
@@ -180,7 +186,7 @@ export default function Page({ params: { locale, id } }: any) {
                           >
                             <Image
                               src={`${process.env.NEXT_PUBLIC_API_URL}/gallery/${gallery?.galleryId}/img/${gallery?.name}`}
-                              alt={gallery.name}
+                              alt={gallery?.name}
                               width={1920}
                               height={1080}
                               className="w-full object-cover"

@@ -200,7 +200,15 @@ export function SectionDialog({
             onClick={handleSubmit}
             className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center"
           >
-            {submitLoading ? <Spinner className="w-7 h-7" /> : "Guardar"}
+            {submitLoading ? (
+              <Spinner
+                className="w-7 h-7"
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              />
+            ) : (
+              "Guardar"
+            )}
           </button>
         </DialogFooter>
       </Dialog>

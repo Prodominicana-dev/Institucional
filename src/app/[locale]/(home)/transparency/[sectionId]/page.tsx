@@ -5,10 +5,12 @@ import {
   useSectionTranspFilter,
 } from "@/services/section/service";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 
-export default function Page({ params }: { params: { sectionId: string } }) {
+export default function Page() {
+  const params = useParams<{ sectionId: string }>();
   const { data, isLoading } = useSectionById(params.sectionId);
   const { data: filters, isLoading: filtersLoading } = useSectionTranspFilter(
     params.sectionId

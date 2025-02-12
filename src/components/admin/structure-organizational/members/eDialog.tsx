@@ -607,7 +607,11 @@ export function MembersEditDialog({
       >
         <DialogBody placeholder={undefined}>
           <div className="w-full h-full flex justify-center items-center">
-            <Spinner className="size-7" />
+            <Spinner
+              className="w-7 h-7"
+              onPointerEnterCapture={undefined}
+              onPointerLeaveCapture={undefined}
+            />
           </div>
         </DialogBody>
       </Dialog>
@@ -686,7 +690,11 @@ export function MembersEditDialog({
           >
             {isLastStep ? (
               isLoading ? (
-                <Spinner className="w-7 h-7" />
+                <Spinner
+                  className="w-7 h-7"
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                />
               ) : (
                 "Guardar"
               )

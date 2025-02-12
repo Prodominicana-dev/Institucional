@@ -8,10 +8,12 @@ import { useDirections } from "@/services/structure-organizational/service";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Spinner } from "@material-tailwind/react";
+import { useParams } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 
-export default function Page({ params: { locale } }: any) {
+export default function Page() {
+  const params = useParams<{ locale: string }>();
   const [open, setOpen] = useState(false);
   const { user, isLoading: userLoading } = useUser();
   const [filterOpen, setFilterOpen] = useState(false);
@@ -101,7 +103,11 @@ export default function Page({ params: { locale } }: any) {
   if (isLoading) {
     return (
       <div className="w-full h-[80vh] flex justify-center items-center">
-        <Spinner className="w-7 h-7" />
+        <Spinner
+          className="size-7"
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        />
       </div>
     );
   }

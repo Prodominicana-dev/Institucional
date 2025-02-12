@@ -12,7 +12,10 @@ import {
 import { createSection, useSection } from "@/services/section/service";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import Select from "react-select";
-import { createSubsection, useSectionSubsAdmin } from "@/services/subsection/service";
+import {
+  createSubsection,
+  useSectionSubsAdmin,
+} from "@/services/subsection/service";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { Montserrat } from "next/font/google";
 import SectionPopover from "../section/popover";
@@ -51,7 +54,6 @@ export function SubsectionDialog({
 
   useEffect(() => {
     if (data && !dataLoaded) {
-      
       setSection(data);
     }
   }, [data, dataLoaded]);
@@ -284,7 +286,15 @@ export function SubsectionDialog({
             }
             className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl justify-center flex items-center"
           >
-            {dataLoading ? <Spinner className="w-7 h-7" /> : "Guardar"}
+            {dataLoading ? (
+              <Spinner
+                className="w-7 h-7"
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              />
+            ) : (
+              "Guardar"
+            )}
           </button>
         </DialogFooter>
       </Dialog>

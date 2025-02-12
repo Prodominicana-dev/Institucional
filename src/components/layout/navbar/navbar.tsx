@@ -122,10 +122,10 @@ export default function Navbar() {
                   className="h-full w-8/12 text-blue-950 bg-white outline-none pl-2"
                 />
                 <IconButton
-                  className="bg-red-700 rounded-full w-8 h-8"
+                  className="bg-red-700 rounded-full w-8 h-8 flex justify-center items-center cursor-pointer"
                   placeholder={undefined}
                 >
-                  <MagnifyingGlassIcon className="w-5 h-5" />
+                  <MagnifyingGlassIcon className="size-5" />
                 </IconButton>
               </div>
               <ToolsMenu />
@@ -142,7 +142,7 @@ export default function Navbar() {
               className="w-20 bg-red-700 flex justify-center items-center"
             >
               <Image
-                alt=""
+                alt="prodominicana"
                 width={50}
                 height={50}
                 src={"/svg/icons/HomeProdominicana.svg"}

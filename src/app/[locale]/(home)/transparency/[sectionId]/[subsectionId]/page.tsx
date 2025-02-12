@@ -5,14 +5,12 @@ import {
   useSubsectionTranspFilter,
 } from "@/services/subsection/service";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 
-export default function Page({
-  params,
-}: {
-  params: { sectionId: string; subsectionId: string };
-}) {
+export default function Page() {
+  const params = useParams<{ subsectionId: string }>();
   const { data, isLoading } = useSubsectionById(params.subsectionId);
   const { data: filters, isLoading: filtersLoading } =
     useSubsectionTranspFilter(params.subsectionId);

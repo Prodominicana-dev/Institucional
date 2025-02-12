@@ -26,7 +26,7 @@ export default function NavbarMenu({ title, navListMenuItems }: Props) {
       <Link href={link} key={key}>
         <MenuItem
           placeholder={undefined}
-          className="flex items-center gap-3 rounded-lg"
+          className="flex items-center gap-3 rounded-lg border-0"
         >
           <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
             {" "}

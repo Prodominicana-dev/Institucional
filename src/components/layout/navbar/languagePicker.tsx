@@ -38,7 +38,9 @@ export default function LanguagePicker() {
   const pathname = usePathname();
 
   function switchLocale(locale: string) {
-    router.replace(pathname, { locale: locale });
+    if (locale === "es" || locale === "en") {
+      router.replace(pathname, { locale });
+    }
   }
   useEffect(() => {
     switchLocale(selected.langcode);

@@ -5,10 +5,12 @@ import { useServiceType } from "@/services/service/type/service";
 import { Spinner, Typography } from "@material-tailwind/react";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 
-export default function Page({ params }: { params: { locale: string } }) {
+export default function Page() {
+  const params = useParams<{ locale: string }>();
   const t = useTranslations("navbar");
   const [invest, setInvest] = useState<any>();
   const { data, isLoading } = useInvestmentServices();
@@ -52,7 +54,11 @@ export default function Page({ params }: { params: { locale: string } }) {
   if (isLoading || loadingTypeService)
     return (
       <div className="w-full min-h-[85vh] bg-white flex justify-center items-center">
-        <Spinner className="size-7" />
+        <Spinner
+          className="size-7"
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        />
       </div>
     );
   return (

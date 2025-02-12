@@ -74,7 +74,7 @@ export function SubsectionEditDialog({
   };
 
   useEffect(() => {
-    if(subsection){
+    if (subsection) {
       setName(subsection.name || "");
       setDescription(subsection.description || "");
       setSectionId(subsection.sectionId || "");
@@ -153,8 +153,8 @@ export function SubsectionEditDialog({
                 type="text"
                 placeholder="Nombre de la subsección"
                 onChange={(e) => setName(e.target.value)}
-                value={name}             
-                 />
+                value={name}
+              />
             </div>
             <div className="flex flex-row justify-end items-end space-x-4 w-6/12">
               <div className="flex flex-col w-full">
@@ -347,7 +347,15 @@ export function SubsectionEditDialog({
             }
             className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl justify-center flex items-center"
           >
-            {dataLoading ? <Spinner className="w-7 h-7" /> : "Guardar"}
+            {dataLoading ? (
+              <Spinner
+                className="w-7 h-7"
+                onPointerEnterCapture={undefined}
+                onPointerLeaveCapture={undefined}
+              />
+            ) : (
+              "Guardar"
+            )}
           </button>
         </DialogFooter>
       </Dialog>

@@ -1,3 +1,4 @@
+"use client";
 import Banner from "../../../components/home/banner";
 import DigitalToolsSection from "@/components/home/digitalToolsSection";
 import InstituteSection from "@/components/home/instituteSection";
@@ -11,8 +12,10 @@ import BusinessFacilitation from "@/components/home/businessFacilitation";
 import DataDashboard from "@/components/home/dataDashboard";
 import DataDashboardMobile from "@/components/home/dataDashboardMobile";
 import CEOSection from "@/components/home/CEOSection";
+import { useParams } from "next/navigation";
 
-export default function Home({ params }: { params: { locale: string } }) {
+export default function Home() {
+  const params = useParams<{ locale: string }>();
   return (
     <div className="w-full bg-white">
       <MantineProvider>

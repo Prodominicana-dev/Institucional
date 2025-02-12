@@ -95,7 +95,11 @@ export default function Page() {
   if (isLoading) {
     return (
       <div className="w-full h-[80vh] flex justify-center items-center">
-        <Spinner className="w-7 h-7" />
+        <Spinner
+          className="size-7"
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
+        />
       </div>
     );
   }
