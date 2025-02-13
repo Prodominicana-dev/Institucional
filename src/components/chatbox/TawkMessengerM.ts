@@ -5,6 +5,9 @@ declare module '@tawk.to/tawk-messenger-react' {
       propertyId: string;
       widgetId: string;
       onLoad: Function;
+      onBeforeLoad : Function;
+      onStatusChange: Function;
+      onChatMinimized : Function;
       useRef: any;
     }
   
