@@ -7,7 +7,7 @@ import { Drawer } from "@material-tailwind/react";
 
 export default function Navbar(options: any) {
   return (
-    <div className="absolute w-full justify-center items-center top-0 p-10 z-10 hidden xl:flex">
+    <div className="absolute w-full justify-center items-center top-0 p-10 z-50 hidden xl:flex">
       <div className="w-11/12 flex justify-between items-center">
         <Link href={"/invest"}>
           <Image

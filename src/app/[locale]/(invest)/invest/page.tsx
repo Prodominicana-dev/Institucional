@@ -1,83 +1,104 @@
 "use client";
+import { useEffect, useState } from "react";
 import { Link } from "@/navigation";
 import { Carousel } from "@material-tailwind/react";
 import { useTranslations } from "next-intl";
 import React from "react";
 
 export default function Page() {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const autoplayDelay = 10000; // 
   const t = useTranslations("invest.sectors");
+
   const sectors = [
     {
+      id:0,
       name: t("list.0.name"),
       link: "tourism",
       video: "/videos/invest/tourism.mp4",
     },
     {
+      id:1,
       name: t("list.1.name"),
       link: "energy",
       video: "/videos/invest/energy.mp4",
     },
     {
+      id:2,
       name: t("list.2.name"),
       link: "technology",
       video: "/videos/invest/technology.mp4",
     },
     {
+      id:3,
       name: t("list.3.name"),
       link: "manufacturing",
       video: "/videos/invest/manufacturing.mp4",
     },
     {
+      id:4,
       name: t("list.4.name"),
       link: "semiconductors",
       video: "/videos/invest/semiconductors.mp4",
     },
     {
+      id:5,
       name: t("list.5.name"),
       link: "agriculture-and-livestock-farming",
       video: "/videos/invest/agriculture.mp4",
     },
     {
+      id:6,
       name: t("list.6.name"),
       link: "biomedicine",
       video: "/videos/invest/biomedicine.mp4",
     },
   ];
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prevIndex) =>
+        prevIndex === sectors.length - 1 ? 0 : prevIndex + 1
+      );
+    }, autoplayDelay);
+
+    return () => clearInterval(interval);
+  }, [sectors.length]);
+
   return (
-    <div>
-      <div className="h-screen">
-        <Carousel
-          placeholder={undefined}
-          autoplay
-          loop
-          autoplayDelay={10000}
-          transition={{ type: "spring", duration: 0.3 }}
-          navigation={({ setActiveIndex, activeIndex, length }) => (
-            <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
-              {new Array(length).fill("").map((_, i) => (
-                <span
-                  key={i}
-                  className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
-                    activeIndex === i ? "w-8 bg-white" : "w-4 bg-white/50"
-                  }`}
-                  onClick={() => setActiveIndex(i)}
-                />
-              ))}
-            </div>
-          )}
+    <div className="h-screen relative">
+ 
+    <div className="h-full relative z-0">
+      {sectors.map((sector, index) => (
+        <div
+          key={sector.id}
+          className={`w-full h-full absolute transition-opacity duration-500 ${
+            activeIndex === index ? "opacity-100 z-10" : "opacity-0 z-0"
+          }`}
         >
-          {sectors.map((sector, index) => (
-            <SectorVideo key={index} sector={sector} />
-          ))}
-        </Carousel>
-      </div>
+          <SectorVideo sector={sector} />
+        </div>
+      ))}
     </div>
+
+    <div className="absolute bottom-4 left-2/4 z-20 flex -translate-x-2/4 gap-2">
+      {sectors.map((_, i) => (
+        <span
+          key={i}
+          className={`block h-1 cursor-pointer rounded-2xl transition-all ${
+            activeIndex === i ? "w-8 bg-white" : "w-4 bg-white/50"
+          }`}
+          onClick={() => setActiveIndex(i)}
+        />
+      ))}
+    </div>
+  </div>
   );
 }
 
 function SectorVideo({ sector }: any) {
-  return (
+ 
+return (
     <div className="w-full h-full relative">
       <video
         playsInline
