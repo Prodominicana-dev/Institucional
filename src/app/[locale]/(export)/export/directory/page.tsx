@@ -222,7 +222,6 @@ export default function Page() {
             className="w-32 text-center py-2 text-lg  border-2 rounded-full bg-white border-white hover:bg-neutral-200  text-blue-300 font-gotham hover:border-transparent transition-all duration-500 ease-in-out cursor-pointer"
 
           >
-            {/* {t("buttonText")} */}
             Descargar
           </Link>
             
