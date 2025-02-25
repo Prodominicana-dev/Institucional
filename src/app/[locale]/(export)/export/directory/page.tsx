@@ -27,6 +27,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Select } from "@mantine/core";
 import { useIntersection } from "@mantine/hooks";
 
+
 const exportDirectoryFilters = [
   {
     name: "Todos",
@@ -212,6 +213,19 @@ export default function Page() {
                 onChange={(e) => setSearchText(e.target.value)}
               />
             </div>
+
+            <Link
+             href={"/documents/Directorio _Exportadores_2025.pdf"}
+             target="_blank"
+             rel="noopener noreferrer"
+             download
+            className="w-32 text-center py-2 text-lg  border-2 rounded-full bg-white border-white hover:bg-neutral-200  text-blue-300 font-gotham hover:border-transparent transition-all duration-500 ease-in-out cursor-pointer"
+
+          >
+            {/* {t("buttonText")} */}
+            Descargar
+          </Link>
+            
           </div>
         </div>
         <div className="bg-white flex flex-col items-center py-10 gap-10">
