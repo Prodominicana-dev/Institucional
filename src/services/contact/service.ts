@@ -3,11 +3,15 @@ import axios from "axios";
 
 export async function createcontact( FormData:any  , clear: () => void,) {
 
- 
-    try {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/mail/${FormData.nameF}/${FormData.lastName}/${FormData.email}/${FormData.message}/${FormData.activity}/${FormData.identity} `
 
-      const response = await axios.post(url)
+  const data = FormData
+
+    // console.log('data', data);
+    
+    try {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/apiv2/mail/contact `
+
+      const response = await axios.post(url,data)
 
       console.log('this is the status code: ' + response.status);
       
@@ -17,7 +21,7 @@ export async function createcontact( FormData:any  , clear: () => void,) {
           id: "contact",
           autoClose: 5000,
           withCloseButton: false,
-          title: "Noticia creada",
+          title: "Contacto creado",
           message: "Los datos se ha enviado correctamente.",
           color: "green",
           loading: false,

@@ -7,6 +7,7 @@ import {
   ScaleIcon,
   UserIcon,
   VideoCameraIcon,
+  ChevronDownIcon,
 } from "@heroicons/react/24/outline";
 import { IconButton, Select } from "@material-tailwind/react";
 import Image from "next/image";
@@ -130,6 +131,7 @@ export default function Navbar() {
               </div>
               <ToolsMenu />
               <LanguagePicker />
+              <ChevronDownIcon className="  h-6 w-6 -translate-x-3 text-blue-950" />
             </div>
           </div>
         </div>
@@ -149,19 +151,23 @@ export default function Navbar() {
                 className="w-10 cursor-pointer"
               />
             </Link>
-
-            <NavbarMenu
-              title={t("aboutUs.title")}
-              navListMenuItems={aboutListItems}
-            />
-            <NavbarMenu
-              title={t("services.title")}
-              navListMenuItems={servicesListItems}
-            />
-            <NavbarMenu
-              title={t("news.title")}
-              navListMenuItems={newsListItems}
-            />
+            <div className="flex items-center">
+              <NavbarMenu
+                title={t("aboutUs.title")}
+                navListMenuItems={aboutListItems}
+              />
+              <ChevronDownIcon className="  h-5 w-5 -translate-x-4 hover:text-white text-cyan-600" />
+              <NavbarMenu
+                title={t("services.title")}
+                navListMenuItems={servicesListItems}
+              />
+              <ChevronDownIcon className="  h-5 w-5 -translate-x-4 hover:text-white text-cyan-600" />
+              <NavbarMenu
+                title={t("news.title")}
+                navListMenuItems={newsListItems}
+              />
+              <ChevronDownIcon className="  h-5 w-5 -translate-x-4  hover:text-white text-cyan-600" />
+            </div>
             <NavbarLink title={t("shetrades")} link={"/shetrades"} />
             <NavbarLink
               title={t("transparency")}

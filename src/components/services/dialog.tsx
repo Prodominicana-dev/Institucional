@@ -112,12 +112,13 @@ export function ServiceDialog({
         placeholder={undefined}
         open={open}
         handler={() => {}}
-        size="lg"
-        className=""
+        size="xs"
+        className="fixed inset-0 flex items-center justify-center"
       >
         <DialogBody
           placeholder={undefined}
-          className="p-5 lg:p-10 overflow-y-auto text-pretty h-full"
+          className="p-4 lg:p-6 overflow-y-auto text-pretty rounded-lg "
+          style={{ maxWidth: '900px', width: '90%' }}
         >
           <div className="flex flex-col font-montserrat text-black gap-4 ">
             <div className="flex flex-col gap-4 sticky">

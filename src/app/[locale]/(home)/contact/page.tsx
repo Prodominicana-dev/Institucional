@@ -28,6 +28,75 @@ export default function Page() {
   const t = useTranslations("contact");
   const [openMenu, setOpenMenu] = React.useState(false);
   const [name, setName] = React.useState("");
+  const optionSelect = ["Exportador", "Inversionista", "Otro"];
+  const [formData, setFormData] = useState({
+    nameF: "",
+    lastName: "",
+    email: "",
+    identity: "",
+    activity: "",
+    message: "",
+  });
+  const [errorRequired, setErrorRequired] = useState<{
+    nameF?: string;
+
+    lastName?: string;
+
+    email?: string;
+
+    identity?: string;
+
+    activity?: string;
+
+    message?: string;
+  }>({});
+
+  const ValidateFunc = () => {
+    const RequiredErr: {
+      nameF?: string;
+
+      lastName?: string;
+
+      email?: string;
+
+      identity?: string;
+
+      activity?: string;
+
+      message?: string;
+    } = {};
+
+    if (!formData.nameF) {
+      RequiredErr.nameF = "El nombre es obligatorio.";
+    }
+
+    if (!formData.lastName) {
+      RequiredErr.lastName = "El apellido es obligatorio.";
+    }
+
+    if (!formData.email) {
+      RequiredErr.email = "El correo electrónico es obligatorio.";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      // note ☝️: 'here make a validation if it is a correct email '
+      RequiredErr.email = "El correo electrónico no es válido.";
+    }
+
+    if (!formData.identity) {
+      RequiredErr.identity = "Cedula o RNC obligatorio.";
+    }
+
+    if (!formData.activity) {
+      RequiredErr.activity = "La actividad es obligatoria.";
+    }
+
+    if (!formData.message) {
+      RequiredErr.message = "El mensaje es obligatorio.";
+    }
+
+    setErrorRequired(RequiredErr);
+
+    return Object.keys(RequiredErr).length === 0;
+  };
 
   const handleclick = (eName: any) => {
     setName(eName);
@@ -175,17 +244,6 @@ export default function Page() {
     map.setZoom(15);
   }, [map, activeMarker]);
 
-  const [formData, setFormData] = useState({
-    nameF: "",
-    lastName: "",
-    email: "",
-    identity: "",
-    activity: "",
-    message: "",
-  });
-
-  const optionSelect = ["Exportador", "Inversionista", "Otro"];
-
   const handleInputChange = (
     event: React.ChangeEvent<{ name?: string; value: unknown }>
   ) => {
@@ -225,9 +283,17 @@ export default function Page() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    // console.log('Datos del formulario:', formData);
+    const validaForm = ValidateFunc();
 
-    // await createcontact(formData,cleardataForm)
+    if (validaForm) {
+      // console.log("El formulario no es válido");
+      // console.log("Datos del formulario:", formData);
+      await createcontact(formData,cleardataForm)
+    } else {
+      console.log("Error al  enviar form");
+    }
+
+    console.log("handleSubmit ejecutado");
   };
   return (
     <div className="bg-white">
@@ -249,13 +315,22 @@ export default function Page() {
               <p className="font-semibold">{t("description")}</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-5">
-              <FormInput
-                label={t("form.name")}
-                placeholder="John"
-                value={formData.nameF}
-                onChange={handleInputChange}
-                name="nameF"
-              />
+              <div className="w-full">
+                <FormInput
+                  label={t("form.name")}
+                  placeholder="John"
+                  value={formData.nameF}
+                  onChange={handleInputChange}
+                  name="nameF"
+                />
+
+                {errorRequired.nameF && (
+                  <span className="text-red-500 text-sm block mt-1">
+                    {errorRequired.nameF}
+                  </span>
+                )}
+              </div>
+              <div className="w-full">
               <FormInput
                 label={t("form.lastName")}
                 placeholder="Doe"
@@ -263,7 +338,14 @@ export default function Page() {
                 onChange={handleInputChange}
                 name="lastName"
               />
+                {errorRequired.lastName && (
+                  <span className="text-red-500 text-sm block mt-1">
+                    {errorRequired.lastName}
+                  </span>
+                )}
+              </div>
             </div>
+            <div className="w-full">
             <FormInput
               label={t("form.email")}
               placeholder="example@email.com"
@@ -271,7 +353,14 @@ export default function Page() {
               onChange={handleInputChange}
               name="email"
             />
+              {errorRequired.email && (
+                  <span className="text-red-500 text-sm block mt-1">
+                    {errorRequired.email}
+                  </span>
+                )}
+            </div>
             <div className="flex flex-col sm:flex-row gap-5">
+            <div className="w-full"> 
               <FormInput
                 label={t("form.identity")}
                 placeholder="000-00000000-0"
@@ -279,6 +368,12 @@ export default function Page() {
                 onChange={handleInputChange}
                 name="identity"
               />
+              {errorRequired.identity && (
+                  <span className="text-red-500 text-sm block mt-1">
+                    {errorRequired.identity}
+                  </span>
+                )}
+                </div>
               <div className="w-full flex flex-col gap-2">
                 <div className="font-bold text-xl">{t("form.activity")}</div>
                 <Select
@@ -297,6 +392,11 @@ export default function Page() {
                     </Option>
                   ))}
                 </Select>
+                {errorRequired.activity && (
+                  <span className="text-red-500 text-sm block mt-1">
+                    {errorRequired.activity}
+                  </span>
+                )}
               </div>
             </div>
             <div className="w-full flex flex-col gap-2">
@@ -310,10 +410,15 @@ export default function Page() {
                 onChange={handleTextAre}
                 name="message"
               ></Textarea>
+              {errorRequired.message && (
+                <span className="text-red-500 text-sm block mt-1">
+                  {errorRequired.message}
+                </span>
+              )}
             </div>
             <button
               type="submit"
-              className="bg-blue-950 w-full py-5 text-xl text-white font-bold text-center rounded-xl"
+              className="bg-blue-950 w-full py-5 text-xl text-white font-bold text-center rounded-xl cursor-pointer"
             >
               {t("form.button")}
             </button>

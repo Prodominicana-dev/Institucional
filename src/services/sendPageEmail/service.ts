@@ -1,29 +1,33 @@
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
 
-export async function createcomplaint(FormData: any, clear: () => void) {
+
+export async function SendPageEmail(email: any) {
+    // console.log('klk email',email);
+    
   try {
-    const url = `${process.env.NEXT_PUBLIC_API_URL}/apiv2/mail/complaint `;
-    const data = FormData;
+    const url = `${process.env.NEXT_PUBLIC_API_URL}/apiv2/mail/pageEmail `;
+    const data = email;
+    console.log('klk data',email);
     const response = await axios.post(url, data);
+     console.log('status',response.status);
+     
 
     if (response.status === 201) {
       notifications.show({
-        id: "contact",
+        id: "sendPage",
         autoClose: 5000,
         withCloseButton: false,
-        title: "Denuncia creada",
+        title: "Pagina Enviada!",
         message: "Los datos se ha enviado correctamente.",
         color: "green",
         loading: false,
       });
-
-      clear();
     }
   } catch (error) {
-    console.log("error contact:", error);
+    console.log("error service:", error);
     notifications.show({
-      id: "contact",
+      id: "servicesUser",
       autoClose: 5000,
       withCloseButton: false,
       title: "Error",
@@ -32,6 +36,6 @@ export async function createcomplaint(FormData: any, clear: () => void) {
       loading: false,
     });
 
-    clear();
+
   }
 }

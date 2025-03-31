@@ -145,7 +145,7 @@ export default function NavBarMobile() {
             <div className="w-[2px] h-2/6 bg-gray-300 rounded-full"></div>
             <LanguagePicker />
             <div className="w-[2px] h-2/6 bg-gray-300 rounded-full"></div>
-            <button onClick={toggleOpen}>
+            <button onClick={toggleOpen} className=" cursor-pointer">
               <Bars3Icon className="w-8 h-8 text-blue-950" />
             </button>
           </div>

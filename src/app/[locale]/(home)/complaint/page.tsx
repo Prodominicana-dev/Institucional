@@ -31,6 +31,16 @@ export default function Page() {
   const [openMenu, setOpenMenu] = React.useState(false);
   const [name, setName] = React.useState("");
   const [searchOption, setSearchOption] = useState("");
+  const [errorRequired, setErrorRequired] = useState<{
+    name?: string;
+    lastName?: string;
+    email?: string;
+    companyName?: string;
+    departmen?: string;
+    involvedPerson?: string;
+    date?: string;
+    message?: string;
+  }>({});
   const [formData, setFormData] = useState({
     name: "",
     lastName: "",
@@ -44,7 +54,6 @@ export default function Page() {
 
   const handleclick = (eName: any) => {
     setName(eName);
-    
   };
 
   const cards = [
@@ -181,6 +190,57 @@ export default function Page() {
       coords: { lat: 19.379228914686284, lng: -70.41736874191675 },
     },
   ];
+  const ValidateFunc = () => {
+    const RequiredErr: {
+      name?: string;
+      lastName?: string;
+      email?: string;
+      companyName?: string;
+      departmen?: string;
+      involvedPerson?: string;
+      date?: string;
+      message?: string;
+    } = {};
+
+    if (!formData.name) {
+      RequiredErr.name = "El nombre es obligatorio.";
+    }
+
+    if (!formData.lastName) {
+      RequiredErr.lastName = "El apellido es obligatorio.";
+    }
+
+    if (!formData.email) {
+      RequiredErr.email = "El correo electrónico es obligatorio.";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      RequiredErr.email = "El correo electrónico no es válido.";
+    }
+
+    if (!formData.companyName) {
+      RequiredErr.companyName = "El nombre de la empresa es obligatorio.";
+    }
+
+    if (!formData.departmen) {
+      RequiredErr.departmen = "La Institución Involucrada es obligatorio.";
+    }
+
+    if (!formData.involvedPerson) {
+      RequiredErr.involvedPerson =
+        "El funcionario involucrado es obligatorio.";
+    }
+
+    if (!formData.date) {
+      RequiredErr.date = "La fecha es obligatoria.";
+    }
+
+    if (!formData.message) {
+      RequiredErr.message = "El mensaje es obligatorio.";
+    }
+
+    setErrorRequired(RequiredErr);
+
+    return Object.keys(RequiredErr).length === 0;
+  };
 
   const [activeMarker, setActiveMarker] = useState(branches[0]);
   useEffect(() => {
@@ -237,9 +297,14 @@ export default function Page() {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    // console.log('Datos del formulario:', formData);
+    const validaForm = ValidateFunc();
 
-    await createcomplaint(formData, cleardataForm);
+    if (validaForm) {
+      //  console.log('Datos del formulario:', formData);
+       await createcomplaint(formData, cleardataForm);
+    } else {
+      console.log("Data Error");
+    }
   };
   return (
     <div className="bg-white">
@@ -262,6 +327,7 @@ export default function Page() {
               <p className="font-semibold">{t("description")}</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-5">
+            <div className="w-full"> 
               <FormInput
                 label={t("form.name")}
                 placeholder="John"
@@ -269,6 +335,14 @@ export default function Page() {
                 onChange={handleInputChange}
                 name="name"
               />
+              {errorRequired.name && (
+                <span className="text-red-500 text-sm block mt-1">
+                  {errorRequired.name}
+                </span>
+              )}
+              </div>
+
+              <div className="w-full"> 
               <FormInput
                 label={t("form.lastName")}
                 placeholder="Doe"
@@ -276,23 +350,45 @@ export default function Page() {
                 onChange={handleInputChange}
                 name="lastName"
               />
+              {errorRequired.lastName && (
+                <span className="text-red-500 text-sm block mt-1">
+                  {errorRequired.lastName}
+                </span>
+              )}
+              </div>
             </div>
+
             <div className="flex flex-col sm:flex-row gap-5">
+              <div className="w-full">
               <FormInput
                 label={t("form.email")}
                 placeholder="example@email.com"
                 value={formData.email}
                 onChange={handleInputChange}
                 name="email"
+                
               />
-
+              {errorRequired.email && (
+                <span className="text-red-500 text-sm block mt-1">
+                  {errorRequired.email}
+                </span>
+              )}
+              </div>
+              <div className="w-full">
               <FormInput
                 label={t("form.companyName")}
                 placeholder={t("form.companyName")}
                 value={formData.companyName}
                 onChange={handleInputChange}
                 name="companyName"
+                required
               />
+              {errorRequired.companyName && (
+                <span className="text-red-500 text-sm block mt-1">
+                  {errorRequired.companyName}
+                </span>
+              )}
+              </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-5">
               <div className="w-full flex flex-col gap-2">
@@ -315,15 +411,29 @@ export default function Page() {
                     </Option>
                   ))}
                 </Select>
+                {errorRequired.departmen && (
+                  <span className="text-red-500 text-sm">
+                    {errorRequired.departmen}
+                  </span>
+                )}
               </div>
-
+ 
+              <div className="w-full">
               <FormInput
                 label={t("form.involvedPerson")}
                 placeholder={t("form.involvedPerson")}
                 value={formData.involvedPerson}
                 onChange={handleInputChange}
                 name="involvedPerson"
+                
               />
+
+              {errorRequired.involvedPerson && (
+                <span className="text-red-500 text-sm">
+                  {errorRequired.involvedPerson}
+                </span>
+              )}
+              </div>
             </div>
             <FormInput
               label={t("form.date")}
@@ -331,7 +441,11 @@ export default function Page() {
               value={formData.date}
               onChange={handleInputChange}
               name="date"
+              
             />
+            {errorRequired.date && (
+              <span className="text-red-500 text-sm">{errorRequired.date}</span>
+            )}
 
             <div className="w-full flex flex-col gap-2">
               <div className="font-bold text-xl">{t("form.message")}</div>
@@ -343,11 +457,17 @@ export default function Page() {
                 value={formData.message}
                 onChange={handleTextAre}
                 name="message"
+              
               ></Textarea>
+              {errorRequired.message && (
+                <span className="text-red-500 text-sm">
+                  {errorRequired.message}
+                </span>
+              )}
             </div>
             <button
               type="submit"
-              className=" bg-red-700 w-full py-5 text-xl text-white font-bold text-center rounded-xl"
+              className=" bg-red-700 w-full py-5 text-xl text-white font-bold text-center rounded-xl cursor-pointer"
             >
               {t("form.button")}
             </button>
