@@ -8,7 +8,7 @@ export async function SendPageEmail(email: any) {
   try {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/apiv2/mail/pageEmail `;
     const data = email;
-    console.log('klk data',email);
+    // console.log('klk data',email);
     const response = await axios.post(url, data);
      console.log('status',response.status);
      

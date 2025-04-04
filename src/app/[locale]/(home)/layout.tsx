@@ -4,6 +4,7 @@ import NavBarMobile from "@/components/layout/navbar/navBarMobile";
 import Footer from "@/components/layout/footer/footer";
 import Navbar from "@/components/layout/navbar/navbar";
 import TawkMessenger from "@/components/chatbox/TawkMessenger";
+import Accesibility from "@/components/accessibility/accesScrip";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -65,6 +66,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
             </div>
 
             {children}
+             <Accesibility />
             <Footer />
             <FooterMobile />
             <Notifications zIndex={9999} />

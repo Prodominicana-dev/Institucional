@@ -40,6 +40,31 @@ export default function Page({ params: { locale } }: any) {
         answer:
           "El objetivo de ProDominicana es impulsar el desarrollo económico del país mediante la promoción de las exportaciones y la atracción de inversiones, contribuyendo así al aumento de la competitividad de las empresas dominicanas en los mercados internacionales.",
       },
+      {
+        question: "¿Cuales son los requisitos para convertirse en exportador?",
+        answer:
+          "Se define como los aportes provenientes del exterior, propiedad de personas físicas o morales extranjeras o de personas físicas nacionales residentes en el exterior, al capital de una empresa que opera en el territorio nacional.",
+      },
+      {
+        question: "¿Qué es la Inversión Extranjera Directa o IED?",
+        answer:
+          "Antes de comenzar a exportar se necesita agotar un proceso detallado el cual se describe en el siguiente enlace que le dará acceso al documento Guia practica/como iniciarse en las exportaciones, donde se indican los pasos a seguir.",
+      },
+      {
+        question: "¿A qué llamamos reinversión extranjera o de utilidades?  ",
+        answer:
+          "Es el proceso mediante el cual una empresa o persona jurídica extranjera realiza una solicitud en el CEI-RD, respecto a su inversión y una vez evaluado y validado el expediente se emite un Certificado de Registro de Inversión Extranjera y/o Transferencia de Tecnología, según lo establece la Ley No. 16-95 y su Reglamento de Aplicación.",
+      },
+      {
+        question: "¿Que es un acuerdo de libre comercio? ",
+        answer:
+          "Un acuerdo libre comercio es un acuerdo comercial que amplía el mercado de bienes y servicios, promoviendo y facilitando las inversiones entre los países partes que integran el acuerdo. Un acuerdo o tratado de libre comercio (TLC) consiste en la eliminación o reducción sustancial de los aranceles de importación para los bienes de los países las partes, y acuerdos en materia de servicios.",
+      },
+      {
+        question: "¿Es la República Dominicana miembro de la Comunidad del Caribe (CARICOM)? ",
+        answer:
+          "No, la República Dominicana no es miembro de la Comunidad del Caribe (CARICOM), solo ha suscrito un acuerdo de libre comercio con CARICOM, que le permite intercambiar bienes y servicios en el marco de un régimen de preferencias recíprocas con los países que integran el acuerdo comercial.",
+      },
     ],
     questionsEn: [
       {
@@ -66,6 +91,31 @@ export default function Page({ params: { locale } }: any) {
         question: "What is ProDominicana's objective?",
         answer:
           "ProDominicana's objective is to promote the economic development of the country by promoting exports and attracting investments, thereby increasing the competitiveness of Dominican companies in international markets.",
+      },
+      {
+        question: "What are the requirements to become an exporter?",
+        answer:
+          "It is defined as contributions from abroad, owned by foreign individuals or legal entities or by national individuals residing overseas, to the capital of a company operating within the national territory.",
+      },
+      {
+        question: "What is Foreign Direct Investment (FDI)?",
+        answer:
+          "Before starting to export, you must complete a detailed process. The steps are outlined in the following link, which provides access to the document Practical Guide/How to Get Started in Exports, where the necessary procedures are explained",
+      },
+      {
+        question: "What do we call foreign reinvestment or profit reinvestment?",
+        answer:
+          "It is the process by which a foreign company or legal entity submits an application to the CEI-RD (Export and Investment Center of the Dominican Republic) regarding its investment. Once the file is evaluated and validated, a Certificate of Registration of Foreign Investment and/or Technology Transfer is issued, as established by Law No. 16-95 and its Implementing Regulations.",
+      },
+      {
+        question: "What is a free trade agreement (FTA)?",
+        answer:
+          "A free trade agreement (FTA) is a commercial agreement that expands the market for goods and services, promoting and facilitating investments between the member countries of the agreement. A free trade agreement or treaty (FTA) involves the elimination or substantial reduction of import tariffs on goods from the member countries, as well as agreements on services.",
+      },
+      {
+        question: "Is the Dominican Republic a member of the Caribbean Community (CARICOM)?",
+        answer:
+          "No, the Dominican Republic is not a member of the Caribbean Community (CARICOM). It has only signed a free trade agreement (FTA) with CARICOM, which enables the exchange of goods and services under a framework of reciprocal trade preferences with the countries that are part of the trade agreement.",
       },
     ],
   };

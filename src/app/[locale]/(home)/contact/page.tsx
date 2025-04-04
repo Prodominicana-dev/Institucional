@@ -83,6 +83,9 @@ export default function Page() {
 
     if (!formData.identity) {
       RequiredErr.identity = "Cedula o RNC obligatorio.";
+    } else if (formData.identity.length < 12) {
+      RequiredErr.identity =
+        "La Cedula o RNC debe tener al menos 12 caracteres.";
     }
 
     if (!formData.activity) {
@@ -288,7 +291,7 @@ export default function Page() {
     if (validaForm) {
       // console.log("El formulario no es válido");
       // console.log("Datos del formulario:", formData);
-      await createcontact(formData,cleardataForm)
+      await createcontact(formData, cleardataForm);
     } else {
       console.log("Error al  enviar form");
     }
@@ -331,13 +334,13 @@ export default function Page() {
                 )}
               </div>
               <div className="w-full">
-              <FormInput
-                label={t("form.lastName")}
-                placeholder="Doe"
-                value={formData.lastName}
-                onChange={handleInputChange}
-                name="lastName"
-              />
+                <FormInput
+                  label={t("form.lastName")}
+                  placeholder="Doe"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  name="lastName"
+                />
                 {errorRequired.lastName && (
                   <span className="text-red-500 text-sm block mt-1">
                     {errorRequired.lastName}
@@ -346,34 +349,34 @@ export default function Page() {
               </div>
             </div>
             <div className="w-full">
-            <FormInput
-              label={t("form.email")}
-              placeholder="example@email.com"
-              value={formData.email}
-              onChange={handleInputChange}
-              name="email"
-            />
+              <FormInput
+                label={t("form.email")}
+                placeholder="example@email.com"
+                value={formData.email}
+                onChange={handleInputChange}
+                name="email"
+              />
               {errorRequired.email && (
-                  <span className="text-red-500 text-sm block mt-1">
-                    {errorRequired.email}
-                  </span>
-                )}
+                <span className="text-red-500 text-sm block mt-1">
+                  {errorRequired.email}
+                </span>
+              )}
             </div>
             <div className="flex flex-col sm:flex-row gap-5">
-            <div className="w-full"> 
-              <FormInput
-                label={t("form.identity")}
-                placeholder="000-00000000-0"
-                value={formData.identity}
-                onChange={handleInputChange}
-                name="identity"
-              />
-              {errorRequired.identity && (
+              <div className="w-full">
+                <FormInput
+                  label={t("form.identity")}
+                  placeholder="000-00000000-0"
+                  value={formData.identity}
+                  onChange={handleInputChange}
+                  name="identity"
+                />
+                {errorRequired.identity && (
                   <span className="text-red-500 text-sm block mt-1">
                     {errorRequired.identity}
                   </span>
                 )}
-                </div>
+              </div>
               <div className="w-full flex flex-col gap-2">
                 <div className="font-bold text-xl">{t("form.activity")}</div>
                 <Select
@@ -401,24 +404,39 @@ export default function Page() {
             </div>
             <div className="w-full flex flex-col gap-2">
               <div className="font-bold text-xl">{t("form.message")}</div>
-              <Textarea
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-                className="w-full h-40 border-t-blue-gray-200 focus:border-t-blue-950 bg-white"
-                value={formData.message}
-                onChange={handleTextAre}
-                name="message"
-              ></Textarea>
+              <div className="relative">
+                <Textarea
+                  labelProps={{
+                    className: "before:content-none after:content-none ",
+                  }}
+                  className="w-full h-40 border-t-blue-gray-200 focus:border-t-blue-950 bg-white  pr-12"
+                  value={formData.message}
+                  onChange={handleTextAre}
+                  name="message"
+                  maxLength={1000}
+                ></Textarea>
+
+                <div
+                  className={` absolute   bottom-3 right-6 text-sm ${
+                    formData.message?.length > 950
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {formData.message ? formData.message.length : 0}/1000
+                </div>
+
+              </div>
               {errorRequired.message && (
-                <span className="text-red-500 text-sm block mt-1">
-                  {errorRequired.message}
-                </span>
-              )}
+                  <span className=" text-red-500 text-sm block min-h-3 mb-1">
+                    {errorRequired.message}
+                  </span>
+                )}
+              
             </div>
             <button
               type="submit"
-              className="bg-blue-950 w-full py-5 text-xl text-white font-bold text-center rounded-xl cursor-pointer"
+              className= " z-30 bg-blue-950 w-full py-5 text-xl text-white font-bold text-center rounded-xl cursor-pointer"
             >
               {t("form.button")}
             </button>

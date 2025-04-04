@@ -32,9 +32,9 @@ export default function ToolsMenuCollapse({
     <>
       <button
         onClick={toggleOpen}
-        className="w-full h-full flex justify-between outline-none items-center text-blue-950 text-left font-bold text-lg py-2"
+        className="w-full h-full flex justify-between outline-none items-center bg-blue-950 text-white rounded-b-xl text-left font-bold text-lg py-2"
       >
-        {title}
+        <div className=" relative ml-3">{title}</div>
         <div>
           <ChevronRightIcon
             className={`${

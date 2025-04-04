@@ -513,7 +513,7 @@ export function EventEditDialog({
         placeholder={undefined}
         open={open}
         handler={handler}
-        className="p-2 "
+         className="p-2"
       >
         <DialogHeader
           placeholder={undefined}

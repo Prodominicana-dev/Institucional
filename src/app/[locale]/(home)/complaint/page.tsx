@@ -395,7 +395,7 @@ export default function Page() {
                 <div className="font-bold text-xl">{t("form.department")}</div>
 
                 <Select
-                  className=" !border-t-blue-gray-200 focus:!border-t-blue-950 bg-white"
+                  className=" !border-t-blue-gray-200 focus:!border-t-blue-950 bg-white" 
                   value={formData.departmen}
                   onChange={handleSelectChange}
                   containerProps={{ className: "h-12" }}
@@ -404,6 +404,9 @@ export default function Page() {
                   }}
                   placeholder={undefined}
                   onInput={handleSearchChange}
+                  menuProps={{
+                    className: "max-h-40 overflow-y-auto w-full"
+                  }}
                 >
                   {filteredOptions.map((option, index) => (
                     <Option key={index} value={option}>
@@ -449,6 +452,7 @@ export default function Page() {
 
             <div className="w-full flex flex-col gap-2">
               <div className="font-bold text-xl">{t("form.message")}</div>
+              <div className=" relative">
               <Textarea
                 labelProps={{
                   className: "before:content-none after:content-none",
@@ -457,8 +461,10 @@ export default function Page() {
                 value={formData.message}
                 onChange={handleTextAre}
                 name="message"
-              
+               maxLength={1000}
               ></Textarea>
+                 
+                </div>
               {errorRequired.message && (
                 <span className="text-red-500 text-sm">
                   {errorRequired.message}

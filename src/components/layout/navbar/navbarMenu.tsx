@@ -8,6 +8,8 @@ import {
 } from "@material-tailwind/react";
 import Link from "next/link";
 import React from "react";
+import { usePathname } from "@/navigation";
+
 
 interface Props {
   title: string;
@@ -15,12 +17,35 @@ interface Props {
     title: string;
     description: string;
     icon: any;
+    link: string;
   }[];
 }
+
+const routeMap: Record<string, string> = {
+  "/quienessomos": "/whoarewe",
+  "/historia": "/history",
+  "/ceo": "/ceo",
+  "/organigrama": "/organizationalstructure",
+  "/marcolegal": "/legalframework",
+  "/servicios/inversion": "/services/invest",
+  "/servicios/exportacion": "/services/export",
+  "/galeria": "/gallery",
+  "/noticias": "/news",
+  "/eventos": "/events",
+  "/tv": "/tv", 
+};
 
 export default function NavbarMenu({ title, navListMenuItems }: Props) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
+  const pathname = usePathname();
+  const normalizedPathname = pathname.replace(/\/$/, ""); 
+  const translatedPath = routeMap[normalizedPathname] || normalizedPathname;
+
+  // console.log("Current pathname:", pathname);
+  // console.log("Menu links:", navListMenuItems.map(item => item.link));
+  // console.log("Translated pathname:", translatedPath);
+  
   const renderItems = navListMenuItems.map(
     ({ icon, title, description, link }: any, key: any) => (
       <Link href={link} key={key}>
@@ -73,7 +98,9 @@ export default function NavbarMenu({ title, navListMenuItems }: Props) {
         >
           <ListItem
             placeholder={undefined}
-            className="h-20 px-5 bg-transparent rounded-none hover:bg-transparent  hover:text-white text-cyan-600 cursor-pointer font-bold font-montserrat"
+            className={`h-20 px-5 bg-transparent rounded-none hover:bg-transparent  hover:text-white ${
+              navListMenuItems.some((item) => item.link === translatedPath) ? "text-white" : "text-cyan-600"
+            } cursor-pointer font-bold font-montserrat`}
             selected={isMenuOpen || isMobileMenuOpen}
             onClick={() => setIsMobileMenuOpen((cur) => !cur)}
           >
