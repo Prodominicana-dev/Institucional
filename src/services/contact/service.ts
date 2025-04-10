@@ -3,7 +3,7 @@ import axios from "axios";
 
 export async function createcontact( FormDataNew:any  ,contactCode:any, clear: () => void,) {
 
-   console.log('klk contact',contactCode);
+  //  console.log('klk contact',contactCode);
   const formData = new FormData();
 
   for (const key in FormDataNew) {
@@ -16,7 +16,7 @@ export async function createcontact( FormDataNew:any  ,contactCode:any, clear: (
 
   const data = Object.fromEntries(formData.entries())
 
-     console.log('data', data);
+    //  console.log('data', data);
     
     try {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/apiv2/mail/contact `
