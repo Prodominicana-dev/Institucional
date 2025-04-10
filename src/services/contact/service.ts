@@ -1,12 +1,22 @@
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
 
-export async function createcontact( FormData:any  , clear: () => void,) {
+export async function createcontact( FormDataNew:any  ,contactCode:any, clear: () => void,) {
 
+   console.log('klk contact',contactCode);
+  const formData = new FormData();
 
-  const data = FormData
+  for (const key in FormDataNew) {
+    if (FormDataNew.hasOwnProperty(key)) {
+      formData.append(key, FormDataNew[key]);
+    }
+  }
 
-    // console.log('data', data);
+  formData.append('contactCode', contactCode);
+
+  const data = Object.fromEntries(formData.entries())
+
+     console.log('data', data);
     
     try {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/apiv2/mail/contact `

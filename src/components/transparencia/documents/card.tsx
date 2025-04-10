@@ -60,6 +60,19 @@ export default function DocsCard({
           </div>
         </div>
       </div>
+      <Link
+        href="https://get.adobe.com/reader/"
+        target="_blank"
+        rel="noopener noreferrer"
+        download
+      >
+        <Image
+          src={"/svg/adoveR.svg"}
+          width={350} 
+          height={350} 
+          alt="Adobe Reader"
+        />
+      </Link>
       {!doc.url && !doc.subsectionId && (
         <Link
           href={
@@ -86,6 +99,7 @@ export default function DocsCard({
           {"Ingresar"}
         </a>
       )}
+
       {!doc.url && doc.subsectionId && (
         <Link
           href={

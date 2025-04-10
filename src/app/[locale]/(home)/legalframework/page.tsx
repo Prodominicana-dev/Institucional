@@ -14,6 +14,7 @@ import {
 import { useTranslations } from "next-intl";
 import { useMarcoLegalDocs } from "@/services/subsection/service";
 import DocsCard from "@/components/transparencia/documents/card";
+import Link from "next/link";
 
 export default function Page() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -165,7 +166,7 @@ export default function Page() {
   return (
     <div>
       <section className="h-[40vh]">
-        <div className="w-full h-full relative">
+        <div className="w-full h-full relative z-0">
           <Image
             src={"/images/prodominicanabuilding.jpg"}
             width={6000}

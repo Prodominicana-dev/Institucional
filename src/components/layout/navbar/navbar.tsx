@@ -23,9 +23,31 @@ import GovPagesInfo from "./govPagesInfo";
 import { useTranslations } from "next-intl";
 import LanguagePicker from "./languagePicker";
 import HistoryIcon from "@/components/icons/historyIcon";
+import { useRouter } from 'next/navigation'
 
 export default function Navbar() {
   const t = useTranslations("navbar");
+  const [search, setSearch] = useState('');
+  const router = useRouter();
+
+  const handleClick = () => {
+    if (search.trim()) {
+      router.push(`/search?query=${encodeURIComponent(search.trim())}`)
+      clearSearch();
+    }
+  }
+
+  
+  const handleKeyPress: (event: React.KeyboardEvent<HTMLInputElement>) => void = (event) => {
+    if (event.key === 'Enter') {
+      handleClick()
+    }
+  }
+
+  const clearSearch = () => {
+    setSearch('')
+  }
+
   const aboutListItems = [
     {
       title: t("aboutUs.menuList.whoWeAre"),
@@ -120,11 +142,15 @@ export default function Navbar() {
                 <input
                   type="text"
                   placeholder="Buscar"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  onKeyDown={handleKeyPress}
                   className="h-full w-8/12 text-blue-950 bg-white outline-none pl-2"
                 />
                 <IconButton
                   className="bg-red-700 rounded-full w-8 h-8 flex justify-center items-center cursor-pointer"
                   placeholder={undefined}
+                  onClick={handleClick}
                 >
                   <MagnifyingGlassIcon className="size-5" />
                 </IconButton>
