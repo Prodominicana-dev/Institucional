@@ -31,6 +31,8 @@ export default function Page() {
   const [openMenu, setOpenMenu] = React.useState(false);
   const [name, setName] = React.useState("");
   const [searchOption, setSearchOption] = useState("");
+   const [isOpen, setIsOpen] = useState(false);
+    const [radomN, setRadomN] = useState("");
   const [errorRequired, setErrorRequired] = useState<{
     name?: string;
     lastName?: string;
@@ -293,6 +295,15 @@ export default function Page() {
       involvedPerson: "",
     });
   };
+  function generar4Digitos() {
+    const randomNumerbers = Math.floor(Math.random() * 9000) + 1000;
+    return randomNumerbers.toString();
+  }
+
+  const onClose = () => {
+    setIsOpen(false);
+  };
+
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -300,8 +311,12 @@ export default function Page() {
     const validaForm = ValidateFunc();
 
     if (validaForm) {
+      setIsOpen(true);
+      const contactCode = generar4Digitos();
+      setRadomN(contactCode);
+      // console.log("codecontact", contactCode);
       //  console.log('Datos del formulario:', formData);
-       await createcomplaint(formData, cleardataForm);
+       await createcomplaint(formData,contactCode, cleardataForm);
     } else {
       console.log("Data Error");
     }
@@ -374,14 +389,14 @@ export default function Page() {
                 </span>
               )}
               </div>
-              <div className="w-full">
+              <div className="w-full relati">
               <FormInput
                 label={t("form.companyName")}
                 placeholder={t("form.companyName")}
                 value={formData.companyName}
                 onChange={handleInputChange}
                 name="companyName"
-                required
+              
               />
               {errorRequired.companyName && (
                 <span className="text-red-500 text-sm block mt-1">
@@ -457,12 +472,21 @@ export default function Page() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                className="w-full h-40 border-t-blue-gray-200 focus:border-t-blue-950 bg-white"
+                className="w-full h-50 border-t-blue-gray-200 focus:border-t-blue-950 bg-white"
                 value={formData.message}
                 onChange={handleTextAre}
                 name="message"
                maxLength={1000}
               ></Textarea>
+               <div
+                  className={` absolute   bottom-3 right-6 text-sm ${
+                    formData.message?.length > 950
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {formData.message ? formData.message.length : 0}/1000
+                </div>
                  
                 </div>
               {errorRequired.message && (
@@ -563,7 +587,21 @@ export default function Page() {
   );
 }
 
-function FormInput({ label, placeholder, value, onChange, name }: any) {
+function FormInput({
+  label,
+  placeholder,
+  value,
+  onChange,
+  name,
+  maxLeng,
+}: {
+  label: string;
+  placeholder: string;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  name: string;
+  maxLeng?: number;
+}) {
   return (
     <div className="w-full flex flex-col gap-2">
       <div className="font-bold text-xl">{label}</div>
@@ -577,11 +615,13 @@ function FormInput({ label, placeholder, value, onChange, name }: any) {
         labelProps={{
           className: "before:content-none after:content-none",
         }}
+        maxLength={maxLeng}
         crossOrigin={undefined}
       />
     </div>
   );
 }
+
 
 function ContactCard({ title, description, info, link, icon }: any) {
   return (
@@ -630,3 +670,82 @@ function GoogleMap(activeMarker: any) {
     </Map>
   );
 }
+
+function ModalCard({
+  isOpen,
+  codeContact,
+  onClose,
+}: {
+  isOpen: boolean;
+  codeContact: string;
+  onClose: () => void;
+}) {
+  return (
+    <>
+      {isOpen && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl shadow-2xl w-full max-w-[80vw] md:max-w-3xl lg:max-w-4xl xl:max-w-2xl relative">
+            {/* Botón de cerrar (X) */}
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-200 transition-colors cursor-pointer"
+              aria-label="Cerrar modal"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6 text-red-900"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+
+            {/* Icono central */}
+            <div className="flex justify-center mt-6">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-12 w-12 text-blue-950"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                />
+              </svg>
+            </div>
+
+            {/* Contenido del mensaje */}
+            <div className="px-4 py-6 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-left">
+              <p className="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed mb-6 text-justify">
+                Distinguido cliente, su solicitud ha sido recibida
+                satisfactoriamente. La misma estará siendo asignada al personal
+                correspondiente para atenderle. En caso de requerir información
+                adicional, favor contactar al Centro de Atención al Cliente al
+                correo electrónico{" "}
+                <strong>servicios@prodominicana.gob.do</strong> o al teléfono de
+                WhatsApp (809) 530-5505. En ProDominicana estamos para servirle.
+              </p>
+
+              <div className="text-gray-800 text-lg sm:text-xl md:text-2xl font-semibold text-center">
+                Su código de solicitud es:{" "}
+                <span className="text-blue-600 font-bold">{codeContact}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+

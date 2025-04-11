@@ -297,13 +297,14 @@ export default function Page() {
     event.preventDefault();
 
     const validaForm = ValidateFunc();
-    
+
     if (validaForm) {
-      setRadomN(generar4Digitos());
       setIsOpen(true);
-      console.log("El formulario no es válido");
-      console.log("Datos del formulario:", formData);
-      // await createcontact(formData, radomN, cleardataForm);
+      const contactCode = generar4Digitos();
+      setRadomN(contactCode);
+      // console.log("codecontact", contactCode);
+      // console.log("Datos del formulario:", formData);
+      await createcontact(formData, contactCode, cleardataForm);
     } else {
       console.log("Error al  enviar form");
     }
@@ -376,14 +377,24 @@ export default function Page() {
               )}
             </div>
             <div className="flex flex-col sm:flex-row gap-5">
-              <div className="w-full">
+              <div className="w-full relative">
                 <FormInput
                   label={t("form.identity")}
                   placeholder="000-00000000-0"
                   value={formData.identity}
                   onChange={handleInputChange}
                   name="identity"
+                  maxLeng={12}
                 />
+                   <div
+                  className={` absolute   bottom-3 right-6 text-sm ${
+                    formData.identity?.length > 10
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {formData.identity ? formData.identity.length : 0}/12
+                </div>
                 {errorRequired.identity && (
                   <span className="text-red-500 text-sm block mt-1">
                     {errorRequired.identity}
@@ -537,7 +548,21 @@ export default function Page() {
   );
 }
 
-function FormInput({ label, placeholder, value, onChange, name }: any) {
+function FormInput({
+  label,
+  placeholder,
+  value,
+  onChange,
+  name,
+  maxLeng,
+}: {
+  label: string;
+  placeholder: string;
+  value: string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  name: string;
+  maxLeng?: number;
+}) {
   return (
     <div className="w-full flex flex-col gap-2">
       <div className="font-bold text-xl">{label}</div>
@@ -551,6 +576,7 @@ function FormInput({ label, placeholder, value, onChange, name }: any) {
         labelProps={{
           className: "before:content-none after:content-none",
         }}
+        maxLength={maxLeng}
         crossOrigin={undefined}
       />
     </div>
@@ -618,16 +644,16 @@ function ModalCard({
     <>
       {isOpen && (
         <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-lg shadow-xl max-w-md w-full relative">
+          <div className="bg-white rounded-xl shadow-2xl w-full max-w-[80vw] md:max-w-3xl lg:max-w-4xl xl:max-w-2xl relative">
             {/* Botón de cerrar (X) */}
             <button
               onClick={onClose}
-              className="absolute top-2 right-2 p-1 rounded-full hover:bg-gray-200 transition-colors cursor-pointer"
+              className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-200 transition-colors cursor-pointer"
               aria-label="Cerrar modal"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6  text-red-900"
+                className="h-6 w-6 text-red-900"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -645,7 +671,7 @@ function ModalCard({
             <div className="flex justify-center mt-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-12 w-12  text-blue-950"
+                className="h-12 w-12 text-blue-950"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -660,27 +686,20 @@ function ModalCard({
             </div>
 
             {/* Contenido del mensaje */}
-            <div className="px-4 py-6 sm:px-8 sm:py-8 lg:px-12 lg:py-10">
-              <div
-                className="mx-auto text-center"
-                style={{ maxWidth: "90vw", width: "100%" }}
-              >
-                <p className="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed mb-6 whitespace-normal break-words">
-                  Distinguido cliente, su solicitud ha sido recibida
-                  satisfactoriamente. La misma estará siendo asignada al
-                  personal correspondiente para atenderle. En caso de requerir
-                  información adicional, favor contactar al Centro de Atención
-                  al Cliente al correo electrónico
-                  servicios@prodominicana.gob.do o al teléfono de WhatsApp (809)
-                  530-5505. En ProDominicana estamos para servirle.
-                </p>
+            <div className="px-4 py-6 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-left">
+              <p className="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed mb-6 text-justify">
+                Distinguido cliente, su solicitud ha sido recibida
+                satisfactoriamente. La misma estará siendo asignada al personal
+                correspondiente para atenderle. En caso de requerir información
+                adicional, favor contactar al Centro de Atención al Cliente al
+                correo electrónico{" "}
+                <strong>servicios@prodominicana.gob.do</strong> o al teléfono de
+                WhatsApp (809) 530-5505. En ProDominicana estamos para servirle.
+              </p>
 
-                <div className="text-gray-800 text-lg sm:text-xl md:text-2xl">
-                  Su código de solicitud es:{" "}
-                  <span className="text-blue-600 font-medium">
-                    {codeContact}
-                  </span>
-                </div>
+              <div className="text-gray-800 text-lg sm:text-xl md:text-2xl font-semibold text-center">
+                Su código de solicitud es:{" "}
+                <span className="text-blue-600 font-bold">{codeContact}</span>
               </div>
             </div>
           </div>

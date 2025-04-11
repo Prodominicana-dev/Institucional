@@ -1,10 +1,27 @@
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
 
-export async function createcomplaint(FormData: any, clear: () => void) {
+export async function createcomplaint(
+  FormDataNew: any,
+  contactCode: any,
+  clear: () => void
+) {
   try {
+    const formData = new FormData();
+
+    for (const key in FormDataNew) {
+      if (FormDataNew.hasOwnProperty(key)) {
+        formData.append(key, FormDataNew[key]);
+      }
+    }
+
+    formData.append("contactCode", contactCode);
+
+    const data = Object.fromEntries(formData.entries());
+
+    // console.log("data", data);
+
     const url = `${process.env.NEXT_PUBLIC_API_URL}/apiv2/mail/complaint `;
-    const data = FormData;
     const response = await axios.post(url, data);
 
     if (response.status === 201) {
