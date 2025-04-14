@@ -685,7 +685,7 @@ function ModalCard({
       {isOpen && (
         <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-2xl w-full max-w-[80vw] md:max-w-3xl lg:max-w-4xl xl:max-w-2xl relative">
-            {/* Botón de cerrar (X) */}
+          
             <button
               onClick={onClose}
               className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-200 transition-colors cursor-pointer"
@@ -707,7 +707,7 @@ function ModalCard({
               </svg>
             </button>
 
-            {/* Icono central */}
+          
             <div className="flex justify-center mt-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -725,7 +725,6 @@ function ModalCard({
               </svg>
             </div>
 
-            {/* Contenido del mensaje */}
             <div className="px-4 py-6 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-left">
               <p className="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed mb-6 text-justify">
                 Distinguido cliente, su solicitud ha sido recibida

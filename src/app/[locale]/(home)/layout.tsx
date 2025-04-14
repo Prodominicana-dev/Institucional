@@ -24,6 +24,8 @@ import { useParams } from "next/navigation";
 import Breadcrumb from "@/components/home/breadcrumb";
 import { PrintButton } from "@/components/home/printButton";
 import { EmailButton } from "@/components/home/emailButton";
+// import RouteValidator from "../validatorRoute/validatorRoutes";
+// import { APP_ROUTES } from "../validatorRoute/Routes";
 
 library.add(
   faFacebookF,
@@ -43,8 +45,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
   const queryClient = new QueryClient();
   const params = useParams<{ locale: string }>();
   return (
-    <html className="scroll-smooth">
-      <body>
+    <div className="scroll-smooth">
+      
         <QueryClientProvider client={queryClient}>
           <APIProvider
             apiKey={`${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`}
@@ -64,7 +66,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 </div>
               </div>
             </div>
-
             {children}
              <Accesibility />
             <Footer />
@@ -73,7 +74,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <TawkMessenger />
           </APIProvider>
         </QueryClientProvider>
-      </body>
-    </html>
+    </div>
   );
 }
