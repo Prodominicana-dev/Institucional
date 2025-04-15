@@ -313,7 +313,7 @@ export default function Page() {
   };
   return (
     <div className="bg-white">
-      <ModalCard isOpen={isOpen} codeContact={radomN} onClose={onClose} />;
+      <ModalCard isOpen={isOpen} codeContact={radomN} onClose={onClose} />
       <section className="flex justify-center py-10">
         <div className="w-10/12 flex items-center gap-10">
           <Image
@@ -386,7 +386,7 @@ export default function Page() {
                   name="identity"
                   maxLeng={12}
                 />
-                   <div
+                <div
                   className={` absolute   bottom-3 right-6 text-sm ${
                     formData.identity?.length > 10
                       ? "text-red-500"

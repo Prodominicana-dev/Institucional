@@ -323,6 +323,7 @@ export default function Page() {
   };
   return (
     <div className="bg-white">
+       <ModalCard isOpen={isOpen} codeContact={radomN} onClose={onClose} />
       <Popup />
       <section className="flex justify-center py-10">
         <div className="w-10/12 flex items-center gap-10">
