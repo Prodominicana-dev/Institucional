@@ -34,6 +34,7 @@ export default function Page({ params: { locale } }: any) {
               date={item.date}
               image={item.cover}
               locale={locale}
+              author="Fuente Interna"
             />
           ))}
         </div>

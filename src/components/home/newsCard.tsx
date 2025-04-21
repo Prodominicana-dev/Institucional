@@ -10,6 +10,7 @@ interface Props {
   date: string;
   image: string;
   locale?: string;
+  author?: string;
 }
 
 export default function NewsCard({
@@ -19,8 +20,11 @@ export default function NewsCard({
   date,
   image,
   locale,
+  author,
 }: Props) {
   // Convertir la fecha en este formato: "1hr ago, 1d, 7d, 31d, 344d"
+  console.log("date", date);
+
   const dateFormated = new Date(date);
   const dateNow = new Date();
   const diffTime = Math.abs(dateNow.getTime() - dateFormated.getTime());
@@ -84,10 +88,19 @@ export default function NewsCard({
         <div className="bg-red-700 rounded-full h-2 w-2/12"></div>
         <Typography
           placeholder={undefined}
-          className="text-cyan-600 font-normal font-montserrat text-lg"
+          className="text-cyan-600 font-normal font-montserrat text-xs sm:text-sm md:text-base lg:text-lg xl:text-lg"
         >
           {dateFormatedString}
         </Typography>
+
+        {author && (
+          <Typography
+            placeholder={undefined}
+            className="text-red-700 font-normal font-montserrat text-xs sm:text-sm md:text-base lg:text-lg xl:text-lg"
+          >
+            {author}
+          </Typography>
+        )}
       </div>
     </Link>
   );

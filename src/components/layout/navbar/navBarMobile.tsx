@@ -52,12 +52,12 @@ export default function NavBarMobile() {
     {
       title: "Reporte de Abuso Sexual Infantil",
       link: "https://report.iwf.org.uk/do/",
-      icon: "/svg/logos/portals/iwf.svg",
+      icon: "/svg/logos/portals/IWF.svg",
     },
     {
       title: "Centro Nacional de Ciberseguridad",
       link: "https://cncs.gob.do",
-      icon: "/svg/logos/portals/cncs.svg",
+      icon: "/svg/logos/portals/CNCS.svg",
     },
   ];
 
