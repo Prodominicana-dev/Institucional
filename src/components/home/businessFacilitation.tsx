@@ -37,6 +37,18 @@ export default function BusinessFacilitation() {
           </div>
         </div>
       </section>
+      <Link
+        href="https://surveys.intracen.org/response/G2tIYnddTgoDYVFzX1R6S0d1enk"
+        target="_blank"
+      >
+        <Image
+          width={2048}
+          height={1080}
+          src="/images/weideBanner.jpg"
+          alt="WEIDE"
+          className=" w-full"
+        />
+      </Link>
       {/* <Link href="/sumando-exportadoras" target="_blank">
         <Image
           width={2048}
@@ -45,8 +57,8 @@ export default function BusinessFacilitation() {
           alt="Sumando Exportadoras"
           className=" w-full "
         />
-      </Link> */}
-      {/* <Link href="/documents/16MemoriasdeGestiónPD-2020-24.pdf" target="_blank">
+      </Link>
+      <Link href="/documents/16MemoriasdeGestiónPD-2020-24.pdf" target="_blank">
         <Image
           width={2048}
           height={108}
