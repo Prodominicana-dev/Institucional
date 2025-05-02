@@ -1,5 +1,5 @@
-import { notifications } from "@mantine/notifications";
 import axios from "axios";
+import { toast } from "sonner";
 
 export async function createcomplaint(
   FormDataNew: any,
@@ -25,30 +25,14 @@ export async function createcomplaint(
     const response = await axios.post(url, data);
 
     if (response.status === 201) {
-      notifications.show({
-        id: "contact",
-        autoClose: 5000,
-        withCloseButton: false,
-        title: "Denuncia creada",
-        message: "Los datos se ha enviado correctamente.",
-        color: "green",
-        loading: false,
-      });
-
-      clear();
+      toast.success(
+        "¡Gracias por contactarnos! Nos pondremos en contacto contigo pronto."
+      );
     }
   } catch (error) {
     console.log("error contact:", error);
-    notifications.show({
-      id: "contact",
-      autoClose: 5000,
-      withCloseButton: false,
-      title: "Error",
-      message: "Ha ocurrido un error al enviar los datos.",
-      color: "red",
-      loading: false,
-    });
-
-    clear();
+    toast.error(
+      "¡Lo sentimos! No hemos podido enviar tu mensaje. Por favor, inténtalo de nuevo más tarde."
+    );
   }
 }

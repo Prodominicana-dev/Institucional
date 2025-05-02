@@ -12,22 +12,13 @@ import {
   MenuList,
   MenuItem,
 } from "@material-tailwind/react";
-import { Stepper, Step } from "@material-tailwind/react";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
-import Editor from "../../tools/rich-editor/config";
-import TextEditor from "../../tools/rich-editor/rich-editor";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Dropzone } from "@mantine/dropzone";
 import Image from "next/image";
-import { createNews, useCategoriesNews } from "@/services/news/service";
-import { Autocomplete } from "@mantine/core";
-import DragNDrop from "../../tools/dropzone/dropzone";
-import TextEditorWithConfig from "../../tools/textEditor/textEditor";
-import Day_Picker from "../../tools/daypicker";
-import { useNewsCategories } from "@/services/news/categories/service";
 import Select from "react-select";
 import { useProducts } from "@/services/export/product/service";
 import {

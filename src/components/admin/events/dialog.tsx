@@ -36,7 +36,6 @@ import Image from "next/image";
 import Select from "react-select";
 import { is } from "date-fns/locale";
 import { createNews, useCategoriesNews } from "@/services/news/service";
-import { Autocomplete } from "@mantine/core";
 import Day_Picker from "../tools/daypicker";
 import { createEvents } from "@/services/events/service";
 import { useEventCategory } from "@/services/events/categories/service";

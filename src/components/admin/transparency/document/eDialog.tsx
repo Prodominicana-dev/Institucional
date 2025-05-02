@@ -16,7 +16,6 @@ import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import { Montserrat } from "next/font/google";
 import { Group, Text, rem } from "@mantine/core";
-import { notifications } from "@mantine/notifications";
 import { Dropzone, FileWithPath } from "@mantine/dropzone";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import {

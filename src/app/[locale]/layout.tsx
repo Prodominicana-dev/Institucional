@@ -1,13 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
-import "@mantine/core/styles.css";
-import "@mantine/dropzone/styles.css";
-import "@mantine/notifications/styles.css";
-import "@mantine/carousel/styles.css";
-import { NextIntlClientProvider, useMessages, useLocale } from "next-intl";
+import { NextIntlClientProvider, useMessages } from "next-intl";
 import { GoogleAnalytics } from "@next/third-parties/google";
-import { MantineProvider } from "@mantine/core";
 
 export const metadata: Metadata = {
   title: "ProDominicana",
@@ -55,7 +49,7 @@ export default function RootLayout({
       </head>
       <body suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
-          <MantineProvider>{children}</MantineProvider>
+          {children}
           <GoogleAnalytics gaId="G-2026ZFW8SM" />
         </NextIntlClientProvider>
       </body>

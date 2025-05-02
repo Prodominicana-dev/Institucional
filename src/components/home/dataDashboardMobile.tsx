@@ -1,11 +1,15 @@
 "use client";
-
 import Image from "next/image";
 import React, { useState, useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
-//import { Carousel } from "@material-tailwind/react";
-import { Carousel } from "@mantine/carousel";
 import { useTranslations } from "next-intl";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export default function DataDashboardMobile() {
   const t = useTranslations("DataDashboard");
@@ -122,41 +126,48 @@ export default function DataDashboardMobile() {
             {t("title")}
           </h1>
           <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            plugins={[
+              Autoplay({
+                delay: 5000,
+              }),
+            ]}
             className="w-full"
-            withIndicators={false}
-            withControls={false}
-            loop
-            plugins={[autoplay.current]}
           >
-            {data.map(({ dataset, label, value }, index) => (
-              <Carousel.Slide key={index}>
-                <div className="w-full flex flex-col space-y-5 justify-center items-center">
-                  <div
-                    id="title"
-                    className="w-10/12 h-20 bg-red-600 rounded-lg flex justify-center items-center p-5"
-                  >
-                    <div className="text-white font-bold text-center text-xl font-montserrat">
-                      {label}
+            <CarouselContent>
+              {data.map(({ dataset, label, value }, index) => (
+                <CarouselItem key={index}>
+                  <div className="w-full flex flex-col space-y-5 justify-center items-center">
+                    <div
+                      id="title"
+                      className="w-10/12 h-20 bg-red-600 rounded-lg flex justify-center items-center p-5"
+                    >
+                      <div className="text-white font-bold text-center text-xl font-montserrat">
+                        {label}
+                      </div>
+                    </div>
+                    <div className="w-full flex flex-col space-y-2 justify-center items-center">
+                      {dataset.map(({ title, value }, index) => (
+                        <div
+                          key={index}
+                          className="flex flex-col justify-center items-center"
+                        >
+                          <label className="text-2xl font-bold text-cyan-600">
+                            {value}
+                          </label>
+                          <label className="text-sm font-normal text-white">
+                            {title}
+                          </label>
+                        </div>
+                      ))}
                     </div>
                   </div>
-                  <div className="w-full flex flex-col space-y-2 justify-center items-center">
-                    {dataset.map(({ title, value }, index) => (
-                      <div
-                        key={index}
-                        className="flex flex-col justify-center items-center"
-                      >
-                        <label className="text-2xl font-bold text-cyan-600">
-                          {value}
-                        </label>
-                        <label className="text-sm font-normal text-white">
-                          {title}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </Carousel.Slide>
-            ))}
+                </CarouselItem>
+              ))}
+            </CarouselContent>
           </Carousel>
         </div>
       </div>

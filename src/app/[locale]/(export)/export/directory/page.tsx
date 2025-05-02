@@ -24,9 +24,8 @@ import Link from "next/link";
 import { useParams, useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
-import { Select } from "@mantine/core";
 import { useIntersection } from "@mantine/hooks";
-
+import ComboBoxResponsive from "@/components/utility/comboBoxResponsive";
 
 const exportDirectoryFilters = [
   {
@@ -215,16 +214,14 @@ export default function Page() {
             </div>
 
             <Link
-             href={"/documents/Directorio _Exportadores_2025.pdf"}
-             target="_blank"
-             rel="noopener noreferrer"
-             download
-            className="w-32 text-center py-2 text-lg  border-2 rounded-full bg-white border-white hover:bg-neutral-200  text-blue-300 font-gotham hover:border-transparent transition-all duration-500 ease-in-out cursor-pointer"
-
-          >
-            Descargar
-          </Link>
-            
+              href={"/documents/Directorio _Exportadores_2025.pdf"}
+              target="_blank"
+              rel="noopener noreferrer"
+              download
+              className="w-32 text-center py-2 text-lg  border-2 rounded-full bg-white border-white hover:bg-neutral-200  text-blue-300 font-gotham hover:border-transparent transition-all duration-500 ease-in-out cursor-pointer"
+            >
+              Descargar
+            </Link>
           </div>
         </div>
         <div className="bg-white flex flex-col items-center py-10 gap-10">
@@ -243,50 +240,34 @@ export default function Page() {
                 <div className="grid grid-cols-1 sm:grid-cols-3 my-4 gap-10">
                   <div className="w-full flex flex-col gap-2">
                     <div className="text-black font-bold">Sector</div>
-                    <Select
-                      clearable
-                      searchable
-                      placeholder="Sector"
-                      onChange={SetSelectedSector}
-                      className="w-full z-50  overflow-auto text-black"
-                      classNames={{ option: "text-black" }}
+                    <ComboBoxResponsive
                       data={sectorsOptions}
+                      selectedStatus={selectedSector}
+                      setSelectedStatus={SetSelectedSector}
                     />
                   </div>
                   <div className="w-full flex flex-col gap-2">
                     <div className="text-black font-bold">Producto</div>
-                    <Select
-                      clearable
-                      searchable
-                      placeholder="Producto"
-                      onChange={setSelectedProduct}
-                      className="w-full z-50 overflow-auto text-black"
-                      classNames={{ option: "text-black" }}
+                    <ComboBoxResponsive
                       data={productsOptions}
+                      selectedStatus={selectedProduct}
+                      setSelectedStatus={setSelectedProduct}
                     />
                   </div>
                   <div className="w-full flex flex-col gap-2">
                     <div className="text-black font-bold">Provincia</div>
-                    <Select
-                      clearable
-                      searchable
-                      placeholder="Provincia"
-                      onChange={setSelectedProvince}
-                      className="w-full z-50 overflow-auto text-black"
-                      classNames={{ option: "text-black" }}
+                    <ComboBoxResponsive
                       data={provincesOptions}
+                      selectedStatus={selectedProvince}
+                      setSelectedStatus={setSelectedProvince}
                     />
                   </div>
                   <div className="w-full flex flex-col gap-2">
                     <div className="text-black font-bold">Género</div>
-                    <Select
-                      clearable
-                      searchable
-                      placeholder="Género"
-                      onChange={setSelectedIsWoman}
-                      className="w-full z-80 overflow-auto text-black"
-                      classNames={{ option: "text-black" }}
+                    <ComboBoxResponsive
                       data={isWomanOptions}
+                      selectedStatus={selectedisWoman}
+                      setSelectedStatus={setSelectedIsWoman}
                     />
                   </div>
                 </div>

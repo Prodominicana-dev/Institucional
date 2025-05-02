@@ -22,12 +22,6 @@ import TextEditor from "../tools/rich-editor/rich-editor";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Dropzone } from "@mantine/dropzone";
 import Image from "next/image";
-import { createNews, useCategoriesNews } from "@/services/news/service";
-import { Autocomplete } from "@mantine/core";
-import DragNDrop from "../tools/dropzone/dropzone";
-import TextEditorWithConfig from "../tools/textEditor/textEditor";
-import Day_Picker from "../tools/daypicker";
-import { useNewsCategories } from "@/services/news/categories/service";
 import Select from "react-select";
 import { useServiceCategory } from "@/services/service/categories/service";
 import { useServiceType } from "@/services/service/type/service";
@@ -36,8 +30,6 @@ import {
   editService,
   useServicesById,
 } from "@/services/service/service";
-import { set } from "date-fns";
-
 export function EditServiceDialog({
   id,
   open,

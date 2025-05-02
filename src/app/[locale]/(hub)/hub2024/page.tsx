@@ -4,7 +4,13 @@ import Image from "next/image";
 import Link from "next/link";
 import Countdown from "react-countdown";
 import { useTranslations } from "next-intl";
-import { Menu, UnstyledButton } from "@mantine/core";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { usePathname, useRouter } from "@/navigation";
 import { useParams } from "next/navigation";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
@@ -187,9 +193,9 @@ function LanguagePicker() {
     data.find((item) => item.langcode === locale) || data[0]
   );
   const items = data.map((item) => (
-    <Menu.Item onClick={() => setSelected(item)} key={item.label}>
+    <SelectItem value={item.langcode} key={item.label}>
       {item.label}
-    </Menu.Item>
+    </SelectItem>
   ));
 
   const pathname = usePathname();
@@ -204,24 +210,19 @@ function LanguagePicker() {
   }, [selected]);
 
   return (
-    <Menu
-      onOpen={() => setOpened(true)}
-      onClose={() => setOpened(false)}
-      radius="md"
+    <Select
+      onValueChange={(value) => {
+        const newSelected = data.find((item) => item.langcode === value);
+        if (newSelected) setSelected(newSelected);
+      }}
     >
-      <Menu.Target>
-        <Button
-          data-expanded={opened || undefined}
-          placeholder={undefined}
-          className="flex items-center gap-2 rounded-full capitalize border-2 border-white bg-transparent hover:bg-white/10 duration-200 w-min px-5 py-2 text-white text-base"
-        >
-          <GlobeAltIcon className="size-5 text-white" />
-          {selected.code}
-        </Button>
-      </Menu.Target>
-      <Menu.Dropdown className="flex flex-col items-center justify-center bg-white">
+      <SelectTrigger className="flex items-center gap-2 rounded-full capitalize border-2 border-white bg-transparent hover:bg-white/10 duration-200 w-min px-5 py-2 text-white text-base">
+        <GlobeAltIcon className="size-5 text-white" />
+        {selected.code}
+      </SelectTrigger>
+      <SelectContent className="flex flex-col items-center justify-center bg-white">
         {items}
-      </Menu.Dropdown>
-    </Menu>
+      </SelectContent>
+    </Select>
   );
 }

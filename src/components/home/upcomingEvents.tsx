@@ -1,12 +1,18 @@
 "use client";
 import { Button, Typography } from "@material-tailwind/react";
-import { Carousel } from "@mantine/carousel";
 import React, { use, useEffect, useRef, useState } from "react";
 import UpcomingEventsCard from "./upcomingEventsCard";
 import Autoplay from "embla-carousel-autoplay";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useEvents } from "@/services/events/service";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export default function UpcomingEvents({ locale }: { locale: string }) {
   const { data, isLoading } = useEvents(locale);
@@ -18,7 +24,6 @@ export default function UpcomingEvents({ locale }: { locale: string }) {
     }
   });
   const t = useTranslations("UpcomingEvents");
-  const autoplay = useRef(Autoplay({ delay: 5000 }));
   return (
     <section className="bg-blue-950 py-10 flex flex-col items-center justify-center gap-5">
       <div className="w-11/12 space-y-5">
@@ -38,28 +43,32 @@ export default function UpcomingEvents({ locale }: { locale: string }) {
         </div>
 
         <Carousel
-          withIndicators
-          withControls={false}
-          slideSize={{ base: "100%", sm: "50%", md: "33.333333%" }}
-          slideGap={{ base: 0, sm: "xl" }}
-          loop
-          align="start"
-          plugins={[autoplay.current]}
-          onMouseEnter={autoplay.current.stop}
-          onMouseLeave={autoplay.current.reset}
-          classNames={{ indicators: "fill-black" }}
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          plugins={[
+            Autoplay({
+              delay: 5000,
+            }),
+          ]}
         >
-          {events.map((event: any, index) => (
-            <UpcomingEventsCard
-              key={index}
-              id={event.id}
-              title={event.title}
-              date={event.start_Date}
-              location={event.location}
-              image={event.image}
-              locale={locale}
-            />
-          ))}
+          <CarouselContent>
+            {events.map((event: any, index) => (
+              <CarouselItem key={index} className="basis-1/3">
+                <UpcomingEventsCard
+                  id={event.id}
+                  title={event.title}
+                  date={event.start_Date}
+                  location={event.location}
+                  image={event.image}
+                  locale={locale}
+                />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
         </Carousel>
       </div>
     </section>

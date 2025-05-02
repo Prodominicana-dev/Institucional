@@ -4,7 +4,7 @@ import { Group, Text, rem } from "@mantine/core";
 import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import Image from "next/image";
 import { InformationCircleIcon, XMarkIcon } from "@heroicons/react/24/solid";
-import { notifications } from "@mantine/notifications";
+import { toast } from "sonner";
 
 export default function DragNDrop({
   data,
@@ -41,13 +41,8 @@ export default function DragNDrop({
         accept={["image/png", "image/jpeg"]}
         multiple
         // maxFiles={4 - images?.length}
-        onError={(error) => {
-          notifications.show({
-            title: "Error",
-            message: "La imagen no puede sobrepasar los 2MB.",
-            color: "red",
-            autoClose: 5000,
-          });
+        onError={() => {
+          toast.error("La imagen no puede sobrepasar los 2MB.");
         }}
       >
         <Group

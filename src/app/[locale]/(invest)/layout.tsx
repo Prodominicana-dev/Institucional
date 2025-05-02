@@ -43,17 +43,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
     },
   ];
   return (
-    <html className="scroll-smooth">
-      <body>
-        <APIProvider
-          apiKey={`${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`}
-          language={params.locale}
-        >
-          <NavbarInvestMobile options={navbarOptions} />
-          <Navbar options={navbarOptions} />
-          {children}
-        </APIProvider>
-      </body>
-    </html>
+    <APIProvider
+      apiKey={`${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`}
+      language={params.locale}
+    >
+      <NavbarInvestMobile options={navbarOptions} />
+      <Navbar options={navbarOptions} />
+      {children}
+    </APIProvider>
   );
 }

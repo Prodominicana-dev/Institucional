@@ -1,9 +1,16 @@
 "use client";
-import { Group, Menu, UnstyledButton } from "@mantine/core";
+import {
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Button,
+} from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { usePathname, useRouter } from "@/navigation";
 import { useParams } from "next/navigation";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 const data = [
   { label: "Español", code: "do", langcode: "es" },
@@ -18,8 +25,8 @@ export default function LanguagePicker() {
     data.find((item) => item.langcode === locale) || data[0]
   );
   const items = data.map((item) => (
-    <Menu.Item
-      leftSection={
+    <MenuItem onClick={() => setSelected(item)} key={item.label}>
+      <div className="flex gap-3">
         <Image
           src={`https://flagcdn.com/${item.code}.svg`}
           width={100}
@@ -27,12 +34,9 @@ export default function LanguagePicker() {
           alt={item.label}
           className="w-8 h-5 sm:w-12 sm:h-8 object-cover"
         />
-      }
-      onClick={() => setSelected(item)}
-      key={item.label}
-    >
-      {item.label}
-    </Menu.Item>
+        {item.label}
+      </div>
+    </MenuItem>
   ));
 
   const pathname = usePathname();
@@ -47,27 +51,22 @@ export default function LanguagePicker() {
   }, [selected]);
 
   return (
-    <Menu
-      onOpen={() => setOpened(true)}
-      onClose={() => setOpened(false)}
-      radius="md"
-    >
-      <Menu.Target>
-        <UnstyledButton data-expanded={opened || undefined}>
-          <Group gap="xs">
-            <Image
-              src={`https://flagcdn.com/${selected.code}.svg`}
-              width={100}
-              height={100}
-              alt={selected.label}
-              className="w-10 h-7 sm:w-10 xl:w-12 sm:h-6 object-cover"
-            />
-          </Group>
-        </UnstyledButton>
-      </Menu.Target>
-      <Menu.Dropdown className="flex flex-col items-center justify-center bg-white">
-        {items}
-      </Menu.Dropdown>
-    </Menu>
+    <div className="flex gap-2 items-center justify-center cursor-pointer">
+      <Menu>
+        <MenuHandler>
+          <Image
+            src={`https://flagcdn.com/${selected.code}.svg`}
+            width={100}
+            height={100}
+            alt={selected.label}
+            className="w-10 h-7 sm:w-10 xl:w-12 sm:h-6 object-cover"
+          />
+        </MenuHandler>
+        <MenuList className="flex flex-col items-center justify-center bg-white text-black p-2 pl-2 border-0">
+          {items}
+        </MenuList>
+      </Menu>
+      <ChevronDownIcon className="size-7 text-blue-950" />
+    </div>
   );
 }

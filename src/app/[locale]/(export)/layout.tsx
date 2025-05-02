@@ -32,14 +32,10 @@ export default function RootLayout({
   ];
   const queryClient = new QueryClient();
   return (
-    <html className="scroll-smooth">
-      <body>
-        <QueryClientProvider client={queryClient}>
-          <NavbarExportMobile options={navbarOptions} />
-          <Navbar options={navbarOptions} />
-          {children}
-        </QueryClientProvider>
-      </body>
-    </html>
+    <QueryClientProvider client={queryClient}>
+      <NavbarExportMobile options={navbarOptions} />
+      <Navbar options={navbarOptions} />
+      {children}
+    </QueryClientProvider>
   );
 }

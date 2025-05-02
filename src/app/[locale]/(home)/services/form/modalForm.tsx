@@ -16,8 +16,6 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { createServiceForm } from "@/services/servicesForm/service";
-import { createServiceUser } from "@/services/servicesForm/service";
-import { Notifications } from "@mantine/notifications";
 
 interface DialogProps {
   open: boolean;

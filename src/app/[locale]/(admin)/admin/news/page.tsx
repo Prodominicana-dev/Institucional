@@ -4,7 +4,6 @@ import Card from "@/components/admin/news/card";
 import { NewsDialog } from "@/components/admin/news/dialog";
 import Sketch from "@/components/admin/sketch";
 import { useCategoriesNews, useNews } from "@/services/news/service";
-import { Autocomplete } from "@mantine/core";
 import React, { useState, useEffect, useRef } from "react";
 import { useHover } from "usehooks-ts";
 import Select from "react-select";

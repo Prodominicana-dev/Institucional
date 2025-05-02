@@ -29,14 +29,9 @@ import {
   useNewsById,
   useNewsConfById,
 } from "@/services/news/service";
-import { Autocomplete } from "@mantine/core";
-import DragNDrop from "../tools/dropzone/dropzone";
-import TextEditorWithConfig from "../tools/textEditor/textEditor";
 import Day_Picker from "../tools/daypicker";
 import { useNewsCategories } from "@/services/news/categories/service";
 import Select from "react-select";
-import { set } from "date-fns";
-import axios from "axios";
 
 export function EditNewsDialog({
   id,

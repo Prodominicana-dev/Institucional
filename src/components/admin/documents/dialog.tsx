@@ -26,9 +26,7 @@ import {
   IMAGE_MIME_TYPE,
   PDF_MIME_TYPE,
 } from "@mantine/dropzone";
-import Select from "react-select";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { createMember } from "@/services/structure-organizational/members/service";
 import CreatableSelect from "react-select/creatable";
 import { createDocs } from "@/services/gen-docs/service";
 

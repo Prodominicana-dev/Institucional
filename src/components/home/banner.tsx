@@ -2,10 +2,16 @@
 import { Typography } from "@material-tailwind/react";
 import React from "react";
 import Image from "next/image";
-import { Carousel } from "@mantine/carousel";
 import { useRef } from "react";
 import Autoplay from "embla-carousel-autoplay";
 import { useTranslations } from "next-intl";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export default function Banner() {
   const t = useTranslations("DominicanRepublic");
@@ -65,49 +71,54 @@ export default function Banner() {
       icon: "svg/icons/MapPinIcon.svg",
     },
   ];
-  const autoplay = useRef(Autoplay({ delay: 10000 }));
-  const dataAutoplay = useRef(Autoplay({ delay: 2000 }));
   return (
     <section className="w-full relative h-[60vh] sm:h-[95vh] xl:h-screen bg-white flex justify-center">
       <Carousel
+        opts={{
+          align: "start",
+          loop: true,
+        }}
+        plugins={[
+          Autoplay({
+            delay: 2000,
+          }),
+        ]}
         className="relative w-full"
-        withControls={false}
-        withIndicators={false}
-        plugins={[autoplay.current]}
-        loop
       >
-        {banners.map(({ title, desc, image }, index) => (
-          <Carousel.Slide
-            className="relative h-[40vh] sm:h-[80vh] w-full"
-            key={index}
-          >
-            <video
-              width={3840}
-              height={2160}
-              src={image}
-              autoPlay
-              loop
-              muted
-              className="h-full w-full object-cover object-center"
-            />
-            <div className="w-6/12 sm:w-5/12 absolute inset-0 flex flex-col justify-center space-y-5 text-center">
-              <Typography
-                color="white"
-                placeholder={undefined}
-                className="bg-red-700/75 text-sm font-opensans font-extrabold sm:text-5xl p-3"
-              >
-                {title}
-              </Typography>
-              <Typography
-                color="white"
-                placeholder={undefined}
-                className="bg-blue-950/75 text-xs font-adelia sm:text-2xl p-5"
-              >
-                {desc}
-              </Typography>
-            </div>
-          </Carousel.Slide>
-        ))}
+        <CarouselContent>
+          {banners.map(({ title, desc, image }, index) => (
+            <CarouselItem
+              className="relative h-[40vh] sm:h-[80vh] w-full"
+              key={index}
+            >
+              <video
+                width={3840}
+                height={2160}
+                src={image}
+                autoPlay
+                loop
+                muted
+                className="h-full w-full object-cover object-center"
+              />
+              <div className="w-6/12 sm:w-5/12 absolute inset-0 flex flex-col justify-center space-y-5 text-center">
+                <Typography
+                  color="white"
+                  placeholder={undefined}
+                  className="bg-red-700/75 text-sm font-opensans font-extrabold sm:text-5xl p-3"
+                >
+                  {title}
+                </Typography>
+                <Typography
+                  color="white"
+                  placeholder={undefined}
+                  className="bg-blue-950/75 text-xs font-adelia sm:text-2xl p-5"
+                >
+                  {desc}
+                </Typography>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
       </Carousel>
       <div className="flex bg-blue-950 xl:px-8 h-[20vh] xl:h-[30vh] items-center w-10/12 absolute bottom-10 rounded-xl">
         <div className="hidden xl:flex justify-evenly w-full">
@@ -143,16 +154,19 @@ export default function Banner() {
           ))}
         </div>
         <Carousel
-          withControls={false}
-          plugins={[dataAutoplay.current]}
-          slideSize={{ base: "100%", sm: "50%", md: "33.3%" }}
-          slideGap={{ base: 0 }}
-          align={"start"}
-          loop
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          plugins={[
+            Autoplay({
+              delay: 10000,
+            }),
+          ]}
           className="flex xl:hidden w-full"
         >
           {data.map(({ title, desc, icon }, index) => (
-            <Carousel.Slide
+            <CarouselItem
               className="w-6/12 xl:w-full h-3/6 flex flex-col justify-center text-center space-y-4"
               key={index}
             >
@@ -176,7 +190,7 @@ export default function Banner() {
                   {desc}
                 </p>
               </div>
-            </Carousel.Slide>
+            </CarouselItem>
           ))}
         </Carousel>
       </div>

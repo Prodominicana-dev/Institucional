@@ -4,11 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import Countdown from "react-countdown";
 import { useLocale, useTranslations } from "next-intl";
-import { Menu, UnstyledButton } from "@mantine/core";
+import {
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Button,
+} from "@material-tailwind/react";
 import { usePathname, useRouter } from "@/navigation";
 import { useParams } from "next/navigation";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
-import { Button } from "@material-tailwind/react";
 
 export default function Page() {
   const t = useTranslations("agroalimentaria2025");
@@ -216,9 +221,9 @@ function LanguagePicker() {
     data.find((item) => item.langcode === locale) || data[0]
   );
   const items = data.map((item) => (
-    <Menu.Item onClick={() => setSelected(item)} key={item.label}>
+    <MenuItem onClick={() => setSelected(item)} key={item.label}>
       {item.label}
-    </Menu.Item>
+    </MenuItem>
   ));
 
   const pathname = usePathname();
@@ -233,12 +238,8 @@ function LanguagePicker() {
   }, [selected]);
 
   return (
-    <Menu
-      onOpen={() => setOpened(true)}
-      onClose={() => setOpened(false)}
-      radius="md"
-    >
-      <Menu.Target>
+    <Menu>
+      <MenuHandler>
         <Button
           data-expanded={opened || undefined}
           placeholder={undefined}
@@ -247,10 +248,10 @@ function LanguagePicker() {
           <GlobeAltIcon className="size-5 text-[#519A4C]" />
           {selected.code}
         </Button>
-      </Menu.Target>
-      <Menu.Dropdown className="flex flex-col items-center justify-center bg-white">
+      </MenuHandler>
+      <MenuList className="flex flex-col items-center justify-center bg-white">
         {items}
-      </Menu.Dropdown>
+      </MenuList>
     </Menu>
   );
 }

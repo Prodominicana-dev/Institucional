@@ -23,30 +23,31 @@ import GovPagesInfo from "./govPagesInfo";
 import { useTranslations } from "next-intl";
 import LanguagePicker from "./languagePicker";
 import HistoryIcon from "@/components/icons/historyIcon";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 export default function Navbar() {
   const t = useTranslations("navbar");
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState("");
   const router = useRouter();
 
   const handleClick = () => {
     if (search.trim()) {
-      router.push(`/search?query=${encodeURIComponent(search.trim())}`)
+      router.push(`/search?query=${encodeURIComponent(search.trim())}`);
       clearSearch();
     }
-  }
+  };
 
-  
-  const handleKeyPress: (event: React.KeyboardEvent<HTMLInputElement>) => void = (event) => {
-    if (event.key === 'Enter') {
-      handleClick()
+  const handleKeyPress: (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => void = (event) => {
+    if (event.key === "Enter") {
+      handleClick();
     }
-  }
+  };
 
   const clearSearch = () => {
-    setSearch('')
-  }
+    setSearch("");
+  };
 
   const aboutListItems = [
     {
@@ -157,7 +158,6 @@ export default function Navbar() {
               </div>
               <ToolsMenu />
               <LanguagePicker />
-              <ChevronDownIcon className="  h-6 w-6 -translate-x-3 text-blue-950" />
             </div>
           </div>
         </div>

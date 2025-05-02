@@ -9,7 +9,6 @@ import {
   PencilSquareIcon,
   TrashIcon,
 } from "@heroicons/react/24/solid";
-import { Autocomplete } from "@mantine/core";
 import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
 import { useHover } from "usehooks-ts";

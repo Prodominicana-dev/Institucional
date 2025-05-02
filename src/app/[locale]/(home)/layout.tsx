@@ -19,11 +19,11 @@ import {
 } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { APIProvider } from "@vis.gl/react-google-maps";
-import { Notifications } from "@mantine/notifications";
 import { useParams } from "next/navigation";
 import Breadcrumb from "@/components/home/breadcrumb";
 import { PrintButton } from "@/components/home/printButton";
 import { EmailButton } from "@/components/home/emailButton";
+import { Toaster } from "@/components/ui/sonner";
 // import RouteValidator from "../validatorRoute/validatorRoutes";
 // import { APP_ROUTES } from "../validatorRoute/Routes";
 
@@ -46,34 +46,33 @@ export default function RootLayout({ children }: RootLayoutProps) {
   const params = useParams<{ locale: string }>();
   return (
     <div className="scroll-smooth">
-      
-        <QueryClientProvider client={queryClient}>
-          <APIProvider
-            apiKey={`${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`}
-            language={params.locale}
-          >
-            <Navbar />
-            <NavBarMobile />
-            <div className=" flex justify-center  bg-white  ">
-              <div className="flex justify-between items-center w-[1200px] ">
-                <div className="flex">
-                  <Breadcrumb />
-                </div>
+      <QueryClientProvider client={queryClient}>
+        <APIProvider
+          apiKey={`${process.env.NEXT_PUBLIC_GOOGLE_API_KEY}`}
+          language={params.locale}
+        >
+          <Navbar />
+          <NavBarMobile />
+          <div className=" flex justify-center  bg-white  ">
+            <div className="flex justify-between items-center w-[1200px] ">
+              <div className="flex">
+                <Breadcrumb />
+              </div>
 
-                <div className="flex gap-2 ">
-                  <EmailButton />
-                  <PrintButton />
-                </div>
+              <div className="flex gap-2 ">
+                <EmailButton />
+                <PrintButton />
               </div>
             </div>
-            {children}
-             <Accesibility />
-            <Footer />
-            <FooterMobile />
-            <Notifications zIndex={9999} />
-            <TawkMessenger />
-          </APIProvider>
-        </QueryClientProvider>
+          </div>
+          {children}
+          <Accesibility />
+          <Footer />
+          <FooterMobile />
+          <Toaster />
+          <TawkMessenger />
+        </APIProvider>
+      </QueryClientProvider>
     </div>
   );
 }
