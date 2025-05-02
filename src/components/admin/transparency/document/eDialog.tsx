@@ -25,7 +25,7 @@ import {
   useSubsectionDocAdmin,
 } from "@/services/subsection/service";
 import SectionPopover from "../section/popover";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import SubsectionPopover from "../subsection/popover";
 import {
   createSection,

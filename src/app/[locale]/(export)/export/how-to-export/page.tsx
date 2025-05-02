@@ -2,7 +2,15 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Dialog, DialogBody, DialogHeader } from "@material-tailwind/react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function Page() {
   const stepsToExport = [
@@ -213,16 +221,11 @@ function StepCard({ name, desc, logo, icon, icon2, link, index }: any) {
           )}
         </div>
       </div>
-      <Dialog
-        open={open}
-        handler={handleOpen}
-        placeholder={undefined}
-        className="p-5"
-      >
-        <DialogHeader placeholder={undefined}>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogHeader>
           <h1 className="text-blue-dark font-bold text-3xl">{name}</h1>
         </DialogHeader>
-        <DialogBody placeholder={undefined} className="flex flex-col gap-5">
+        <DialogContent className="flex flex-col gap-5">
           <div
             dangerouslySetInnerHTML={{ __html: desc }}
             className="flex flex-col gap-3 list-disc text-black"
@@ -235,7 +238,7 @@ function StepCard({ name, desc, logo, icon, icon2, link, index }: any) {
               Más información
             </Link>
           )}
-        </DialogBody>
+        </DialogContent>
       </Dialog>
     </div>
   );

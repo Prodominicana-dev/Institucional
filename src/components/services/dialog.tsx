@@ -8,7 +8,7 @@ import {
   Input,
   Spinner,
 } from "@material-tailwind/react";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import { Stepper, Step } from "@material-tailwind/react";
 import { createDirection } from "@/services/structure-organizational/service";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
@@ -118,7 +118,7 @@ export function ServiceDialog({
         <DialogBody
           placeholder={undefined}
           className="p-4 lg:p-6 overflow-y-auto text-pretty rounded-lg "
-          style={{ maxWidth: '900px', width: '90%' }}
+          style={{ maxWidth: "900px", width: "90%" }}
         >
           <div className="flex flex-col font-montserrat text-black gap-4 ">
             <div className="flex flex-col gap-4 sticky">

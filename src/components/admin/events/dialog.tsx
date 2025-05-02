@@ -21,7 +21,7 @@ import {
   ExclamationCircleIcon,
 } from "@heroicons/react/24/outline";
 import { createSection } from "@/services/section/service";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import { Montserrat } from "next/font/google";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { set } from "date-fns";

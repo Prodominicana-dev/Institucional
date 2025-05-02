@@ -4,16 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import Countdown from "react-countdown";
 import { useLocale, useTranslations } from "next-intl";
-import {
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-  Button,
-} from "@material-tailwind/react";
-import { usePathname, useRouter } from "@/navigation";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { useParams } from "next/navigation";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 export default function Page() {
   const t = useTranslations("agroalimentaria2025");
@@ -221,37 +221,41 @@ function LanguagePicker() {
     data.find((item) => item.langcode === locale) || data[0]
   );
   const items = data.map((item) => (
-    <MenuItem onClick={() => setSelected(item)} key={item.label}>
+    <SelectItem value={item.langcode} key={item.label}>
       {item.label}
-    </MenuItem>
+    </SelectItem>
   ));
 
   const pathname = usePathname();
+  const params = useParams();
 
   function switchLocale(locale: string) {
-    if (locale === "es" || locale === "en") {
-      router.replace(pathname, { locale });
-    }
+    router.replace(
+      // @ts-expect-error -- TypeScript will validate that only known `params`
+      // are used in combination with a given `pathname`. Since the two will
+      // always match for the current route, we can skip runtime checks.
+      { pathname, params },
+      { locale: locale }
+    );
   }
   useEffect(() => {
     switchLocale(selected.langcode);
   }, [selected]);
 
   return (
-    <Menu>
-      <MenuHandler>
-        <Button
-          data-expanded={opened || undefined}
-          placeholder={undefined}
-          className="flex items-center gap-2 rounded-full capitalize border-2 border-white bg-transparent hover:bg-white/10 duration-200 w-min px-5 py-2 text-[#519A4C] text-base"
-        >
-          <GlobeAltIcon className="size-5 text-[#519A4C]" />
-          {selected.code}
-        </Button>
-      </MenuHandler>
-      <MenuList className="flex flex-col items-center justify-center bg-white">
+    <Select
+      onValueChange={(value) => {
+        const newSelected = data.find((item) => item.langcode === value);
+        if (newSelected) setSelected(newSelected);
+      }}
+    >
+      <SelectTrigger className="flex items-center gap-2 rounded-full capitalize border-2 border-white bg-transparent hover:bg-white/10 duration-200 w-min px-5 py-2 text-[#519A4C] text-base">
+        <GlobeAltIcon className="size-5 text-[#519A4C]" />
+        {selected.code}
+      </SelectTrigger>
+      <SelectContent className="flex flex-col items-center justify-center bg-white">
         {items}
-      </MenuList>
-    </Menu>
+      </SelectContent>
+    </Select>
   );
 }

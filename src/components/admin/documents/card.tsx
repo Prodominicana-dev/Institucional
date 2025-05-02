@@ -6,7 +6,7 @@ import {
 } from "@heroicons/react/24/solid";
 import React, { useState } from "react";
 
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import DeactiveButton from "../inactive";
 import ActivateButton from "../active";
 import DeleteButton from "../delete";

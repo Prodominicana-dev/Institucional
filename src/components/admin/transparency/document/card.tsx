@@ -11,7 +11,7 @@ import {
   deleteSection,
   inactiveSection,
 } from "@/services/section/service";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import DeactiveButton from "../../inactive";
 import ActivateButton from "../../active";
 import DeleteButton from "../../delete";

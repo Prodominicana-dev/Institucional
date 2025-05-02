@@ -12,7 +12,7 @@ import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import Select from "react-select";
 import { Montserrat } from "next/font/google";
 import { useSubsection } from "@/services/subsection/service";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import { useSection } from "@/services/section/service";
 
 import { createDocument } from "@/services/document/service";

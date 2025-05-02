@@ -22,7 +22,7 @@ export default function Login() {
           disponibles para nuestros usuarios registrados.
         </div>
         <a
-          href={`/api/auth/login?returnTo=${baseUrl}${pathname}`}
+          href={`/auth/login?returnTo=${baseUrl}${pathname}`}
           className="flex items-center justify-center w-56 h-10 text-white rounded-lg shadow-sm bg-navy"
         >
           Iniciar sesión

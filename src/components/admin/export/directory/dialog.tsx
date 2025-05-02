@@ -13,7 +13,7 @@ import {
   MenuItem,
 } from "@material-tailwind/react";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { XMarkIcon } from "@heroicons/react/24/solid";

@@ -11,7 +11,7 @@ import {
 } from "@material-tailwind/react";
 import { Montserrat } from "next/font/google";
 import { editSection } from "@/services/section/service";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import { Section } from "@/models/section";
 import Editor from "../../tools/rich-editor/config";
 import TextEditor from "../../tools/rich-editor/rich-editor";

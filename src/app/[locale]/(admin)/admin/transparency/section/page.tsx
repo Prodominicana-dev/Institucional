@@ -6,7 +6,7 @@ import { SectionDialog } from "@/components/admin/transparency/section/dialog";
 import { OrderDialog } from "@/components/admin/transparency/section/order";
 import { Section } from "@/models/section";
 import { useSectionAdmin } from "@/services/section/service";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Spinner } from "@material-tailwind/react";
 import React, { useState, useEffect } from "react";

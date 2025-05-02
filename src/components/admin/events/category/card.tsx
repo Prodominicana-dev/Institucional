@@ -1,7 +1,7 @@
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import React, { useState } from "react";
 
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import DeleteButton from "../../delete";
 import { deleteNewsCategory } from "@/services/news/categories/service";
 import { deleteEventCategory } from "@/services/events/categories/service";

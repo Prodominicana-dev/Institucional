@@ -1,4 +1,4 @@
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import React from "react";
 import {
   Button,
@@ -30,7 +30,7 @@ export default function UserProfile() {
     {
       label: "Cerrar sesion",
       icon: ArrowLeftOnRectangleIcon,
-      link: `/api/auth/logout?returnTo=${encodeURIComponent(callbackUrl)}`,
+      link: `/auth/logout?returnTo=${encodeURIComponent(callbackUrl)}`,
     },
   ];
   const closeMenu = () => setIsMenuOpen(false);
@@ -40,7 +40,7 @@ export default function UserProfile() {
   if (!user) {
     return (
       <a
-        href={`/api/auth/login?returnTo=${callbackUrl}`}
+        href={`/auth/login?returnTo=${callbackUrl}`}
         className="w-36 h-12 flex justify-center items-center rounded-lg bg-blue-dark hover:shadow-md text-white hover:text-white/80 duration-300"
       >
         Iniciar sesión

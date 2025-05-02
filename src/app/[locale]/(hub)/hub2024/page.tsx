@@ -11,7 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { usePathname, useRouter } from "@/navigation";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { useParams } from "next/navigation";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
 import { Button } from "@material-tailwind/react";
@@ -199,11 +199,16 @@ function LanguagePicker() {
   ));
 
   const pathname = usePathname();
+  const params = useParams();
 
   function switchLocale(locale: string) {
-    if (locale === "es" || locale === "en") {
-      router.replace(pathname, { locale });
-    }
+    router.replace(
+      // @ts-expect-error -- TypeScript will validate that only known `params`
+      // are used in combination with a given `pathname`. Since the two will
+      // always match for the current route, we can skip runtime checks.
+      { pathname, params },
+      { locale: locale }
+    );
   }
   useEffect(() => {
     switchLocale(selected.langcode);

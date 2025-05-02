@@ -10,7 +10,7 @@ import {
   Switch,
 } from "@material-tailwind/react";
 import { createSection, useSection } from "@/services/section/service";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import Select from "react-select";
 import {
   createSubsection,

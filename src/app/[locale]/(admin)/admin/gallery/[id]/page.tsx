@@ -8,7 +8,7 @@ import Sketch from "@/components/admin/sketch";
 import { deletePhoto, usePhotoGallery } from "@/services/gallery/photo/service";
 import { useGallery, useGalleryById } from "@/services/gallery/service";
 import { useDirections } from "@/services/structure-organizational/service";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Spinner } from "@material-tailwind/react";
 import Image from "next/image";

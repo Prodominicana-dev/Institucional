@@ -11,7 +11,7 @@ import React, { useState, useEffect, useRef } from "react";
 import DeactiveButton from "../inactive";
 import ActivateButton from "../active";
 import DeleteButton from "../delete";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import {
   deleteEvents,
   disableEvents,

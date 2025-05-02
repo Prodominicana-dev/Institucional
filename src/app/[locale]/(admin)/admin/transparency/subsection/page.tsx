@@ -3,7 +3,7 @@ import Sketch from "@/components/admin/sketch";
 import Card from "@/components/admin/transparency/subsection/card";
 import { Subsection } from "@/models/subsection";
 import { useSubsection } from "@/services/subsection/service";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import React, { useState, useEffect } from "react";
 import Select from "react-select";

@@ -16,7 +16,7 @@ import DeactiveButton from "../inactive";
 import ActivateButton from "../active";
 import DeleteButton from "../delete";
 import { deleteNews, disableNews, enableNews } from "@/services/news/service";
-import { useUser } from "@auth0/nextjs-auth0/client";
+import { useUser } from "@auth0/nextjs-auth0";
 import { EditNewsDialog } from "./edit";
 
 export default function Card({

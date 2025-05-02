@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { NextIntlClientProvider, useMessages } from "next-intl";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import { NextIntlClientProvider, hasLocale } from "next-intl";
+import { notFound } from "next/navigation";
+import { routing } from "@/i18n/routing";
 
 export const metadata: Metadata = {
   title: "ProDominicana",
@@ -9,14 +11,18 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
   params: any;
 }) {
-  const messages = useMessages();
+  // Ensure that the incoming `locale` is valid
+  const { locale } = await params;
+  if (!hasLocale(routing.locales, locale)) {
+    notFound();
+  }
 
   return (
     <html className="scroll-smooth" suppressHydrationWarning>
@@ -48,7 +54,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#ffffff" />
       </head>
       <body suppressHydrationWarning>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider>
           {children}
           <GoogleAnalytics gaId="G-2026ZFW8SM" />
         </NextIntlClientProvider>

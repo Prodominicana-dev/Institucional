@@ -8,7 +8,7 @@ import {
 } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { usePathname, useRouter } from "@/navigation";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import { useParams } from "next/navigation";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
@@ -40,11 +40,16 @@ export default function LanguagePicker() {
   ));
 
   const pathname = usePathname();
+  const params = useParams();
 
   function switchLocale(locale: string) {
-    if (locale === "es" || locale === "en") {
-      router.replace(pathname, { locale });
-    }
+    router.replace(
+      // @ts-expect-error -- TypeScript will validate that only known `params`
+      // are used in combination with a given `pathname`. Since the two will
+      // always match for the current route, we can skip runtime checks.
+      { pathname, params },
+      { locale: locale }
+    );
   }
   useEffect(() => {
     switchLocale(selected.langcode);
