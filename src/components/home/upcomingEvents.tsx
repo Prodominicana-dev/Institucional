@@ -55,7 +55,7 @@ export default function UpcomingEvents({ locale }: { locale: string }) {
         >
           <CarouselContent>
             {events.map((event: any, index) => (
-              <CarouselItem key={index} className="basis-1/3">
+              <CarouselItem key={index} className="xl:basis-1/3">
                 <UpcomingEventsCard
                   id={event.id}
                   title={event.title}
@@ -67,8 +67,8 @@ export default function UpcomingEvents({ locale }: { locale: string }) {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className="hidden xl:flex" />
+          <CarouselNext className="hidden xl:flex" />
         </Carousel>
       </div>
     </section>

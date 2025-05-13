@@ -64,7 +64,7 @@ export default function FooterMobile() {
         <div className="flex ">
           <Image
             alt="logo"
-            src={"/svg/logos/prodominicana.svg"}
+            src={"/svg/logos/Prodominicana.svg"}
             width={600}
             height={600}
             className="w-56"
@@ -163,10 +163,24 @@ export default function FooterMobile() {
             </div>
           </button>
           <Collapse open={open} className="w-full">
-            <div className="flex flex-row flex-wrap h-full w-full gap-x-5 gap-y-4 px-10 pb-5">
+            <div className="grid grid-cols-2 place-items-center xl:flex flex-row flex-wrap h-full w-full gap-x-5 gap-y-4 px-10 pb-5">
               {normas.map(({ name, url, src }, index) => (
                 <OgticRules title={name} url={url} source={src} key={index} />
               ))}
+              <Image
+                alt="AENOR"
+                src={"/images/sellos/AENOR.png"}
+                width={600}
+                height={600}
+                className="size-[100px] object-cover"
+              />
+              <Image
+                alt="ISO"
+                src={"/images/sellos/IQNET.png"}
+                width={600}
+                height={600}
+                className="size-[100px] object-cover"
+              />
             </div>
           </Collapse>
         </div>

@@ -160,38 +160,40 @@ export default function Banner() {
           }}
           plugins={[
             Autoplay({
-              delay: 10000,
+              delay: 2500,
             }),
           ]}
           className="flex xl:hidden w-full"
         >
-          {data.map(({ title, desc, icon }, index) => (
-            <CarouselItem
-              className="w-6/12 xl:w-full h-3/6 flex flex-col justify-center text-center space-y-4"
-              key={index}
-            >
-              <div className="h-3/6">
-                <Image
-                  width={100}
-                  height={100}
-                  src={icon}
-                  alt={"icon"}
-                  className="h-16 w-full"
-                />
-              </div>
-              <div className="h-3/6">
-                <Typography
-                  placeholder={undefined}
-                  className="text-cyan-600 font-bold text-sm font-opensans "
-                >
-                  {title}
-                </Typography>
-                <p className="text-white font-normal text-xs p-1 font-opensans">
-                  {desc}
-                </p>
-              </div>
-            </CarouselItem>
-          ))}
+          <CarouselContent>
+            {data.map(({ title, desc, icon }, index) => (
+              <CarouselItem
+                className="w-6/12 xl:w-full h-3/6 flex flex-col justify-center text-center space-y-4"
+                key={index}
+              >
+                <div className="h-3/6">
+                  <Image
+                    width={100}
+                    height={100}
+                    src={icon}
+                    alt={"icon"}
+                    className="h-16 w-full"
+                  />
+                </div>
+                <div className="h-3/6">
+                  <Typography
+                    placeholder={undefined}
+                    className="text-cyan-600 font-bold text-sm font-opensans "
+                  >
+                    {title}
+                  </Typography>
+                  <p className="text-white font-normal text-xs p-1 font-opensans">
+                    {desc}
+                  </p>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
         </Carousel>
       </div>
     </section>

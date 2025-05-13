@@ -1,10 +1,17 @@
 "use client";
-import { Carousel, Typography } from "@material-tailwind/react";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useLastPhotoGallery } from "@/services/gallery/photo/service";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay";
 
 export default function PhotoGallerySection() {
   const [images, setImages] = useState<any>([]);
@@ -32,23 +39,17 @@ export default function PhotoGallerySection() {
               className="w-14 sm:w-20"
             />
             <div>
-              <Typography
-                placeholder={undefined}
-                className="sm:text-lg text-white uppercase font-light font-opensans"
-              >
+              <div className="sm:text-lg text-white uppercase font-light font-opensans hidden sm:block">
                 {t("miniTitle")}
-              </Typography>
-              <Typography
-                placeholder={undefined}
-                className="text-2xl sm:text-4xl text-white font-bold font-opensans"
-              >
+              </div>
+              <div className="text-2xl sm:text-4xl text-white font-bold font-opensans">
                 {t("title")}
-              </Typography>
+              </div>
             </div>
           </div>
           <Link
             href="/gallery"
-            className="w-32 text-center py-2 text-lg bg-transparent border-2 rounded-full border-white text-white font-gotham hover:bg-white hover:text-blue-950 hover:border-transparent transition-all duration-500 ease-in-out"
+            className="w-24 xl:w-32 text-center py-2 text-sm xl:text-lg bg-transparent border-2 rounded-full border-white text-white font-gotham hover:bg-white hover:text-blue-950 hover:border-transparent transition-all duration-500 ease-in-out"
           >
             {t("buttonText")}
           </Link>
@@ -78,22 +79,30 @@ export default function PhotoGallerySection() {
         </div>
         <div className="block xl:hidden">
           <Carousel
-            autoplay
-            loop
-            className=""
-            placeholder={undefined}
-            navigation={() => <></>}
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            plugins={[
+              Autoplay({
+                delay: 2000,
+              }),
+            ]}
           >
-            {images?.map((image: any, index: number) => (
-              <Image
-                key={index}
-                width={2048}
-                height={1080}
-                src={`${process.env.NEXT_PUBLIC_API_URL}/gallery/${image?.galleryId}/img/${image?.name}`}
-                alt={image.name}
-                className="w-full h-full rounded-lg"
-              />
-            ))}
+            <CarouselContent className="rounded-lg">
+              {images?.map((image: any, index: number) => (
+                <CarouselItem key={index}>
+                  <Image
+                    key={index}
+                    width={2048}
+                    height={1080}
+                    src={`${process.env.NEXT_PUBLIC_API_URL}/gallery/${image?.galleryId}/img/${image?.name}`}
+                    alt={image.name}
+                    className="w-full h-full object-cover rounded-lg"
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
           </Carousel>
         </div>
       </div>

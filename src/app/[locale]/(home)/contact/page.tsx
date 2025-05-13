@@ -2,17 +2,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import {
-  Button,
-  Input,
-  Menu,
-  MenuHandler,
-  MenuItem,
-  MenuList,
-  Select,
-  Textarea,
-  Option,
-} from "@material-tailwind/react";
-import {
   ChevronDownIcon,
   EnvelopeIcon,
   MapPinIcon,
@@ -22,6 +11,17 @@ import Link from "next/link";
 import { Map, AdvancedMarker, Pin, useMap } from "@vis.gl/react-google-maps";
 import { useTranslations } from "next-intl";
 import { createcontact } from "@/services/contact/service";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
 
 export default function Page() {
   const map = useMap();
@@ -85,9 +85,9 @@ export default function Page() {
 
     if (!formData.identity) {
       RequiredErr.identity = "Cedula o RNC obligatorio.";
-    } else if (formData.identity.length < 12) {
+    } else if (formData.identity.length < 11) {
       RequiredErr.identity =
-        "La Cedula o RNC debe tener al menos 12 caracteres.";
+        "La Cedula o RNC debe tener al menos 11 caracteres.";
     }
 
     if (!formData.activity) {
@@ -339,6 +339,7 @@ export default function Page() {
                   value={formData.nameF}
                   onChange={handleInputChange}
                   name="nameF"
+                  isRequired={true}
                 />
 
                 {errorRequired.nameF && (
@@ -354,6 +355,7 @@ export default function Page() {
                   value={formData.lastName}
                   onChange={handleInputChange}
                   name="lastName"
+                  isRequired={true}
                 />
                 {errorRequired.lastName && (
                   <span className="text-red-500 text-sm block mt-1">
@@ -369,6 +371,7 @@ export default function Page() {
                 value={formData.email}
                 onChange={handleInputChange}
                 name="email"
+                isRequired={true}
               />
               {errorRequired.email && (
                 <span className="text-red-500 text-sm block mt-1">
@@ -384,7 +387,8 @@ export default function Page() {
                   value={formData.identity}
                   onChange={handleInputChange}
                   name="identity"
-                  maxLeng={12}
+                  maxLeng={11}
+                  isRequired={true}
                 />
                 <div
                   className={` absolute   bottom-3 right-6 text-sm ${
@@ -393,7 +397,7 @@ export default function Page() {
                       : "text-gray-500"
                   }`}
                 >
-                  {formData.identity ? formData.identity.length : 0}/12
+                  {formData.identity ? formData.identity.length : 0}/11
                 </div>
                 {errorRequired.identity && (
                   <span className="text-red-500 text-sm block mt-1">
@@ -402,22 +406,24 @@ export default function Page() {
                 )}
               </div>
               <div className="w-full flex flex-col gap-2">
-                <div className="font-bold text-xl">{t("form.activity")}</div>
+                <div className="flex font-bold text-xl gap-1">
+                  {t("form.activity")}
+                  <span className="text-red-500 text-sm block mt-1"> *</span>
+                </div>
                 <Select
-                  className=" !border-t-blue-gray-200 focus:!border-t-blue-950 bg-white"
                   value={formData.activity}
-                  onChange={handleSelectChange}
-                  containerProps={{ className: "h-12" }}
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
-                  placeholder={undefined}
+                  onValueChange={handleSelectChange}
                 >
-                  {optionSelect.map((option, index) => (
-                    <Option key={index} value={option}>
-                      {option}
-                    </Option>
-                  ))}
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder={"Seleccione una actividad"} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {optionSelect.map((option, index) => (
+                      <SelectItem key={index} value={option}>
+                        {option}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
                 </Select>
                 {errorRequired.activity && (
                   <span className="text-red-500 text-sm block mt-1">
@@ -427,13 +433,12 @@ export default function Page() {
               </div>
             </div>
             <div className="w-full flex flex-col gap-2">
-              <div className="font-bold text-xl">{t("form.message")}</div>
+              <div className="flex font-bold text-xl gap-1">
+                {t("form.message")}
+                <span className="text-red-500 text-sm block mt-1"> *</span>
+              </div>
               <div className="relative">
                 <Textarea
-                  labelProps={{
-                    className: "before:content-none after:content-none ",
-                  }}
-                  className="w-full h-40 border-t-blue-gray-200 focus:border-t-blue-950 bg-white  pr-12"
                   value={formData.message}
                   onChange={handleTextAre}
                   name="message"
@@ -496,39 +501,31 @@ export default function Page() {
               </h1>
               <p>{t("regionalOffices.description")}</p>
             </div>
-            <Menu>
-              <MenuHandler>
-                <Button
-                  variant="text"
-                  className="flex justify-between items-center gap-3 text-base font-normal capitalize tracking-normal px-3 hover:text-gray-300 hover:bg-blue-dark bg-blue-dark text-white"
-                  placeholder={undefined}
-                >
-                  {activeMarker.province}{" "}
-                  <ChevronDownIcon
-                    strokeWidth={2.5}
-                    className={`h-3.5 w-3.5 transition-transform ${
-                      openMenu ? "rotate-180" : ""
-                    }`}
-                  />
-                </Button>
-              </MenuHandler>
-              <MenuList
-                className="w-10/12 sm:w-72 sm:max-h-72"
-                placeholder={undefined}
+            <Select value={activeMarker.province} onValueChange={handleclick}>
+              <SelectTrigger
+                value={activeMarker.province}
+                className="h-16 flex justify-between items-center gap-3 text-base font-normal capitalize tracking-normal px-3 hover:text-gray-300 hover:bg-blue-dark bg-blue-dark text-white"
               >
+                <SelectValue
+                  className="text-white"
+                  placeholder={activeMarker.province}
+                />
+              </SelectTrigger>
+              <SelectContent>
                 {branches.map((branch: any, index: number) => (
-                  <MenuItem
+                  <SelectItem
                     key={index}
+                    value={branch.province}
                     onClick={() => {
                       setActiveMarker(branches[index]);
                     }}
                     placeholder={undefined}
                   >
                     {branch.province}
-                  </MenuItem>
+                  </SelectItem>
                 ))}
-              </MenuList>
-            </Menu>
+              </SelectContent>
+            </Select>
           </div>
           <div className="flex flex-col xl:flex-row gap-10">
             <div className="w-full h-[80vh] relative">
@@ -555,6 +552,7 @@ function FormInput({
   onChange,
   name,
   maxLeng,
+  isRequired,
 }: {
   label: string;
   placeholder: string;
@@ -562,22 +560,21 @@ function FormInput({
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
   maxLeng?: number;
+  isRequired?: boolean;
 }) {
   return (
     <div className="w-full flex flex-col gap-2">
-      <div className="font-bold text-xl">{label}</div>
+      <div className="flex font-bold text-xl gap-1">
+        {label}
+        {isRequired && (
+          <span className="text-red-500 text-sm block mt-1"> *</span>
+        )}
+      </div>
       <Input
         placeholder={placeholder}
         value={value}
         name={name}
         onChange={onChange}
-        className=" !border-t-blue-gray-200 focus:!border-t-blue-950 bg-white"
-        containerProps={{ className: "h-12" }}
-        labelProps={{
-          className: "before:content-none after:content-none",
-        }}
-        maxLength={maxLeng}
-        crossOrigin={undefined}
       />
     </div>
   );

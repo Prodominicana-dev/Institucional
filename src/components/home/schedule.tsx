@@ -30,7 +30,7 @@ export default function Schedule({ locale }: { locale: string }) {
         </div>
         <div className="w-full h-16 flex items-center justify-center bg-blue-950 rounded-lg">
           <Typography
-            className="text-white font-bold text-2xl font-opensans"
+            className="text-white font-bold text-xl xl:text-2xl font-opensans"
             placeholder={undefined}
           >
             {t("title")}
@@ -81,7 +81,7 @@ function ScheduleTimeLineItem({ date, title, locale }: any) {
         <Typography
           variant="small"
           placeholder={undefined}
-          className="font-semibold uppercase text-zinc-500 text-xl"
+          className="font-semibold uppercase text-zinc-500 xl:text-xl"
         >
           {title}
         </Typography>

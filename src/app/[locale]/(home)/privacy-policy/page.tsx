@@ -1,17 +1,18 @@
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import React from "react";
 
-export default function Page({ params: { locale } }: any) {
+export default function Page() {
+  const locale = useLocale();
   const t = useTranslations("privacypolicy");
   const privacypolicy = {
     title: t("title"),
     contentEs: `<p>Bienvenido al Portal de ProDominicana. A continuación, te presentamos nuestra Política de Privacidad, que describe cómo manejamos la información personal y los datos recopilados a través de este sitio.</p>
 
-<p>Estas Políticas (en lo adelante, las "Políticas") condicionan el uso de los servicios del Portal de Internet <a href="https://www.prodominicana.gob.do/">https://www.prodominicana.gob.do/</a> (en lo adelante, el "Portal") del Centro de Exportación e Inversión de la República Dominicana (en lo adelante, el "ProDominicana"), institución pública autónoma y descentralizada, creada mediante la promulgación de la Ley No. 98-03, de fecha diecisiete (17) de junio del año 2003, con su domicilio y oficinas principales en la Avenida 27 de Febrero esquina Avenida Gregorio Luperón, Plaza de la Bandera, Santo Domingo de Guzmán, Distrito Nacional, Capital de la República Dominicana.</p>
+<p>Estas Políticas (en lo adelante, las "Políticas") condicionan el uso de los servicios del Portal de Internet <a href="https://www.prodominicana.gob.do/">ProDominicana</a> (en lo adelante, el "Portal") del Centro de Exportación e Inversión de la República Dominicana (en lo adelante, el "ProDominicana"), institución pública autónoma y descentralizada, creada mediante la promulgación de la Ley No. 98-03, de fecha diecisiete (17) de junio del año 2003, con su domicilio y oficinas principales en la Avenida 27 de Febrero esquina Avenida Gregorio Luperón, Plaza de la Bandera, Santo Domingo de Guzmán, Distrito Nacional, Capital de la República Dominicana.</p>
 
 <h2><strong>1. Descripción del manejo de la Información Personal</strong></h2>
 
-<p>El portal web <a href="https://prodominicana.gob.do/">https://prodominicana.gob.do/</a> respeta la privacidad de sus usuarios y asume el compromiso de salvaguardar la información personal que pudiera recopilar. Aseguramos un tratamiento responsable y seguro de los datos personales, en estricto cumplimiento de la Ley No. 172-13 sobre protección de datos de carácter personal, que establece las normas para la protección de datos personales en la República Dominicana.</p>
+<p>El portal web <a href="https://prodominicana.gob.do/">ProDominicana</a> respeta la privacidad de sus usuarios y asume el compromiso de salvaguardar la información personal que pudiera recopilar. Aseguramos un tratamiento responsable y seguro de los datos personales, en estricto cumplimiento de la Ley No. 172-13 sobre protección de datos de carácter personal, que establece las normas para la protección de datos personales en la República Dominicana.</p>
 
 <h2><strong>2. Recopilación de Datos:</strong></h2>
 
@@ -71,7 +72,7 @@ export default function Page({ params: { locale } }: any) {
 
 <ul>
     <li>Por correo electrónico: <a href="mailto:servicios@ProDominicana.gob.do">servicios@ProDominicana.gob.do</a></li>
-    <li>Visitando esta página en nuestro sitio web: <a href="https://prodominicana.gob.do/contacto">https://prodominicana.gob.do/contacto</a></li>
+    <li>Visitando esta página en nuestro sitio web: <a href="https://prodominicana.gob.do/contacto">Contacto</a></li>
     <li>Llamándonos al teléfono: (809) 530 5505</li>
 </ul>
 
@@ -79,11 +80,11 @@ export default function Page({ params: { locale } }: any) {
 `,
     contentEn: `<p>Welcome to the ProDominicana Portal. Below, we present our Privacy Policy, which describes how we handle personal information and data collected through this site.</p>
 
-<p>These Policies (hereinafter, the "Policies") govern the use of the services of the Internet Portal <a href="https://www.prodominicana.gob.do/">https://www.prodominicana.gob.do/</a> (hereinafter, the "Portal") of the Center for Export and Investment of the Dominican Republic (hereinafter, "ProDominicana"), an autonomous and decentralized public institution, created by Law No. 98-03, dated June 17, 2003, with its main address and offices at Avenida 27 de Febrero esquina Avenida Gregorio Luperón, Plaza de la Bandera, Santo Domingo de Guzmán, Distrito Nacional, Capital of the Dominican Republic.</p>
+<p>These Policies (hereinafter, the "Policies") govern the use of the services of the Internet Portal <a href="https://www.prodominicana.gob.do/">ProDominicana</a> (hereinafter, the "Portal") of the Center for Export and Investment of the Dominican Republic (hereinafter, "ProDominicana"), an autonomous and decentralized public institution, created by Law No. 98-03, dated June 17, 2003, with its main address and offices at Avenida 27 de Febrero esquina Avenida Gregorio Luperón, Plaza de la Bandera, Santo Domingo de Guzmán, Distrito Nacional, Capital of the Dominican Republic.</p>
 
 <h2><strong>1. Description of Personal Information Handling</strong></h2>
 
-<p>The website <a href="https://prodominicana.gob.do/">https://prodominicana.gob.do/</a> respects the privacy of its users and is committed to safeguarding the personal information it may collect. We ensure responsible and secure treatment of personal data, in strict compliance with Law No. 172-13 on the protection of personal data, which establishes the rules for the protection of personal data in the Dominican Republic.</p>
+<p>The website <a href="https://prodominicana.gob.do/">ProDominicana</a> respects the privacy of its users and is committed to safeguarding the personal information it may collect. We ensure responsible and secure treatment of personal data, in strict compliance with Law No. 172-13 on the protection of personal data, which establishes the rules for the protection of personal data in the Dominican Republic.</p>
 
 <h2><strong>2. Data Collection:</strong></h2>
 
@@ -143,7 +144,7 @@ export default function Page({ params: { locale } }: any) {
 
 <ul>
     <li>By email: <a href="mailto:servicios@ProDominicana.gob.do">servicios@ProDominicana.gob.do</a></li>
-    <li>Visiting this page on our website: <a href="https://prodominicana.gob.do/contacto">https://prodominicana.gob.do/contacto</a></li>
+    <li>Visiting this page on our website: <a href="https://prodominicana.gob.do/contacto">Contacto</a></li>
     <li>Calling us at: (809) 530 5505</li>
 </ul>
 

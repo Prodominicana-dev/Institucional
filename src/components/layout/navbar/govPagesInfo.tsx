@@ -3,13 +3,10 @@ import {
   ChevronRightIcon,
   LockClosedIcon,
 } from "@heroicons/react/24/outline";
-import { Collapse } from "@material-tailwind/react";
 import React, { useState } from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import Link from "next/link";
-
-
+import { Collapse } from "@material-tailwind/react";
 
 export default function GovPagesInfo() {
   const [open, setOpen] = useState(false);
@@ -21,32 +18,26 @@ export default function GovPagesInfo() {
       <div className="h-[30px] w-full bg-white flex  justify-center space-x-1">
         <div className="w-10/12 flex items-center space-x-1">
           <Image
-            alt=""
+            alt="Bandera Dominicana"
             width={1920}
             height={1080}
             src={"/images/rd.jpg"}
             className="w-10 p-2"
           />
-          <p className="text-black text-xs">{t("label")}</p>
-          <div>
-            <button
-              onClick={toggleOpen}
-              className="w-full h-full flex justify-between items-center text-sky-600 text-left font-bold text-xs underline"
-            >
-              <p>{t("buttonText")}</p>
+          <p className="text-black text-xs text-nowrap">{t("label")}</p>
+          <button
+            onClick={toggleOpen}
+            className="w-full h-full flex items-center text-sky-600 text-left font-bold text-xs underline cursor-pointer"
+          >
+            <span>{t("buttonText")}</span>
 
-              <div>
-                <ChevronRightIcon
-                  className={`${
-                    open ? "rotate-90 duration-300" : "rotate-0 duration-300"
-                  } rotate-0 w-3 h-3`}
-                />
-              </div>
-            </button>
-          </div>
-
+            <ChevronRightIcon
+              className={`w-3 h-3 duration-300 transform ${
+                open ? "rotate-90" : "rotate-0"
+              }`}
+            />
+          </button>
         </div>
-        
       </div>
       <Collapse open={open} className="flex justify-center bg-white">
         <div className="w-10/12 h-[150px] grid grid-cols-2">

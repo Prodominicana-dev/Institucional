@@ -10,8 +10,8 @@ export default function BusinessFacilitation() {
       <section
         className={`w-full h-full xl:h-[60vh] p-5 lg:p-20 flex justify-center items-center`}
       >
-        <div className="w-10/12 h-full flex flex-col-reverse xl:flex-row gap-5 justify-center items-center ">
-          <div className="w-full xl:w-7/12 md:h-96 rounded-lg overflow-hidden">
+        <div className="xl:w-10/12 h-full flex flex-col-reverse xl:flex-row gap-5 justify-center items-center ">
+          <div className="w-full xl:w-7/12 md:h-96 rounded-lg overflow-hidden hidden xl:flex">
             <iframe
               src="https://www.youtube.com/embed/r04kf_t65-w?si=ogXLBp4gbERF0AE1"
               title="YouTube video player"
@@ -20,11 +20,11 @@ export default function BusinessFacilitation() {
             ></iframe>
           </div>
 
-          <div className="w-full xl:w-5/12 flex flex-col space-y-4 justify-center items-center text-center ">
-            <h1 className="w-full font-extrabold text-gray-600 text-4xl font-opensans">
+          <div className="w-full xl:w-5/12 flex flex-col space-y-4 justify-center items-center text-center">
+            <h1 className="w-full font-extrabold text-gray-600 text-2xl xl:text-4xl font-opensans">
               {t("title")}
             </h1>
-            <div className="text-gray-500 text-base xl:text-lg font-montserrat">
+            <div className="text-gray-500 text-sm xl:text-lg font-montserrat">
               <p>{t("paragraph1")}</p>
               <p>{t("paragraph2")}</p>
             </div>
@@ -40,6 +40,7 @@ export default function BusinessFacilitation() {
       <Link
         href="https://surveys.intracen.org/response/G2tIYnddTgoDYVFzX1R6S0d1enk"
         target="_blank"
+        className="hidden xl:flex"
       >
         <Image
           width={2048}

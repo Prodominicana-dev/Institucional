@@ -161,10 +161,28 @@ export default function Footer() {
         </div>
       </div>
       <div className="w-full h-full justify-center items-center md:h-[25vh] bg-white flex flex-col divide-y">
-        <div className="flex h-4/6 w-11/12 items-center space-x-4 ">
-          {normas.map(({ name, url, src }, index) => (
-            <OgticRules title={name} url={url} source={src} key={index} />
-          ))}
+        <div className="flex justify-between h-4/6 w-11/12 items-center space-x-4 ">
+          <div className="flex">
+            {normas.map(({ name, url, src }, index) => (
+              <OgticRules title={name} url={url} source={src} key={index} />
+            ))}
+          </div>
+          <div className="flex gap-5">
+            <Image
+              alt="AENOR"
+              src={"/images/sellos/AENOR.png"}
+              width={600}
+              height={600}
+              className="size-[100px] object-cover"
+            />
+            <Image
+              alt="ISO"
+              src={"/images/sellos/IQNET.png"}
+              width={600}
+              height={600}
+              className="size-[100px] object-cover"
+            />
+          </div>
         </div>
 
         <div className="sm:hidden w-full h-full">

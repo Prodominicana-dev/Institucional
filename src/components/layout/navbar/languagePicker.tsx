@@ -64,10 +64,10 @@ export default function LanguagePicker() {
             width={100}
             height={100}
             alt={selected.label}
-            className="w-10 h-7 sm:w-10 xl:w-12 sm:h-6 object-cover"
+            className="w-9 h-6 sm:w-10 xl:w-12 sm:h-6 object-cover"
           />
         </MenuHandler>
-        <MenuList className="flex flex-col items-center justify-center bg-white text-black p-2 pl-2 border-0">
+        <MenuList className="flex flex-col items-center justify-center bg-white text-black p-2 pl-2 border-0 z-[100]">
           {items}
         </MenuList>
       </Menu>

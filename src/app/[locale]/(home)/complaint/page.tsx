@@ -2,17 +2,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import {
-  Button,
-  Input,
-  Menu,
-  MenuHandler,
-  MenuItem,
-  MenuList,
-  Textarea,
-  Select,
-  Option,
-} from "@material-tailwind/react";
-import {
   ChevronDownIcon,
   EnvelopeIcon,
   MapPinIcon,
@@ -24,6 +13,31 @@ import { useTranslations } from "next-intl";
 import { createcomplaint } from "@/services/complait/service";
 import { optionSelect } from "./institutionsList";
 import { Popup } from "./popup";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Check, ChevronsUpDown } from "lucide-react";
 
 export default function Page() {
   const map = useMap();
@@ -31,8 +45,9 @@ export default function Page() {
   const [openMenu, setOpenMenu] = React.useState(false);
   const [name, setName] = React.useState("");
   const [searchOption, setSearchOption] = useState("");
-   const [isOpen, setIsOpen] = useState(false);
-    const [radomN, setRadomN] = useState("");
+  const [open, setOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [radomN, setRadomN] = useState("");
   const [errorRequired, setErrorRequired] = useState<{
     name?: string;
     lastName?: string;
@@ -227,8 +242,7 @@ export default function Page() {
     }
 
     if (!formData.involvedPerson) {
-      RequiredErr.involvedPerson =
-        "El funcionario involucrado es obligatorio.";
+      RequiredErr.involvedPerson = "El funcionario involucrado es obligatorio.";
     }
 
     if (!formData.date) {
@@ -304,7 +318,6 @@ export default function Page() {
     setIsOpen(false);
   };
 
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -316,14 +329,14 @@ export default function Page() {
       setRadomN(contactCode);
       // console.log("codecontact", contactCode);
       //  console.log('Datos del formulario:', formData);
-       await createcomplaint(formData,contactCode, cleardataForm);
+      await createcomplaint(formData, contactCode, cleardataForm);
     } else {
       console.log("Data Error");
     }
   };
   return (
     <div className="bg-white">
-       <ModalCard isOpen={isOpen} codeContact={radomN} onClose={onClose} />
+      <ModalCard isOpen={isOpen} codeContact={radomN} onClose={onClose} />
       <Popup />
       <section className="flex justify-center py-10">
         <div className="w-10/12 flex items-center gap-10">
@@ -343,115 +356,149 @@ export default function Page() {
               <p className="font-semibold">{t("description")}</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-5">
-            <div className="w-full"> 
-              <FormInput
-                label={t("form.name")}
-                placeholder="John"
-                value={formData.name}
-                onChange={handleInputChange}
-                name="name"
-              />
-              {errorRequired.name && (
-                <span className="text-red-500 text-sm block mt-1">
-                  {errorRequired.name}
-                </span>
-              )}
+              <div className="w-full">
+                <FormInput
+                  label={t("form.name")}
+                  placeholder="John"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  name="name"
+                  isRequired
+                />
+                {errorRequired.name && (
+                  <span className="text-red-500 text-sm block mt-1">
+                    {errorRequired.name}
+                  </span>
+                )}
               </div>
 
-              <div className="w-full"> 
-              <FormInput
-                label={t("form.lastName")}
-                placeholder="Doe"
-                value={formData.lastName}
-                onChange={handleInputChange}
-                name="lastName"
-              />
-              {errorRequired.lastName && (
-                <span className="text-red-500 text-sm block mt-1">
-                  {errorRequired.lastName}
-                </span>
-              )}
+              <div className="w-full">
+                <FormInput
+                  label={t("form.lastName")}
+                  placeholder="Doe"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  name="lastName"
+                  isRequired
+                />
+                {errorRequired.lastName && (
+                  <span className="text-red-500 text-sm block mt-1">
+                    {errorRequired.lastName}
+                  </span>
+                )}
               </div>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-5">
               <div className="w-full">
-              <FormInput
-                label={t("form.email")}
-                placeholder="example@email.com"
-                value={formData.email}
-                onChange={handleInputChange}
-                name="email"
-                
-              />
-              {errorRequired.email && (
-                <span className="text-red-500 text-sm block mt-1">
-                  {errorRequired.email}
-                </span>
-              )}
+                <FormInput
+                  label={t("form.email")}
+                  placeholder="example@email.com"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  name="email"
+                  isRequired
+                />
+                {errorRequired.email && (
+                  <span className="text-red-500 text-sm block mt-1">
+                    {errorRequired.email}
+                  </span>
+                )}
               </div>
               <div className="w-full relati">
-              <FormInput
-                label={t("form.companyName")}
-                placeholder={t("form.companyName")}
-                value={formData.companyName}
-                onChange={handleInputChange}
-                name="companyName"
-              
-              />
-              {errorRequired.companyName && (
-                <span className="text-red-500 text-sm block mt-1">
-                  {errorRequired.companyName}
-                </span>
-              )}
+                <FormInput
+                  label={t("form.companyName")}
+                  placeholder={t("form.companyName")}
+                  value={formData.companyName}
+                  onChange={handleInputChange}
+                  name="companyName"
+                  isRequired
+                />
+                {errorRequired.companyName && (
+                  <span className="text-red-500 text-sm block mt-1">
+                    {errorRequired.companyName}
+                  </span>
+                )}
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-5">
               <div className="w-full flex flex-col gap-2">
-                <div className="font-bold text-xl">{t("form.department")}</div>
+                <div className="flex font-bold text-xl ">
+                  {t("form.department")}
+                  <span className="text-red-500 text-sm ml-1">*</span>
+                </div>
+                <Popover open={open} onOpenChange={setOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={open}
+                      className="w-full justify-between"
+                    >
+                      {formData.departmen
+                        ? filteredOptions.find(
+                            (option) => option === formData.departmen
+                          )
+                        : "Seleccione una institución"}
 
-                <Select
-                  className=" !border-t-blue-gray-200 focus:!border-t-blue-950 bg-white" 
-                  value={formData.departmen}
-                  onChange={handleSelectChange}
-                  containerProps={{ className: "h-12" }}
-                  labelProps={{
-                    className: "before:content-none after:content-none",
-                  }}
-                  placeholder={undefined}
-                  onInput={handleSearchChange}
-                  menuProps={{
-                    className: "max-h-40 overflow-y-auto w-full"
-                  }}
-                >
-                  {filteredOptions.map((option, index) => (
-                    <Option key={index} value={option}>
-                      {option}
-                    </Option>
-                  ))}
-                </Select>
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-full">
+                    <Command>
+                      <CommandInput placeholder="Busque una institución" />
+                      <CommandList>
+                        <CommandEmpty>
+                          No encontramos una institución con ese nombre.
+                        </CommandEmpty>
+                        <CommandGroup>
+                          {filteredOptions.map((option) => (
+                            <CommandItem
+                              key={option}
+                              value={option}
+                              onSelect={(currentValue) => {
+                                handleSelectChange(currentValue);
+                                setOpen(false);
+                              }}
+                            >
+                              <Check
+                                className={cn(
+                                  "mr-2 h-4 w-4",
+                                  formData.departmen === option
+                                    ? "opacity-100"
+                                    : "opacity-0"
+                                )}
+                              />
+                              {option}
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
                 {errorRequired.departmen && (
                   <span className="text-red-500 text-sm">
                     {errorRequired.departmen}
                   </span>
                 )}
               </div>
- 
-              <div className="w-full">
-              <FormInput
-                label={t("form.involvedPerson")}
-                placeholder={t("form.involvedPerson")}
-                value={formData.involvedPerson}
-                onChange={handleInputChange}
-                name="involvedPerson"
-                
-              />
 
-              {errorRequired.involvedPerson && (
-                <span className="text-red-500 text-sm">
-                  {errorRequired.involvedPerson}
-                </span>
-              )}
+              <div className="w-full">
+                <FormInput
+                  label={t("form.involvedPerson")}
+                  placeholder={t("form.involvedPerson")}
+                  value={formData.involvedPerson}
+                  onChange={handleInputChange}
+                  name="involvedPerson"
+                  isRequired
+                />
+
+                {errorRequired.involvedPerson && (
+                  <span className="text-red-500 text-sm">
+                    {errorRequired.involvedPerson}
+                  </span>
+                )}
               </div>
             </div>
             <FormInput
@@ -460,26 +507,26 @@ export default function Page() {
               value={formData.date}
               onChange={handleInputChange}
               name="date"
-              
+              isRequired
             />
             {errorRequired.date && (
               <span className="text-red-500 text-sm">{errorRequired.date}</span>
             )}
 
             <div className="w-full flex flex-col gap-2">
-              <div className="font-bold text-xl">{t("form.message")}</div>
+              <div className="flex font-bold text-xl ">
+                {t("form.message")}
+                <span className="text-red-500 text-sm ml-1">*</span>
+              </div>
               <div className=" relative">
-              <Textarea
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-                className="w-full h-50 border-t-blue-gray-200 focus:border-t-blue-950 bg-white"
-                value={formData.message}
-                onChange={handleTextAre}
-                name="message"
-               maxLength={1000}
-              ></Textarea>
-               <div
+                <Textarea
+                  className="w-full h-50 border-t-blue-gray-200 focus:border-t-blue-950 bg-white"
+                  value={formData.message}
+                  onChange={handleTextAre}
+                  name="message"
+                  maxLength={1000}
+                ></Textarea>
+                <div
                   className={` absolute   bottom-3 right-6 text-sm ${
                     formData.message?.length > 950
                       ? "text-red-500"
@@ -488,8 +535,7 @@ export default function Page() {
                 >
                   {formData.message ? formData.message.length : 0}/1000
                 </div>
-                 
-                </div>
+              </div>
               {errorRequired.message && (
                 <span className="text-red-500 text-sm">
                   {errorRequired.message}
@@ -536,39 +582,31 @@ export default function Page() {
               </h1>
               <p>{t("regionalOffices.description")}</p>
             </div>
-            <Menu>
-              <MenuHandler>
-                <Button
-                  variant="text"
-                  className="flex justify-between items-center gap-3 text-base font-normal capitalize tracking-normal px-3 hover:text-gray-300 hover:bg-blue-dark bg-blue-dark text-white"
-                  placeholder={undefined}
-                >
-                  {activeMarker.province}{" "}
-                  <ChevronDownIcon
-                    strokeWidth={2.5}
-                    className={`h-3.5 w-3.5 transition-transform ${
-                      openMenu ? "rotate-180" : ""
-                    }`}
-                  />
-                </Button>
-              </MenuHandler>
-              <MenuList
-                className="w-10/12 sm:w-72 sm:max-h-72"
-                placeholder={undefined}
+            <Select value={activeMarker.province} onValueChange={handleclick}>
+              <SelectTrigger
+                value={activeMarker.province}
+                className="h-16 flex justify-between items-center gap-3 text-base font-normal capitalize tracking-normal px-3 hover:text-gray-300 hover:bg-blue-dark bg-blue-dark text-white"
               >
+                <SelectValue
+                  className="text-white"
+                  placeholder={activeMarker.province}
+                />
+              </SelectTrigger>
+              <SelectContent>
                 {branches.map((branch: any, index: number) => (
-                  <MenuItem
+                  <SelectItem
                     key={index}
+                    value={branch.province}
                     onClick={() => {
                       setActiveMarker(branches[index]);
                     }}
                     placeholder={undefined}
                   >
                     {branch.province}
-                  </MenuItem>
+                  </SelectItem>
                 ))}
-              </MenuList>
-            </Menu>
+              </SelectContent>
+            </Select>
           </div>
           <div className="flex flex-col xl:flex-row gap-10">
             <div className="w-full h-[80vh] relative">
@@ -595,6 +633,7 @@ function FormInput({
   onChange,
   name,
   maxLeng,
+  isRequired,
 }: {
   label: string;
   placeholder: string;
@@ -602,27 +641,25 @@ function FormInput({
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
   maxLeng?: number;
+  isRequired?: boolean;
 }) {
   return (
     <div className="w-full flex flex-col gap-2">
-      <div className="font-bold text-xl">{label}</div>
+      <div className="flex font-bold text-xl ">
+        {label}
+        {isRequired && <span className="text-red-500 text-sm ml-1">*</span>}
+      </div>
       <Input
         placeholder={placeholder}
         value={value}
         name={name}
         onChange={onChange}
         className=" !border-t-blue-gray-200 focus:!border-t-blue-950 bg-white"
-        containerProps={{ className: "h-12" }}
-        labelProps={{
-          className: "before:content-none after:content-none",
-        }}
         maxLength={maxLeng}
-        crossOrigin={undefined}
       />
     </div>
   );
 }
-
 
 function ContactCard({ title, description, info, link, icon }: any) {
   return (
@@ -686,7 +723,6 @@ function ModalCard({
       {isOpen && (
         <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-2xl w-full max-w-[80vw] md:max-w-3xl lg:max-w-4xl xl:max-w-2xl relative">
-          
             <button
               onClick={onClose}
               className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-200 transition-colors cursor-pointer"
@@ -708,7 +744,6 @@ function ModalCard({
               </svg>
             </button>
 
-          
             <div className="flex justify-center mt-6">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -748,4 +783,3 @@ function ModalCard({
     </>
   );
 }
-

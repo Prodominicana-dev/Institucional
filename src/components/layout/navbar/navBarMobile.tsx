@@ -122,7 +122,7 @@ export default function NavBarMobile() {
   ];
 
   return (
-    <section className="xl:hidden bg-white">
+    <section className="xl:hidden fixed z-50 bg-white">
       <div className="w-full flex justify-center items-center">
         <div className="w-11/12 h-24 flex justify-between items-center">
           <div className="w-6/12 h-full flex items-center">

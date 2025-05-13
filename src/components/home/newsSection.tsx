@@ -17,7 +17,7 @@ export default function NewsSection({ locale }: { locale: string }) {
     }
   }, [data, isLoading]);
   return (
-    <section className="p-10 sm:p-16 flex flex-col xl:flex-row gap-10">
+    <section className="p-5 xl:p-10 sm:p-16 flex flex-col xl:flex-row gap-10">
       <div className="w-full xl:w-8/12 space-y-10">
         <div className="w-full flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 sm:gap-0">
           <Typography

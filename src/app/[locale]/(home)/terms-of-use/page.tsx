@@ -1,11 +1,12 @@
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import React from "react";
 
-export default function Page({ params: { locale } }: any) {
+export default function Page() {
+  const locale = useLocale();
   const t = useTranslations("termsofuse");
   const termsofuse = {
     title: t("title"),
-    contentEs: `<p>Los presentes términos de uso (en lo adelante, los "Términos de Uso") regulan los servicios del portal de Internet <a href="https://www.prodominicana.gob.do">https://www.prodominicana.gob.do</a> (en lo adelante, el "Portal") del Centro de Exportación e Inversión de la República Dominicana (ProDominicana) (en lo adelante,"ProDominicana"), institución pública, autónoma y descentralizada, creada mediante la promulgación de la Ley No. 98-03, de fecha diecisiete (17) de junio del año 2003, con su domicilio y oficinas principales en la Avenida 27 de Febrero esquina Avenida Gregorio Luperón, Plaza de la Bandera, Santo Domingo de Guzmán, Distrito Nacional, Capital de la República Dominicana.</p>
+    contentEs: `<p>Los presentes términos de uso (en lo adelante, los "Términos de Uso") regulan los servicios del portal de Internet <a href="https://www.prodominicana.gob.do">ProDominicana</a> (en lo adelante, el "Portal") del Centro de Exportación e Inversión de la República Dominicana (ProDominicana) (en lo adelante,"ProDominicana"), institución pública, autónoma y descentralizada, creada mediante la promulgación de la Ley No. 98-03, de fecha diecisiete (17) de junio del año 2003, con su domicilio y oficinas principales en la Avenida 27 de Febrero esquina Avenida Gregorio Luperón, Plaza de la Bandera, Santo Domingo de Guzmán, Distrito Nacional, Capital de la República Dominicana.</p>
 
 <p>El uso del Portal le otorga la condición de usuario del Portal (en lo adelante, el "Usuario") e implica la aceptación plena y sin reservas de todas y cada una de las disposiciones establecidas en los términos de uso y las políticas publicadas por ProDominicana al momento en que el usuario acceda al portal. Por lo tanto, se requiere que el usuario lea estos términos en cada ocasión en que use el portal, ya que puede sufrir modificaciones sin previo aviso.</p>
 
@@ -15,7 +16,7 @@ export default function Page({ params: { locale } }: any) {
 <p>Este espacio está diseñado para facilitar el acceso y el uso eficiente de recursos que incluyen guías especializadas para la exportación e inversión, así como información, herramientas interactivas y apoyo empresarial. Nos esforzamos por brindar a los usuarios una experiencia integral y conveniente al interactuar con los diversos recursos disponibles en nuestro portal.</p>
 
 <h1><strong>2. Condiciones de Uso</strong></h1>
-<p>La utilización del portal <a href="https://www.prodominicana.gob.do">www.ProDominicana.gob.do</a> está sujeta a la aceptación y estricto cumplimiento de los siguientes términos. Al utilizar nuestros servicios, los usuarios confirman haber leído, comprendido y aceptado íntegramente estas condiciones. Se advierte que cualquier uso no autorizado o en infracción de estos términos podría resultar en la terminación del acceso a nuestros servicios. Es fundamental adherirse rigurosamente a estas normativas para garantizar una experiencia transparente y segura.</p>
+<p>La utilización del portal <a href="https://www.prodominicana.gob.do">ProDominicana</a> está sujeta a la aceptación y estricto cumplimiento de los siguientes términos. Al utilizar nuestros servicios, los usuarios confirman haber leído, comprendido y aceptado íntegramente estas condiciones. Se advierte que cualquier uso no autorizado o en infracción de estos términos podría resultar en la terminación del acceso a nuestros servicios. Es fundamental adherirse rigurosamente a estas normativas para garantizar una experiencia transparente y segura.</p>
 
 <h1><strong>3. Propiedad Intelectual</strong></h1>
 <p>Todo el contenido provisto por ProDominicana, que abarca textos, gráficos, logotipos, imágenes y software, está protegido por las leyes de propiedad intelectual.</p>
@@ -41,7 +42,7 @@ export default function Page({ params: { locale } }: any) {
     <li>Vía telefónica: (809) 530-5505</li>
 </ul>
 <p>Estamos aquí para atender sus consultas y colaborar de manera efectiva.</p>`,
-    contentEn: `<p>The present terms of use (hereinafter, the "Terms of Use") regulate the services of the Internet portal <a href="https://www.prodominicana.gob.do">https://www.prodominicana.gob.do</a> (hereinafter, the "Portal") of the Center for Export and Investment of the Dominican Republic (ProDominicana) (hereinafter, "ProDominicana"), a public, autonomous, and decentralized institution, created by Law No. 98-03, dated June seventeen (17), of the year 2003, with its main office and offices at Avenida 27 de Febrero corner Avenida Gregorio Luperón, Plaza de la Bandera, Santo Domingo de Guzmán, National District, Capital of the Dominican Republic.</p>
+    contentEn: `<p>The present terms of use (hereinafter, the "Terms of Use") regulate the services of the Internet portal <a href="https://www.prodominicana.gob.do">ProDominicana</a> (hereinafter, the "Portal") of the Center for Export and Investment of the Dominican Republic (ProDominicana) (hereinafter, "ProDominicana"), a public, autonomous, and decentralized institution, created by Law No. 98-03, dated June seventeen (17), of the year 2003, with its main office and offices at Avenida 27 de Febrero corner Avenida Gregorio Luperón, Plaza de la Bandera, Santo Domingo de Guzmán, National District, Capital of the Dominican Republic.</p>
 
 <p>Use of the Portal grants the user of the Portal status (hereinafter, the "User") and implies full and unconditional acceptance of each and every one of the provisions established in the terms of use and policies published by ProDominicana at the time the user accesses the portal. Therefore, it is required that the user read these terms on each occasion they use the portal, as they may undergo modifications without prior notice.</p>
 
@@ -51,7 +52,7 @@ export default function Page({ params: { locale } }: any) {
 <p>This space is designed to facilitate access and efficient use of resources, including specialized guides for export and investment, as well as information, interactive tools, and business support. We strive to provide users with a comprehensive and convenient experience when interacting with the various resources available on our portal.</p>
 
 <h1><strong>2. Terms of Use</strong></h1>
-<p>Use of the <a href="https://www.prodominicana.gob.do">www.ProDominicana.gob.do</a> portal is subject to acceptance and strict compliance with the following terms. By using our services, users confirm that they have read, understood, and fully accepted these conditions. It is warned that any unauthorized or infringing use of these terms could result in the termination of access to our services. It is essential to adhere strictly to these regulations to ensure a transparent and safe experience.</p>
+<p>Use of the <a href="https://www.prodominicana.gob.do">ProDominicana</a> portal is subject to acceptance and strict compliance with the following terms. By using our services, users confirm that they have read, understood, and fully accepted these conditions. It is warned that any unauthorized or infringing use of these terms could result in the termination of access to our services. It is essential to adhere strictly to these regulations to ensure a transparent and safe experience.</p>
 
 <h1><strong>3. Intellectual Property</strong></h1>
 <p>All content provided by ProDominicana, including texts, graphics, logos, images, and software, is protected by intellectual property laws.</p>
