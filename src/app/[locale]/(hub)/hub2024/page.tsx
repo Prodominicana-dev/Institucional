@@ -216,7 +216,7 @@ function LanguagePicker() {
 
   return (
     <Select
-      onValueChange={(value) => {
+      onValueChange={(value: any) => {
         const newSelected = data.find((item) => item.langcode === value);
         if (newSelected) setSelected(newSelected);
       }}
