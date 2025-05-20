@@ -25,7 +25,7 @@ export default function EventModal() {
             target="_blank"
           >
             <Image
-              src={"/images/weideModal.jpg"}
+              src={"/images/weideNewModal.jpg"}
               alt="Weide Modal"
               width={1000}
               height={1000}

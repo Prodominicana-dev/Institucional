@@ -45,7 +45,7 @@ export default function BusinessFacilitation() {
         <Image
           width={2048}
           height={1080}
-          src="/images/weideBanner.jpg"
+          src="/images/weideNewBanner.jpg"
           alt="WEIDE"
           className=" w-full"
         />
