@@ -38,6 +38,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Check, ChevronsUpDown } from "lucide-react";
+import ComplaintModal from "@/components/home/complaintModal";
 
 export default function Page() {
   const map = useMap();
@@ -336,7 +337,7 @@ export default function Page() {
   };
   return (
     <div className="bg-white">
-      <ModalCard isOpen={isOpen} codeContact={radomN} onClose={onClose} />
+      <ComplaintModal isOpen={isOpen} codeContact={radomN} onClose={onClose} />
       <Popup />
       <section className="flex justify-center py-10">
         <div className="w-10/12 flex items-center gap-10">
@@ -761,13 +762,15 @@ function ModalCard({
               </svg>
             </div>
 
-            <div className="px-4 py-6 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-left">
-              <p className="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed mb-6 text-justify">
+            <div className="px-4 py-6 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-left text-gray-700 text-base sm:text-lg md:text-xl">
+              <h1>
                 Distinguido cliente, su solicitud ha sido recibida
-                satisfactoriamente. La misma estará siendo asignada al personal
-                correspondiente para atenderle. En caso de requerir información
-                adicional, favor contactar al Centro de Atención al Cliente al
-                correo electrónico{" "}
+                satisfactoriamente.
+              </h1>
+              <p className=" leading-relaxed mb-6 text-justify">
+                La misma estará siendo asignada al personal correspondiente para
+                atenderle. En caso de requerir información adicional, favor
+                contactar al Centro de Atención al Cliente al correo electrónico{" "}
                 <strong>servicios@prodominicana.gob.do</strong> o al teléfono de
                 WhatsApp (809) 530-5505. En ProDominicana estamos para servirle.
               </p>

@@ -15,6 +15,7 @@ import NavbarLinkMobile from "./navbarLinkMobile";
 import NavbarButtonMobile from "./navbarButtonMobile";
 import LanguagePicker from "./languagePicker";
 import { useTranslations } from "next-intl";
+import GovPagesInfo from "./govPagesInfo";
 
 export default function NavBarMobile() {
   const t = useTranslations("navbar");
@@ -122,102 +123,108 @@ export default function NavBarMobile() {
   ];
 
   return (
-    <section className="xl:hidden fixed z-50 bg-white">
-      <div className="w-full flex justify-center items-center">
-        <div className="w-11/12 h-24 flex justify-between items-center">
-          <div className="w-6/12 h-full flex items-center">
-            <Link href={"/"} className="w-56 cursor-pointer">
-              <Image
-                alt="prodominicana"
-                width={1920}
-                height={1080}
-                src={"/prodominicana.svg"}
-              />
-            </Link>
-          </div>
-          <div className="w-6/12 h-full flex space-x-2 sm:space-x-4 items-center justify-end">
-            <IconButton
-              className="bg-red-700 rounded-full w-8 h-8"
-              placeholder={undefined}
-            >
-              <MagnifyingGlassIcon className="w-5 h-5" />
-            </IconButton>
-            <div className="w-[2px] h-2/6 bg-gray-300 rounded-full"></div>
-            <LanguagePicker />
-            <div className="w-[2px] h-2/6 bg-gray-300 rounded-full"></div>
-            <button onClick={toggleOpen} className=" cursor-pointer">
-              <Bars3Icon className="w-8 h-8 text-blue-950" />
-            </button>
+    <section className="xl:hidden fixed z-50">
+      <GovPagesInfo />
+      <div className="bg-white">
+        <div className="w-full flex justify-center items-center">
+          <div className="w-11/12 h-24 flex justify-between items-center">
+            <div className="w-6/12 h-full flex items-center">
+              <Link href={"/"} className="w-56 cursor-pointer">
+                <Image
+                  alt="prodominicana"
+                  width={1920}
+                  height={1080}
+                  src={"/prodominicana.svg"}
+                />
+              </Link>
+            </div>
+            <div className="w-6/12 h-full flex space-x-2 sm:space-x-4 items-center justify-end">
+              <IconButton
+                className="bg-red-700 rounded-full w-8 h-8"
+                placeholder={undefined}
+              >
+                <MagnifyingGlassIcon className="w-5 h-5" />
+              </IconButton>
+              <div className="w-[2px] h-2/6 bg-gray-300 rounded-full"></div>
+              <LanguagePicker />
+              <div className="w-[2px] h-2/6 bg-gray-300 rounded-full"></div>
+              <button onClick={toggleOpen} className=" cursor-pointer">
+                <Bars3Icon className="w-8 h-8 text-blue-950" />
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-      <Collapse open={open} className="px-5 bg-white">
-        <button
-          className="w-full h-12 flex items-center justify-between "
-          onClick={toggleMenuOpen}
-        >
-          <div className="flex flex-row space-x-4 justify-center items-center">
-            <Image
-              alt=""
-              width={50}
-              height={50}
-              src={"/svg/icons/appsIcon.svg"}
-              className="w-8 cursor-pointer"
-            />
-
-            <h1>Enlaces de interés</h1>
-          </div>
-          <div>
-            <ChevronRightIcon
-              className={`${
-                menuOpen ? "rotate-90 duration-300" : "rotate-0 duration-300"
-              } rotate-0 w-5 h-5`}
-            />
-          </div>
-        </button>
-        <Collapse open={menuOpen} className={`w-full flex-col`}>
-          <div>
-            <ToolsMenuCollapse title={"Portales"} content={portalsListItems} />
-          </div>
-          <div>
-            <ToolsMenuCollapse
-              title={"Ventanillas"}
-              content={ventanillaListItems}
-            />
-          </div>
-        </Collapse>
-        {routes.map(({ title, link, type, content }, index) => (
-          <div key={index}>
-            {type === "link" ? (
-              <NavbarLinkMobile
-                title={title}
-                link={link || "/"}
-                closeCollapse={toggleOpen}
+        <Collapse open={open} className="px-5 bg-white">
+          <button
+            className="w-full h-12 flex items-center justify-between "
+            onClick={toggleMenuOpen}
+          >
+            <div className="flex flex-row space-x-4 justify-center items-center">
+              <Image
+                alt=""
+                width={50}
+                height={50}
+                src={"/svg/icons/appsIcon.svg"}
+                className="w-8 cursor-pointer"
               />
-            ) : (
-              <>
-                {type === "menu" ? (
-                  <NavbarCollapseMobile
-                    closeCollapse={toggleOpen}
-                    title={title}
-                    content={content || []}
-                  />
-                ) : (
-                  <>
-                    {type === "button" ? (
-                      <NavbarButtonMobile
-                        closeCollapse={toggleOpen}
-                        title={title}
-                        link={link || "/"}
-                      />
-                    ) : null}
-                  </>
-                )}
-              </>
-            )}
-          </div>
-        ))}
-      </Collapse>
+
+              <h1>Enlaces de interés</h1>
+            </div>
+            <div>
+              <ChevronRightIcon
+                className={`${
+                  menuOpen ? "rotate-90 duration-300" : "rotate-0 duration-300"
+                } rotate-0 w-5 h-5`}
+              />
+            </div>
+          </button>
+          <Collapse open={menuOpen} className={`w-full flex-col`}>
+            <div>
+              <ToolsMenuCollapse
+                title={"Portales"}
+                content={portalsListItems}
+              />
+            </div>
+            <div>
+              <ToolsMenuCollapse
+                title={"Ventanillas"}
+                content={ventanillaListItems}
+              />
+            </div>
+          </Collapse>
+          {routes.map(({ title, link, type, content }, index) => (
+            <div key={index}>
+              {type === "link" ? (
+                <NavbarLinkMobile
+                  title={title}
+                  link={link || "/"}
+                  closeCollapse={toggleOpen}
+                />
+              ) : (
+                <>
+                  {type === "menu" ? (
+                    <NavbarCollapseMobile
+                      closeCollapse={toggleOpen}
+                      title={title}
+                      content={content || []}
+                    />
+                  ) : (
+                    <>
+                      {type === "button" ? (
+                        <NavbarButtonMobile
+                          closeCollapse={toggleOpen}
+                          title={title}
+                          link={link || "/"}
+                        />
+                      ) : null}
+                    </>
+                  )}
+                </>
+              )}
+            </div>
+          ))}
+        </Collapse>
+      </div>
     </section>
   );
 }
