@@ -33,7 +33,7 @@ export default function ComplaintModal({
             </p>
             <p>
               El tiempo estimado para la entrega del resultado es de{" "}
-              <strong>[X días hábiles]</strong>.
+              <strong>3 a 7 días laborables</strong>.
             </p>
             <p>
               Nos comunicaremos con usted a través de{" "}
