@@ -105,7 +105,6 @@ export default function Page() {
 
   const handleclick = (eName: any) => {
     setName(eName);
-    console.log("klk name", name);
   };
   const cards = [
     {
@@ -302,14 +301,8 @@ export default function Page() {
       setIsOpen(true);
       const contactCode = generar4Digitos();
       setRadomN(contactCode);
-      // console.log("codecontact", contactCode);
-      // console.log("Datos del formulario:", formData);
       await createcontact(formData, contactCode, cleardataForm);
-    } else {
-      console.log("Error al  enviar form");
     }
-
-    console.log("handleSubmit ejecutado");
   };
   return (
     <div className="bg-white">

@@ -66,7 +66,6 @@ export function ServiceDialog({
       setAccess(investment.access);
       setChannel(investment.channel);
       setInfo(investment.info);
-      // console.log(investment);
     }
   }, [investment]);
 

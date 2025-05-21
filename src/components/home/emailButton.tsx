@@ -31,8 +31,6 @@ export const EmailButton = () => {
   const handleSubmit = async () => {
     const validaForm = ValidateFunc();
     if (validaForm) {
-    //   console.log("klk email:", email);
-
       await SendPageEmail({ email });
       setOpen(false);
       setEmail("");

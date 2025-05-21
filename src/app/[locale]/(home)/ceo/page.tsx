@@ -76,7 +76,7 @@ export default function Page() {
       </div>
       <div className="bg-blue-950 py-12 flex flex-col justify-center items-center">
         <div className="w-10/12 lg:w-8/12 space-y-5">
-          <div className="flex items-center text-lightBlue-500 space-x-5 border-b-2 border-lightBlue-500 py-2">
+          <div className="flex items-center text-cyan-600 space-x-5 border-b-2 border-lightBlue-500 py-2">
             <Image
               width={100}
               height={100}
@@ -95,7 +95,7 @@ export default function Page() {
               </li>
             );
           })}
-          <div className="flex items-center text-lightBlue-500 space-x-5 border-b-2 border-lightBlue-500 py-2">
+          <div className="flex items-center text-cyan-600 space-x-5 border-b-2 border-lightBlue-500 py-2">
             <Image
               width={100}
               height={100}

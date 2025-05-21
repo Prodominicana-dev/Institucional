@@ -117,8 +117,6 @@ export function DocumentDialog({
             <CreatableSelect
               isMulti
               onChange={(e) => {
-                // ELiminar de tagsOptions los tags que ya no esten en tags
-                console.log(e);
                 setTags(e.map((tag: any) => tag.value));
               }}
               onCreateOption={(newValue) => {

@@ -81,9 +81,6 @@ export function ServicesFormDiag({ open, handleOpen, handler }: DialogProps) {
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    //  console.log('Datos del formulario:', formData);
-    //  console.log('email form:', formData.email);
-
     await createServiceForm(formData, cleardataForm);
     // await createServiceUser(formData.email);
     handler();

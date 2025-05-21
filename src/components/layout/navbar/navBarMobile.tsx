@@ -123,7 +123,7 @@ export default function NavBarMobile() {
   ];
 
   return (
-    <section className="xl:hidden fixed z-50">
+    <section className="xl:hidden block z-50">
       <GovPagesInfo />
       <div className="bg-white">
         <div className="w-full flex justify-center items-center">
@@ -139,12 +139,14 @@ export default function NavBarMobile() {
               </Link>
             </div>
             <div className="w-6/12 h-full flex space-x-2 sm:space-x-4 items-center justify-end">
-              <IconButton
-                className="bg-red-700 rounded-full w-8 h-8"
-                placeholder={undefined}
-              >
-                <MagnifyingGlassIcon className="w-5 h-5" />
-              </IconButton>
+              <Link href={"/search"}>
+                <IconButton
+                  className="bg-red-700 rounded-full w-8 h-8"
+                  placeholder={undefined}
+                >
+                  <MagnifyingGlassIcon className="w-5 h-5" />
+                </IconButton>
+              </Link>
               <div className="w-[2px] h-2/6 bg-gray-300 rounded-full"></div>
               <LanguagePicker />
               <div className="w-[2px] h-2/6 bg-gray-300 rounded-full"></div>

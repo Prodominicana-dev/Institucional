@@ -9,7 +9,6 @@ export function useExportersPaginated({
   search,
   isAuthorized,
 }: any) {
-  // console.log(perPage, page, search);
   const fetchExporters = async () => {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/export/pagination`;
     const { data } = await axios.post(url, {

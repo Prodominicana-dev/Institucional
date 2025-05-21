@@ -18,18 +18,17 @@ export default function Page() {
 
   const { data: typeService, isLoading: loadingTypeService } = useServiceType();
 
-//   useEffect(() => {
-//     if (!loadingTypeService && typeService) {
-//       console.log(typeService);
-//       const options = typeService.map((item: any) => {
-//         return {
-//           value: params.locale === "es" ? item.nameEs : item.nameEn,
-//           label: params.locale === "es" ? item.nameEs : item.nameEn,
-//         };
-//       });
-//       setTypeOptions(options);
-//     }
-//   }, [typeService, loadingTypeService]);
+  //   useEffect(() => {
+  //     if (!loadingTypeService && typeService) {
+  //       const options = typeService.map((item: any) => {
+  //         return {
+  //           value: params.locale === "es" ? item.nameEs : item.nameEn,
+  //           label: params.locale === "es" ? item.nameEs : item.nameEn,
+  //         };
+  //       });
+  //       setTypeOptions(options);
+  //     }
+  //   }, [typeService, loadingTypeService]);
 
   useEffect(() => {
     if (!data) return;

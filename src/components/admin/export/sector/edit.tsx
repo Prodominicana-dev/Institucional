@@ -73,7 +73,6 @@ export function EditSectorDialog({
         data && setCodeWarning(true);
         data === "" && setCodeWarning(false);
         setCodeLoading(false);
-        console.log(data);
       })();
     } else {
       setCodeWarning(false);

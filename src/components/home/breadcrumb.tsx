@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation";
 
 export default function Breadcrumb() {
   const path = usePathname();
-  // console.log('pathName here:', path);
 
   const ruteName = path.split("/").filter((ruteN) => ruteN !== "");
 

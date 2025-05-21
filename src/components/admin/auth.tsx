@@ -27,7 +27,7 @@ export default function AuthUser({
           setValidate(true);
         } catch (error) {
           // Manejar cualquier error que ocurra durante la validación
-          console.error("Error durante la validación:", error);
+          console.log("Error durante la validación:", error);
           setAuth(false); // Establecer a false si ocurre un error
         }
       }

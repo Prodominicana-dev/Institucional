@@ -21,7 +21,6 @@ export default function Page() {
 
   useEffect(() => {
     if (!loadingTypeService && typeService) {
-      console.log(typeService);
       const options = typeService.map((item: any) => {
         return {
           value: params.locale === "es" ? item.nameEs : item.nameEn,

@@ -22,9 +22,6 @@ export default function NewsCard({
   locale,
   author,
 }: Props) {
-  // Convertir la fecha en este formato: "1hr ago, 1d, 7d, 31d, 344d"
-  console.log("date", date);
-
   const dateFormated = new Date(date);
   const dateNow = new Date();
   const diffTime = Math.abs(dateNow.getTime() - dateFormated.getTime());

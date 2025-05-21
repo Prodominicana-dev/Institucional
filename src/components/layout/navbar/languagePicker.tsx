@@ -56,22 +56,22 @@ export default function LanguagePicker() {
   }, [selected]);
 
   return (
-    <div className="flex gap-2 items-center justify-center cursor-pointer">
-      <Menu>
-        <MenuHandler>
+    <Menu>
+      <MenuHandler>
+        <div className="flex gap-2 items-center justify-center cursor-pointer">
           <Image
             src={`https://flagcdn.com/${selected.code}.svg`}
             width={100}
             height={100}
             alt={selected.label}
-            className="w-9 h-6 sm:w-10 xl:w-12 sm:h-6 object-cover"
+            className="w-9 h-6 sm:w-10 sm:h-6 object-cover"
           />
-        </MenuHandler>
-        <MenuList className="flex flex-col items-center justify-center bg-white text-black p-2 pl-2 border-0 z-[100]">
-          {items}
-        </MenuList>
-      </Menu>
-      <ChevronDownIcon className="size-7 text-blue-950" />
-    </div>
+          <ChevronDownIcon className="size-4 xl:size-7 text-blue-950" />
+        </div>
+      </MenuHandler>
+      <MenuList className="flex flex-col items-center justify-center bg-white text-black p-2 pl-2 border-0 z-[100]">
+        {items}
+      </MenuList>
+    </Menu>
   );
 }

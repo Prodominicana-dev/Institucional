@@ -148,7 +148,6 @@ export default function Page() {
           };
         }
       });
-      console.log(data);
       setMarcoLegalDocs(data);
     }
   }, [marcoLegal, isLoading]);

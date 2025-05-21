@@ -11,10 +11,8 @@ interface RootLayoutProps {
   children: React.ReactNode;
   params: any;
 }
-export default function RootLayout({
-  children,
-  params: { locale, id },
-}: RootLayoutProps) {
+export default function RootLayout({ children }: RootLayoutProps) {
+  const { locale } = useParams();
   const params = useParams();
   const t = useTranslations("organizationalChart");
   const [open, setOpen] = useState(false);

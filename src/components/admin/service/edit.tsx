@@ -89,11 +89,6 @@ export function EditServiceDialog({
 
   useEffect(() => {
     if (!serviceLoading && service) {
-      console.log(
-        id,
-        service.image,
-        `${process.env.NEXT_PUBLIC_API_URL}/service/images/${id}/${service.image}`
-      );
       setSpanishName(service.es.name);
       setEnglishName(service.en.name);
       setTelefono(service.es.tel);
@@ -287,8 +282,6 @@ export function EditServiceDialog({
 
       const formData = new FormData();
 
-      console.log(typeId, categoryId);
-
       formData.append("es", JSON.stringify(es_data));
       formData.append("en", JSON.stringify(en_data));
       formData.append("categoryId", categoryId);
@@ -322,7 +315,6 @@ export function EditServiceDialog({
               <Select
                 onChange={(e: any) => {
                   setCategoryId(e.value);
-                  console.log(e.value);
                 }}
                 className="w-full z-50"
                 options={categoryOptions}
@@ -359,7 +351,6 @@ export function EditServiceDialog({
               <Select
                 onChange={(e: any) => {
                   setTypeId(e.value);
-                  console.log(e.value);
                 }}
                 className="w-full z-50"
                 options={typeOptions}

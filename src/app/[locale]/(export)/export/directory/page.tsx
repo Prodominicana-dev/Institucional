@@ -101,7 +101,6 @@ export default function Page() {
 
   useEffect(() => {
     if (!productsDataLoading && productsData) {
-      // console.log(productsData);
       setProductsOptions(
         productsData.map((product: any) => ({
           value: product.name,
@@ -164,7 +163,6 @@ export default function Page() {
       queryParams.append("isWoman", isWoman ? "true" : "false");
     }
     const queryString = queryParams.toString();
-    // console.log("Generated Query String:", isWoman);
     router.push(`/export/directory?${queryString}`, { scroll: false });
   }, [
     debouncedSearch,

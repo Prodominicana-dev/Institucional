@@ -57,7 +57,6 @@ export function ExporterDialog({
 
   useEffect(() => {
     if (!productsLoading && products) {
-      // console.log(products);
       setProductOptions(
         products.map(({ code, name }: { code: string; name: string }) => ({
           value: code,
@@ -69,7 +68,6 @@ export function ExporterDialog({
 
   useEffect(() => {
     if (!sectorsLoading && sectors) {
-      // console.log(sectors);
       setSectorOptions(
         sectors.map(({ code, name }: { code: string; name: string }) => ({
           value: code,

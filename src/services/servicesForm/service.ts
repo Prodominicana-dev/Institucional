@@ -2,8 +2,6 @@ import { notifications } from "@mantine/notifications";
 import axios from "axios";
 
 export async function createServiceForm(FormData: any, clear: () => void) {
-    // console.log('klk data',FormData);
-    
   try {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/mail/servicesform `;
     const data = FormData;
@@ -21,11 +19,9 @@ export async function createServiceForm(FormData: any, clear: () => void) {
           zIndex: 1500, // Más alto que cualquier diálogo o fondo del diálogo
         },
       });
-      console.log("Notificación activada."); 
       clear();
     }
   } catch (error) {
-    console.log("error service:", error);
     notifications.show({
       id: "servicesfrom",
       autoClose: 5000,
@@ -40,12 +36,8 @@ export async function createServiceForm(FormData: any, clear: () => void) {
   }
 }
 export async function createServiceUser(email: any) {
-    console.log('klk email',email);
-    
   try {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/mail/servicesUsers `;
-    const data = email;
-    console.log('klk data',email);
     const response = await axios.post(url, email);
 
     if (response.status === 201) {
@@ -70,7 +62,5 @@ export async function createServiceUser(email: any) {
       color: "red",
       loading: false,
     });
-
-
   }
 }

@@ -1,12 +1,16 @@
 "use client";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useMemo } from "react";
-import { useSearchParams } from "next/navigation";
+import { useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { IconButton } from "@material-tailwind/react";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 
 export default function SearchPage() {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get("query")?.toLowerCase() || "";
+  const [search, setSearch] = useState(query || "");
   const keywords = query.split(" ").filter(Boolean);
   const t = useTranslations("navbar");
 
@@ -128,12 +132,51 @@ export default function SearchPage() {
     return keywords.some((word) => titleLower.includes(word));
   });
 
+  const handleClick = () => {
+    if (search.trim()) {
+      router.push(`/search?query=${encodeURIComponent(search.trim())}`);
+      clearSearch();
+    }
+  };
+
+  const handleKeyPress: (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ) => void = (event) => {
+    if (event.key === "Enter") {
+      handleClick();
+    }
+  };
+
+  const clearSearch = () => {
+    setSearch("");
+  };
+
   return (
     <div className="w-full bg-white flex justify-center px-4 py-6 sm:px-8 lg:px-24">
       <div className="w-full max-w-5xl">
-        <h1 className="text-2xl sm:text-3xl font-semibold text-gray-900 mb-6 border-b pb-2">
-          {"Resultados De la Busqueda"}: “{query}”
-        </h1>
+        <div className="flex flex-col gap-4">
+          <h1 className="text-3xl font-bold">Buscar</h1>
+          <div className="h-16 w-full border-2 border-blue-950 rounded-xl p-2 flex items-center justify-between gap-2">
+            <input
+              type="text"
+              placeholder="Buscar"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyDown={handleKeyPress}
+              className="h-full w-full text-blue-950 bg-white outline-none pl-2"
+            />
+            <IconButton
+              className="bg-red-700 rounded-lg size-20 flex justify-center items-center cursor-pointer"
+              placeholder={undefined}
+              onClick={handleClick}
+            >
+              <MagnifyingGlassIcon className="size-5" />
+            </IconButton>
+          </div>
+          <h1 className="text-2xl text-gray-900 mb-6 pb-2">
+            {"Resultados de la busqueda"}: “{query}”
+          </h1>
+        </div>
 
         {results.length === 0 ? (
           <p className="text-gray-500 italic text-lg">

@@ -1,17 +1,12 @@
 import { notifications } from "@mantine/notifications";
 import axios from "axios";
 
-
 export async function SendPageEmail(email: any) {
-    // console.log('klk email',email);
-    
   try {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/apiv2/mail/pageEmail `;
     const data = email;
-    // console.log('klk data',email);
     const response = await axios.post(url, data);
-     console.log('status',response.status);
-     
+    console.log("status", response.status);
 
     if (response.status === 201) {
       notifications.show({
@@ -35,7 +30,5 @@ export async function SendPageEmail(email: any) {
       color: "red",
       loading: false,
     });
-
-
   }
 }

@@ -328,11 +328,7 @@ export default function Page() {
       setIsOpen(true);
       const contactCode = generar4Digitos();
       setRadomN(contactCode);
-      // console.log("codecontact", contactCode);
-      //  console.log('Datos del formulario:', formData);
       await createcomplaint(formData, contactCode, cleardataForm);
-    } else {
-      console.log("Data Error");
     }
   };
   return (

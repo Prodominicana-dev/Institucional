@@ -37,7 +37,6 @@ export default function Carousel() {
       setTitleEn(photoss.titleEn);
       setTitleEs(photoss.title);
       setPhotos(photoss.photo);
-      console.log(photoss);
       //   setPhotos(photoss);
       const srcs = photoss.photo?.map((item: any) => {
         return {

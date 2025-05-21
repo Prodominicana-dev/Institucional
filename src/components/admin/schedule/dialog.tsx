@@ -36,9 +36,7 @@ export function ScheduleDialog({
   const [isLastStep, setIsLastStep] = React.useState(false);
   const [isFirstStep, setIsFirstStep] = React.useState(false);
 
-  useEffect(() => {
-    console.log(date);
-  }, [date]);
+  useEffect(() => {}, [date]);
 
   const handleNext = () => {
     !isLastStep && setActiveStep((cur) => cur + 1);

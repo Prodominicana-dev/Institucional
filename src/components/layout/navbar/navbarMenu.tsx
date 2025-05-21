@@ -40,11 +40,6 @@ export default function NavbarMenu({ title, navListMenuItems }: Props) {
   const pathname = usePathname();
   const normalizedPathname = pathname.replace(/\/$/, "");
   const translatedPath = routeMap[normalizedPathname] || normalizedPathname;
-
-  // console.log("Current pathname:", pathname);
-  // console.log("Menu links:", navListMenuItems.map(item => item.link));
-  // console.log("Translated pathname:", translatedPath);
-
   const renderItems = navListMenuItems.map(
     ({ icon, title, description, link }: any, key: any) => (
       <Link href={link} key={key}>

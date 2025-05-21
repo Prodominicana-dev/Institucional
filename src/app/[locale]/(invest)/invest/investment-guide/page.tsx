@@ -64,9 +64,6 @@ export default function Page() {
   const [selectedInvestmentGuide, setSelectedInvestmentGuide] = React.useState(
     investmentGuides[0].link
   );
-  useEffect(() => {
-    console.log(selectedInvestmentGuide);
-  }, [selectedInvestmentGuide]);
   return (
     <div className="w-full h-full relative">
       <video

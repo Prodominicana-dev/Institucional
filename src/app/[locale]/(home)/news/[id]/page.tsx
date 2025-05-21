@@ -36,7 +36,6 @@ export default function Page() {
 
   useEffect(() => {
     if (!isLoading && data) {
-      console.log(data.content);
       setArticle(data);
     }
     if (!nextPrevLoading && nextPrev) {

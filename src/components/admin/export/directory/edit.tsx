@@ -63,7 +63,6 @@ export function EditExporterDialog({
 
   useEffect(() => {
     if (exporter) {
-      // console.log(exporter);
       setName(exporter.name);
       setRNC(exporter.rnc);
       setPhone(exporter.phone);
@@ -80,7 +79,7 @@ export function EditExporterDialog({
 
   useEffect(() => {
     if (!productsLoading && products) {
-      // console.log(products);
+      // (products);
       setProductOptions(
         products.map(({ code, name }: { code: string; name: string }) => ({
           value: code,
@@ -92,7 +91,6 @@ export function EditExporterDialog({
 
   useEffect(() => {
     if (!sectorsLoading && sectors) {
-      // console.log(sectors);
       setSectorOptions(
         sectors.map(({ code, name }: { code: string; name: string }) => ({
           value: code,

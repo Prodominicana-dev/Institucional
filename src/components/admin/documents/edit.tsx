@@ -59,7 +59,6 @@ export function EditDocumentDialog({
 
   useEffect(() => {
     if (!docsLoading && data) {
-      console.log(data);
       setTitle(data.title);
       setOldTitle(data.title);
       setTags(data.tags);
@@ -132,8 +131,6 @@ export function EditDocumentDialog({
             <CreatableSelect
               isMulti
               onChange={(e) => {
-                // ELiminar de tagsOptions los tags que ya no esten en tags
-                console.log(e);
                 setTags(e.map((tag: any) => tag.value));
               }}
               onCreateOption={(newValue) => {

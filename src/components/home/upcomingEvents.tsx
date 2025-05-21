@@ -19,7 +19,6 @@ export default function UpcomingEvents({ locale }: { locale: string }) {
   const [events, setEvents] = useState([]);
   useEffect(() => {
     if (!isLoading && data) {
-      console.log(data);
       setEvents(data);
     }
   });
