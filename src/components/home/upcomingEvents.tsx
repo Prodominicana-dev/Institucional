@@ -27,10 +27,7 @@ export default function UpcomingEvents({ locale }: { locale: string }) {
     <section className="bg-blue-950 py-10 flex flex-col items-center justify-center gap-5">
       <div className="w-11/12 space-y-5">
         <div className="flex justify-between items-center">
-          <Typography
-            placeholder={undefined}
-            className="text-white font-extrabold text-sm sm:text-2xl uppercase font-opensans"
-          >
+          <Typography className="text-white font-extrabold text-sm sm:text-2xl uppercase font-opensans">
             {t("title")}
           </Typography>
           <Link

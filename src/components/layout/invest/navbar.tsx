@@ -72,7 +72,6 @@ export function NavbarInvestMobile({ options }: { options: any }) {
           <Bars3Icon className="w-8 h-8 text-white" />
         </button>
         <Drawer
-          placeholder={undefined}
           open={openMenu}
           onClose={closeDrawer}
           className=""

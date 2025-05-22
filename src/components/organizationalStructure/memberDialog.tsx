@@ -1,5 +1,5 @@
 "use client";
-import { Dialog, DialogBody } from "@material-tailwind/react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import React from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -13,17 +13,8 @@ interface props {
 export default function MemberDialog({ member, open, handleOpen }: props) {
   const t = useTranslations("organizationalChart");
   return (
-    <Dialog
-      open={open}
-      handler={handleOpen}
-      size="md"
-      placeholder={undefined}
-      className="h-[90vh] py-10  overflow-auto no-scrollbar"
-    >
-      <DialogBody
-        placeholder={undefined}
-        className="flex flex-col items-center gap-5"
-      >
+    <Dialog open={open} onOpenChange={handleOpen}>
+      <DialogContent className="flex flex-col items-center gap-5">
         <div className="flex flex-col gap-5 justify-center items-center">
           <Image
             width={1000}
@@ -55,7 +46,7 @@ export default function MemberDialog({ member, open, handleOpen }: props) {
             ))}
           </ol>
         </div>
-      </DialogBody>
+      </DialogContent>
     </Dialog>
   );
 }

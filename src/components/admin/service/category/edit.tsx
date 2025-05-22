@@ -21,6 +21,7 @@ import {
   createServiceCategory,
   editServiceCategory,
 } from "@/services/service/categories/service";
+import { HashLoader } from "react-spinners";
 export function EditServiceCategoriesDialog({
   category,
   open,
@@ -66,23 +67,12 @@ export function EditServiceCategoriesDialog({
 
   return (
     <>
-      <Dialog
-        placeholder={undefined}
-        open={open}
-        handler={handler}
-        className="p-2 "
-      >
-        <DialogHeader
-          placeholder={undefined}
-          className="font-semibold flex flex-col font-montserrat items-start gap-2"
-        >
+      <Dialog open={open} handler={handler} className="p-2 ">
+        <DialogHeader className="font-semibold flex flex-col font-montserrat items-start gap-2">
           Editar Categoría
         </DialogHeader>
 
-        <DialogBody
-          placeholder={undefined}
-          className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar"
-        >
+        <DialogBody className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar">
           <form action={handleSubmit}>
             <div className="flex flex-col w-full space-y-4">
               <label
@@ -111,10 +101,7 @@ export function EditServiceCategoriesDialog({
             </div>
           </form>
         </DialogBody>
-        <DialogFooter
-          placeholder={undefined}
-          className="space-x-4 font-montserrat"
-        >
+        <DialogFooter className="space-x-4 font-montserrat">
           <button
             onClick={handler}
             className={`${
@@ -127,15 +114,7 @@ export function EditServiceCategoriesDialog({
             onClick={handleSubmit}
             className={`w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center`}
           >
-            {isLoading ? (
-              <Spinner
-                className="w-7 h-7"
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              />
-            ) : (
-              "Guardar"
-            )}
+            {isLoading ? <HashLoader /> : "Guardar"}
           </button>
         </DialogFooter>
       </Dialog>

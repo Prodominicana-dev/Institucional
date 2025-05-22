@@ -61,7 +61,8 @@ export default function Page({ params: { locale } }: any) {
           "Un acuerdo libre comercio es un acuerdo comercial que amplía el mercado de bienes y servicios, promoviendo y facilitando las inversiones entre los países partes que integran el acuerdo. Un acuerdo o tratado de libre comercio (TLC) consiste en la eliminación o reducción sustancial de los aranceles de importación para los bienes de los países las partes, y acuerdos en materia de servicios.",
       },
       {
-        question: "¿Es la República Dominicana miembro de la Comunidad del Caribe (CARICOM)? ",
+        question:
+          "¿Es la República Dominicana miembro de la Comunidad del Caribe (CARICOM)? ",
         answer:
           "No, la República Dominicana no es miembro de la Comunidad del Caribe (CARICOM), solo ha suscrito un acuerdo de libre comercio con CARICOM, que le permite intercambiar bienes y servicios en el marco de un régimen de preferencias recíprocas con los países que integran el acuerdo comercial.",
       },
@@ -103,7 +104,8 @@ export default function Page({ params: { locale } }: any) {
           "Before starting to export, you must complete a detailed process. The steps are outlined in the following link, which provides access to the document Practical Guide/How to Get Started in Exports, where the necessary procedures are explained",
       },
       {
-        question: "What do we call foreign reinvestment or profit reinvestment?",
+        question:
+          "What do we call foreign reinvestment or profit reinvestment?",
         answer:
           "It is the process by which a foreign company or legal entity submits an application to the CEI-RD (Export and Investment Center of the Dominican Republic) regarding its investment. Once the file is evaluated and validated, a Certificate of Registration of Foreign Investment and/or Technology Transfer is issued, as established by Law No. 16-95 and its Implementing Regulations.",
       },
@@ -113,7 +115,8 @@ export default function Page({ params: { locale } }: any) {
           "A free trade agreement (FTA) is a commercial agreement that expands the market for goods and services, promoting and facilitating investments between the member countries of the agreement. A free trade agreement or treaty (FTA) involves the elimination or substantial reduction of import tariffs on goods from the member countries, as well as agreements on services.",
       },
       {
-        question: "Is the Dominican Republic a member of the Caribbean Community (CARICOM)?",
+        question:
+          "Is the Dominican Republic a member of the Caribbean Community (CARICOM)?",
         answer:
           "No, the Dominican Republic is not a member of the Caribbean Community (CARICOM). It has only signed a free trade agreement (FTA) with CARICOM, which enables the exchange of goods and services under a framework of reciprocal trade preferences with the countries that are part of the trade agreement.",
       },
@@ -161,12 +164,11 @@ function FaqCard({ id, question, answer, open, handleOpen }: any) {
           } h-5 w-5 transition-transform`}
         />
       }
-      placeholder={undefined}
     >
-      <AccordionHeader onClick={() => handleOpen(id)} placeholder={undefined}>
+      <AccordionHeader onClick={() => handleOpen(id)}>
         {question}
       </AccordionHeader>
-      <AccordionBody placeholder={undefined}>{answer}</AccordionBody>
+      <AccordionBody>{answer}</AccordionBody>
     </Accordion>
   );
 }

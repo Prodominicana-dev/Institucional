@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { HashLoader } from "react-spinners";
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -44,7 +45,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   if (isLoading) {
     return (
       <div className="w-full h-[85vh] bg-white flex justify-center items-center">
-        <Spinner className="size-10" />
+        <HashLoader />
       </div>
     );
   }

@@ -30,6 +30,7 @@ import {
   editService,
   useServicesById,
 } from "@/services/service/service";
+import { HashLoader } from "react-spinners";
 export function EditServiceDialog({
   id,
   open,
@@ -1203,17 +1204,13 @@ export function EditServiceDialog({
   return (
     <>
       <Dialog
-        placeholder={undefined}
         open={open}
         justify-center
         handler={handler}
         className="p-10 flex items-center"
         size="xxl"
       >
-        <DialogHeader
-          placeholder={undefined}
-          className="font-black text-black font-montserrat flex flex-col gap-5 w-8/12"
-        >
+        <DialogHeader className="font-black text-black font-montserrat flex flex-col gap-5 w-8/12">
           <div className="w-full flex justify-between items-center">
             Editar servicio
             <button onClick={handler}>
@@ -1221,29 +1218,22 @@ export function EditServiceDialog({
             </button>
           </div>
           <Stepper
-            placeholder={undefined}
             activeStep={activeStep}
             isLastStep={(value) => setIsLastStep(value)}
             isFirstStep={(value) => setIsFirstStep(value)}
           >
             {steps.map((step, index) => (
-              <>
-                <Step
-                  key={index}
-                  placeholder={undefined}
-                  onClick={handleButton}
-                  className="font-montserrat text-white font-black text-lg bg-blue-dark cursor-pointer"
-                >
-                  {step.step}
-                </Step>
-              </>
+              <Step
+                key={index}
+                onClick={handleButton}
+                className="font-montserrat text-white font-black text-lg bg-blue-dark cursor-pointer"
+              >
+                {step.step}
+              </Step>
             ))}
           </Stepper>
         </DialogHeader>
-        <DialogBody
-          placeholder={undefined}
-          className="flex flex-col w-8/12 overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh] font-montserrat"
-        >
+        <DialogBody className="flex flex-col w-8/12 overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh] font-montserrat">
           {steps.map((step, index) => (
             <div
               key={index}
@@ -1255,10 +1245,7 @@ export function EditServiceDialog({
             </div>
           ))}
         </DialogBody>
-        <DialogFooter
-          placeholder={undefined}
-          className="space-x-4 font-montserrat w-8/12"
-        >
+        <DialogFooter className="space-x-4 font-montserrat w-8/12">
           <button
             onClick={handlePrev}
             className={`${
@@ -1277,11 +1264,7 @@ export function EditServiceDialog({
           >
             {isLastStep ? (
               submitLoading ? (
-                <Spinner
-                  className="w-7 h-7"
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                />
+                <HashLoader />
               ) : (
                 "Guardar"
               )

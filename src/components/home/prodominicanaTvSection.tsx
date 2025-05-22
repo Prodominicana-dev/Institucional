@@ -20,23 +20,14 @@ export default function ProdominicanaTvSection() {
         <div className="w-full xl:w-8/12 flex flex-col md:flex-row md:space-x-10 sm:p-20 p-10 items-center space-y-5 md:space-y-0">
           <div className="sm:w-6/12 space-y-3 md:text-end">
             <div>
-              <Typography
-                placeholder={undefined}
-                className="text-2xl lg:text-4xl text-blue-950 font-extrabold font-opensans"
-              >
+              <Typography className="text-2xl lg:text-4xl text-blue-950 font-extrabold font-opensans">
                 {t("title")}
               </Typography>
-              <Typography
-                placeholder={undefined}
-                className="text-lg lg:text-2xl text-blue-950 font-bold font-opensans"
-              >
+              <Typography className="text-lg lg:text-2xl text-blue-950 font-bold font-opensans">
                 {t("subtitle")}
               </Typography>
             </div>
-            <Typography
-              placeholder={undefined}
-              className="text-sm lg:text-lg text-black font-opensans"
-            >
+            <Typography className="text-sm lg:text-lg text-black font-opensans">
               {t("description")}
             </Typography>
           </div>

@@ -1,10 +1,11 @@
 "use client";
 import { validateUser } from "@/services/auth/validation";
 import { useUser } from "@auth0/nextjs-auth0";
-import { Spinner } from "@material-tailwind/react";
+
 import React, { useEffect, useState } from "react";
 import AccessDenied from "./auth/accessDenied";
 import Login from "./auth/login";
+import { HashLoader } from "react-spinners";
 
 export default function AuthUser({
   children,
@@ -56,11 +57,7 @@ export default function AuthUser({
     return (
       <>
         <div className="w-full h-[85vh] flex justify-center items-center">
-          <Spinner
-            className="w-7 h-7"
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
-          />
+          <HashLoader />
         </div>
       </>
     );

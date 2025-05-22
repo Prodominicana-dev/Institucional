@@ -29,7 +29,6 @@ export default function Banner({ banners }: BannerListProps) {
           ))}
         </div>
       )}
-      placeholder={undefined}
       className="h-[50vh]"
       autoplay
       loop
@@ -52,11 +51,7 @@ export default function Banner({ banners }: BannerListProps) {
               key={banner.title}
               className="h-52 w-52 object-cover object-center"
             />
-            <Typography
-              color="white"
-              placeholder={undefined}
-              className="text-3xl sm:text-5xl"
-            >
+            <Typography color="white" className="text-3xl sm:text-5xl">
               {banner.title}
             </Typography>
           </div>

@@ -31,6 +31,7 @@ import { Subsection } from "@/models/subsection";
 import Editor from "../../tools/rich-editor/config";
 import TextEditor from "../../tools/rich-editor/rich-editor";
 import { Checkbox } from "@mantine/core";
+import { HashLoader } from "react-spinners";
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 
 export function SubsectionEditDialog({
@@ -125,21 +126,11 @@ export function SubsectionEditDialog({
 
   return (
     <>
-      <Dialog
-        placeholder={undefined}
-        open={open}
-        handler={handler}
-        className="p-2 "
-      >
-        <DialogHeader
-          placeholder={undefined}
-          className="font-semibold "
-          style={monserratStyle.style}
-        >
+      <Dialog open={open} handler={handler} className="p-2 ">
+        <DialogHeader className="font-semibold " style={monserratStyle.style}>
           Editar Subsección
         </DialogHeader>
         <DialogBody
-          placeholder={undefined}
           className="flex flex-col space-y-4 overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh]"
           style={monserratStyle.style}
         >
@@ -326,11 +317,7 @@ export function SubsectionEditDialog({
             </div>
           </div>
         </DialogBody>
-        <DialogFooter
-          placeholder={undefined}
-          style={monserratStyle.style}
-          className="space-x-4"
-        >
+        <DialogFooter style={monserratStyle.style} className="space-x-4">
           <button
             onClick={handler}
             className="w-36 h-12 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white hover:shadow-lg duration-300 rounded-xl"
@@ -347,15 +334,7 @@ export function SubsectionEditDialog({
             }
             className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl justify-center flex items-center"
           >
-            {dataLoading ? (
-              <Spinner
-                className="w-7 h-7"
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              />
-            ) : (
-              "Guardar"
-            )}
+            {dataLoading ? <HashLoader /> : "Guardar"}
           </button>
         </DialogFooter>
       </Dialog>

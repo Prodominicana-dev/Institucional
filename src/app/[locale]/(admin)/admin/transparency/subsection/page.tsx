@@ -9,8 +9,9 @@ import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { SubsectionDialog } from "@/components/admin/transparency/subsection/dialog";
 import AuthUser from "@/components/admin/auth";
-import { Spinner } from "@material-tailwind/react";
+
 import { OrderDialog } from "@/components/admin/transparency/subsection/order";
+import { HashLoader } from "react-spinners";
 
 export default function Page() {
   const [open, setOpen] = useState(false);
@@ -105,11 +106,7 @@ export default function Page() {
   if (isLoading) {
     return (
       <div className="w-full h-[80vh] flex justify-center items-center">
-        <Spinner
-          className="size-7"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        />
+        <HashLoader />
       </div>
     );
   }

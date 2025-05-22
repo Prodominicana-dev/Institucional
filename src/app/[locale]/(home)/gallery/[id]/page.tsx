@@ -17,8 +17,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams, useRouter } from "next/navigation";
 import { useGalleryById } from "@/services/gallery/service";
-import { Spinner } from "@material-tailwind/react";
+
 import { useTranslations } from "next-intl";
+import { HashLoader } from "react-spinners";
 // const sizeOf = require("image-size");
 
 export default function Carousel() {
@@ -50,11 +51,7 @@ export default function Carousel() {
   if (photoLoading)
     return (
       <div className="w-full h-[85vh] bg-white flex justify-center items-center ">
-        <Spinner
-          className="size-7"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        />
+        <HashLoader />
       </div>
     );
 

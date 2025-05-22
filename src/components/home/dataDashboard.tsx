@@ -126,7 +126,6 @@ export default function DataDashboard() {
           <div className="flex flex-col space-y-10 w-full justify-center items-center">
             <Tabs id="custom-animation" value={data[0].value}>
               <TabsHeader
-                placeholder={undefined}
                 className="bg-transparent space-x-5 "
                 indicatorProps={{
                   className: "bg-transparent  border-none ",
@@ -136,7 +135,6 @@ export default function DataDashboard() {
                   <Tab
                     key={index}
                     value={value}
-                    placeholder={undefined}
                     onClick={() => selectType(index)}
                     className={` ${
                       activeIndex === index
@@ -154,7 +152,6 @@ export default function DataDashboard() {
                   mount: { y: 0 },
                   unmount: { y: 250 },
                 }}
-                placeholder={undefined}
                 className="pt-5 w-[90vw]"
               >
                 {data.map(({ value, dataset }: any) => (

@@ -76,10 +76,7 @@ export default function ToolsMenu() {
           className="w-12 cursor-pointer"
         />
       </MenuHandler>
-      <MenuList
-        placeholder={undefined}
-        className="hidden max-w-screen-xl rounded-xl lg:block p-5 w-3/12 max-h-[70vh] overflow-y-auto"
-      >
+      <MenuList className="hidden max-w-screen-xl rounded-xl lg:block p-5 w-3/12 max-h-[70vh] overflow-y-auto">
         <ToolsMenuCollapse
           title={"Portales"}
           defaultOpen={true}

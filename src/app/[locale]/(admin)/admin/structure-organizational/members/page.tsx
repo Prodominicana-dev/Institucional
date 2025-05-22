@@ -8,9 +8,10 @@ import { useMembers } from "@/services/structure-organizational/members/service"
 import { useDirections } from "@/services/structure-organizational/service";
 import { useUser } from "@auth0/nextjs-auth0";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { Spinner } from "@material-tailwind/react";
+
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
+import { HashLoader } from "react-spinners";
 
 export default function Page() {
   const [open, setOpen] = useState(false);
@@ -99,11 +100,7 @@ export default function Page() {
   if (isLoading) {
     return (
       <div className="w-full h-[80vh] flex justify-center items-center">
-        <Spinner
-          className="size-7"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        />
+        <HashLoader />
       </div>
     );
   }

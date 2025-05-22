@@ -15,6 +15,7 @@ import { useTranslations } from "next-intl";
 import { useMarcoLegalDocs } from "@/services/subsection/service";
 import DocsCard from "@/components/transparencia/documents/card";
 import Link from "next/link";
+import { HashLoader } from "react-spinners";
 
 export default function Page() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -155,11 +156,7 @@ export default function Page() {
   if (isLoading)
     return (
       <div className="w-full h-[85vh] flex justify-center items-center bg-white">
-        <Spinner
-          className="size-7"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        />
+        <HashLoader />
       </div>
     );
   return (
@@ -188,7 +185,6 @@ export default function Page() {
           {marcoLegalDocs.length > 0 ? (
             <Tabs value={data[0].value}>
               <TabsHeader
-                placeholder={undefined}
                 className="!bg-blue-950 p-5 "
                 indicatorProps={{ className: "bg-lightBlue-600" }}
               >
@@ -196,7 +192,6 @@ export default function Page() {
                   <Tab
                     key={index}
                     value={value}
-                    placeholder={undefined}
                     onClick={() => selectType(index)}
                     className="text-white "
                   >
@@ -204,7 +199,7 @@ export default function Page() {
                   </Tab>
                 ))}
               </TabsHeader>
-              <TabsBody placeholder={undefined} className="">
+              <TabsBody className="">
                 {marcoLegalDocs.map(({ value, files }: any) => (
                   <TabPanel
                     key={value}

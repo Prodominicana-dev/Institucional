@@ -11,16 +11,10 @@ export default function SocialMediaSection() {
     <section className="bg-slate-300 w-full flex justify-center p-10 lg:p-20">
       <div className="w-full space-y-5">
         <div>
-          <Typography
-            placeholder={undefined}
-            className="text-lg text-blue-950 uppercase font-light font-opensans"
-          >
+          <Typography className="text-lg text-blue-950 uppercase font-light font-opensans">
             {t("miniTitle")}
           </Typography>
-          <Typography
-            placeholder={undefined}
-            className="text-4xl text-blue-950 uppercase font-extrabold font-opensans"
-          >
+          <Typography className="text-4xl text-blue-950 uppercase font-extrabold font-opensans">
             {t("title")}
           </Typography>
         </div>

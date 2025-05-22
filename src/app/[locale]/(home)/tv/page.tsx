@@ -14,10 +14,7 @@ export default function Page() {
   return (
     <div className="w-full bg-white flex">
       <div className="p-10 sm:p-20 space-y-5 w-full">
-        <Typography
-          placeholder={undefined}
-          className="text-blue-900 uppercase font-extrabold text-xl lg:text-3xl font-opensans"
-        >
+        <Typography className="text-blue-900 uppercase font-extrabold text-xl lg:text-3xl font-opensans">
           Prodominicana TV
         </Typography>
         <div className="grid grid-cols-1 sm:grid-cols-3 w-full  gap-10">

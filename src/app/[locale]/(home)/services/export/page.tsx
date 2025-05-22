@@ -7,6 +7,7 @@ import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
+import { HashLoader } from "react-spinners";
 
 export default function Page() {
   const params = useParams<{ locale: string }>();
@@ -52,21 +53,14 @@ export default function Page() {
   if (isLoading || loadingTypeService)
     return (
       <div className="w-full min-h-[85vh] bg-white flex justify-center items-center">
-        <Spinner
-          className="size-7"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        />
+        <HashLoader />
       </div>
     );
   return (
     <div className="bg-white py-10 flex justify-center">
       <div className="w-10/12 flex flex-col gap-10">
         <div className="w-full flex flex-col md:flex-row justify-between gap-2">
-          <Typography
-            placeholder={undefined}
-            className="text-blue-900 w-full line-clamp-2 uppercase font-extrabold text-xl lg:text-3xl font-opensans"
-          >
+          <Typography className="text-blue-900 w-full line-clamp-2 uppercase font-extrabold text-xl lg:text-3xl font-opensans">
             {t("services.menuList.export")}
           </Typography>
           <Select

@@ -26,6 +26,7 @@ import { createNews, useCategoriesNews } from "@/services/news/service";
 import Day_Picker from "../tools/daypicker";
 import { useNewsCategories } from "@/services/news/categories/service";
 import Select from "react-select";
+import { HashLoader } from "react-spinners";
 
 export function NewsDialog({
   open,
@@ -411,16 +412,12 @@ export function NewsDialog({
   return (
     <>
       <Dialog
-        placeholder={undefined}
         open={open}
         handler={handler}
         className="p-2 flex justify-center items-center"
         size="xxl"
       >
-        <DialogHeader
-          placeholder={undefined}
-          className="font-black text-black font-montserrat flex flex-col gap-5 w-8/12"
-        >
+        <DialogHeader className="font-black text-black font-montserrat flex flex-col gap-5 w-8/12">
           <div className="w-full flex justify-between items-center">
             Agrega una nueva noticia
             <button onClick={handler}>
@@ -428,29 +425,22 @@ export function NewsDialog({
             </button>
           </div>
           <Stepper
-            placeholder={undefined}
             activeStep={activeStep}
             isLastStep={(value) => setIsLastStep(value)}
             isFirstStep={(value) => setIsFirstStep(value)}
           >
             {steps.map((step, index) => (
-              <>
-                <Step
-                  key={index}
-                  placeholder={undefined}
-                  onClick={handleButton}
-                  className="font-montserrat text-white font-black text-lg bg-blue-dark cursor-pointer"
-                >
-                  {step.step}
-                </Step>
-              </>
+              <Step
+                key={index}
+                onClick={handleButton}
+                className="font-montserrat text-white font-black text-lg bg-blue-dark cursor-pointer"
+              >
+                {step.step}
+              </Step>
             ))}
           </Stepper>
         </DialogHeader>
-        <DialogBody
-          placeholder={undefined}
-          className="flex flex-col w-8/12 overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh] font-montserrat"
-        >
+        <DialogBody className="flex flex-col w-8/12 overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh] font-montserrat">
           {steps.map((step, index) => (
             <div
               key={index}
@@ -462,10 +452,7 @@ export function NewsDialog({
             </div>
           ))}
         </DialogBody>
-        <DialogFooter
-          placeholder={undefined}
-          className="space-x-4 font-montserrat w-8/12"
-        >
+        <DialogFooter className="space-x-4 font-montserrat w-8/12">
           <button
             onClick={handlePrev}
             className={`${
@@ -484,11 +471,7 @@ export function NewsDialog({
           >
             {isLastStep ? (
               submitLoading ? (
-                <Spinner
-                  className="w-7 h-7"
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                />
+                <HashLoader />
               ) : (
                 "Guardar"
               )

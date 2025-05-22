@@ -18,6 +18,7 @@ import {
 } from "@material-tailwind/react";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { Montserrat } from "next/font/google";
+import { HashLoader } from "react-spinners";
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 
 export default function SectionPopover({
@@ -52,7 +53,6 @@ export default function SectionPopover({
         </div>
       </PopoverHandler>
       <PopoverContent
-        placeholder={undefined}
         {...sectionTriggers}
         className="z-[9999] w-96 flex flex-col space-y-4 p-4 bg-white rounded-xl shadow-xl"
       >
@@ -74,15 +74,7 @@ export default function SectionPopover({
           onClick={handleSectionSubmit}
           className="w-full h-12 hover:bg-white border-2 border-blue-dark hover:text-blue-dark duration-300 hover:shadow-md bg-blue-dark rounded-lg text-white justify-center items-center flex"
         >
-          {sectionLoading ? (
-            <Spinner
-              className="w-7 h-7"
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            />
-          ) : (
-            "Agregar"
-          )}
+          {sectionLoading ? <HashLoader /> : "Agregar"}
         </button>
       </PopoverContent>
     </Popover>

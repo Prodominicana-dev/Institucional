@@ -101,14 +101,12 @@ export function ServicesFormDiag({ open, handleOpen, handler }: DialogProps) {
   return (
     <>
       <Dialog
-        placeholder={undefined}
         open={open}
         handler={handleOpen}
         size="lg"
         className="w-full max-w-3xl mx-auto p-4 sm:p-6 lg:p-6 bg-white rounded-lg"
       >
         <DialogBody
-          placeholder={undefined}
           className="p-5 lg:p-10 max-h-[80vh] h-auto overflow-y-auto scrollbar-none text-pretty"
           style={{ scrollbarWidth: "none" }}
           onClick={(e) => e.stopPropagation()}
@@ -197,7 +195,6 @@ export function ServicesFormDiag({ open, handleOpen, handler }: DialogProps) {
                     className="!border-t-blue-gray-200 focus:!border-t-blue-950 bg-white"
                     value={formData.contact}
                     onChange={handleSelectChange}
-                    placeholder={undefined}
                     onInput={handleSearchChange}
                   >
                     {filteredOptions.map((option, index) => (

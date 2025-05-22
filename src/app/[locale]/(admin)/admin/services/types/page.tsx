@@ -5,7 +5,7 @@ import { DirectionsDialog } from "@/components/admin/structure-organizational/di
 import { useDirections } from "@/services/structure-organizational/service";
 import { useUser } from "@auth0/nextjs-auth0";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { Spinner } from "@material-tailwind/react";
+
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { ServiceCategoriesDialog } from "@/components/admin/service/category/dialog";
@@ -13,6 +13,7 @@ import { useServiceCategory } from "@/services/service/categories/service";
 import Card from "@/components/admin/service/type/card";
 import { useServiceType } from "@/services/service/type/service";
 import { ServiceTypeDialog } from "@/components/admin/service/type/dialog";
+import { HashLoader } from "react-spinners";
 
 export default function Page() {
   const [open, setOpen] = useState(false);
@@ -101,11 +102,7 @@ export default function Page() {
   if (isLoading) {
     return (
       <div className="w-full h-[80vh] flex justify-center items-center">
-        <Spinner
-          className="size-7"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        />
+        <HashLoader />
       </div>
     );
   }

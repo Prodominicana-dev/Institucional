@@ -155,7 +155,6 @@ function InfoSection() {
           <Tab
             key={"requirements"}
             value={"requirements"}
-            placeholder={undefined}
             className={`duration-500 ${
               value === "requirements" ? "text-white" : "text-black"
             }`}
@@ -166,7 +165,6 @@ function InfoSection() {
           <Tab
             key={"process"}
             value={"process"}
-            placeholder={undefined}
             className={`duration-500 ${
               value === "process" ? "text-white" : "text-black"
             }`}
@@ -176,7 +174,7 @@ function InfoSection() {
           </Tab>
         </TabsHeader>
         <div className="w-full rounded-b-lg shadow-xl flex justify-center items-center">
-          <TabsBody placeholder={undefined} className="w-10/12">
+          <TabsBody className="w-10/12">
             <TabPanel key={"requirements"} value={"requirements"}>
               {requirements.map((item, key) => (
                 <ul className="list-disc text-lg p-2 font-bold" key={key}>
@@ -188,7 +186,7 @@ function InfoSection() {
         </div>
 
         <div className="w-full rounded-b-lg shadow-xl flex justify-center items-center">
-          <TabsBody placeholder={undefined} className="w-10/12">
+          <TabsBody className="w-10/12">
             <TabPanel key={"process"} value={"process"}>
               {process.map((item, key) => (
                 <ul className="list-disc text-lg p-2 font-bold" key={key}>

@@ -2,12 +2,13 @@
 import AuthUser from "@/components/admin/auth";
 import Sketch from "@/components/admin/sketch";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { Spinner } from "@material-tailwind/react";
+
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { useExportersPaginated } from "@/services/export/directory/service";
 import Card from "@/components/admin/export/directory/card";
 import { ExporterDialog } from "@/components/admin/export/directory/dialog";
+import { HashLoader } from "react-spinners";
 
 export default function Page() {
   const [open, setOpen] = useState(false);
@@ -73,11 +74,7 @@ export default function Page() {
   if (isLoading) {
     return (
       <div className="w-full h-[80vh] flex justify-center items-center">
-        <Spinner
-          className="size-7"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        />
+        <HashLoader />
       </div>
     );
   }

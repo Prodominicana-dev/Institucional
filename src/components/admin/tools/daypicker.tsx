@@ -47,7 +47,7 @@ export default function Day_Picker({
           value={date ? format(date, "dd MMMM yyyy", { locale: es }) : ""}
         />
       </PopoverHandler>
-      <PopoverContent placeholder={undefined} className="z-[9999]">
+      <PopoverContent className="z-[9999]">
         <DayPicker
           locale={es}
           mode="single"

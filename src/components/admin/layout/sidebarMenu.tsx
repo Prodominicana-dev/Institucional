@@ -35,7 +35,6 @@ export default function SidebarMenu({
   }, [setOpen, isHover]);
   return (
     <Accordion
-      placeholder={undefined}
       open={open === 1}
       icon={
         <ChevronDownIcon
@@ -46,17 +45,15 @@ export default function SidebarMenu({
         />
       }
     >
-      <ListItem placeholder={undefined} className="p-0" selected={open === 1}>
+      <ListItem className="p-0" selected={open === 1}>
         <AccordionHeader
-          placeholder={undefined}
           onClick={() => handleOpen(1)}
           className="p-3 border-b-0 text-white"
         >
-          <ListItemPrefix placeholder={undefined}>
+          <ListItemPrefix>
             <div></div>
           </ListItemPrefix>
           <Typography
-            placeholder={undefined}
             color="white"
             className="mr-auto font-normal duration-300 opacity-0 group-hover:opacity-100"
           >
@@ -65,11 +62,11 @@ export default function SidebarMenu({
         </AccordionHeader>
       </ListItem>
       <AccordionBody className="py-1">
-        <List placeholder={undefined} className="p-0 text-white">
+        <List className="p-0 text-white">
           {data?.map((datamarket: any, key: number) => (
             <Link href={`/dashboard/datamarket/${datamarket.id}`} key={key}>
-              <ListItem placeholder={undefined}>
-                <ListItemPrefix placeholder={undefined}>
+              <ListItem>
+                <ListItemPrefix>
                   <ChevronRightIcon strokeWidth={3} className="w-5 h-3" />
                 </ListItemPrefix>
                 {datamarket.title}

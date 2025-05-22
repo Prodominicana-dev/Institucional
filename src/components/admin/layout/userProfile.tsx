@@ -54,20 +54,16 @@ export default function UserProfile() {
         <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
           <MenuHandler>
             <Button
-              placeholder={undefined}
               variant="text"
               color="blue-gray"
               className="flex items-center h-12 gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
             >
               <Avatar
-                placeholder={undefined}
                 variant="circular"
                 size="sm"
                 src={user.picture as string}
               />
-              <Typography placeholder={undefined} className="capitalize">
-                {user.name}
-              </Typography>
+              <Typography className="capitalize">{user.name}</Typography>
               <ChevronDownIcon
                 strokeWidth={2.5}
                 className={`h-3 w-3 transition-transform ${
@@ -76,13 +72,12 @@ export default function UserProfile() {
               />
             </Button>
           </MenuHandler>
-          <MenuList placeholder={undefined} className="p-1">
+          <MenuList className="p-1">
             {profileMenuItems.map(({ label, icon, link }, key) => {
               const isLastItem = key === profileMenuItems.length - 1;
               return (
                 <a href={link} key={key}>
                   <MenuItem
-                    placeholder={undefined}
                     key={label}
                     onClick={closeMenu}
                     className={`flex items-center gap-2 rounded ${
@@ -97,7 +92,6 @@ export default function UserProfile() {
                     })}
 
                     <Typography
-                      placeholder={undefined}
                       as="span"
                       variant="small"
                       className="font-normal"

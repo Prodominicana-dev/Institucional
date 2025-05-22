@@ -36,9 +36,9 @@ export default function SidebarMenu({
             />
           </button>
         </MenuHandler>
-        <MenuList placeholder={undefined} className="min-w-[24rem]">
+        <MenuList className="min-w-[24rem]">
           {subsections.map((subsection: any, index: number) => (
-            <MenuItem placeholder={undefined} key={index} className="w-full">
+            <MenuItem key={index} className="w-full">
               {subsection.type === "url" && (
                 <MenuLink title={subsection.name} link={subsection.url} />
               )}

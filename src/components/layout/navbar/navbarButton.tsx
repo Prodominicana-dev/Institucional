@@ -24,10 +24,7 @@ export default function NavbarButton({ title, link, icon, className }: props) {
         src={icon}
         className="w-6 x:lw-8 cursor-pointer"
       />
-      <Typography
-        placeholder={undefined}
-        className="text-white text-sm p-1 font-bold font-montserrat "
-      >
+      <Typography className="text-white text-sm p-1 font-bold font-montserrat ">
         {title}
       </Typography>
     </Link>

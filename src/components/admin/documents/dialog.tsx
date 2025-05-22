@@ -1,34 +1,19 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Input,
-  Spinner,
-  Tooltip,
-} from "@material-tailwind/react";
+import React, { useRef, useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0";
-import { Stepper, Step } from "@material-tailwind/react";
-import {
-  createDirection,
-  useDirections,
-} from "@/services/structure-organizational/service";
-import {
-  ExclamationCircleIcon,
-  InformationCircleIcon,
-} from "@heroicons/react/24/outline";
-import Image from "next/image";
-import {
-  Dropzone,
-  FileWithPath,
-  IMAGE_MIME_TYPE,
-  PDF_MIME_TYPE,
-} from "@mantine/dropzone";
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { Dropzone, FileWithPath, PDF_MIME_TYPE } from "@mantine/dropzone";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import CreatableSelect from "react-select/creatable";
 import { createDocs } from "@/services/gen-docs/service";
+import { HashLoader } from "react-spinners";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 
 export function DocumentDialog({
   open,
@@ -182,9 +167,7 @@ export function DocumentDialog({
                 key={index}
                 className="w-full border-2 border-gray-400 rounded-lg grid grid-cols-3 p-2 items-center text-center"
               >
-                <label className="truncate">
-                  <Tooltip content={file.name}>{file.name}</Tooltip>
-                </label>
+                <label className="truncate">{file.name}</label>
                 <label className="truncate">
                   {file.type.includes("pdf") ? "PDF" : "Excel"}
                 </label>
@@ -216,23 +199,12 @@ export function DocumentDialog({
 
   return (
     <>
-      <Dialog
-        placeholder={undefined}
-        open={open}
-        handler={handler}
-        className="p-2 "
-      >
-        <DialogHeader
-          placeholder={undefined}
-          className="font-semibold flex flex-col items-start gap-1 font-montserrat"
-        >
+      <Dialog open={open} onOpenChange={handler}>
+        <DialogHeader className="font-semibold flex flex-col items-start gap-1 font-montserrat">
           Agregar un documento
         </DialogHeader>
 
-        <DialogBody
-          placeholder={undefined}
-          className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar"
-        >
+        <DialogContent className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar">
           <form action={handleSubmit}>
             {steps.map((step, index) => (
               <div
@@ -245,24 +217,13 @@ export function DocumentDialog({
               </div>
             ))}
           </form>
-        </DialogBody>
-        <DialogFooter
-          placeholder={undefined}
-          className="space-x-4 font-montserrat"
-        >
+        </DialogContent>
+        <DialogFooter className="space-x-4 font-montserrat">
           <button
             onClick={handleSubmit}
             className={`${"w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center"}`}
           >
-            {isLoading ? (
-              <Spinner
-                className="w-7 h-7"
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              />
-            ) : (
-              "Guardar"
-            )}
+            {isLoading ? <HashLoader /> : "Guardar"}
           </button>
         </DialogFooter>
       </Dialog>

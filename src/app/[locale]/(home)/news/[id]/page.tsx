@@ -23,6 +23,7 @@ import { useNewsById, usePrevNextById } from "@/services/news/service";
 import NewsContent from "@/components/news/content";
 import TextContent from "@/components/news/text";
 import { useParams } from "next/navigation";
+import { HashLoader } from "react-spinners";
 
 export default function Page() {
   const { locale, id } = useParams<{ locale: string; id: string }>();
@@ -44,7 +45,7 @@ export default function Page() {
   if (isLoading && nextPrevLoading) {
     return (
       <div className="w-full h-[85vh] flex justify-center items-center bg-white">
-        <Spinner className="size-8 text-white" />
+        <HashLoader />
       </div>
     );
   }
@@ -89,19 +90,12 @@ export default function Page() {
                 <IconButton
                   size="lg"
                   className="rounded-full bg-blue-950 flex justify-center items-center cursor-pointer"
-                  placeholder={undefined}
                 >
                   <ShareIcon className="size-4 duration-300" />
                 </IconButton>
               </SpeedDialHandler>
-              <SpeedDialContent
-                placeholder={undefined}
-                className="flex flex-row flex-wrap w-9/12"
-              >
-                <SpeedDialAction
-                  placeholder={undefined}
-                  className="bg-blue-500 size-8 border-0"
-                >
+              <SpeedDialContent className="flex flex-row flex-wrap w-9/12">
+                <SpeedDialAction className="bg-blue-500 size-8 border-0">
                   <Link
                     href={`https://www.facebook.com/sharer/sharer.php?u=${route}&src=sdkpreparse`}
                     target="_blank"
@@ -113,10 +107,7 @@ export default function Page() {
                   </Link>
                 </SpeedDialAction>
 
-                <SpeedDialAction
-                  placeholder={undefined}
-                  className="bg-green-500 size-8 border-0"
-                >
+                <SpeedDialAction className="bg-green-500 size-8 border-0">
                   <Link
                     href={`https://api.whatsapp.com/send?text=${article?.title} ${route}`}
                     target="_blank"
@@ -127,10 +118,7 @@ export default function Page() {
                     />
                   </Link>
                 </SpeedDialAction>
-                <SpeedDialAction
-                  placeholder={undefined}
-                  className="bg-[#0077b5] size-8 border-0"
-                >
+                <SpeedDialAction className="bg-[#0077b5] size-8 border-0">
                   <Link
                     href={`https://www.linkedin.com/sharing/share-offsite/?url=${route}`}
                     target="_blank"
@@ -141,10 +129,7 @@ export default function Page() {
                     />
                   </Link>
                 </SpeedDialAction>
-                <SpeedDialAction
-                  placeholder={undefined}
-                  className="bg-black size-8 border-0"
-                >
+                <SpeedDialAction className="bg-black size-8 border-0">
                   <Link
                     href={`https://www.x.com/share?url=${route}&text=${article?.title}`}
                     target="_blank"
@@ -155,10 +140,7 @@ export default function Page() {
                     />
                   </Link>
                 </SpeedDialAction>
-                <SpeedDialAction
-                  placeholder={undefined}
-                  className="bg-black size-8 border-0"
-                >
+                <SpeedDialAction className="bg-black size-8 border-0">
                   <Link
                     href={`https://threads.net/intent/post?text=${article?.title} ${route}`}
                     target="_blank"
@@ -169,10 +151,7 @@ export default function Page() {
                     />
                   </Link>
                 </SpeedDialAction>
-                <SpeedDialAction
-                  placeholder={undefined}
-                  className="border-0 p-0 m-0"
-                >
+                <SpeedDialAction className="border-0 p-0 m-0">
                   <Link
                     href={`https://www.t.me/share?url=${route}&text=${article?.title}`}
                     target="_blank"
@@ -183,10 +162,7 @@ export default function Page() {
                     />
                   </Link>
                 </SpeedDialAction>
-                <SpeedDialAction
-                  placeholder={undefined}
-                  className="bg-white size-8 border-0 p-0 m-0"
-                >
+                <SpeedDialAction className="bg-white size-8 border-0 p-0 m-0">
                   <Link
                     href={`mailto:?subject=${article?.title}&body=${route}`}
                     target="_blank"

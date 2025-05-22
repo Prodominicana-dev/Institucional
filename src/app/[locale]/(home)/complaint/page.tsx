@@ -597,7 +597,6 @@ export default function Page() {
                     onClick={() => {
                       setActiveMarker(branches[index]);
                     }}
-                    placeholder={undefined}
                   >
                     {branch.province}
                   </SelectItem>

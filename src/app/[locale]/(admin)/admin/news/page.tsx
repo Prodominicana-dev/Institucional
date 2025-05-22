@@ -3,21 +3,13 @@ import AuthUser from "@/components/admin/auth";
 import Card from "@/components/admin/news/card";
 import { NewsDialog } from "@/components/admin/news/dialog";
 import Sketch from "@/components/admin/sketch";
-import { useCategoriesNews, useNews } from "@/services/news/service";
-import React, { useState, useEffect, useRef } from "react";
-import { useHover } from "usehooks-ts";
+import { useNews } from "@/services/news/service";
+import React, { useState, useEffect } from "react";
 import Select from "react-select";
 
-export default function Page({ params: { locale } }: any) {
+export default function Page() {
   const [open, setOpen] = useState(false);
   const [filterOpen, setFilterOpen] = useState(false);
-  const [editHover, setEditHover] = useState(false);
-  const [enableHover, setEnableHover] = useState(false);
-  const [disabledHover, setDisabledHover] = useState(false);
-  const [deleteHover, setDeleteHover] = useState(false);
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [isLastStep, setIsLastStep] = React.useState(false);
-  const [isFirstStep, setIsFirstStep] = React.useState(false);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
   const { data, isLoading, refetch } = useNews("es");

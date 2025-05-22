@@ -1,8 +1,10 @@
 import { TrashIcon } from "@heroicons/react/24/solid";
-import { Dialog, DialogBody, Spinner } from "@material-tailwind/react";
+
 import React, { useState } from "react";
 import { Montserrat } from "next/font/google";
+import { HashLoader } from "react-spinners";
 const monserratStyle = Montserrat({ subsets: ["latin"] });
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 export default function DeleteButton({
   open,
@@ -20,15 +22,9 @@ export default function DeleteButton({
   const [isLoading, setIsLoading] = useState(false);
   return (
     <>
-      <Dialog
-        placeholder={undefined}
-        open={open}
-        handler={handleOpen}
-        size="sm"
-      >
-        <DialogBody
+      <Dialog open={open} onOpenChange={handleOpen}>
+        <DialogContent
           style={monserratStyle.style}
-          placeholder={undefined}
           className="font-sans text-black"
         >
           <div className="flex flex-col items-center justify-center p-3 space-y-12">
@@ -48,15 +44,7 @@ export default function DeleteButton({
                   funct();
                 }}
               >
-                {isLoading ? (
-                  <Spinner
-                    className="w-7 h-7"
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                  />
-                ) : (
-                  "Eliminar"
-                )}
+                {isLoading ? <HashLoader /> : "Eliminar"}
               </button>
               <button
                 onClick={handleOpen}
@@ -66,7 +54,7 @@ export default function DeleteButton({
               </button>
             </div>
           </div>
-        </DialogBody>
+        </DialogContent>
       </Dialog>
     </>
   );

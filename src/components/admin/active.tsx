@@ -1,8 +1,9 @@
 import { EyeIcon } from "@heroicons/react/24/solid";
-import { Dialog, DialogBody, Spinner } from "@material-tailwind/react";
 import React, { useState } from "react";
 import { Montserrat } from "next/font/google";
+import { HashLoader } from "react-spinners";
 const monserratStyle = Montserrat({ subsets: ["latin"] });
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 export default function ActivateButton({
   open,
@@ -20,15 +21,9 @@ export default function ActivateButton({
   const [isLoading, setIsLoading] = useState(false);
   return (
     <>
-      <Dialog
-        placeholder={undefined}
-        open={open}
-        handler={handleOpen}
-        size="sm"
-      >
-        <DialogBody
+      <Dialog open={open} onOpenChange={handleOpen}>
+        <DialogContent
           style={monserratStyle.style}
-          placeholder={undefined}
           className="font-sans text-black"
         >
           <div className="flex flex-col items-center justify-center p-3 space-y-12">
@@ -48,15 +43,7 @@ export default function ActivateButton({
                   funct();
                 }}
               >
-                {isLoading ? (
-                  <Spinner
-                    className="w-7 h-7"
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                  />
-                ) : (
-                  "Activar"
-                )}
+                {isLoading ? <HashLoader /> : "Activar"}
               </button>
               <button
                 onClick={handleOpen}
@@ -66,7 +53,7 @@ export default function ActivateButton({
               </button>
             </div>
           </div>
-        </DialogBody>
+        </DialogContent>
       </Dialog>
     </>
   );

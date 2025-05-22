@@ -29,10 +29,7 @@ export default function Schedule({ locale }: { locale: string }) {
           <CalendarDaysIcon className="text-white h-10 w-10" />
         </div>
         <div className="w-full h-16 flex items-center justify-center bg-blue-950 rounded-lg">
-          <Typography
-            className="text-white font-bold text-xl xl:text-2xl font-opensans"
-            placeholder={undefined}
-          >
+          <Typography className="text-white font-bold text-xl xl:text-2xl font-opensans">
             {t("title")}
           </Typography>
         </div>
@@ -69,10 +66,7 @@ function ScheduleTimeLineItem({ date, title, locale }: any) {
               {day}
             </div>
           </div>
-          <Typography
-            className="text-red-700 leading-none pt-1"
-            placeholder={undefined}
-          >
+          <Typography className="text-red-700 leading-none pt-1">
             {formatDate}
           </Typography>
         </div>
@@ -80,7 +74,6 @@ function ScheduleTimeLineItem({ date, title, locale }: any) {
       <TimelineBody className="pb-8">
         <Typography
           variant="small"
-          placeholder={undefined}
           className="font-semibold uppercase text-zinc-500 xl:text-xl"
         >
           {title}

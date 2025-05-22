@@ -19,6 +19,7 @@ import {
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { Montserrat } from "next/font/google";
 import { Section } from "@/models/section";
+import { HashLoader } from "react-spinners";
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 
 export default function SubsectionPopover({
@@ -55,7 +56,6 @@ export default function SubsectionPopover({
         </div>
       </PopoverHandler>
       <PopoverContent
-        placeholder={undefined}
         {...subsectionTriggers}
         className="z-[9999] w-96 flex flex-col space-y-4 p-4 bg-white rounded-xl shadow-xl"
       >
@@ -91,15 +91,7 @@ export default function SubsectionPopover({
           onClick={handleSubsectionSubmit}
           className="w-full h-12 hover:bg-white border-2 border-blue-dark hover:text-blue-dark duration-300 hover:shadow-md bg-blue-dark rounded-lg text-white justify-center items-center flex"
         >
-          {subsectionLoading ? (
-            <Spinner
-              className="w-7 h-7"
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
-            />
-          ) : (
-            "Agregar"
-          )}
+          {subsectionLoading ? <HashLoader /> : "Agregar"}
         </button>
       </PopoverContent>
     </Popover>

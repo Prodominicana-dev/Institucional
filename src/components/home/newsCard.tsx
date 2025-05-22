@@ -69,32 +69,20 @@ export default function NewsCard({
           className="w-full h-full object-cover object-center hover:scale-110 duration-300"
         />
       </div>
-      <Typography
-        placeholder={undefined}
-        className="text-red-700 font-normal tracking-widest uppercase font-montserrat line-clamp-2 break-words"
-      >
+      <Typography className="text-red-700 font-normal tracking-widest uppercase font-montserrat line-clamp-2 break-words">
         {category}
       </Typography>
-      <Typography
-        placeholder={undefined}
-        className="text-blue-950 font-bold font-montserrat text-2xl w-full break-words line-clamp-3"
-      >
+      <Typography className="text-blue-950 font-bold font-montserrat text-2xl w-full break-words line-clamp-3">
         {title}
       </Typography>
       <div className="flex items-center space-x-3">
         <div className="bg-red-700 rounded-full h-2 w-2/12"></div>
-        <Typography
-          placeholder={undefined}
-          className="text-cyan-600 font-normal font-montserrat text-xs sm:text-sm md:text-base lg:text-lg xl:text-lg"
-        >
+        <Typography className="text-cyan-600 font-normal font-montserrat text-xs sm:text-sm md:text-base lg:text-lg xl:text-lg">
           {dateFormatedString}
         </Typography>
 
         {author && (
-          <Typography
-            placeholder={undefined}
-            className="text-red-700 font-normal font-montserrat text-xs sm:text-sm md:text-base lg:text-lg xl:text-lg"
-          >
+          <Typography className="text-red-700 font-normal font-montserrat text-xs sm:text-sm md:text-base lg:text-lg xl:text-lg">
             {author}
           </Typography>
         )}

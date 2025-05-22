@@ -1,9 +1,18 @@
 "use client";
-import { Dialog, DialogBody, Select, Option } from "@material-tailwind/react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
-import React, { use, useEffect } from "react";
+import React from "react";
+
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { DialogTitle } from "@radix-ui/react-dialog";
 
 export default function Page() {
   const investmentGuides = [
@@ -91,13 +100,9 @@ export default function Page() {
           </button>
         </div>
       </div>
-      <Dialog
-        size="sm"
-        open={open}
-        handler={handleOpen}
-        placeholder={undefined}
-      >
-        <DialogBody placeholder={undefined}>
+      <Dialog open={open} onOpenChange={handleOpen}>
+        <DialogTitle>Idioma</DialogTitle>
+        <DialogContent>
           <div className="flex flex-col gap-5 p-5">
             <div className="text-blue-dark uppercase w-full font-bold text-xl sm:text-3xl">
               {t("dialog.title")}
@@ -105,30 +110,29 @@ export default function Page() {
             <div className="font-light text-xl">{t("dialog.subtitle")}</div>
             <div className="w-full flex flex-col gap-2">
               <Select
-                className=" !border-t-blue-gray-200 focus:!border-t-blue-950 bg-white"
-                containerProps={{ className: "h-12" }}
-                labelProps={{
-                  className: "before:content-none after:content-none",
-                }}
-                onChange={(selectedIndex: any) => {
+                onValueChange={(selectedIndex: any) => {
                   setSelectedInvestmentGuide(selectedIndex);
                 }}
-                placeholder={undefined}
               >
-                {investmentGuides.map((investmentGuide, index) => (
-                  <Option key={index} value={investmentGuide.link}>
-                    <div className="flex items-center gap-2">
-                      <Image
-                        width={100}
-                        height={100}
-                        src={`https://flagcdn.com/${investmentGuide.code}.svg`}
-                        alt={investmentGuide.code}
-                        className="ascpect-square size-8 object-cover rounded-full"
-                      ></Image>
-                      {investmentGuide.name}
-                    </div>
-                  </Option>
-                ))}
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Idioma" />
+                </SelectTrigger>
+                <SelectContent>
+                  {investmentGuides.map((investmentGuide, index) => (
+                    <SelectItem key={index} value={investmentGuide.link}>
+                      <div className="flex items-center gap-2">
+                        <Image
+                          width={100}
+                          height={100}
+                          src={`https://flagcdn.com/${investmentGuide.code}.svg`}
+                          alt={investmentGuide.code}
+                          className="ascpect-square size-8 object-cover rounded-full"
+                        ></Image>
+                        {investmentGuide.name}
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
               </Select>
             </div>
             <a
@@ -139,7 +143,7 @@ export default function Page() {
               {t("download")}
             </a>
           </div>
-        </DialogBody>
+        </DialogContent>
       </Dialog>
     </div>
   );

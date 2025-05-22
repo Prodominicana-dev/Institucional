@@ -13,8 +13,8 @@ import { useTranslations } from "next-intl";
 export default function DocsCard({ document }: { document: any }) {
   const t = useTranslations("commonWords");
   return (
-    <Card className="w-full h-[32rem]" placeholder={undefined}>
-      <CardHeader floated={false} className="h-4/6" placeholder={undefined}>
+    <Card className="w-full h-[32rem]">
+      <CardHeader floated={false} className="h-4/6">
         <Image
           width={1920}
           height={1080}
@@ -23,22 +23,12 @@ export default function DocsCard({ document }: { document: any }) {
           className="object-cover h-full"
         />
       </CardHeader>
-      <CardBody
-        className="text-center h-[20%] flex flex-col justify-center"
-        placeholder={undefined}
-      >
-        <Typography
-          color="blue-gray"
-          className="mb-2 text-lg"
-          placeholder={undefined}
-        >
+      <CardBody className="text-center h-[20%] flex flex-col justify-center">
+        <Typography color="blue-gray" className="mb-2 text-lg">
           {document.title}
         </Typography>
       </CardBody>
-      <CardFooter
-        className="flex justify-center pt-2 gap-7"
-        placeholder={undefined}
-      >
+      <CardFooter className="flex justify-center pt-2 gap-7">
         <Link
           href={`${process.env.NEXT_PUBLIC_BASE_URL}/Documentos/${document.name}`}
           target="_blank"

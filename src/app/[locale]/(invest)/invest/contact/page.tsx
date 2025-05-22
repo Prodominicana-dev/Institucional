@@ -69,7 +69,6 @@ export default function Page() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                placeholder={undefined}
               >
                 <Option>Exportador</Option>
                 <Option>Inversionista</Option>
@@ -86,7 +85,6 @@ export default function Page() {
                 labelProps={{
                   className: "before:content-none after:content-none",
                 }}
-                placeholder={undefined}
               >
                 <Option>Exportador</Option>
                 <Option>Inversionista</Option>

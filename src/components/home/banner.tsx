@@ -103,14 +103,12 @@ export default function Banner() {
               <div className="w-6/12 sm:w-5/12 absolute inset-0 flex flex-col justify-center space-y-5 text-center">
                 <Typography
                   color="white"
-                  placeholder={undefined}
                   className="bg-red-700/75 text-sm font-opensans font-extrabold sm:text-5xl p-3"
                 >
                   {title}
                 </Typography>
                 <Typography
                   color="white"
-                  placeholder={undefined}
                   className="bg-blue-950/75 text-xs font-adelia sm:text-2xl p-5"
                 >
                   {desc}
@@ -137,16 +135,10 @@ export default function Banner() {
                 />
               </div>
               <div className="h-3/6">
-                <Typography
-                  placeholder={undefined}
-                  className="text-cyan-600 font-bold text-sm font-opensans"
-                >
+                <Typography className="text-cyan-600 font-bold text-sm font-opensans">
                   {title}
                 </Typography>
-                <Typography
-                  placeholder={undefined}
-                  className="text-white font-bold text-xs p-1 font-opensans"
-                >
+                <Typography className="text-white font-bold text-xs p-1 font-opensans">
                   {desc}
                 </Typography>
               </div>
@@ -181,10 +173,7 @@ export default function Banner() {
                   />
                 </div>
                 <div className="h-3/6">
-                  <Typography
-                    placeholder={undefined}
-                    className="text-cyan-600 font-bold text-sm font-opensans "
-                  >
+                  <Typography className="text-cyan-600 font-bold text-sm font-opensans ">
                     {title}
                   </Typography>
                   <p className="text-white font-normal text-xs p-1 font-opensans">

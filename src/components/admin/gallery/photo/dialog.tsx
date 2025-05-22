@@ -26,6 +26,7 @@ import { createMember } from "@/services/structure-organizational/members/servic
 import DragNDrop from "../../tools/dropzone/dropzone";
 import { createGallery } from "@/services/gallery/service";
 import { createPhoto } from "@/services/gallery/photo/service";
+import { HashLoader } from "react-spinners";
 
 export function PhotoDialog({
   galleryId,
@@ -104,23 +105,12 @@ export function PhotoDialog({
 
   return (
     <>
-      <Dialog
-        placeholder={undefined}
-        open={open}
-        handler={handler}
-        className="p-2 "
-      >
-        <DialogHeader
-          placeholder={undefined}
-          className="font-bold flex flex-col items-start gap-1 font-montserrat"
-        >
+      <Dialog open={open} handler={handler} className="p-2 ">
+        <DialogHeader className="font-bold flex flex-col items-start gap-1 font-montserrat">
           Agregar fotos a la galería
         </DialogHeader>
 
-        <DialogBody
-          placeholder={undefined}
-          className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar"
-        >
+        <DialogBody className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar">
           {steps.map((step, index) => (
             <div
               key={index}
@@ -132,10 +122,7 @@ export function PhotoDialog({
             </div>
           ))}
         </DialogBody>
-        <DialogFooter
-          placeholder={undefined}
-          className="space-x-4 font-montserrat"
-        >
+        <DialogFooter className="space-x-4 font-montserrat">
           <button
             onClick={handleSubmit}
             className={`
@@ -144,15 +131,7 @@ export function PhotoDialog({
                 
             `}
           >
-            {isLoading ? (
-              <Spinner
-                className="w-7 h-7"
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              />
-            ) : (
-              "Guardar"
-            )}
+            {isLoading ? <HashLoader /> : "Guardar"}
           </button>
         </DialogFooter>
       </Dialog>

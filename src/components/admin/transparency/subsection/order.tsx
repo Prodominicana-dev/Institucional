@@ -21,6 +21,7 @@ import TextEditor from "../../tools/rich-editor/rich-editor";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import Select from "react-select";
 import { editSubsection, useSubsection } from "@/services/subsection/service";
+import { HashLoader } from "react-spinners";
 
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 export function OrderDialog({
@@ -87,31 +88,16 @@ export function OrderDialog({
   if (loading)
     return (
       <div className="w-full h-full flex items-center justify-center">
-        <Spinner
-          className="size-7"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        />
-        ;
+        <HashLoader />;
       </div>
     );
   return (
     <>
-      <Dialog
-        placeholder={undefined}
-        open={open}
-        handler={handler}
-        className="p-2"
-      >
-        <DialogHeader
-          placeholder={undefined}
-          className="font-semibold "
-          style={monserratStyle.style}
-        >
+      <Dialog open={open} handler={handler} className="p-2">
+        <DialogHeader className="font-semibold " style={monserratStyle.style}>
           Ordenar las secciones
         </DialogHeader>
         <DialogBody
-          placeholder={undefined}
           className="flex flex-col space-y-4 overflow-y-auto no-scrollbar max-h-[75vh]"
           style={monserratStyle.style}
         >

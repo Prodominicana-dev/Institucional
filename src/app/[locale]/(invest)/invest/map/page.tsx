@@ -376,17 +376,9 @@ function PortPin({ name, description, link, image, coords }: any) {
           className="w-10"
         />
       </AdvancedMarker>
-      <Dialog
-        open={open}
-        handler={handleOpen}
-        placeholder={undefined}
-        className="p-5"
-        size="lg"
-      >
-        <DialogHeader placeholder={undefined} className="text-blue-dark">
-          {name}
-        </DialogHeader>
-        <DialogBody placeholder={undefined}>
+      <Dialog open={open} handler={handleOpen} className="p-5" size="lg">
+        <DialogHeader className="text-blue-dark">{name}</DialogHeader>
+        <DialogBody>
           <Image
             width={3840}
             height={2160}
@@ -419,17 +411,9 @@ function AirportPin({ name, description, link, image, coords }: any) {
           className="w-10"
         />
       </AdvancedMarker>
-      <Dialog
-        open={open}
-        handler={handleOpen}
-        placeholder={undefined}
-        className="p-5"
-        size="lg"
-      >
-        <DialogHeader placeholder={undefined} className="text-blue-dark">
-          {name}
-        </DialogHeader>
-        <DialogBody placeholder={undefined}>
+      <Dialog open={open} handler={handleOpen} className="p-5" size="lg">
+        <DialogHeader className="text-blue-dark">{name}</DialogHeader>
+        <DialogBody>
           <Image
             width={3840}
             height={2160}

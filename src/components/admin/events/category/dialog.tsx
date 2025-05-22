@@ -17,6 +17,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { createNewsCategory } from "@/services/news/categories/service";
 import { createEventCategory } from "@/services/events/categories/service";
+import { HashLoader } from "react-spinners";
 export function EventCategoriesDialog({
   open,
   handler,
@@ -56,23 +57,12 @@ export function EventCategoriesDialog({
 
   return (
     <>
-      <Dialog
-        placeholder={undefined}
-        open={open}
-        handler={handler}
-        className="p-2 "
-      >
-        <DialogHeader
-          placeholder={undefined}
-          className="font-semibold flex flex-col font-montserrat items-start gap-2"
-        >
+      <Dialog open={open} handler={handler} className="p-2 ">
+        <DialogHeader className="font-semibold flex flex-col font-montserrat items-start gap-2">
           Agregar una nueva categoría
         </DialogHeader>
 
-        <DialogBody
-          placeholder={undefined}
-          className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar"
-        >
+        <DialogBody className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar">
           <form action={handleSubmit}>
             <div className="flex flex-col w-full space-y-4">
               <label
@@ -134,10 +124,7 @@ export function EventCategoriesDialog({
             </div>
           </form>
         </DialogBody>
-        <DialogFooter
-          placeholder={undefined}
-          className="space-x-4 font-montserrat"
-        >
+        <DialogFooter className="space-x-4 font-montserrat">
           <button
             onClick={handler}
             className={`${
@@ -150,15 +137,7 @@ export function EventCategoriesDialog({
             onClick={handleSubmit}
             className={`w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center`}
           >
-            {isLoading ? (
-              <Spinner
-                className="w-7 h-7"
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              />
-            ) : (
-              "Guardar"
-            )}
+            {isLoading ? <HashLoader /> : "Guardar"}
           </button>
         </DialogFooter>
       </Dialog>

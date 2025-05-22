@@ -74,21 +74,11 @@ export function OrderDialog({
 
   return (
     <>
-      <Dialog
-        placeholder={undefined}
-        open={open}
-        handler={handler}
-        className="p-2"
-      >
-        <DialogHeader
-          placeholder={undefined}
-          className="font-semibold "
-          style={monserratStyle.style}
-        >
+      <Dialog open={open} handler={handler} className="p-2">
+        <DialogHeader className="font-semibold " style={monserratStyle.style}>
           Ordenar las secciones
         </DialogHeader>
         <DialogBody
-          placeholder={undefined}
           className="flex flex-col space-y-4 overflow-y-auto no-scrollbar max-h-[75vh]"
           style={monserratStyle.style}
         >

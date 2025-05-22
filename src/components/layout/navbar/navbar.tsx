@@ -150,7 +150,6 @@ export default function Navbar() {
                 />
                 <IconButton
                   className="bg-red-700 rounded-full w-8 h-8 flex justify-center items-center cursor-pointer"
-                  placeholder={undefined}
                   onClick={handleClick}
                 >
                   <MagnifyingGlassIcon className="size-5" />

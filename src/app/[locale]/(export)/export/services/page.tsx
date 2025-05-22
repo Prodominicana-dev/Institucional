@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import { HashLoader } from "react-spinners";
 
 export default function Page() {
   const params = useParams<{ locale: string }>();
@@ -21,11 +22,7 @@ export default function Page() {
   if (isLoading)
     return (
       <div className="w-full min-h-[85vh] bg-white flex justify-center items-center">
-        <Spinner
-          className="size-7"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        />
+        <HashLoader />
       </div>
     );
   return (

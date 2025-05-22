@@ -18,10 +18,7 @@ export default function Page({ params: { locale } }: any) {
   return (
     <div className="w-full bg-white flex justify-center ">
       <div className="p-10 lg:p-20 space-y-5 w-full">
-        <Typography
-          placeholder={undefined}
-          className="text-blue-900 uppercase font-extrabold text-xl lg:text-3xl font-opensans"
-        >
+        <Typography className="text-blue-900 uppercase font-extrabold text-xl lg:text-3xl font-opensans">
           {t("title")}
         </Typography>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 w-full gap-10 ">

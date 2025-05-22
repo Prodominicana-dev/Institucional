@@ -9,6 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { HashLoader } from "react-spinners";
 
 export default function Page() {
   const { id, locale } = useParams<{ id: string; locale: string }>();
@@ -103,7 +104,7 @@ export default function Page() {
   if (isLoading)
     return (
       <div className="w-full h-[85vh] bg-white flex justify-center items-center">
-        <Spinner className="size-6 " />
+        <HashLoader />
       </div>
     );
   return (

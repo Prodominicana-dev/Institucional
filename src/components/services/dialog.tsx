@@ -108,14 +108,12 @@ export function ServiceDialog({
   return (
     <>
       <Dialog
-        placeholder={undefined}
         open={open}
         handler={() => {}}
         size="xs"
         className="fixed inset-0 flex items-center justify-center"
       >
         <DialogBody
-          placeholder={undefined}
           className="p-4 lg:p-6 overflow-y-auto text-pretty rounded-lg "
           style={{ maxWidth: "900px", width: "90%" }}
         >

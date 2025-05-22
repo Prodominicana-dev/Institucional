@@ -7,9 +7,10 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/solid";
 import { useGallery } from "@/services/gallery/service";
-import { Spinner } from "@material-tailwind/react";
+
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
+import { HashLoader } from "react-spinners";
 
 export default function Page() {
   const params = useParams<{ locale: string }>();
@@ -44,11 +45,7 @@ export default function Page() {
   if (isLoading)
     return (
       <div className="w-full h-[85vh] bg-white flex justify-center items-center">
-        <Spinner
-          className="size-7"
-          onPointerEnterCapture={undefined}
-          onPointerLeaveCapture={undefined}
-        />
+        <HashLoader />
       </div>
     );
 

@@ -167,7 +167,6 @@ export default function SearchPage() {
             />
             <IconButton
               className="bg-red-700 rounded-lg size-20 flex justify-center items-center cursor-pointer"
-              placeholder={undefined}
               onClick={handleClick}
             >
               <MagnifyingGlassIcon className="size-5" />

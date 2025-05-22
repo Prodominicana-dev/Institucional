@@ -16,6 +16,7 @@ import {
   InformationCircleIcon,
 } from "@heroicons/react/24/outline";
 import { createNewsCategory } from "@/services/news/categories/service";
+import { HashLoader } from "react-spinners";
 export function NewsCategoriesDialog({
   open,
   handler,
@@ -136,41 +137,26 @@ export function NewsCategoriesDialog({
 
   return (
     <>
-      <Dialog
-        placeholder={undefined}
-        open={open}
-        handler={handler}
-        className="p-2 "
-      >
-        <DialogHeader
-          placeholder={undefined}
-          className="font-semibold flex flex-col font-montserrat items-start gap-2"
-        >
+      <Dialog open={open} handler={handler} className="p-2 ">
+        <DialogHeader className="font-semibold flex flex-col font-montserrat items-start gap-2">
           Agregar categoría
           <Stepper
-            placeholder={undefined}
             activeStep={activeStep}
             isLastStep={(value) => setIsLastStep(value)}
             isFirstStep={(value) => setIsFirstStep(value)}
           >
             {steps.map((step, index) => (
-              <>
-                <Step
-                  key={index}
-                  placeholder={undefined}
-                  className="font-montserrat text-white font-black text-lg bg-blue-dark cursor-pointer"
-                >
-                  {step.step}
-                </Step>
-              </>
+              <Step
+                key={index}
+                className="font-montserrat text-white font-black text-lg bg-blue-dark cursor-pointer"
+              >
+                {step.step}
+              </Step>
             ))}
           </Stepper>
         </DialogHeader>
 
-        <DialogBody
-          placeholder={undefined}
-          className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar"
-        >
+        <DialogBody className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar">
           <form action={handleSubmit}>
             {steps.map((step, index) => (
               <div
@@ -184,10 +170,7 @@ export function NewsCategoriesDialog({
             ))}
           </form>
         </DialogBody>
-        <DialogFooter
-          placeholder={undefined}
-          className="space-x-4 font-montserrat"
-        >
+        <DialogFooter className="space-x-4 font-montserrat">
           <button
             onClick={handlePrev}
             className={`${
@@ -204,19 +187,7 @@ export function NewsCategoriesDialog({
                 : "w-36 h-12 bg-white border-2 border-black text-black hover:bg-black hover:text-white hover:shadow-lg duration-300 rounded-xl"
             }`}
           >
-            {isLastStep ? (
-              isLoading ? (
-                <Spinner
-                  className="w-7 h-7"
-                  onPointerEnterCapture={undefined}
-                  onPointerLeaveCapture={undefined}
-                />
-              ) : (
-                "Guardar"
-              )
-            ) : (
-              "Siguiente"
-            )}
+            {isLastStep ? isLoading ? <HashLoader /> : "Guardar" : "Siguiente"}
           </button>
         </DialogFooter>
       </Dialog>

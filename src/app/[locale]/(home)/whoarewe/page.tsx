@@ -58,10 +58,7 @@ export default function Page() {
     <div className="bg-white">
       <div className="w-full lg:h-[40vh] bg-blue-950 flex py-5">
         <div className="w-full sm:w-5/12 p-16 flex justify-center items-center text-center">
-          <Typography
-            placeholder={undefined}
-            className="text-white font-extrabold text-5xl"
-          >
+          <Typography className="text-white font-extrabold text-5xl">
             {t("title")}
           </Typography>
         </div>
@@ -78,18 +75,11 @@ export default function Page() {
       <div className="w-full lg:h-[70vh] flex flex-col lg:flex-row">
         <div className="lg:w-6/12 h-full bg-sky-600 flex justify-center items-center p-10 relative">
           <div className="lg:w-6/12 space-y-3">
-            <Typography
-              placeholder={undefined}
-              className="text-white font-extrabold text-3xl"
-            >
+            <Typography className="text-white font-extrabold text-3xl">
               {t("title")}
             </Typography>
             <div className="bg-white w-4/12 h-1 rounded-full"></div>
-            <Typography
-              placeholder={undefined}
-              className="text-white text-xl"
-              translate="yes"
-            >
+            <Typography className="text-white text-xl" translate="yes">
               {t("desc")}
             </Typography>
           </div>
@@ -104,17 +94,10 @@ export default function Page() {
         <div className="flex flex-col lg:w-6/12 h-full">
           <div className="h-3/6 bg-red-700 flex justify-center items-center p-10 relative">
             <div className="lg:w-8/12 space-y-2">
-              <Typography
-                placeholder={undefined}
-                className="text-white font-extrabold text-3xl"
-              >
+              <Typography className="text-white font-extrabold text-3xl">
                 {t("mission.title")}
               </Typography>
-              <Typography
-                placeholder={undefined}
-                className="text-white text-xl"
-                translate="yes"
-              >
+              <Typography className="text-white text-xl" translate="yes">
                 {t("mission.desc")}
               </Typography>
             </div>
@@ -128,16 +111,10 @@ export default function Page() {
           </div>
           <div className="h-3/6 bg-white sm:bg-blue-950 flex justify-center items-center p-10 relative">
             <div className="lg:w-8/12 space-y-2">
-              <Typography
-                placeholder={undefined}
-                className="text-blue-950 sm:text-white font-extrabold text-3xl"
-              >
+              <Typography className="text-blue-950 sm:text-white font-extrabold text-3xl">
                 {t("vision.title")}
               </Typography>
-              <Typography
-                placeholder={undefined}
-                className="text-blue-950 sm:text-sky-500 text-xl"
-              >
+              <Typography className="text-blue-950 sm:text-sky-500 text-xl">
                 {t("vision.desc")}
               </Typography>
             </div>
@@ -162,10 +139,7 @@ export default function Page() {
           />
           <div className="relative lg:absolute inset-0 bg-blue-950 lg:bg-blue-950/90 z-10 flex flex-col items-center justify-center p-10 xl:p-0">
             <div className="xl:w-10/12 space-y-5">
-              <Typography
-                placeholder={undefined}
-                className="text-white font-bold text-4xl xl:pl-20"
-              >
+              <Typography className="text-white font-bold text-4xl xl:pl-20">
                 {t("values.title")}
               </Typography>
               <ul className="grid grid-cols-1 xl:grid-cols-2 gap-5 list-disc list-inside">
@@ -182,10 +156,7 @@ export default function Page() {
                       <li className="text-white font-extrabold text-xl">
                         {value.title}
                       </li>
-                      <Typography
-                        placeholder={undefined}
-                        className="text-white text-lg"
-                      >
+                      <Typography className="text-white text-lg">
                         {value.desc}
                       </Typography>
                     </div>
@@ -209,7 +180,7 @@ export default function Page() {
             <div className="text-blue-950 font-extrabold text-2xl">
               {t("qualityPolicy.title")}
             </div>
-            <Typography placeholder={undefined} className="text-black text-lg">
+            <Typography className="text-black text-lg">
               {t("qualityPolicy.desc")}
             </Typography>
           </div>

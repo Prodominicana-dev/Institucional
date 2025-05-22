@@ -32,16 +32,10 @@ export default function SocialMediaCard({
         className="w-10 h-10"
       />
       <div>
-        <Typography
-          placeholder={undefined}
-          className="text-lg text-white uppercase font-bold"
-        >
+        <Typography className="text-lg text-white uppercase font-bold">
           {name}
         </Typography>
-        <Typography
-          placeholder={undefined}
-          className="text-xs text-white/70 uppercase font-light"
-        >
+        <Typography className="text-xs text-white/70 uppercase font-light">
           {username}
         </Typography>
       </div>

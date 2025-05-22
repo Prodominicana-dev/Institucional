@@ -18,6 +18,7 @@ import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { editNewsCategory } from "@/services/news/categories/service";
 import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 import { editEventCategory } from "@/services/events/categories/service";
+import { HashLoader } from "react-spinners";
 export function CategoryEditDialog({
   category,
   open,
@@ -64,23 +65,12 @@ export function CategoryEditDialog({
   };
   return (
     <>
-      <Dialog
-        placeholder={undefined}
-        open={open}
-        handler={handler}
-        className="p-2 "
-      >
-        <DialogHeader
-          placeholder={undefined}
-          className="font-semibold flex flex-col font-montserrat"
-        >
+      <Dialog open={open} handler={handler} className="p-2 ">
+        <DialogHeader className="font-semibold flex flex-col font-montserrat">
           Editar dirección
         </DialogHeader>
 
-        <DialogBody
-          placeholder={undefined}
-          className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar"
-        >
+        <DialogBody className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar">
           <form action={handleSubmit}>
             <div className="flex flex-col w-full space-y-4">
               <label
@@ -142,10 +132,7 @@ export function CategoryEditDialog({
             </div>
           </form>
         </DialogBody>
-        <DialogFooter
-          placeholder={undefined}
-          className="space-x-4 font-montserrat"
-        >
+        <DialogFooter className="space-x-4 font-montserrat">
           <button
             onClick={handler}
             className={`${
@@ -158,15 +145,7 @@ export function CategoryEditDialog({
             onClick={handleSubmit}
             className={`w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center`}
           >
-            {isLoading ? (
-              <Spinner
-                className="w-7 h-7"
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              />
-            ) : (
-              "Actualizar"
-            )}
+            {isLoading ? <HashLoader /> : "Actualizar"}
           </button>
         </DialogFooter>
       </Dialog>

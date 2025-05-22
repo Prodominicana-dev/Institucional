@@ -71,9 +71,8 @@ export default function TextEditor({
                 />
               </button>
             </MenuHandler>
-            <MenuList placeholder={undefined} className="z-[9999]">
+            <MenuList className="z-[9999]">
               <MenuItem
-                placeholder={undefined}
                 onClick={() =>
                   editor
                     ?.chain()
@@ -90,44 +89,37 @@ export default function TextEditor({
               </MenuItem>
               <hr className="my-2" />
               <MenuItem
-                placeholder={undefined}
                 onClick={() => editor?.chain().focus().addColumnBefore().run()}
               >
                 Añadir columna antes
               </MenuItem>
               <MenuItem
-                placeholder={undefined}
                 onClick={() => editor?.chain().focus().addColumnAfter().run()}
               >
                 Añadir columna despues
               </MenuItem>
               <MenuItem
-                placeholder={undefined}
                 onClick={() => editor?.chain().focus().addRowBefore().run()}
               >
                 Añadir fila antes
               </MenuItem>
               <MenuItem
-                placeholder={undefined}
                 onClick={() => editor?.chain().focus().addRowAfter().run()}
               >
                 Añadir fila despues
               </MenuItem>
               <hr className="my-2" />
               <MenuItem
-                placeholder={undefined}
                 onClick={() => editor?.chain().focus().deleteColumn().run()}
               >
                 Borrar columna
               </MenuItem>
               <MenuItem
-                placeholder={undefined}
                 onClick={() => editor?.chain().focus().deleteRow().run()}
               >
                 Borrar fila
               </MenuItem>
               <MenuItem
-                placeholder={undefined}
                 onClick={() => editor?.chain().focus().deleteTable().run()}
               >
                 Borrar tabla

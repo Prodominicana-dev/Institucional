@@ -1,7 +1,8 @@
-import { Dialog, DialogBody, Spinner } from "@material-tailwind/react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 import React, { useState } from "react";
 import { Montserrat } from "next/font/google";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
+import { HashLoader } from "react-spinners";
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 
 export default function ChangeTypeMessage({
@@ -22,16 +23,9 @@ export default function ChangeTypeMessage({
   const [isLoading, setIsLoading] = useState(false);
   return (
     <>
-      <Dialog
-        placeholder={undefined}
-        open={open}
-        handler={handleOpen}
-        size="sm"
-        className="z-[9999]"
-      >
-        <DialogBody
+      <Dialog open={open} onOpenChange={handleOpen}>
+        <DialogContent
           style={monserratStyle.style}
-          placeholder={undefined}
           className="font-sans text-black"
         >
           <div className="flex flex-col items-center justify-center p-3 space-y-12">
@@ -48,15 +42,7 @@ export default function ChangeTypeMessage({
                 className="w-full h-12 font-normal text-black duration-300 bg-white rounded-lg hover:shadow-lg hover:text-white hover:bg-black border-2 border-black  flex justify-center items-center"
                 onClick={handleAccept}
               >
-                {isLoading ? (
-                  <Spinner
-                    className="w-7 h-7"
-                    onPointerEnterCapture={undefined}
-                    onPointerLeaveCapture={undefined}
-                  />
-                ) : (
-                  "Cambiar"
-                )}
+                {isLoading ? <HashLoader /> : "Cambiar"}
               </button>
               <button
                 onClick={handleCancel}
@@ -66,7 +52,7 @@ export default function ChangeTypeMessage({
               </button>
             </div>
           </div>
-        </DialogBody>
+        </DialogContent>
       </Dialog>
     </>
   );

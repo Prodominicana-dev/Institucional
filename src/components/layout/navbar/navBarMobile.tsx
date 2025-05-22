@@ -140,10 +140,7 @@ export default function NavBarMobile() {
             </div>
             <div className="w-6/12 h-full flex space-x-2 sm:space-x-4 items-center justify-end">
               <Link href={"/search"}>
-                <IconButton
-                  className="bg-red-700 rounded-full w-8 h-8"
-                  placeholder={undefined}
-                >
+                <IconButton className="bg-red-700 rounded-full w-8 h-8">
                   <MagnifyingGlassIcon className="w-5 h-5" />
                 </IconButton>
               </Link>

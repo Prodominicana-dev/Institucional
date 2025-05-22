@@ -26,6 +26,7 @@ import {
   editExporter,
 } from "@/services/export/directory/service";
 import { useSector } from "@/services/export/sector/service";
+import { HashLoader } from "react-spinners";
 
 export function EditExporterDialog({
   exporter,
@@ -502,16 +503,12 @@ export function EditExporterDialog({
   return (
     <>
       <Dialog
-        placeholder={undefined}
         open={open}
         handler={handler}
         className="p-2 flex justify-center items-center"
         size="xxl"
       >
-        <DialogHeader
-          placeholder={undefined}
-          className="font-black text-black font-montserrat flex flex-col gap-5 w-8/12"
-        >
+        <DialogHeader className="font-black text-black font-montserrat flex flex-col gap-5 w-8/12">
           <div className="w-full flex justify-between items-center">
             Editar exportador
             <button onClick={handler}>
@@ -519,10 +516,7 @@ export function EditExporterDialog({
             </button>
           </div>
         </DialogHeader>
-        <DialogBody
-          placeholder={undefined}
-          className="flex flex-col w-8/12 overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh] font-montserrat"
-        >
+        <DialogBody className="flex flex-col w-8/12 overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh] font-montserrat">
           {steps.map((step, index) => (
             <div
               key={index}
@@ -534,23 +528,12 @@ export function EditExporterDialog({
             </div>
           ))}
         </DialogBody>
-        <DialogFooter
-          placeholder={undefined}
-          className="space-x-4 font-montserrat w-8/12"
-        >
+        <DialogFooter className="space-x-4 font-montserrat w-8/12">
           <button
             onClick={handleButton}
             className={`${"w-36 h-12 bg-white border-2 border-black text-black hover:bg-black hover:text-white hover:shadow-lg duration-300 rounded-xl"}`}
           >
-            {submitLoading ? (
-              <Spinner
-                className="w-7 h-7"
-                onPointerEnterCapture={undefined}
-                onPointerLeaveCapture={undefined}
-              />
-            ) : (
-              "Guardar"
-            )}
+            {submitLoading ? <HashLoader /> : "Guardar"}
           </button>
         </DialogFooter>
       </Dialog>

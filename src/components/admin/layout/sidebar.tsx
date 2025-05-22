@@ -90,7 +90,6 @@ export function SideBar() {
           </Link>
         </div>
         <List
-          placeholder={undefined}
           className={` ${
             isVisible ? "opacity-100 visible" : "opacity-0 invisible"
           } duration-200 h-4/6`}
@@ -111,7 +110,6 @@ export function SideBar() {
             iconUrl={"/svg/layout/sidebar/documents.svg"}
           />
           <Accordion
-            placeholder={undefined}
             open={openServices === 1}
             icon={
               <ChevronDownIcon
@@ -123,16 +121,14 @@ export function SideBar() {
             }
           >
             <ListItem
-              placeholder={undefined}
               className="p-0 bg-transparent"
               selected={openServices === 0}
             >
               <AccordionHeader
-                placeholder={undefined}
                 onClick={() => handleServicesOpen(1)}
                 className="p-3 border-b-0"
               >
-                <ListItemPrefix placeholder={undefined} className="">
+                <ListItemPrefix className="">
                   <Image
                     src={"/svg/layout/sidebar/news.svg"}
                     width={600}
@@ -143,7 +139,6 @@ export function SideBar() {
                   />
                 </ListItemPrefix>
                 <Typography
-                  placeholder={undefined}
                   color="white"
                   className="hidden mr-auto font-normal duration-300 opacity-0 group-hover:flex group-hover:opacity-100"
                 >
@@ -153,7 +148,7 @@ export function SideBar() {
             </ListItem>
             <AccordionBody className="py-1">
               {openServices === 1 && (
-                <List placeholder={undefined} className="p-0 text-white">
+                <List className="p-0 text-white">
                   <SidebarMenuItem
                     title={"Categoría de servicios"}
                     url={"/admin/services/categories"}
@@ -172,7 +167,6 @@ export function SideBar() {
           </Accordion>
           <Accordion
             ref={hoverNewnessRef}
-            placeholder={undefined}
             open={openNewness === 1}
             icon={
               <ChevronDownIcon
@@ -184,16 +178,14 @@ export function SideBar() {
             }
           >
             <ListItem
-              placeholder={undefined}
               className="p-0 bg-transparent"
               selected={openNewness === 0}
             >
               <AccordionHeader
-                placeholder={undefined}
                 onClick={() => handleNewnessOpen(1)}
                 className="p-3 border-b-0"
               >
-                <ListItemPrefix placeholder={undefined} className="">
+                <ListItemPrefix className="">
                   <Image
                     src={"/svg/layout/sidebar/news.svg"}
                     width={600}
@@ -204,7 +196,6 @@ export function SideBar() {
                   />
                 </ListItemPrefix>
                 <Typography
-                  placeholder={undefined}
                   color="white"
                   className="hidden mr-auto font-normal duration-300 opacity-0 group-hover:flex group-hover:opacity-100"
                 >
@@ -214,7 +205,7 @@ export function SideBar() {
             </ListItem>
             <AccordionBody className="py-1">
               {openNewness === 1 && (
-                <List placeholder={undefined} className="p-0 text-white">
+                <List className="p-0 text-white">
                   <SidebarMenuItem title={"Agenda"} url={"/admin/schedule"} />
                   <SidebarMenuItem title={"Noticias"} url={"/admin/news"} />
                   <SidebarMenuItem
@@ -241,7 +232,6 @@ export function SideBar() {
             iconUrl={"/svg/layout/sidebar/investment.svg"}
           />
           <Accordion
-            placeholder={undefined}
             open={openExport === 1}
             icon={
               <ChevronDownIcon
@@ -253,16 +243,14 @@ export function SideBar() {
             }
           >
             <ListItem
-              placeholder={undefined}
               className="p-0 bg-transparent"
               selected={openExport === 0}
             >
               <AccordionHeader
-                placeholder={undefined}
                 onClick={() => handleExportOpen(1)}
                 className="p-3 border-b-0"
               >
-                <ListItemPrefix placeholder={undefined} className="">
+                <ListItemPrefix className="">
                   <Image
                     src={"/svg/layout/sidebar/export.svg"}
                     width={600}
@@ -273,7 +261,6 @@ export function SideBar() {
                   />
                 </ListItemPrefix>
                 <Typography
-                  placeholder={undefined}
                   color="white"
                   className="hidden mr-auto font-normal duration-300 opacity-0 group-hover:flex group-hover:opacity-100"
                 >
@@ -283,7 +270,7 @@ export function SideBar() {
             </ListItem>
             <AccordionBody className="py-1">
               {openExport === 1 && (
-                <List placeholder={undefined} className="p-0 text-white">
+                <List className="p-0 text-white">
                   <SidebarMenuItem
                     title={"Directorio de Exportadores"}
                     url={"/admin/export/directory"}
@@ -301,7 +288,6 @@ export function SideBar() {
             </AccordionBody>
           </Accordion>
           <Accordion
-            placeholder={undefined}
             open={openStructure === 1}
             icon={
               <ChevronDownIcon
@@ -313,16 +299,14 @@ export function SideBar() {
             }
           >
             <ListItem
-              placeholder={undefined}
               className="p-0 bg-transparent"
               selected={openStructure === 0}
             >
               <AccordionHeader
-                placeholder={undefined}
                 onClick={() => handleStructureOpen(1)}
                 className="p-3 border-b-0 "
               >
-                <ListItemPrefix placeholder={undefined} className="">
+                <ListItemPrefix className="">
                   <Image
                     src={"/svg/layout/sidebar/organizational.svg"}
                     width={600}
@@ -333,7 +317,6 @@ export function SideBar() {
                   />
                 </ListItemPrefix>
                 <Typography
-                  placeholder={undefined}
                   color="white"
                   className="hidden mr-auto font-normal duration-300 opacity-0 group-hover:flex group-hover:opacity-100"
                 >
@@ -343,7 +326,7 @@ export function SideBar() {
             </ListItem>
             <AccordionBody className="py-1">
               {openStructure === 1 && (
-                <List placeholder={undefined} className="p-0 text-white">
+                <List className="p-0 text-white">
                   <SidebarMenuItem
                     title={"Direcciones"}
                     url={"/admin/structure-organizational/directions"}
@@ -362,7 +345,6 @@ export function SideBar() {
             iconUrl={"/svg/layout/sidebar/training.svg"}
           />
           <Accordion
-            placeholder={undefined}
             open={open === 1}
             icon={
               <ChevronDownIcon
@@ -373,17 +355,12 @@ export function SideBar() {
               />
             }
           >
-            <ListItem
-              placeholder={undefined}
-              className="p-0 bg-transparent"
-              selected={open === 0}
-            >
+            <ListItem className="p-0 bg-transparent" selected={open === 0}>
               <AccordionHeader
-                placeholder={undefined}
                 onClick={() => handleOpen(1)}
                 className="p-3 border-b-0 "
               >
-                <ListItemPrefix placeholder={undefined} className="">
+                <ListItemPrefix className="">
                   <Image
                     src={"/svg/layout/sidebar/transparency.svg"}
                     width={600}
@@ -394,7 +371,6 @@ export function SideBar() {
                   />
                 </ListItemPrefix>
                 <Typography
-                  placeholder={undefined}
                   color="white"
                   className="hidden mr-auto font-normal duration-300 opacity-0 group-hover:flex group-hover:opacity-100"
                 >
@@ -404,7 +380,7 @@ export function SideBar() {
             </ListItem>
             <AccordionBody className="py-1">
               {open === 1 && (
-                <List placeholder={undefined} className="p-0 text-white">
+                <List className="p-0 text-white">
                   <SidebarMenuItem
                     title={"Secciones"}
                     url={"/admin/transparency/section"}
@@ -436,8 +412,8 @@ export function SideBar() {
 function SidebarItem({ title, url, iconUrl }: any) {
   return (
     <Link href={url}>
-      <ListItem placeholder={undefined} className="bg-transparent space-x-5">
-        <ListItemPrefix placeholder={undefined}>
+      <ListItem className="bg-transparent space-x-5">
+        <ListItemPrefix>
           <Image
             src={iconUrl}
             width={600}
@@ -448,7 +424,6 @@ function SidebarItem({ title, url, iconUrl }: any) {
           />
         </ListItemPrefix>
         <Typography
-          placeholder={undefined}
           color="white"
           className="hidden mr-auto font-normal duration-300 opacity-0 group-hover:opacity-100 group-hover:flex"
         >
@@ -462,12 +437,11 @@ function SidebarItem({ title, url, iconUrl }: any) {
 function SidebarMenuItem({ title, url }: any) {
   return (
     <Link href={url}>
-      <ListItem placeholder={undefined} className="bg-transparent space-x-5">
-        <ListItemPrefix placeholder={undefined}>
+      <ListItem className="bg-transparent space-x-5">
+        <ListItemPrefix>
           <div></div>
         </ListItemPrefix>
         <Typography
-          placeholder={undefined}
           color="white"
           className="hidden mr-auto font-normal duration-300 opacity-0 group-hover:opacity-100 group-hover:flex"
         >
