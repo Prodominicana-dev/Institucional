@@ -407,7 +407,7 @@ export function NewsDialog({
   return (
     <>
       <Dialog open={open} onOpenChange={handler}>
-        <DialogContent className="min-w-[1000px] overflow-y-auto min-h-[30vh] max-h-[90vh]  not-first:font-montserrat">
+        <DialogContent className="min-w-[1000px] overflow-y-auto no-scrollbar min-h-[30vh] max-h-[90vh]  not-first:font-montserrat">
           <DialogTitle className="w-full flex justify-between items-center text-2xl font-bold">
             Agrega una nueva noticia
           </DialogTitle>
