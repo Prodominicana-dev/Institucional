@@ -1,23 +1,21 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import {
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Input,
-  Spinner,
-} from "@material-tailwind/react";
+import React, { useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0";
-import { Stepper, Step } from "@material-tailwind/react";
-import { createDirection } from "@/services/structure-organizational/service";
 import {
   ExclamationCircleIcon,
   InformationCircleIcon,
 } from "@heroicons/react/24/outline";
-import { createNewsCategory } from "@/services/news/categories/service";
 import { createEventCategory } from "@/services/events/categories/service";
 import { HashLoader } from "react-spinners";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogHeader,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+
 export function EventCategoriesDialog({
   open,
   handler,
@@ -57,12 +55,11 @@ export function EventCategoriesDialog({
 
   return (
     <>
-      <Dialog open={open} handler={handler} className="p-2 ">
-        <DialogHeader className="font-semibold flex flex-col font-montserrat items-start gap-2">
-          Agregar una nueva categoría
-        </DialogHeader>
-
-        <DialogBody className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar">
+      <Dialog open={open} onOpenChange={handler}>
+        <DialogContent className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar">
+          <DialogTitle className="font-semibold flex flex-col font-montserrat items-start gap-2">
+            Agregar una nueva categoría
+          </DialogTitle>
           <form action={handleSubmit}>
             <div className="flex flex-col w-full space-y-4">
               <label
@@ -123,23 +120,23 @@ export function EventCategoriesDialog({
               </label>
             </div>
           </form>
-        </DialogBody>
-        <DialogFooter className="space-x-4 font-montserrat">
-          <button
-            onClick={handler}
-            className={`${
-              isFirstStep ? "hidden" : "block"
-            } w-36 h-12 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white hover:shadow-lg duration-300 rounded-xl`}
-          >
-            Cancelar
-          </button>
-          <button
-            onClick={handleSubmit}
-            className={`w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center`}
-          >
-            {isLoading ? <HashLoader /> : "Guardar"}
-          </button>
-        </DialogFooter>
+          <DialogFooter className="space-x-4 font-montserrat">
+            <button
+              onClick={handler}
+              className={`${
+                isFirstStep ? "hidden" : "block"
+              } w-36 h-12 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white hover:shadow-lg duration-300 rounded-xl`}
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={handleSubmit}
+              className={`w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center`}
+            >
+              {isLoading ? <HashLoader /> : "Guardar"}
+            </button>
+          </DialogFooter>
+        </DialogContent>
       </Dialog>
     </>
   );

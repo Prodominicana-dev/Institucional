@@ -18,7 +18,7 @@ export default function Home() {
   const params = useParams<{ locale: string }>();
   return (
     <div className="w-full bg-white">
-      <EventModal />
+      {/* <EventModal /> */}
       <Banner />
       <BusinessFacilitation />
       <DigitalToolsSection />

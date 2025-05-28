@@ -1,45 +1,28 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Button,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Tooltip,
-  Input,
-  Textarea,
-  Spinner,
-  Switch,
-} from "@material-tailwind/react";
-import { Stepper, Step, Typography } from "@material-tailwind/react";
-import {
-  CogIcon,
-  UserIcon,
-  BuildingLibraryIcon,
-  ExclamationTriangleIcon,
-  ExclamationCircleIcon,
-} from "@heroicons/react/24/outline";
-import { createSection } from "@/services/section/service";
+import { Stepper, Step } from "@material-tailwind/react";
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { useUser } from "@auth0/nextjs-auth0";
-import { Montserrat } from "next/font/google";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import { set } from "date-fns";
 import { FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
-import { createDocument } from "@/services/document/service";
 import Editor from "../tools/rich-editor/config";
 import TextEditor from "../tools/rich-editor/rich-editor";
-import DropzoneImpl from "../transparency/document/dropzone";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Dropzone } from "@mantine/dropzone";
 import Image from "next/image";
 import Select from "react-select";
-import { is } from "date-fns/locale";
-import { createNews, useCategoriesNews } from "@/services/news/service";
 import Day_Picker from "../tools/daypicker";
 import { createEvents } from "@/services/events/service";
 import { useEventCategory } from "@/services/events/categories/service";
 import { HashLoader } from "react-spinners";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogHeader,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
 
 export function EventDialog({
   open,
@@ -458,31 +441,32 @@ export function EventDialog({
 
   return (
     <>
-      <Dialog open={open} handler={handler} className="p-2 ">
-        <DialogHeader className="font-black text-black font-montserrat flex flex-col gap-5">
-          <div className="w-full flex justify-between items-center">
-            Agregar un nuevo evento
-            <button onClick={handler}>
-              <XMarkIcon className="size-7 text-black" />
-            </button>
-          </div>
-          <Stepper
-            activeStep={activeStep}
-            isLastStep={(value) => setIsLastStep(value)}
-            isFirstStep={(value) => setIsFirstStep(value)}
-          >
-            {steps.map((step, index) => (
-              <Step
-                key={index}
-                onClick={handleButton}
-                className="font-montserrat text-white font-black text-lg bg-blue-dark cursor-pointer"
-              >
-                {step.step}
-              </Step>
-            ))}
-          </Stepper>
-        </DialogHeader>
-        <DialogBody className="flex flex-col overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh] font-montserrat">
+      <Dialog open={open} onOpenChange={handler}>
+        <DialogContent className="min-w-[1000px] overflow-y-auto no-scrollbar min-h-[30vh] max-h-[90vh] not-first:font-montserrat">
+          <DialogHeader className="font-black text-black font-montserrat flex flex-col gap-5">
+            <div className="w-full flex justify-between items-center">
+              <DialogTitle className="text-2xl">
+                Agregar un nuevo evento
+              </DialogTitle>
+            </div>
+            <Stepper
+              activeStep={activeStep}
+              isLastStep={(value) => setIsLastStep(value)}
+              isFirstStep={(value) => setIsFirstStep(value)}
+            >
+              {steps.map((step, index) => (
+                <Step
+                  key={index}
+                  onClick={handleButton}
+                  className="font-montserrat text-white font-black text-lg bg-black cursor-pointer"
+                  activeClassName="bg-blue-dark"
+                  completedClassName="bg-black"
+                >
+                  {step.step}
+                </Step>
+              ))}
+            </Stepper>
+          </DialogHeader>
           {steps.map((step, index) => (
             <div
               key={index}
@@ -493,35 +477,35 @@ export function EventDialog({
               {step.section}
             </div>
           ))}
-        </DialogBody>
-        <DialogFooter className="space-x-4 font-montserrat">
-          <button
-            onClick={handlePrev}
-            className={`${
-              isFirstStep ? "hidden" : "block"
-            } w-36 h-12 bg-white border-2 border-black text-black hover:bg-black hover:text-white hover:shadow-lg duration-300 rounded-xl`}
-          >
-            Anterior
-          </button>
-          <button
-            onClick={handleButton}
-            className={`${
-              isLastStep
-                ? "w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center"
-                : "w-36 h-12 bg-white border-2 border-black text-black hover:bg-black hover:text-white hover:shadow-lg duration-300 rounded-xl"
-            }`}
-          >
-            {isLastStep ? (
-              submitLoading ? (
-                <HashLoader />
+          <DialogFooter className="space-x-4 font-montserrat">
+            <button
+              onClick={handlePrev}
+              className={`${
+                isFirstStep ? "hidden" : "block"
+              } w-36 h-12 bg-white border-2 border-black text-black hover:bg-black hover:text-white hover:shadow-lg duration-300 rounded-xl`}
+            >
+              Anterior
+            </button>
+            <button
+              onClick={handleButton}
+              className={`${
+                isLastStep
+                  ? "w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center"
+                  : "w-36 h-12 bg-white border-2 border-black text-black hover:bg-black hover:text-white hover:shadow-lg duration-300 rounded-xl"
+              }`}
+            >
+              {isLastStep ? (
+                submitLoading ? (
+                  <HashLoader />
+                ) : (
+                  "Guardar"
+                )
               ) : (
-                "Guardar"
-              )
-            ) : (
-              "Siguiente"
-            )}
-          </button>
-        </DialogFooter>
+                "Siguiente"
+              )}
+            </button>
+          </DialogFooter>
+        </DialogContent>
       </Dialog>
     </>
   );

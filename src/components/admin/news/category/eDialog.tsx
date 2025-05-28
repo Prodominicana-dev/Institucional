@@ -1,22 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Input,
-  Spinner,
-} from "@material-tailwind/react";
 import { useUser } from "@auth0/nextjs-auth0";
 import { Stepper, Step } from "@material-tailwind/react";
-import {
-  createDirection,
-  editDirection,
-} from "@/services/structure-organizational/service";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { editNewsCategory } from "@/services/news/categories/service";
 import { HashLoader } from "react-spinners";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+
 export function CategoryEditDialog({
   category,
   open,
@@ -139,10 +136,12 @@ export function CategoryEditDialog({
   ];
 
   return (
-    <>
-      <Dialog open={open} handler={handler} className="p-2 ">
+    <Dialog open={open} onOpenChange={handler}>
+      <DialogContent className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar">
         <DialogHeader className="font-semibold flex flex-col font-montserrat">
-          Editar dirección
+          <DialogTitle className="text-black text-2xl">
+            Editar categoría de noticias
+          </DialogTitle>
           <Stepper
             activeStep={activeStep}
             isLastStep={(value) => setIsLastStep(value)}
@@ -151,28 +150,27 @@ export function CategoryEditDialog({
             {steps.map((step, index) => (
               <Step
                 key={index}
-                className="font-montserrat text-white font-black text-lg bg-blue-dark cursor-pointer"
+                className="font-montserrat text-white font-black text-lg bg-black cursor-pointer"
+                activeClassName="bg-blue-dark"
+                completedClassName="bg-black"
               >
                 {step.step}
               </Step>
             ))}
           </Stepper>
         </DialogHeader>
-
-        <DialogBody className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar">
-          <form action={handleSubmit}>
-            {steps.map((step, index) => (
-              <div
-                key={index}
-                className={`${
-                  activeStep === index ? "block" : "hidden"
-                } flex flex-col gap-3 w-full h-full`}
-              >
-                {step.section}
-              </div>
-            ))}
-          </form>
-        </DialogBody>
+        <form action={handleSubmit}>
+          {steps.map((step, index) => (
+            <div
+              key={index}
+              className={`${
+                activeStep === index ? "block" : "hidden"
+              } flex flex-col gap-3 w-full h-full`}
+            >
+              {step.section}
+            </div>
+          ))}
+        </form>
         <DialogFooter className="space-x-4 font-montserrat">
           <button
             onClick={handlePrev}
@@ -193,7 +191,7 @@ export function CategoryEditDialog({
             {isLastStep ? isLoading ? <HashLoader /> : "Guardar" : "Siguiente"}
           </button>
         </DialogFooter>
-      </Dialog>
-    </>
+      </DialogContent>
+    </Dialog>
   );
 }

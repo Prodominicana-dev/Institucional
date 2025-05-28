@@ -139,40 +139,40 @@
       "title": "Foreign Direct Investment",
       "data": [
         {
-          "title": "Record in FDI 2024",
-          "value": "US$4,512 Millions"
+          "title": "Record FDI in the first quarter of 2025",
+          "value": "US$1,362.7 million"
         },
         {
-          "title": "Year-over-year growth of FDI in 2024",
-          "value": "2.8%"
+          "title": "Year-on-year growth in FDI, first quarter 2025",
+          "value": "+7.1%"
         },
         {
-          "title": "FDI companies established",
+          "title": "Installed FDI companies",
           "value": "+700"
         },
         {
           "title": "FDI stock",
-          "value": "+US$56,000 Millions"
+          "value": "+US$56,000 million"
         }
       ]
     },
     "en": {
-      "title": " Exports",
+      "title": "Exports",
       "data": [
         {
-          "title": "Record in goods exports in 2024",
-          "value": "US$12,925.1 Millions "
+          "title": "Record merchandise exports in the first quarter of 2025",
+          "value": "US$3,161.8 million"
         },
         {
-          "title": "Year-over-year growth of goods exports in 2024",
-          "value": "8.3% "
+          "title": "Year-on-year growth in merchandise exports, first quarter 2025",
+          "value": "+12.0%"
         },
         {
-          "title": "Export Destinations",
+          "title": "Export destinations",
           "value": "+150"
         },
         {
-          "title": "Exported Products",
+          "title": "Export products",
           "value": "+3,000"
         }
       ]
@@ -181,20 +181,20 @@
       "title": "Training",
       "data": [
         {
-          "title": "Exporting Companies trained 2023",
-          "value": "849"
+          "title": "Exporting companies trained in 2025",
+          "value": "173"
         },
         {
-          "title": "Potential Exporters trained 2023",
-          "value": "308"
+          "title": "Potential exporters trained in 2025",
+          "value": "163"
         },
         {
-          "title": "General Society Training 2023",
-          "value": "6,582"
+          "title": "General public trained in 2025",
+          "value": "2,510"
         },
         {
-          "title": "Graduates of specialized diploma programs 2023",
-          "value": "122"
+          "title": "Graduates from specialized diploma programs in 2024",
+          "value": "261"
         }
       ]
     },
@@ -202,19 +202,19 @@
       "title": "Global Positioning",
       "data": [
         {
-          "title": "Destination of FDI in the Central America and Caribbean region",
+          "title": "Top FDI destination in Central America and the Caribbean",
           "value": "1st"
         },
         {
-          "title": "Exporter of pure cigars to the world",
+          "title": "World's leading exporter of premium cigars",
           "value": "1st"
         },
         {
-          "title": "Exporter of Rum to Spain",
+          "title": "Top exporter of rum to the United States and Spain",
           "value": "1st"
         },
         {
-          "title": "Exporter of automatic circuit breakers, for a voltage <= 1,000 Volts to the United States",
+          "title": "Top exporter of automatic circuit breakers (≤ 1,000 Volts) to the United States",
           "value": "1st"
         }
       ]

@@ -7,7 +7,6 @@ import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import Editor from "../tools/rich-editor/config";
 import TextEditor from "../tools/rich-editor/rich-editor";
-import { XMarkIcon } from "@heroicons/react/24/solid";
 import { Dropzone } from "@mantine/dropzone";
 import Image from "next/image";
 import { createNews, useCategoriesNews } from "@/services/news/service";
@@ -18,10 +17,10 @@ import { HashLoader } from "react-spinners";
 import {
   Dialog,
   DialogContent,
+  DialogTitle,
   DialogHeader,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { DialogTitle } from "@radix-ui/react-dialog";
 
 export function NewsDialog({
   open,
@@ -407,7 +406,7 @@ export function NewsDialog({
   return (
     <>
       <Dialog open={open} onOpenChange={handler}>
-        <DialogContent className="min-w-[1000px] overflow-y-auto no-scrollbar min-h-[30vh] max-h-[90vh]  not-first:font-montserrat">
+        <DialogContent className="min-w-[1000px] overflow-y-auto no-scrollbar min-h-[30vh] max-h-[90vh] not-first:font-montserrat">
           <DialogTitle className="w-full flex justify-between items-center text-2xl font-bold">
             Agrega una nueva noticia
           </DialogTitle>
@@ -420,8 +419,9 @@ export function NewsDialog({
               <Step
                 key={index}
                 onClick={handleButton}
-                className="font-montserrat text-white font-black text-lg bg-blue-dark cursor-pointer"
+                className="font-montserrat text-white font-black text-lg bg-black cursor-pointer"
                 activeClassName="bg-blue-dark"
+                completedClassName="bg-black"
               >
                 {step.step}
               </Step>

@@ -37,7 +37,7 @@ export default function BusinessFacilitation() {
           </div>
         </div>
       </section>
-      <Link
+      {/* <Link
         href="https://surveys.intracen.org/response/G2tIYnddTgoDYVFzX1R6S0d1enk"
         target="_blank"
         className="hidden xl:flex"
@@ -49,7 +49,7 @@ export default function BusinessFacilitation() {
           alt="WEIDE"
           className=" w-full"
         />
-      </Link>
+      </Link> */}
       {/* <Link href="/sumando-exportadoras" target="_blank">
         <Image
           width={2048}

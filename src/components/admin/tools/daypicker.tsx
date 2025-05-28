@@ -1,16 +1,16 @@
 "use client";
 import React from "react";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
-  Input,
   Popover,
-  PopoverHandler,
   PopoverContent,
-} from "@material-tailwind/react";
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { es } from "date-fns/locale";
 import { format } from "date-fns";
-import { DayPicker } from "react-day-picker";
-import "react-day-picker/dist/style.css";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 export default function Day_Picker({
   date,
@@ -34,21 +34,29 @@ export default function Day_Picker({
   const day = new Date().getDate();
 
   return (
-    <Popover placement="bottom-start">
-      <PopoverHandler>
-        <Input
-          crossOrigin={""}
-          label=""
-          className="!border !border-gray-300 bg-white text-gray-900 ring-4 ring-transparent placeholder:text-gray-500"
-          labelProps={{
-            className: "hidden",
-          }}
-          onChange={() => null}
-          value={date ? format(date, "dd MMMM yyyy", { locale: es }) : ""}
-        />
-      </PopoverHandler>
-      <PopoverContent className="z-[9999]">
-        <DayPicker
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button
+          variant={"outline"}
+          className={cn(
+            "w-full justify-start text-left font-normal",
+            !date && "text-muted-foreground"
+          )}
+        >
+          <CalendarIcon className="mr-2 h-4 w-4" />
+          {date ? (
+            format(
+              date instanceof Date ? date : new Date(date),
+              "dd MMMM yyyy",
+              { locale: es }
+            )
+          ) : (
+            <span>Fecha</span>
+          )}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-auto p-0">
+        <Calendar
           locale={es}
           mode="single"
           defaultMonth={new Date(year, monthNumber, day)}
@@ -58,7 +66,6 @@ export default function Day_Picker({
           toYear={year + 1}
           showOutsideDays
           required={true}
-          className="border-0"
         />
       </PopoverContent>
     </Popover>

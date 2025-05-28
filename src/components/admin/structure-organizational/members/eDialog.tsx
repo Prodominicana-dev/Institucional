@@ -623,7 +623,9 @@ export function MembersEditDialog({
             {steps.map((step, index) => (
               <Step
                 key={index}
-                className="font-montserrat text-white font-black text-lg bg-blue-dark cursor-pointer"
+                className="font-montserrat text-white font-black text-lg bg-black cursor-pointer"
+                activeClassName="bg-blue-dark"
+                completedClassName="bg-black"
               >
                 {step.step}
               </Step>

@@ -8,17 +8,10 @@ import {
 import React, { useEffect, useState } from "react";
 
 import { useUser } from "@auth0/nextjs-auth0";
-import DeactiveButton from "../inactive";
-import ActivateButton from "../active";
 import DeleteButton from "../delete";
-import { deleteDirection } from "@/services/structure-organizational/service";
-import Image from "next/image";
-import { deleteMember } from "@/services/structure-organizational/members/service";
-import { deleteGallery } from "@/services/gallery/service";
-
-import Link from "next/link";
 import { EditScheduleDialog } from "./edit";
 import { Tooltip } from "@material-tailwind/react";
+import { deleteSchedule } from "@/services/schedule/service";
 
 export default function Card({
   schedule,
@@ -46,7 +39,7 @@ export default function Card({
 
   const handleDelete = () => {
     if (user && !isLoading) {
-      deleteGallery(
+      deleteSchedule(
         schedule.id as string,
         handleDeleteOpen,
         update,
@@ -94,8 +87,8 @@ export default function Card({
       {deleted && (
         <DeleteButton
           open={deleted}
-          title="Eliminar Galería de Fotos"
-          message="¿Estás seguro de que deseas eliminar esta galería de fotos? Esta acción no se puede deshacer y además se eliminarán todas las imágenes asociadas a la galería."
+          title="Eliminar Agenda"
+          message="¿Estás seguro de que deseas eliminar esta agenda? Esta acción no se puede deshacer y además se eliminará este evento de la agenda."
           handleOpen={handleDeleteOpen}
           funct={handleDelete}
         />
