@@ -1,43 +1,25 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Tooltip,
-  Input,
-  Spinner,
-  Switch,
-  Typography,
-} from "@material-tailwind/react";
-import CreatableSelect from "react-select/creatable";
 import Select from "react-select";
 import { Montserrat } from "next/font/google";
 import { Group, Text, rem } from "@mantine/core";
 import { Dropzone, FileWithPath } from "@mantine/dropzone";
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import {
-  createSubsection,
-  editSubsection,
-  useSectionSubsAdmin,
-  useSubsectionDocAdmin,
-} from "@/services/subsection/service";
-import SectionPopover from "../section/popover";
 import { useUser } from "@auth0/nextjs-auth0";
-import SubsectionPopover from "../subsection/popover";
-import {
-  createSection,
-  editSection,
-  useSection,
-} from "@/services/section/service";
-import { createDocument, editDocument } from "@/services/document/service";
+import { editDocument } from "@/services/document/service";
 import { Document } from "@/models/document";
 import Day_Picker from "../../tools/daypicker";
-import { Section } from "@/models/section";
-import { Subsection } from "@/models/subsection";
 import { HashLoader } from "react-spinners";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogHeader,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 
 const typeOptions = [
@@ -144,14 +126,17 @@ export function EditDocumentDialog({
   };
   return (
     <>
-      <Dialog open={open} handler={handler} className="p-2 ">
-        <DialogHeader className="font-semibold " style={monserratStyle.style}>
-          Editar documento
-        </DialogHeader>
-        <DialogBody
-          className="flex flex-col space-y-4 overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh]"
+      <Dialog open={open} onOpenChange={handler}>
+        <DialogContent
+          className="flex flex-col overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh]"
           style={monserratStyle.style}
         >
+          <DialogTitle
+            className="text-2xl font-bold"
+            style={monserratStyle.style}
+          >
+            Editar documento
+          </DialogTitle>
           <p className="font-normal text-gray-400 text-xs italic ">
             (i): No se puede editar ni la sección, ni la subsección. Actualiza
             el documento y/o el período.
@@ -208,34 +193,28 @@ export function EditDocumentDialog({
               <Day_Picker date={date} setDate={setDate} />
             </div>
           </div>
-          <div className="w-full flex">
-            <Switch
-              onChange={handleChecked}
-              checked={checked}
-              crossOrigin={""}
-              label={
-                <div>
-                  <label
-                    htmlFor="section"
-                    className="font-semibold text-black text-base"
-                  >
-                    {`${
-                      !document.url
-                        ? "Cambiar el documento..."
-                        : "Cambiar enlace al documento..."
-                    }`}{" "}
-                    <span className="font-normal text-xs italic">(?)</span>
-                  </label>
-                  <p className="text-gray-400 text-xs">
-                    {`${
-                      !document.url
-                        ? "Al cambiar el documento se perderá el anterior."
-                        : "Al cambiar el enlace se perderá el anterior."
-                    }`}
-                  </p>
-                </div>
-              }
-            />
+          <div className="w-full flex items-center gap-2">
+            <Switch onCheckedChange={handleChecked} checked={checked} />
+            <div>
+              <label
+                htmlFor="section"
+                className="font-semibold text-black text-base"
+              >
+                {`${
+                  !document.url
+                    ? "Cambiar el documento..."
+                    : "Cambiar enlace al documento..."
+                }`}{" "}
+                <span className="font-normal text-xs italic">(?)</span>
+              </label>
+              <p className="text-gray-400 text-xs">
+                {`${
+                  !document.url
+                    ? "Al cambiar el documento se perderá el anterior."
+                    : "Al cambiar el enlace se perderá el anterior."
+                }`}
+              </p>
+            </div>
           </div>
 
           <div className={`${checked && !document.url ? "block" : "hidden"}`}>
@@ -321,9 +300,7 @@ export function EditDocumentDialog({
                 key={index}
                 className="w-full border-2 border-gray-400 rounded-lg grid grid-cols-3 p-2 items-center text-center"
               >
-                <label className="truncate">
-                  <Tooltip content={file.name}>{file.name}</Tooltip>
-                </label>
+                <label className="truncate">{file.name}</label>
                 <label className="truncate">
                   {file.type.includes("pdf") ? "PDF" : "Excel"}
                 </label>
@@ -338,7 +315,7 @@ export function EditDocumentDialog({
               </div>
             ))}
           </div>
-        </DialogBody>
+        </DialogContent>
         <DialogFooter style={monserratStyle.style} className="space-x-4">
           <button
             onClick={handler}

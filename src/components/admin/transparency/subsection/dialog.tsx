@@ -1,15 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Input,
-  Spinner,
-  Switch,
-} from "@material-tailwind/react";
-import { createSection, useSection } from "@/services/section/service";
+import { createSection } from "@/services/section/service";
 import { useUser } from "@auth0/nextjs-auth0";
 import Select from "react-select";
 import {
@@ -21,8 +12,18 @@ import { Montserrat } from "next/font/google";
 import SectionPopover from "../section/popover";
 import Editor from "../../tools/rich-editor/config";
 import TextEditor from "../../tools/rich-editor/rich-editor";
-import { Section } from "@/models/section";
 import { HashLoader } from "react-spinners";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogHeader,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { Checkbox } from "@/components/ui/checkbox";
+
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 
 export function SubsectionDialog({
@@ -125,14 +126,17 @@ export function SubsectionDialog({
   }
   return (
     <>
-      <Dialog open={open} handler={handler} className="p-2 ">
-        <DialogHeader className="font-semibold " style={monserratStyle.style}>
-          Agregar Subsección
-        </DialogHeader>
-        <DialogBody
-          className="flex flex-col space-y-4 overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh]"
+      <Dialog open={open} onOpenChange={handler}>
+        <DialogContent
+          className="flex flex-col overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh]"
           style={monserratStyle.style}
         >
+          <DialogTitle
+            className="text-2xl font-bold"
+            style={monserratStyle.style}
+          >
+            Agregar Subsección
+          </DialogTitle>
           <div className="flex flex-row space-x-4 w-full">
             <div className="flex flex-col w-6/12">
               <label className="font-semibold text-black text-lg">Nombre</label>
@@ -178,34 +182,29 @@ export function SubsectionDialog({
             </div>
           </div>
           {/* ENLACE DIRECTO */}
-          <Switch
-            checked={isUrl}
-            onChange={() => {
-              setIsUrl(!isUrl);
-              setIsDocument(false);
-              setType(!isUrl ? "url" : "");
-            }}
-            crossOrigin={""}
-            label={
-              <div className="">
-                <p className="font-semibold text-black text-lg">
-                  ¿Esta subsección tendrá algún enlace directo?
-                </p>
-                <p className="font-normal text-xs text-gray-500">
-                  <InformationCircleIcon className="w-4 h-4 inline-block" /> Si
-                  la subsección tiene un enlace vinculado, al hacer clic, el
-                  usuario será redirigido a la página establecida.
-                </p>
-              </div>
-            }
-            containerProps={{
-              className: "-mt-5",
-            }}
-          />
+          <div className="flex items-center gap-2">
+            <Switch
+              checked={isUrl}
+              onCheckedChange={() => {
+                setIsUrl(!isUrl);
+                setIsDocument(false);
+                setType(!isUrl ? "url" : "");
+              }}
+            />
+            <div className="">
+              <p className="font-semibold text-black text-lg">
+                ¿Esta subsección tendrá algún enlace directo?
+              </p>
+              <p className="font-normal text-xs text-gray-500">
+                <InformationCircleIcon className="w-4 h-4 inline-block" /> Si la
+                subsección tiene un enlace vinculado, al hacer clic, el usuario
+                será redirigido a la página establecida.
+              </p>
+            </div>
+          </div>
           <div className={`${isUrl ? "block" : "hidden"} flex flex-col w-full`}>
             <label className="font-semibold text-black text-lg">Enlace</label>
             <Input
-              crossOrigin={""}
               id="name"
               className="w-full"
               type="url"
@@ -214,31 +213,27 @@ export function SubsectionDialog({
             />
           </div>
           {/* Documentos */}
-          <Switch
-            checked={isDocument}
-            onChange={() => {
-              setIsUrl(false);
-              setIsDocument(!isDocument);
-              setType(!isDocument ? "document" : "");
-            }}
-            crossOrigin={""}
-            label={
-              <div className="p-4">
-                <p className="font-semibold text-black text-lg">
-                  ¿Esta subsección tendrá algún documento vinculado?
-                </p>
-                <p className="font-normal text-xs text-gray-500">
-                  <InformationCircleIcon className="w-4 h-4 inline-block" /> Al
-                  optar por permitir documentos en esta subsección, también
-                  tendrás la opción de agregar información adicional en caso de
-                  ser necesario.
-                </p>
-              </div>
-            }
-            containerProps={{
-              className: "-mt-5",
-            }}
-          />
+          <div className="flex items-center gap-2">
+            <Switch
+              checked={isDocument}
+              onCheckedChange={() => {
+                setIsUrl(false);
+                setIsDocument(!isDocument);
+                setType(!isDocument ? "document" : "");
+              }}
+            />
+            <div className="p-4">
+              <p className="font-semibold text-black text-lg">
+                ¿Esta subsección tendrá algún documento vinculado?
+              </p>
+              <p className="font-normal text-xs text-gray-500">
+                <InformationCircleIcon className="w-4 h-4 inline-block" /> Al
+                optar por permitir documentos en esta subsección, también
+                tendrás la opción de agregar información adicional en caso de
+                ser necesario.
+              </p>
+            </div>
+          </div>
           <div
             className={`${
               isDocument ? "block" : "hidden"
@@ -254,28 +249,28 @@ export function SubsectionDialog({
               (?) = Opcional
             </label>
           </div>
-        </DialogBody>
-        <DialogFooter style={monserratStyle.style} className="space-x-4">
-          <button
-            onClick={handler}
-            className="w-36 h-12 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white hover:shadow-lg duration-300 rounded-xl"
-          >
-            Cancelar
-          </button>
-          <button
-            onClick={handleSubmit}
-            disabled={
-              !name ||
-              !sectionId ||
-              dataLoading ||
-              (isUrl && !link) ||
-              (!isUrl && !isDocument)
-            }
-            className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl justify-center flex items-center"
-          >
-            {dataLoading ? <HashLoader /> : "Guardar"}
-          </button>
-        </DialogFooter>
+          <DialogFooter style={monserratStyle.style} className="space-x-4">
+            <button
+              onClick={handler}
+              className="w-36 h-12 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white hover:shadow-lg duration-300 rounded-xl"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={handleSubmit}
+              disabled={
+                !name ||
+                !sectionId ||
+                dataLoading ||
+                (isUrl && !link) ||
+                (!isUrl && !isDocument)
+              }
+              className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl justify-center flex items-center"
+            >
+              {dataLoading ? <HashLoader /> : "Guardar"}
+            </button>
+          </DialogFooter>
+        </DialogContent>
       </Dialog>
     </>
   );

@@ -79,8 +79,8 @@ export default function Card({
       {deleted && (
         <DeleteButton
           open={deleted}
-          title="Eliminar Colaborador"
-          message="¿Estás seguro de que deseas eliminar este colaborador? Esta acción no se puede deshacer."
+          title="Eliminar Exportador"
+          message="¿Estás seguro de que deseas eliminar este Exportador? Esta acción no se puede deshacer."
           handleOpen={handleDeleteOpen}
           funct={handleDelete}
         />

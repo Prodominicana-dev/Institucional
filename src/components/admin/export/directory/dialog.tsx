@@ -1,17 +1,5 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Input,
-  Spinner,
-  Menu,
-  MenuHandler,
-  MenuList,
-  MenuItem,
-} from "@material-tailwind/react";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { useUser } from "@auth0/nextjs-auth0";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
@@ -24,6 +12,13 @@ import { useProducts } from "@/services/export/product/service";
 import { createExporter } from "@/services/export/directory/service";
 import { useSector } from "@/services/export/sector/service";
 import { HashLoader } from "react-spinners";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogHeader,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 export function ExporterDialog({
   open,
@@ -462,21 +457,13 @@ export function ExporterDialog({
 
   return (
     <>
-      <Dialog
-        open={open}
-        handler={handler}
-        className="p-2 flex justify-center items-center"
-        size="xxl"
-      >
-        <DialogHeader className="font-black text-black font-montserrat flex flex-col gap-5 w-8/12">
-          <div className="w-full flex justify-between items-center">
-            Agrega un nuevo exportador
-            <button onClick={handler}>
-              <XMarkIcon className="size-7 text-black" />
-            </button>
-          </div>
-        </DialogHeader>
-        <DialogBody className="flex flex-col w-8/12 overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh] font-montserrat">
+      <Dialog open={open} onOpenChange={handler}>
+        <DialogContent className="min-w-[1000px] flex flex-col overflow-y-auto no-scrollbar min-h-[25vh] max-h-[90vh] font-montserrat">
+          <DialogHeader className="font-black text-black font-montserrat flex flex-col gap-5">
+            <DialogTitle className="font-bold text-2xl">
+              Agrega un nuevo exportador
+            </DialogTitle>
+          </DialogHeader>
           {steps.map((step, index) => (
             <div
               key={index}
@@ -487,15 +474,15 @@ export function ExporterDialog({
               {step.section}
             </div>
           ))}
-        </DialogBody>
-        <DialogFooter className="space-x-4 font-montserrat w-8/12">
-          <button
-            onClick={handleButton}
-            className={`${"w-36 h-12 bg-white border-2 border-black text-black hover:bg-black hover:text-white hover:shadow-lg duration-300 rounded-xl"}`}
-          >
-            {submitLoading ? <HashLoader /> : "Guardar"}
-          </button>
-        </DialogFooter>
+          <DialogFooter className="space-x-4 font-montserrat">
+            <button
+              onClick={handleButton}
+              className={`${"w-36 h-12 bg-white border-2 border-black text-black hover:bg-black hover:text-white hover:shadow-lg duration-300 rounded-xl"}`}
+            >
+              {submitLoading ? <HashLoader /> : "Guardar"}
+            </button>
+          </DialogFooter>
+        </DialogContent>
       </Dialog>
     </>
   );

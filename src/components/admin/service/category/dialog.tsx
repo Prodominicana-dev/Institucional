@@ -1,24 +1,18 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import {
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Input,
-  Spinner,
-} from "@material-tailwind/react";
+import React, { useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0";
-import { Stepper, Step } from "@material-tailwind/react";
-import { createDirection } from "@/services/structure-organizational/service";
-import {
-  ExclamationCircleIcon,
-  InformationCircleIcon,
-} from "@heroicons/react/24/outline";
-import { createNewsCategory } from "@/services/news/categories/service";
-import { createEventCategory } from "@/services/events/categories/service";
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { createServiceCategory } from "@/services/service/categories/service";
 import { HashLoader } from "react-spinners";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogHeader,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+
 export function ServiceCategoriesDialog({
   open,
   handler,
@@ -55,41 +49,38 @@ export function ServiceCategoriesDialog({
   };
 
   return (
-    <>
-      <Dialog open={open} handler={handler} className="p-2 ">
-        <DialogHeader className="font-semibold flex flex-col font-montserrat items-start gap-2">
+    <Dialog open={open} onOpenChange={handler}>
+      <DialogContent className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar">
+        <DialogTitle className="font-semibold flex flex-col font-montserrat items-start gap-2">
           Agregar una nueva categoría
-        </DialogHeader>
-
-        <DialogBody className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar">
-          <form action={handleSubmit}>
-            <div className="flex flex-col w-full space-y-4">
-              <label
-                htmlFor="nameEs"
-                className="font-semibold text-black text-lg"
-              >
-                Nombre <span className="text-red-600">*</span>
-              </label>
-              <Input
-                crossOrigin={""}
-                id="nameEs"
-                className="w-full"
-                onChange={(e) => setName(e.target.value)}
-                value={name}
-                placeholder="Nombre de la categoría"
-              />
-              <label
-                htmlFor="nameEs"
-                className={`${
-                  warning ? "block" : "hidden"
-                } text-red-600 text-sm flex items-center gap-2`}
-              >
-                <ExclamationCircleIcon className="size-5" />
-                El nombre es obligatorio.
-              </label>
-            </div>
-          </form>
-        </DialogBody>
+        </DialogTitle>
+        <form action={handleSubmit}>
+          <div className="flex flex-col w-full space-y-4">
+            <label
+              htmlFor="nameEs"
+              className="font-semibold text-black text-lg"
+            >
+              Nombre <span className="text-red-600">*</span>
+            </label>
+            <Input
+              crossOrigin={""}
+              id="nameEs"
+              className="w-full"
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+              placeholder="Nombre de la categoría"
+            />
+            <label
+              htmlFor="nameEs"
+              className={`${
+                warning ? "block" : "hidden"
+              } text-red-600 text-sm flex items-center gap-2`}
+            >
+              <ExclamationCircleIcon className="size-5" />
+              El nombre es obligatorio.
+            </label>
+          </div>
+        </form>
         <DialogFooter className="space-x-4 font-montserrat">
           <button
             onClick={handler}
@@ -106,7 +97,7 @@ export function ServiceCategoriesDialog({
             {isLoading ? <HashLoader /> : "Guardar"}
           </button>
         </DialogFooter>
-      </Dialog>
-    </>
+      </DialogContent>
+    </Dialog>
   );
 }

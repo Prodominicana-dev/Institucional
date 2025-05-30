@@ -1,27 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Input,
-  Spinner,
-  Switch,
-} from "@material-tailwind/react";
-import {
-  createSection,
-  editSection,
-  useSectionAdmin,
-} from "@/services/section/service";
+import { useSectionAdmin } from "@/services/section/service";
 import { useUser } from "@auth0/nextjs-auth0";
 import { Montserrat } from "next/font/google";
-import Editor from "../../tools/rich-editor/config";
-import TextEditor from "../../tools/rich-editor/rich-editor";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import Select from "react-select";
-import { editSubsection, useSubsection } from "@/services/subsection/service";
+import { editSubsection } from "@/services/subsection/service";
 import { HashLoader } from "react-spinners";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 export function OrderDialog({
@@ -93,15 +79,18 @@ export function OrderDialog({
     );
   return (
     <>
-      <Dialog open={open} handler={handler} className="p-2">
-        <DialogHeader className="font-semibold " style={monserratStyle.style}>
-          Ordenar las secciones
-        </DialogHeader>
-        <DialogBody
-          className="flex flex-col space-y-4 overflow-y-auto no-scrollbar max-h-[75vh]"
+      <Dialog open={open} onOpenChange={handler}>
+        <DialogContent
+          className="flex flex-col overflow-y-auto no-scrollbar min-h-[35vh] max-h-[75vh]"
           style={monserratStyle.style}
         >
-          <label className="text-black text-sm font-light  text-center">
+          <DialogTitle
+            className="text-2xl font-bold"
+            style={monserratStyle.style}
+          >
+            Ordenar las secciones
+          </DialogTitle>
+          <label className="text-black text-sm font-light">
             <InformationCircleIcon className="w-4 h-4 inline-block" /> El orden
             que se establezca aquí será el que se muestre en la página de
             transparencia.
@@ -109,7 +98,7 @@ export function OrderDialog({
           <label htmlFor="" className="text-xl text-black font-semibold">
             Sección a ordenar
           </label>
-          <div className="w-6/12 flex justify-center">
+          <div className="w-full flex justify-center">
             <Select
               placeholder="Seleccione la sección a ordenar..."
               menuPosition="fixed"
@@ -145,7 +134,7 @@ export function OrderDialog({
                   placeholder="Seleccione..."
                   menuPosition="fixed"
                   id="order"
-                  className="w-6/12"
+                  className="w-full"
                   maxMenuHeight={200}
                   options={quantityOptions}
                   onChange={(e: any) => {
@@ -158,7 +147,7 @@ export function OrderDialog({
               </div>
             </div>
           ))}
-        </DialogBody>
+        </DialogContent>
       </Dialog>
     </>
   );

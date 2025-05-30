@@ -1,12 +1,5 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
-import {
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Spinner,
-} from "@material-tailwind/react";
 import { Stepper, Step } from "@material-tailwind/react";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { useUser } from "@auth0/nextjs-auth0";
@@ -22,6 +15,13 @@ import { useServiceCategory } from "@/services/service/categories/service";
 import { useServiceType } from "@/services/service/type/service";
 import { createService } from "@/services/service/service";
 import { HashLoader } from "react-spinners";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogHeader,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 export function ServiceDialog({
   open,
@@ -1111,37 +1111,30 @@ export function ServiceDialog({
 
   return (
     <>
-      <Dialog
-        open={open}
-        justify-center
-        handler={handler}
-        className="p-10 flex items-center"
-        size="xxl"
-      >
-        <DialogHeader className="font-black text-black font-montserrat flex flex-col gap-5 w-8/12">
-          <div className="w-full flex justify-between items-center">
-            Agrega un nuevo servicio
-            <button onClick={handler}>
-              <XMarkIcon className="size-7 text-black" />
-            </button>
-          </div>
-          <Stepper
-            activeStep={activeStep}
-            isLastStep={(value) => setIsLastStep(value)}
-            isFirstStep={(value) => setIsFirstStep(value)}
-          >
-            {steps.map((step, index) => (
-              <Step
-                key={index}
-                onClick={handleButton}
-                className="font-montserrat text-white font-black text-lg bg-blue-dark cursor-pointer"
-              >
-                {step.step}
-              </Step>
-            ))}
-          </Stepper>
-        </DialogHeader>
-        <DialogBody className="flex flex-col w-8/12 overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh] font-montserrat">
+      <Dialog open={open} onOpenChange={handler}>
+        <DialogContent className="min-w-[1000px] flex flex-col overflow-y-auto no-scrollbar min-h-[25vh] max-h-[90vh] font-montserrat">
+          <DialogHeader className="font-black text-black font-montserrat flex flex-col gap-5">
+            <DialogTitle className="text-2xl">
+              Agrega un nuevo servicio
+            </DialogTitle>
+            <Stepper
+              activeStep={activeStep}
+              isLastStep={(value) => setIsLastStep(value)}
+              isFirstStep={(value) => setIsFirstStep(value)}
+            >
+              {steps.map((step, index) => (
+                <Step
+                  key={index}
+                  onClick={handleButton}
+                  className="font-montserrat text-white font-black text-lg bg-black cursor-pointer"
+                  activeClassName="bg-blue-dark"
+                  completedClassName="bg-black"
+                >
+                  {step.step}
+                </Step>
+              ))}
+            </Stepper>
+          </DialogHeader>
           {steps.map((step, index) => (
             <div
               key={index}
@@ -1152,35 +1145,35 @@ export function ServiceDialog({
               {step.section}
             </div>
           ))}
-        </DialogBody>
-        <DialogFooter className="space-x-4 font-montserrat w-8/12">
-          <button
-            onClick={handlePrev}
-            className={`${
-              isFirstStep ? "hidden" : "block"
-            } w-36 h-12 bg-white border-2 border-black text-black hover:bg-black hover:text-white hover:shadow-lg duration-300 rounded-xl`}
-          >
-            Anterior
-          </button>
-          <button
-            onClick={handleButton}
-            className={`${
-              isLastStep
-                ? "w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center"
-                : "w-36 h-12 bg-white border-2 border-black text-black hover:bg-black hover:text-white hover:shadow-lg duration-300 rounded-xl"
-            }`}
-          >
-            {isLastStep ? (
-              submitLoading ? (
-                <HashLoader />
+          <DialogFooter className="space-x-4 font-montserrat">
+            <button
+              onClick={handlePrev}
+              className={`${
+                isFirstStep ? "hidden" : "block"
+              } w-36 h-12 bg-white border-2 border-black text-black hover:bg-black hover:text-white hover:shadow-lg duration-300 rounded-xl`}
+            >
+              Anterior
+            </button>
+            <button
+              onClick={handleButton}
+              className={`${
+                isLastStep
+                  ? "w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center"
+                  : "w-36 h-12 bg-white border-2 border-black text-black hover:bg-black hover:text-white hover:shadow-lg duration-300 rounded-xl"
+              }`}
+            >
+              {isLastStep ? (
+                submitLoading ? (
+                  <HashLoader />
+                ) : (
+                  "Guardar"
+                )
               ) : (
-                "Guardar"
-              )
-            ) : (
-              "Siguiente"
-            )}
-          </button>
-        </DialogFooter>
+                "Siguiente"
+              )}
+            </button>
+          </DialogFooter>
+        </DialogContent>
       </Dialog>
     </>
   );

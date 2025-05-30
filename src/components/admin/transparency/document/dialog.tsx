@@ -1,20 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Spinner,
-  Input,
-} from "@material-tailwind/react";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import Select from "react-select";
 import { Montserrat } from "next/font/google";
 import { useSubsection } from "@/services/subsection/service";
 import { useUser } from "@auth0/nextjs-auth0";
 import { useSection } from "@/services/section/service";
-
 import { createDocument } from "@/services/document/service";
 import { Subsection } from "@/models/subsection";
 import Day_Picker from "../../tools/daypicker";
@@ -22,6 +13,15 @@ import DropzoneImpl from "./dropzone";
 import { Section } from "@/models/section";
 import { FileWithPath } from "@mantine/dropzone";
 import { HashLoader } from "react-spinners";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogHeader,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 
 const typeOptions = [
@@ -183,14 +183,17 @@ export function DocumentDialog({
   };
   return (
     <>
-      <Dialog open={open} handler={handler} className="p-2 ">
-        <DialogHeader className="font-semibold " style={monserratStyle.style}>
-          Agregar documento
-        </DialogHeader>
-        <DialogBody
-          className="flex flex-col space-y-4 overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh]"
+      <Dialog open={open} onOpenChange={handler}>
+        <DialogContent
+          className="flex flex-col overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh]"
           style={monserratStyle.style}
         >
+          <DialogTitle
+            className="text-2xl font-bold"
+            style={monserratStyle.style}
+          >
+            Agregar documento
+          </DialogTitle>
           <div className="flex flex-row space-x-4 w-full justify-center">
             <div className="flex flex-row justify-end items-end space-x-4 w-6/12">
               <div className="flex flex-col w-full">
@@ -321,27 +324,27 @@ export function DocumentDialog({
             handleDrop={handleDrop}
             handleError={handleError}
           />
-        </DialogBody>
-        <DialogFooter style={monserratStyle.style} className="space-x-4">
-          <button
-            onClick={handler}
-            className="w-36 h-12 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white hover:shadow-lg duration-300 rounded-xl"
-          >
-            Cancelar
-          </button>
-          <button
-            disabled={
-              type === "url"
-                ? !link || !name || !sectionId || !date || submitLoading
-                : files.length === 0 || !sectionId || !date || submitLoading
-              // (subsectionChecked && !subsectionId)
-            }
-            onClick={handleSubmit}
-            className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center"
-          >
-            {submitLoading ? <HashLoader /> : "Guardar"}
-          </button>
-        </DialogFooter>
+          <DialogFooter style={monserratStyle.style} className="space-x-4">
+            <button
+              onClick={handler}
+              className="w-36 h-12 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white hover:shadow-lg duration-300 rounded-xl"
+            >
+              Cancelar
+            </button>
+            <button
+              disabled={
+                type === "url"
+                  ? !link || !name || !sectionId || !date || submitLoading
+                  : files.length === 0 || !sectionId || !date || submitLoading
+                // (subsectionChecked && !subsectionId)
+              }
+              onClick={handleSubmit}
+              className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center"
+            >
+              {submitLoading ? <HashLoader /> : "Guardar"}
+            </button>
+          </DialogFooter>
+        </DialogContent>
       </Dialog>
     </>
   );

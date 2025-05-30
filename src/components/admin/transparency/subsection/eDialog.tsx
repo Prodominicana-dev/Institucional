@@ -1,37 +1,28 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  Button,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Tooltip,
-  Input,
-  Textarea,
-  Popover,
-  PopoverHandler,
-  PopoverContent,
-  Typography,
-  Chip,
-  Spinner,
-  Switch,
-} from "@material-tailwind/react";
-import { createSection } from "@/services/section/service";
 import { useUser } from "@auth0/nextjs-auth0";
 import Select from "react-select";
 import { Montserrat } from "next/font/google";
 import {
-  createSubsection,
   editSubsection,
   useSectionSubsAdmin,
 } from "@/services/subsection/service";
-import { InformationCircleIcon, PlusIcon } from "@heroicons/react/24/outline";
+import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { Subsection } from "@/models/subsection";
 import Editor from "../../tools/rich-editor/config";
 import TextEditor from "../../tools/rich-editor/rich-editor";
-import { Checkbox } from "@mantine/core";
 import { HashLoader } from "react-spinners";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogHeader,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Switch } from "@/components/ui/switch";
+import { Checkbox } from "@/components/ui/checkbox";
+
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 
 export function SubsectionEditDialog({
@@ -126,14 +117,17 @@ export function SubsectionEditDialog({
 
   return (
     <>
-      <Dialog open={open} handler={handler} className="p-2 ">
-        <DialogHeader className="font-semibold " style={monserratStyle.style}>
-          Editar Subsección
-        </DialogHeader>
-        <DialogBody
-          className="flex flex-col space-y-4 overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh]"
+      <Dialog open={open} onOpenChange={handler}>
+        <DialogContent
+          className="flex flex-col overflow-y-auto no-scrollbar min-h-[25vh] max-h-[75vh]"
           style={monserratStyle.style}
         >
+          <DialogTitle
+            className="text-2xl font-bold"
+            style={monserratStyle.style}
+          >
+            Editar Subsección
+          </DialogTitle>
           <div className="flex flex-row space-x-4 w-full">
             <div className="flex flex-col w-6/12">
               <label className="font-semibold text-black text-lg">Nombre</label>
@@ -178,30 +172,26 @@ export function SubsectionEditDialog({
           */}
 
           {/* ENLACE DIRECTO */}
-          <Switch
-            checked={isUrl}
-            onChange={() => {
-              handleAcceptUrlWarning();
-              setImSure(false);
-            }}
-            crossOrigin={""}
-            label={
-              <div>
-                <p className="font-semibold text-black text-lg p-4">
-                  ¿Esta subsección tendrá algún enlace directo?
-                </p>
-                <p className="font-normal text-xs text-gray-500">
-                  <InformationCircleIcon className="w-4 h-4 inline-block" /> En
-                  caso que la sección tenga algún enlace directo, al momento del
-                  usuario darle un clic será redirigido a la página que se haya
-                  establecido.
-                </p>
-              </div>
-            }
-            containerProps={{
-              className: "-mt-5",
-            }}
-          />
+          <div className="flex items-center gap-2">
+            <Switch
+              checked={isUrl}
+              onCheckedChange={() => {
+                handleAcceptUrlWarning();
+                setImSure(false);
+              }}
+            />
+            <div>
+              <p className="font-semibold text-black text-lg p-4">
+                ¿Esta subsección tendrá algún enlace directo?
+              </p>
+              <p className="font-normal text-xs text-gray-500">
+                <InformationCircleIcon className="w-4 h-4 inline-block" /> En
+                caso que la sección tenga algún enlace directo, al momento del
+                usuario darle un clic será redirigido a la página que se haya
+                establecido.
+              </p>
+            </div>
+          </div>
           <div className={`${isUrl ? "block" : "hidden"} flex flex-col w-full`}>
             <label className="font-semibold text-black text-lg">Enlace</label>
             <Input
@@ -227,46 +217,42 @@ export function SubsectionEditDialog({
                 subsection.type !== type ? "block" : "hidden"
               } w-full pt-4`}
             >
-              <Checkbox
-                onChange={() => setImSure(!imSure)}
-                checked={imSure}
-                label={
-                  <>
-                    Estoy de acuerdo que al cambiar el tipo de esta subsección{" "}
-                    <span className="font-medium text-blue-dark">
-                      se eliminarán todos los documentos vinculados
-                    </span>
-                    .
-                  </>
-                }
-              />
+              <div className="flex items-center gap-2">
+                <Checkbox
+                  onCheckedChange={() => setImSure(!imSure)}
+                  checked={imSure}
+                />
+                <div>
+                  Estoy de acuerdo que al cambiar el tipo de esta subsección{" "}
+                  <span className="font-medium text-blue-dark">
+                    se eliminarán todos los documentos vinculados
+                  </span>
+                  .
+                </div>
+              </div>
             </div>
           </div>
           {/* Documentos */}
-          <Switch
-            checked={isDocument}
-            onChange={() => {
-              handleAcceptDocumentWarning();
-              setImSure(false);
-            }}
-            crossOrigin={""}
-            label={
-              <div className="p-4">
-                <p className="font-semibold text-black text-lg">
-                  ¿Esta sección tendrá algún documento vinculado directamente?
-                </p>
-                <p className="font-normal text-xs text-gray-500">
-                  <InformationCircleIcon className="w-4 h-4 inline-block" /> Si
-                  la sección tiene algún documento vinculado directamente, no
-                  podrás agregar subsecciones. No obstante, se puede añadir
-                  información adicional a la sección en caso de ser necesario.
-                </p>
-              </div>
-            }
-            containerProps={{
-              className: "-mt-5",
-            }}
-          />
+          <div className="flex items-center gap-2">
+            <Switch
+              checked={isDocument}
+              onCheckedChange={() => {
+                handleAcceptDocumentWarning();
+                setImSure(false);
+              }}
+            />
+            <div className="p-4">
+              <p className="font-semibold text-black text-lg">
+                ¿Esta sección tendrá algún documento vinculado directamente?
+              </p>
+              <p className="font-normal text-xs text-gray-500">
+                <InformationCircleIcon className="w-4 h-4 inline-block" /> Si la
+                sección tiene algún documento vinculado directamente, no podrás
+                agregar subsecciones. No obstante, se puede añadir información
+                adicional a la sección en caso de ser necesario.
+              </p>
+            </div>
+          </div>
           <div
             className={`${
               isDocument ? "block" : "hidden"
@@ -301,42 +287,42 @@ export function SubsectionEditDialog({
                 subsection.type !== type ? "block" : "hidden"
               } w-full`}
             >
-              <Checkbox
-                onChange={() => setImSure(!imSure)}
-                checked={imSure}
-                label={
-                  <>
-                    Estoy de acuerdo que al cambiar el tipo de esta subsección{" "}
-                    <span className="font-medium text-blue-dark">
-                      se eliminarán los enlaces directos
-                    </span>
-                    .
-                  </>
-                }
-              />
+              <div className="flex items-center gap-2">
+                <Checkbox
+                  onCheckedChange={() => setImSure(!imSure)}
+                  checked={imSure}
+                />
+                <div>
+                  Estoy de acuerdo que al cambiar el tipo de esta subsección{" "}
+                  <span className="font-medium text-blue-dark">
+                    se eliminarán los enlaces directos
+                  </span>
+                  .
+                </div>
+              </div>
             </div>
           </div>
-        </DialogBody>
-        <DialogFooter style={monserratStyle.style} className="space-x-4">
-          <button
-            onClick={handler}
-            className="w-36 h-12 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white hover:shadow-lg duration-300 rounded-xl"
-          >
-            Cancelar
-          </button>
-          <button
-            onClick={handleSubmit}
-            disabled={
-              !name ||
-              !sectionId ||
-              dataLoading ||
-              (subsection.type !== type && !imSure)
-            }
-            className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl justify-center flex items-center"
-          >
-            {dataLoading ? <HashLoader /> : "Guardar"}
-          </button>
-        </DialogFooter>
+          <DialogFooter style={monserratStyle.style} className="space-x-4">
+            <button
+              onClick={handler}
+              className="w-36 h-12 bg-white border-2 border-red-500 text-red-500 hover:bg-red-500 hover:text-white hover:shadow-lg duration-300 rounded-xl"
+            >
+              Cancelar
+            </button>
+            <button
+              onClick={handleSubmit}
+              disabled={
+                !name ||
+                !sectionId ||
+                dataLoading ||
+                (subsection.type !== type && !imSure)
+              }
+              className="w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl justify-center flex items-center"
+            >
+              {dataLoading ? <HashLoader /> : "Guardar"}
+            </button>
+          </DialogFooter>
+        </DialogContent>
       </Dialog>
     </>
   );

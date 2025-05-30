@@ -99,11 +99,11 @@ export function SideBar() {
             url={"/admin"}
             iconUrl={"/svg/layout/sidebar/home.svg"}
           />
-          <SidebarItem
+          {/* <SidebarItem
             title={"Sobre Nosotros"}
             url={"/admin/about"}
             iconUrl={"/svg/layout/sidebar/about.svg"}
-          />
+          /> */}
           <SidebarItem
             title={"Documentos"}
             url={"/admin/documents"}
@@ -130,7 +130,7 @@ export function SideBar() {
               >
                 <ListItemPrefix className="">
                   <Image
-                    src={"/svg/layout/sidebar/news.svg"}
+                    src={"/svg/layout/sidebar/services.svg"}
                     width={600}
                     height={600}
                     draggable={false}
@@ -226,11 +226,11 @@ export function SideBar() {
             </AccordionBody>
           </Accordion>
 
-          <SidebarItem
+          {/* <SidebarItem
             title={"Inversión"}
             url={"/admin/investment"}
             iconUrl={"/svg/layout/sidebar/investment.svg"}
-          />
+          /> */}
           <Accordion
             open={openExport === 1}
             icon={
@@ -339,11 +339,11 @@ export function SideBar() {
               )}
             </AccordionBody>
           </Accordion>
-          <SidebarItem
+          {/* <SidebarItem
             title={"Capacitación"}
             url={"/admin/training"}
             iconUrl={"/svg/layout/sidebar/training.svg"}
-          />
+          /> */}
           <Accordion
             open={open === 1}
             icon={
@@ -398,11 +398,11 @@ export function SideBar() {
             </AccordionBody>
           </Accordion>
 
-          <SidebarItem
+          {/* <SidebarItem
             title={"Contactos"}
             url={"/admin/contacts"}
             iconUrl={"/svg/layout/sidebar/contacts.svg"}
-          />
+          /> */}
         </List>
       </div>
     </div>
@@ -420,7 +420,7 @@ function SidebarItem({ title, url, iconUrl }: any) {
             height={600}
             draggable={false}
             alt=""
-            className="w-8 h-8 fill-white text-white duration-700 group-hover:h-5 group-hover:w-5"
+            className="w-8 h-8 fill-white text-white duration-700 group-hover:h-5 group-hover:w-5 overflow-visible object-cover"
           />
         </ListItemPrefix>
         <Typography

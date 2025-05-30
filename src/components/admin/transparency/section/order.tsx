@@ -1,25 +1,11 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import {
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Input,
-  Spinner,
-  Switch,
-} from "@material-tailwind/react";
-import {
-  createSection,
-  editSection,
-  useSectionAdmin,
-} from "@/services/section/service";
+import { editSection, useSectionAdmin } from "@/services/section/service";
 import { useUser } from "@auth0/nextjs-auth0";
 import { Montserrat } from "next/font/google";
-import Editor from "../../tools/rich-editor/config";
-import TextEditor from "../../tools/rich-editor/rich-editor";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import Select from "react-select";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 export function OrderDialog({
@@ -74,14 +60,14 @@ export function OrderDialog({
 
   return (
     <>
-      <Dialog open={open} handler={handler} className="p-2">
-        <DialogHeader className="font-semibold " style={monserratStyle.style}>
-          Ordenar las secciones
-        </DialogHeader>
-        <DialogBody
+      <Dialog open={open} onOpenChange={handler}>
+        <DialogContent
           className="flex flex-col space-y-4 overflow-y-auto no-scrollbar max-h-[75vh]"
           style={monserratStyle.style}
         >
+          <DialogTitle className="font-semibold " style={monserratStyle.style}>
+            Ordenar las secciones
+          </DialogTitle>
           <label className="text-black text-sm font-light  text-center">
             <InformationCircleIcon className="w-4 h-4 inline-block" /> El orden
             que se establezca aquí será el que se muestre en la página de
@@ -121,7 +107,7 @@ export function OrderDialog({
               ))}
             </>
           )}
-        </DialogBody>
+        </DialogContent>
       </Dialog>
     </>
   );
