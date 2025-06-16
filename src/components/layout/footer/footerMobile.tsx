@@ -60,44 +60,60 @@ export default function FooterMobile() {
 
   return (
     <div className="flex flex-col xl:hidden">
-      <div className="w-full h-full bg-blue-950 flex flex-col p-10 space-y-10">
-        <div className="flex ">
-          <Image
-            alt="logo"
-            src={"/svg/logos/Prodominicana.svg"}
-            width={600}
-            height={600}
-            className="w-56"
-          />
+      <div className="w-full h-full bg-white flex flex-col p-10 space-y-10">
+        <div className="flex justify-between items-center w-full">
+          {/* Primer logo con margen izquierdo */}
+          <div className="flex flex-col ">
+            {" "}
+            {/* ml-8 para desplazamiento derecho */}
+            <Image
+              alt="logo"
+              src={"/prodominicana.svg"}
+              width={600}
+              height={600}
+              className="w-[152px] h-[56px]"
+            />
+          </div>
+
+          {/* Segundo logo */}
+          <div className="flex flex-col">
+            <Image
+              alt="logo"
+              src={"/svg/logos/LogoGobHorAzul.svg"}
+              width={600}
+              height={600}
+              className="w-56 h-[56px]"
+            />
+          </div>
         </div>
         <div className="w-full h-full flex flex-col space-y-8 justify-center items-center ">
           <div className="w-full h-full flex space-x-4">
-            <div className="flex flex-col h-full w-6/12 text-white  space-y-4">
+            <div className="flex flex-col h-full w-6/12 text-blue-950   space-y-4">
               <h1 className=" font-bold text-lg h-2/6 flex w-full">
                 {t("aboutUs.title")}
               </h1>
               <Link
                 href={"/whoarewe"}
-                className="text-sm font-light h-full w-full "
+                className="text-sm font-semibold h-full w-full "
               >
                 <p>{t("aboutUs.name")}</p>
                 <p>{t("aboutUs.fullName")}</p>
               </Link>
             </div>
-            <div className="flex flex-col h-full w-6/12 text-white space-y-4">
+            <div className="flex flex-col h-full w-6/12 text-blue-950  space-y-4">
               <h1 className=" font-bold text-lg h-2/6 flex w-full">
                 {t("contactUs.title")}
               </h1>
-              <div className="text-sm font-light h-full w-full  flex flex-col">
+              <div className="text-sm font-semibold h-full w-full  flex flex-col">
                 <Link
                   href={"tel:8095333522"}
-                  className="text-white hover:text-cyan-600 duration-300"
+                  className="text-blue-950  hover:text-cyan-600 duration-300"
                 >
                   {t("contactUs.phone")}
                 </Link>
                 <Link
                   href={"mailto:servicios@prodominicana.gob.do"}
-                  className="text-white hover:text-cyan-600 duration-300"
+                  className="text-blue-950  hover:text-cyan-600 duration-300"
                 >
                   {t("contactUs.emailMobile")}
                 </Link>
@@ -105,37 +121,37 @@ export default function FooterMobile() {
             </div>
           </div>
           <div className="w-full h-full flex space-x-4">
-            <div className="flex flex-col h-full w-6/12 text-white  space-y-4">
+            <div className="flex flex-col h-full w-6/12 text-blue-950 space-y-4">
               <h1 className=" font-bold text-lg h-2/6 flex w-full">
                 {t("findUs.title")}
               </h1>
-              <div className="text-sm font-light h-full w-full">
+              <div className="text-sm font-semibold h-full w-full">
                 <Link
                   href={
                     "https://www.google.com/maps/place/ProDominicana/@18.4506423,-69.9756687,17z/data=!3m1!4b1!4m6!3m5!1s0x8ea561ebff768b75:0xa76a69f95f4a6da5!8m2!3d18.4506372!4d-69.9730938!16s%2Fg%2F1hf2n28nf?entry=ttu"
                   }
                   target="_blank"
-                  className="text-white hover:text-cyan-600 duration-300"
+                  className="text-blue-950 hover:text-cyan-600 duration-300"
                 >
                   <p>{t("findUs.address")}</p>
                   <p>{t("findUs.city")}</p>
                 </Link>
               </div>
             </div>
-            <div className="flex flex-col h-full w-6/12 text-white space-y-4">
+            <div className="flex flex-col h-full w-6/12 text-blue-950 space-y-4">
               <h1 className=" font-bold text-lg h-2/6 flex w-full">
                 {t("stayInformed.title")}
               </h1>
-              <div className="text-sm font-light  flex flex-col space-y-2 justify-start items-start h-full w-full ">
+              <div className="text-sm font-semibold  flex flex-col space-y-2 justify-start items-start h-full w-full ">
                 <Link
                   href="/"
-                  className="text-white hover:text-cyan-600 duration-300"
+                  className="text-blue-950 hover:text-cyan-600 duration-300"
                 >
                   {t("stayInformed.useTerms")}
                 </Link>
                 <Link
                   href="/"
-                  className="text-white hover:text-cyan-600 duration-300"
+                  className="text-blue-950 hover:text-cyan-600 duration-300"
                 >
                   {t("stayInformed.privacyPolicy")}
                 </Link>
@@ -185,7 +201,7 @@ export default function FooterMobile() {
           </Collapse>
         </div>
 
-        <div className="w-full flex flex-col space-y-4  p-5 items-center">
+        <div className="w-full flex flex-col space-y-4  p-5 items-center  text-white bg-blue-950">
           <div className="w-full flex-col flex justify-start items-center h-full">
             <p className="text-center">
               {" "}
@@ -199,7 +215,7 @@ export default function FooterMobile() {
             />
           </div>
           <div className="w-full flex space-x-4 justify-center items-center h-full">
-            <h1 className="text-blue-950 font-bold text-lg flex">
+            <h1 className="text-white font-bold text-lg flex">
               {t("extra.socialMediaText")}
             </h1>
             {socialMedia.map(({ name, url, src }, index) => (

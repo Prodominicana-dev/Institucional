@@ -139,7 +139,7 @@ export default function Navbar() {
           </Link>
           <div className="flex flex-col space-y-4 w-3/12 ">
             <div className="w-full flex items-center justify-center gap-4">
-              <div className="h-12 w-10/12 border-2 border-blue-950 rounded-full p-2 flex items-center justify-between">
+              <div className="h-[40px] w-[246px] border-2 border-blue-950 rounded-full p-2 flex items-center justify-between">
                 <input
                   type="text"
                   placeholder="Buscar"
@@ -161,60 +161,77 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-      <div className="w-full h-full bg-blue-950 flex justify-center ">
-        <div className=" w-11/12 flex  items-center">
-          <div className="flex flex-wrap w-full h-full justify-center">
+      <div className="w-full h-[56px] bg-blue-950 flex justify-center">
+        <div className="w-11/12 flex items-center h-full">
+          <div className="flex flex-wrap w-full h-full items-center justify-center">
             <Link
               href={"/"}
-              className="w-20 bg-red-700 flex justify-center items-center"
+              className="h-full flex justify-center items-center px-4 bg-red-700 xl:px-3 2xl:px-4"
             >
               <Image
                 alt="prodominicana"
                 width={50}
                 height={50}
                 src={"/svg/icons/HomeProdominicana.svg"}
-                className="w-10 cursor-pointer"
+                className="w-10 xl:w-8 2xl:w-10 cursor-pointer"
               />
             </Link>
-            <div className="flex items-center">
+
+            <div className="flex items-center h-full">
               <NavbarMenu
                 title={t("aboutUs.title")}
                 navListMenuItems={aboutListItems}
+                className="text-base xl:text-sm 2xl:text-base"
               />
-              <ChevronDownIcon className="  h-5 w-5 -translate-x-4 hover:text-white text-cyan-600" />
+              <ChevronDownIcon className="h-5 w-5 -translate-x-4 hover:text-white text-cyan-600 xl:h-4 xl:w-4 2xl:h-5 2xl:w-5" />
               <NavbarMenu
                 title={t("services.title")}
                 navListMenuItems={servicesListItems}
+                className="text-base xl:text-sm 2xl:text-base"
               />
-              <ChevronDownIcon className="  h-5 w-5 -translate-x-4 hover:text-white text-cyan-600" />
+              <ChevronDownIcon className="h-5 w-5 -translate-x-4 hover:text-white text-cyan-600 xl:h-4 xl:w-4 2xl:h-5 2xl:w-5" />
               <NavbarMenu
                 title={t("news.title")}
                 navListMenuItems={newsListItems}
+                className="text-base xl:text-sm 2xl:text-base"
               />
-              <ChevronDownIcon className="  h-5 w-5 -translate-x-4  hover:text-white text-cyan-600" />
+              <ChevronDownIcon className="h-5 w-5 -translate-x-4 hover:text-white text-cyan-600 xl:h-4 xl:w-4 2xl:h-5 2xl:w-5" />
             </div>
-            <NavbarLink title={t("shetrades")} link={"/shetrades"} />
+
+            <NavbarLink
+              title={t("shetrades")}
+              link={"/shetrades"}
+              className="h-full px-3 xl:px-2 xl:text-sm 2xl:px-3 2xl:text-base flex items-center"
+            />
             <NavbarLink
               title={t("transparency")}
               link={"https://old.prodominicana.gob.do/transparencia"}
+              className="h-full px-3 xl:px-2 xl:text-sm 2xl:px-3 2xl:text-base flex items-center"
             />
-            <NavbarLink title={t("contact")} link={"/contact"} />
+            <NavbarLink
+              title={t("contact")}
+              link={"/contact"}
+              className="h-full px-3 xl:px-2 xl:text-sm 2xl:px-3 2xl:text-base flex items-center"
+            />
+            <NavbarLink
+              title={t("complaint")}
+              link={"/complaint"}
+              className="h-full px-3 xl:px-2 xl:text-sm 2xl:px-3 2xl:text-base flex items-center"
+            />
 
-            <NavbarLink title={t("complaint")} link={"/complaint"} />
-            {/* <NavbarLink
-              title={t("institute")}
-              link={"https://instituto.prodominicana.gob.do"}
-            /> */}
-            <div className="h-10 flex space-x-3 text-white self-center">
+            {/* Botones */}
+            <div className="h-full flex space-x-3 xl:space-x-2 2xl:space-x-3 text-white items-center">
               <NavbarButton
                 title={t("investButton")}
                 link={"/invest"}
                 icon={"/svg/icons/InvestIcon.svg"}
+                className="h-[36px] xl:h-[30px] xl:text-sm 2xl:h-[36px] 2xl:text-base flex items-center"
               />
               <NavbarButton
                 title={t("exportButton")}
                 link={"/export"}
                 icon={"/svg/icons/ExportIcon.svg"}
+                className="h-[36px] xl:h-[30px] xl:text-sm 2xl:h-[36px] 2xl:text-base flex items-center"
               />
             </div>
           </div>

@@ -101,7 +101,7 @@ export default function Page() {
         </div>
       </div>
       <Dialog open={open} onOpenChange={handleOpen}>
-        <DialogTitle>Idioma</DialogTitle>
+        {/* <DialogTitle>Idioma</DialogTitle> */}
         <DialogContent>
           <div className="flex flex-col gap-5 p-5">
             <div className="text-blue-dark uppercase w-full font-bold text-xl sm:text-3xl">

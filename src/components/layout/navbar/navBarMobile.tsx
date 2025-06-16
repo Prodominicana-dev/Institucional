@@ -7,7 +7,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { Collapse, IconButton } from "@material-tailwind/react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ToolsMenuCollapse from "./toolsMenuCollapse";
 import Link from "next/link";
 import NavbarCollapseMobile from "./navbarCollapseMobile";
@@ -21,8 +21,25 @@ export default function NavBarMobile() {
   const t = useTranslations("navbar");
   const [menuOpen, setMenuOpen] = useState(false);
   const [open, setOpen] = useState(false);
+  const [showInfo, setShowInfo] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const toggleOpen = () => setOpen((cur) => !cur);
   const toggleMenuOpen = () => setMenuOpen((cur) => !cur);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        setShowInfo(false);
+      } else {
+        setShowInfo(true);
+      }
+      setLastScrollY(window.scrollY);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   const portalsListItems = [
     {
@@ -123,9 +140,19 @@ export default function NavBarMobile() {
   ];
 
   return (
-    <section className="xl:hidden block z-50">
+    <section className=" fixed w-full xl:hidden block z-50">
+      <div className="relative">
+        <div
+          className={`transition-transform duration-300 transform ${
+            showInfo ? "h-auto" : "h-0 overflow-hidden"
+          }`}
+        >
       <GovPagesInfo />
-      <div className="bg-white">
+        </div>
+      </div>
+      <div
+        className="bg-white"
+      >
         <div className="w-full flex justify-center items-center">
           <div className="w-11/12 h-24 flex justify-between items-center">
             <div className="w-6/12 h-full flex items-center">

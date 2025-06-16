@@ -15,7 +15,7 @@ export default function GovPagesInfo() {
   const t = useTranslations("GovPagesInfo");
   return (
     <div>
-      <div className="h-[30px] w-full bg-blue-dark xl:bg-white flex justify-center space-x-1">
+      <div className="h-[27px] w-full bg-blue-dark xl:bg-blue-dark flex justify-center space-x-1">
         <div className="xl:w-10/12 flex items-center justify-between space-x-1">
           <Image
             alt="Bandera Dominicana"
@@ -24,7 +24,7 @@ export default function GovPagesInfo() {
             src={"/images/rd.jpg"}
             className="w-7 xl:w-10 p-2"
           />
-          <p className="text-white xl:text-black text-[9px] xl:text-xs text-nowrap">
+          <p className="text-white xl:text-white text-[9px] xl:text-xs text-nowrap">
             {t("label")}
           </p>
           <button
@@ -43,14 +43,14 @@ export default function GovPagesInfo() {
       </div>
       <Collapse
         open={open}
-        className="flex justify-center bg-blue-dark xl:bg-white"
+        className="flex justify-center bg-blue-dark xl:bg-blue-dark"
       >
-        <div className="w-11/12 xl:w-10/12 h-[200px] xl:h-[150px] grid grid-rows-2 gap-3 pb-3 xl:grid-cols-2">
+        <div className="w-11/12 xl:w-10/12 h-[150px] xl:h-[150px] grid grid-rows-2 gap-3 pb-3 xl:grid-cols-2">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-blue-600 size-11 xl:size-14 flex items-center justify-center">
               <BuildingLibraryIcon className="size-6 xl:size-8 text-white" />
             </div>
-            <div className="w-10/12 space-y-2 text-[9px] text-white xl:text-xs xl:text-blue-950 ">
+            <div className="w-10/12 space-y-2 text-[9px] text-white xl:text-xs xl:text-white ">
               <p className="font-bold">{t("domainTitle")}</p>
               <p>{t("domainLabel")}</p>
             </div>
@@ -59,7 +59,7 @@ export default function GovPagesInfo() {
             <div className="rounded-full bg-blue-600 size-11 xl:size-14 flex items-center justify-center">
               <LockClosedIcon className="size-6 xl:size-8 text-white" />
             </div>
-            <div className="w-10/12 space-y-2 text-[9px] text-white xl:text-xs xl:text-blue-950">
+            <div className="w-10/12 space-y-2 text-[9px] text-white xl:text-xs xl:text-white">
               <p className="font-bold">{t("secureDomainTitle")}</p>
               <p>{t("secureDomainLabel")}</p>
             </div>

@@ -64,7 +64,7 @@ export default function DocsCard({
         href="https://get.adobe.com/reader/"
         target="_blank"
         rel="noopener noreferrer"
-        download
+         onClick={(e) => e.stopPropagation()}
       >
         <Image
           src={"/svg/adoveR.svg"}

@@ -13,7 +13,7 @@ export default function SocialMedia({
 }) {
   return (
     <Link href={url} target="_blank">
-      <Image alt={alt} src={image} width={25} height={25} />
+      <Image alt={alt} src={image} width={25} height={25} className="filter brightness-0 invert"  />
     </Link>
   );
 }

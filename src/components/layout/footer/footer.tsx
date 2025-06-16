@@ -69,90 +69,99 @@ export default function Footer() {
   ];
 
   return (
-    <div className=" flex-col xl:flex hidden w-full justify-center items-center bg-blue-950">
+    <div className=" flex-col xl:flex hidden w-full justify-center items-center bg-white">
       <div className="w-11/12 h-full md:h-[40vh] flex space-x-8 items-center">
         <div className="flex items-center">
           <Image
             alt="logo"
-            src={"/svg/logos/Prodominicana.svg"}
+            src={"/prodominicana.svg"}
             width={600}
             height={600}
-            className="w-80"
+            className="w-[182px] h-[56px] "
           />
         </div>
-        <div className="w-[2px] h-3/6 bg-white "></div>
+        <div className="flex items-center">
+          <Image
+            alt="logo"
+            src={"/svg/logos/LogoGobHorAzul.svg"}
+            width={600}
+            height={600}
+            className="w-[179px] h-[86px] "
+          />
+        </div>
+        <div className="w-[2px] h-3/6  bg-blue-950 "></div>
         <div className="w-full h-3/6 flex justify-center items-center space-x-3">
-          <div className="flex flex-col h-full sm:justify-center sm:items-center text-white space-y-4 w-3/12">
+          <div className="flex flex-col h-full sm:justify-center sm:items-center text-blue-950 space-y-4 w-3/12">
             <h1 className="font-bold text-lg h-2/6 flex sm:items-end w-full uppercase">
               {t("aboutUs.title")}
             </h1>
             <div className="h-3/6 w-full">
               <Link
                 href={"/whoarewe"}
-                className="flex flex-col shrink text-white hover:text-cyan-600 text-sm font-light"
+                className="flex flex-col shrink text-blue-950 hover:text-cyan-600 text-sm font-semibold"
               >
                 <p>{t("aboutUs.name")}</p>
                 <p>{t("aboutUs.fullName")}</p>
               </Link>
             </div>
           </div>
-          <div className="flex flex-col h-full sm:justify-center sm:items-center text-white space-y-4 w-3/12">
+          <div className="flex flex-col h-full sm:justify-center sm:items-center text-blue-950 space-y-4 w-3/12">
             <h1 className="font-bold text-lg h-2/6 flex sm:items-end w-full">
               {t("contactUs.title")}
             </h1>
-            <div className="text-sm font-light h-3/6 w-full flex flex-col space-y-2">
+            <div className="text-sm font-semibold h-3/6 w-full flex flex-col space-y-2">
               <Link
                 href={"tel:8095333522"}
-                className="text-white hover:text-cyan-600 duration-300 "
+                className="text-blue-950 hover:text-cyan-600 duration-300 "
               >
                 {t("contactUs.phone")}
               </Link>
               <Link
                 href={"mailto:servicios@prodominicana.gob.do"}
-                className="flex text-white hover:text-cyan-600 duration-300 "
+                className="flex text-blue-950 hover:text-cyan-600 duration-300 "
               >
                 {t("contactUs.email")}
               </Link>
             </div>
           </div>
 
-          <div className="flex flex-col h-full sm:justify-center sm:items-center text-white  space-y-4 w-3/12">
+          <div className="flex flex-col h-full sm:justify-center sm:items-center text-blue-950  space-y-4 w-3/12">
             <h1 className=" font-bold text-lg h-2/6 flex sm:items-end  w-full">
               {t("findUs.title")}
             </h1>
-            <div className="text-sm font-light h-3/6 w-full">
+            <div className="text-sm font-semibold h-3/6 w-full">
               <Link
                 href={
                   "https://www.google.com/maps/place/ProDominicana/@18.4506423,-69.9756687,17z/data=!3m1!4b1!4m6!3m5!1s0x8ea561ebff768b75:0xa76a69f95f4a6da5!8m2!3d18.4506372!4d-69.9730938!16s%2Fg%2F1hf2n28nf?entry=ttu"
                 }
                 target="_blank"
-                className="text-white hover:text-cyan-600 duration-300"
+                className="text-blue-950 hover:text-cyan-600 duration-300"
               >
                 <p>{t("findUs.address")}</p>
                 <p>{t("findUs.city")}</p>
               </Link>
             </div>
           </div>
-          <div className="flex flex-col h-full justify-center items-center text-white space-y-4 w-3/12">
+          <div className="flex flex-col h-full justify-center items-center text-blue-950 space-y-4 w-3/12">
             <h1 className=" font-bold text-lg h-2/6 flex sm:items-end w-full">
               {t("stayInformed.title")}
             </h1>
-            <div className="text-sm font-light h-3/6 w-full flex flex-col space-y-2">
+            <div className=" text-sm font-semibold h-3/6 w-full flex flex-col space-y-2">
               <Link
                 href="/terms-of-use"
-                className="text-white hover:text-cyan-600 duration-300"
+                className="text-blue-950  hover:text-cyan-600 duration-300"
               >
                 {t("stayInformed.useTerms")}
               </Link>
               <Link
                 href="/privacy-policy"
-                className="text-white hover:text-cyan-600 duration-300"
+                className="text-blue-950 hover:text-cyan-600 duration-300"
               >
                 {t("stayInformed.privacyPolicy")}
               </Link>
               <Link
                 href="/frequently-asked-questions"
-                className="text-white hover:text-cyan-600 duration-300"
+                className="text-blue-950 hover:text-cyan-600 duration-300"
               >
                 {t("stayInformed.frequentlyQuestions")}
               </Link>
@@ -204,21 +213,21 @@ export default function Footer() {
             </div>
           </Collapse>
         </div>
-        <div className="h-2/6 w-11/12 flex items-center text-blue-950">
-          <div className="w-8/12 flex  space-x-2 justify-start items-center h-full">
+        <div className="h-2/6 w-full flex justify-center  items-center text-white bg-blue-950">
+          <div className="w-8/12 flex  space-x-2 justify-center items-center h-full">
             <p className="text-center sm:text-left">
               {" "}
               © {year} {t("extra.copyright")}{" "}
             </p>
             <Image
               alt="prodomsvg"
-              src={"/prodominicana.svg"}
+              src={"/svg/logos/Prodominicana.svg"}
               width={150}
               height={150}
               className="w-20"
             />
           </div>
-          <div className=" w-4/12 flex space-x-4 justify-center sm:justify-end items-center h-full">
+          <div className=" w-8/12 flex space-x-4 justify-center sm:justify-center items-center h-full">
             <h1 className=" sm:h-[25px] font-bold text-lg flex">
               {t("extra.socialMediaText")}
             </h1>

@@ -12,6 +12,7 @@ import { usePathname } from "@/i18n/navigation";
 
 interface Props {
   title: string;
+  className?: string;
   navListMenuItems: {
     title: string;
     description: string;

@@ -70,10 +70,10 @@ export default function ToolsMenu() {
       <MenuHandler>
         <Image
           alt=""
-          width={50}
-          height={50}
+          width={32}
+          height={32}
           src={"/svg/icons/appsIcon.svg"}
-          className="w-12 cursor-pointer"
+          className=" w-[32px] h-[32px] cursor-pointer"
         />
       </MenuHandler>
       <MenuList className="hidden max-w-screen-xl rounded-xl lg:block p-5 w-3/12 max-h-[70vh] overflow-y-auto">
