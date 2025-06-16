@@ -112,14 +112,14 @@ export default function Page() {
       phone: "+1 829 292 7490",
       address:
         "Calle Manuel Monteagudo esquina Hicayagua #1, Sector San Martin, Higuey.",
-      coords: { lat: 18.611143380672146, lng: -68.71593638310102 },
+      coords: { lat: 18.61098807140629, lng: -68.71606843741897 },
     },
     {
       province: "La Vega",
       phone: "+1 829 891 0304",
       address:
         "Calle Gral. Juan Rodríguez 94, Plaza Jiminián, Apto. 1-01, La Vega.",
-      coords: { lat: 19.2253606919866, lng: -70.5289678205116 },
+      coords: { lat: 19.22522539119475, lng: -70.52889583295625 },
     },
     {
       province: "Monseñor Nouel",
@@ -137,23 +137,23 @@ export default function Page() {
       province: "Samaná",
       phone: "+1 829 745 1620",
       address: "Calle Restauración No. 02 esq. 27 de Febrero, Samaná.",
-      coords: { lat: 19.20409571821329, lng: -69.33094288983054 },
+      coords: { lat: 19.203903397906313, lng: -69.3310103498061 },
     },
     {
       province: "San Cristóbal",
       phone: "+1 829 344 7799",
       address: "Av. Constitución 95, San Cristóbal.",
-      coords: { lat: 18.436508406695598, lng: -70.11319768177877 },
+      coords: { lat: 18.41688617465356, lng: -70.1110930245643 },
     },
     {
       province: "La Romana",
       phone: "+1 829 796 5943",
       address: "Maria Teresa Toda 12, La Romana.",
-      coords: { lat: 18.433208514955567, lng: -68.96683377820547 },
+      coords: { lat: 18.433012666375834, lng: -68.96684614600241 },
     },
     {
       province: "Puerto Plata",
-      phone: "",
+      phone: "+1 849 286 5003",
       address: "Calle Beller 17, San Felipe de Puerto Plata.",
       coords: { lat: 19.798600441642346, lng: -70.69454200859732 },
     },
@@ -162,19 +162,19 @@ export default function Page() {
       phone: "+1 849 360 1003",
       address:
         "Calle Canela Mota Edificio para Oficinas Gubernamentales Esq, Av. Pdte. Billini, Bani.",
-      coords: { lat: 18.278620345047152, lng: -70.32797283403397 },
+      coords: { lat: 18.278500359380065, lng: -70.32791466195678 },
     },
     {
       province: "Espaillat",
       phone: "+1 829 504 1266",
       address: "Calle Hostos 9, Moca.",
-      coords: { lat: 19.396833399376472, lng: -70.52015004749518 },
+      coords: { lat: 19.396416947175727, lng: -70.52008970748811 },
     },
     {
       province: "Hato Mayor",
       phone: "+1 829 451 4350",
       address: "Av. Melchor Contin Alfau 7, A-R Plaza Centro, Hato Mayor.",
-      coords: { lat: 18.7639977713771, lng: -69.25678658576709 },
+      coords: { lat: 18.763600381020073, lng: -69.25707465860688 },
     },
     {
       province: "Dajabón",
@@ -199,13 +199,13 @@ export default function Page() {
       province: "María Trinidad Sánchez",
       phone: "+1 829 875 7889",
       address: "Calle 27 de Febrero 92, Nagua.",
-      coords: { lat: 19.373874744092845, lng: -69.85338459167191 },
+      coords: { lat: 19.37367974178023, lng: -69.85338053315013 },
     },
     {
       province: "Hermanas Mirabal",
       phone: "+1 849 276 1414",
       address: "Calle Duarte 1, Salcedo.",
-      coords: { lat: 19.379228914686284, lng: -70.41736874191675 },
+      coords: { lat: 19.37904453473489, lng: -70.41742578683291 },
     },
   ];
   const ValidateFunc = () => {
@@ -579,7 +579,17 @@ export default function Page() {
               </h1>
               <p>{t("regionalOffices.description")}</p>
             </div>
-            <Select value={activeMarker.province} onValueChange={handleclick}>
+            <Select
+              value={activeMarker.province}
+              onValueChange={(province) => {
+                const selectedBranch = branches.find(
+                  (b) => b.province === province
+                );
+                if (selectedBranch) {
+                  setActiveMarker(selectedBranch);
+                }
+              }}
+            >
               <SelectTrigger
                 value={activeMarker.province}
                 className="h-16 flex justify-between items-center gap-3 text-base font-normal capitalize tracking-normal px-3 hover:text-gray-300 hover:bg-blue-dark bg-blue-dark text-white"
@@ -590,17 +600,14 @@ export default function Page() {
                 />
               </SelectTrigger>
               <SelectContent>
-                {branches.map((branch: any, index: number) => (
-                  <SelectItem
-                    key={index}
-                    value={branch.province}
-                    onClick={() => {
-                      setActiveMarker(branches[index]);
-                    }}
-                  >
-                    {branch.province}
-                  </SelectItem>
-                ))}
+                {branches
+                  .slice() // Para no mutar el array original
+                  .sort((a, b) => a.province.localeCompare(b.province))
+                  .map((branch: any, index: number) => (
+                    <SelectItem key={index} value={branch.province}>
+                      {branch.province}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
           </div>
