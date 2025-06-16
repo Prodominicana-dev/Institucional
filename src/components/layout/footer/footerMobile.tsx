@@ -62,10 +62,7 @@ export default function FooterMobile() {
     <div className="flex flex-col xl:hidden">
       <div className="w-full h-full bg-white flex flex-col p-10 space-y-10">
         <div className="flex justify-between items-center w-full">
-          {/* Primer logo con margen izquierdo */}
           <div className="flex flex-col ">
-            {" "}
-            {/* ml-8 para desplazamiento derecho */}
             <Image
               alt="logo"
               src={"/prodominicana.svg"}
@@ -74,8 +71,6 @@ export default function FooterMobile() {
               className="w-[152px] h-[56px]"
             />
           </div>
-
-          {/* Segundo logo */}
           <div className="flex flex-col">
             <Image
               alt="logo"
