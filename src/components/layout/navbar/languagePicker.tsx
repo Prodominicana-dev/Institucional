@@ -61,10 +61,10 @@ export default function LanguagePicker() {
         <div className="flex gap-2 items-center justify-center cursor-pointer">
           <Image
             src={`https://flagcdn.com/${selected.code}.svg`}
-            width={100}
-            height={100}
+            width={45}
+            height={45}
             alt={selected.label}
-            className="w-9 h-6 sm:w-10 sm:h-6 object-cover"
+            className=" w[42px] h-[16px] sm:w[30px] sm:h-[16px]object-cover"
           />
           <ChevronDownIcon className="size-4 xl:size-7 text-blue-950" />
         </div>

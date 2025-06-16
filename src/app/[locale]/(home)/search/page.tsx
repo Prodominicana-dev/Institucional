@@ -152,7 +152,7 @@ export default function SearchPage() {
   };
 
   return (
-    <div className="w-full bg-white flex justify-center px-4 py-6 sm:px-8 lg:px-24">
+    <div className="w-full bg-white flex justify-center px-4 py-8 sm:px-8 lg:px-24">
       <div className="w-full max-w-5xl">
         <div className="flex flex-col gap-4">
           <h1 className="text-3xl font-bold">Buscar</h1>

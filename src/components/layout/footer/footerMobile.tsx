@@ -204,7 +204,7 @@ export default function FooterMobile() {
             </p>
             <Image
               alt="prodomsvg"
-              src={"/prodominicana.svg"}
+              src={"/svg/logos/Prodominicana.svg"}
               width={150}
               height={150}
             />

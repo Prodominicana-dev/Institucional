@@ -167,7 +167,7 @@ export default function NavBarMobile() {
             </div>
             <div className="w-6/12 h-full flex space-x-2 sm:space-x-4 items-center justify-end">
               <Link href={"/search"}>
-                <IconButton className="bg-red-700 rounded-full w-8 h-8">
+                <IconButton className="bg-red-700 rounded-full w-[28px] h-[28px]">
                   <MagnifyingGlassIcon className="w-5 h-5" />
                 </IconButton>
               </Link>
@@ -175,7 +175,7 @@ export default function NavBarMobile() {
               <LanguagePicker />
               <div className="w-[2px] h-2/6 bg-gray-300 rounded-full"></div>
               <button onClick={toggleOpen} className=" cursor-pointer">
-                <Bars3Icon className="w-8 h-8 text-blue-950" />
+                <Bars3Icon className="w-[42px] h-[44px] text-blue-950" />
               </button>
             </div>
           </div>
