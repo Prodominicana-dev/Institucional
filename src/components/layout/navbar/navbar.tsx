@@ -140,7 +140,9 @@ export default function Navbar() {
           </Link>
           <div className="flex flex-col space-y-4 w-3/12 ">
             <div className="w-full flex items-center justify-center gap-4">
-              <div className="h-[40px] w-[246px] border-2 border-blue-950 rounded-full p-2 flex items-center justify-between">
+              <div className=" relative !w-[246px] !h-[40px] border-2 border-blue-950 rounded-full p-2 flex items-center justify-between"
+              style={{ minWidth: '246px', maxWidth: '246px', minHeight: '40px', maxHeight: '40px' }}
+              >
                 <input
                   type="text"
                   placeholder="Buscar"
