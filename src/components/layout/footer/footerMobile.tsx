@@ -77,7 +77,7 @@ export default function FooterMobile() {
               src={"/svg/logos/LogoGobHorAzul.svg"}
               width={600}
               height={600}
-              className="w-56 h-[56px]"
+              className="w-56 h-[75px]"
             />
           </div>
         </div>
@@ -152,7 +152,7 @@ export default function FooterMobile() {
                 </Link>
                 <Link
                   href="/"
-                  className="text-white hover:text-cyan-600 duration-300"
+                  className="text-blue-950 hover:text-cyan-600 duration-300"
                 >
                   {t("stayInformed.frequentlyQuestions")}
                 </Link>
