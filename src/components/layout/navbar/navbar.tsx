@@ -135,7 +135,7 @@ export default function Navbar() {
               width={1920}
               height={1080}
               src={"/prodominicanaFull.svg"}
-              className="h-[44px]"
+              className="h-[40px] "
             />
           </Link>
           <div className="flex flex-col space-y-4 w-3/12 ">
