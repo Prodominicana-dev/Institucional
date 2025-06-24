@@ -162,6 +162,7 @@ export default function NavBarMobile() {
                   width={1920}
                   height={1080}
                   src={"/prodominicana.svg"}
+                  style={{  minHeight: '47px', maxHeight: '47px' }}
                 />
               </Link>
             </div>

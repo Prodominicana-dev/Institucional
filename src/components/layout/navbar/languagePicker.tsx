@@ -64,7 +64,7 @@ export default function LanguagePicker() {
             width={100}
             height={100}
             alt={selected.label}
-            style={{ width: "42px", height: "16px" }}
+            style={{ width: "42px", height: "16px",  minWidth: "42px", minHeight: "16px" }}
           />
           <ChevronDownIcon className="size-4 xl:size-7 text-blue-950" />
         </div>
