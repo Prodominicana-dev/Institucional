@@ -7,12 +7,14 @@ import {
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-export default function Page({ params: { locale } }: any) {
+export default function Page() {
   const [eventss, setEvents] = useState<any>([]);
+  const params = useParams<{ locale: string }>();
 
-  const { data, isLoading, refetch } = useEvents(locale);
+  const { data, isLoading, refetch } = useEvents(params.locale);
 
   useEffect(() => {
     if (data && !isLoading) {
@@ -23,7 +25,15 @@ export default function Page({ params: { locale } }: any) {
   const t = useTranslations("events");
   return (
     <div>
-      <div className="bg-blue-900 flex flex-col items-center justify-center sm:flex-row">
+      <Image
+        src="/images/eventsBanner.jpg"
+        alt="events"
+        width={3840}
+        height={2160}
+        draggable={false}
+        className="w-full h-[60vh] object-cover"
+      />
+      {/* <div className="bg-blue-900 flex flex-col items-center justify-center sm:flex-row">
         <div className="w-4/12 hidden xl:block">
           <Image
             src="/svg/eventsMap.svg"
@@ -95,7 +105,7 @@ export default function Page({ params: { locale } }: any) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="flex justify-center bg-white py-10">
         <div className="w-10/12 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-10">
           {eventss?.map((event: any, index: number) => (
@@ -104,7 +114,7 @@ export default function Page({ params: { locale } }: any) {
               id={event.id}
               title={event.title}
               date={event.start_Date}
-              locale={locale}
+              locale={params.locale}
               image={event.image}
             />
           ))}
