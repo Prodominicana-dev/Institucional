@@ -61,102 +61,97 @@ export default function FooterMobile() {
   return (
     <div className="flex flex-col xl:hidden">
       <div className="w-full h-full bg-white flex flex-col p-10 space-y-10">
-        <div className="flex justify-between items-center w-full">
-          <div className="flex flex-col ">
+        <div className="w-full max-w-screen-xl grid grid-cols-2 items-center gap-4 px-4 mx-auto">
+          <div className="flex justify-start">
             <Image
               alt="logo"
-              src={"/prodominicana.svg"}
+              src="/prodominicana.svg"
               width={600}
               height={600}
               className="w-[152px] h-[56px]"
             />
           </div>
-          <div className="flex flex-col">
+          <div className="flex justify-start ">
             <Image
               alt="logo"
-              src={"/svg/logos/LogoGobHorAzul.svg"}
+              src="/svg/logos/LogoGobHorAzul.svg"
               width={600}
               height={600}
-              className="w-56 h-[75px]"
+              className="w-[152px] h-[75px] md:h-[75px] "
             />
           </div>
         </div>
-        <div className="w-full h-full flex flex-col space-y-8 justify-center items-center ">
-          <div className="w-full h-full flex space-x-4">
-            <div className="flex flex-col h-full w-6/12 text-blue-950   space-y-4">
-              <h1 className=" font-bold text-lg h-2/6 flex w-full">
-                {t("aboutUs.title")}
-              </h1>
+
+        {/* Secciones de contenido */}
+        <div className="w-full max-w-screen-xl grid grid-cols-2 gap-4 text-blue-950 px-4 mx-auto">
+          {/* Quiénes somos */}
+          <div className="space-y-4">
+            <h1 className="font-bold text-lg">{t("aboutUs.title")}</h1>
+            <Link
+              href="/whoarewe"
+              className="text-sm font-semibold space-y-1 block"
+            >
+              <p>{t("aboutUs.name")}</p>
+              <p>{t("aboutUs.fullName")}</p>
+            </Link>
+          </div>
+
+          {/* Contáctanos */}
+          <div className="space-y-4">
+            <h1 className="font-bold text-lg">{t("contactUs.title")}</h1>
+            <div className="text-sm font-semibold space-y-1">
               <Link
-                href={"/whoarewe"}
-                className="text-sm font-semibold h-full w-full "
+                href="tel:8095333522"
+                className="text-blue-950 hover:text-cyan-600 duration-300 block"
               >
-                <p>{t("aboutUs.name")}</p>
-                <p>{t("aboutUs.fullName")}</p>
+                {t("contactUs.phone")}
+              </Link>
+              <Link
+                href="mailto:servicios@prodominicana.gob.do"
+                className="text-blue-950 hover:text-cyan-600 duration-300 block"
+              >
+                {t("contactUs.emailMobile")}
               </Link>
             </div>
-            <div className="flex flex-col h-full w-6/12 text-blue-950  space-y-4">
-              <h1 className=" font-bold text-lg h-2/6 flex w-full">
-                {t("contactUs.title")}
-              </h1>
-              <div className="text-sm font-semibold h-full w-full  flex flex-col">
-                <Link
-                  href={"tel:8095333522"}
-                  className="text-blue-950  hover:text-cyan-600 duration-300"
-                >
-                  {t("contactUs.phone")}
-                </Link>
-                <Link
-                  href={"mailto:servicios@prodominicana.gob.do"}
-                  className="text-blue-950  hover:text-cyan-600 duration-300"
-                >
-                  {t("contactUs.emailMobile")}
-                </Link>
-              </div>
+          </div>
+
+          {/* Dirección */}
+          <div className="space-y-4">
+            <h1 className="font-bold text-lg">{t("findUs.title")}</h1>
+            <div className="text-sm font-semibold space-y-1">
+              <Link
+                href="https://www.google.com/maps/place/ProDominicana/@18.4506423,-69.9756687,17z"
+                target="_blank"
+                className="text-blue-950 hover:text-cyan-600 duration-300 block"
+              >
+                <p>{t("findUs.address")}</p>
+                <p>{t("findUs.city")}</p>
+              </Link>
             </div>
           </div>
-          <div className="w-full h-full flex space-x-4">
-            <div className="flex flex-col h-full w-6/12 text-blue-950 space-y-4">
-              <h1 className=" font-bold text-lg h-2/6 flex w-full">
-                {t("findUs.title")}
-              </h1>
-              <div className="text-sm font-semibold h-full w-full">
-                <Link
-                  href={
-                    "https://www.google.com/maps/place/ProDominicana/@18.4506423,-69.9756687,17z/data=!3m1!4b1!4m6!3m5!1s0x8ea561ebff768b75:0xa76a69f95f4a6da5!8m2!3d18.4506372!4d-69.9730938!16s%2Fg%2F1hf2n28nf?entry=ttu"
-                  }
-                  target="_blank"
-                  className="text-blue-950 hover:text-cyan-600 duration-300"
-                >
-                  <p>{t("findUs.address")}</p>
-                  <p>{t("findUs.city")}</p>
-                </Link>
-              </div>
-            </div>
-            <div className="flex flex-col h-full w-6/12 text-blue-950 space-y-4">
-              <h1 className=" font-bold text-lg h-2/6 flex w-full">
-                {t("stayInformed.title")}
-              </h1>
-              <div className="text-sm font-semibold  flex flex-col space-y-2 justify-start items-start h-full w-full ">
-                <Link
-                  href="/"
-                  className="text-blue-950 hover:text-cyan-600 duration-300"
-                >
-                  {t("stayInformed.useTerms")}
-                </Link>
-                <Link
-                  href="/"
-                  className="text-blue-950 hover:text-cyan-600 duration-300"
-                >
-                  {t("stayInformed.privacyPolicy")}
-                </Link>
-                <Link
-                  href="/"
-                  className="text-blue-950 hover:text-cyan-600 duration-300"
-                >
-                  {t("stayInformed.frequentlyQuestions")}
-                </Link>
-              </div>
+
+          {/* Mantente informado */}
+          <div className="space-y-4">
+            <h1 className="font-bold text-lg">{t("stayInformed.title")}</h1>
+            <div className="text-sm font-semibold space-y-2">
+              <Link
+                href="/"
+                className="text-blue-950 hover:text-cyan-600 duration-300 block"
+              >
+                {t("stayInformed.useTerms")}
+              </Link>
+              <Link
+                href="/"
+                className="text-blue-950 hover:text-cyan-600 duration-300 block"
+              >
+                {t("stayInformed.privacyPolicy")}
+              </Link>
+              <Link
+                href="/"
+                className="text-blue-950 hover:text-cyan-600 duration-300 block"
+              >
+                {t("stayInformed.frequentlyQuestions")}
+              </Link>
             </div>
           </div>
         </div>
