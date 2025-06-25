@@ -31,7 +31,7 @@ export default function Page() {
         width={3840}
         height={2160}
         draggable={false}
-        className="w-full h-[60vh] object-cover"
+        className="w-full h-full object-cover"
       />
       {/* <div className="bg-blue-900 flex flex-col items-center justify-center sm:flex-row">
         <div className="w-4/12 hidden xl:block">
