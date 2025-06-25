@@ -278,8 +278,8 @@ export default function Page() {
         </div>
 
         <div className="hidden xl:block">
-          <div className="absolute bottom-0 left-0 w-full h-full bg-[#003B7A] [clip-path:polygon(0%_80%,73%_80%,65%_100%,0%_100%)]">
-            <div className="absolute bottom-20 left-44 flex gap-28 items-center">
+          <div className="absolute bottom-0 left-0 w-full h-full bg-[#003B7A] [clip-path:polygon(0%_80%,73%_80%,65%_100%,0%_100%)] flex items-end">
+            <div className="w-8/12 h-[20%] flex gap-20 flex-wrap justify-center items-center">
               <Image
                 src="/svg/icons/pnfeIcon1.svg"
                 alt="Icono 1"
@@ -296,21 +296,21 @@ export default function Page() {
               />
               <Image
                 src="/svg/icons/pnfeIcon3.svg"
-                alt="Icono 2"
+                alt="Icono 3"
                 width={500}
                 height={500}
                 className="size-24"
               />
               <Image
                 src="/svg/icons/pnfeIcon4.svg"
-                alt="Icono 2"
+                alt="Icono 4"
                 width={500}
                 height={500}
                 className="size-24"
               />
               <Image
                 src="/svg/icons/pnfeIcon5.svg"
-                alt="Icono 2"
+                alt="Icono 5"
                 width={500}
                 height={500}
                 className="size-24"
@@ -383,7 +383,7 @@ export default function Page() {
                     alt={institution.name}
                     width={1920}
                     height={1080}
-                    className="w-72 object-contain"
+                    className="w-72 h-32 object-contain"
                   />
                 </Link>
               </CarouselItem>
