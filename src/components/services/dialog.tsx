@@ -129,7 +129,7 @@ export function ServiceDialog({
                 </div>
                 <div className="w-1/12 flex justify-center items-start lg:items-center">
                   <button onClick={handler}>
-                    <XMarkIcon className="text-red-700  size-8 hover:text-red-700/80 duration-300" />
+                    <XMarkIcon className="text-red-700  size-8 hover:text-red-700/80 duration-300 cursor-pointer" />
                   </button>
                 </div>
               </div>
@@ -193,43 +193,45 @@ export function ServiceDialog({
                   ></div>
                 </div>
               )}
+
               <div className="w-full flex justify-center">
                 <div className="flex flex-row flex-wrap justify-center gap-5 w-10/12">
                   {dataIcons.map(({ icon, title, data }, index) => (
                     <div key={index} className=" w-full lg:w-1/5">
                       {locale === "es" &&
                       title.es.toLocaleLowerCase().includes("acceso") ? (
-                        <div
-                          onClick={() => {
-                            if (data) {
-                              window.open(data, "_blank");
-                            } else {
-                              handleOpen();
-                            }
-                          }}
-                          className="w-full flex flex-col items-center gap-1 cursor-pointer hover:scale-110 duration-75"
-                        >
-                          <Image
-                            src={icon}
-                            alt={locale === "es" ? title.es : title.en}
-                            width={400}
-                            height={400}
-                            className="size-16"
-                          />
-                          <div>
-                            <h1 className="font-bold text-sm text-center">
-                              {locale === "es" ? title.es : title.en}
-                            </h1>
+                        <>
+                          <div
+                            onClick={() => {
+                              if (data) {
+                                window.open(data, "_blank");
+                              } else {
+                                handleOpen(); // esto activa openForm = true
+                              }
+                            }}
+                            className="w-full flex flex-col items-center gap-1 cursor-pointer hover:scale-110 duration-75"
+                          >
+                            <Image
+                              src={icon}
+                              alt={locale === "es" ? title.es : title.en}
+                              width={400}
+                              height={400}
+                              className="size-16"
+                            />
+                            <div>
+                              <h1 className="font-bold text-sm text-center">
+                                {locale === "es" ? title.es : title.en}
+                              </h1>
+                            </div>
                           </div>
 
-                          {openForm && (
-                            <ServicesFormDiag
-                              open={openForm}
-                              handleOpen={handleOpen}
-                              handler={handler}
-                            />
-                          )}
-                        </div>
+                          {/* Mueve el modal fuera del div visual, directamente en JSX root */}
+                          <ServicesFormDiag
+                            open={openForm}
+                            handleOpen={handleOpen}
+                            handler={handler}
+                          />
+                        </>
                       ) : (
                         <div className="w-full">
                           {locale === "es" ? (

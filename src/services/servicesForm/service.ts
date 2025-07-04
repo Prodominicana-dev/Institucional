@@ -5,6 +5,8 @@ export async function createServiceForm(FormData: any, clear: () => void) {
   try {
     const url = `${process.env.NEXT_PUBLIC_API_URL}/mail/servicesform `;
     const data = FormData;
+    // console.log("data", data);
+    
     const response = await axios.post(url, data);
 
     if (response.status === 201) {

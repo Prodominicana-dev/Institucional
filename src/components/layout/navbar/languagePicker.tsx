@@ -14,7 +14,7 @@ import { ChevronDownIcon } from "@heroicons/react/24/outline";
 
 const data = [
   { label: "Español", code: "do", langcode: "es" },
-  { label: "English", code: "gb", langcode: "en" },
+  { label: "English", code: "us", langcode: "en" },
 ];
 
 export default function LanguagePicker() {
