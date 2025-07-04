@@ -81,10 +81,7 @@ export default function FooterMobile() {
             />
           </div>
         </div>
-
-        {/* Secciones de contenido */}
         <div className="w-full max-w-screen-xl grid grid-cols-2 gap-4 text-blue-950 px-4 mx-auto">
-          {/* Quiénes somos */}
           <div className="space-y-4">
             <h1 className="font-bold text-lg">{t("aboutUs.title")}</h1>
             <Link
@@ -95,8 +92,6 @@ export default function FooterMobile() {
               <p>{t("aboutUs.fullName")}</p>
             </Link>
           </div>
-
-          {/* Contáctanos */}
           <div className="space-y-4">
             <h1 className="font-bold text-lg">{t("contactUs.title")}</h1>
             <div className="text-sm font-semibold space-y-1">
@@ -114,8 +109,6 @@ export default function FooterMobile() {
               </Link>
             </div>
           </div>
-
-          {/* Dirección */}
           <div className="space-y-4">
             <h1 className="font-bold text-lg">{t("findUs.title")}</h1>
             <div className="text-sm font-semibold space-y-1">
@@ -129,8 +122,6 @@ export default function FooterMobile() {
               </Link>
             </div>
           </div>
-
-          {/* Mantente informado */}
           <div className="space-y-4">
             <h1 className="font-bold text-lg">{t("stayInformed.title")}</h1>
             <div className="text-sm font-semibold space-y-2">

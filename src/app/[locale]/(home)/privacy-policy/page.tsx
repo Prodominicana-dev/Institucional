@@ -8,7 +8,7 @@ export default function Page() {
     title: t("title"),
     contentEs: `<p>Bienvenido al Portal de ProDominicana. A continuación, te presentamos nuestra Política de Privacidad, que describe cómo manejamos la información personal y los datos recopilados a través de este sitio.</p>
 
-<p>Estas Políticas (en lo adelante, las "Políticas") condicionan el uso de los servicios del Portal de Internet <a href="https://www.prodominicana.gob.do/">ProDominicana</a> (en lo adelante, el "Portal") del Centro de Exportación e Inversión de la República Dominicana (en lo adelante, el "ProDominicana"), institución pública autónoma y descentralizada, creada mediante la promulgación de la Ley No. 98-03, de fecha diecisiete (17) de junio del año 2003, con su domicilio y oficinas principales en la Avenida 27 de Febrero esquina Avenida Gregorio Luperón, Plaza de la Bandera, Santo Domingo de Guzmán, Distrito Nacional, Capital de la República Dominicana.</p>
+<p>Estas Políticas (en lo adelante, las "Políticas") condicionan el uso de los servicios del Portal de Internet <strong><u> <a href="https://www.prodominicana.gob.do">www.prodominicana.gob.do</a> </u></strong> (en lo adelante, el "Portal") del Centro de Exportación e Inversión de la República Dominicana (en lo adelante, el "ProDominicana"), institución pública autónoma y descentralizada, creada mediante la promulgación de la Ley No. 98-03, de fecha diecisiete (17) de junio del año 2003, con su domicilio y oficinas principales en la Avenida 27 de Febrero esquina Avenida Gregorio Luperón, Plaza de la Bandera, Santo Domingo de Guzmán, Distrito Nacional, Capital de la República Dominicana.</p>
 
 <h2><strong>1. Descripción del manejo de la Información Personal</strong></h2>
 

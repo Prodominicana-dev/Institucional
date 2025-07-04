@@ -29,7 +29,7 @@ export default function Home() {
       <ProdominicanaTvSection />
       <DataDashboard />
       <DataDashboardMobile />
-      <SocialMediaSection />
+      {/* <SocialMediaSection /> */}
       <CEOSection />
     </div>
   );
