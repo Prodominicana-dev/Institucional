@@ -334,26 +334,34 @@ export default function Page() {
     circumference: 180,
   };
 
-  const pilarConfig: Record<string, { label: string; color: string }> = {
+  const pilarConfig: Record<
+    string,
+    { label: string; color: string; icon: string }
+  > = {
     "PILAR 1.": {
       label: "Oferta Exportable",
       color: "#3DA5D9",
+      icon: "/svg/icons/pnfeIcon1.svg",
     },
     "PILAR 2.": {
       label: "Promoción Internacional",
       color: "#F17021",
+      icon: "/svg/icons/pnfeIcon2.svg",
     },
     "PILAR 3.": {
       label: "Facilitación Exportadora",
       color: "#F2A900",
+      icon: "/svg/icons/pnfeIcon3.svg",
     },
     "PILAR 4.": {
       label: "Financiamiento Exportador",
       color: "#CA152B",
+      icon: "/svg/icons/pnfeIcon4.svg",
     },
     "PILAR 5.": {
       label: "Transversal Institucionalidad",
       color: "#8E44AD",
+      icon: "/svg/icons/pnfeIcon5.svg",
     },
   };
 
@@ -466,41 +474,13 @@ export default function Page() {
         <div className="hidden xl:block">
           <div className="absolute bottom-0 left-0 w-full h-full bg-[#003B7A] [clip-path:polygon(0%_80%,73%_80%,65%_100%,0%_100%)] flex items-end">
             <div className="w-8/12 h-[20%] flex gap-20 flex-wrap justify-center items-center">
-              <Image
-                src="/svg/icons/pnfeIcon1.svg"
-                alt="Icono 1"
-                width={500}
-                height={500}
-                className="size-24"
-              />
-              <Image
-                src="/svg/icons/pnfeIcon2.svg"
-                alt="Icono 2"
-                width={500}
-                height={500}
-                className="size-24"
-              />
-              <Image
-                src="/svg/icons/pnfeIcon3.svg"
-                alt="Icono 3"
-                width={500}
-                height={500}
-                className="size-24"
-              />
-              <Image
-                src="/svg/icons/pnfeIcon4.svg"
-                alt="Icono 4"
-                width={500}
-                height={500}
-                className="size-24"
-              />
-              <Image
-                src="/svg/icons/pnfeIcon5.svg"
-                alt="Icono 5"
-                width={500}
-                height={500}
-                className="size-24"
-              />
+              {Object.entries(pilarConfig).map(([key, config]) => (
+                <AnimatedIconText
+                  key={key}
+                  icon={config.icon}
+                  text={config.label}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -512,9 +492,9 @@ export default function Page() {
             height={1080}
             src="/images/pnfeAbout.jpg"
             alt="PNFE About"
-            className="xl:w-3/6 xl:self-start"
+            className="h-5/6 xl:w-3/6 xl:self-start object-contain"
           />
-          <div className="text-blue-950 space-y-5 xl:self-center">
+          <div className="xl:w-3/6 text-blue-950 space-y-5 xl:self-center">
             <p>
               El Plan Nacional de Fomento a las Exportaciones de la República
               Dominicana 2020- 2030, ha sido un ejercicio que se ha nutrido de
@@ -545,7 +525,7 @@ export default function Page() {
       </section>
       <section
         id="progress"
-        className="bg-[#003B7A] xl:h-screen w-full py-5 xl:py-20 px-5 xl:px-40"
+        className="bg-[#003B7A] xl:h-screen w-full py-5 xl:py-10 px-5 xl:px-40"
       >
         <h1 className="text-2xl xl:text-5xl font-bold text-white uppercase mb-5">
           Avances del Plan
@@ -749,8 +729,25 @@ function BarChart({ data }: any) {
       <h2 className="xl:text-xl font-bold uppercase text-white">
         {data.label}
       </h2>
-      <div className="h-32">
+      <div className="h-[12vh]">
         <Bar data={barData} options={barOptions} />
+      </div>
+    </div>
+  );
+}
+
+function AnimatedIconText({ icon, text }: { icon: string; text: string }) {
+  return (
+    <div className="relative size-24 group cursor-pointer text-center">
+      <Image
+        src={icon}
+        alt={text}
+        width={500}
+        height={500}
+        className="absolute inset-0 size-24 transition-all delay-75 duration-300 group-hover:-translate-y-6 group-hover:opacity-0"
+      />
+      <div className="text-start absolute inset-0 flex items-center justify-center px-2 text-xl font-bold opacity-0 translate-y-6 transition-all group-hover:delay-150 duration-300 group-hover:opacity-100 group-hover:translate-y-0 text-white break-words">
+        {text}
       </div>
     </div>
   );
