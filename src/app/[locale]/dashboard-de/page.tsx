@@ -9,7 +9,7 @@ export default function page() {
         height={2160}
         draggable={false}
         alt="exportdashboard"
-        src="/images/export-dashboard.png"
+        src="/images/export-dashboard.jpg"
         className="h-3/6 w-full object-contain"
       />
       <Image
@@ -17,7 +17,7 @@ export default function page() {
         height={2160}
         draggable={false}
         alt="investdashboard"
-        src="/images/invest-dashboard.png"
+        src="/images/invest-dashboard.jpg"
         className="h-3/6 w-full object-contain"
       />
     </div>
