@@ -258,37 +258,38 @@ export function ServiceDialog({
                               title.en
                                 .toLocaleLowerCase()
                                 .includes("access") ? (
-                                <div
-                                  onClick={() => {
-                                    if (data) {
-                                      window.open(data, "_blank");
-                                    } else {
-                                      handleOpen();
-                                    }
-                                  }}
-                                  className="w-full flex flex-col items-center gap-1 cursor-pointer hover:scale-110 duration-75"
-                                >
-                                  <Image
-                                    src={icon}
-                                    alt={locale === "en" ? title.es : title.en}
-                                    width={400}
-                                    height={400}
-                                    className="size-16"
-                                  />
-                                  <div>
-                                    <h1 className="font-bold text-sm text-center">
-                                      {locale === "en" ? title.es : title.en}
-                                    </h1>
-                                  </div>
-
-                                  {openForm && (
-                                    <ServicesFormDiag
-                                      open={openForm}
-                                      handleOpen={handleOpen}
-                                      handler={handler}
+                                <>
+                                  <div
+                                    onClick={() => {
+                                      if (data) {
+                                        window.open(data, "_blank");
+                                      } else {
+                                        handleOpen();
+                                      }
+                                    }}
+                                    className="w-full flex flex-col items-center gap-1 cursor-pointer hover:scale-110 duration-75"
+                                  >
+                                    <Image
+                                      src={icon}
+                                      alt={
+                                        locale === "en" ? title.es : title.en
+                                      }
+                                      width={400}
+                                      height={400}
+                                      className="size-16"
                                     />
-                                  )}
-                                </div>
+                                    <div>
+                                      <h1 className="font-bold text-sm text-center">
+                                        {locale === "en" ? title.es : title.en}
+                                      </h1>
+                                    </div>
+                                  </div>
+                                  <ServicesFormDiag
+                                    open={openForm}
+                                    handleOpen={handleOpen}
+                                    handler={handler}
+                                  />
+                                </>
                               ) : (
                                 <div className="w-full flex flex-col items-center gap-1">
                                   <Image
@@ -320,6 +321,13 @@ export function ServiceDialog({
           </div>
         </DialogBody>
       </Dialog>
+      {/* {openForm && (
+        <ServicesFormDiag
+          open={openForm}
+          handleOpen={handleOpen}
+          handler={handler}
+        />
+      )} */}
     </>
   );
 }

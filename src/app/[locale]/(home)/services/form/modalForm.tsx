@@ -140,7 +140,7 @@ export function ServicesFormDiag({ open, handleOpen, handler }: DialogProps) {
   if (!open) return null;
 
   return (
-    <div className="fixed top-10 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-3xl mx-auto px-4">
+    <div className={`fixed top-10 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-3xl mx-auto px-4`}>
       <div className="bg-white p-6 rounded-lg shadow-xl border border-gray-200 max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-red-700">
