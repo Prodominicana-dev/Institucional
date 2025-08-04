@@ -20,6 +20,8 @@ export default function Page() {
 
   const { data: typeService, isLoading: loadingTypeService } = useServiceType();
 
+  // console.log("Type Service", typeService);
+  
   useEffect(() => {
     if (!loadingTypeService && typeService) {
       const options = typeService.map((item: any) => {
@@ -58,7 +60,7 @@ export default function Page() {
       </div>
     );
   return (
-    <div className="bg-white py-10 flex justify-center">
+    <div className="bg-white pt-20 md:pt-20 lg:pt-20 xl:pt-0 py-10 flex justify-center">
       <div className="w-10/12 flex flex-col gap-10">
         <div className="w-full flex flex-col md:flex-row justify-between gap-2">
           <Typography className="text-blue-900 w-full line-clamp-2 uppercase font-extrabold text-xl lg:text-3xl font-opensans">
@@ -74,7 +76,7 @@ export default function Page() {
             onChange={(e: any) => {
               setSelectedType(e === null ? "" : e.value);
             }}
-            className="md:w-4/12 z-50"
+            className="md:w-4/12 z-40"
             options={typeOptions}
             theme={(theme) => ({
               ...theme,

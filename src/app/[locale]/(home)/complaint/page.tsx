@@ -346,22 +346,32 @@ export default function Page() {
           />
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col gap-5 py-2 text-blue-950 xl:w-6/12 w-full"
+            className="flex flex-col gap-5 py-2 text-blue-950 xl:w-6/12 w-full  pt-10 md:pt-10 xl:pt-0 "
           >
             <div>
               <h1 className="text-4xl font-extrabold">{t("title")}</h1>
               <p className="font-semibold">{t("description")}</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-5">
-              <div className="w-full">
+              <div className="w-full relative ">
                 <FormInput
                   label={t("form.name")}
                   placeholder="John"
                   value={formData.name}
                   onChange={handleInputChange}
                   name="name"
+                  maxLeng={50}
                   isRequired
                 />
+                <div
+                  className={` absolute -bottom-1 right-2 text-sm ${
+                    formData.name?.length > 45
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {formData.name ? formData.name.length : 0}/50
+                </div>
                 {errorRequired.name && (
                   <span className="text-red-500 text-sm block mt-1">
                     {errorRequired.name}
@@ -369,15 +379,25 @@ export default function Page() {
                 )}
               </div>
 
-              <div className="w-full">
+              <div className="w-full relative">
                 <FormInput
                   label={t("form.lastName")}
                   placeholder="Doe"
                   value={formData.lastName}
                   onChange={handleInputChange}
                   name="lastName"
+                  maxLeng={50}
                   isRequired
                 />
+                <div
+                  className={` absolute -bottom-1 right-2 text-sm ${
+                    formData.lastName?.length > 45
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {formData.lastName ? formData.lastName.length : 0}/50
+                </div>
                 {errorRequired.lastName && (
                   <span className="text-red-500 text-sm block mt-1">
                     {errorRequired.lastName}
@@ -387,30 +407,50 @@ export default function Page() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-5">
-              <div className="w-full">
+              <div className="w-full relative">
                 <FormInput
                   label={t("form.email")}
                   placeholder="example@email.com"
                   value={formData.email}
                   onChange={handleInputChange}
                   name="email"
+                  maxLeng={100}
                   isRequired
                 />
+                <div
+                  className={` absolute -bottom-1 right-2 text-sm ${
+                    formData.email?.length > 95
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {formData.email ? formData.email.length : 0}/100
+                </div>
                 {errorRequired.email && (
                   <span className="text-red-500 text-sm block mt-1">
                     {errorRequired.email}
                   </span>
                 )}
               </div>
-              <div className="w-full relati">
+              <div className="w-full relative">
                 <FormInput
                   label={t("form.companyName")}
                   placeholder={t("form.companyName")}
                   value={formData.companyName}
                   onChange={handleInputChange}
                   name="companyName"
+                  maxLeng={100}
                   isRequired
                 />
+                <div
+                  className={` absolute -bottom-1 right-2 text-sm ${
+                    formData.companyName?.length > 95
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {formData.companyName ? formData.companyName.length : 0}/100
+                </div>
                 {errorRequired.companyName && (
                   <span className="text-red-500 text-sm block mt-1">
                     {errorRequired.companyName}
@@ -481,15 +521,26 @@ export default function Page() {
                 )}
               </div>
 
-              <div className="w-full">
+              <div className="w-full relative">
                 <FormInput
                   label={t("form.involvedPerson")}
                   placeholder={t("form.involvedPerson")}
                   value={formData.involvedPerson}
                   onChange={handleInputChange}
                   name="involvedPerson"
+                  maxLeng={100}
                   isRequired
                 />
+                <div
+                  className={` absolute -bottom-1 right-2 text-sm ${
+                    formData.involvedPerson?.length > 95
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {formData.involvedPerson ? formData.involvedPerson.length : 0}
+                  /100
+                </div>
 
                 {errorRequired.involvedPerson && (
                   <span className="text-red-500 text-sm">
@@ -498,17 +549,30 @@ export default function Page() {
                 )}
               </div>
             </div>
-            <FormInput
-              label={t("form.date")}
-              placeholder="dd/mm/yyyy"
-              value={formData.date}
-              onChange={handleInputChange}
-              name="date"
-              isRequired
-            />
-            {errorRequired.date && (
-              <span className="text-red-500 text-sm">{errorRequired.date}</span>
-            )}
+            <div className="w-full relative">
+              <FormInput
+                label={t("form.date")}
+                placeholder="dd/mm/yyyy"
+                value={formData.date}
+                onChange={handleInputChange}
+                name="date"
+                maxLeng={10}
+                isRequired
+              />
+              <div
+                className={` absolute -bottom-1 right-2 text-sm ${
+                  formData.date?.length > 9 ? "text-red-500" : "text-gray-500"
+                }`}
+              >
+                {formData.date ? formData.date.length : 0}
+                /10
+              </div>
+              {errorRequired.date && (
+                <span className="text-red-500 text-sm">
+                  {errorRequired.date}
+                </span>
+              )}
+            </div>
 
             <div className="w-full flex flex-col gap-2">
               <div className="flex font-bold text-xl ">
@@ -539,6 +603,10 @@ export default function Page() {
                 </span>
               )}
             </div>
+            <p className="text-sm text-gray-500 mt-2">
+              Los campos marcados con <span className="text-red-500">*</span>{" "}
+              son obligatorios.
+            </p>
             <button
               type="submit"
               className=" bg-red-700 w-full py-5 text-xl text-white font-bold text-center rounded-xl cursor-pointer"
@@ -747,7 +815,7 @@ function ModalCard({
               </svg>
             </button>
 
-            <div className="flex justify-center mt-6">
+            <div className="flex justify-center mt-6 cursor-pointer">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-12 w-12 text-blue-950"

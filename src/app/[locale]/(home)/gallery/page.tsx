@@ -50,7 +50,7 @@ export default function Page() {
     );
 
   return (
-    <div className="w-full flex flex-col items-center bg-white gap-10 py-10">
+    <div className="w-full flex flex-col items-center bg-white gap-10 py-10  pt-20 md:pt-20 xl:pt-0">
       <div>
         <h1 className="text-3xl xl:text-4xl font-montserrat font-extrabold text-[#1E3059]">
           {t("title")}

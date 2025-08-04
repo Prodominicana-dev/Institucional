@@ -16,23 +16,47 @@ export default function Page() {
   const [event, setEvent] = useState<any>();
   const t = useTranslations("events");
   const { data, isLoading } = useEventByIdAndLang(id, locale);
-  const [latitude, setLatitude] = useState<number>(18);
-  const [longitude, setLongitude] = useState<number>(69);
+  const [latitude, setLatitude] = useState<number>(18.4861); // Coordenada por defecto: Santo Domingo
+  const [longitude, setLongitude] = useState<number>(-69.9312); // Coordenada por defecto: Santo Domingo
   const [date, setDate] = useState<string>("");
+  const [mapError, setMapError] = useState<string | null>(null);
+
   useEffect(() => {
     if (data && !isLoading) {
       setEvent(data);
-      setLatitude(Number(data.latitude));
-      setLongitude(Number(data.longitude));
+
+      // Validación robusta de coordenadas
+      try {
+        const lat = parseFloat(data.latitude);
+        const lng = parseFloat(data.longitude);
+
+        if (!isNaN(lat) && Math.abs(lat) <= 90) {
+          setLatitude(lat);
+        } else {
+          console.error("Latitud inválida:", data.latitude);
+          setMapError(t("invalidLocation"));
+        }
+
+        if (!isNaN(lng) && Math.abs(lng) <= 180) {
+          setLongitude(lng);
+        } else {
+          console.error("Longitud inválida:", data.longitude);
+          setMapError(t("invalidLocation"));
+        }
+      } catch (error) {
+        console.error("Error al procesar coordenadas:", error);
+        setMapError(t("locationError"));
+      }
+
+      // Formateo de fechas
       if (data.start_Date && data.end_Date) {
-        // Si tiene fecha de inicio y fin, verificar si estan en el mismo mes para ponerlo: 1-30 de mes de año y si no es el mismo mes poner: 1 de mes de año - 30 de mes de año
         const startDate = new Date(data.start_Date);
         const endDate = new Date(data.end_Date);
         const startMonth = startDate.getMonth();
         const endMonth = endDate.getMonth();
         const startYear = startDate.getFullYear();
         const endYear = endDate.getFullYear();
-        // Extraer el dia de la fecha de inicio y fin
+
         if (
           startMonth === endMonth &&
           startYear === endYear &&
@@ -45,7 +69,7 @@ export default function Page() {
                 })} ${startYear}`
               : `${startDate.toLocaleString(locale, {
                   month: "long",
-                })} ${startDate.getDate()},  ${startYear}`;
+                })} ${startDate.getDate()}, ${startYear}`;
           setDate(dateLocale);
         }
         if (
@@ -61,7 +85,7 @@ export default function Page() {
                 )} ${startYear}`
               : `${startDate.toLocaleString(locale, {
                   month: "long",
-                })} ${startDate.getDate()} - ${endDate.getDate()},  ${startYear}`;
+                })} ${startDate.getDate()} - ${endDate.getDate()}, ${startYear}`;
           setDate(dateLocale);
         }
         if (startMonth !== endMonth && startYear === endYear) {
@@ -98,15 +122,18 @@ export default function Page() {
         }
       }
     }
-  }, [data, isLoading]);
+  }, [data, isLoading, locale, t]);
 
   const route = `${process.env.NEXT_PUBLIC_BASE_URL}/${locale}/news/${id}`;
-  if (isLoading)
+
+  if (isLoading) {
     return (
       <div className="w-full h-[85vh] bg-white flex justify-center items-center">
         <HashLoader />
       </div>
     );
+  }
+
   return (
     <div className="bg-blue-950">
       <section className="flex justify-center items-center py-10">
@@ -220,7 +247,13 @@ export default function Page() {
         <div className="w-full bg-[#9B1E2E] py-5 text-center font-extrabold text-white text-4xl">
           {t("address")}
         </div>
-        <GoogleMap lat={latitude} lng={longitude} />
+        {mapError ? (
+          <div className="text-white text-center py-10 bg-blue-950">
+            {mapError}
+          </div>
+        ) : (
+          <GoogleMap lat={latitude} lng={longitude} />
+        )}
       </section>
       <section className="py-10 flex justify-center">
         <div className="w-10/12 flex flex-col items-center gap-10">
@@ -228,18 +261,6 @@ export default function Page() {
             <div className="bg-[#9B1E2E] p-2">{t("imageGallery.title")}</div>
             {t("imageGallery.title2")}
           </h1>
-          {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            {event?.lastEventImages.map((image: string, index: number) => (
-              <Image
-                key={index}
-                src={image}
-                width={2000}
-                height={2000}
-                alt=""
-                className="object-cover h-80 w-full"
-              />
-            ))}
-          </div> */}
         </div>
       </section>
       <section id="form" className="py-10 flex justify-center">

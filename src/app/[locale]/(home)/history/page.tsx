@@ -49,9 +49,9 @@ export default function Page() {
   };
 
   return (
-    <div className="w-full bg-white flex justify-center items-center">
+    <div className="w-full bg-white flex justify-center items-center pt-16 md:pt-16 xl:pt-0">
       <div className="w-full">
-        <h2 className=" text-[#1E3059] font-bold font-montserrat text-3xl xl:text-5xl underline flex justify-center items-center py-10">
+        <h2 className="text-[#1E3059] font-bold font-montserrat text-3xl xl:text-5xl underline flex justify-center items-center py-10">
           {t("title")}
         </h2>
         <div className="flex flex-col p-10 h-full w-full">

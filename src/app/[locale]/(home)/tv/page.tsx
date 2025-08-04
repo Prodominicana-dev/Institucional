@@ -12,7 +12,7 @@ export default function Page() {
     }
   }, [isLoading]);
   return (
-    <div className="w-full bg-white flex">
+    <div className="w-full bg-white flex  pt-10 sm:pt-3 md:pt-10 xl:pt-0">
       <div className="p-10 sm:p-20 space-y-5 w-full">
         <Typography className="text-blue-900 uppercase font-extrabold text-xl lg:text-3xl font-opensans">
           Prodominicana TV

@@ -61,7 +61,14 @@ export default function Page() {
             className="object-contain w-96 self-end"
           />
         </div>
-        <div className="w-10/12 sm:w-8/12 xl:w-4/12 flex flex-col items-center justify-center space-y-5 pt-16 xl:p-0 text-center text-blue-950">
+        <div
+          className="
+        w-10/12 sm:w-8/12 xl:w-4/12
+        flex flex-col items-center justify-center space-y-5
+        pt-24 xl:pt-0
+        text-center text-blue-950
+      "
+        >
           <div className="flex flex-col items-center space-y-2">
             <div className="font-noctura text-5xl">{t("name")}</div>
             <div className="h-1 bg-red-700 w-8/12"></div>

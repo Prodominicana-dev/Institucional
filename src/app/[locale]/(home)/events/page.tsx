@@ -24,7 +24,7 @@ export default function Page() {
 
   const t = useTranslations("events");
   return (
-    <div>
+    <div className=" pt-16 md:pt-16 xl:pt-0">
       <Image
         src="/images/eventsBanner.jpg"
         alt="events"

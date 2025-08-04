@@ -51,7 +51,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   }
   return (
     <div className="w-full bg-white flex flex-col items-center py-10">
-      <div className="w-10/12 flex flex-col sm:flex-row justify-between gap-5">
+      <div className="w-10/12 flex flex-col sm:flex-row justify-between gap-5 mt-14 md:mt-24 xl:mt-0">
         <h1 className="text-2xl sm:text-4xl font-bold text-blue-dark">
           {t("title")}
         </h1>

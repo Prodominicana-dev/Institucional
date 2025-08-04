@@ -20,15 +20,18 @@ import OrganizationIcon from "../../icons/organizationIcon";
 import NavbarLink from "./navbarLink";
 import NavbarButton from "./navbarButton";
 import GovPagesInfo from "./govPagesInfo";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import LanguagePicker from "./languagePicker";
 import HistoryIcon from "@/components/icons/historyIcon";
-import { useRouter } from "next/navigation";
-
+import { useRouter, usePathname } from "next/navigation";
+import { routing } from "@/i18n/routing";
 export default function Navbar() {
   const t = useTranslations("navbar");
   const [search, setSearch] = useState("");
+  const pathname = usePathname();
   const router = useRouter();
+  const locale = useLocale();
+  
 
   const handleClick = () => {
     if (search.trim()) {
@@ -129,19 +132,25 @@ export default function Navbar() {
       <GovPagesInfo />
       <div className="h-24 w-full bg-white flex justify-center">
         <div className="flex items-center justify-between w-10/12">
-          <Link href={"/"} className="w-52 cursor-pointer">
+          <Link href={"/"} locale={locale} className="w-52 cursor-pointer">
             <Image
               alt="prodominicana"
               width={1920}
               height={1080}
               src={"/prodominicanaFull.svg"}
-              style={{  minHeight: '40px', maxHeight: '40px' }}
+              style={{ minHeight: "40px", maxHeight: "40px" }}
             />
           </Link>
           <div className="flex flex-col space-y-4 w-3/12 ">
             <div className="w-full flex items-center justify-center gap-4">
-              <div className=" relative !w-[246px] !h-[40px] border-2 border-blue-950 rounded-full p-2 flex items-center justify-between"
-              style={{ minWidth: '246px', maxWidth: '246px', minHeight: '40px', maxHeight: '40px' }}
+              <div
+                className=" relative !w-[246px] !h-[40px] border-2 border-blue-950 rounded-full p-2 flex items-center justify-between"
+                style={{
+                  minWidth: "246px",
+                  maxWidth: "246px",
+                  minHeight: "40px",
+                  maxHeight: "40px",
+                }}
               >
                 <input
                   type="text"
@@ -169,6 +178,7 @@ export default function Navbar() {
           <div className="flex flex-wrap w-full h-full items-center justify-center">
             <Link
               href={"/"}
+              locale={locale}
               className="h-full flex justify-center items-center px-4 bg-red-700 xl:px-3 2xl:px-4"
             >
               <Image

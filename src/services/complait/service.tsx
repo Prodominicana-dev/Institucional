@@ -1,6 +1,7 @@
 import axios from "axios";
 import { toast } from "sonner";
 
+
 export async function createcomplaint(
   FormDataNew: any,
   contactCode: any,
@@ -18,14 +19,19 @@ export async function createcomplaint(
 
   const data = Object.fromEntries(formData.entries());
 
-  const url = `${process.env.NEXT_PUBLIC_API_URL}/apiv2/mail/complaint `;
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/mail/complaint `;
   const response = await axios.post(url, data);
 
   if (response.status === 201 || response.status === 200) {
     console.log(
       "¡Gracias por contactarnos! Nos pondremos en contacto contigo pronto."
     );
+
+    toast.success("Tu denuncia fue enviada correctamente");
+    clear();
   } else {
-    console.error("Error al enviar el formulario:", response.status);
+    console.error("Error al enviar la denuncia:", response.statusText);
+    toast.error("Error al enviar la denuncia. Por favor, inténtalo de nuevo más tarde.");
+    clear();
   }
 }

@@ -2,6 +2,7 @@
 import Link from "next/link";
 import React from "react";
 import { usePathname } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
 
 interface props {
   title: string;
@@ -19,10 +20,12 @@ export default function NavbarLink({ title, link, className }: props) {
   const normalizedPathname = path.replace(/\/$/, "");
   const translatedPath = routermap[normalizedPathname] || normalizedPathname;
   const verrifyPath = translatedPath === link;
+  const locale = useLocale();
 
   return (
     <Link
       href={link}
+      locale={locale}
       className={`flex items-center h-20 px-5 text-center bg-transparent rounded-none hover:bg-transparent hover:text-white font-bold font-montserrat cursor-pointer  duration-300 ${className} ${
         verrifyPath ? "text-white" : "text-cyan-600"
       }`}

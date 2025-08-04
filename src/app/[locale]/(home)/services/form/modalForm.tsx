@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useTranslations } from "next-intl";
 import { createServiceForm } from "@/services/servicesForm/service";
+import Link from "next/link";
 
 interface DialogProps {
   open: boolean;
@@ -15,6 +16,8 @@ export function ServicesFormDiag({ open, handleOpen, handler }: DialogProps) {
   const [searchOption, setSearchOption] = useState("");
   const [step, setStep] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [radomN, setRadomN] = useState("");
+
   const [errorRequired, setErrorRequired] = useState<{
     name?: string;
 
@@ -125,6 +128,11 @@ export function ServicesFormDiag({ open, handleOpen, handler }: DialogProps) {
     });
   };
 
+  function generar4Digitos() {
+    const randomNumerbers = Math.floor(Math.random() * 9000) + 1000;
+    return randomNumerbers.toString();
+  }
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -133,14 +141,18 @@ export function ServicesFormDiag({ open, handleOpen, handler }: DialogProps) {
     if (validaForm) {
       // console.log("formData", formData)
       setSubmitted(true);
-      await createServiceForm(formData, cleardataForm);
+      const contactCode = generar4Digitos();
+      setRadomN(contactCode);
+      await createServiceForm(formData, cleardataForm, contactCode);
       setStep(2);
     }
   };
   if (!open) return null;
 
   return (
-    <div className={`fixed top-10 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-3xl mx-auto px-4`}>
+    <div
+      className={`fixed top-10 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-3xl mx-auto px-4`}
+    >
       <div className="bg-white p-6 rounded-lg shadow-xl border border-gray-200 max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-red-700">
@@ -166,7 +178,7 @@ export function ServicesFormDiag({ open, handleOpen, handler }: DialogProps) {
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-5">
-              <div className="w-full">
+              <div className="w-full relative">
                 <FormInput
                   label={
                     <>
@@ -178,14 +190,25 @@ export function ServicesFormDiag({ open, handleOpen, handler }: DialogProps) {
                   value={formData.name}
                   onChange={handleInputChange}
                   name="name"
+                  maxLength={50}
                 />
+                <div
+                  className={`absolute right-3.5   -translate-y-2/2 text-sm pointer-events-none ${
+                    formData.name?.length > 45
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {formData.name ? formData.name.length : 0}/50
+                </div>
+
                 {errorRequired.name && (
                   <span className="text-red-500 text-sm block mt-1">
                     {errorRequired.name}
                   </span>
                 )}
               </div>
-              <div className="w-full">
+              <div className="w-full relative">
                 <FormInput
                   label={
                     <>
@@ -197,7 +220,18 @@ export function ServicesFormDiag({ open, handleOpen, handler }: DialogProps) {
                   value={formData.lastName}
                   onChange={handleInputChange}
                   name="lastName"
+                  maxLength={50}
                 />
+
+                <div
+                  className={`absolute right-3.5  -translate-y-2/2 text-sm pointer-events-none ${
+                    formData.lastName?.length > 45
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {formData.lastName ? formData.lastName.length : 0}/50
+                </div>
 
                 {errorRequired.lastName && (
                   <span className="text-red-500 text-sm block mt-1">
@@ -208,7 +242,7 @@ export function ServicesFormDiag({ open, handleOpen, handler }: DialogProps) {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-5">
-              <div className="w-full">
+              <div className="w-full relative">
                 <FormInput
                   label={
                     <>
@@ -220,7 +254,18 @@ export function ServicesFormDiag({ open, handleOpen, handler }: DialogProps) {
                   value={formData.Phone}
                   onChange={handleInputChange}
                   name="Phone"
+                  maxLength={12}
                 />
+
+                <div
+                  className={`absolute right-3.5  -translate-y-2/2 text-sm pointer-events-none ${
+                    formData.Phone?.length > 10
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {formData.Phone ? formData.Phone.length : 0}/12
+                </div>
 
                 {errorRequired.Phone && (
                   <span className="text-red-500 text-sm block mt-1">
@@ -229,7 +274,7 @@ export function ServicesFormDiag({ open, handleOpen, handler }: DialogProps) {
                 )}
               </div>
 
-              <div className="w-full">
+              <div className="w-full relative">
                 <FormInput
                   label={
                     <>
@@ -241,7 +286,17 @@ export function ServicesFormDiag({ open, handleOpen, handler }: DialogProps) {
                   value={formData.email}
                   onChange={handleInputChange}
                   name="email"
+                  maxLength={100}
                 />
+                <div
+                  className={`absolute right-3.5  -translate-y-2/2 text-sm pointer-events-none ${
+                    formData.email?.length > 95
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {formData.email ? formData.email.length : 0}/100
+                </div>
 
                 {errorRequired.email && (
                   <span className="text-red-500 text-sm block mt-1">
@@ -354,6 +409,10 @@ export function ServicesFormDiag({ open, handleOpen, handler }: DialogProps) {
                 </span>
               )}
             </div>
+            <p className="text-sm text-gray-500 mt-2">
+              Los campos marcados con <span className="text-red-500">*</span>{" "}
+              son obligatorios.
+            </p>
 
             {/* Botón */}
             <button
@@ -373,13 +432,51 @@ export function ServicesFormDiag({ open, handleOpen, handler }: DialogProps) {
               Su solicitud fue enviada correctamente. Pronto recibirá una
               confirmación por correo electrónico.
             </p>
+            <p>
+              Su código de solicitud es:{" "}
+              <span className="text-blue-600 font-bold">{radomN}</span>.
+            </p>
+            <p>
+              El tiempo estimado para la entrega del resultado es de{" "}
+              <strong>3 a 7 días laborables</strong>.
+            </p>
+            <p>
+              Nos comunicaremos con usted a través de{" "}
+              <strong>[correo electrónico / teléfono / WhatsApp]</strong> para
+              informarle sobre el estatus de su caso.
+            </p>
+            <p>
+              Si desea contactarnos, puede hacerlo a través del correo{" "}
+              <strong>servicios@prodominicana.gob.do</strong> o por WhatsApp al{" "}
+              <strong>(809) 530-5505</strong>.
+            </p>
+            <p>
+              Puede consultar nuestras políticas de privacidad y seguridad en el
+              siguiente enlace:{" "}
+              <Link
+                href="/politicas-de-privacidad"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline"
+              >
+                Políticas de privacidad
+              </Link>
+              .
+            </p>
+            <p>
+              Para completar su solicitud, asegúrese de haber enviado todos los
+              documentos requeridos.
+            </p>
+            <strong className="pt-2">
+              En ProDominicana estamos para servirle.
+            </strong>
 
             <button
               onClick={() => {
                 handler();
                 handleOpen();
               }}
-              className="mt-4 px-6 py-3 bg-red-700 text-white font-semibold rounded-md hover:bg-red-800 transition duration-200 cursor-pointer"
+              className="mt-4 px-6 py-3 bg-red-700 text-white font-semibold rounded-md hover:bg-red-800 transition duration-200 cursor-pointer flex flex-row items-center justify-center mx-auto"
             >
               Aceptar
             </button>

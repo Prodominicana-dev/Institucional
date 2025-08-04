@@ -3,10 +3,8 @@ import Link from "next/link";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
 export default function ComplaintModal({
@@ -20,10 +18,10 @@ export default function ComplaintModal({
 }) {
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
+      <DialogContent className="[&>button]:cursor-pointer">
         <DialogHeader>
           <DialogTitle>
-            Distinguido cliente, su solicitud ha sido recibida
+            Distinguido Usuario, su solicitud ha sido recibida
             satisfactoriamente.
           </DialogTitle>
           <div className="space-y-2">
@@ -57,10 +55,6 @@ export default function ComplaintModal({
                 Políticas de privacidad
               </Link>
               .
-            </p>
-            <p>
-              Para completar su solicitud, asegúrese de haber enviado todos los
-              documentos requeridos.
             </p>
             <strong className="pt-2">
               En ProDominicana estamos para servirle.

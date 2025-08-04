@@ -27,8 +27,8 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/",
-    "/(en|es|fr|zh|ar)/:path*",
-    "/((?!api|trpc|_next|_vercel|.*\\..*).*)",
+    "/",                      // Home
+    "/(es|en)/:path*",        // Idiomas permitidos
+    "/((?!api|_next|.*\\..*).*)", // Evita aplicar a rutas de archivos y APIs
   ],
-};
+}

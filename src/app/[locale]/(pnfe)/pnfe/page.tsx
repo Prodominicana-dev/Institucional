@@ -229,8 +229,8 @@ export default function Page() {
       setProgressByPilar(progress);
       setGeneralProgress(generalProgress);
 
-      console.log("Progreso general:", generalProgress);
-      console.log("Progreso por pilar:", progress);
+      // console.log("Progreso general:", generalProgress);
+      // console.log("Progreso por pilar:", progress);
     };
     loadData();
   }, []);

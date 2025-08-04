@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 import React from "react";
 import { usePathname } from "@/i18n/navigation";
+import { useLocale } from "next-intl";
 
 interface Props {
   title: string;
@@ -41,9 +42,10 @@ export default function NavbarMenu({ title, navListMenuItems }: Props) {
   const pathname = usePathname();
   const normalizedPathname = pathname.replace(/\/$/, "");
   const translatedPath = routeMap[normalizedPathname] || normalizedPathname;
+   const locale = useLocale();
   const renderItems = navListMenuItems.map(
     ({ icon, title, description, link }: any, key: any) => (
-      <Link href={link} key={key}>
+      <Link href={link} locale={locale} key={key}>
         <MenuItem className="flex items-center gap-3 rounded-lg border-0">
           <div className="flex items-center justify-center rounded-lg !bg-blue-gray-50 p-2 ">
             {" "}

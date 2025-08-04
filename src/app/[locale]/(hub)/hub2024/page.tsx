@@ -18,14 +18,16 @@ import { Button } from "@material-tailwind/react";
 
 export default function Page() {
   const t = useTranslations("hub");
+  const { locale } = useParams();
+
   const forms = [
     {
       title: t("buyers.title"),
-      url: t("buyers.url"),
+      url: `/${locale}${t("buyers.url")}`, 
     },
     {
       title: t("exporters.title"),
-      url: t("exporters.url"),
+      url: `/${locale}${t("exporters.url")}`,
     },
   ];
   return (
@@ -125,9 +127,12 @@ function DateTimeLocation() {
 }
 
 function FormButton({ title, url }: { title: string; url: string }) {
+ const params = useParams();
+  const locale = Array.isArray(params.locale) ? params.locale[0] : params.locale;
   return (
     <Link
-      href={url}
+      href={{ pathname: url }}
+      locale={locale} // 🆕 fuerza el idioma en el <Link>
       target="_blank"
       className="bg-cyan-500 hover:bg-cyan-500/80 duration-300 text-[#051628] font-bold px-6 py-3 rounded-full text-center"
     >
@@ -192,11 +197,11 @@ function LanguagePicker() {
   const [selected, setSelected] = useState(
     data.find((item) => item.langcode === locale) || data[0]
   );
-  const items = data.map((item) => (
-    <SelectItem value={item.langcode} key={item.label}>
-      {item.label}
-    </SelectItem>
-  ));
+  // const items = data.map((item) => (
+  //   <SelectItem value={item.langcode} key={item.label}>
+  //     {item.label}
+  //   </SelectItem>
+  // ));
 
   const pathname = usePathname();
   const params = useParams();
@@ -210,23 +215,40 @@ function LanguagePicker() {
       { locale: locale }
     );
   }
+
   useEffect(() => {
-    switchLocale(selected.langcode);
-  }, [selected]);
+    const storedLang = localStorage.getItem("preferred-lang");
+    const matched = data.find((item) => item.langcode === storedLang);
+    if (matched && matched.langcode !== locale) {
+      setSelected(matched);
+      switchLocale(matched.langcode);
+    }
+  }, []);
+
+  const handleLanguageChange = (value: string) => {
+    const newSelected = data.find((item) => item.langcode === value);
+    if (newSelected) {
+      setSelected(newSelected);
+      localStorage.setItem("preferred-lang", newSelected.langcode); // guardar preferencia
+      switchLocale(newSelected.langcode); // cambiar idioma manualmente
+    }
+  };
+  // useEffect(() => {
+  //   switchLocale(selected.langcode);
+  // }, [selected]);
 
   return (
-    <Select
-      onValueChange={(value: any) => {
-        const newSelected = data.find((item) => item.langcode === value);
-        if (newSelected) setSelected(newSelected);
-      }}
-    >
+    <Select onValueChange={handleLanguageChange}>
       <SelectTrigger className="flex items-center gap-2 rounded-full capitalize border-2 border-white bg-transparent hover:bg-white/10 duration-200 w-min px-5 py-2 text-white text-base">
         <GlobeAltIcon className="size-5 text-white" />
         {selected.code}
       </SelectTrigger>
       <SelectContent className="flex flex-col items-center justify-center bg-white">
-        {items}
+        {data.map((item) => (
+          <SelectItem value={item.langcode} key={item.label}>
+            {item.label}
+          </SelectItem>
+        ))}
       </SelectContent>
     </Select>
   );

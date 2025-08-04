@@ -197,7 +197,7 @@ export default function Page() {
             <div className="flex flex-row w-10/12 p-4 bg-white rounded-full sm:p-5 sm:w-8/12">
               <MagnifyingGlassIcon className="w-5 mx-2 text-gray-500" />
               <input
-                placeholder="Buscar por nombre, sector, producto o país."
+                placeholder="Buscar por nombre, sector o producto. "
                 className="w-10/12 text-blue-500 bg-white outline-none"
                 name="search"
                 value={searchText || ""}

@@ -41,7 +41,7 @@ export default function Card({
       );
     }
   };
-  console.log(member);
+  // console.log(member);
   return (
     <>
       <div className="grid items-center w-full h-24 grid-cols-2 lg:grid-cols-5 p-5 text-center bg-white rounded-lg  ring-2 ring-gray-100">

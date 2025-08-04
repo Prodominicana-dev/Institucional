@@ -6,6 +6,7 @@ import { useTranslations } from "next-intl";
 
 export default function Page() {
   const t = useTranslations("whoarewe");
+
   const valores = [
     {
       title: t("values.excellence.title"),
@@ -56,32 +57,33 @@ export default function Page() {
 
   return (
     <div className="bg-white">
-      <div className="w-full lg:h-[40vh] bg-blue-950 flex py-5">
-        <div className="w-full sm:w-5/12 p-16 flex justify-center items-center text-center">
+      {/* ✅ Añadido pt-32 para móviles, corrige solapamiento con navbar */}
+      <div className="w-full bg-blue-950 flex flex-col lg:flex-row pt-32 sm:pt-20 lg:pt-0 pb-5">
+        <div className="w-full sm:w-5/12 p-6 sm:p-10 lg:p-16 flex justify-center items-center text-center mx-auto max-w-screen-xl">
           <Typography className="text-white font-extrabold text-5xl">
             {t("title")}
           </Typography>
         </div>
-        <div className="hidden sm:block w-7/12">
+        <div className="hidden sm:block w-full lg:w-7/12">
           <Image
             width={3840}
             height={2160}
             src={"/images/flags.jpg"}
             alt={"news"}
-            className=" h-full w-full object-cover object-center rounded-l-3xl"
+            className="h-full w-full object-cover object-center rounded-l-3xl"
           />
         </div>
       </div>
-      <div className="w-full lg:h-[70vh] flex flex-col lg:flex-row">
-        <div className="lg:w-6/12 h-full bg-sky-600 flex justify-center items-center p-10 relative">
-          <div className="lg:w-6/12 space-y-3">
+
+      {/* ✅ Eliminamos altura fija para permitir crecimiento dinámico */}
+      <div className="w-full flex flex-col lg:flex-row">
+        <div className="w-full lg:w-6/12 bg-sky-600 flex justify-center items-center p-6 sm:p-10 lg:p-16 relative">
+          <div className="w-full lg:w-6/12 space-y-3">
             <Typography className="text-white font-extrabold text-3xl">
               {t("title")}
             </Typography>
             <div className="bg-white w-4/12 h-1 rounded-full"></div>
-            <Typography className="text-white text-xl" translate="yes">
-              {t("desc")}
-            </Typography>
+            <Typography className="text-white text-xl">{t("desc")}</Typography>
           </div>
           <Image
             width={100}
@@ -91,13 +93,14 @@ export default function Page() {
             className="w-32 bottom-0 right-0 absolute hidden lg:block"
           />
         </div>
-        <div className="flex flex-col lg:w-6/12 h-full">
-          <div className="h-3/6 bg-red-700 flex justify-center items-center p-10 relative">
-            <div className="lg:w-8/12 space-y-2">
+
+        <div className="flex flex-col w-full lg:w-6/12">
+          <div className="bg-red-700 flex justify-center items-center p-6 sm:p-10 lg:p-16 relative">
+            <div className="w-full lg:w-8/12 space-y-2">
               <Typography className="text-white font-extrabold text-3xl">
                 {t("mission.title")}
               </Typography>
-              <Typography className="text-white text-xl" translate="yes">
+              <Typography className="text-white text-xl">
                 {t("mission.desc")}
               </Typography>
             </div>
@@ -109,8 +112,9 @@ export default function Page() {
               className="w-32 bottom-0 right-0 absolute hidden lg:block"
             />
           </div>
-          <div className="h-3/6 bg-white sm:bg-blue-950 flex justify-center items-center p-10 relative">
-            <div className="lg:w-8/12 space-y-2">
+
+          <div className="bg-white sm:bg-blue-950 flex justify-center items-center p-6 sm:p-10 lg:p-16 relative">
+            <div className="w-full lg:w-8/12 space-y-2">
               <Typography className="text-blue-950 sm:text-white font-extrabold text-3xl">
                 {t("vision.title")}
               </Typography>
@@ -128,45 +132,38 @@ export default function Page() {
           </div>
         </div>
       </div>
-      <div className="h-full">
-        <div className="w-full relative">
-          <Image
-            src={"/images/prodominicanabuilding.jpg"}
-            width={6000}
-            height={2195}
-            alt="foto"
-            className="object-cover w-full h-full hidden lg:block"
-          />
-          <div className="relative lg:absolute inset-0 bg-blue-950 lg:bg-blue-950/90 z-10 flex flex-col items-center justify-center p-10 xl:p-0">
-            <div className="xl:w-10/12 space-y-5">
-              <Typography className="text-white font-bold text-4xl xl:pl-20">
-                {t("values.title")}
-              </Typography>
-              <ul className="grid grid-cols-1 xl:grid-cols-2 gap-5 list-disc list-inside">
-                {valores.map((value, index) => (
-                  <div className="w-full flex items-center gap-5" key={index}>
-                    <Image
-                      width={100}
-                      height={100}
-                      alt={value.title}
-                      src={value.icon}
-                      className="w-16 hidden lg:block"
-                    />
-                    <div>
-                      <li className="text-white font-extrabold text-xl">
-                        {value.title}
-                      </li>
-                      <Typography className="text-white text-lg">
-                        {value.desc}
-                      </Typography>
-                    </div>
+
+      {/* ✅ Eliminamos position absolute, ajustamos paddings y dejamos crecer libremente */}
+      <div className="w-full bg-blue-950 px-5 sm:px-10 py-14">
+        <div className="max-w-screen-xl mx-auto space-y-5">
+          <Typography className="text-white font-bold text-4xl">
+            {t("values.title")}
+          </Typography>
+
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-5">
+            {valores.map((value, index) => (
+              <li className="flex items-start gap-4" key={index}>
+                <Image
+                  width={100}
+                  height={100}
+                  alt={value.title}
+                  src={value.icon}
+                  className="w-12 hidden lg:block"
+                />
+                <div>
+                  <div className="text-white font-extrabold text-xl">
+                    {value.title}
                   </div>
-                ))}
-              </ul>
-            </div>
-          </div>
+                  <Typography className="text-white text-lg">
+                    {value.desc}
+                  </Typography>
+                </div>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
+
       <div className="w-full bg-white flex justify-center items-center p-10">
         <div className="w-full lg:w-10/12 flex flex-col lg:flex-row gap-10">
           <Image

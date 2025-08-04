@@ -22,6 +22,12 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 export default function Page() {
   const map = useMap();
@@ -318,22 +324,32 @@ export default function Page() {
           />
           <form
             onSubmit={handleSubmit}
-            className="flex flex-col gap-5 py-2 text-blue-950 xl:w-6/12 w-full"
+            className="flex flex-col gap-5 py-2 text-blue-950 xl:w-6/12 w-full  pt-10 md:pt-10 xl:pt-0"
           >
             <div>
               <h1 className="text-4xl font-extrabold">{t("title")}</h1>
               <p className="font-semibold">{t("description")}</p>
             </div>
             <div className="flex flex-col sm:flex-row gap-5">
-              <div className="w-full">
+              <div className="w-full relative ">
                 <FormInput
                   label={t("form.name")}
                   placeholder="John"
                   value={formData.nameF}
                   onChange={handleInputChange}
                   name="nameF"
+                  maxLeng={50}
                   isRequired={true}
                 />
+                <div
+                  className={` absolute -bottom-1 right-2 text-sm ${
+                    formData.nameF?.length > 45
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {formData.nameF ? formData.nameF.length : 0}/50
+                </div>
 
                 {errorRequired.nameF && (
                   <span className="text-red-500 text-sm block mt-1">
@@ -341,15 +357,25 @@ export default function Page() {
                   </span>
                 )}
               </div>
-              <div className="w-full">
+              <div className="w-full relative">
                 <FormInput
                   label={t("form.lastName")}
                   placeholder="Doe"
                   value={formData.lastName}
                   onChange={handleInputChange}
                   name="lastName"
+                  maxLeng={50}
                   isRequired={true}
                 />
+                <div
+                  className={` absolute -bottom-1 right-2 text-sm ${
+                    formData.lastName?.length > 45
+                      ? "text-red-500"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {formData.lastName ? formData.lastName.length : 0}/50
+                </div>
                 {errorRequired.lastName && (
                   <span className="text-red-500 text-sm block mt-1">
                     {errorRequired.lastName}
@@ -357,15 +383,23 @@ export default function Page() {
                 )}
               </div>
             </div>
-            <div className="w-full">
+            <div className="w-full relative ">
               <FormInput
                 label={t("form.email")}
                 placeholder="example@email.com"
                 value={formData.email}
                 onChange={handleInputChange}
                 name="email"
+                maxLeng={100}
                 isRequired={true}
               />
+              <div
+                className={` absolute -bottom-1 right-2 text-sm ${
+                  formData.email?.length > 95 ? "text-red-500" : "text-gray-500"
+                }`}
+              >
+                {formData.email ? formData.email.length : 0}/100
+              </div>
               {errorRequired.email && (
                 <span className="text-red-500 text-sm block mt-1">
                   {errorRequired.email}
@@ -384,7 +418,7 @@ export default function Page() {
                   isRequired={true}
                 />
                 <div
-                  className={` absolute   bottom-3 right-6 text-sm ${
+                  className={`  absolute -bottom-1 right-2 text-sm ${
                     formData.identity?.length > 10
                       ? "text-red-500"
                       : "text-gray-500"
@@ -439,7 +473,7 @@ export default function Page() {
                 ></Textarea>
 
                 <div
-                  className={` absolute   bottom-3 right-6 text-sm ${
+                  className={`  absolute -bottom-1 right-2 text-sm ${
                     formData.message?.length > 950
                       ? "text-red-500"
                       : "text-gray-500"
@@ -454,6 +488,10 @@ export default function Page() {
                 </span>
               )}
             </div>
+            <p className="text-sm text-gray-500 mt-2">
+              Los campos marcados con <span className="text-red-500">*</span>{" "}
+              son obligatorios.
+            </p>
             <button
               type="submit"
               className=" z-30 bg-blue-950 w-full py-5 text-xl text-white font-bold text-center rounded-xl cursor-pointer"
@@ -574,6 +612,7 @@ function FormInput({
         value={value}
         name={name}
         onChange={onChange}
+        maxLength={maxLeng}
       />
     </div>
   );
@@ -639,67 +678,53 @@ function ModalCard({
   return (
     <>
       {isOpen && (
-        <div className="fixed inset-0 bg-black/30 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl shadow-2xl w-full max-w-[80vw] md:max-w-3xl lg:max-w-4xl xl:max-w-2xl relative">
-            {/* Botón de cerrar (X) */}
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 p-2 rounded-full hover:bg-gray-200 transition-colors cursor-pointer"
-              aria-label="Cerrar modal"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-6 w-6 text-red-900"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-
-            {/* Icono central */}
-            <div className="flex justify-center mt-6">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-12 w-12 text-blue-950"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                />
-              </svg>
-            </div>
-
-            {/* Contenido del mensaje */}
-            <div className="px-4 py-6 sm:px-6 md:px-8 lg:px-10 xl:px-12 text-left">
-              <p className="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed mb-6 text-justify">
-                Distinguido cliente, su solicitud ha sido recibida
-                satisfactoriamente. La misma estará siendo asignada al personal
-                correspondiente para atenderle. En caso de requerir información
-                adicional, favor contactar al Centro de Atención al Cliente al
-                correo electrónico{" "}
-                <strong>servicios@prodominicana.gob.do</strong> o al teléfono de
-                WhatsApp (809) 530-5505. En ProDominicana estamos para servirle.
-              </p>
-
-              <div className="text-gray-800 text-lg sm:text-xl md:text-2xl font-semibold text-center">
-                Su código de solicitud es:{" "}
-                <span className="text-blue-600 font-bold">{codeContact}</span>
+        <Dialog open={isOpen} onOpenChange={onClose}>
+          <DialogContent className="[&>button]:cursor-pointer">
+            <DialogHeader>
+              <DialogTitle>
+                Distinguido Usuario, su solicitud ha sido recibida
+                satisfactoriamente.
+              </DialogTitle>
+              <div className="space-y-2">
+                <p>
+                  Su código de solicitud es:{" "}
+                  <span className="text-blue-600 font-bold">{codeContact}</span>
+                  .
+                </p>
+                <p>
+                  El tiempo estimado para la entrega del resultado es de{" "}
+                  <strong>3 a 7 días laborables</strong>.
+                </p>
+                <p>
+                  Nos comunicaremos con usted a través de{" "}
+                  <strong>[correo electrónico / teléfono / WhatsApp]</strong>{" "}
+                  para informarle sobre el estatus de su caso.
+                </p>
+                <p>
+                  Si desea contactarnos, puede hacerlo a través del correo{" "}
+                  <strong>servicios@prodominicana.gob.do</strong> o por WhatsApp
+                  al <strong>(809) 530-5505</strong>.
+                </p>
+                <p>
+                  Puede consultar nuestras políticas de privacidad y seguridad
+                  en el siguiente enlace:{" "}
+                  <Link
+                    href="/politicas-de-privacidad"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 underline"
+                  >
+                    Políticas de privacidad
+                  </Link>
+                  .
+                </p>
+                <strong className="pt-2">
+                  En ProDominicana estamos para servirle.
+                </strong>
               </div>
-            </div>
-          </div>
-        </div>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
       )}
     </>
   );
