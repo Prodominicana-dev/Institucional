@@ -52,21 +52,21 @@ export default function ToolsMenuCollapse({
               target="_blank"
               rel="noopener noreferrer"
               key={index}
-              className="group flex h-full w-full flex-col items-center justify-start gap-2 rounded-md px-2 py-3 text-center text-[10px] font-semibold text-[#003876] hover:text-blue-950 "
+              className="group flex h-full w-full flex-col items-center justify-start gap-2 rounded-md px-2 py-3 text-center text-[10px] font-semibold text-[#003876] hover:text-blue-950"
             >
-              <div className="relative flex h-[60px] w-[60px] items-center justify-center rounded-full border-2 border-gray-200 group-hover:border-blue-950 overflow-hidden">
+              <div className="relative flex h-[60px] w-[60px] items-center justify-center rounded-full border-2 border-gray-200 group-hover:border-blue-950 overflow-hidden bg-white">
                 <Image
                   src={icon}
                   alt={`Logo de ${title}`}
                   loading="lazy"
-                  className="object-contain p-[10px]"
+                  className="object-contain w-[80%] h-[80%]"
                   width={60}
                   height={60}
-                  sizes="60px"
+                  sizes="(max-width: 768px) 50px, 60px"
                   priority={false}
                 />
               </div>
-              <p>{title}</p>
+              <p className="line-clamp-2 lg:line-clamp-none">{title}</p>
             </Link>
           ))}
         </div>

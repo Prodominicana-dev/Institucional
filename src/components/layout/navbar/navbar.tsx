@@ -218,7 +218,7 @@ export default function Navbar() {
             />
             <NavbarLink
               title={t("transparency")}
-              link={"https://old.prodominicana.gob.do/transparencia"}
+              link={"https://transparencia.prodominicana.gob.do/"}
               className="h-full px-3 xl:px-2 xl:text-sm 2xl:px-3 2xl:text-base flex items-center"
             />
             <NavbarLink

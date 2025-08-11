@@ -68,13 +68,15 @@ export default function ToolsMenu() {
       placement="bottom-end"
     >
       <MenuHandler>
-        <Image
-          alt=""
-          width={32}
-          height={32}
-          src={"/svg/icons/appsIcon.svg"}
-          className=" w-[32px] h-[32px] cursor-pointer"
-        />
+        <div className="flex items-center justify-center w-8 h-8 flex-shrink-0 overflow-hidden cursor-pointer">
+          <Image
+            src={"/svg/icons/appsIcon.svg"}
+            alt="Logo de ventanilla"
+            width={32}
+            height={32}
+            className="object-cover w-full h-full p-0 m-0 block"
+          />
+        </div>
       </MenuHandler>
       <MenuList className="hidden max-w-screen-xl rounded-xl lg:block p-5 w-3/12 max-h-[70vh] overflow-y-auto">
         <ToolsMenuCollapse

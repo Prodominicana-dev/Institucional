@@ -140,29 +140,32 @@ export default function NavBarMobile() {
   ];
 
   return (
-    <section className=" fixed w-full xl:hidden block z-50">
+    <section className="fixed w-full xl:hidden block z-50 top-0 left-0">
       <div className="relative">
         <div
           className={`transition-transform duration-300 transform ${
             showInfo ? "h-auto" : "h-0 overflow-hidden"
           }`}
         >
-      <GovPagesInfo />
+          <GovPagesInfo />
         </div>
       </div>
-      <div
-        className="bg-white"
-      >
+      <div className="bg-white">
         <div className="w-full flex justify-center items-center">
           <div className="w-11/12 h-24 flex justify-between items-center">
             <div className="w-6/12 h-full flex items-center">
-              <Link href={"/"} className="w-56 cursor-pointer">
+              <Link href="/" className="w-56 cursor-pointer block" passHref>
                 <Image
                   alt="prodominicana"
                   width={1920}
                   height={1080}
-                  src={"/prodominicana.svg"}
-                  style={{  minHeight: '47px', maxHeight: '47px' }}
+                  src="/prodominicana.svg"
+                  className="object-contain"
+                  style={{
+                    minHeight: "47px",
+                    maxHeight: "47px",
+                    width: "auto",
+                  }}
                 />
               </Link>
             </div>
@@ -175,15 +178,18 @@ export default function NavBarMobile() {
               <div className="w-[2px] h-2/6 bg-gray-300 rounded-full"></div>
               <LanguagePicker />
               <div className="w-[2px] h-2/6 bg-gray-300 rounded-full"></div>
-              <button onClick={toggleOpen} className=" cursor-pointer">
+              <button onClick={toggleOpen} className="cursor-pointer">
                 <Bars3Icon className="w-[42px] h-[44px] text-blue-950" />
               </button>
             </div>
           </div>
         </div>
-        <Collapse open={open} className="px-5 bg-white">
+        <Collapse
+          open={open}
+          className="px-5 bg-white max-h-[calc(100vh-6rem)] overflow-y-auto"
+        >
           <button
-            className="w-full h-12 flex items-center justify-between "
+            className="w-full h-12 flex items-center justify-between"
             onClick={toggleMenuOpen}
           >
             <div className="flex flex-row space-x-4 justify-center items-center">

@@ -34,7 +34,7 @@ export default function Page() {
       setPreviousIndex(null);
     }
   };
-  console.log("activeIndex", activeIndex);
+  // console.log("activeIndex", activeIndex);
 
   const t = useTranslations("legal");
   const t2 = useTranslations("commonWords");

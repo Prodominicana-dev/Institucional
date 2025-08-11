@@ -78,7 +78,7 @@ export function ServicesFormDiag({ open, handleOpen, handler }: DialogProps) {
       id?: string;
     } = {};
 
-    if (!formData.name) {
+    if (!formData.name.trim()) {
       RequiredErr.name = "El nombre es obligatorio.";
     }
 
