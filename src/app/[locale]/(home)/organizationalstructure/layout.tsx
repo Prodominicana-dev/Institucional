@@ -56,7 +56,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           {t("title")}
         </h1>
         <Link
-          href={"/documents/ORGANIGRAMA_GENERAL_2024.pdf"}
+          href={"/documents/ORGANIGRAMA_GENERAL_2025.pdf"}
           target="_blank"
           rel="noopener noreferrer"
           download

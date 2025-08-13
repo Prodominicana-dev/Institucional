@@ -78,16 +78,22 @@ export default function ToolsMenu() {
           />
         </div>
       </MenuHandler>
-      <MenuList className="hidden max-w-screen-xl rounded-xl lg:block p-5 w-3/12 max-h-[70vh] overflow-y-auto">
-        <ToolsMenuCollapse
-          title={"Portales"}
-          defaultOpen={true}
-          content={portalsListItems}
-        />
-        <ToolsMenuCollapse
-          title={"Ventanillas"}
-          content={ventanillaListItems}
-        />
+      <MenuList className="max-w-screen-xl rounded-xl p-5 w-[350px] max-h-[517.56px] overflow-y-auto lg:flex flex-col z-50">
+        <div className="relative -space-y-2 md:-space-y-4 flex flex-col -mb-4 flex-shrink">
+          <div onClick={(e) => e.stopPropagation()}>
+            <ToolsMenuCollapse
+              title={"Portales"}
+              defaultOpen={true}
+              content={portalsListItems}
+            />
+          </div>
+          <div onClick={(e) => e.stopPropagation()}>
+            <ToolsMenuCollapse
+              title={"Ventanillas"}
+              content={ventanillaListItems}
+            />
+          </div>
+        </div>
       </MenuList>
     </Menu>
   );

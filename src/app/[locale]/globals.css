@@ -219,3 +219,18 @@
     @apply bg-background text-foreground;
   }
 }
+
+#«R2k6rbl7H1»,
+#«R2k6rbl7H1» * {
+  
+  outline: none !important;
+  box-shadow: none !important;
+  
+}
+
+/* Asegurar que el hover no genere borde */
+#«R2k6rbl7H1» a:hover {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
