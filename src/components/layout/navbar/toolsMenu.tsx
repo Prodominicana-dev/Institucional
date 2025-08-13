@@ -78,7 +78,7 @@ export default function ToolsMenu() {
           />
         </div>
       </MenuHandler>
-      <MenuList className="max-w-screen-xl rounded-xl p-5 w-[350px] max-h-[517.56px] overflow-y-auto lg:flex flex-col z-50">
+      <MenuList className=" no-hover-effects max-w-screen-xl rounded-xl p-5 w-[350px] max-h-[517.56px] overflow-y-auto lg:flex flex-col z-50">
         <div className="relative -space-y-2 md:-space-y-4 flex flex-col -mb-4 flex-shrink">
           <div onClick={(e) => e.stopPropagation()}>
             <ToolsMenuCollapse

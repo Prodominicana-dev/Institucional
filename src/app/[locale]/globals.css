@@ -220,16 +220,13 @@
   }
 }
 
-#«R2k6rbl7H1»,
-#«R2k6rbl7H1» * {
-  
+.no-hover-effects,
+.no-hover-effects * {
   outline: none !important;
   box-shadow: none !important;
-  
 }
 
-/* Asegurar que el hover no genere borde */
-#«R2k6rbl7H1» a:hover {
+.no-hover-effects a:hover {
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
