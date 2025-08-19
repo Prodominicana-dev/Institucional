@@ -217,7 +217,6 @@ export function DocumentDialog({
               </div>
             ))}
           </form>
-        </DialogContent>
         <DialogFooter className="space-x-4 font-montserrat">
           <button
             onClick={handleSubmit}
@@ -226,6 +225,7 @@ export function DocumentDialog({
             {isLoading ? <HashLoader /> : "Guardar"}
           </button>
         </DialogFooter>
+        </DialogContent>
       </Dialog>
     </>
   );

@@ -161,20 +161,20 @@
       "title": "Inversión Extranjera Directa",
       "data": [
         {
-          "title": " Récord en IED primer trimestre 2025​",
-          "value": "US$1,362.7 millones"
+          "title": "  Récord en IED primer semestre 2025​",
+          "value": "US$2,892.8 millones"
         },
         {
-          "title": "Crecimiento interanual de la IED primer trimestre 2025",
-          "value": "+7.1%"
+          "title": " Crecimiento interanual de la IED primer semestre 2025",
+          "value": "+15.3%"
         },
         {
           "title": "Empresas de IED instaladas",
           "value": "+700"
         },
         {
-          "title": " Stock de IED",
-          "value": "+US$56,000 millones"
+          "title": "millones Stock de IED",
+          "value": "+US$60,000 millones"
         }
       ]
     },
@@ -182,20 +182,20 @@
       "title": "Exportaciones",
       "data": [
         {
-          "title": "Récord en exportaciones de mercancías primer trimestre 2025",
-          "value": " US$3,161.8 millones "
+          "title": "millones Récord en exportaciones de mercancías primer semestre 2025",
+          "value": " US$6,881.6 millones  "
         },
         {
-          "title": "Crecimiento interanual de las exportaciones de mercancías primer trimestre 2025",
-          "value": "+12.0%"
+          "title": "Crecimiento interanual de las exportaciones de mercancías primer semestre 2025",
+          "value": "+8.9%"
         },
         {
           "title": "Destinos de exportación",
-          "value": "+ 150"
+          "value": "+150"
         },
         {
           "title": "Productos de exportación",
-          "value": "+ 3,000"
+          "value": "+3,000"
         }
       ]
     },
@@ -203,20 +203,20 @@
       "title": "Capacitación",
       "data": [
         {
-          "title": "Empresas exportadoras capacitadas 2025",
-          "value": "173"
+          "title": "Empresas exportadoras capacitadas",
+          "value": "385"
         },
         {
-          "title": "Potenciales Exportadoras capacitadas 2025",
-          "value": "163"
+          "title": "Empresas con potencial exportador capacitadas",
+          "value": "319"
         },
         {
-          "title": "Formación a la sociedad en general 2025",
-          "value": "2,510"
+          "title": "Personas de la sociedad general interesadas en Comercio Exterior capacitadas",
+          "value": "4,266"
         },
         {
-          "title": "Graduados de diplomados especializados 2024",
-          "value": "261"
+          "title": "Participantes de graduados de diplomados especializados durante 2025.",
+          "value": "88"
         }
       ]
     },
@@ -224,11 +224,11 @@
       "title": "Posicionamiento global",
       "data": [
         {
-          "title": "Destino de IED en la región de Centroamérica y Caribe ​",
+          "title": " Destino de IED en la región de Centroamérica y Caribe (ene-mar 2025) ​",
           "value": "1er"
         },
         {
-          "title": "Exportador de cigarros puros ​al mundo​ ",
+          "title": " Exportador de cigarros puros ​al mundo​ ",
           "value": "1er"
         },
         {
@@ -236,8 +236,8 @@
           "value": "1er"
         },
         {
-          "title": "Exportador ​de disyuntores automáticos, para una tensión <= 1,000 Voltios (breaker) a Estados Unidos",
-          "value": "1er"
+          "title": " Exportador ​de disyuntores automáticos, para una tensión <= 1,000 Voltios (breaker) a Estados Unidos",
+          "value": "2do"
         }
       ]
     }

@@ -1,7 +1,9 @@
 import { notifications } from "@mantine/notifications";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { error } from "console";
 var CryptoJS = require("crypto-js");
+import { toast } from "sonner";
 
 export function useExportersPaginated({
   perPage,
@@ -126,7 +128,7 @@ export function useGalleryByNameAndLang(name: string) {
   });
 }
 
-export async function createExporter(
+export async function  createExporter(
   exporter: any,
   update: () => void,
   userId: string
@@ -146,30 +148,42 @@ export async function createExporter(
       }
     );
 
+    console.log("Response from createExporter:", res);
+    
+
     if (res.status === 201) {
-      notifications.show({
-        id: "member",
-        autoClose: 5000,
-        withCloseButton: false,
-        title: "Colaborador creada",
-        message: "El colaborador ha sido creada correctamente.",
-        color: "green",
-        loading: false,
-      });
+      // notifications.show({
+      //   id: "member",
+      //   autoClose: 5000,
+      //   withCloseButton: false,
+      //   title: "Colaborador creada",
+      //   message: "El colaborador ha sido creada correctamente.",
+      //   color: "green",
+      //   loading: false,
+      // });
+       toast.success("El colaborador ha sido creada correctamente.");
       update();
     } else {
       handleErrorResponse(res);
+
+    
+      
+      
     }
-  } catch (error) {
-    notifications.show({
-      id: "member",
-      autoClose: 5000,
-      withCloseButton: false,
-      title: "Error creando al colaborador",
-      message: "Ocurrió un error creando al colaborador.",
-      color: "red",
-      loading: false,
-    });
+  } catch (error: any) {
+    // notifications.show({
+    //   id: "member",
+    //   autoClose: 5000,
+    //   withCloseButton: false,
+    //   title: "Error creando al colaborador",
+    //   message: "Ocurrió un error creando al colaborador.",
+    //   color: "red",
+    //   loading: false,
+    // });
+
+    toast.error( "Ocurrió un error creando al colaborador.");
+    toast.error(`${error.response.data.error.message}`);
+    console.error("Error creando al colaborador:", error.response.data.error.message);
   }
 }
 

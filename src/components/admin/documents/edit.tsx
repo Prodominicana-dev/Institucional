@@ -1,14 +1,15 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
+  // Dialog,
+  // DialogHeader,
+  // DialogBody,
+  // DialogFooter,
   Input,
   Spinner,
   Tooltip,
 } from "@material-tailwind/react";
+
 import { useUser } from "@auth0/nextjs-auth0";
 import { Stepper, Step } from "@material-tailwind/react";
 import {
@@ -32,6 +33,12 @@ import { createMember } from "@/services/structure-organizational/members/servic
 import CreatableSelect from "react-select/creatable";
 import { createDocs, editDocs, useDocsById } from "@/services/gen-docs/service";
 import { HashLoader } from "react-spinners";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogFooter,
+} from "@/components/ui/dialog";
 
 export function EditDocumentDialog({
   id,
@@ -231,12 +238,12 @@ export function EditDocumentDialog({
 
   return (
     <>
-      <Dialog open={open} handler={handler} className="p-2 ">
+      <Dialog open={open} onOpenChange={handler}>
         <DialogHeader className="font-semibold flex flex-col items-start gap-1 font-montserrat">
           Editar documento
         </DialogHeader>
 
-        <DialogBody className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar">
+        <DialogContent className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar">
           <form action={handleSubmit}>
             {steps.map((step, index) => (
               <div
@@ -248,8 +255,6 @@ export function EditDocumentDialog({
                 {step.section}
               </div>
             ))}
-          </form>
-        </DialogBody>
         <DialogFooter className="space-x-4 font-montserrat">
           <button
             onClick={handleSubmit}
@@ -258,6 +263,8 @@ export function EditDocumentDialog({
             {isLoading ? <HashLoader /> : "Guardar"}
           </button>
         </DialogFooter>
+          </form>
+        </DialogContent>
       </Dialog>
     </>
   );

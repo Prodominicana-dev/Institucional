@@ -27,6 +27,12 @@ export default function RootLayout({ children }: RootLayoutProps) {
     }
   }, [data, isLoading]);
 
+  // console.log(" direction:", directions);
+
+  // console.log(" activeDirection:", activeDirection);
+  // console.log(" data:", data);
+
+  
   useEffect(() => {
     findActiveDirection();
   }, [directions]);

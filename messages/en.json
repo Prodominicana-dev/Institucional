@@ -140,19 +140,19 @@
       "data": [
         {
           "title": "Record FDI in the first quarter of 2025",
-          "value": "US$1,362.7 million"
+          "value": "US$2,892.8  million"
         },
         {
-          "title": "Year-on-year growth in FDI, first quarter 2025",
-          "value": "+7.1%"
+          "title": "Year-on-year growth of FDI first half 2025",
+          "value": "+15.3%"
         },
         {
           "title": "Installed FDI companies",
           "value": "+700"
         },
         {
-          "title": "FDI stock",
-          "value": "+US$56,000 million"
+          "title": "Millions of FDI Stock",
+          "value": "+US$60,000 million"
         }
       ]
     },
@@ -161,11 +161,11 @@
       "data": [
         {
           "title": "Record merchandise exports in the first quarter of 2025",
-          "value": "US$3,161.8 million"
+          "value": "US$6,881.6 million"
         },
         {
-          "title": "Year-on-year growth in merchandise exports, first quarter 2025",
-          "value": "+12.0%"
+          "title": "Year-on-year growth of merchandise exports first half 2025",
+          "value": "+8.9%"
         },
         {
           "title": "Export destinations",
@@ -181,20 +181,20 @@
       "title": "Training",
       "data": [
         {
-          "title": "Exporting companies trained in 2025",
-          "value": "173"
+          "title": "Trained exporting companies",
+          "value": "385"
         },
         {
-          "title": "Potential exporters trained in 2025",
-          "value": "163"
+          "title": "Trained companies with export potential",
+          "value": "319"
         },
         {
           "title": "General public trained in 2025",
-          "value": "2,510"
+          "value": "4,266"
         },
         {
-          "title": "Graduates from specialized diploma programs in 2024",
-          "value": "261"
+          "title": "Participants who graduated from specialized diploma programs during 2025",
+          "value": "88"
         }
       ]
     },
@@ -202,20 +202,20 @@
       "title": "Global Positioning",
       "data": [
         {
-          "title": "Top FDI destination in Central America and the Caribbean",
+          "title": "FDI Destination in the Central America and Caribbean region (Jan-Mar 2025)",
           "value": "1st"
         },
         {
-          "title": "World's leading exporter of premium cigars",
+          "title": "Exporter of premium cigars to the world",
           "value": "1st"
         },
         {
-          "title": "Top exporter of rum to the United States and Spain",
+          "title": "Rum exporter to the United States and Spain",
           "value": "1st"
         },
         {
-          "title": "Top exporter of automatic circuit breakers (≤ 1,000 Volts) to the United States",
-          "value": "1st"
+          "title": "Exporter of automatic circuit breakers, for a voltage <= 1,000 Volts (breaker) to the United States",
+          "value": "2nd"
         }
       ]
     }
