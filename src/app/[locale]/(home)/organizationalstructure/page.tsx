@@ -10,6 +10,7 @@ export default function Page() {
   useEffect(() => {
     if (!isLoading && data) {
       setExecutiveDirection(data[0]);
+      
     }
   }, [data, isLoading]);
   return router.push(`/organizationalstructure/${executiveDirection.id}`);
