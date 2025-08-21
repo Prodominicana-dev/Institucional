@@ -74,6 +74,7 @@ export default function Card({
           update={update}
         />
       )}
+      
 
       {deleted && (
         <DeleteButton
