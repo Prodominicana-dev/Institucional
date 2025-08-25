@@ -48,12 +48,28 @@ export default function Page() {
   const [perPage, setPerPage] = useState(6);
   const [exporters, setExporters] = useState<any>([]);
   const [selectedProduct, setSelectedProduct] = useState<any>("");
-  const [selectedSector, SetSelectedSector] = useState<any>("");
-  const [selectedProvince, setSelectedProvince] = useState<any>("");
-  const [selectedisWoman, setSelectedIsWoman] = useState<any>("");
+  const [selectedSector, setSelectedSector] = useState<{
+    value: string;
+    label: string;
+  }>({ value: "", label: "Todos" });
+  const [selectedProvince, setSelectedProvince] = useState<{
+    value: string;
+    label: string;
+  }>({ value: "", label: "Todos" });
+  const [selectedisWoman, setSelectedIsWoman] = useState<{
+    value: string;
+    label: string;
+  }>({
+    value: "",
+    label: "Todos",
+  });
   const [productsOptions, setProductsOptions] = useState([]);
-  const [sectorsOptions, setSectorsOptions] = useState([]);
-  const [provincesOptions, setProvincesOptions] = useState([]);
+  const [sectorsOptions, setSectorsOptions] = useState<
+    { value: string; label: string }[]
+  >([]);
+  const [provincesOptions, setProvincesOptions] = useState<
+    { value: string; label: string }[]
+  >([]);
   const [isWomanOptions, setIsWomanOptions] = useState<
     { value: string; label: string }[]
   >([]);
@@ -63,9 +79,9 @@ export default function Page() {
       perPage,
       search,
       selectedProduct,
-      selectedSector,
-      selectedProvince,
-      selectedisWoman,
+      selectedSector: selectedSector.value,
+      selectedProvince: selectedProvince.value,
+      selectedisWoman: selectedisWoman.value,
       isAuthorized: true,
     });
 
@@ -115,12 +131,13 @@ export default function Page() {
 
   useEffect(() => {
     if (!sectorsDataLoading && sectorsData) {
-      setSectorsOptions(
-        sectorsData.map((sector: any) => ({
+      setSectorsOptions([
+        { value: "", label: "Todos" },
+        ...sectorsData.map((sector: any) => ({
           value: sector.name,
           label: sector.name,
-        }))
-      );
+        })),
+      ]);
     }
   }, [sectorsData, sectorsDataLoading]);
 
@@ -129,36 +146,41 @@ export default function Page() {
 
   useEffect(() => {
     if (!provincesDataLoading && provincesData) {
-      setProvincesOptions(
-        provincesData.map((province: any) => ({
+      setProvincesOptions([
+        { value: "", label: "Todos" },
+        ...provincesData.map((province: any) => ({
           value: province.province,
           label: province.province,
-        }))
-      );
+        })),
+      ]);
     }
   }, [provincesData, provincesDataLoading]);
 
   useEffect(() => {
-    const isWomanOptions = optionSelectIsWoman.map((option) => ({
-      value: "true",
-      label: option,
-    }));
+    const isWomanOptions = [
+      { value: "", label: "Todos" },
+      ...optionSelectIsWoman.map((option) => ({
+        value: "true",
+        label: option,
+      })),
+    ];
 
     setIsWomanOptions(isWomanOptions);
   }, []);
 
   const isWoman =
-    selectedisWoman === "true"
+    selectedisWoman.value === "true"
       ? true
-      : selectedisWoman === "false"
+      : selectedisWoman.value === "false"
       ? false
       : null;
   useEffect(() => {
     const queryParams = new URLSearchParams();
     if (debouncedSearch) queryParams.append("search", debouncedSearch);
     if (selectedProduct) queryParams.append("product", selectedProduct);
-    if (selectedSector) queryParams.append("sector", selectedSector);
-    if (selectedProvince) queryParams.append("province", selectedProvince);
+    if (selectedSector) queryParams.append("sector", selectedSector.value);
+    if (selectedProvince)
+      queryParams.append("province", selectedProvince.value);
     if (isWoman !== null) {
       queryParams.append("isWoman", isWoman ? "true" : "false");
     }
@@ -171,6 +193,9 @@ export default function Page() {
     selectedProvince,
     selectedisWoman,
   ]);
+
+  // console.log("exporters", exporters);
+  // console.log("Productos en el combo:", productsOptions);
 
   const toggleFiltersOpen = () => setFiltersOpen((cur) => !cur);
   return (
@@ -235,7 +260,11 @@ export default function Page() {
                     <ComboBoxResponsive
                       data={sectorsOptions}
                       selectedStatus={selectedSector}
-                      setSelectedStatus={SetSelectedSector}
+                      setSelectedStatus={(option: any) =>
+                        setSelectedSector(
+                          option || { value: "", label: "Todos" }
+                        )
+                      }
                     />
                   </div>
                   <div className="w-full flex flex-col gap-2">
@@ -251,7 +280,11 @@ export default function Page() {
                     <ComboBoxResponsive
                       data={provincesOptions}
                       selectedStatus={selectedProvince}
-                      setSelectedStatus={setSelectedProvince}
+                      setSelectedStatus={(option: any) =>
+                        setSelectedProvince(
+                          option || { value: "", label: "Todos" }
+                        )
+                      }
                     />
                   </div>
                   <div className="w-full flex flex-col gap-2">
@@ -259,7 +292,11 @@ export default function Page() {
                     <ComboBoxResponsive
                       data={isWomanOptions}
                       selectedStatus={selectedisWoman}
-                      setSelectedStatus={setSelectedIsWoman}
+                      setSelectedStatus={(option: any) =>
+                        setSelectedIsWoman(
+                          option || { value: "", label: "Todos" }
+                        )
+                      }
                     />
                   </div>
                 </div>
