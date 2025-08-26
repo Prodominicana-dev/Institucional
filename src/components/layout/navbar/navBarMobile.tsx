@@ -124,7 +124,7 @@ export default function NavBarMobile() {
     { title: t("shetrades"), link: "/shetrades", type: "link" },
     {
       title: t("transparency"),
-      link: "https://old.prodominicana.gob.do/transparencia",
+      link: "https://transparencia.prodominicana.gob.do/",
       type: "link",
     },
     { title: t("contact"), link: "/contact", type: "link" },

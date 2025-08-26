@@ -30,11 +30,14 @@ export default function ToolsMenuCollapse({
     <div>
       <button
         onClick={toggleOpen}
-        className="w-full h-full flex justify-between items-center bg-blue-950 text-white rounded-md text-left font-bold text-lg py-2 px-2.5  focus:outline-none "
+        className="w-full flex justify-between items-center rounded-md 
+               text-start font-semibold text-base text-blue-950/90
+               py-2 px-2.5 focus:outline-none cursor-pointer 
+               hover:text-blue-900"
         aria-expanded={open}
         aria-controls="tools-menu-content"
       >
-        <span className="flex-grow text-center whitespace-nowrap overflow-hidden text-ellipsis">
+        <span className="flex-grow text-start whitespace-nowrap overflow-hidden text-ellipsis">
           {title}
         </span>
         <ChevronRightIcon
