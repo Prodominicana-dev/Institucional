@@ -28,6 +28,11 @@ const nextConfig = {
         permanent: true, 
       },
       {
+        source: "/transparencia",
+        destination: "https://transparencia.prodominicana.gob.do/",
+        permanent: true, 
+      },
+      {
         source: "/transparency/:path*",
         destination: "https://transparencia.prodominicana.gob.do/:path*",
         permanent: true,
