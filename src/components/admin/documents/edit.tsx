@@ -38,7 +38,9 @@ import {
   DialogContent,
   DialogHeader,
   DialogFooter,
+  DialogTitle,
 } from "@/components/ui/dialog";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 
 export function EditDocumentDialog({
   id,
@@ -239,11 +241,14 @@ export function EditDocumentDialog({
   return (
     <>
       <Dialog open={open} onOpenChange={handler}>
-        <DialogHeader className="font-semibold flex flex-col items-start gap-1 font-montserrat">
-          Editar documento
-        </DialogHeader>
+        {/* <DialogHeader className="font-semibold flex flex-col items-start gap-1 font-montserrat">
+        </DialogHeader> */}
 
         <DialogContent className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar">
+          <VisuallyHidden>
+            <DialogTitle>Editar documento</DialogTitle>
+          </VisuallyHidden>
+
           <form action={handleSubmit}>
             {steps.map((step, index) => (
               <div
@@ -255,14 +260,14 @@ export function EditDocumentDialog({
                 {step.section}
               </div>
             ))}
-        <DialogFooter className="space-x-4 font-montserrat">
-          <button
-            onClick={handleSubmit}
-            className={`${"w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center"}`}
-          >
-            {isLoading ? <HashLoader /> : "Guardar"}
-          </button>
-        </DialogFooter>
+            <DialogFooter className="space-x-4 font-montserrat">
+              <button
+                onClick={handleSubmit}
+                className={`${"w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center"}`}
+              >
+                {isLoading ? <HashLoader /> : "Guardar"}
+              </button>
+            </DialogFooter>
           </form>
         </DialogContent>
       </Dialog>
