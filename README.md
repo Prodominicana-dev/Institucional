@@ -1,4 +1,6 @@
 
+# <img src="https://raw.githubusercontent.com/vercel/next.js/canary/packages/create-next-app/public/favicon.ico" alt="Next.js" width="32" height="32"/> <img src="https://raw.githubusercontent.com/remojansen/logo.ts/master/ts.png" alt="TypeScript" width="32" height="32"/> <img src="https://raw.githubusercontent.com/tailwindlabs/brand/master/logo-mark/light.svg" alt="TailwindCSS" width="32" height="32"/>
+
 # Institucional
 
 Sitio web institucional de ProDominicana, desarrollado con Next.js y TypeScript. Este proyecto busca centralizar la información, documentos y recursos relevantes para la institución, facilitando la gestión y consulta por parte de usuarios internos y externos.
