@@ -18,7 +18,6 @@ export default function Page() {
   return (
     <div className="bg-[#000f41] flex flex-col items-center">
       <div className="relative w-full overflow-hidden sm:h-[810px] min-h-[350px]">
-        {/* Imagen para desktop grande */}
         <div className="absolute inset-0 z-0 hidden xl:block overflow-hidden">
           <Image
             src="/images/sumando-exportadoras/heroNew.jpg"
@@ -29,26 +28,17 @@ export default function Page() {
           />
         </div>
 
-        {/* Contenido */}
         <div className="relative z-10 flex flex-col items-center">
           <Header />
 
-          {/* HeroSection: centrado y más arriba solo en iPads */}
           <div
-            className=" relative w-full top-3 sm:top-10 md:top-16 lg:top-9 sm:mx-auto sm:right-0 sm:flex sm:justify-center md:mx-auto md:right-0 md:flex md:justify-center
-                      lg:mx-0 xl:right-12 lg:flex lg:justify-start "
+            className=" relative w-full top-3 sm:top-10 md:top-16 lg:top-9 sm:mx-auto sm:right-0 sm:flex sm:justify-center md:mx-auto md:right-0 md:flex md:justify-center lg:mx-0 xl:right-12 lg:flex lg:justify-start "
           >
             <HeroSection />
           </div>
         </div>
 
-        {/* Imagen para tablet/móvil */}
-        <div
-          className="
-    block xl:hidden relative w-full 
-    h-[350px]  -translate-x-[5%] sm:translate-x-0  md:-translate-x-[6%]  sm:h-[400px] md:h-[200px] overflow-hidden
-  "
-        >
+        <div className="block xl:hidden relative w-full h-[350px]  -translate-x-[5%] sm:translate-x-0  md:-translate-x-[6%]  sm:h-[400px] md:h-[200px] overflow-hidden">
           <Image
             src="/images/sumando-exportadoras/heroNew.jpg"
             alt="Mujeres en exportación"
@@ -59,7 +49,6 @@ export default function Page() {
         </div>
       </div>
 
-      {/* Resto de los componentes de la página */}
       <div className="flex flex-col gap-8 xl:gap-14 items-center w-full">
         <Dates />
         <InfoSection />
