@@ -242,11 +242,11 @@ function RegisterCard() {
       <Button
         onClick={() =>
           window.open(
-            "https://forms.office.com/pages/responsepage.aspx?id=ghXqEGP41EuvCTx0XnNcBZgOJ0Cq7tJGpzTnfk8Ka_ZUOTkyR0tMMFY3UTJJRUQ4VTVMVDFXNTBMSi4u&origin=lprLink&route=shorturl"
+            "https://forms.office.com/pages/responsepage.aspx?id=ghXqEGP41EuvCTx0XnNcBUy-re8YHXBPqc4Y2V6tPD5UN05GRlNCUFc3TVpQREFEM01EVjZIRjJQMS4u&route=shorturl"
           )
         }
         placeholder={"Formulario en línea"}
-        className="bg-white text-[#466FEB] font-bold text-base xl:text-lg h-14 sm:h-16 rounded-xl normal-case px-6"
+        className="bg-white text-[#466FEB] font-bold text-base xl:text-lg h-14 sm:h-16 rounded-xl normal-case px-6 cursor-pointer"
       >
         Formulario en línea
       </Button>
