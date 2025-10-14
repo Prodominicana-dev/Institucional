@@ -109,7 +109,7 @@ function HeroSection() {
         <p className="font-medium text-white -translate-x-0 text-md px-11 sm:text-lg md:text-lg xl:text-lg 2xl:text-2xl mt-4 text-center xl:text-left lg:px-12 xl:px-8 xl:-translate-x-8 2xl:-translate-x-14  ">
           Es una iniciativa de ProDominicana, en el marco del{" "}
           <span className="text-[#FF009C] text-base sm:text-2xl xl:text-xl 2xl:text-2xl font-bold">
-            Encuentro Nacional Mujeres En Exportación.
+            Encuentro Nacional de Mujeres en Exportación.
           </span>{" "}
           Su objetivo es apoyar a empresarios MIPYMES con potencial exportador,
           brindándoles una plataforma para mostrar sus negocios y acompañamiento
@@ -125,12 +125,12 @@ function Dates() {
     {
       day: "19",
       month: "Sept.",
-      title: "Apertura convocatoria",
+      title: "Apertura de convocatoria",
     },
     {
-      day: "18",
+      day: "27",
       month: "Oct.",
-      title: "Cierre de Inscripciones",
+      title: "Cierre de inscripciones",
     },
     {
       day: "20",
@@ -162,7 +162,7 @@ function Dates() {
 
 function InfoSection() {
   const requirements = [
-    "Empresas PYMES registradas en la República Dominicana con al menos un 51% de propiedad femenina y/o liderada por mujer.",
+    "Empresas PYMES registradas en la República Dominicana con al menos un 25% de propiedad femenina y/o liderada por mujer.",
     "Empresas que no hayan exportado previamente o que tengan, si han exportado, un nuevo producto de exportación.",
     "Tener mínimo 1 año comercializando.",
     "Poseer instalaciones productivas.",
