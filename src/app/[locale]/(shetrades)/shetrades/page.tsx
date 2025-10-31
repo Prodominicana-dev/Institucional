@@ -206,7 +206,7 @@ export default function Page() {
                 <p>{t("home.desc")}</p>
               </div>
               <Link
-                href="https://forms.office.com/e/WW3rJ2Nett"
+                href="https://forms.office.com/e/HzumTc6evE"
                 target="_blank"
                 className="bg-red-700 text-white lg:text-lg py-3 px-5 self-center rounded-full"
               >
