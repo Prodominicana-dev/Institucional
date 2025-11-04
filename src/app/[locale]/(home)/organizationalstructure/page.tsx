@@ -9,7 +9,9 @@ export default function Page() {
   const [executiveDirection, setExecutiveDirection] = useState({ id: "" });
   useEffect(() => {
     if (!isLoading && data) {
-      setExecutiveDirection(data[0]);
+      console.log(" data:", data);
+      
+      setExecutiveDirection(data[9]);
       
     }
   }, [data, isLoading]);

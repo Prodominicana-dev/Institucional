@@ -20,19 +20,22 @@ export default function RootLayout({ children }: RootLayoutProps) {
   const toggleOpen = () => setOpen((cur) => !cur);
   const { data, isLoading } = useDirections();
   const [activeDirection, setActiveDirection] = useState("");
-  const [directions, setDirections] = useState([]);
+  const [directions, setDirections] = useState<any[]>([]);
   useEffect(() => {
     if (!isLoading && data) {
-      setDirections(data);
+      const lastArrayItem = data[data.length - 1];
+      const NewArrayData = [lastArrayItem, ...data.slice(0, -1)];
+      // console.log(" NewArrayData:", NewArrayData);
+
+      setDirections(NewArrayData);
     }
   }, [data, isLoading]);
 
-  // console.log(" direction:", directions);
+  //  console.log(" direction:", directions);
 
-  // console.log(" activeDirection:", activeDirection);
+  //  console.log(" activeDirection:", activeDirection);
   // console.log(" data:", data);
 
-  
   useEffect(() => {
     findActiveDirection();
   }, [directions]);
@@ -47,6 +50,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
       );
     }
   }
+
+  console.log(" params.id:", params.id);
+  
 
   if (isLoading) {
     return (
