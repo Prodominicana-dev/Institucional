@@ -51,7 +51,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     }
   }
 
-  console.log(" params.id:", params.id);
+  // console.log(" params.id:", params.id);
   
 
   if (isLoading) {
