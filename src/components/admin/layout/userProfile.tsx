@@ -22,11 +22,11 @@ export default function UserProfile() {
   const pathname = usePathname();
   const callbackUrl = `${baseUrl}${pathname}`;
   const profileMenuItems = [
-    {
-      label: "Perfil",
-      icon: UserCircleIcon,
-      link: "/dashboard/profile",
-    },
+    // {
+    //   label: "Perfil",
+    //   icon: UserCircleIcon,
+    //   ink: "/dashboard/profile",
+    // },
     {
       label: "Cerrar sesion",
       icon: ArrowLeftOnRectangleIcon,
