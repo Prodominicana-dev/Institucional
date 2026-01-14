@@ -7,7 +7,7 @@ export function useSchedule() {
   return useQuery({
     queryKey: ["schedule"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/schedule`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/apiv2/schedule`;
       const { data } = await axios.get(url);
       return data;
     },

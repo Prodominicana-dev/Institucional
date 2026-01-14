@@ -7,7 +7,7 @@ import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import Select from "react-select";
 import { editSubsection } from "@/services/subsection/service";
 import { HashLoader } from "react-spinners";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 export function OrderDialog({
@@ -90,6 +90,9 @@ export function OrderDialog({
           >
             Ordenar las secciones
           </DialogTitle>
+          <DialogDescription className="sr-only">
+            Ordena las subsecciones de transparencia según tu preferencia
+          </DialogDescription>
           <label className="text-black text-sm font-light">
             <InformationCircleIcon className="w-4 h-4 inline-block" /> El orden
             que se establezca aquí será el que se muestre en la página de

@@ -25,6 +25,7 @@ import { Input } from "@/components/ui/input";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -685,6 +686,9 @@ function ModalCard({
                 Distinguido Usuario, su solicitud ha sido recibida
                 satisfactoriamente.
               </DialogTitle>
+              <DialogDescription className="sr-only">
+                Confirmación de solicitud de contacto recibida
+              </DialogDescription>
               <div className="space-y-2">
                 <p>
                   Su código de solicitud es:{" "}

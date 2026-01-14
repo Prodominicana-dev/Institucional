@@ -55,22 +55,24 @@ export default function PhotoGallerySection() {
           </Link>
         </div>
         <div className="hidden xl:grid grid-cols-2 gap-10">
-          <div className="col-span-2 md:col-span-1">
-            <Image
-              width={2048}
-              height={1080}
-              src={`${process.env.NEXT_PUBLIC_API_URL}/gallery/${images[0]?.galleryId}/img/${images[0]?.name}`}
-              alt={"news"}
-              className="w-full h-full"
-            />
-          </div>
+          {images[0] && images[0].galleryId && images[0].name && (
+            <div className="col-span-2 md:col-span-1">
+              <Image
+                width={2048}
+                height={1080}
+                src={`${process.env.NEXT_PUBLIC_API_URL}/gallery/${images[0].galleryId}/img/${images[0].name}`}
+                alt={"news"}
+                className="w-full h-full"
+              />
+            </div>
+          )}
           <div className="grid grid-cols-2 gap-10">
-            {images?.slice(1, 5).map((image: any, index: number) => (
+            {images?.slice(1, 5).filter((image: any) => image?.galleryId && image?.name).map((image: any, index: number) => (
               <Image
                 key={index}
                 width={2048}
                 height={1080}
-                src={`${process.env.NEXT_PUBLIC_API_URL}/gallery/${image?.galleryId}/img/${image?.name}`}
+                src={`${process.env.NEXT_PUBLIC_API_URL}/gallery/${image.galleryId}/img/${image.name}`}
                 alt={image.name}
                 className="w-full rounded-sm"
               />
@@ -90,13 +92,13 @@ export default function PhotoGallerySection() {
             ]}
           >
             <CarouselContent className="rounded-lg">
-              {images?.map((image: any, index: number) => (
+              {images?.filter((image: any) => image?.galleryId && image?.name).map((image: any, index: number) => (
                 <CarouselItem key={index}>
                   <Image
                     key={index}
                     width={2048}
                     height={1080}
-                    src={`${process.env.NEXT_PUBLIC_API_URL}/gallery/${image?.galleryId}/img/${image?.name}`}
+                    src={`${process.env.NEXT_PUBLIC_API_URL}/gallery/${image.galleryId}/img/${image.name}`}
                     alt={image.name}
                     className="w-full h-full object-cover rounded-lg"
                   />

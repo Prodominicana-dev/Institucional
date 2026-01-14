@@ -7,7 +7,7 @@ export function useNews(lang: string) {
   return useQuery({
     queryKey: ["newsEs"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/${lang}/news`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/apiv2/${lang}/news`;
       const { data } = await axios.get(url);
       return data;
     },
@@ -18,7 +18,7 @@ export function useLastTwoNews(lang: string) {
   return useQuery({
     queryKey: ["lastTwoNews"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/${lang}/lastTwoNews`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/apiv2/${lang}/lastTwoNews`;
       const { data } = await axios.get(url);
       return data;
     },

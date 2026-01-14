@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
@@ -9,6 +9,13 @@ export const metadata: Metadata = {
   title: "ProDominicana",
   description: "Centro de Exportación e Inversión de la República Dominicana",
   manifest: "/site.webmanifest",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#ffffff",
 };
 
 export default async function RootLayout({
@@ -51,7 +58,6 @@ export default async function RootLayout({
           color="#5bbad5"
         />
         <meta name="msapplication-TileColor" content="#ffffff" />
-        <meta name="theme-color" content="#ffffff" />
       </head>
       <body suppressHydrationWarning>
         <NextIntlClientProvider>

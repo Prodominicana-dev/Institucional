@@ -7,7 +7,7 @@ export function useEvents(lang: string) {
   return useQuery({
     queryKey: ["events"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/${lang}/events`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/apiv2/${lang}/events`;
       const { data } = await axios.get(url);
       return data;
     },

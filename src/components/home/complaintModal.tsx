@@ -3,6 +3,7 @@ import Link from "next/link";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -24,6 +25,9 @@ export default function ComplaintModal({
             Distinguido Usuario, su solicitud ha sido recibida
             satisfactoriamente.
           </DialogTitle>
+          <DialogDescription>
+            El tiempo estimado para la entrega del resultado es de 3 a 7 días laborables.
+          </DialogDescription>
           <div className="space-y-2">
             <p>
               Su código de solicitud es:{" "}

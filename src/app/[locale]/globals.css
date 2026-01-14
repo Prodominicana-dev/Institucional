@@ -231,3 +231,27 @@
   outline: none !important;
   box-shadow: none !important;
 }
+
+/* Tawk Widget Positioning - Move widget button above custom buttons */
+#tawk-bubble-container,
+[data-tawk-bubble],
+.tawk-button,
+.tawk-min-container,
+.tawk-bubble-button {
+  bottom: 150px !important;
+  right: 24px !important;
+  transform: scale(0.8) !important;
+  transform-origin: bottom right !important;
+}
+
+/* Tawk iframe positioning */
+iframe[title="chat widget"] {
+  bottom: 150px !important;
+  right: 24px !important;
+}
+
+/* Main Tawk container */
+#tawkToRight {
+  bottom: 150px !important;
+  right: 24px !important;
+}

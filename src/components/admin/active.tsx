@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Montserrat } from "next/font/google";
 import { HashLoader } from "react-spinners";
 const monserratStyle = Montserrat({ subsets: ["latin"] });
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 
 export default function ActivateButton({
   open,
@@ -27,6 +27,7 @@ export default function ActivateButton({
           className="font-sans text-black"
         >
           <DialogTitle></DialogTitle>
+          <DialogDescription className="sr-only">Confirmación de activación</DialogDescription>
           <div className="flex flex-col items-center justify-center p-3 space-y-12">
             <EyeIcon className="w-full h-24 text-green-500 md:h-40" />
             <div className="space-y-2">

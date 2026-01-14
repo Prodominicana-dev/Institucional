@@ -1,4 +1,4 @@
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import React, { useState } from "react";
 import { Montserrat } from "next/font/google";
 import { InformationCircleIcon } from "@heroicons/react/24/solid";
@@ -28,6 +28,8 @@ export default function ChangeTypeMessage({
           style={monserratStyle.style}
           className="font-sans text-black"
         >
+          <DialogTitle className="sr-only">{title}</DialogTitle>
+          <DialogDescription className="sr-only">{message}</DialogDescription>
           <div className="flex flex-col items-center justify-center p-3 space-y-12">
             <InformationCircleIcon className="w-full h-24 text-yellow-500 md:h-40" />
             <div className="space-y-2">

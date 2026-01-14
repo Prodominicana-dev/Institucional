@@ -1099,6 +1099,25 @@
       "url": "https://wkf.ms/4fXkuDq"
     }
   },
+  "feedback": {
+    "title": "Tell Us Your Experience",
+    "description": "Your opinion is valuable to us. Please be honest and constructive.",
+    "form": {
+      "nameOrAlias": "Your Name or Alias",
+      "rating": "Rating (1 to 5 Stars)",
+      "ratingPlaceholder": "Select...",
+      "testimony": "Your Testimony (Max. 500 characters)",
+      "button": "Submit Experience",
+      "characterCount": "characters.",
+      "ratingOptions": {
+        "5": "⭐⭐⭐⭐⭐ Excellent (5)",
+        "4": "⭐⭐⭐⭐ Good (4)",
+        "3": "⭐⭐⭐ Average (3)",
+        "2": "⭐⭐ Bad (2)",
+        "1": "⭐ Terrible (1)"
+      }
+    }
+  },
   "Footer": {
     "aboutUs": {
       "title": "ABOUT US",

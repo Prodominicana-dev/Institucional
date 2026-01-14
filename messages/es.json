@@ -1122,6 +1122,25 @@
       "url": "https://wkf.ms/4fXkuDq"
     }
   },
+  "feedback": {
+    "title": "Cuéntanos tu Experiencia",
+    "description": "Tu opinión es valiosa para nosotros. Por favor, sé honesto y constructivo.",
+    "form": {
+      "nameOrAlias": "Tu Nombre o Alias",
+      "rating": "Valoración (1 a 5 Estrellas)",
+      "ratingPlaceholder": "Selecciona...",
+      "testimony": "Tu Testimonio (Máx. 500 caracteres)",
+      "button": "Enviar Experiencia",
+      "characterCount": "caracteres.",
+      "ratingOptions": {
+        "5": "⭐⭐⭐⭐⭐ Excelente (5)",
+        "4": "⭐⭐⭐⭐ Bueno (4)",
+        "3": "⭐⭐⭐ Promedio (3)",
+        "2": "⭐⭐ Malo (2)",
+        "1": "⭐ Pésimo (1)"
+      }
+    }
+  },
   "Footer": {
     "aboutUs": {
       "title": "CONÓCENOS",

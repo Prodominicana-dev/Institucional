@@ -22,13 +22,15 @@ export function ServiceDialog({
   type,
   locale,
   open,
-  handler,
+  handlerAction,
+  onFeedbackAction,
 }: {
   investment: any;
   type: string;
   locale: string;
   open: boolean;
-  handler: () => void;
+  handlerAction: () => void;
+  onFeedbackAction?: () => void;
 }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -109,15 +111,15 @@ export function ServiceDialog({
     <>
       <Dialog
         open={open}
-        handler={() => {}}
+        handler={handlerAction}
         size="xs"
         className="fixed inset-0 flex items-center justify-center"
       >
         <DialogBody
-          className="p-4 lg:p-6 overflow-y-auto text-pretty rounded-lg "
+          className="p-4 lg:p-8 overflow-y-auto text-pretty rounded-lg "
           style={{ maxWidth: "900px", width: "90%" }}
         >
-          <div className="flex flex-col font-montserrat text-black gap-4 ">
+          <div className="flex flex-col font-montserrat text-black gap-4 lg:gap-6">
             <div className="flex flex-col gap-4 sticky">
               <div className="w-full flex gap-2 justify-between">
                 {" "}
@@ -128,20 +130,20 @@ export function ServiceDialog({
                   <p className="font-light text-sm text-black">{type}</p>
                 </div>
                 <div className="w-1/12 flex justify-center items-start lg:items-center">
-                  <button onClick={handler}>
+                  <button onClick={handlerAction}>
                     <XMarkIcon className="text-red-700  size-8 hover:text-red-700/80 duration-300 cursor-pointer" />
                   </button>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col gap-4 lg:gap-8 max-h-[70vh] overflow-y-auto no-scrollbar">
-              <div className="w-full flex flex-col gap-2">
+            <div className="flex flex-col gap-4 lg:gap-10 max-h-[70vh] overflow-y-auto no-scrollbar">
+              <div className="w-full flex flex-col gap-2 lg:gap-4">
                 <div
                   dangerouslySetInnerHTML={{ __html: description }}
                   className="font-normal line-clamp-4"
                 ></div>
               </div>
-              <div className="w-full flex flex-col items-center gap-2">
+              <div className="w-full flex flex-col items-center gap-2 lg:gap-4">
                 <h1 className="w-full text-center lg:text-left font-bold uppercase">
                   {locale === "es" ? "Contacto" : "Contact"}
                 </h1>
@@ -155,7 +157,7 @@ export function ServiceDialog({
                 </div>
               </div>
               {requirements && (
-                <div className="w-full flex flex-col gap-2">
+                <div className="w-full flex flex-col gap-2 lg:gap-4">
                   <h1 className="w-full text-center lg:text-left font-bold uppercase">
                     {locale === "es"
                       ? "REQUERIMIENTOS PARA OBTENER EL SERVICIO"
@@ -168,7 +170,7 @@ export function ServiceDialog({
                 </div>
               )}
               {process && (
-                <div className="w-full flex flex-col gap-2">
+                <div className="w-full flex flex-col gap-2 lg:gap-4">
                   <h1 className="w-full text-center lg:text-left font-bold uppercase">
                     {locale === "es"
                       ? "PROCEDIMIENTO PARA OBTENER EL SERVICIO"
@@ -181,7 +183,7 @@ export function ServiceDialog({
                 </div>
               )}
               {info && (
-                <div className="w-full flex flex-col gap-2">
+                <div className="w-full flex flex-col gap-2 lg:gap-4">
                   <h1 className="w-full text-center lg:text-left font-bold uppercase">
                     {locale === "es"
                       ? "INFORMACIÓN ADICIONAL"
@@ -195,7 +197,7 @@ export function ServiceDialog({
               )}
 
               <div className="w-full flex justify-center">
-                <div className="flex flex-row flex-wrap justify-center gap-5 w-10/12">
+                <div className="flex flex-row flex-wrap justify-center gap-5 lg:gap-10 w-10/12">
                   {dataIcons.map(({ icon, title, data }, index) => (
                     <div key={index} className=" w-full lg:w-1/5">
                       {locale === "es" &&
@@ -209,7 +211,7 @@ export function ServiceDialog({
                                 handleOpen(); // esto activa openForm = true
                               }
                             }}
-                            className="w-full flex flex-col items-center gap-1 cursor-pointer hover:scale-110 duration-75"
+                            className="w-full flex flex-col items-center gap-1 lg:gap-3 cursor-pointer hover:scale-110 duration-75"
                           >
                             <Image
                               src={icon}
@@ -229,13 +231,13 @@ export function ServiceDialog({
                           <ServicesFormDiag
                             open={openForm}
                             handleOpen={handleOpen}
-                            handler={handler}
+                            handler={handlerAction}
                           />
                         </>
                       ) : (
                         <div className="w-full">
                           {locale === "es" ? (
-                            <div className="w-full flex flex-col items-center gap-1">
+                            <div className="w-full flex flex-col items-center gap-1 lg:gap-3">
                               <Image
                                 src={icon}
                                 alt={title.es}
@@ -287,11 +289,11 @@ export function ServiceDialog({
                                   <ServicesFormDiag
                                     open={openForm}
                                     handleOpen={handleOpen}
-                                    handler={handler}
+                                    handler={handlerAction}
                                   />
                                 </>
                               ) : (
-                                <div className="w-full flex flex-col items-center gap-1">
+                                <div className="w-full flex flex-col items-center gap-1 lg:gap-3">
                                   <Image
                                     src={icon}
                                     alt={title.en}
@@ -325,7 +327,7 @@ export function ServiceDialog({
         <ServicesFormDiag
           open={openForm}
           handleOpen={handleOpen}
-          handler={handler}
+          handler={handlerAction}
         />
       )} */}
     </>

@@ -9,6 +9,7 @@ import { HashLoader } from "react-spinners";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogTitle,
   DialogHeader,
   DialogFooter,
@@ -227,6 +228,9 @@ export function EditProductDialog({
             <DialogTitle className="text-black text-2xl">
               Editar producto
             </DialogTitle>
+            <DialogDescription className="sr-only">
+              Formulario para editar un producto de exportación
+            </DialogDescription>
             <Stepper
               activeStep={activeStep}
               isLastStep={(value) => setIsLastStep(value)}
