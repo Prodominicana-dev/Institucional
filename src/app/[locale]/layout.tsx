@@ -7,8 +7,17 @@ import { routing } from "@/i18n/routing";
 
 export const metadata: Metadata = {
   title: "ProDominicana",
-  description: "Centro de Exportación e Inversión de la República Dominicana",
+  description: "Centro de Exportación e Inversión de la República Dominicana,responsables de promover nuestros productos, servicios y oportunidades de negocio por el mundo.",
   manifest: "/site.webmanifest",
+
+   openGraph: {
+    title: "ProDominicana",
+    description: "Centro de Exportación e Inversión de la República Dominicana,responsables de promover nuestros productos, servicios y oportunidades de negocio por el mundo.",
+    url: "https://prodominicana.gob.do",
+    siteName: "ProDominicana",
+    type: "website",
+    
+  },
 };
 
 export default async function RootLayout({

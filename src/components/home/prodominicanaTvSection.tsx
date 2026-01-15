@@ -27,7 +27,7 @@ export default function ProdominicanaTvSection() {
                 {t("subtitle")}
               </Typography>
             </div>
-            <Typography className="text-sm lg:text-lg text-black font-opensans">
+            <Typography data-nosnippet className="text-sm lg:text-lg text-black font-opensans">
               {t("description")}
             </Typography>
           </div>
