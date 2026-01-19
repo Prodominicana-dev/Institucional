@@ -118,6 +118,7 @@ export default function FeedbackForm({
 
   const onClose = () => {
     setIsOpen(false);
+    clearDataForm();
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
