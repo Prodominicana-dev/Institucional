@@ -144,8 +144,15 @@ export async function createFeedback(
   clear: () => void
 ) {
   try {
-    const url = `${API_URL}/feedback`;
-    const response = await axios.post(url, feedbackData, {
+    // Agregar el código de contacto a los datos
+    const dataToSend = {
+      ...feedbackData,
+      contactCode,
+    };
+
+    // Usar el endpoint unificado de mail (igual que contact y complaint)
+    const url = `${API_URL}/mail/feedback`;
+    const response = await axios.post(url, dataToSend, {
       headers: {
         'Content-Type': 'application/json',
       },
