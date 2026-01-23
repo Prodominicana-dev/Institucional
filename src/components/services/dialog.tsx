@@ -22,14 +22,14 @@ export function ServiceDialog({
   type,
   locale,
   open,
-  handlerAction,
+  handler,
   onFeedbackAction,
 }: {
   investment: any;
   type: string;
   locale: string;
   open: boolean;
-  handlerAction: () => void;
+  handler: () => void;
   onFeedbackAction?: () => void;
 }) {
   const [title, setTitle] = useState("");
@@ -111,7 +111,7 @@ export function ServiceDialog({
     <>
       <Dialog
         open={open}
-        handler={handlerAction}
+        handler={() => {}}
         size="xs"
         className="fixed inset-0 flex items-center justify-center"
       >
@@ -130,7 +130,7 @@ export function ServiceDialog({
                   <p className="font-light text-sm text-black">{type}</p>
                 </div>
                 <div className="w-1/12 flex justify-center items-start lg:items-center">
-                  <button onClick={handlerAction}>
+                  <button onClick={handler}>
                     <XMarkIcon className="text-red-700  size-8 hover:text-red-700/80 duration-300 cursor-pointer" />
                   </button>
                 </div>
@@ -231,7 +231,7 @@ export function ServiceDialog({
                           <ServicesFormDiag
                             open={openForm}
                             handleOpen={handleOpen}
-                            handler={handlerAction}
+                            handler={handler}
                           />
                         </>
                       ) : (
@@ -289,7 +289,7 @@ export function ServiceDialog({
                                   <ServicesFormDiag
                                     open={openForm}
                                     handleOpen={handleOpen}
-                                    handler={handlerAction}
+                                    handler={handler}
                                   />
                                 </>
                               ) : (

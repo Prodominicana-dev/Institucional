@@ -33,7 +33,7 @@ export interface FeedbackStats {
 const getAdminUserId = () => {
   // TODO: Implementar obtención del user_id desde Auth0 o contexto
   const userId = "admin-user-id"; // Placeholder
-  console.log("getAdminUserId:", userId);
+  // console.log("getAdminUserId:", userId);
   return userId;
 };
 
@@ -178,11 +178,11 @@ export function useApproveFeedback() {
   
   return useMutation({
     mutationFn: async ({ id, serviceType }: { id: string; serviceType?: "investment" | "export" | null }) => {
-      console.log("Aprobando feedback con ID:", id);
-      console.log("ServiceType:", serviceType);
+      // console.log("Aprobando feedback con ID:", id);
+      // console.log("ServiceType:", serviceType);
       const url = `${API_URL}/feedback/admin/${id}/approve`;
-      console.log("URL de aprobación:", url);
-      console.log("API_URL:", API_URL);
+      // console.log("URL de aprobación:", url);
+      // console.log("API_URL:", API_URL);
       const { data } = await axios.patch<Feedback>(url, 
         { serviceType }, // Enviar serviceType en el body
         {
@@ -192,7 +192,7 @@ export function useApproveFeedback() {
           },
         }
       );
-      console.log("Feedback aprobado exitosamente:", data);
+      // console.log("Feedback aprobado exitosamente:", data);
       return data;
     },
     onSuccess: () => {
@@ -214,9 +214,9 @@ export function useRejectFeedback() {
   
   return useMutation({
     mutationFn: async ({ id, serviceType }: { id: string; serviceType?: "investment" | "export" | null }) => {
-      console.log("Rechazando feedback con ID:", id);
+      // console.log("Rechazando feedback con ID:", id);
       const url = `${API_URL}/feedback/admin/${id}/reject`;
-      console.log("URL de rechazo:", url);
+      // console.log("URL de rechazo:", url);
       const { data } = await axios.patch<Feedback>(url, 
         { serviceType }, // Enviar serviceType en el body
         {
@@ -226,7 +226,7 @@ export function useRejectFeedback() {
           },
         }
       );
-      console.log("Feedback rechazado exitosamente:", data);
+      // console.log("Feedback rechazado exitosamente:", data);
       return data;
     },
     onSuccess: () => {
@@ -248,9 +248,9 @@ export function useRevertFeedback() {
   
   return useMutation({
     mutationFn: async ({ id, serviceType }: { id: string; serviceType?: "investment" | "export" | null }) => {
-      console.log("Revirtiendo feedback con ID:", id);
+      // console.log("Revirtiendo feedback con ID:", id);
       const url = `${API_URL}/feedback/admin/${id}/revert`;
-      console.log("URL de reversión:", url);
+      // console.log("URL de reversión:", url);
       const { data } = await axios.patch<Feedback>(url, 
         { serviceType }, // Enviar serviceType en el body
         {
@@ -260,7 +260,7 @@ export function useRevertFeedback() {
           },
         }
       );
-      console.log("Feedback revertido exitosamente:", data);
+      // console.log("Feedback revertido exitosamente:", data);
       return data;
     },
     onSuccess: () => {

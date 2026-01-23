@@ -120,6 +120,7 @@ export default function Page() {
           </DialogHeader>
           <FeedbackForm 
             serviceType="export"
+            childrenclose={() => setFeedbackOpen(false)}
           />
         </DialogContent>
       </Dialog>

@@ -23,10 +23,13 @@ export default function FeedbackForm({
   serviceId,
   serviceName,
   serviceType,
+  childrenclose,
 }: {
   serviceId?: string;
   serviceName?: string;
   serviceType?: string;
+  childrenclose?: () => void;
+
 } = {}) {
   const t = useTranslations("feedback");
   const [isOpen, setIsOpen] = useState(false);
@@ -117,6 +120,7 @@ export default function FeedbackForm({
   };
 
   const onClose = () => {
+    childrenclose?.()
     setIsOpen(false);
     clearDataForm();
   };
@@ -277,6 +281,7 @@ function FormInput({
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   name: string;
   maxLength?: number;
+  type?: string;
 }) {
   return (
     <div className="w-full flex flex-col gap-2">

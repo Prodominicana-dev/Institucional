@@ -24,9 +24,9 @@ export default function Page() {
 
   const { data: typeService, isLoading: loadingTypeService } = useServiceType();
 
-  console.log("Investment Services Data:", data);
-  console.log("Investment Services Error:", error);
-  console.log("Investment Services Loading:", isLoading);
+  // console.log("Investment Services Data:", data);
+  // console.log("Investment Services Error:", error);
+  // console.log("Investment Services Loading:", isLoading);
   
   useEffect(() => {
     if (!loadingTypeService && typeService) {
@@ -135,6 +135,7 @@ export default function Page() {
           </DialogHeader>
           <FeedbackForm 
             serviceType="investment"
+            childrenclose={() => setFeedbackOpen(false)}
           />
         </DialogContent>
       </Dialog>
