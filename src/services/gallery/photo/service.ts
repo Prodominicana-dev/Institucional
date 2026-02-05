@@ -18,7 +18,7 @@ export function useLastPhotoGallery() {
   return useQuery({
     queryKey: ["lastphotos"],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/apiv2/gallery/photo/limit`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/gallery/photo/limit`;
       const { data } = await axios.get(url);
       return data;
     },
