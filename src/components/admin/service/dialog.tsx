@@ -1,3 +1,4 @@
+
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import { Stepper, Step } from "@material-tailwind/react";
@@ -18,6 +19,7 @@ import { HashLoader } from "react-spinners";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogTitle,
   DialogHeader,
   DialogFooter,
@@ -25,12 +27,12 @@ import {
 
 export function ServiceDialog({
   open,
-  handler,
-  update,
+  handlerAction,
+  updateAction,
 }: {
   open: boolean;
-  handler: () => void;
-  update: () => void;
+  handlerAction: () => void;
+  updateAction: () => void;
 }) {
   const { user } = useUser();
   const [spanishName, setSpanishName] = useState("");
@@ -242,9 +244,9 @@ export function ServiceDialog({
         typeId: typeId,
         created_By: user?.email as string,
       };
-      await createService(formData, update, user?.sub as string);
+      await createService(formData, updateAction, user?.sub as string);
       setSubmitLoading(false);
-      handler();
+      handlerAction();
     }
   };
 
@@ -1111,12 +1113,15 @@ export function ServiceDialog({
 
   return (
     <>
-      <Dialog open={open} onOpenChange={handler}>
+      <Dialog open={open} onOpenChange={handlerAction}>
         <DialogContent className="min-w-[1000px] flex flex-col overflow-y-auto no-scrollbar min-h-[25vh] max-h-[90vh] font-montserrat">
           <DialogHeader className="font-black text-black font-montserrat flex flex-col gap-5">
             <DialogTitle className="text-2xl">
               Agrega un nuevo servicio
             </DialogTitle>
+            <DialogDescription className="sr-only">
+              Formulario para agregar un nuevo servicio al sistema
+            </DialogDescription>
             <Stepper
               activeStep={activeStep}
               isLastStep={(value) => setIsLastStep(value)}

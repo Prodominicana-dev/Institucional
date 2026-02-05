@@ -15,6 +15,7 @@ import { HashLoader } from "react-spinners";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogTitle,
   DialogHeader,
   DialogFooter,
@@ -264,6 +265,9 @@ export function GalleryEditDialog({
             <DialogTitle className="text-black text-2xl">
               Editar Galería
             </DialogTitle>
+            <DialogDescription className="sr-only">
+              Formulario para editar una galería de imágenes
+            </DialogDescription>
             <Stepper
               activeStep={activeStep}
               isLastStep={(value) => setIsLastStep(value)}

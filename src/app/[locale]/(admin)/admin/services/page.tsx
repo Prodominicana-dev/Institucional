@@ -238,8 +238,8 @@ export default function Page() {
         {open && (
           <ServiceDialog
             open={open}
-            handler={handleOpen}
-            update={updateDirections}
+            handlerAction={handleOpen}
+            updateAction={updateDirections}
           />
         )}
       </AuthUser>

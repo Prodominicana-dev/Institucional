@@ -1,5 +1,5 @@
 "use client";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,7 +12,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { DialogTitle } from "@radix-ui/react-dialog";
 
 export default function Page() {
   const investmentGuides = [
@@ -101,8 +100,9 @@ export default function Page() {
         </div>
       </div>
       <Dialog open={open} onOpenChange={handleOpen}>
-        {/* <DialogTitle>Idioma</DialogTitle> */}
         <DialogContent>
+          <DialogTitle className="sr-only">{t("dialog.title")}</DialogTitle>
+          <DialogDescription className="sr-only">{t("dialog.subtitle")}</DialogDescription>
           <div className="flex flex-col gap-5 p-5">
             <div className="text-blue-dark uppercase w-full font-bold text-xl sm:text-3xl">
               {t("dialog.title")}

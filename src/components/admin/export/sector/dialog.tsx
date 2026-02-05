@@ -9,6 +9,7 @@ import { HashLoader } from "react-spinners";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogTitle,
   DialogHeader,
   DialogFooter,
@@ -211,6 +212,9 @@ export function SectorDialog({
             <DialogTitle className="text-2xl font-bold text-black">
               Agregar sector
             </DialogTitle>
+            <DialogDescription className="sr-only">
+              Formulario para agregar un nuevo sector de exportación
+            </DialogDescription>
             <Stepper
               activeStep={activeStep}
               isLastStep={(value) => setIsLastStep(value)}

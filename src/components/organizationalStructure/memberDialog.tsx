@@ -1,5 +1,5 @@
 "use client";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import React from "react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -15,6 +15,8 @@ export default function MemberDialog({ member, open, handleOpen }: props) {
   return (
     <Dialog open={open} onOpenChange={handleOpen}>
       <DialogContent className="flex flex-col items-center gap-5 max-h-[90vh] w-11/12 sm:max-w-lg xl:max-w-3xl overflow-y-auto rounded-2xl p-6">
+        <DialogTitle className="sr-only">{member.name}</DialogTitle>
+        <DialogDescription className="sr-only">{member.role}</DialogDescription>
         <div className="flex flex-col gap-5 justify-center items-center">
           <Image
             width={1000}

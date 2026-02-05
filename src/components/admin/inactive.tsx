@@ -1,5 +1,5 @@
 import { EyeSlashIcon } from "@heroicons/react/24/solid";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import React, { useState } from "react";
 import { Montserrat } from "next/font/google";
 import { HashLoader } from "react-spinners";
@@ -26,7 +26,8 @@ export default function DeactiveButton({
           style={monserratStyle.style}
           className="font-sans text-black"
         >
-          <DialogTitle></DialogTitle>
+          <DialogTitle className="sr-only">{title}</DialogTitle>
+          <DialogDescription className="sr-only">{message}</DialogDescription>
           <div className="flex flex-col items-center justify-center p-3 space-y-12">
             <EyeSlashIcon className="w-full h-24 md:h-40" />
             <div className="space-y-2">

@@ -19,7 +19,7 @@ import { useRouter } from "next/navigation";
 import React, { useEffect, useRef, useState } from "react";
 import { useIntersection } from "@mantine/hooks";
 import ComboBoxResponsive from "@/components/utility/comboBoxResponsive";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 
 const exportDirectoryFilters = [
   {
@@ -368,6 +368,10 @@ function ExporterCard({ exporter }: { exporter: any }) {
       </div>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="h-full overflow-y-auto no-scrollbar">
+          <DialogTitle className="sr-only">{exporter.name}</DialogTitle>
+          <DialogDescription className="sr-only">
+            Información de contacto y productos del exportador {exporter.name}
+          </DialogDescription>
           <div className="flex flex-col justify-center items-center gap-10 py-10 font-montserrat">
             <div className="flex flex-col items-center gap-5">
               {exporter.image && (

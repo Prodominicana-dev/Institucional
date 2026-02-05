@@ -9,18 +9,24 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { HashLoader } from "react-spinners";
+import FeedbackForm from "@/components/chatbox/FeedbackForm";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import TestimonialsCarousel from "@/components/services/TestimonialsCarousel";
 
 export default function Page() {
   const params = useParams<{ locale: string }>();
   const t = useTranslations("navbar");
   const [invest, setInvest] = useState<any>();
-  const { data, isLoading } = useInvestmentServices();
+  const { data, isLoading, error } = useInvestmentServices();
   const [typeOptions, setTypeOptions] = useState<any[]>([]);
   const [selectedType, setSelectedType] = useState<any>("");
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
 
   const { data: typeService, isLoading: loadingTypeService } = useServiceType();
 
-  // console.log("Type Service", typeService);
+  // console.log("Investment Services Data:", data);
+  // console.log("Investment Services Error:", error);
+  // console.log("Investment Services Loading:", isLoading);
   
   useEffect(() => {
     if (!loadingTypeService && typeService) {
@@ -89,11 +95,50 @@ export default function Page() {
           />
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {invest?.map((item: any, index: number) => (
-            <ServiceCard key={index} item={item} locale={params.locale} />
-          ))}
+          {invest && invest.length > 0 ? (
+            invest.map((item: any, index: number) => (
+              <ServiceCard key={index} item={item} locale={params.locale} />
+            ))
+          ) : (
+            <div className="col-span-full text-center py-20">
+              <p className="text-gray-500 text-xl">
+                {params.locale === "es" 
+                  ? "No hay servicios disponibles en este momento" 
+                  : "No services available at this time"}
+              </p>
+            </div>
+          )}
+        </div>
+        
+        {/* Carrusel de Testimonios */}
+        <TestimonialsCarousel serviceType="investment" locale={params.locale} />
+        
+        {/* Botón de Feedback */}
+        <div className="w-full flex justify-center py-10">
+          <button
+            onClick={() => setFeedbackOpen(true)}
+            className="bg-red-700 hover:bg-red-800 text-white font-bold font-montserrat py-4 px-10 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-3 text-lg"
+          >
+            <span className="text-2xl">👋</span>
+            {params.locale === "es" ? "Cuéntanos tu experiencia" : "Tell us your experience"}
+          </button>
         </div>
       </div>
+      
+      {/* Modal de Feedback */}
+      <Dialog open={feedbackOpen} onOpenChange={setFeedbackOpen}>
+        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-center text-2xl font-bold">
+              {params.locale === "es" ? "Tu opinión nos importa" : "Your opinion matters to us"}
+            </DialogTitle>
+          </DialogHeader>
+          <FeedbackForm 
+            serviceType="investment"
+            childrenclose={() => setFeedbackOpen(false)}
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -220,8 +220,10 @@ export function SideBar() {
                   <SidebarMenuItem
                     title={"Galería de Fotos"}
                     url={"/admin/gallery"}
-                  />
-                </List>
+                  />                  <SidebarMenuItem
+                    title={"Feedback"}
+                    url={"/admin/feedback"}
+                  />                </List>
               )}
             </AccordionBody>
           </Accordion>

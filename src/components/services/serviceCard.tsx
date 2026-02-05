@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { ServiceDialog } from "./dialog";
+import FeedbackForm from "@/components/chatbox/FeedbackForm";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface Props {
   item: any;
@@ -9,8 +16,14 @@ interface Props {
 
 export default function ServiceCard({ item, locale }: Props) {
   const [open, setOpen] = useState(false);
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
+  
   const handleOpen = () => {
     setOpen(!open);
+  };
+  
+  const handleOpenFeedback = () => {
+    setFeedbackOpen(true);
   };
   return (
     <div>
@@ -43,7 +56,24 @@ export default function ServiceCard({ item, locale }: Props) {
         locale={locale}
         open={open}
         handler={handleOpen}
+        onFeedbackAction={handleOpenFeedback}
       />
+      
+      {/* Modal de Feedback */}
+      <Dialog open={feedbackOpen} onOpenChange={setFeedbackOpen}>
+        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-center text-2xl font-bold">
+              Tu opinión nos importa
+            </DialogTitle>
+          </DialogHeader>
+          <FeedbackForm 
+            serviceId={item.id}
+            serviceName={locale === "es" ? item.es.name : item.en.name}
+            serviceType={locale === "es" ? item.typeEs : item.typeEn}
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

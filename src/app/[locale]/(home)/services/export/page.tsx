@@ -8,6 +8,9 @@ import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { HashLoader } from "react-spinners";
+import FeedbackForm from "@/components/chatbox/FeedbackForm";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import TestimonialsCarousel from "@/components/services/TestimonialsCarousel";
 
 export default function Page() {
   const params = useParams<{ locale: string }>();
@@ -16,6 +19,7 @@ export default function Page() {
   const { data, isLoading } = useExportServices();
   const [typeOptions, setTypeOptions] = useState<any[]>([]);
   const [selectedType, setSelectedType] = useState<any>("");
+  const [feedbackOpen, setFeedbackOpen] = useState(false);
 
   const { data: typeService, isLoading: loadingTypeService } = useServiceType();
 
@@ -90,7 +94,36 @@ export default function Page() {
             <ServiceCard key={index} item={item} locale={params.locale} />
           ))}
         </div>
+        
+        {/* Carrusel de Testimonios */}
+        <TestimonialsCarousel serviceType="export" locale={params.locale} />
+        
+        {/* Botón de Feedback */}
+        <div className="w-full flex justify-center py-10">
+          <button
+            onClick={() => setFeedbackOpen(true)}
+            className="bg-red-700 hover:bg-red-800 text-white font-bold font-montserrat py-4 px-10 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-3 text-lg"
+          >
+            <span className="text-2xl">👋</span>
+            {params.locale === "es" ? "Cuéntanos tu experiencia" : "Tell us your experience"}
+          </button>
+        </div>
       </div>
+      
+      {/* Modal de Feedback */}
+      <Dialog open={feedbackOpen} onOpenChange={setFeedbackOpen}>
+        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle className="text-center text-2xl font-bold">
+              {params.locale === "es" ? "Tu opinión nos importa" : "Your opinion matters to us"}
+            </DialogTitle>
+          </DialogHeader>
+          <FeedbackForm 
+            serviceType="export"
+            childrenclose={() => setFeedbackOpen(false)}
+          />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

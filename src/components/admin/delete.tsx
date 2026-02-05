@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Montserrat } from "next/font/google";
 import { HashLoader } from "react-spinners";
 const monserratStyle = Montserrat({ subsets: ["latin"] });
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 
 export default function DeleteButton({
   open,
@@ -27,7 +27,8 @@ export default function DeleteButton({
           style={monserratStyle.style}
           className="font-sans text-black"
         >
-          <DialogTitle></DialogTitle>
+          <DialogTitle className="sr-only">{title}</DialogTitle>
+          <DialogDescription className="sr-only">{message}</DialogDescription>
           <div className="flex flex-col items-center justify-center p-3 space-y-12">
             <TrashIcon className="w-full h-24 text-red-700 md:h-40" />
             <div className="space-y-2">

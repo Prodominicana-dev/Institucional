@@ -5,7 +5,7 @@ import { useUser } from "@auth0/nextjs-auth0";
 import { Montserrat } from "next/font/google";
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import Select from "react-select";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 export function OrderDialog({
@@ -68,6 +68,9 @@ export function OrderDialog({
           <DialogTitle className="font-semibold " style={monserratStyle.style}>
             Ordenar las secciones
           </DialogTitle>
+          <DialogDescription className="sr-only">
+            Ordena las secciones de transparencia según tu preferencia
+          </DialogDescription>
           <label className="text-black text-sm font-light  text-center">
             <InformationCircleIcon className="w-4 h-4 inline-block" /> El orden
             que se establezca aquí será el que se muestre en la página de

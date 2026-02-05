@@ -9,6 +9,7 @@ import { HashLoader } from "react-spinners";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogTitle,
   DialogHeader,
   DialogFooter,
@@ -226,6 +227,9 @@ export function EditSectorDialog({
             <DialogTitle className="text-black font-bold text-2xl">
               Editar Sector
             </DialogTitle>
+            <DialogDescription className="sr-only">
+              Formulario para editar un sector de exportación
+            </DialogDescription>
             <Stepper
               activeStep={activeStep}
               isLastStep={(value) => setIsLastStep(value)}
