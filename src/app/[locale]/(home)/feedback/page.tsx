@@ -24,44 +24,51 @@ export default function FeedbackPage() {
   const [isOpen, setIsOpen] = useState(false);
   const [randomCode, setRandomCode] = useState("");
   const [formData, setFormData] = useState({
-    nameOrAlias: "",
+    name: "",
+    email: "",
     rating: "",
-    testimony: "",
+    message: "",
   });
   const [errorRequired, setErrorRequired] = useState<{
-    nameOrAlias?: string;
+    name?: string;
+    email?: string;
     rating?: string;
-    testimony?: string;
+    message?: string;
   }>({});
 
   const validateForm = () => {
     const errors: {
-      nameOrAlias?: string;
+      name?: string;
+      email?: string;
       rating?: string;
-      testimony?: string;
+      message?: string;
     } = {};
 
-    if (!formData.nameOrAlias || formData.nameOrAlias.trim() === "") {
-      errors.nameOrAlias = "El nombre o alias es obligatorio.";
+    if (!formData.name || formData.name.trim() === "") {
+      errors.name = "El nombre es obligatorio.";
+    }
+
+    if (!formData.email || formData.email.trim() === "") {
+      errors.email = "El correo electrónico es obligatorio.";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      errors.email = "El correo electrónico no es válido.";
     }
 
     if (!formData.rating) {
       errors.rating = "La valoración es obligatoria.";
     }
 
-    if (!formData.testimony || formData.testimony.trim() === "") {
-      errors.testimony = "El testimonio es obligatorio.";
-    } else if (formData.testimony.length > 500) {
-      errors.testimony = "El testimonio no puede exceder los 500 caracteres.";
+    if (!formData.message || formData.message.trim() === "") {
+      errors.message = "El mensaje es obligatorio.";
+    } else if (formData.message.length > 500) {
+      errors.message = "El mensaje no puede exceder los 500 caracteres.";
     }
 
     setErrorRequired(errors);
     return Object.keys(errors).length === 0;
   };
 
-  const handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
       ...prevData,
@@ -77,7 +84,7 @@ export default function FeedbackPage() {
   };
 
   const handleTextAreaChange = (
-    event: React.ChangeEvent<HTMLTextAreaElement>
+    event: React.ChangeEvent<HTMLTextAreaElement>,
   ) => {
     const { name, value } = event.target;
     setFormData((prevData) => ({
@@ -88,9 +95,10 @@ export default function FeedbackPage() {
 
   const clearDataForm = () => {
     setFormData({
-      nameOrAlias: "",
+      name: "",
+      email: "",
       rating: "",
-      testimony: "",
+      message: "",
     });
     setErrorRequired({});
   };
@@ -110,10 +118,18 @@ export default function FeedbackPage() {
     const isValid = validateForm();
 
     if (isValid) {
-      setIsOpen(true);
       const contactCode = generateCode();
       setRandomCode(contactCode);
-      await createFeedback(formData, contactCode, clearDataForm);
+
+      const feedbackData = {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        rating: parseInt(formData.rating),
+      };
+
+      await createFeedback(feedbackData, contactCode, clearDataForm);
+      setIsOpen(true);
     }
   };
 
@@ -136,19 +152,36 @@ export default function FeedbackPage() {
               </p>
             </div>
 
-            {/* Campo Nombre/Alias */}
+            {/* Campo Nombre */}
             <div className="w-full">
               <FormInput
                 label={t("form.nameOrAlias")}
                 placeholder="John Doe"
-                value={formData.nameOrAlias}
+                value={formData.name}
                 onChange={handleInputChange}
-                name="nameOrAlias"
+                name="name"
                 maxLength={100}
               />
-              {errorRequired.nameOrAlias && (
+              {errorRequired.name && (
                 <span className="text-red-500 text-sm block mt-1">
-                  {errorRequired.nameOrAlias}
+                  {errorRequired.name}
+                </span>
+              )}
+            </div>
+
+            {/* Campo Email */}
+            <div className="w-full">
+              <FormInput
+                label="Correo electrónico"
+                placeholder="juan@ejemplo.com"
+                value={formData.email}
+                onChange={handleInputChange}
+                name="email"
+                maxLength={100}
+              />
+              {errorRequired.email && (
+                <span className="text-red-500 text-sm block mt-1">
+                  {errorRequired.email}
                 </span>
               )}
             </div>
@@ -159,7 +192,10 @@ export default function FeedbackPage() {
                 {t("form.rating")}
                 <span className="text-red-500 text-sm block mt-1"> *</span>
               </div>
-              <Select value={formData.rating} onValueChange={handleSelectChange}>
+              <Select
+                value={formData.rating}
+                onValueChange={handleSelectChange}
+              >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder={t("form.ratingPlaceholder")} />
                 </SelectTrigger>
@@ -178,7 +214,7 @@ export default function FeedbackPage() {
               )}
             </div>
 
-            {/* Campo Testimonio */}
+            {/* Campo Mensaje */}
             <div className="w-full flex flex-col gap-2">
               <div className="flex font-bold text-xl gap-1">
                 {t("form.testimony")}
@@ -186,26 +222,26 @@ export default function FeedbackPage() {
               </div>
               <div className="relative">
                 <Textarea
-                  value={formData.testimony}
+                  value={formData.message}
                   onChange={handleTextAreaChange}
-                  name="testimony"
+                  name="message"
                   maxLength={500}
                   className="min-h-[150px]"
                   placeholder="Cuéntanos tu experiencia..."
                 />
                 <div
                   className={`absolute -bottom-1 right-2 text-sm ${
-                    formData.testimony.length > 450
+                    formData.message.length > 450
                       ? "text-red-500"
                       : "text-gray-500"
                   }`}
                 >
-                  {formData.testimony.length}/500 {t("form.characterCount")}
+                  {formData.message.length}/500 {t("form.characterCount")}
                 </div>
               </div>
-              {errorRequired.testimony && (
+              {errorRequired.message && (
                 <span className="text-red-500 text-sm block mt-1">
-                  {errorRequired.testimony}
+                  {errorRequired.message}
                 </span>
               )}
             </div>
@@ -287,9 +323,8 @@ function ModalCard({
                 </p>
                 <p>
                   Si tienes alguna pregunta adicional, no dudes en contactarnos
-                  a través de{" "}
-                  <strong>servicios@prodominicana.gob.do</strong> o por
-                  WhatsApp al <strong>(809) 530-5505</strong>.
+                  a través de <strong>servicios@prodominicana.gob.do</strong> o
+                  por WhatsApp al <strong>(809) 530-5505</strong>.
                 </p>
                 <strong className="pt-2 block">
                   En ProDominicana estamos para servirle.
