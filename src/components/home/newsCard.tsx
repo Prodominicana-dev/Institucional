@@ -64,7 +64,7 @@ export default function NewsCard({
         <Image
           width={2048}
           height={1080}
-          src={`${process.env.NEXT_PUBLIC_API_URL}/files/news/${id}/img/${image}`}
+         src={`${process.env.NEXT_PUBLIC_API_URL}/news/images/${id}/${image}`}
           alt={title}
           className="w-full h-full object-cover object-center hover:scale-110 duration-300"
         />

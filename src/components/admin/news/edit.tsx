@@ -257,7 +257,7 @@ export function EditNewsDialog({
                 className="w-full h-full z-10 absolute flex justify-center items-center group"
               >
                 <Image
-                  src={`${process.env.NEXT_PUBLIC_API_URL}/files/news/${id}/img/${cover}`} // Use the preview URL directly
+                  src={`${process.env.NEXT_PUBLIC_API_URL}/news/images/${id}/${cover}`}
                   alt=""
                   width="500"
                   height="500"

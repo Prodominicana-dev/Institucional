@@ -18,7 +18,7 @@ export default function Page() {
   const [activeStep, setActiveStep] = React.useState(0);
   const [isLastStep, setIsLastStep] = React.useState(false);
   const [isFirstStep, setIsFirstStep] = React.useState(false);
-  const { data, isLoading, refetch } = useEvents("es");
+  const { data, isLoading, refetch } = useEvents("es", true);
   const [events, setEvents] = useState([]);
   const [refresh, setRefresh] = useState(false);
 

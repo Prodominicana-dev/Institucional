@@ -1,4 +1,5 @@
 import { notifications } from "@mantine/notifications";
+import { toast } from "sonner";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 var CryptoJS = require("crypto-js");
@@ -21,6 +22,7 @@ export function createDocument(
   update: () => void,
   userId: string
 ) {
+  
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
@@ -32,15 +34,12 @@ export function createDocument(
       },
     })
     .then((res) => {
+      console.log('este es el res',res.status);
       if (res.status === 201) {
-        notifications.show({
-          id: "document",
-          autoClose: 5000,
-          withCloseButton: false,
-          title: "Documento creado",
-          message: "El documento se ha creado correctamente",
-          color: "green",
-        });
+       
+         toast.success("El documento se ha creado correctamente");
+
+
         update();
       }
     })
@@ -53,6 +52,9 @@ export function createDocument(
         message: "No se ha podido crear el documento",
         color: "red",
       });
+
+       toast.error("No se ha podido crear el documento.");
+ 
     });
 }
 
@@ -83,8 +85,10 @@ export function editDocument(
           message: "El documento se ha editado correctamente",
           color: "green",
         });
+        toast.success("El documento se ha editado correctamente");
         update();
       }
+
     })
     .catch((error) => {
       notifications.show({
@@ -95,6 +99,7 @@ export function editDocument(
         message: "No se ha podido editar el documento",
         color: "red",
       });
+      toast.error("No se ha podido editar el documento.");
     });
 }
 
@@ -116,15 +121,9 @@ export function deleteDocument(
       },
     })
     .then((res) => {
+      console.log('este es el res de eliminar', res);
       if (res.status === 200) {
-        notifications.show({
-          id: "document",
-          autoClose: 5000,
-          withCloseButton: false,
-          title: "Documento eliminado",
-          message: "El documento se ha eliminado correctamente",
-          color: "green",
-        });
+        toast.success("El documento se ha eliminado correctamente");
         update();
         handleOpen();
       }
@@ -138,5 +137,6 @@ export function deleteDocument(
         message: "No se ha podido eliminar el documento",
         color: "red",
       });
+      toast.error("No se ha podido eliminar el documento.");
     });
 }

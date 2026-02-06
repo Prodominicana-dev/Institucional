@@ -12,7 +12,7 @@ export default function Page() {
   const [filterOpen, setFilterOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("");
-  const { data, isLoading, refetch } = useNews("es");
+ const { data, isLoading, refetch } = useNews("es", true);
   const [news, setNews] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const [categoriesOptions, setCategoriesOptions] = useState([]);

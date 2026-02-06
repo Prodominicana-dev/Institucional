@@ -1,6 +1,7 @@
 import { notifications } from "@mantine/notifications";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import { toast } from "sonner";
 var CryptoJS = require("crypto-js");
 
 export function useEventCategory() {
@@ -55,6 +56,7 @@ export async function createEventCategory(
         color: "green",
         loading: false,
       });
+      toast.success("La categoría del evento ha sido creada correctamente");
       update();
     } else {
       handleErrorResponse(res);
@@ -69,6 +71,7 @@ export async function createEventCategory(
       color: "red",
       loading: false,
     });
+    toast.error("Ocurrió un error creando la categoría del evento.");
   }
 }
 
@@ -84,18 +87,20 @@ function handleErrorResponse(response: any) {
         color: "red",
         loading: false,
       });
+      toast.error("Ocurrió un error creando la categoría del evento.");
       break;
 
     case 401:
       notifications.show({
-        id: "member",
+        id: "category",
         autoClose: 5000,
         withCloseButton: false,
         title: "Usuario no autorizado",
-        message: "No tienes permisos para crear un colaborador.",
+        message: "No tienes permisos para crear una categoría del evento.",
         color: "red",
         loading: false,
       });
+      toast.error("No tienes permisos para crear una categoría del evento.");
       break;
     // Puedes agregar más casos según sea necesario
     default:
@@ -134,6 +139,7 @@ export async function editEventCategory(
         color: "green",
         loading: false,
       });
+      toast.success("La categoría del evento ha sido actualizada correctamente");
       update();
     } else {
       handleEditErrorResponse(res);
@@ -149,6 +155,7 @@ export async function editEventCategory(
       color: "red",
       loading: false,
     });
+    toast.error("Ocurrió un error editando la categoría del evento.");
   }
 }
 
@@ -165,6 +172,7 @@ function handleEditErrorResponse(response: any) {
         color: "red",
         loading: false,
       });
+      toast.error("Ocurrió un error editando la categoría del evento.");
       break;
 
     case 401:
@@ -177,6 +185,7 @@ function handleEditErrorResponse(response: any) {
         color: "red",
         loading: false,
       });
+      toast.error("No tienes permisos para editar la categoría del evento.");
       break;
     // Puedes agregar más casos según sea necesario
     default:
@@ -212,6 +221,7 @@ export function deleteEventCategory(
           color: "green",
           loading: false,
         });
+        toast.success("La categoría del evento ha sido eliminada correctamente");
         update();
         handleOpen();
       }
@@ -225,6 +235,8 @@ export function deleteEventCategory(
           color: "red",
           loading: false,
         });
+        toast.error("Hubo un error eliminando la categoría del evento.");
+
       }
       if (res.status === 401) {
         notifications.show({
@@ -237,5 +249,6 @@ export function deleteEventCategory(
           loading: false,
         });
       }
+      toast.error("No tienes permisos para eliminar la categoría del evento.");
     });
 }

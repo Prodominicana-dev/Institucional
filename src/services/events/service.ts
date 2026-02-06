@@ -2,12 +2,13 @@ import { notifications } from "@mantine/notifications";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 var CryptoJS = require("crypto-js");
+import { toast } from "sonner";
 
-export function useEvents(lang: string) {
+export function useEvents(lang: string, showAll: boolean = false) {
   return useQuery({
-    queryKey: ["events"],
+    queryKey: ["events", showAll],
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/${lang}/events`;
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/${lang}/events${showAll ? '?all=true' : ''}`;
       const { data } = await axios.get(url);
       return data;
     },
@@ -73,6 +74,7 @@ export function createEvents(
           color: "green",
           loading: false,
         });
+        toast.success("El evento se ha creado correctamente");
         update();
       }
       if (res.status === 500) {
@@ -85,6 +87,7 @@ export function createEvents(
           color: "red",
           loading: false,
         });
+        toast.error("Hubo un error creando el evento.");
       }
       if (res.status === 401) {
         notifications.show({
@@ -96,6 +99,7 @@ export function createEvents(
           color: "red",
           loading: false,
         });
+        toast.error("No tienes permisos para crear un evento.");
       }
     })
     .catch((error) => {});
@@ -128,6 +132,7 @@ export function editEvents(
           color: "green",
           loading: false,
         });
+        toast.success("El evento ha sido actualizado correctamente.");
         update();
       }
       if (res.status === 500) {
@@ -140,6 +145,7 @@ export function editEvents(
           color: "red",
           loading: false,
         });
+        toast.error("Hubo un error actualizando el evento.");
       }
       if (res.status === 401) {
         notifications.show({
@@ -151,6 +157,7 @@ export function editEvents(
           color: "red",
           loading: false,
         });
+        toast.error("No tienes permisos para actualizar un evento.");
       }
     });
 }
@@ -187,6 +194,7 @@ export function enableEvents(
           color: "green",
           loading: false,
         });
+          toast.success("El evento se ha publicado correctamente");
         update();
         handleOpen();
       }
@@ -200,6 +208,7 @@ export function enableEvents(
           color: "red",
           loading: false,
         });
+        toast.error("Hubo un error publicando el evento.");
       }
       if (res.status === 401) {
         notifications.show({
@@ -247,6 +256,7 @@ export function disableEvents(
           color: "green",
           loading: false,
         });
+        toast.success("El evento se ha ocultado correctamente");
         update();
         handleOpen();
       }
@@ -260,6 +270,7 @@ export function disableEvents(
           color: "red",
           loading: false,
         });
+        toast.error("Hubo un error ocultando el evento.");
       }
       if (res.status === 401) {
         notifications.show({
@@ -271,6 +282,7 @@ export function disableEvents(
           color: "red",
           loading: false,
         });
+        toast.error("No tienes permisos para ocultar un evento.");
       }
     });
 }
@@ -302,6 +314,7 @@ export function deleteEvents(
           color: "green",
           loading: false,
         });
+        toast.success("El evento se ha eliminado correctamente");
         update();
         handleOpen();
       }
