@@ -8,17 +8,31 @@ import {
   Feedback,
 } from "@/services/feedback/service";
 import { useUser } from "@auth0/nextjs-auth0";
-import { CheckCircle, XCircle, RotateCcw, Star, Mail, Calendar, X } from "lucide-react";
+import {
+  CheckCircle,
+  XCircle,
+  RotateCcw,
+  Star,
+  Mail,
+  Calendar,
+  X,
+} from "lucide-react";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
 export default function FeedbackTable() {
   const { user } = useUser();
-  const [statusFilter, setStatusFilter] = useState<"all" | "pending" | "approved" | "rejected">("all");
-  const [selectedFeedback, setSelectedFeedback] = useState<Feedback | null>(null);
-  const { data: feedbacks, isLoading, error } = useAllFeedbacks(
-    statusFilter === "all" ? undefined : statusFilter
+  const [statusFilter, setStatusFilter] = useState<
+    "all" | "pending" | "approved" | "rejected"
+  >("all");
+  const [selectedFeedback, setSelectedFeedback] = useState<Feedback | null>(
+    null,
   );
+  const {
+    data: feedbacks,
+    isLoading,
+    error,
+  } = useAllFeedbacks(statusFilter === "all" ? undefined : statusFilter);
 
   const approveMutation = useApproveFeedback();
   const rejectMutation = useRejectFeedback();
@@ -171,8 +185,8 @@ export default function FeedbackTable() {
               </tr>
             ) : (
               feedbacks.map((feedback: Feedback) => (
-                <tr 
-                  key={feedback.id} 
+                <tr
+                  key={feedback.id}
                   className="hover:bg-gray-50 cursor-pointer"
                   onClick={() => setSelectedFeedback(feedback)}
                 >
@@ -197,39 +211,48 @@ export default function FeedbackTable() {
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     {!feedback.serviceType ? (
-                      <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
+                      <div
+                        className="flex gap-2"
+                        onClick={(e) => e.stopPropagation()}
+                      >
                         <button
-                          onClick={() => approveMutation.mutate({ 
-                            id: feedback.id, 
-                            serviceType: "export" 
-                          })}
+                          onClick={() =>
+                            approveMutation.mutate({
+                              id: feedback.id,
+                              serviceType: "export",
+                            })
+                          }
                           className="px-2 py-1 bg-purple-100 text-purple-800 rounded text-xs font-semibold hover:bg-purple-200 transition-colors"
                         >
                           → Exportación
                         </button>
                         <button
-                          onClick={() => approveMutation.mutate({ 
-                            id: feedback.id, 
-                            serviceType: "investment" 
-                          })}
+                          onClick={() =>
+                            approveMutation.mutate({
+                              id: feedback.id,
+                              serviceType: "investment",
+                            })
+                          }
                           className="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs font-semibold hover:bg-blue-200 transition-colors"
                         >
                           → Inversión
                         </button>
                       </div>
                     ) : (
-                      <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                        feedback.serviceType === "investment" 
-                          ? "bg-blue-100 text-blue-800"
-                          : feedback.serviceType === "export"
-                          ? "bg-purple-100 text-purple-800"
-                          : "bg-gray-100 text-gray-800"
-                      }`}>
-                        {feedback.serviceType === "investment" 
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                          feedback.serviceType === "investment"
+                            ? "bg-blue-100 text-blue-800"
+                            : feedback.serviceType === "export"
+                              ? "bg-purple-100 text-purple-800"
+                              : "bg-gray-100 text-gray-800"
+                        }`}
+                      >
+                        {feedback.serviceType === "investment"
                           ? "Inversión"
                           : feedback.serviceType === "export"
-                          ? "Exportación"
-                          : "Sin asignar"}
+                            ? "Exportación"
+                            : "Sin asignar"}
                       </span>
                     )}
                   </td>
@@ -245,14 +268,19 @@ export default function FeedbackTable() {
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm">
-                    <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
+                    <div
+                      className="flex gap-2"
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       {feedback.status === "pending" && (
                         <>
                           <button
-                            onClick={() => approveMutation.mutate({ 
-                              id: feedback.id, 
-                              serviceType: feedback.serviceType 
-                            })}
+                            onClick={() =>
+                              approveMutation.mutate({
+                                id: feedback.id,
+                                serviceType: feedback.serviceType,
+                              })
+                            }
                             disabled={approveMutation.isPending}
                             className="p-2 text-mint hover:bg-green-50 rounded-full transition-colors disabled:opacity-50"
                             title="Aprobar"
@@ -260,10 +288,12 @@ export default function FeedbackTable() {
                             <CheckCircle className="w-5 h-5" />
                           </button>
                           <button
-                            onClick={() => rejectMutation.mutate({ 
-                              id: feedback.id, 
-                              serviceType: feedback.serviceType 
-                            })}
+                            onClick={() =>
+                              rejectMutation.mutate({
+                                id: feedback.id,
+                                serviceType: feedback.serviceType,
+                              })
+                            }
                             disabled={rejectMutation.isPending}
                             className="p-2 text-red-600 hover:bg-red-50 rounded-full transition-colors disabled:opacity-50"
                             title="Rechazar"
@@ -275,10 +305,12 @@ export default function FeedbackTable() {
                       {(feedback.status === "approved" ||
                         feedback.status === "rejected") && (
                         <button
-                          onClick={() => revertMutation.mutate({ 
-                            id: feedback.id, 
-                            serviceType: feedback.serviceType 
-                          })}
+                          onClick={() =>
+                            revertMutation.mutate({
+                              id: feedback.id,
+                              serviceType: feedback.serviceType,
+                            })
+                          }
                           disabled={revertMutation.isPending}
                           className="p-2 text-blue-dark hover:bg-blue-50 rounded-full transition-colors disabled:opacity-50"
                           title="Revertir a pendiente"
@@ -297,11 +329,11 @@ export default function FeedbackTable() {
 
       {/* Modal para ver feedback completo */}
       {selectedFeedback && (
-        <div 
+        <div
           className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
           onClick={() => setSelectedFeedback(null)}
         >
-          <div 
+          <div
             className="bg-white rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
@@ -313,7 +345,9 @@ export default function FeedbackTable() {
               >
                 <X className="w-6 h-6" />
               </button>
-              <h3 className="text-2xl font-['Montserrat'] font-bold pr-8">Detalle del Feedback</h3>
+              <h3 className="text-2xl font-['Montserrat'] font-bold pr-8">
+                Detalle del Feedback
+              </h3>
             </div>
 
             {/* Contenido */}
@@ -321,11 +355,17 @@ export default function FeedbackTable() {
               {/* Info del usuario */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-500 font-['Montserrat']">Nombre</label>
-                  <p className="text-lg font-semibold text-gray-900 font-['Montserrat']">{selectedFeedback.name}</p>
+                  <label className="text-sm font-medium text-gray-500 font-['Montserrat']">
+                    Nombre
+                  </label>
+                  <p className="text-lg font-semibold text-gray-900 font-['Montserrat']">
+                    {selectedFeedback.name}
+                  </p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-500 font-['Montserrat']">Email</label>
+                  <label className="text-sm font-medium text-gray-500 font-['Montserrat']">
+                    Email
+                  </label>
                   <p className="text-lg text-gray-900 flex items-center gap-2">
                     <Mail className="w-4 h-4 text-blue-dark" />
                     {selectedFeedback.email}
@@ -335,7 +375,9 @@ export default function FeedbackTable() {
 
               {/* Valoración */}
               <div>
-                <label className="text-sm font-medium text-gray-500 font-['Montserrat']">Valoración</label>
+                <label className="text-sm font-medium text-gray-500 font-['Montserrat']">
+                  Valoración
+                </label>
                 <div className="flex gap-1 mt-1">
                   {[...Array(5)].map((_, i) => (
                     <Star
@@ -355,7 +397,9 @@ export default function FeedbackTable() {
 
               {/* Mensaje completo */}
               <div>
-                <label className="text-sm font-medium text-gray-500 font-['Montserrat']">Mensaje</label>
+                <label className="text-sm font-medium text-gray-500 font-['Montserrat']">
+                  Mensaje
+                </label>
                 <div className="mt-2 p-4 bg-gray-50 rounded-lg border border-gray-200">
                   <p className="text-gray-900 whitespace-pre-wrap leading-relaxed">
                     {selectedFeedback.message}
@@ -366,16 +410,26 @@ export default function FeedbackTable() {
               {/* Estado y fecha */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="text-sm font-medium text-gray-500 font-['Montserrat']">Estado</label>
-                  <div className="mt-1">{getStatusBadge(selectedFeedback.status)}</div>
+                  <label className="text-sm font-medium text-gray-500 font-['Montserrat']">
+                    Estado
+                  </label>
+                  <div className="mt-1">
+                    {getStatusBadge(selectedFeedback.status)}
+                  </div>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-500 font-['Montserrat']">Fecha</label>
+                  <label className="text-sm font-medium text-gray-500 font-['Montserrat']">
+                    Fecha
+                  </label>
                   <p className="text-gray-900 flex items-center gap-2 mt-1">
                     <Calendar className="w-4 h-4 text-blue-dark" />
-                    {format(new Date(selectedFeedback.createdAt), "dd/MM/yyyy HH:mm", {
-                      locale: es,
-                    })}
+                    {format(
+                      new Date(selectedFeedback.createdAt),
+                      "dd/MM/yyyy HH:mm",
+                      {
+                        locale: es,
+                      },
+                    )}
                   </p>
                 </div>
               </div>
@@ -386,7 +440,10 @@ export default function FeedbackTable() {
                   <>
                     <button
                       onClick={() => {
-                        approveMutation.mutate(selectedFeedback.id);
+                        approveMutation.mutate({
+                          id: selectedFeedback.id,
+                          serviceType: selectedFeedback.serviceType,
+                        });
                         setSelectedFeedback(null);
                       }}
                       disabled={approveMutation.isPending}
@@ -397,7 +454,10 @@ export default function FeedbackTable() {
                     </button>
                     <button
                       onClick={() => {
-                        rejectMutation.mutate(selectedFeedback.id);
+                        rejectMutation.mutate({
+                          id: selectedFeedback.id,
+                          serviceType: selectedFeedback.serviceType,
+                        });
                         setSelectedFeedback(null);
                       }}
                       disabled={rejectMutation.isPending}
@@ -412,7 +472,10 @@ export default function FeedbackTable() {
                   selectedFeedback.status === "rejected") && (
                   <button
                     onClick={() => {
-                      revertMutation.mutate(selectedFeedback.id);
+                      revertMutation.mutate({
+                        id: selectedFeedback.id,
+                        serviceType: selectedFeedback.serviceType,
+                      });
                       setSelectedFeedback(null);
                     }}
                     disabled={revertMutation.isPending}
