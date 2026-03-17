@@ -59,6 +59,7 @@ export function EventEditDialog({
   const [categoryId, setCategoryId] = useState("");
   const [categoriesOptions, setCategoriesOptions] = useState([]);
   const { data, isLoading } = useEventById(id);
+  const [formularioUrl, setFormularioUrl] = useState("");
 
   const { data: catEvent, isLoading: catLoading } = useEventCategory();
 
@@ -68,7 +69,7 @@ export function EventEditDialog({
         catEvent.map((category: any) => ({
           value: category.id,
           label: category.name,
-        }))
+        })),
       );
     }
   }, [catEvent, catLoading]);
@@ -90,7 +91,6 @@ export function EventEditDialog({
     refetch: categoriesRefetch,
     isLoading: categoriesLoading,
   } = useCategoriesNews();
-
   useEffect(() => {
     if (data && !isLoading) {
       setSpanishTitle(data.es.title);
@@ -104,6 +104,7 @@ export function EventEditDialog({
       setStartDate(new Date(data.start_Date));
       setEndDate(new Date(data.end_Date));
       setCategoryId(data.categoryId);
+      setFormularioUrl(data.formularioUrl || "");
     }
   }, [data, isLoading]);
 
@@ -190,6 +191,9 @@ export function EventEditDialog({
       formData.append("en", JSON.stringify(en_data));
       formData.append("categoryId", categoryId);
       formData.append("updated_By", user?.email as string);
+      if (formularioUrl.trim() !== "") {
+        formData.append("formulario_url", formularioUrl.trim());
+      }
       files.length > 0 && files.map((file) => formData.append("files", file));
       await editEvents(id, formData, update, user?.sub as string);
       setSubmitLoading(false);
@@ -376,7 +380,7 @@ export function EventEditDialog({
                 },
               })}
               value={categoriesOptions.find(
-                (option: any) => option.value === categoryId
+                (option: any) => option.value === categoryId,
               )}
             />
             <label
@@ -433,6 +437,27 @@ export function EventEditDialog({
                 value={address}
                 placeholder="Dirección del lugar..."
               />
+            </div>
+            <div>
+              <label
+                htmlFor="formularioUrl"
+                className="font-semibold text-black text-lg"
+              >
+                Link del Formulario de inscripción de participantes
+              </label>
+              <Input
+                crossOrigin={""}
+                id="formularioUrl"
+                className="w-full"
+                onChange={(e) => setFormularioUrl(e.target.value.trimStart())}
+                value={formularioUrl}
+                placeholder="https://forms.monday.com/forms/xxxxx"
+                type="url"
+              />
+              <span className="text-xs text-gray-500 mt-1 block">
+                Al agregar un link, este se mostrará en el botón “Quiero
+                participar”.
+              </span>
             </div>
             <label
               className={`${

@@ -48,6 +48,8 @@ export default function Page() {
         setMapError(t("locationError"));
       }
 
+      console.log("event", data);
+
       // Formateo de fechas
       if (data.start_Date && data.end_Date) {
         const startDate = new Date(data.start_Date);
@@ -81,7 +83,7 @@ export default function Page() {
             locale === "es"
               ? `${startDate.getDate()} - ${endDate.getDate()} de ${startDate.toLocaleString(
                   locale,
-                  { month: "long" }
+                  { month: "long" },
                 )} ${startYear}`
               : `${startDate.toLocaleString(locale, {
                   month: "long",
@@ -110,13 +112,13 @@ export default function Page() {
                   month: "long",
                 })} de ${startYear} - ${endDate.getDate()} de ${endDate.toLocaleString(
                   locale,
-                  { month: "long" }
+                  { month: "long" },
                 )} de ${endYear}`
               : `${startDate.toLocaleString(locale, {
                   month: "long",
                 })} ${startDate.getDate()}, ${startYear} - ${endDate.toLocaleString(
                   locale,
-                  { month: "long" }
+                  { month: "long" },
                 )} ${endDate.getDate()}, ${endYear}`;
           setDate(dateLocale);
         }
@@ -170,8 +172,19 @@ export default function Page() {
                 {t("receiveReminder")}
               </button>
               <Link
-                href={"#form"}
-                className="text-white bg-[#9B1E2E] px-10 py-3 rounded-full uppercase font-bold text-lg hover:text-white/70 duration-300"
+                href={event?.formularioUrl || "#"}
+                target={event?.formularioUrl ? "_blank" : "_self"}
+                rel="noopener noreferrer"
+                className={`px-10 py-3 rounded-full uppercase font-bold text-lg duration-300 inline-block text-center ${
+                  event?.formularioUrl
+                    ? "text-white bg-[#9B1E2E] hover:bg-[#7a1823] cursor-pointer"
+                    : "text-gray-500 bg-gray-200 cursor-not-allowed opacity-60"
+                }`}
+                onClick={(e) => {
+                  if (!event?.formularioUrl) {
+                    e.preventDefault();
+                  }
+                }}
               >
                 {t("wantToParticipate")}
               </Link>
@@ -255,15 +268,15 @@ export default function Page() {
           <GoogleMap lat={latitude} lng={longitude} />
         )}
       </section>
-      <section className="py-10 flex justify-center">
+      {/* <section className="py-10 flex justify-center">
         <div className="w-10/12 flex flex-col items-center gap-10">
           <h1 className="font-extrabold text-2xl xl:text-4xl text-white flex flex-wrap items-center gap-1">
             <div className="bg-[#9B1E2E] p-2">{t("imageGallery.title")}</div>
             {t("imageGallery.title2")}
           </h1>
         </div>
-      </section>
-      <section id="form" className="py-10 flex justify-center">
+      </section> */}
+      {/* <section id="form" className="py-10 flex justify-center">
         <div className="w-10/12 xl:w-5/12 flex flex-col items-center gap-10">
           <h1 className="font-extrabold text-2xl xl:text-4xl text-white flex flex-wrap items-center gap-1">
             <div className="bg-[#9B1E2E] p-2">{t("form.title")}</div>
@@ -314,7 +327,7 @@ export default function Page() {
             </button>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }

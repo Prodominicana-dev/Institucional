@@ -50,6 +50,7 @@ export function EventDialog({
   const [coordinates, setCoordinates] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [categoriesOptions, setCategoriesOptions] = useState([]);
+  const [formularioUrl, setFormularioUrl] = useState("");
 
   const { data, isLoading } = useEventCategory();
 
@@ -59,7 +60,7 @@ export function EventDialog({
         data.map((category: any) => ({
           value: category.id,
           label: category.name,
-        }))
+        })),
       );
     }
   }, [data, isLoading]);
@@ -157,6 +158,9 @@ export function EventDialog({
       formData.append("en", JSON.stringify(en_data));
       formData.append("created_By", user?.email as string);
       formData.append("categoryId", categoryId);
+      if (formularioUrl.trim() !== "") {
+        formData.append("formulario_url", formularioUrl.trim());
+      }
       files.length > 0 && files.map((file) => formData.append("files", file));
       await createEvents(formData, update, user?.sub as string);
       setSubmitLoading(false);
@@ -385,6 +389,27 @@ export function EventDialog({
                 value={address}
                 placeholder="Dirección del lugar..."
               />
+            </div>
+
+            <div>
+              <label
+                htmlFor="formularioUrl"
+                className="font-semibold text-black text-lg"
+              >
+                Link del Formulario de inscripción de participantes
+              </label>
+              <Input
+                crossOrigin={""}
+                id="formularioUrl"
+                className="w-full"
+                onChange={(e) => setFormularioUrl(e.target.value.trimStart())}
+                value={formularioUrl}
+                placeholder="https://forms.monday.com/forms/xxxxx"
+                type="url"
+              />
+              <span className="text-xs text-gray-500 mt-1 block">
+                Al agregar un link, este se mostrará en el botón “Quiero participar”.
+              </span>
             </div>
             <label
               className={`${

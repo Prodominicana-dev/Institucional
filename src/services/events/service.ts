@@ -43,7 +43,7 @@ export function useEventByIdAndLang(id: string, locale: string) {
     queryFn: async () => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/${locale}/events/${id}`;
       const { data } = await axios.get(url);
-      return data[0];
+      return data;
     },
   });
 }

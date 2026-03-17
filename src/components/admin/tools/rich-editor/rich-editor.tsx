@@ -8,6 +8,7 @@ import {
 import { RichTextEditor } from "@mantine/tiptap";
 import React, { useEffect } from "react";
 import Image from "next/image";
+import { IconTable } from "@tabler/icons-react";
 
 export default function TextEditor({
   editor,
@@ -62,13 +63,8 @@ export default function TextEditor({
         <RichTextEditor.ControlsGroup>
           <Menu placement="right-start">
             <MenuHandler>
-              <button className="container p-1 h-[1.625rem] w-[1.625rem] bg-white ring-1 ring-gray-300 rounded-md">
-                <Image
-                  width="50"
-                  height="50"
-                  src="https://img.icons8.com/ios/50/table-1.png"
-                  alt="table-1"
-                />
+              <button className="container p-1 h-[1.625rem] w-[1.625rem] bg-white ring-1 ring-gray-300 rounded-md cursor-pointer">
+                <IconTable size={16} stroke={1.5} />
               </button>
             </MenuHandler>
             <MenuList className="z-[9999]">
