@@ -26,7 +26,7 @@ export default function Page() {
   return (
     <div className=" pt-16 md:pt-16 xl:pt-0">
       <Image
-        src="/images/eventsBanner.jpg"
+        src="/images/headerEventos.png"
         alt="events"
         width={3840}
         height={2160}
@@ -120,6 +120,13 @@ export default function Page() {
           ))}
         </div>
       </div>
+      <Image
+        width={2048}
+        height={1080}
+        src="/images/footereventos.png"
+        alt="Sumando Exportadoras"
+        className=" w-full "
+      />
     </div>
   );
 }

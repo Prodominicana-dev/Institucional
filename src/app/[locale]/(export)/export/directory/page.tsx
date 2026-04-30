@@ -222,7 +222,7 @@ export default function Page() {
           cualquier momento, sin previo aviso.
         </p>
       </InfoPopup>
-      {/* Hero Section */}
+
       <div className="relative h-[65vh] sm:h-[90vh]">
         <Image
           width={5378}
@@ -266,7 +266,6 @@ export default function Page() {
         </div>
       </div>
 
-      {/* Filters and Cards Section */}
       <div className="bg-white flex flex-col items-center py-6 sm:py-10 gap-6 sm:gap-10">
         <div className="w-11/12 sm:w-10/12">
           <div>
