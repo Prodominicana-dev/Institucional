@@ -7,13 +7,34 @@ export default function BusinessFacilitation() {
   const t = useTranslations("BusinessFacilitation");
   return (
     <div>
+      {/* <Link href="/sumando-exportadoras" target="_blank">
+        <Image
+          width={2048}
+          height={1080}
+          src="/images/bannerSumandoExportadoras2025.jpg"
+          alt="Sumando Exportadoras"
+          className=" w-full "
+        />
+      </Link> */}
+      <Link href="https://americasinvestmentforum.com/register" target="_blank">
+        <video
+          src="/videos/AIF_Banner_ProDC.mp4"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+          className="w-full aspect-[24/5] lg:aspect-auto lg:h-[260px] xl:h-[307px] object-cover bg-black"
+        />
+      </Link>
       <section
         className={`w-full h-full xl:h-[60vh] p-5 lg:p-20 flex justify-center items-center`}
       >
         <div className="xl:w-10/12 h-full flex flex-col-reverse xl:flex-row gap-5 justify-center items-center ">
           <div className="w-full xl:w-7/12 md:h-96 rounded-lg overflow-hidden hidden xl:flex">
             <iframe
-              src="https://www.youtube.com/embed/8L9G2XXidNI?si=HQT3v7LeT3x4AgSt" 
+              src="https://www.youtube.com/embed/8L9G2XXidNI?si=HQT3v7LeT3x4AgSt"
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               className="w-full h-full object-cover"
@@ -50,15 +71,7 @@ export default function BusinessFacilitation() {
           className=" w-full"
         />
       </Link> */}
-      {/* <Link href="/sumando-exportadoras" target="_blank">
-        <Image
-          width={2048}
-          height={1080}
-          src="/images/bannerSumandoExportadoras2025.jpg"
-          alt="Sumando Exportadoras"
-          className=" w-full "
-        />
-      </Link> */}
+
       {/* <Link href="/documents/16MemoriasdeGestiónPD-2020-24.pdf" target="_blank">
         <Image
           width={2048}
