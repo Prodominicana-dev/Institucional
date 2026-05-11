@@ -78,7 +78,15 @@
         "galleryDesc": "Descubre momentos visuales impactantes"
       }
     },
-    "shetrades": "SheTrades",
+    "womenPrograms": {
+      "title": "Programas Mujer",
+      "menuList": {
+        "shetrades": "SheTrades",
+        "shetradesDesc": "Empoderando mujeres en e-commerce internacional",
+        "mujeresExportadoras": "Mujeres Exportadoras",
+        "mujeresExportadorasDesc": "Repositorio de apoyo a la mujer exportadora"
+      }
+    },
     "transparency": "Transparencia",
     "contact": "Contacto",
     "institute": "Instituto",
@@ -117,9 +125,9 @@
     "area": "48,442 km2"
   },
   "BusinessFacilitation": {
-    "title": "Exportaciones dominicanas que impulsan calidad e innovación en el mundo",
-    "paragraph1": "La República Dominicana proyecta al mundo una oferta exportable que refleja calidad, innovación y el talento de su gente. Desde el campo hasta la industria, nuestros productos llegan a múltiples destinos internacionales, consolidando ",
-    "paragraph2": "al país como un socio confiable para el comercio global.",
+    "title": "Las Américas ya tienen su punto de encuentro para la inversión.",
+    "paragraph1": "Americas Investment Forum 2026 reunirá a líderes globales, inversionistas y tomadores de decisión para impulsar el futuro de la región. Un evento organizado por ProDominicana y WAIPA, afiliado a la World Investment Conference (WIC), ",
+    "paragraph2": "AIF 2026 posiciona a la región como un punto clave para la expansión empresarial y el crecimiento sostenible.",
     "buttonText": "Conoce más"
   },
   "DigitalTools": {
@@ -1139,6 +1147,58 @@
         "2": "⭐⭐ Malo (2)",
         "1": "⭐ Pésimo (1)"
       }
+    }
+  },
+  "mujeresExportadoras": {
+    "nav": {
+      "home": "Inicio",
+      "routes": "Las 4 Rutas",
+      "resources": "Recursos",
+      "institutions": "Instituciones",
+      "about": "Acerca del Repositorio"
+    },
+    "hero": {
+      "badge": "Repositorio Mujer Exportadora",
+      "title": "Rutas de apoyo para mujeres que emprenden y exportan",
+      "description": "Encuentra servicios, instrumentos y políticas que te acompañan en cada etapa de tu camino hacia la exportación.",
+      "howItWorks": "¿Cómo funciona?",
+      "resourcesCount": "Más de {count} recursos disponibles",
+      "exploreRoutes": "Explora las 4 rutas del repositorio",
+      "viewRoute": "Ver ruta"
+    },
+    "routes": {
+      "title": "Las 4 Rutas del Repositorio",
+      "description": "Cada ruta agrupa recursos según la etapa en que se encuentra tu camino exportador.",
+      "resources": "recursos"
+    },
+    "resources": {
+      "title": "Explorar Recursos",
+      "description": "Filtra por ruta, tipo o nivel para encontrar exactamente lo que necesitas.",
+      "available": "recursos disponibles",
+      "searchPlaceholder": "Buscar por título, autor o tema...",
+      "filters": "Filtros",
+      "clear": "Limpiar",
+      "route": "Ruta",
+      "allRoutes": "Todas las rutas",
+      "level": "Nivel",
+      "type": "Tipo",
+      "found": "recursos encontrados",
+      "loadMore": "Cargar más ({count} restantes)",
+      "noResults": "No se encontraron recursos",
+      "clearFilters": "Limpiar filtros"
+    },
+    "institutions": {
+      "title": "Instituciones Aliadas",
+      "description": "Entidades que impulsan el desarrollo de la mujer exportadora en RD."
+    },
+    "about": {
+      "badge": "Sobre el Repositorio",
+      "title": "Impulsando el",
+      "titleHighlight": "talento femenino dominicano.",
+      "description": "Este repositorio centraliza servicios, herramientas e instrumentos de apoyo al emprendimiento femenino y las exportaciones en la República Dominicana.",
+      "credits": "Basado en la investigación estratégica de Catalina Gutiérrez (ICR Facility / ProDominicana), buscamos potenciar el talento local en los mercados internacionales.",
+      "missionTitle": "Nuestra Misión",
+      "missionDescription": "Empoderar a la mujer empresaria mediante el conocimiento técnico, la conexión institucional y una ruta clara hacia la internacionalización."
     }
   },
   "Footer": {

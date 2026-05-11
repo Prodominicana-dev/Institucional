@@ -34,7 +34,7 @@ export default function BusinessFacilitation() {
         <div className="xl:w-10/12 h-full flex flex-col-reverse xl:flex-row gap-5 justify-center items-center ">
           <div className="w-full xl:w-7/12 md:h-96 rounded-lg overflow-hidden hidden xl:flex">
             <iframe
-              src="https://www.youtube.com/embed/8L9G2XXidNI?si=HQT3v7LeT3x4AgSt"
+              src="https://www.youtube.com/embed/gZwOf3c8bvE"
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               className="w-full h-full object-cover"
@@ -50,7 +50,8 @@ export default function BusinessFacilitation() {
               <p>{t("paragraph2")}</p>
             </div>
             <Link
-              href={"/export"}
+              href="https://americasinvestmentforum.com/"
+              target="_blank"
               className="w-40 h-12 flex items-center justify-center rounded-lg bg-blue-dark hover:shadow-md duration-300 text-white hover:text-white/80"
             >
               {t("buttonText")}
