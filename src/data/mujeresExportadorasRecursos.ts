@@ -40,8 +40,8 @@ export const RUTAS: Ruta[] = [
     emoji: '📖',
   },
   {
-    id: 'impulsarte',
-    nombre: 'Impulsarte',
+    id: 'impulsar',
+    nombre: 'Impulsar',
     descripcion: 'Premios, certificaciones y servicios para hacer crecer tu negocio.',
     color: '#2E7D32',
     colorBg: '#F0FDF4',
@@ -737,7 +737,7 @@ export const recursos: Recurso[] = [
   // ─────────────────────────────────────────────
   {
     id: 45,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Certificaciones',
     tipo: 'Página',
     autor: 'DGCP / MICM',
@@ -754,7 +754,7 @@ export const recursos: Recurso[] = [
   // ─────────────────────────────────────────────
   {
     id: 46,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Premios',
     tipo: 'Página',
     autor: 'Ministerio de la Mujer',
@@ -768,7 +768,7 @@ export const recursos: Recurso[] = [
   },
   {
     id: 47,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Premios',
     tipo: 'Página',
     autor: 'Banco BHD',
@@ -782,7 +782,7 @@ export const recursos: Recurso[] = [
   },
   {
     id: 48,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Premios',
     tipo: 'Página',
     autor: 'L\'Oréal–UNESCO',
@@ -799,7 +799,7 @@ export const recursos: Recurso[] = [
   // ─────────────────────────────────────────────
   {
     id: 49,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Foros',
     tipo: 'Página',
     autor: 'She Is Global Forum',
@@ -813,7 +813,7 @@ export const recursos: Recurso[] = [
   },
   {
     id: 50,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Foros',
     tipo: 'Página',
     autor: 'Women Deliver',
@@ -830,7 +830,7 @@ export const recursos: Recurso[] = [
   // ─────────────────────────────────────────────
   {
     id: 51,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Programas de apoyo',
     tipo: 'Dashboard',
     autor: 'WE Finance Code',
@@ -844,7 +844,7 @@ export const recursos: Recurso[] = [
   },
   {
     id: 52,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Programas de apoyo',
     tipo: 'Página',
     autor: 'BID / IPG',
@@ -858,7 +858,7 @@ export const recursos: Recurso[] = [
   },
   {
     id: 53,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Programas de apoyo',
     tipo: 'Página',
     autor: 'Gobierno RD / ProDominicana',
@@ -875,7 +875,7 @@ export const recursos: Recurso[] = [
   // ─────────────────────────────────────────────
   {
     id: 54,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Financiamiento',
     tipo: 'Página',
     autor: 'Banco Adopem',
@@ -892,7 +892,7 @@ export const recursos: Recurso[] = [
   // ─────────────────────────────────────────────
   {
     id: 55,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Servicios',
     tipo: 'Página',
     autor: 'Banco BHD',
@@ -906,7 +906,7 @@ export const recursos: Recurso[] = [
   },
   {
     id: 56,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Servicios',
     tipo: 'Página',
     autor: 'Banco Popular',
@@ -920,7 +920,7 @@ export const recursos: Recurso[] = [
   },
   {
     id: 57,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Servicios',
     tipo: 'Página',
     autor: 'Banreservas / DFC',
@@ -934,7 +934,7 @@ export const recursos: Recurso[] = [
   },
   {
     id: 58,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Servicios',
     tipo: 'Página',
     autor: 'BANDEX',
@@ -951,7 +951,7 @@ export const recursos: Recurso[] = [
   // ─────────────────────────────────────────────
   {
     id: 59,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Misiones comerciales',
     tipo: 'Página',
     autor: 'FOODEX Japan',
@@ -965,7 +965,7 @@ export const recursos: Recurso[] = [
   },
   {
     id: 60,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Misiones comerciales',
     tipo: 'Página',
     autor: 'Tuttofood',
@@ -979,7 +979,7 @@ export const recursos: Recurso[] = [
   },
   {
     id: 61,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Misiones comerciales',
     tipo: 'Página',
     autor: 'Alimentaria',
@@ -996,7 +996,7 @@ export const recursos: Recurso[] = [
   // ─────────────────────────────────────────────
   {
     id: 62,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Programas de mentoría',
     tipo: 'Página',
     autor: 'UPS',
@@ -1010,7 +1010,7 @@ export const recursos: Recurso[] = [
   },
   {
     id: 63,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Programas de mentoría',
     tipo: 'Página',
     autor: 'Women@Dior',
@@ -1024,7 +1024,7 @@ export const recursos: Recurso[] = [
   },
   {
     id: 64,
-    ruta: 'impulsarte',
+    ruta: 'impulsar',
     subtema: 'Programas de mentoría',
     tipo: 'Página',
     autor: 'Caribbean Export',

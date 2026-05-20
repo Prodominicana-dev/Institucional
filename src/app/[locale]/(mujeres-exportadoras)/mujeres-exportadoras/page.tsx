@@ -23,7 +23,7 @@ import {
 // Colores por ruta (sólidos, sin gradientes)
 const RUTA_COLORS: Record<string, { primary: string; light: string; dark: string }> = {
   aprender: { primary: "#0891b2", light: "#cffafe", dark: "#164e63" },    // cyan
-  impulsarte: { primary: "#ea580c", light: "#ffedd5", dark: "#9a3412" },  // orange
+  impulsar: { primary: "#ea580c", light: "#ffedd5", dark: "#9a3412" },  // orange
   exportar: { primary: "#059669", light: "#d1fae5", dark: "#064e3b" },    // emerald
   conectar: { primary: "#b91c1c", light: "#fee2e2", dark: "#7f1d1d" },    // red-700
 };
@@ -32,7 +32,7 @@ const RUTA_COLORS: Record<string, { primary: string; light: string; dark: string
 function RutaIcon({ ruta, size = 32 }: { ruta: string; size?: number }) {
   const icons: Record<string, JSX.Element> = {
     aprender: <Icon icon="ph:book-open-bold" width={size} height={size} />,
-    impulsarte: <Icon icon="ph:rocket-bold" width={size} height={size} />,
+    impulsar: <Icon icon="ph:rocket-bold" width={size} height={size} />,
     exportar: <Icon icon="ph:globe-bold" width={size} height={size} />,
     conectar: <Icon icon="ph:users-three-bold" width={size} height={size} />,
   };
@@ -276,10 +276,10 @@ function HeroSection({ onExplore }: { onExplore: () => void }) {
 
 function StatsSection() {
   const stats = [
-    { value: "300+", label: "Recursos disponibles", icon: "ph:files-bold" },
-    { value: "80+", label: "Instituciones aliadas", icon: "ph:buildings-bold" },
-    { value: "4", label: "Rutas de apoyo", icon: "ph:path-bold" },
-    { value: "100%", label: "Gratuito", icon: "ph:gift-bold" },
+    { value: "+300", label: "Recursos disponibles", icon: "ph:files-bold", color: "text-blue-950" },
+    { value: "+80", label: "Instituciones aliadas", icon: "ph:buildings-bold", color: "text-blue-950" },
+    { value: "4", label: "Rutas de apoyo", icon: "ph:path-bold", color: "text-blue-950" },
+    { value: "100%", label: "Gratuito", icon: "ph:gift-bold", color: "text-blue-950" },
   ];
 
   return (
@@ -291,7 +291,7 @@ function StatsSection() {
               <Icon icon={stat.icon} className="text-white" width={24} />
             </div>
             <div>
-              <div className="text-2xl sm:text-3xl font-bold text-blue-950">{stat.value}</div>
+              <div className={`text-2xl sm:text-3xl font-bold ${stat.color}`}>{stat.value}</div>
               <div className="text-sm text-gray-600">{stat.label}</div>
             </div>
           </div>
@@ -306,7 +306,7 @@ function RutasSection({ onSelectRuta }: { onSelectRuta: (id: string) => void }) 
     <section id="rutas" className="w-full bg-gray-50 py-16">
       <div className="w-11/12 max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-blue-950 mb-4">Las 4 Rutas del Repositorio</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-blue-950 mb-4">Las <span className="text-red-700">4 Rutas</span> del Repositorio</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Cada ruta agrupa recursos según la etapa en que se encuentra tu camino exportador.
           </p>
@@ -413,6 +413,15 @@ function InfoSection() {
             >
               Cómo Funciona
             </Tab>
+            <Tab
+              key="origen"
+              value="origen"
+              placeholder=""
+              className={`duration-500 text-sm sm:text-base ${tab === "origen" ? "text-white" : "text-blue-950"}`}
+              onClick={() => setTab("origen")}
+            >
+              Origen
+            </Tab>
           </TabsHeader>
 
           <TabsBody className="w-full p-4 sm:p-8 rounded-b-2xl">
@@ -436,7 +445,7 @@ function InfoSection() {
             <TabPanel key="how" value="how">
               <ul className="space-y-4">
                 {[
-                  "Explora las 4 rutas según tu etapa: Aprender, Impulsarte, Exportar o Conectar.",
+                  "Explora las 4 rutas según tu etapa: Aprender, Impulsar, Exportar o Conectar.",
                   "Filtra los recursos por tipo (cursos, documentos, herramientas), nivel y público objetivo.",
                   "Accede directamente a cada recurso: cursos, guías, servicios institucionales y más.",
                   "Todos los recursos son gratuitos y están verificados por ProDominicana.",
@@ -449,6 +458,25 @@ function InfoSection() {
                   </li>
                 ))}
               </ul>
+            </TabPanel>
+            <TabPanel key="origen" value="origen">
+              <div className="space-y-5 text-gray-700">
+                <p className="text-base sm:text-lg leading-relaxed">
+                  Esta iniciativa es financiada por la <strong>Unión Europea</strong> y ejecutada por
+                  <strong> ICR Facility</strong> en colaboración con <strong>ProDominicana</strong>.
+                </p>
+                <p className="text-base sm:text-lg leading-relaxed">
+                  Surge de la necesidad identificada de fortalecer el ecosistema de apoyo al
+                  <strong> emprendimiento femenino</strong> y facilitar el acceso de mujeres empresarias
+                  dominicanas a los mercados internacionales, reduciendo las brechas de información y
+                  conectando a las emprendedoras con los recursos disponibles.
+                </p>
+                <div className="flex flex-wrap gap-3 pt-4">
+                  <span className="px-4 py-2 bg-blue-800 text-white rounded-full text-sm font-medium">🇪🇺 Unión Europea</span>
+                  <span className="px-4 py-2 bg-cyan-700 text-white rounded-full text-sm font-medium">ICR Facility</span>
+                  <span className="px-4 py-2 bg-blue-950 text-white rounded-full text-sm font-medium">ProDominicana</span>
+                </div>
+              </div>
             </TabPanel>
           </TabsBody>
         </Tabs>
@@ -589,7 +617,7 @@ function InstitucionesSection() {
       <div className="flex justify-center mt-10">
         <div className="flex items-center gap-3 bg-red-100 rounded-full px-6 py-3">
           <Icon icon="ph:buildings-bold" className="text-red-700" width={24} />
-          <span className="text-red-700 font-semibold">80+ Instituciones comprometidas</span>
+          <span className="text-red-700 font-semibold">+80 Instituciones comprometidas</span>
         </div>
       </div>
     </section>
@@ -933,6 +961,14 @@ function Footer() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Disclaimer */}
+      <div className="w-11/12 max-w-7xl mx-auto py-4 border-t border-white/20">
+        <p className="text-xs text-white/60 text-center leading-relaxed">
+          Los enlaces y recursos compartidos en esta sección tienen fines informativos y de apoyo al ecosistema exportador.
+          ProDominicana no se hace responsable del contenido, disponibilidad o políticas de plataformas y sitios web de terceros.
+        </p>
       </div>
     </footer>
   );
