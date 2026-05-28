@@ -837,6 +837,8 @@ function TipoBadge({ tipo }: { tipo: string }) {
     Servicio: "bg-orange-50 text-orange-700",
     Dashboard: "bg-teal-50 text-teal-700",
     Herramienta: "bg-rose-50 text-rose-700",
+    Estudio: "bg-sky-50 text-sky-700",
+    Guía: "bg-emerald-50 text-emerald-700",
     Video: "bg-red-50 text-red-700",
     Programa: "bg-indigo-50 text-indigo-700",
     Certificación: "bg-amber-50 text-amber-700",
