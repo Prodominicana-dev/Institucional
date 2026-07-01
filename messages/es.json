@@ -84,7 +84,7 @@
         "shetrades": "SheTrades",
         "shetradesDesc": "Empoderando mujeres en e-commerce internacional",
         "mujeresExportadoras": "Mujeres Exportadoras",
-        "mujeresExportadorasDesc": "Repositorio de apoyo a la mujer exportadora"
+        "mujeresExportadorasDesc": "Directorio de recursos y oportunidades para mujeres exportadoras"
       }
     },
     "shetrades": "SheTrades",
@@ -1156,19 +1156,19 @@
       "routes": "Las 4 Rutas",
       "resources": "Recursos",
       "institutions": "Instituciones",
-      "about": "Acerca del Repositorio"
+      "about": "Acerca de Mujer Exporta +"
     },
     "hero": {
-      "badge": "Repositorio Mujer Exportadora",
-      "title": "Rutas de apoyo para mujeres que emprenden y exportan",
-      "description": "Encuentra servicios, instrumentos y políticas que te acompañan en cada etapa de tu camino hacia la exportación.",
+      "badge": "Una iniciativa de ProDominicana",
+      "title": "Mujer Exporta +",
+      "description": "Tu camino hacia la exportación comienza aquí.",
       "howItWorks": "¿Cómo funciona?",
       "resourcesCount": "Más de {count} recursos disponibles",
-      "exploreRoutes": "Explora las 4 rutas del repositorio",
+      "exploreRoutes": "Explora las 4 rutas de Mujer Exporta +",
       "viewRoute": "Ver ruta"
     },
     "routes": {
-      "title": "Las 4 Rutas del Repositorio",
+      "title": "Las 4 Rutas de Mujer Exporta +",
       "description": "Cada ruta agrupa recursos según la etapa en que se encuentra tu camino exportador.",
       "resources": "recursos"
     },
@@ -1193,10 +1193,10 @@
       "description": "Entidades que impulsan el desarrollo de la mujer exportadora en RD."
     },
     "about": {
-      "badge": "Sobre el Repositorio",
+      "badge": "Sobre Mujer Exporta +",
       "title": "Impulsando el",
       "titleHighlight": "talento femenino dominicano.",
-      "description": "Este repositorio centraliza servicios, herramientas e instrumentos de apoyo al emprendimiento femenino y las exportaciones en la República Dominicana.",
+      "description": "Mujer Exporta + es un directorio que centraliza servicios, herramientas e instrumentos de apoyo al emprendimiento femenino y las exportaciones en la República Dominicana.",
       "credits": "Basado en la investigación estratégica de Catalina Gutiérrez (ICR Facility / ProDominicana), buscamos potenciar el talento local en los mercados internacionales.",
       "missionTitle": "Nuestra Misión",
       "missionDescription": "Empoderar a la mujer empresaria mediante el conocimiento técnico, la conexión institucional y una ruta clara hacia la internacionalización."

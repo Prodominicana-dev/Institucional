@@ -62,7 +62,7 @@
         "shetrades": "SheTrades",
         "shetradesDesc": "Empowering women in international e-commerce",
         "mujeresExportadoras": "Women Exporters",
-        "mujeresExportadorasDesc": "Support repository for women exporters"
+        "mujeresExportadorasDesc": "Directory of resources and opportunities for women exporters"
       }
     },
     "shetrades": "SheTrades",
@@ -1133,19 +1133,19 @@
       "routes": "The 4 Routes",
       "resources": "Resources",
       "institutions": "Institutions",
-      "about": "About the Repository"
+      "about": "About Mujer Exporta +"
     },
     "hero": {
-      "badge": "Women Exporter Repository",
-      "title": "Support routes for women who start businesses and export",
-      "description": "Find services, tools, and policies that accompany you at every stage of your path to exporting.",
+      "badge": "A ProDominicana initiative",
+      "title": "Mujer Exporta +",
+      "description": "Your path to exporting starts here.",
       "howItWorks": "How does it work?",
       "resourcesCount": "More than {count} resources available",
-      "exploreRoutes": "Explore the 4 routes of the repository",
+      "exploreRoutes": "Explore the 4 routes of Mujer Exporta +",
       "viewRoute": "View route"
     },
     "routes": {
-      "title": "The 4 Routes of the Repository",
+      "title": "The 4 Routes of Mujer Exporta +",
       "description": "Each route groups resources according to the stage of your export journey.",
       "resources": "resources"
     },
@@ -1170,10 +1170,10 @@
       "description": "Entities that promote the development of women exporters in DR."
     },
     "about": {
-      "badge": "About the Repository",
+      "badge": "About Mujer Exporta +",
       "title": "Promoting",
       "titleHighlight": "Dominican female talent.",
-      "description": "This repository centralizes services, tools, and support instruments for female entrepreneurship and exports in the Dominican Republic.",
+      "description": "Mujer Exporta + is a directory that centralizes services, tools, and support instruments for female entrepreneurship and exports in the Dominican Republic.",
       "credits": "Based on strategic research by Catalina Gutiérrez (ICR Facility / ProDominicana), we seek to enhance local talent in international markets.",
       "missionTitle": "Our Mission",
       "missionDescription": "Empower businesswomen through technical knowledge, institutional connection, and a clear path to internationalization."

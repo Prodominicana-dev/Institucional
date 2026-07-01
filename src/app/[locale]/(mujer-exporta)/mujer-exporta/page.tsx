@@ -224,7 +224,7 @@ function Header({
             }}
             className="text-white hover:text-cyan-400 duration-200"
           >
-            Acerca del repositorio
+            Acerca de Mujer Exporta +
           </button>
         </div>
       </div>
@@ -238,16 +238,18 @@ function HeroSection({ onExplore }: { onExplore: () => void }) {
       <div className="w-11/12 max-w-7xl py-12 sm:py-20 flex flex-col items-center text-center">
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 mb-8">
           <Icon icon="ph:flag-banner-bold" className="text-red-500" width={16} />
-          <span className="text-sm font-medium text-white/90">Repositorio Mujer Exportadora RD</span>
+          <span className="text-sm font-medium text-white/90">Una iniciativa de ProDominicana</span>
         </div>
 
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-          Tu camino hacia la{" "}
-          <span className="text-cyan-400">exportación</span>{" "}
-          comienza aquí
+        <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold text-white leading-tight mb-4">
+          Mujer Exporta <span className="text-cyan-400">+</span>
         </h1>
 
-        <p className="text-lg sm:text-xl text-white/70 max-w-3xl mb-10">
+        <p className="text-lg sm:text-xl text-white/80 font-medium max-w-3xl mb-4">
+          Tu camino hacia la <span className="text-cyan-400">exportación</span> comienza aquí
+        </p>
+
+        <p className="text-base sm:text-lg text-white/60 max-w-3xl mb-10">
           Descubre más de <span className="text-red-500 font-bold">300 recursos</span> organizados
           en 4 rutas diseñadas para impulsar a mujeres emprendedoras y exportadoras dominicanas.
         </p>
@@ -306,7 +308,7 @@ function RutasSection({ onSelectRuta }: { onSelectRuta: (id: string) => void }) 
     <section id="rutas" className="w-full bg-gray-50 py-16">
       <div className="w-11/12 max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-blue-950 mb-4">Las <span className="text-red-700">4 Rutas</span> del Repositorio</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-blue-950 mb-4">Las <span className="text-red-700">4 Rutas</span> de Mujer Exporta +</h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Cada ruta agrupa recursos según la etapa en que se encuentra tu camino exportador.
           </p>
@@ -402,7 +404,7 @@ function InfoSection() {
               className={`duration-500 text-sm sm:text-base ${tab === "about" ? "text-white" : "text-blue-950"}`}
               onClick={() => setTab("about")}
             >
-              Sobre el Repositorio
+              Sobre Mujer Exporta +
             </Tab>
             <Tab
               key="how"
@@ -428,7 +430,7 @@ function InfoSection() {
             <TabPanel key="about" value="about">
               <div className="space-y-4 text-gray-700">
                 <p className="text-base sm:text-lg leading-relaxed">
-                  Este repositorio centraliza <strong>servicios, herramientas e instrumentos de apoyo</strong> al
+                  <strong>Mujer Exporta +</strong> es un directorio que centraliza <strong>servicios, herramientas e instrumentos de apoyo</strong> al
                   emprendimiento femenino y las exportaciones en la República Dominicana.
                 </p>
                 <p className="text-base sm:text-lg leading-relaxed">
@@ -920,7 +922,7 @@ function Footer() {
             className="w-40 sm:w-56 brightness-0 invert"
           />
           <p className="text-white/70 text-sm max-w-xs">
-            Repositorio de apoyo al ecosistema de emprendimiento de mujeres exportadoras.
+            Directorio de recursos y oportunidades para mujeres emprendedoras y exportadoras.
           </p>
         </div>
 

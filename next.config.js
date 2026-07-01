@@ -37,6 +37,21 @@ const nextConfig = {
         destination: "https://transparencia.prodominicana.gob.do/:path*",
         permanent: true,
       },
+      {
+        source: "/mujeres-exportadoras",
+        destination: "/mujer-exporta",
+        permanent: true,
+      },
+      {
+        source: "/es/mujeres-exportadoras",
+        destination: "/es/mujer-exporta",
+        permanent: true,
+      },
+      {
+        source: "/en/women-exporters",
+        destination: "/en/mujer-exporta",
+        permanent: true,
+      },
     ];
   },
 };
