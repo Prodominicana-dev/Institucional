@@ -434,13 +434,11 @@ function InfoSection() {
                   emprendimiento femenino y las exportaciones en la República Dominicana.
                 </p>
                 <p className="text-base sm:text-lg leading-relaxed">
-                  Basado en la investigación estratégica de <strong>Catalina Gutiérrez</strong> (ICR Facility / ProDominicana),
+                  Basado en la investigación estratégica de <strong>ProDominicana</strong>,
                   buscamos potenciar el talento local en los mercados internacionales.
                 </p>
                 <div className="flex flex-wrap gap-3 pt-4">
                   <span className="px-4 py-2 bg-blue-950 text-white rounded-full text-sm font-medium">ProDominicana</span>
-                  <span className="px-4 py-2 bg-red-100 text-red-700 rounded-full text-sm font-medium">ICR Facility</span>
-                  <span className="px-4 py-2 bg-cyan-100 text-cyan-700 rounded-full text-sm font-medium">Ministerio de la Mujer</span>
                 </div>
               </div>
             </TabPanel>
@@ -464,8 +462,7 @@ function InfoSection() {
             <TabPanel key="origen" value="origen">
               <div className="space-y-5 text-gray-700">
                 <p className="text-base sm:text-lg leading-relaxed">
-                  Esta iniciativa es financiada por la <strong>Unión Europea</strong> y ejecutada por
-                  <strong> ICR Facility</strong> en colaboración con <strong>ProDominicana</strong>.
+                  Esta iniciativa es impulsada por <strong>ProDominicana</strong>.
                 </p>
                 <p className="text-base sm:text-lg leading-relaxed">
                   Surge de la necesidad identificada de fortalecer el ecosistema de apoyo al
@@ -474,8 +471,6 @@ function InfoSection() {
                   conectando a las emprendedoras con los recursos disponibles.
                 </p>
                 <div className="flex flex-wrap gap-3 pt-4">
-                  <span className="px-4 py-2 bg-blue-800 text-white rounded-full text-sm font-medium">🇪🇺 Unión Europea</span>
-                  <span className="px-4 py-2 bg-cyan-700 text-white rounded-full text-sm font-medium">ICR Facility</span>
                   <span className="px-4 py-2 bg-blue-950 text-white rounded-full text-sm font-medium">ProDominicana</span>
                 </div>
               </div>
