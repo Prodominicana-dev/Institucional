@@ -122,6 +122,7 @@ export default function NavBarMobile() {
       ],
     },
     { title: t("shetrades"), link: "/shetrades", type: "link" },
+    { title: t("mujerExporta"), link: "/mujer-exporta", type: "link" },
     {
       title: t("transparency"),
       link: "https://transparencia.prodominicana.gob.do/",
