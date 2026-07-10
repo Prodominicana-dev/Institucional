@@ -172,5 +172,9 @@ export const routing = defineRouting({
       en: "/frequently-asked-questions",
       es: "/preguntas-frecuentes",
     },
+    "/mujer-exporta": {
+      en: "/mujer-exporta",
+      es: "/mujer-exporta",
+    },
   },
 });

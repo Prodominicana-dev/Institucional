@@ -85,7 +85,7 @@ export default function NavbarMenu({ title, navListMenuItems }: Props) {
       <MenuHandler>
         <Typography as="div" className="xl:font-xl text-center">
           <ListItem
-            className={`h-20 px-5 bg-transparent rounded-none hover:bg-transparent  hover:text-white ${
+            className={`h-20 px-5 xl:px-2 2xl:px-4 text-base xl:text-sm 2xl:text-base bg-transparent rounded-none hover:bg-transparent  hover:text-white ${
               navListMenuItems.some((item) => item.link === translatedPath)
                 ? "text-white"
                 : "text-cyan-600"

@@ -214,26 +214,31 @@ export default function Navbar() {
             <NavbarLink
               title={t("shetrades")}
               link={"/shetrades"}
-              className="h-full px-3 xl:px-2 xl:text-sm 2xl:px-3 2xl:text-base flex items-center"
+              className="h-full px-3 xl:px-1.5 xl:text-sm 2xl:px-2.5 2xl:text-base flex items-center"
+            />
+            <NavbarLink
+              title={t("mujerExporta")}
+              link={"/mujer-exporta"}
+              className="h-full px-3 xl:px-1.5 xl:text-sm 2xl:px-2.5 2xl:text-base flex items-center"
             />
             <NavbarLink
               title={t("transparency")}
               link={"https://transparencia.prodominicana.gob.do/"}
-              className="h-full px-3 xl:px-2 xl:text-sm 2xl:px-3 2xl:text-base flex items-center"
+              className="h-full px-3 xl:px-1.5 xl:text-sm 2xl:px-2.5 2xl:text-base flex items-center"
             />
             <NavbarLink
               title={t("contact")}
               link={"/contact"}
-              className="h-full px-3 xl:px-2 xl:text-sm 2xl:px-3 2xl:text-base flex items-center"
+              className="h-full px-3 xl:px-1.5 xl:text-sm 2xl:px-2.5 2xl:text-base flex items-center"
             />
             <NavbarLink
               title={t("complaint")}
               link={"/complaint"}
-              className="h-full px-3 xl:px-2 xl:text-sm 2xl:px-3 2xl:text-base flex items-center"
+              className="h-full px-3 xl:px-1.5 xl:text-sm 2xl:px-2.5 2xl:text-base flex items-center"
             />
 
             {/* Botones */}
-            <div className="h-full flex space-x-3 xl:space-x-2 2xl:space-x-3 text-white items-center">
+            <div className="h-full flex space-x-3 xl:space-x-1.5 2xl:space-x-3 text-white items-center">
               <NavbarButton
                 title={t("investButton")}
                 link={"/invest"}

@@ -56,7 +56,17 @@
         "galleryDesc": "Discover impactful visual moments"
       }
     },
+    "womenPrograms": {
+      "title": "Women Programs",
+      "menuList": {
+        "shetrades": "SheTrades",
+        "shetradesDesc": "Empowering women in international e-commerce",
+        "mujeresExportadoras": "Women Exporters",
+        "mujeresExportadorasDesc": "Directory of resources and opportunities for women exporters"
+      }
+    },
     "shetrades": "SheTrades",
+    "mujerExporta": "Mujer Exporta +",
     "transparency": "Transparency",
     "contact": "Contact",
     "institute": "Institute",
@@ -95,9 +105,9 @@
     "area": "48,442 km2"
   },
   "BusinessFacilitation": {
-    "title": "We provide support at every stage of your investment project",
-    "paragraph1": "The Dominican Republic projects to the world an export offering that reflects quality, innovation, and the talent of its people. From the countryside to industry, our products reach multiple international destinations, consolidating a strong presence in.",
-    "paragraph2": "global markets the country as a reliable partner for global trade.",
+    "title": "The Americas now have their meeting point for investment.",
+    "paragraph1": "Americas Investment Forum 2026 will bring together global leaders, investors, and decision-makers to drive the future of the region. An event organized by ProDominicana and WAIPA, affiliated with the World Investment Conference (WIC), ",
+    "paragraph2": "AIF 2026 positions the region as a key point for business expansion and sustainable growth.",
     "buttonText": "Learn more"
   },
   "DigitalTools": {
@@ -1116,6 +1126,58 @@
         "2": "⭐⭐ Bad (2)",
         "1": "⭐ Terrible (1)"
       }
+    }
+  },
+  "mujeresExportadoras": {
+    "nav": {
+      "home": "Home",
+      "routes": "The 4 Routes",
+      "resources": "Resources",
+      "institutions": "Institutions",
+      "about": "About Mujer Exporta +"
+    },
+    "hero": {
+      "badge": "A ProDominicana initiative",
+      "title": "Mujer Exporta +",
+      "description": "Your path to exporting starts here.",
+      "howItWorks": "How does it work?",
+      "resourcesCount": "More than {count} resources available",
+      "exploreRoutes": "Explore the 4 routes of Mujer Exporta +",
+      "viewRoute": "View route"
+    },
+    "routes": {
+      "title": "The 4 Routes of Mujer Exporta +",
+      "description": "Each route groups resources according to the stage of your export journey.",
+      "resources": "resources"
+    },
+    "resources": {
+      "title": "Explore Resources",
+      "description": "Filter by route, type, or level to find exactly what you need.",
+      "available": "resources available",
+      "searchPlaceholder": "Search by title, author or topic...",
+      "filters": "Filters",
+      "clear": "Clear",
+      "route": "Route",
+      "allRoutes": "All routes",
+      "level": "Level",
+      "type": "Type",
+      "found": "resources found",
+      "loadMore": "Load more ({count} remaining)",
+      "noResults": "No resources found",
+      "clearFilters": "Clear filters"
+    },
+    "institutions": {
+      "title": "Allied Institutions",
+      "description": "Entities that promote the development of women exporters in DR."
+    },
+    "about": {
+      "badge": "About Mujer Exporta +",
+      "title": "Promoting",
+      "titleHighlight": "Dominican female talent.",
+      "description": "Mujer Exporta + is a directory that centralizes services, tools, and support instruments for female entrepreneurship and exports in the Dominican Republic.",
+      "credits": "Based on strategic research by Catalina Gutiérrez (ICR Facility / ProDominicana), we seek to enhance local talent in international markets.",
+      "missionTitle": "Our Mission",
+      "missionDescription": "Empower businesswomen through technical knowledge, institutional connection, and a clear path to internationalization."
     }
   },
   "Footer": {

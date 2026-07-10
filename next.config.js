@@ -43,6 +43,21 @@ const nextConfig = {
         destination: "/RepositorioExportacion/Guia-Exportacion-2025.pdf",
         permanent: false,
       },
+      {
+        source: "/mujeres-exportadoras",
+        destination: "/mujer-exporta",
+        permanent: true,
+      },
+      {
+        source: "/es/mujeres-exportadoras",
+        destination: "/es/mujer-exporta",
+        permanent: true,
+      },
+      {
+        source: "/en/women-exporters",
+        destination: "/en/mujer-exporta",
+        permanent: true,
+      },
     ];
   },
 };
