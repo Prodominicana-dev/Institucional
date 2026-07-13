@@ -123,6 +123,9 @@ export default function Page() {
 
           {/* Noticias */}
           <NoticiasSection />
+
+          {/* Con el apoyo de */}
+          <ApoyoSection />
         </>
       ) : (
         /* Recursos View */
@@ -901,6 +904,24 @@ function RecursoCard({ recurso }: { recurso: Recurso }) {
         </div>
       </div>
     </a>
+  );
+}
+
+function ApoyoSection() {
+  return (
+    <section className="w-full bg-white border-t border-gray-200 py-14">
+      <div className="w-11/12 max-w-3xl mx-auto flex flex-col items-center text-center gap-5">
+        <h2 className="text-xl sm:text-2xl font-bold text-blue-950">
+          Con el apoyo de
+        </h2>
+        <Image
+          src="/images/instituciones/union-europea.svg"
+          alt="Unión Europea"
+          width={120}
+          height={80}
+        />
+      </div>
+    </section>
   );
 }
 
