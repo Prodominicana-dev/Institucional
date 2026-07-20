@@ -914,12 +914,22 @@ function ApoyoSection() {
         <h2 className="text-xl sm:text-2xl font-bold text-blue-950">
           Con el apoyo de
         </h2>
-        <Image
-          src="/images/instituciones/union-europea.svg"
-          alt="Unión Europea"
-          width={120}
-          height={80}
-        />
+        <div className="flex items-center gap-3">
+          <Image
+            src="/images/instituciones/union-europea.svg"
+            alt="Unión Europea"
+            width={120}
+            height={80}
+          />
+          <span
+            className="text-left font-semibold leading-tight text-2xl sm:text-3xl"
+            style={{ color: "#003399" }}
+          >
+            Unión
+            <br />
+            Europea
+          </span>
+        </div>
       </div>
     </section>
   );
