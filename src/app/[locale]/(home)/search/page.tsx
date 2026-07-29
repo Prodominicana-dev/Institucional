@@ -20,11 +20,12 @@ export default function SearchPage() {
       Url: [
         { label: t("aboutUs.menuList.whoWeAre"), path: "/whoarewe" },
         { label: t("aboutUs.menuList.history"), path: "/history" },
-        { label: t("aboutUs.menuList.CEODispach"), path: "/ceo" },
-        {
-          label: t("aboutUs.menuList.organizationalChart"),
-          path: "/organizationalstructure",
-        },
+        // Ocultas temporalmente. NO ELIMINAR: estas secciones se volveran a usar.
+        // { label: t("aboutUs.menuList.CEODispach"), path: "/ceo" },
+        // {
+        //   label: t("aboutUs.menuList.organizationalChart"),
+        //   path: "/organizationalstructure",
+        // },
         { label: t("aboutUs.menuList.legal"), path: "/legalframework" },
       ],
     },
@@ -52,19 +53,20 @@ export default function SearchPage() {
       Title: t("aboutUs.menuList.history"),
       Url: [{ label: t("aboutUs.menuList.history"), path: "/history" }],
     },
-    {
-      Title: t("aboutUs.menuList.CEODispach"),
-      Url: [{ label: t("aboutUs.menuList.CEODispach"), path: "/ceo" }],
-    },
-    {
-      Title: t("aboutUs.menuList.organizationalChart"),
-      Url: [
-        {
-          label: t("aboutUs.menuList.organizationalChart"),
-          path: "/organizationalstructure",
-        },
-      ],
-    },
+    // Ocultas temporalmente. NO ELIMINAR: estas secciones se volveran a usar.
+    // {
+    //   Title: t("aboutUs.menuList.CEODispach"),
+    //   Url: [{ label: t("aboutUs.menuList.CEODispach"), path: "/ceo" }],
+    // },
+    // {
+    //   Title: t("aboutUs.menuList.organizationalChart"),
+    //   Url: [
+    //     {
+    //       label: t("aboutUs.menuList.organizationalChart"),
+    //       path: "/organizationalstructure",
+    //     },
+    //   ],
+    // },
     {
       Title: t("aboutUs.menuList.legal"),
       Url: [{ label: t("aboutUs.menuList.legal"), path: "/legalframework" }],

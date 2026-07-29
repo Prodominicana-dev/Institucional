@@ -95,11 +95,12 @@ export default function NavBarMobile() {
       content: [
         { title: t("aboutUs.menuList.whoWeAre"), link: "/whoarewe" },
         { title: t("aboutUs.menuList.history"), link: "/history" },
-        { title: t("aboutUs.menuList.CEODispach"), link: "/ceo" },
-        {
-          title: t("aboutUs.menuList.organizationalChart"),
-          link: "/organizationalstructure",
-        },
+        // Ocultas temporalmente. NO ELIMINAR: estas secciones se volveran a usar.
+        // { title: t("aboutUs.menuList.CEODispach"), link: "/ceo" },
+        // {
+        //   title: t("aboutUs.menuList.organizationalChart"),
+        //   link: "/organizationalstructure",
+        // },
         { title: t("aboutUs.menuList.legal"), link: "/legalframework" },
       ],
     },
