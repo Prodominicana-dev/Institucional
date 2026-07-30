@@ -128,7 +128,7 @@ export default function BusinessFacilitation() {
         className={`w-full h-full xl:min-h-[60vh] p-5 lg:p-20 flex justify-center items-center`}
       >
         <div className="xl:w-11/12 h-full flex flex-col-reverse xl:flex-row gap-5 justify-center items-center xl:items-start">
-          <div className="w-full xl:w-7/12 aspect-video rounded-lg overflow-hidden hidden xl:flex">
+          <div className="w-full xl:w-7/12 aspect-video rounded-lg overflow-hidden hidden xl:flex xl:sticky xl:top-8">
             <iframe
               src="https://www.youtube.com/embed/YEpRND-2qzU"
               title="YouTube video player"
