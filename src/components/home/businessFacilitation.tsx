@@ -125,10 +125,10 @@ export default function BusinessFacilitation() {
       ============ FIN CODIGO ANTERIOR ============ */}
 
       <section
-        className={`w-full h-full xl:h-[60vh] p-5 lg:p-20 flex justify-center items-center`}
+        className={`w-full h-full xl:min-h-[60vh] p-5 lg:p-20 flex justify-center items-center`}
       >
-        <div className="xl:w-10/12 h-full flex flex-col-reverse xl:flex-row gap-5 justify-center items-center ">
-          <div className="w-full xl:w-7/12 md:h-96 rounded-lg overflow-hidden hidden xl:flex">
+        <div className="xl:w-11/12 h-full flex flex-col-reverse xl:flex-row gap-5 justify-center items-center xl:items-start">
+          <div className="w-full xl:w-7/12 aspect-video rounded-lg overflow-hidden hidden xl:flex">
             <iframe
               src="https://www.youtube.com/embed/YEpRND-2qzU"
               title="YouTube video player"
