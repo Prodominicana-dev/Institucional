@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0";
 import DeleteButton from "../../delete";
 import { MembersEditDialog } from "./eDialog";
-import { deleteMember } from "@/services/structure-organizational/members/service";
+import { deleteMember, showMember, hideMember } from "@/services/structure-organizational/members/service";
 import Image from "next/image";
 
 export default function Card({
@@ -41,10 +41,20 @@ export default function Card({
       );
     }
   };
-  // console.log(member);
+
+  const handleToggleVisibility = () => {
+    if (user && !isLoading) {
+      if (member.visible) {
+        hideMember(member.id as string, update, user.sub as string);
+      } else {
+        showMember(member.id as string, update, user.sub as string);
+      }
+    }
+  };
+
   return (
     <>
-      <div className="grid items-center w-full h-24 grid-cols-2 lg:grid-cols-5 p-5 text-center bg-white rounded-lg  ring-2 ring-gray-100">
+      <div className={`grid items-center w-full h-24 grid-cols-2 lg:grid-cols-6 p-5 text-center bg-white rounded-lg ring-2 ${member.visible === false ? 'ring-gray-300 opacity-60' : 'ring-gray-100'}`}>
         <div className="flex items-center justify-center">
           <Image
             width={2000}
@@ -60,20 +70,42 @@ export default function Card({
           />
         </div>
         <div>{member?.name}</div>
-        <div>{member?.department.nameEs}</div>
+        <div>{member?.department?.nameEs}</div>
         <div>{member?.role}</div>
-        <div className="flex justify-center space-x-5 ">
+        <div className="flex justify-center">
+          {member.visible === false ? (
+            <span className="text-xs bg-gray-200 text-gray-600 px-2 py-1 rounded">Oculto</span>
+          ) : (
+            <span className="text-xs bg-green-100 text-green-600 px-2 py-1 rounded">Visible</span>
+          )}
+        </div>
+        <div className="flex justify-center space-x-3">
+          <button
+            onClick={handleToggleVisibility}
+            className={`flex items-center justify-center duration-300 bg-white rounded-lg w-10 h-10 ring-1 ring-gray-100 ${
+              member.visible === false
+                ? "text-gray-400 hover:text-white hover:bg-green-500"
+                : "text-green-500 hover:text-white hover:bg-gray-500"
+            }`}
+            title={member.visible === false ? "Mostrar" : "Ocultar"}
+          >
+            {member.visible === false ? (
+              <EyeIcon className="w-5" />
+            ) : (
+              <EyeSlashIcon className="w-5" />
+            )}
+          </button>
           <button
             onClick={handleEditOpen}
-            className="flex items-center justify-center text-black hover:text-white hover:bg-blue-dark duration-300 bg-white rounded-lg w-14 h-14 ring-1 ring-gray-100"
+            className="flex items-center justify-center text-black hover:text-white hover:bg-blue-dark duration-300 bg-white rounded-lg w-10 h-10 ring-1 ring-gray-100"
           >
-            <PencilSquareIcon className="w-7" />
+            <PencilSquareIcon className="w-5" />
           </button>
           <button
             onClick={handleDeleteOpen}
-            className="flex items-center justify-center text-black hover:text-white hover:bg-red-500 duration-300 bg-white rounded-lg w-14 h-14 ring-1 ring-gray-100"
+            className="flex items-center justify-center text-black hover:text-white hover:bg-red-500 duration-300 bg-white rounded-lg w-10 h-10 ring-1 ring-gray-100"
           >
-            <TrashIcon className="w-7" />
+            <TrashIcon className="w-5" />
           </button>
         </div>
       </div>

@@ -250,3 +250,103 @@ export function deleteMember(
       }
     });
 }
+
+export async function showMember(
+  id: string,
+  update: () => void,
+  userId: string
+) {
+  try {
+    const userIdEncrypted = CryptoJS.AES.encrypt(
+      userId,
+      process.env.NEXT_PUBLIC_CRYPTOJS_KEY
+    ).toString();
+    const res = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/so/member/show/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `${userIdEncrypted}`,
+        },
+      }
+    );
+    if (res.status === 200) {
+      notifications.show({
+        id: "member",
+        autoClose: 5000,
+        withCloseButton: false,
+        title: "Colaborador visible",
+        message: "El colaborador ahora es visible en el organigrama.",
+        color: "green",
+        loading: false,
+      });
+      update();
+    }
+  } catch (error) {
+    notifications.show({
+      id: "member",
+      autoClose: 5000,
+      withCloseButton: false,
+      title: "Error",
+      message: "Hubo un error mostrando al colaborador.",
+      color: "red",
+      loading: false,
+    });
+  }
+}
+
+export async function hideMember(
+  id: string,
+  update: () => void,
+  userId: string
+) {
+  try {
+    const userIdEncrypted = CryptoJS.AES.encrypt(
+      userId,
+      process.env.NEXT_PUBLIC_CRYPTOJS_KEY
+    ).toString();
+    const res = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/so/member/hide/${id}`,
+      {},
+      {
+        headers: {
+          Authorization: `${userIdEncrypted}`,
+        },
+      }
+    );
+    if (res.status === 200) {
+      notifications.show({
+        id: "member",
+        autoClose: 5000,
+        withCloseButton: false,
+        title: "Colaborador oculto",
+        message: "El colaborador ha sido ocultado del organigrama.",
+        color: "green",
+        loading: false,
+      });
+      update();
+    }
+  } catch (error) {
+    notifications.show({
+      id: "member",
+      autoClose: 5000,
+      withCloseButton: false,
+      title: "Error",
+      message: "Hubo un error ocultando al colaborador.",
+      color: "red",
+      loading: false,
+    });
+  }
+}
+
+// Hook para obtener todos los miembros incluyendo ocultos (para admin)
+export function useAllMembers(lang: string) {
+  return useQuery({
+    queryKey: ["allMembers"],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/so/admin/${lang}/member`;
+      const { data } = await axios.get(url);
+      return data;
+    },
+  });
+}

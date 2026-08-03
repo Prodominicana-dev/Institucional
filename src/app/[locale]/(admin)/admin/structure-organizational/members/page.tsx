@@ -4,7 +4,7 @@ import Sketch from "@/components/admin/sketch";
 import Card from "@/components/admin/structure-organizational/members/card";
 import { DirectionsDialog } from "@/components/admin/structure-organizational/directions/dialog";
 import { MembersDialog } from "@/components/admin/structure-organizational/members/dialog";
-import { useMembers } from "@/services/structure-organizational/members/service";
+import { useAllMembers } from "@/services/structure-organizational/members/service";
 import { useDirections } from "@/services/structure-organizational/service";
 import { useUser } from "@auth0/nextjs-auth0";
 import { XMarkIcon } from "@heroicons/react/24/solid";
@@ -17,7 +17,7 @@ export default function Page() {
   const [open, setOpen] = useState(false);
   const { user, isLoading: userLoading } = useUser();
   const [filterOpen, setFilterOpen] = useState(false);
-  const { data, isLoading, refetch } = useMembers("es");
+  const { data, isLoading, refetch } = useAllMembers("es");
   const [members, setMembers] = useState([]);
   const [_refetch, setRefetch] = useState(false);
   const [search, setSearch] = useState("");
@@ -182,11 +182,12 @@ export default function Page() {
                 </div>
                 <div className="w-full  space-y-5 text-black">
                   <>
-                    <div className="grid items-center justify-between w-full h-24 grid-cols-3 lg:grid-cols-5 p-5 font-bold text-center bg-white rounded-lg ring-2 ring-gray-100">
+                    <div className="grid items-center justify-between w-full h-24 grid-cols-3 lg:grid-cols-6 p-5 font-bold text-center bg-white rounded-lg ring-2 ring-gray-100">
                       <div className="text-center">Imagen</div>
                       <div className="text-center">Nombre</div>
                       <div className="text-center">Departamento</div>
                       <div className="text-center">Puesto</div>
+                      <div className="text-center">Estado</div>
                       <div>Acción</div>
                     </div>
 
