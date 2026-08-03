@@ -19,6 +19,21 @@ export default function Page() {
         {
           desc: t("studies.data.1.desc"),
         },
+        {
+          desc: t("studies.data.2.desc"),
+        },
+        {
+          desc: t("studies.data.3.desc"),
+        },
+        {
+          desc: t("studies.data.4.desc"),
+        },
+        {
+          desc: t("studies.data.5.desc"),
+        },
+        {
+          desc: t("studies.data.6.desc"),
+        },
       ],
     },
     experience: {
@@ -46,6 +61,15 @@ export default function Page() {
         {
           desc: t("experience.data.6.desc"),
         },
+        {
+          desc: t("experience.data.7.desc"),
+        },
+        {
+          desc: t("experience.data.8.desc"),
+        },
+        {
+          desc: t("experience.data.9.desc"),
+        },
       ],
     },
   };
@@ -54,7 +78,7 @@ export default function Page() {
       <div className="bg-white flex flex-col-reverse xl:flex-row items-center justify-center">
         <div className="w-6/12 xl:w-4/12 flex justify-center items-end">
           <Image
-            src={"/images/bivianariveiro.png"}
+            src={"/images/vladimirpimentel.jpg"}
             width={2504}
             height={4096}
             alt="CEO"

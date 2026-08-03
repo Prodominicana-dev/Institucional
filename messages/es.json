@@ -16,7 +16,7 @@
         "whoWeAreDesc": "Explora la pasión que nos impulsa",
         "history": "Historia",
         "historyDesc": "Descubre nuestra trayectoria",
-        "CEODispach": "Despacho de la directora ",
+        "CEODispach": "Despacho del director",
         "CEODispachDesc": "Conoce el corazón de nuestro liderazgo",
         "organizationalChart": "Estructura organizacional",
         "organizationalChartDesc": "Nuestro organigrama detallado",
@@ -292,18 +292,33 @@
     "images": "imágenes"
   },
   "CEO": {
-    "name": "Angelina Biviana Riveiro Disla",
-    "title": "Directora Ejecutiva del Centro de Exportación e Inversión de la República Dominicana",
-    "about": "Licenciada en Derecho con mención Magna Cum Laude de la Pontificia Universidad Católica Madre y Maestra PUCMM, Santo Domingo en el año 2002.",
+    "name": "Vladimir Camilo Pimentel Florenzán",
+    "title": "Director Ejecutivo Interino del Centro de Exportación e Inversión de la República Dominicana (ProDominicana)",
+    "about": "Economista con más de 25 años de experiencia en estudios económicos, investigación e inteligencia de mercados, con énfasis en economía y negocios internacionales.",
     "description": "Queremos que nuestros exportadores cuenten, además, con servicios de facilitación del comercio mediante la participación en ferias y misiones comerciales alrededor del mundo, rondas de negocios con compradores internacionales y agendas de encadenamiento productivo.",
     "studies": {
       "title": "Estudios",
       "data": [
         {
-          "desc": "Graduada del Colegio Dominicano de la Salle en el año 1998 y de la profesión de Derecho, mención Magna Cum Laude de la Pontificia Universidad Católica Madre y Maestra PUCMM, Santo Domingo en el año 2002."
+          "desc": "Egresado del Colegio Dominicano De La Salle."
         },
         {
-          "desc": "Ha realizado numerosos cursos nacionales e internacionales en instituciones como la Organización Mundial del Comercio, la Unión Internacional de Telecomunicaciones y cuenta con las siguientes maestrías, postgrados y diplomados: Maestría en Derecho de los Negocios Corporativos y Postgrado en Economía para Negocios; Programa de Gobierno Corporativo y Juntas Directivas y de Liderazgo Persuasivo de Wharton Executive Education de la Universidad de Pensilvania; Certificación del International Centre For Parliamentary Studies (ICPS), Reino Unido en materia de Inversión y Comercio Internacional; Diplomados en Derecho Internacional, Propiedad Intelectual, Derecho Bancario, Derecho Administrativo, Arbitraje, así como otros cursos auspiciados por distintas universidades tanto locales como extranjeras."
+          "desc": "Economista de la Universidad Autónoma de Santo Domingo (UASD)."
+        },
+        {
+          "desc": "Máster en Finanzas Corporativa del Instituto Tecnológico de Santo Domingo (INTEC)."
+        },
+        {
+          "desc": "Máster en Procesos Sociales y Políticas Económicas de la Universidad del País Vasco (UPV)."
+        },
+        {
+          "desc": "Diplomado en Análisis y Formulación de Política Comercial (INTEC)."
+        },
+        {
+          "desc": "Diplomado en Comercio Internacional (PUCMM/ADOEXPO)."
+        },
+        {
+          "desc": "Diplomado en Organismos Internacionales de la London School of Economics and Political Sciences (LSE)."
         }
       ]
     },
@@ -311,25 +326,34 @@
       "title": "Experiencia",
       "data": [
         {
-          "desc": "Inició sus trabajos en el ámbito legal en el año 2000, cuando trabajó como Paralegal y luego Investigadora Asociada de la Fundación Institucionalidad y Justicia (FINJUS) hasta el año 2003."
+          "desc": "Ingresó a ProDominicana en 2016 como director del Instituto de Comercio Exterior e Innovación (ICEI). En 2017 ocupó las posiciones de director de Inteligencia y, posteriormente, director de Negocios (2017-2018)."
         },
         {
-          "desc": "Fungió como Asesora Legal de la Gerencia de Políticas Regulatorias y Asesora Legal de la Gerencia de Asuntos Internacionales del Instituto Dominicano de Telecomunicaciones (INDOTEL), donde participó en la elaboración y revisión de reglamentos y normas relacionadas al sector de telecomunicaciones, manejo de temas como la sociedad de la información, comercio electrónico y delitos de alta tecnología; y representó a la institución en eventos y ante organismos internacionales como la Unión Internacional de Telecomunicaciones (UIT); la Comisión Interamericana de Telecomunicaciones de la OEA (CITEL); REGULATEL, entre otros organismos. Igualmente, trabajó como Abogada en la firma de Abogados, Oficina Melo Guerrero (OMG) desarrollando su práctica en el ámbito del derecho corporativo."
+          "desc": "En 2020 fue designado asesor de la Dirección Ejecutiva, desde donde coordina la implementación del Plan Nacional de Fomento a las Exportaciones (PNFE). Durante los primeros cinco años de ejecución del plan se alcanzó un avance del 93% de las medidas contempladas para el período de diez años."
         },
         {
-          "desc": "Desde el año 2006 hasta el 2011, se desempeñó como Directora Ejecutiva de la Asociación Nacional de Jóvenes Empresarios (ANJE), pasando en el 2012 a ser parte de la Junta Directiva y en octubre de 2014 a ocupar la Presidencia de dicha entidad hasta octubre de 2015. Desde dicha entidad impulsó la institucionalidad, el emprendimiento y la innovación en el país."
+          "desc": "En 2021 asumió la dirección del Departamento de Inteligencia de Mercados, liderando la generación de información estratégica para impulsar la internacionalización de las empresas dominicanas."
         },
         {
-          "desc": "En el año 2010 fundó oficina de consultoría legal y empresarial Grupo Legalia, desde donde ejerció el derecho en sus distintas áreas de práctica especializándose en derecho civil y comercial, telecomunicaciones, cine, energía, derecho de la competencia y del consumidor, aviación civil y propiedad intelectual, inversión y comercio exterior."
+          "desc": "Desde 2023 se desempeña como subdirector general de ProDominicana, mediante el Decreto núm. 262-23, apoyando la dirección estratégica de la institución, representándola en consejos y espacios interinstitucionales, y presidiendo comités internos en representación de la Dirección Ejecutiva. Actualmente, ejerce las funciones de director ejecutivo interino de ProDominicana."
         },
         {
-          "desc": "En agosto de 2016, se integró a la gestión del exalcalde David Collado como Directora Jurídica y Secretaria General en el Ayuntamiento del Distrito Nacional donde trabajó en los procesos de modernización, transparencia, simplificación de procesos en planeamiento urbano, reformas normativas para el tránsito, el Plan de Ordenamiento Territorial, Plan de Seguridad Ciudadana y el innovador centro de respuesta rápida para las demandas ciudadanas."
+          "desc": "En el ámbito académico, fue Director de la Escuela de Economía del Instituto Tecnológico de Santo Domingo (INTEC) y Director del Centro de Gobierno, Empresa y Sociedad (CEGES). Además, coordinó la Concentración de Negocios Internacionales de la Pontificia Universidad Católica Madre y Maestra (PUCMM) y la Unidad de Investigación de la PUCMM."
         },
         {
-          "desc": "El 16 de agosto de 2020, mediante Decreto 329-20 del Presidente Luis Rodolfo Abinader fue designada como Directora Ejecutiva con rango por ley de Ministra de Estado del Centro de Exportación e Inversión de la República Dominicana (ProDominicana), desde donde ha impulsado el desarrollo del sector exportador y el volumen de exportaciones así como la atracción de inversión con récords sin precedentes para República Dominicana, siendo la agencia reconocida como una de las mejores en servicios innovadores con el galardón del Annual Investment Meeting del 2022 así como su rol de apoyo a la promoción de las exportaciones por la Asociación Dominicana de Exportadores (Adoexpo)."
+          "desc": "Ha sido docente de grado y postgrado, además de asesor y evaluador de tesis en diversas instituciones de educación superior, entre ellas PUCMM, INTEC, UASD, UTESA, Instituto ProDominicana, ITLA, UCSD e INESDYC."
         },
         {
-          "desc": "Ha sido docente universitaria y representante en distintos consejos en el ámbito empresarial. Ha obtenido diversos reconocimientos por su trayectoria profesional y social entre los que se destacan galardón por Mercado Social (2015); reconocimiento en el marco del Premio Nacional de la Juventud de República Dominicana, renglón Superación, Logros Personales y Desarrollo Empresarial, Ministerio de la Juventud (2015); por el Consejo Nacional de Seguridad Social, por sus aportes y trabajo como miembro del Consejo en representación de sector empleador (2013); por la Asociación Nacional de Jóvenes Empresarios por sus aportes al país (2010); galardonada de la XXXVII Premiación de Jóvenes Sobresalientes del año 2009 de la República Dominicana de Jaycees 72 (2010); reconocimiento de la Cámara de Comercio y Producción de Santo Domingo por su participación en la Ley General de Sociedades Comerciales y Empresas Individuales de Responsabilidad Limitada (2009)."
+          "desc": "Se desempeñó como economista en la Dirección Técnica de la Superintendencia de Salud y Riesgos Laborales (SISALRIL), colaborando con la Unidad de Cuentas Nacionales de Salud de la Secretaría de Estado de Salud."
+        },
+        {
+          "desc": "Fue analista en la Dirección de Comercio Exterior y Administración de Tratados Comerciales (DICOEX) del entonces Ministerio de Industria y Comercio (2008-2011), y posteriormente subdirector de la Agencia de Promoción de Comercio e Inversión de Corea del Sur (KOTRA) en Santo Domingo (2011-2013)."
+        },
+        {
+          "desc": "Ha ejercido como consultor y asesor para organismos internacionales como Caribbean Export, International Trade Centre (ITC), PNUD, UNCTAD y KOTRA. Actualmente es asesor de la Asociación Dominicana de Profesionales de Negocios Internacionales (ADOPNIA)."
+        },
+        {
+          "desc": "Ha coordinado y participado en encuentros de negocios, programas de capacitación, conferencias, misiones comerciales y congresos en países de África, Centroamérica, Suramérica, América del Norte, Europa y Asia. Además, cuenta con una trayectoria de 30 años como instructor de artes marciales."
         }
       ]
     }

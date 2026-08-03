@@ -65,19 +65,18 @@ export default function Navbar() {
       icon: HistoryIcon,
       link: "/history",
     },
-    // Ocultas temporalmente. NO ELIMINAR: estas secciones se volveran a usar.
-    // {
-    //   title: t("aboutUs.menuList.CEODispach"),
-    //   description: t("aboutUs.menuList.CEODispachDesc"),
-    //   icon: UserIcon,
-    //   link: "/ceo",
-    // },
-    // {
-    //   title: t("aboutUs.menuList.organizationalChart"),
-    //   description: t("aboutUs.menuList.organizationalChartDesc"),
-    //   icon: OrganizationIcon,
-    //   link: "/organizationalstructure",
-    // },
+    {
+      title: t("aboutUs.menuList.CEODispach"),
+      description: t("aboutUs.menuList.CEODispachDesc"),
+      icon: UserIcon,
+      link: "/ceo",
+    },
+    {
+      title: t("aboutUs.menuList.organizationalChart"),
+      description: t("aboutUs.menuList.organizationalChartDesc"),
+      icon: OrganizationIcon,
+      link: "/organizationalstructure",
+    },
     {
       title: t("aboutUs.menuList.legal"),
       description: t("aboutUs.menuList.legalDesc"),
