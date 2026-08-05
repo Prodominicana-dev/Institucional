@@ -16,13 +16,13 @@ export default function CEOSection() {
           className="object-cover w-full h-full"
         />
         <div className="absolute inset-0 bg-blue-dark/80 z-10 flex flex-col-reverse xl:flex-row items-center justify-center xl:justify-evenly text-center text-white xl:px-32">
-          <div className="w-6/12 flex justify-center items-end">
+          <div className="w-6/12 h-full flex justify-center items-end">
             <Image
-              src={"/images/bivianariveiro.png"}
+              src={"/images/vladimirpimentel-nobg.png"}
               width={2504}
               height={4096}
               alt="CEO"
-              className="object-cover w-full xl:w-6/12 self-end hidden xl:block"
+              className="object-contain object-top h-full max-h-[90%] w-auto hidden xl:block mt-auto"
             />
           </div>
           <div className="w-10/12 sm:w-8/12 xl:w-5/12 flex flex-col items-center justify-center space-y-5 pt-16 xl:p-0">
