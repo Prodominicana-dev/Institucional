@@ -3,9 +3,11 @@ import NewsCard from "@/components/home/newsCard";
 import { useNews } from "@/services/news/service";
 import { Typography } from "@material-tailwind/react";
 import { useTranslations } from "next-intl";
+import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
-export default function Page({ params: { locale } }: any) {
+export default function Page() {
+  const { locale } = useParams<{ locale: string }>();
   const t = useTranslations("PressRoom");
   const { data, isLoading } = useNews(locale);
   const [news, setNews] = useState<any>();

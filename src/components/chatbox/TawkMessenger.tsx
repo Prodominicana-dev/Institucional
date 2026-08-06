@@ -1,9 +1,34 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TawkLiveChat } from "tawk-react";
+
+/* tawk-react inyecta su script apenas se monta, sin ninguna estrategia de
+   carga diferida (a diferencia del widget de accesibilidad, que sí usa
+   next/script con lazyOnload). Se retrasa el montaje hasta que el navegador
+   esté libre para no competir con los recursos críticos de la carga inicial. */
+function useIdleMount() {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const win = window as typeof window & {
+      requestIdleCallback?: (cb: () => void) => number;
+    };
+    if (win.requestIdleCallback) {
+      const id = win.requestIdleCallback(() => setReady(true));
+      return () => (window as any).cancelIdleCallback?.(id);
+    }
+    const id = setTimeout(() => setReady(true), 2000);
+    return () => clearTimeout(id);
+  }, []);
+
+  return ready;
+}
 
 export default function TawkMessenger() {
   const [open, setOpen] = useState(false);
+  const ready = useIdleMount();
+
+  if (!ready) return null;
 
   return (
     <TawkLiveChat propertyId="5b899dd9afc2c34e96e81b9f" widgetId="default" />

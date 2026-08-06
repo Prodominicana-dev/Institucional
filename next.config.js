@@ -7,7 +7,20 @@ const nextConfig = {
   eslint: {
     ignoreDuringBuilds: true,
   },
+  /* Recorta el bundle de las librerías de íconos: sin esto, importar un solo
+     ícono de @heroicons/react o @material-tailwind/react arrastra todo el
+     paquete al bundle del cliente. */
+  experimental: {
+    optimizePackageImports: [
+      "@heroicons/react",
+      "@material-tailwind/react",
+      "@fortawesome/react-fontawesome",
+      "@tabler/icons-react",
+      "lucide-react",
+    ],
+  },
   images: {
+    formats: ["image/avif", "image/webp"],
     remotePatterns: [
       {
         protocol: "https",

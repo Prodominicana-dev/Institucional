@@ -1,4 +1,3 @@
-"use client";
 import Banner from "../../../components/home/banner";
 import DigitalToolsSection from "@/components/home/digitalToolsSection";
 import InstituteSection from "@/components/home/instituteSection";
@@ -11,11 +10,14 @@ import BusinessFacilitation from "@/components/home/businessFacilitation";
 import DataDashboard from "@/components/home/dataDashboard";
 import DataDashboardMobile from "@/components/home/dataDashboardMobile";
 import CEOSection from "@/components/home/CEOSection";
-import { useParams } from "next/navigation";
 import EventModal from "@/components/home/eventModal";
 
-export default function Home() {
-  const params = useParams<{ locale: string }>();
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
   return (
     <div className="w-full bg-white">
       {/* <EventModal /> */}
@@ -23,8 +25,8 @@ export default function Home() {
       <BusinessFacilitation />
       <DigitalToolsSection />
       {/* <InstituteSection /> */}
-      <NewsSection locale={params.locale} />
-      <UpcomingEvents locale={params.locale} />
+      <NewsSection locale={locale} />
+      <UpcomingEvents locale={locale} />
       <PhotoGallerySection />
       <ProdominicanaTvSection />
       <DataDashboard />
