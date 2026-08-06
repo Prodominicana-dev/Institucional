@@ -72,6 +72,33 @@ export default function Page() {
         },
       ],
     },
+    relevantMatters: {
+      title: t("relevantMatters.title"),
+      icon: "/svg/icons/RelevantMattersIcon.svg",
+      data: [
+        {
+          desc: t("relevantMatters.data.0.desc"),
+        },
+        {
+          desc: t("relevantMatters.data.1.desc"),
+        },
+      ],
+    },
+    memberships: {
+      title: t("memberships.title"),
+      icon: "/svg/icons/MembershipsIcon.svg",
+      data: [
+        {
+          desc: t("memberships.data.0.desc"),
+        },
+        {
+          desc: t("memberships.data.1.desc"),
+        },
+        {
+          desc: t("memberships.data.2.desc"),
+        },
+      ],
+    },
   };
   return (
     <div>
@@ -142,6 +169,44 @@ export default function Page() {
             return (
               <li className="text-white font-montserrat text-lg" key={key}>
                 {experience.desc}
+              </li>
+            );
+          })}
+          <div className="flex items-center text-cyan-600 space-x-5 border-b-2 border-lightBlue-500 py-2">
+            <Image
+              width={100}
+              height={100}
+              alt={CEO.relevantMatters.title}
+              src={CEO.relevantMatters.icon}
+              className="w-20"
+            />
+            <div className="text-4xl xl:text-5xl font-extrabold">
+              {CEO.relevantMatters.title}
+            </div>
+          </div>
+          {CEO.relevantMatters.data.map((item: any, key: any) => {
+            return (
+              <li className="text-white font-montserrat text-lg" key={key}>
+                {item.desc}
+              </li>
+            );
+          })}
+          <div className="flex items-center text-cyan-600 space-x-5 border-b-2 border-lightBlue-500 py-2">
+            <Image
+              width={100}
+              height={100}
+              alt={CEO.memberships.title}
+              src={CEO.memberships.icon}
+              className="w-20"
+            />
+            <div className="text-4xl xl:text-5xl font-extrabold">
+              {CEO.memberships.title}
+            </div>
+          </div>
+          {CEO.memberships.data.map((item: any, key: any) => {
+            return (
+              <li className="text-white font-montserrat text-lg" key={key}>
+                {item.desc}
               </li>
             );
           })}

@@ -334,6 +334,31 @@
           "desc": "He has coordinated and participated in business meetings, training programs, conferences, trade missions, and congresses in countries across Africa, Central America, South America, North America, Europe, and Asia. Additionally, he has a 30-year track record as a martial arts instructor."
         }
       ]
+    },
+    "relevantMatters": {
+      "title": "Relevant Matters",
+      "data": [
+        {
+          "desc": "Columnist for SIN Noticias, where he publishes analyses and opinions on topics of national interest."
+        },
+        {
+          "desc": "He was previously a columnist for the newspaper Hoy, contributing opinion articles on current economic affairs."
+        }
+      ]
+    },
+    "memberships": {
+      "title": "Member of",
+      "data": [
+        {
+          "desc": "The Association of Futurist Professionals"
+        },
+        {
+          "desc": "Ibero-American Foresight Network"
+        },
+        {
+          "desc": "Teach The Future"
+        }
+      ]
     }
   },
   "legal": {

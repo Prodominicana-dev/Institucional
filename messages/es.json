@@ -356,6 +356,31 @@
           "desc": "Ha coordinado y participado en encuentros de negocios, programas de capacitación, conferencias, misiones comerciales y congresos en países de África, Centroamérica, Suramérica, América del Norte, Europa y Asia. Además, cuenta con una trayectoria de 30 años como instructor de artes marciales."
         }
       ]
+    },
+    "relevantMatters": {
+      "title": "Asuntos Relevantes",
+      "data": [
+        {
+          "desc": "Articulista de SIN Noticias, donde publica análisis y opiniones sobre temas de interés nacional."
+        },
+        {
+          "desc": "Anteriormente fue articulista del periódico Hoy, contribuyendo con artículos de opinión sobre actualidad económica."
+        }
+      ]
+    },
+    "memberships": {
+      "title": "Miembro de",
+      "data": [
+        {
+          "desc": "La Asociación de Profesionales Futuristas"
+        },
+        {
+          "desc": "Red Iberoamericana de Prospectiva"
+        },
+        {
+          "desc": "Teach The Future"
+        }
+      ]
     }
   },
   "legal": {
