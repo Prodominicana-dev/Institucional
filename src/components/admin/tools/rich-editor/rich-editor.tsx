@@ -9,6 +9,7 @@ import { RichTextEditor } from "@mantine/tiptap";
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { IconTable } from "@tabler/icons-react";
+import { cn } from "@/lib/utils";
 
 export default function TextEditor({
   editor,
@@ -24,49 +25,70 @@ export default function TextEditor({
       editor?.commands.setContent(description);
   }, [description]);
   return (
-    <RichTextEditor editor={editor}>
-      <RichTextEditor.Toolbar>
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Bold />
-          <RichTextEditor.Italic />
-          <RichTextEditor.Underline />
-          <RichTextEditor.Strikethrough />
-          <RichTextEditor.ClearFormatting />
-          <RichTextEditor.Highlight />
-        </RichTextEditor.ControlsGroup>
+    <RichTextEditor
+      editor={editor}
+      variant="subtle"
+      className={cn("news-editor", number && "news-editor--compact")}
+    >
+      <RichTextEditor.Toolbar className="rte-toolbar">
+        <div className="rte-group-wrap">
+          <span className="rte-group-label">Fuente</span>
+          <RichTextEditor.ControlsGroup className="rte-group">
+            <RichTextEditor.Bold />
+            <RichTextEditor.Italic />
+            <RichTextEditor.Underline />
+            <RichTextEditor.Strikethrough />
+            <RichTextEditor.ClearFormatting />
+            <RichTextEditor.Highlight />
+          </RichTextEditor.ControlsGroup>
+        </div>
 
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.H1 />
-          <RichTextEditor.H2 />
-          <RichTextEditor.H3 />
-          <RichTextEditor.H4 />
-        </RichTextEditor.ControlsGroup>
+        <div className="rte-group-wrap">
+          <span className="rte-group-label">Títulos</span>
+          <RichTextEditor.ControlsGroup className="rte-group">
+            <RichTextEditor.H1 />
+            <RichTextEditor.H2 />
+            <RichTextEditor.H3 />
+            <RichTextEditor.H4 />
+          </RichTextEditor.ControlsGroup>
+        </div>
 
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Blockquote />
-          <RichTextEditor.Hr />
-          <RichTextEditor.BulletList />
-          <RichTextEditor.OrderedList />
-        </RichTextEditor.ControlsGroup>
+        <div className="rte-group-wrap">
+          <span className="rte-group-label">Párrafo</span>
+          <RichTextEditor.ControlsGroup className="rte-group">
+            <RichTextEditor.Blockquote />
+            <RichTextEditor.Hr />
+            <RichTextEditor.BulletList />
+            <RichTextEditor.OrderedList />
+          </RichTextEditor.ControlsGroup>
+        </div>
 
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.Link />
-          <RichTextEditor.Unlink />
-        </RichTextEditor.ControlsGroup>
+        <div className="rte-group-wrap">
+          <span className="rte-group-label">Enlace</span>
+          <RichTextEditor.ControlsGroup className="rte-group">
+            <RichTextEditor.Link />
+            <RichTextEditor.Unlink />
+          </RichTextEditor.ControlsGroup>
+        </div>
 
-        <RichTextEditor.ControlsGroup>
-          <RichTextEditor.AlignLeft />
-          <RichTextEditor.AlignCenter />
-          <RichTextEditor.AlignRight />
-        </RichTextEditor.ControlsGroup>
+        <div className="rte-group-wrap">
+          <span className="rte-group-label">Alinear</span>
+          <RichTextEditor.ControlsGroup className="rte-group">
+            <RichTextEditor.AlignLeft />
+            <RichTextEditor.AlignCenter />
+            <RichTextEditor.AlignRight />
+          </RichTextEditor.ControlsGroup>
+        </div>
 
-        <RichTextEditor.ControlsGroup>
-          <Menu placement="right-start">
-            <MenuHandler>
-              <button className="container p-1 h-[1.625rem] w-[1.625rem] bg-white ring-1 ring-gray-300 rounded-md cursor-pointer">
-                <IconTable size={16} stroke={1.5} />
-              </button>
-            </MenuHandler>
+        <div className="rte-group-wrap rte-group-wrap--last">
+          <span className="rte-group-label">Tabla</span>
+          <RichTextEditor.ControlsGroup className="rte-group">
+            <Menu placement="right-start">
+              <MenuHandler>
+                <button className="flex h-[2.125rem] w-[2.125rem] items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-background hover:text-foreground hover:shadow-sm">
+                  <IconTable size={16} stroke={1.5} />
+                </button>
+              </MenuHandler>
             <MenuList className="z-[9999]">
               <MenuItem
                 onClick={() =>
@@ -121,14 +143,11 @@ export default function TextEditor({
                 Borrar tabla
               </MenuItem>
             </MenuList>
-          </Menu>
-        </RichTextEditor.ControlsGroup>
+            </Menu>
+          </RichTextEditor.ControlsGroup>
+        </div>
       </RichTextEditor.Toolbar>
-      <RichTextEditor.Content
-        className={`${
-          number && `h-[${number}vh]`
-        } w-full overflow-y-auto no-scrollbar`}
-      />
+      <RichTextEditor.Content className="w-full overflow-y-auto no-scrollbar" />
     </RichTextEditor>
   );
 }

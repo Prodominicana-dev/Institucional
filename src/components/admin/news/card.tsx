@@ -3,9 +3,9 @@ import AuthUser from "@/components/admin/auth";
 import { NewsDialog } from "@/components/admin/news/dialog";
 import Sketch from "@/components/admin/sketch";
 import {
-  EyeDropperIcon,
   EyeIcon,
   EyeSlashIcon,
+  MagnifyingGlassIcon,
   PencilSquareIcon,
   TrashIcon,
 } from "@heroicons/react/24/solid";
@@ -15,9 +15,15 @@ import { useHover } from "usehooks-ts";
 import DeactiveButton from "../inactive";
 import ActivateButton from "../active";
 import DeleteButton from "../delete";
-import { deleteNews, disableNews, enableNews } from "@/services/news/service";
+import {
+  deleteNews,
+  disableNews,
+  enableNews,
+  useNewsConfById,
+} from "@/services/news/service";
 import { useUser } from "@auth0/nextjs-auth0";
 import { EditNewsDialog } from "./edit";
+import { PreviewModal } from "./NewsModal/PreviewModal";
 
 export default function Card({
   news,
@@ -33,10 +39,16 @@ export default function Card({
   const [enableHover, setEnableHover] = useState(false);
   const [disabledHover, setDisabledHover] = useState(false);
   const [deleteHover, setDeleteHover] = useState(false);
+  const [previewHover, setPreviewHover] = useState(false);
   const [activate, setActivate] = useState(false);
   const [deleted, setDelete] = useState(false);
   const [inactive, setInactive] = useState(false);
   const [edit, setEdit] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const { data: previewNews, isLoading: previewLoading } = useNewsConfById(
+    news.id,
+    previewOpen
+  );
 
   const handleEditOpen = () => {
     setEdit(!edit);
@@ -108,10 +120,34 @@ export default function Card({
       </div>
       <div className="w-full h-1/6 flex gap-2 relative justify-center items-center group rounded-lg">
         <div
+          onMouseEnter={() => setPreviewHover(true)}
+          onMouseLeave={() => setPreviewHover(false)}
+          className={`w-1/4 h-full relative duration-100 flex items-center justify-center ${
+            disabledHover || enableHover || deleteHover || editHover
+              ? "hidden"
+              : "group-hover:w-full"
+          }`}
+        >
+          <button
+            onClick={() => setPreviewOpen(true)}
+            className={`w-8/12 h-4/6 flex gap-2 justify-center items-center rounded-lg bg-slate-600  group-hover:absolute group-hover:w-full group-hover:h-full group-hover:rounded-t-none group-hover:rounded-b-lg group-hover:animate-pulse duration-100`}
+          >
+            <MagnifyingGlassIcon className="size-8 text-white" />
+            <p
+              className={`${
+                previewHover ? "block" : "hidden"
+              } text-white font-semibold font-montserrat`}
+            >
+              Vista previa
+            </p>
+          </button>
+        </div>
+
+        <div
           onMouseEnter={() => setEditHover(true)}
           onMouseLeave={() => setEditHover(false)}
-          className={`w-1/3 h-full relative duration-100 flex items-center justify-center ${
-            disabledHover || enableHover || deleteHover
+          className={`w-1/4 h-full relative duration-100 flex items-center justify-center ${
+            disabledHover || enableHover || deleteHover || previewHover
               ? "hidden"
               : "group-hover:w-full"
           }`}
@@ -135,8 +171,8 @@ export default function Card({
           <div
             onMouseEnter={() => setDisabledHover(true)}
             onMouseLeave={() => setDisabledHover(false)}
-            className={`w-1/3 h-full relative  duration-100 flex justify-center items-center ${
-              editHover || enableHover || deleteHover
+            className={`w-1/4 h-full relative  duration-100 flex justify-center items-center ${
+              editHover || enableHover || deleteHover || previewHover
                 ? "hidden"
                 : "group-hover:w-full"
             }`}
@@ -159,8 +195,8 @@ export default function Card({
           <div
             onMouseEnter={() => setEnableHover(true)}
             onMouseLeave={() => setEnableHover(false)}
-            className={`w-1/3 h-full relative duration-100 flex items-center justify-center ${
-              disabledHover || editHover || deleteHover
+            className={`w-1/4 h-full relative duration-100 flex items-center justify-center ${
+              disabledHover || editHover || deleteHover || previewHover
                 ? "hidden"
                 : "group-hover:w-full"
             }`}
@@ -183,8 +219,8 @@ export default function Card({
         <div
           onMouseEnter={() => setDeleteHover(true)}
           onMouseLeave={() => setDeleteHover(false)}
-          className={`w-1/3 h-full relative duration-100 flex items-center justify-center ${
-            disabledHover || editHover || enableHover
+          className={`w-1/4 h-full relative duration-100 flex items-center justify-center ${
+            disabledHover || editHover || enableHover || previewHover
               ? "hidden"
               : "group-hover:w-full"
           }`}
@@ -240,6 +276,29 @@ export default function Card({
           funct={handleDelete}
         />
       )}
+
+      <PreviewModal
+        open={previewOpen}
+        onOpenChange={setPreviewOpen}
+        loading={previewLoading}
+        spanish={{
+          title: previewNews?.es?.title ?? "",
+          description: previewNews?.es?.description ?? "",
+          content: previewNews?.es?.content ?? "",
+        }}
+        english={{
+          title: previewNews?.en?.title ?? "",
+          description: previewNews?.en?.description ?? "",
+          content: previewNews?.en?.content ?? "",
+        }}
+        coverSrc={
+          previewNews
+            ? `${process.env.NEXT_PUBLIC_API_URL}/news/images/${news.id}/${previewNews.cover}`
+            : undefined
+        }
+        categoryLabel={previewNews?.category?.nameEs}
+        date={previewNews ? new Date(previewNews.date) : undefined}
+      />
     </div>
   );
 }

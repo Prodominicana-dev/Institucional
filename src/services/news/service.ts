@@ -36,7 +36,7 @@ export function useNewsById(lang: string, id: string) {
   });
 }
 
-export function useNewsConfById(id: string) {
+export function useNewsConfById(id: string, enabled: boolean = true) {
   return useQuery({
     queryKey: ["newsConfById", id],
     queryFn: async () => {
@@ -44,6 +44,7 @@ export function useNewsConfById(id: string) {
       const { data } = await axios.get(url);
       return data;
     },
+    enabled,
   });
 }
 
@@ -69,108 +70,164 @@ export function useCategoriesNews() {
   });
 }
 
-export function createNews(news: FormData, update: () => void, userId: string) {
+/* Las portadas comprimidas igual pueden pesar varios MB, y el hosting
+   compartido de la API es lento subiendo: 5 minutos evita que axios corte
+   la petición antes de que el servidor termine de procesarla. */
+const UPLOAD_TIMEOUT_MS = 5 * 60 * 1000;
+
+export async function createNews(
+  news: FormData,
+  update: () => void,
+  userId: string,
+  onProgress?: (percent: number) => void
+): Promise<boolean> {
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
   ).toString();
-  return axios
-    .post(`${process.env.NEXT_PUBLIC_API_URL}/news`, news, {
-      headers: {
-        Authorization: `${userIdEncrypted}`,
-      },
-    })
-    .then((res) => {
-      if (res.status === 201) {
-        notifications.show({
-          id: "news",
-          autoClose: 5000,
-          withCloseButton: false,
-          title: "Noticia creada",
-          message: "La noticia se ha creado correctamente.",
-          color: "green",
-          loading: false,
-        });
-        update();
+  try {
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_API_URL}/news`,
+      news,
+      {
+        headers: {
+          Authorization: `${userIdEncrypted}`,
+        },
+        timeout: UPLOAD_TIMEOUT_MS,
+        onUploadProgress: (event) => {
+          if (onProgress && event.total) {
+            onProgress(Math.round((event.loaded * 100) / event.total));
+          }
+        },
       }
-      if (res.status === 500) {
-        notifications.show({
-          id: "news",
-          autoClose: 5000,
-          withCloseButton: false,
-          title: "Error",
-          message: "Ha ocurrido un error al crear la noticia.",
-          color: "red",
-          loading: false,
-        });
-      }
-      if (res.status === 401) {
-        notifications.show({
-          id: "section",
-          autoClose: 5000,
-          withCloseButton: false,
-          title: "Usuario inautorizado",
-          message: "No tienes permisos para crear una sección.",
-          color: "red",
-          loading: false,
-        });
-      }
-    })
-    .catch((error) => { });
+    );
+
+    if (res.status === 201) {
+      notifications.show({
+        id: "news",
+        autoClose: 5000,
+        withCloseButton: false,
+        title: "Noticia creada",
+        message: "La noticia se ha creado correctamente.",
+        color: "green",
+        loading: false,
+      });
+      update();
+      return true;
+    }
+    if (res.status === 500) {
+      notifications.show({
+        id: "news",
+        autoClose: 5000,
+        withCloseButton: false,
+        title: "Error",
+        message: "Ha ocurrido un error al crear la noticia.",
+        color: "red",
+        loading: false,
+      });
+    }
+    if (res.status === 401) {
+      notifications.show({
+        id: "section",
+        autoClose: 5000,
+        withCloseButton: false,
+        title: "Usuario inautorizado",
+        message: "No tienes permisos para crear una sección.",
+        color: "red",
+        loading: false,
+      });
+    }
+    return false;
+  } catch (error) {
+    notifications.show({
+      id: "news",
+      autoClose: 5000,
+      withCloseButton: false,
+      title: "Error",
+      message: "Ha ocurrido un error al crear la noticia.",
+      color: "red",
+      loading: false,
+    });
+    return false;
+  }
 }
 
-export function editNews(
+export async function editNews(
   id: string,
   news: any,
   update: () => void,
-  userId: string
-) {
+  userId: string,
+  onProgress?: (percent: number) => void
+): Promise<boolean> {
   const userIdEncrypted = CryptoJS.AES.encrypt(
     userId,
     process.env.NEXT_PUBLIC_CRYPTOJS_KEY
   ).toString();
-  return axios
-    .patch(`${process.env.NEXT_PUBLIC_API_URL}/news/${id}`, news, {
-      headers: {
-        Authorization: `${userIdEncrypted}`,
-      },
-    })
-    .then((res) => {
-      if (res.status === 200) {
-        notifications.show({
-          id: "news",
-          autoClose: 5000,
-          withCloseButton: false,
-          title: "Noticia actualizada",
-          message: "La noticia ha sido actualizada correctamente.",
-          color: "green",
-          loading: false,
-        });
-        update();
+  try {
+    const res = await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/news/${id}`,
+      news,
+      {
+        headers: {
+          Authorization: `${userIdEncrypted}`,
+        },
+        timeout: UPLOAD_TIMEOUT_MS,
+        onUploadProgress: (event) => {
+          if (onProgress && event.total) {
+            onProgress(Math.round((event.loaded * 100) / event.total));
+          }
+        },
       }
-      if (res.status === 500) {
-        notifications.show({
-          id: "news",
-          autoClose: 5000,
-          withCloseButton: false,
-          title: "Error",
-          message: "Hubo un error creando la nueva noticia.",
-          color: "red",
-          loading: false,
-        });
-      }
-      if (res.status === 401) {
-        notifications.show({
-          id: "news",
-          autoClose: 5000,
-          withCloseButton: false,
-          title: "Usuario inautorizado",
-          message: "No tienes permisos para crear una noticia.",
-          color: "red",
-          loading: false,
-        });
-      }
+    );
+
+    if (res.status === 200) {
+      notifications.show({
+        id: "news",
+        autoClose: 5000,
+        withCloseButton: false,
+        title: "Noticia actualizada",
+        message: "La noticia ha sido actualizada correctamente.",
+        color: "green",
+        loading: false,
+      });
+      update();
+      return true;
+    }
+    if (res.status === 500) {
+      notifications.show({
+        id: "news",
+        autoClose: 5000,
+        withCloseButton: false,
+        title: "Error",
+        message: "Hubo un error creando la nueva noticia.",
+        color: "red",
+        loading: false,
+      });
+    }
+    if (res.status === 401) {
+      notifications.show({
+        id: "news",
+        autoClose: 5000,
+        withCloseButton: false,
+        title: "Usuario inautorizado",
+        message: "No tienes permisos para crear una noticia.",
+        color: "red",
+        loading: false,
+      });
+    }
+    return false;
+  } catch (error) {
+    notifications.show({
+      id: "news",
+      autoClose: 5000,
+      withCloseButton: false,
+      title: "Error",
+      message: "Hubo un error actualizando la noticia.",
+      color: "red",
+      loading: false,
     });
+    return false;
+  }
 }
 
 export function enableNews(

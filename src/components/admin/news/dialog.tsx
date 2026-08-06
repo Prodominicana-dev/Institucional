@@ -1,26 +1,46 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
-import { Stepper, Step } from "@material-tailwind/react";
-import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0";
-import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import { FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { FileWithPath } from "@mantine/dropzone";
 import Editor from "../tools/rich-editor/config";
 import TextEditor from "../tools/rich-editor/rich-editor";
-import { Dropzone } from "@mantine/dropzone";
-import Image from "next/image";
-import { createNews, useCategoriesNews } from "@/services/news/service";
-import Day_Picker from "../tools/daypicker";
+import { createNews } from "@/services/news/service";
 import { useNewsCategories } from "@/services/news/categories/service";
-import Select from "react-select";
-import { HashLoader } from "react-spinners";
+import { AnimatePresence, motion } from "framer-motion";
 import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogHeader,
-  DialogFooter,
-} from "@/components/ui/dialog";
+  AlertCircle,
+  ImageIcon,
+  Info,
+  Newspaper,
+} from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { compressImage, formatBytes } from "@/lib/image-compression";
+import { Header } from "./NewsModal/Header";
+import { Stepper, type StepDef } from "./NewsModal/Stepper";
+import { UploadImage } from "./NewsModal/UploadImage";
+import { CategorySelect, type CategoryOption } from "./NewsModal/CategorySelect";
+import { DatePicker } from "./NewsModal/DatePicker";
+import { Footer } from "./NewsModal/Footer";
+import { PreviewModal } from "./NewsModal/PreviewModal";
+
+/* Tope de la portada. Cloudflare está delante de la API y rechaza cuerpos
+   grandes, así que conviene cortar antes en el navegador con un mensaje claro. */
+const MAX_COVER_SIZE = 25 * 1024 ** 2;
+
+const TOTAL_STEPS = 3;
+const STEP_DEFS: StepDef[] = [
+  { label: "Portada", icon: <ImageIcon className="size-4" strokeWidth={1.75} /> },
+  { label: "Español", icon: <span className="text-[10px] font-bold">ES</span> },
+  { label: "Inglés", icon: <span className="text-[10px] font-bold">EN</span> },
+];
+
+const stepVariants = {
+  enter: (direction: number) => ({ x: direction > 0 ? 24 : -24, opacity: 0 }),
+  center: { x: 0, opacity: 1 },
+  exit: (direction: number) => ({ x: direction > 0 ? -24 : 24, opacity: 0 }),
+};
 
 export function NewsDialog({
   open,
@@ -38,18 +58,24 @@ export function NewsDialog({
   const [cover, setCover] = useState("");
   const [warningAlert, setWarningAlert] = useState(false);
   const [submitLoading, setSubmitLoading] = useState<boolean>(false);
-  const [activeStep, setActiveStep] = React.useState(0);
-  const [isLastStep, setIsLastStep] = React.useState(false);
-  const [isFirstStep, setIsFirstStep] = React.useState(false);
+  const [activeStep, setActiveStep] = useState(0);
+  const [direction, setDirection] = useState(0);
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const [imagesRelated, setImagesRelated] = useState<FileWithPath[]>([]);
   const [images, setImages] = useState<string[]>([]);
-  const [submittion, setSubmittion] = useState(false);
   const [date, setDate] = useState<any>(new Date());
-  const [categoryOptions, setCategoryOptions] = useState<any>([]);
+  const [categoryOptions, setCategoryOptions] = useState<CategoryOption[]>([]);
   const [categoryId, setCategoryId] = useState("");
+  const [keepOriginal, setKeepOriginal] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [compressing, setCompressing] = useState(false);
+  const [sizeError, setSizeError] = useState("");
+  const [previewOpen, setPreviewOpen] = useState(false);
   const { data: categories, isLoading: categoriesLoading } =
     useNewsCategories();
+
+  const isFirstStep = activeStep === 0;
+  const isLastStep = activeStep === TOTAL_STEPS - 1;
 
   useEffect(() => {
     if (!categoriesLoading && categories) {
@@ -64,12 +90,32 @@ export function NewsDialog({
 
   const openRef = useRef<() => void>(null);
   const handleNext = () => {
-    !isLastStep && setActiveStep((cur) => cur + 1);
+    setDirection(1);
+    setActiveStep((cur) => Math.min(cur + 1, TOTAL_STEPS - 1));
     setWarningAlert(false);
   };
   const handlePrev = () => {
-    !isFirstStep && setActiveStep((cur) => cur - 1);
+    setDirection(-1);
+    setActiveStep((cur) => Math.max(cur - 1, 0));
     setWarningAlert(false);
+  };
+
+  /* Cierra sin preguntar si el redactor no alcanzó a escribir nada; si ya
+     hay contenido real, confirma para no perder trabajo por un clic afuera
+     del modal o un Escape accidental. */
+  const isDirty =
+    files.length > 0 ||
+    spanishTitle !== "" ||
+    englishTitle !== "" ||
+    categoryId !== "";
+  const handleOpenChange = (nextOpen: boolean) => {
+    if (!nextOpen && !submitLoading && isDirty) {
+      const confirmed = window.confirm(
+        "¿Deseas cerrar sin guardar? Se perderá la información ingresada."
+      );
+      if (!confirmed) return;
+    }
+    handler();
   };
 
   const minidescriptionEs = Editor({
@@ -94,8 +140,26 @@ export function NewsDialog({
 
   /* Funcion para cuando droppeen un documento se agregue a la lista ya existente */
   const handleDrop = (acceptedFiles: FileWithPath[]) => {
+    setSizeError("");
     setCover(acceptedFiles[0].name);
     setFiles(acceptedFiles);
+  };
+
+  /* El dropzone rechaza el archivo silenciosamente cuando excede maxSize,
+     así que hay que decirle al redactor por qué no pasó nada. */
+  const handleReject = () => {
+    setSizeError(
+      `La imagen supera el límite de ${formatBytes(
+        MAX_COVER_SIZE
+      )}. Redúcela antes de subirla.`
+    );
+  };
+
+  const handleRemoveCover = () => {
+    setFiles([]);
+    setCover("");
+    setSizeError("");
+    setKeepOriginal(false);
   };
 
   useEffect(() => {
@@ -131,8 +195,18 @@ export function NewsDialog({
       contentEn?.getText() !== "" &&
       !submitLoading
     ) {
-      setSubmittion(true);
       setSubmitLoading(true);
+      setUploadProgress(0);
+
+      /* Se comprime la portada salvo que el redactor pida el original.
+         Es lo que más pesa en la petición, así que es donde se gana tiempo. */
+      let coverFiles: File[] = files;
+      if (files.length > 0 && !keepOriginal) {
+        setCompressing(true);
+        coverFiles = [await compressImage(files[0])];
+        setCompressing(false);
+      }
+
       const es_data = {
         title: spanishTitle,
         content: contentEs?.getHTML(),
@@ -145,7 +219,6 @@ export function NewsDialog({
         description: minidescriptionEn?.getHTML(),
         language: "en",
       };
-      setSubmittion(false);
 
       const formData = new FormData();
       formData.append("es", JSON.stringify(es_data));
@@ -155,248 +228,174 @@ export function NewsDialog({
       formData.append("categoryId", categoryId);
       formData.append("images", JSON.stringify(images));
       formData.append("created_By", user?.email as string);
-      files.length > 0 && files.map((file) => formData.append("files", file));
-      // imagesRelated.length > 0 &&
-      //   imagesRelated.map((file) => formData.append("files", file));
-      await createNews(formData, update, user?.sub as string);
+      coverFiles.length > 0 &&
+        coverFiles.map((file) => formData.append("files", file));
+      const ok = await createNews(
+        formData,
+        update,
+        user?.sub as string,
+        setUploadProgress
+      );
       setSubmitLoading(false);
-      handler();
+      setUploadProgress(0);
+      /* Si falló, el diálogo se mantiene abierto para no perder lo redactado. */
+      if (ok) handler();
     }
   };
 
+  const previewCoverSrc = useMemo(
+    () => (files[0] ? URL.createObjectURL(files[0]) : undefined),
+    [files]
+  );
+  const previewCategoryLabel = categoryOptions.find(
+    (option) => option.value === categoryId
+  )?.label;
+
   const steps = [
     {
-      step: 1,
       section: (
-        <div className="w-full h-full flex flex-col gap-5 justify-center items-center ">
-          <div className="w-full flex flex-col lg:flex-row gap-4">
-            <div className="w-full lg:w-6/12">
-              <label className="font-semibold text-black text-lg">
-                Fecha de la noticia
-              </label>
-              <div className="w-full">
-                <Day_Picker date={date} setDate={setDate} />
-              </div>
+        <div className="flex w-full flex-col gap-6">
+          <div className="grid w-full gap-5 sm:grid-cols-2">
+            <div className="flex flex-col gap-2">
+              <Label>Fecha de la noticia</Label>
+              <DatePicker date={date} setDate={setDate} />
             </div>
-            <div className="w-full lg:w-6/12">
-              <label
-                htmlFor="nameEs"
-                className="font-semibold text-black text-lg"
-              >
-                Categoría a la que pertenece la noticia{" "}
-                <span className="text-red-600">*</span>
-              </label>
-              <Select
-                onChange={(e: any) => {
-                  setCategoryId(e.value);
-                }}
-                className="w-full z-50"
+            <div className="flex flex-col gap-2">
+              <Label htmlFor="category">
+                Categoría <span className="text-destructive">*</span>
+              </Label>
+              <CategorySelect
+                id="category"
+                value={categoryId}
+                onChange={setCategoryId}
                 options={categoryOptions}
-                theme={(theme) => ({
-                  ...theme,
-                  borderRadius: 2,
-                  colors: {
-                    ...theme.colors,
-                    primary: "black",
-                  },
-                })}
+                invalid={warningAlert && !categoryId}
               />
-              <label
-                htmlFor="nameEs"
-                className={`${
-                  warningAlert && !categoryId ? "block" : "hidden"
-                } text-red-600 text-sm pt-3`}
-              >
-                <ExclamationCircleIcon className="size-5 inline-block" /> La
-                categoría es obligatoria.
-              </label>
+              {warningAlert && !categoryId && (
+                <p className="flex items-center gap-1 text-xs text-destructive">
+                  <AlertCircle className="size-3.5" /> La categoría es
+                  obligatoria.
+                </p>
+              )}
             </div>
           </div>
 
-          <div className="w-full">
-            <label
-              htmlFor="nameEs"
-              className="font-semibold text-black text-lg"
-            >
-              Portada de la noticia <span className="text-red-600">*</span>
-            </label>
-          </div>
-          <div className="w-full h-[50vh] relative flex justify-center items-center group">
-            {files.length > 0 && (
-              <button
-                onClick={() => openRef.current?.()}
-                className="w-full h-full z-10 absolute flex justify-center items-center group"
-              >
-                <Image
-                  src={URL.createObjectURL(files[0])} // Use the preview URL directly
-                  alt=""
-                  width="500"
-                  height="500"
-                  className="w-full h-full absolute rounded-lg object-cover group-hover:blur-[2px] group-hover:opacity-40 duration-300" // Add bg-white for visibility
-                />
-              </button>
-            )}
-
-            <Dropzone
-              multiple={false}
+          <div className="flex flex-col gap-2">
+            <Label>
+              Portada de la noticia <span className="text-destructive">*</span>
+            </Label>
+            <UploadImage
+              file={files[0]}
               openRef={openRef}
               onDrop={handleDrop}
-              accept={IMAGE_MIME_TYPE} // Ensure only images are accepted
-              activateOnClick={true}
-              className="w-full h-full border-dashed hover:border-double bg-transparent hover:bg-gray-100 hover:text-blue-dark hover:border-gray-100 duration-300 border-2 rounded-lg border-gray-200 flex justify-center items-center"
-            >
-              <button
-                onClick={() => openRef.current?.()}
-                className="w-full h-full"
-              >
-                Seleccione una imagen
-              </button>
-            </Dropzone>
+              onReject={handleReject}
+              onRemove={handleRemoveCover}
+              maxSize={MAX_COVER_SIZE}
+              error={
+                warningAlert && files.length === 0
+                  ? "La imagen es obligatoria."
+                  : undefined
+              }
+              sizeError={sizeError}
+              keepOriginal={keepOriginal}
+              onKeepOriginalChange={setKeepOriginal}
+            />
           </div>
-          <label
-            className={`${
-              warningAlert && files.length === 0 ? "block" : "hidden"
-            } text-red-600 text-sm text-start flex items-start gap-1 w-full`}
-          >
-            <ExclamationCircleIcon className="size-5 inline-block" /> La imagen
-            es obligatoria.
-          </label>
-
-          <label className="text-black text-sm text-start w-full">
-            <InformationCircleIcon className="size-5 inline-block" />{" "}
-            {`Agregue la
-            imagen de la noticia, no importa si se ve "cortada" o "agrandada",
-            en este cuadro la imagen se centrara, pero no perderá su tamaño
-            original.`}
-          </label>
-          {/* <div className="w-full flex flex-col gap-5">
-            <label className="font-semibold text-black text-lg">
-              Fotos relacionadas con la noticia
-            </label>
-            <DragNDrop data={imagesRelated} setData={setImagesRelated} />
-          </div> */}
         </div>
       ),
     },
     {
-      step: 2,
       section: (
-        <div className={`flex flex-col gap-3`}>
-          <div className="flex flex-col w-full">
-            <label className="text-black text-sm font-light  text-center py-3">
-              <InformationCircleIcon className="w-4 h-4 inline-block" /> Tienes
-              que digitar la misma noticia, pero en inglés.
-            </label>
-            <div className="w-full flex gap-4">
-              <div className="flex flex-col gap-2 w-full">
-                <div>
-                  <label
-                    htmlFor="title"
-                    className="font-semibold text-black text-lg"
-                  >
-                    Título <span className="text-bold text-red-700">*</span>
-                  </label>
-                  <input
-                    id="title"
-                    className="w-full h-9 ring-1 ring-gray-300 rounded-md px-2"
-                    onChange={(e) => setSpanishTitle(e.target.value)}
-                    value={spanishTitle}
-                    placeholder="Título de la noticia"
-                  />
-                </div>
-                <label
-                  className={`${
-                    warningAlert && !spanishTitle ? "block" : "hidden"
-                  } text-red-600 text-sm text-start flex items-center gap-1`}
-                >
-                  <ExclamationCircleIcon className="size-5 inline-block" /> El
-                  título es obligatorio.
-                </label>
-              </div>
-            </div>
+        <div className="flex flex-col gap-5">
+          <div className="flex items-start gap-2.5 rounded-xl border bg-muted/30 p-3.5 text-sm text-muted-foreground">
+            <Info className="mt-0.5 size-4 shrink-0" />
+            Completa el contenido en español. En el siguiente paso escribirás
+            la misma noticia en inglés.
           </div>
-          <div className="flex flex-col ">
-            <label className="font-semibold text-black text-lg">
-              Breve descripción de la noticia
-            </label>
+
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="titleEs">
+              Título <span className="text-destructive">*</span>
+            </Label>
+            <Input
+              id="titleEs"
+              onChange={(e) => setSpanishTitle(e.target.value)}
+              value={spanishTitle}
+              placeholder="Título de la noticia"
+              className="h-11 rounded-xl px-4 text-base shadow-sm"
+            />
+            {warningAlert && !spanishTitle && (
+              <p className="flex items-center gap-1 text-xs text-destructive">
+                <AlertCircle className="size-3.5" /> El título es
+                obligatorio.
+              </p>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label>Breve descripción de la noticia</Label>
             <TextEditor editor={minidescriptionEs} number={15} />
           </div>
-          <div className="flex flex-col ">
-            <label className="font-semibold text-black text-lg">
-              Cuerpo de la noticia{" "}
-              <span className="text-bold text-red-700">*</span>
-            </label>
+
+          <div className="flex flex-col gap-2">
+            <Label>
+              Cuerpo de la noticia <span className="text-destructive">*</span>
+            </Label>
             <TextEditor editor={contentEs} />
-            <label
-              className={`${
-                warningAlert && !contentEs?.getText() ? "block" : "hidden"
-              } text-red-600 text-sm text-start flex items-center gap-1 py-2`}
-            >
-              <ExclamationCircleIcon className="size-5 inline-block" /> El
-              cuerpo de la noticia en inglés es obligatorio.
-            </label>
+            {warningAlert && !contentEs?.getText() && (
+              <p className="flex items-center gap-1 text-xs text-destructive">
+                <AlertCircle className="size-3.5" /> El cuerpo de la noticia
+                es obligatorio.
+              </p>
+            )}
           </div>
         </div>
       ),
     },
     {
-      step: 3,
       section: (
-        <div className={`flex flex-col gap-3`}>
-          <div className="flex flex-col w-full">
-            <label className="text-black text-sm font-light  text-center py-3">
-              <InformationCircleIcon className="w-4 h-4 inline-block" /> Tienes
-              que digitar la misma noticia, pero en inglés.
-            </label>
-            <div className="w-full flex gap-4">
-              <div className="flex flex-col gap-2 w-full">
-                <div>
-                  <label
-                    htmlFor="title"
-                    className="font-semibold text-black text-lg"
-                  >
-                    Título en inglés{" "}
-                    <span className="text-bold text-red-700">*</span>
-                  </label>
-                  <input
-                    id="title"
-                    className="w-full h-9 ring-1 ring-gray-300 rounded-md px-2"
-                    onChange={(e) => setEnglishTitle(e.target.value)}
-                    value={englishTitle}
-                    placeholder="Título de la noticia"
-                  />
-                </div>
-                <label
-                  className={`${
-                    warningAlert && !englishTitle ? "block" : "hidden"
-                  } text-red-600 text-sm text-start flex items-center gap-1`}
-                >
-                  <ExclamationCircleIcon className="size-5 inline-block" /> El
-                  título en inglés es obligatorio.
-                </label>
-              </div>
-            </div>
+        <div className="flex flex-col gap-5">
+          <div className="flex items-start gap-2.5 rounded-xl border bg-muted/30 p-3.5 text-sm text-muted-foreground">
+            <Info className="mt-0.5 size-4 shrink-0" />
+            Ahora escribe el mismo contenido, pero en inglés.
           </div>
-          <div className="flex flex-col">
-            <label className="font-semibold text-black text-lg">
-              Breve descripción de la noticia en inglés
-            </label>
+
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="titleEn">
+              Título en inglés <span className="text-destructive">*</span>
+            </Label>
+            <Input
+              id="titleEn"
+              onChange={(e) => setEnglishTitle(e.target.value)}
+              value={englishTitle}
+              placeholder="Título de la noticia"
+              className="h-11 rounded-xl px-4 text-base shadow-sm"
+            />
+            {warningAlert && !englishTitle && (
+              <p className="flex items-center gap-1 text-xs text-destructive">
+                <AlertCircle className="size-3.5" /> El título en inglés es
+                obligatorio.
+              </p>
+            )}
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label>Breve descripción de la noticia en inglés</Label>
             <TextEditor editor={minidescriptionEn} number={15} />
           </div>
-          <div className="flex flex-col ">
-            <label className="font-semibold text-black text-lg">
+
+          <div className="flex flex-col gap-2">
+            <Label>
               Cuerpo de la noticia en inglés{" "}
-              <span className="text-bold text-red-700">*</span>
-            </label>
+              <span className="text-destructive">*</span>
+            </Label>
             <TextEditor editor={contentEn} />
-            <label
-              className={`${
-                warningAlert && !contentEn?.getText() ? "block" : "hidden"
-              } text-red-600 text-sm text-start flex items-center gap-1 py-2`}
-            >
-              <ExclamationCircleIcon className="size-5 inline-block" /> El
-              cuerpo de la noticia en inglés es obligatorio.
-            </label>
+            {warningAlert && !contentEn?.getText() && (
+              <p className="flex items-center gap-1 text-xs text-destructive">
+                <AlertCircle className="size-3.5" /> El cuerpo de la noticia
+                en inglés es obligatorio.
+              </p>
+            )}
           </div>
         </div>
       ),
@@ -404,69 +403,72 @@ export function NewsDialog({
   ];
 
   return (
-    <>
-      <Dialog open={open} onOpenChange={handler}>
-        <DialogContent className="min-w-[1000px] overflow-y-auto no-scrollbar min-h-[30vh] max-h-[90vh] not-first:font-montserrat">
-          <DialogTitle className="w-full flex justify-between items-center text-2xl font-bold">
-            Agrega una nueva noticia
-          </DialogTitle>
-          <Stepper
-            activeStep={activeStep}
-            isLastStep={(value) => setIsLastStep(value)}
-            isFirstStep={(value) => setIsFirstStep(value)}
-          >
-            {steps.map((step, index) => (
-              <Step
-                key={index}
-                onClick={handleButton}
-                className="font-montserrat text-white font-black text-lg bg-black cursor-pointer"
-                activeClassName="bg-blue-dark"
-                completedClassName="bg-black"
-              >
-                {step.step}
-              </Step>
-            ))}
-          </Stepper>
-          {steps.map((step, index) => (
-            <div
-              key={index}
-              className={`${
-                activeStep === index ? "block" : "hidden"
-              } flex flex-col gap-3 w-full h-full`}
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      <DialogContent className="flex h-[95vh] w-[95vw] max-w-none sm:max-w-none flex-col gap-0 overflow-hidden rounded-3xl border-none p-0 shadow-2xl font-montserrat">
+        <div className="px-8 pt-8">
+          <Header
+            icon={Newspaper}
+            title="Nueva noticia"
+            description="Publica una noticia en español e inglés para la sala de prensa institucional."
+          />
+        </div>
+
+        <div className="px-8 pt-6">
+          <Stepper steps={STEP_DEFS} activeStep={activeStep} />
+        </div>
+
+        <div className="no-scrollbar flex-1 overflow-y-auto bg-neutral-200 px-8 py-8 dark:bg-neutral-950">
+          <AnimatePresence mode="wait" custom={direction} initial={false}>
+            <motion.div
+              key={activeStep}
+              custom={direction}
+              variants={stepVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{ duration: 0.22, ease: "easeInOut" }}
+              className="mx-auto w-full max-w-[960px] rounded-sm bg-white p-10 shadow-xl ring-1 ring-black/10 dark:bg-neutral-800"
             >
-              {step.section}
-            </div>
-          ))}
-          <DialogFooter className="space-x-4 font-montserrat">
-            <button
-              onClick={handlePrev}
-              className={`${
-                isFirstStep ? "hidden" : "block"
-              } w-36 h-12 bg-white border-2 border-black text-black hover:bg-black hover:text-white hover:shadow-lg duration-300 rounded-xl`}
-            >
-              Anterior
-            </button>
-            <button
-              onClick={handleButton}
-              className={`${
-                isLastStep
-                  ? "w-36 h-12 bg-green-500 border-2 border-green-500 text-white hover:bg-white hover:text-green-500 hover:shadow-lg duration-300 rounded-xl flex items-center justify-center"
-                  : "w-36 h-12 bg-white border-2 border-black text-black hover:bg-black hover:text-white hover:shadow-lg duration-300 rounded-xl"
-              }`}
-            >
-              {isLastStep ? (
-                submitLoading ? (
-                  <HashLoader />
-                ) : (
-                  "Guardar"
-                )
-              ) : (
-                "Siguiente"
-              )}
-            </button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </>
+              {steps[activeStep].section}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        <div className="border-t bg-muted/20 px-8 py-5">
+          <Footer
+            step={activeStep}
+            totalSteps={TOTAL_STEPS}
+            isFirstStep={isFirstStep}
+            isLastStep={isLastStep}
+            submitLoading={submitLoading}
+            compressing={compressing}
+            uploadProgress={uploadProgress}
+            onPrev={handlePrev}
+            onNext={handleButton}
+            submitLabel="Publicar noticia"
+            onPreview={() => setPreviewOpen(true)}
+            previewDisabled={!spanishTitle && !englishTitle}
+          />
+        </div>
+      </DialogContent>
+
+      <PreviewModal
+        open={previewOpen}
+        onOpenChange={setPreviewOpen}
+        spanish={{
+          title: spanishTitle,
+          description: minidescriptionEs?.getHTML() ?? "",
+          content: contentEs?.getHTML() ?? "",
+        }}
+        english={{
+          title: englishTitle,
+          description: minidescriptionEn?.getHTML() ?? "",
+          content: contentEn?.getHTML() ?? "",
+        }}
+        coverSrc={previewCoverSrc}
+        categoryLabel={previewCategoryLabel}
+        date={date instanceof Date ? date : new Date(date)}
+      />
+    </Dialog>
   );
 }
