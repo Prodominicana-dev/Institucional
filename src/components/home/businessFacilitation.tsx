@@ -1,81 +1,20 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function BusinessFacilitation() {
   const t = useTranslations("BusinessFacilitation");
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  // Timer for image slide (8 seconds), then switch back to video
-  useEffect(() => {
-    if (currentSlide === 1) {
-      const timer = setTimeout(() => {
-        setCurrentSlide(0);
-      }, 8000);
-      return () => clearTimeout(timer);
-    }
-  }, [currentSlide]);
-
-  // Restart video when switching back to slide 0
-  useEffect(() => {
-    if (currentSlide === 0 && videoRef.current) {
-      videoRef.current.currentTime = 0;
-      videoRef.current.play();
-    }
-  }, [currentSlide]);
-
-  // Check if video has 10 seconds remaining, then switch to image
-  const handleTimeUpdate = () => {
-    if (videoRef.current) {
-      const remaining = videoRef.current.duration - videoRef.current.currentTime;
-      if (remaining <= 10 && currentSlide === 0) {
-        setCurrentSlide(1);
-      }
-    }
-  };
 
   return (
     <div>
-      {/* ============ CAROUSEL - Video AIF + Banner Cariforo ============ */}
-      <div className="relative w-full overflow-hidden bg-black">
-        {/* Slide 1: Video AIF */}
-        <Link
-          href="https://americasinvestmentforum.com/register"
-          target="_blank"
-          className={`block w-full transition-opacity duration-700 ${
-            currentSlide === 0 ? "opacity-100 relative" : "opacity-0 absolute top-0 left-0 pointer-events-none"
-          }`}
-          onClick={(e) => {
-            // Prevent link navigation if video is playing
-            if (videoRef.current && !videoRef.current.paused) {
-              e.preventDefault();
-              window.open("https://americasinvestmentforum.com/register", "_blank");
-            }
-          }}
-        >
-          <video
-            ref={videoRef}
-            src="/videos/AIF_Banner_ProDC.mp4"
-            autoPlay={true}
-            muted={true}
-            playsInline={true}
-            preload="auto"
-            aria-hidden="true"
-            className="w-full h-auto object-contain"
-            onTimeUpdate={handleTimeUpdate}
-          />
-        </Link>
-
-        {/* Slide 2: Banner Cariforo UE */}
+      {/* ============ Banner Cariforo UE ============ */}
+      <div className="w-full bg-black">
         <Link
           href="https://forms.office.com/Pages/ResponsePage.aspx?id=ghXqEGP41EuvCTx0XnNcBcpbi5dghOxMi3kq3BwMtrlUQko1OTJQT01URjJQWFBRNVBUR1hUUFRMOS4u"
           target="_blank"
-          className={`block w-full transition-opacity duration-700 ${
-            currentSlide === 1 ? "opacity-100 relative" : "opacity-0 absolute top-0 left-0 pointer-events-none"
-          }`}
+          className="block w-full"
         >
           <Image
             width={2048}
@@ -85,26 +24,8 @@ export default function BusinessFacilitation() {
             className="w-full h-auto object-contain"
           />
         </Link>
-
-        {/* Carousel Indicators */}
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
-          <button
-            onClick={() => setCurrentSlide(0)}
-            className={`h-3 rounded-full transition-all duration-300 ${
-              currentSlide === 0 ? "bg-white w-8" : "bg-white/50 hover:bg-white/70 w-3"
-            }`}
-            aria-label="Ver slide 1"
-          />
-          <button
-            onClick={() => setCurrentSlide(1)}
-            className={`h-3 rounded-full transition-all duration-300 ${
-              currentSlide === 1 ? "bg-white w-8" : "bg-white/50 hover:bg-white/70 w-3"
-            }`}
-            aria-label="Ver slide 2"
-          />
-        </div>
       </div>
-      {/* ============ FIN CAROUSEL ============ */}
+      {/* ============ FIN Banner ============ */}
 
       {/* Espaciado entre carousel y sección de texto */}
       <div className="h-8 lg:h-12"></div>
