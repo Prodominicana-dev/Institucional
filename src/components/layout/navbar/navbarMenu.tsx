@@ -6,6 +6,7 @@ import {
   MenuList,
   MenuItem,
 } from "@material-tailwind/react";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import React from "react";
 import { usePathname } from "@/i18n/navigation";
@@ -85,15 +86,16 @@ export default function NavbarMenu({ title, navListMenuItems }: Props) {
       <MenuHandler>
         <Typography as="div" className="xl:font-xl text-center">
           <ListItem
-            className={`h-20 px-5 xl:px-2 2xl:px-4 text-base xl:text-sm 2xl:text-base bg-transparent rounded-none hover:bg-transparent  hover:text-white ${
+            className={`h-20 px-5 xl:px-2 2xl:px-4 text-base xl:text-sm 2xl:text-base bg-transparent rounded-none hover:bg-transparent hover:text-white ${
               navListMenuItems.some((item) => item.link === translatedPath)
                 ? "text-white"
                 : "text-cyan-600"
-            } cursor-pointer font-bold font-montserrat`}
+            } cursor-pointer font-bold font-montserrat flex items-center gap-1`}
             selected={isMenuOpen || isMobileMenuOpen}
             onClick={() => setIsMobileMenuOpen((cur) => !cur)}
           >
             {title}
+            <ChevronDownIcon className="h-4 w-4 xl:h-3 xl:w-3 2xl:h-4 2xl:w-4 flex-shrink-0" />
           </ListItem>
         </Typography>
       </MenuHandler>

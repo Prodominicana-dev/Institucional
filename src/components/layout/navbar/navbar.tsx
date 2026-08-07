@@ -7,7 +7,6 @@ import {
   ScaleIcon,
   UserIcon,
   VideoCameraIcon,
-  ChevronDownIcon,
 } from "@heroicons/react/24/outline";
 import { IconButton, Select } from "@material-tailwind/react";
 import Image from "next/image";
@@ -196,19 +195,16 @@ export default function Navbar() {
                 navListMenuItems={aboutListItems}
                 className="text-base xl:text-sm 2xl:text-base"
               />
-              <ChevronDownIcon className="h-5 w-5 -translate-x-4 hover:text-white text-cyan-600 xl:h-4 xl:w-4 2xl:h-5 2xl:w-5" />
               <NavbarMenu
                 title={t("services.title")}
                 navListMenuItems={servicesListItems}
                 className="text-base xl:text-sm 2xl:text-base"
               />
-              <ChevronDownIcon className="h-5 w-5 -translate-x-4 hover:text-white text-cyan-600 xl:h-4 xl:w-4 2xl:h-5 2xl:w-5" />
               <NavbarMenu
                 title={t("news.title")}
                 navListMenuItems={newsListItems}
                 className="text-base xl:text-sm 2xl:text-base"
               />
-              <ChevronDownIcon className="h-5 w-5 -translate-x-4 hover:text-white text-cyan-600 xl:h-4 xl:w-4 2xl:h-5 2xl:w-5" />
             </div>
 
             <NavbarLink
