@@ -12,15 +12,15 @@ export default function BusinessFacilitation() {
       {/* ============ Banner Cariforo UE ============ */}
       <div className="w-full bg-black">
         <Link
-          href="https://forms.office.com/Pages/ResponsePage.aspx?id=ghXqEGP41EuvCTx0XnNcBcpbi5dghOxMi3kq3BwMtrlUQko1OTJQT01URjJQWFBRNVBUR1hUUFRMOS4u"
+          href="https://www.hubcamarasantodomingo.do/"
           target="_blank"
           className="block w-full"
         >
           <Image
             width={2048}
             height={1080}
-            src="/images/prod-aae-cariforo-ue-banner.jpg"
-            alt="ProD AAE Cariforo UE"
+            src="/images/banner_rondas.jpg"
+            alt="Hub Camara"
             className="w-full h-auto object-contain"
           />
         </Link>
