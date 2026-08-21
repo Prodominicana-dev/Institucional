@@ -684,7 +684,7 @@ function RecursosView({
   return (
     <section className="w-full min-h-screen bg-me-marfil">
       {/* Header */}
-      <div className="py-14 px-4 bg-gradient-to-r from-me-coral-light to-me-coral">
+      <div className="py-14 px-4 bg-me-coral">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
             <span className="inline-flex items-center gap-2 bg-white rounded-full px-4 py-1.5 text-xs text-me-coral font-semibold mb-4 uppercase tracking-wider">
@@ -944,7 +944,7 @@ function ApoyoSection() {
   return (
     <section className="w-full bg-white border-t border-gray-200 py-14">
       <div className="w-11/12 max-w-3xl mx-auto flex flex-wrap items-center justify-center gap-3 text-center">
-        <h2 className="font-aeonik text-lg sm:text-2xl font-bold text-me-navy">
+        <h2 className="text-lg sm:text-2xl text-me-navy">
           Con el apoyo de
         </h2>
         <Image
