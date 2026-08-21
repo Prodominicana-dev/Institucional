@@ -1,7 +1,8 @@
 "use client";
-import { CalendarDaysIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftIcon, CalendarDaysIcon } from "@heroicons/react/24/outline";
 import { Timeline, Typography } from "@material-tailwind/react";
 import { useTranslations } from "next-intl";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { HashLoader } from "react-spinners";
@@ -23,6 +24,13 @@ export default function Page() {
   return (
     <div className="pt-16 md:pt-16 xl:pt-24 pb-20 flex justify-center">
       <div className="w-11/12 xl:w-8/12 space-y-10">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 text-blue-950 hover:text-red-700 transition-colors duration-300 font-opensans"
+        >
+          <ArrowLeftIcon className="h-5 w-5" />
+          {t("back")}
+        </Link>
         <div className="flex w-full">
           <div className="size-16 absolute flex items-center justify-center bg-red-700 rounded-l-lg">
             <CalendarDaysIcon className="text-white h-10 w-10" />

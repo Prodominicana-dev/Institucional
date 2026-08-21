@@ -132,6 +132,7 @@
     "title": "Schedule",
     "buttonText": "See More",
     "pageTitle": "Full Schedule",
+    "back": "Back to home",
     "empty": "There are no events on the schedule."
   },
   "UpcomingEvents": {
