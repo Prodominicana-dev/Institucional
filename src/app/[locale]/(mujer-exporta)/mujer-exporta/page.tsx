@@ -118,8 +118,8 @@ export default function Page() {
           {/* CTA */}
           <CTASection onExplore={() => setActiveView("recursos")} />
 
-          {/* Instituciones */}
-          <InstitucionesSection />
+          {/* Instituciones (oculta a pedido del cliente) */}
+          {/* <InstitucionesSection /> */}
 
           {/* Noticias */}
           <NoticiasSection />
