@@ -6,11 +6,16 @@
 */
 
 .me-shape-outline {
-  transform: scale(1.25) translate(-18%, 4%);
+  transform: scale(1.25) translate(-18%, 2%);
 }
 
 .me-shape-fill {
-  transform: scale(1.25);
+  transform: scale(1.25) translate(0, -6%);
+}
+
+.me-hero-photo {
+  transform: scale(1.15);
+  transform-origin: bottom center;
 }
 
 .me-center-y {

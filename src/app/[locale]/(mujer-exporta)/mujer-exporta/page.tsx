@@ -247,13 +247,14 @@ function HeroSection({ onExplore }: { onExplore: () => void }) {
   ];
 
   return (
-    <div className="w-full bg-me-marfil flex flex-col items-center">
+    <div className="w-full bg-me-marfil flex flex-col items-center overflow-hidden">
       <div className="w-11/12 max-w-7xl pt-12 sm:pt-16 pb-20 sm:pb-24 grid lg:grid-cols-2 gap-10 lg:gap-6 items-center">
         {/* Texto */}
         <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 mb-8 shadow-sm">
+          {/* Badge visible solo en mobile: reemplaza al logo de ProDominicana del header, oculto ahí por espacio */}
+          <div className="flex md:hidden items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm mb-8">
             <Icon icon="ph:flag-banner-bold" className="text-me-coral" width={16} />
-            <span className="text-sm font-medium text-me-navy/80">Una iniciativa de ProDominicana</span>
+            <span className="text-sm font-medium text-me-navy">Una iniciativa de ProDominicana</span>
           </div>
 
           <h1 className="font-aeonik font-bold text-4xl sm:text-5xl lg:text-6xl leading-[1.1] mb-6">
@@ -311,7 +312,7 @@ function HeroSection({ onExplore }: { onExplore: () => void }) {
               src="/mujer-exporta/hero-photo.png"
               alt="Mujer emprendedora dominicana"
               fill
-              className="object-contain object-bottom relative z-10"
+              className="me-hero-photo object-contain object-bottom relative z-10"
               priority
             />
           </div>
@@ -319,11 +320,14 @@ function HeroSection({ onExplore }: { onExplore: () => void }) {
       </div>
 
       {/* Barra de estadísticas superpuesta */}
-      <div className="w-11/12 max-w-7xl -mt-14 sm:-mt-16 mb-2 z-10">
-        <div className="bg-white rounded-lg shadow-xl border border-gray-100 py-6 sm:py-8 px-4 sm:px-8 flex flex-wrap justify-center divide-x divide-gray-200">
+      <div className="w-11/12 max-w-7xl -mt-20 sm:-mt-24 mb-2 relative z-20">
+        <div className="bg-white rounded-lg shadow-xl border border-gray-100 py-2 sm:py-8 px-4 sm:px-8 flex flex-col sm:flex-row sm:flex-wrap justify-center sm:divide-x sm:divide-gray-200">
           {stats.map((stat, i) => (
-            <div key={i} className="flex items-center gap-3 px-6 sm:px-10 first:pl-0 last:pr-0">
-              <div className="w-12 h-12 rounded-full bg-me-coral-pale flex items-center justify-center shrink-0">
+            <div
+              key={i}
+              className="flex items-center gap-3 py-4 sm:py-0 px-0 sm:px-6 md:px-10 border-b sm:border-b-0 border-gray-200 last:border-b-0 sm:first:pl-0 sm:last:pr-0"
+            >
+              <div className="w-12 h-12 rounded-full bg-me-marfil flex items-center justify-center shrink-0">
                 <Icon icon={stat.icon} className="text-me-coral" width={22} />
               </div>
               <div>
@@ -940,26 +944,22 @@ function RecursoCard({ recurso }: { recurso: Recurso }) {
 function ApoyoSection() {
   return (
     <section className="w-full bg-white border-t border-gray-200 py-14">
-      <div className="w-11/12 max-w-3xl mx-auto flex flex-col items-center text-center gap-5">
-        <h2 className="font-aeonik text-xl sm:text-2xl font-bold text-me-navy">
+      <div className="w-11/12 max-w-3xl mx-auto flex flex-wrap items-center justify-center gap-3 text-center">
+        <h2 className="font-aeonik text-lg sm:text-2xl font-bold text-me-navy">
           Con el apoyo de
         </h2>
-        <div className="flex items-center gap-3">
-          <Image
-            src="/images/instituciones/union-europea.svg"
-            alt="Unión Europea"
-            width={120}
-            height={80}
-          />
-          <span
-            className="text-left font-semibold leading-tight text-2xl sm:text-3xl"
-            style={{ color: "#003399" }}
-          >
-            Unión
-            <br />
-            Europea
-          </span>
-        </div>
+        <Image
+          src="/images/instituciones/union-europea.svg"
+          alt="Unión Europea"
+          width={56}
+          height={37}
+        />
+        <span
+          className="font-semibold text-lg sm:text-2xl"
+          style={{ color: "#003399" }}
+        >
+          Unión Europea
+        </span>
       </div>
     </section>
   );
@@ -968,7 +968,7 @@ function ApoyoSection() {
 function Footer() {
   return (
     <footer className="w-full bg-me-coral">
-      <div className="w-11/12 max-w-7xl mx-auto flex flex-col xl:flex-row gap-8 xl:gap-28 py-10 border-t-2 border-me-navy text-white">
+      <div className="w-11/12 max-w-7xl mx-auto flex flex-col xl:flex-row gap-8 xl:gap-28 py-10 text-white">
         <div className="flex flex-col gap-4">
           <Image
             width={2343}
