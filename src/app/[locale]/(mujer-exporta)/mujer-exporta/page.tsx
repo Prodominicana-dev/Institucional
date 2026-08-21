@@ -265,9 +265,8 @@ function HeroSection({ onExplore }: { onExplore: () => void }) {
             <span className="text-me-navy">y Oportunidades</span>
           </h1>
 
-          <p className="text-base sm:text-lg text-gray-600 max-w-xl mb-10">
-            Información útil para fortalecer tu empresa, prepararte para exportar y
-            conectar con nuevos mercados.
+          <p className="text-base sm:text-lg font-bold text-me-navy max-w-xl mb-10">
+            Información útil para fortalecer tu empresa, prepararte para exportar y conectar con nuevos mercados.
           </p>
 
           <div className="flex flex-wrap justify-center lg:justify-start gap-4">
@@ -279,15 +278,15 @@ function HeroSection({ onExplore }: { onExplore: () => void }) {
               Encuentra tu ruta
               <Icon icon="ph:arrow-right-bold" width={18} />
             </Button>
-            <Button
-              onClick={onExplore}
-              placeholder=""
-              variant="outlined"
+            <Link
+              href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=ghXqEGP41EuvCTx0XnNcBeN_mvpX-a9Jm2GG2D5wc1ZUOUlSMk9TOEtTTjExOUk2QkJVT0JPMFBKRi4u"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 border-2 border-me-coral text-me-coral font-bold text-base h-14 rounded-2xl normal-case px-8 bg-white hover:bg-me-coral-pale duration-300"
             >
-              Explora recursos
+              Sumar iniciativa
               <Icon icon="ph:arrow-right-bold" width={18} />
-            </Button>
+            </Link>
           </div>
         </div>
 
