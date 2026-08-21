@@ -151,7 +151,10 @@
     "buttonText": "Ver más"
   },
   "Schedule": {
-    "title": "Agenda"
+    "title": "Agenda",
+    "buttonText": "Ver más",
+    "pageTitle": "Agenda completa",
+    "empty": "No hay eventos en la agenda."
   },
   "UpcomingEvents": {
     "title": "Próximas ferias, misiones y eventos",

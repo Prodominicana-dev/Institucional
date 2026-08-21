@@ -129,7 +129,10 @@
     "buttonText": "See More"
   },
   "Schedule": {
-    "title": "Schedule"
+    "title": "Schedule",
+    "buttonText": "See More",
+    "pageTitle": "Full Schedule",
+    "empty": "There are no events on the schedule."
   },
   "UpcomingEvents": {
     "title": "Upcoming Fairs, Missions, and Events",

@@ -1,4 +1,6 @@
 import {
+  ChevronDownIcon,
+  ChevronUpIcon,
   EyeIcon,
   EyeSlashIcon,
   PencilSquareIcon,
@@ -16,9 +18,17 @@ import { deleteSchedule } from "@/services/schedule/service";
 export default function Card({
   schedule,
   update,
+  onMoveUp,
+  onMoveDown,
+  isFirst,
+  isLast,
 }: {
   schedule: any;
   update: () => void;
+  onMoveUp: () => void;
+  onMoveDown: () => void;
+  isFirst: boolean;
+  isLast: boolean;
 }) {
   const { user, isLoading } = useUser();
   const [editOpen, setEditOpen] = useState(false);
@@ -61,6 +71,24 @@ export default function Card({
           })}
         </div>
         <div className="flex justify-center space-x-5 ">
+          <div className="flex flex-col justify-center">
+            <button
+              onClick={onMoveUp}
+              disabled={isFirst}
+              title="Subir en la agenda"
+              className="flex items-center justify-center text-black hover:text-white hover:bg-blue-dark duration-300 bg-white rounded-t-lg w-10 h-7 ring-1 ring-gray-100 disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-black"
+            >
+              <ChevronUpIcon className="w-4" />
+            </button>
+            <button
+              onClick={onMoveDown}
+              disabled={isLast}
+              title="Bajar en la agenda"
+              className="flex items-center justify-center text-black hover:text-white hover:bg-blue-dark duration-300 bg-white rounded-b-lg w-10 h-7 ring-1 ring-gray-100 disabled:opacity-30 disabled:hover:bg-white disabled:hover:text-black"
+            >
+              <ChevronDownIcon className="w-4" />
+            </button>
+          </div>
           <button
             onClick={handleEditOpen}
             className="flex items-center justify-center text-black hover:text-white hover:bg-blue-dark duration-300 bg-white rounded-lg w-14 h-14 ring-1 ring-gray-100"
