@@ -11,7 +11,7 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import React, { useState, useEffect } from "react";
 import Select from "react-select";
 import { ScheduleDialog } from "@/components/admin/schedule/dialog";
-import { useSchedule } from "@/services/schedule/service";
+import { useAdminSchedule, reorderSchedule } from "@/services/schedule/service";
 import Card from "@/components/admin/schedule/card";
 import { HashLoader } from "react-spinners";
 
@@ -19,7 +19,7 @@ export default function Page() {
   const [open, setOpen] = useState(false);
   const { user, isLoading: userLoading } = useUser();
   const [filterOpen, setFilterOpen] = useState(false);
-  const { data, isLoading, refetch } = useSchedule();
+  const { data, isLoading, refetch } = useAdminSchedule();
   const [members, setMembers] = useState([]);
   const [_refetch, setRefetch] = useState(false);
   const [search, setSearch] = useState("");
@@ -58,12 +58,31 @@ export default function Page() {
     setFilterOpen(!filterOpen);
   };
 
+  // Solo se puede reordenar sobre la lista completa: con filtros activos
+  // el vecino visible no es el vecino real de la agenda.
+  const canReorder = search === "" && filter === null;
+
+  const handleMove = async (id: string, direction: -1 | 1) => {
+    if (!user || !canReorder) return;
+    const all = [...(members as any[])];
+    const index = all.findIndex((s) => s.id === id);
+    const target = index + direction;
+    if (index === -1 || target < 0 || target >= all.length) return;
+    [all[index], all[target]] = [all[target], all[index]];
+    setMembers(all as any);
+    await reorderSchedule(
+      all.map((s, i) => ({ id: s.id, order: i + 1 })),
+      user.sub as string
+    );
+    updateDirections();
+  };
+
   const handleFilter = () => {
     if (data) {
       let filteredData = [...data];
       if (search !== "") {
         filteredData = filteredData.filter((section) =>
-          section.name.toLowerCase().includes(search.toLowerCase())
+          section.title?.toLowerCase().includes(search.toLowerCase())
         );
       }
       if (filter !== null) {
@@ -190,11 +209,18 @@ export default function Page() {
                     </div>
 
                     {currentMembers?.map((schedule: any, key: number) => {
+                      const globalIndex = indexOfFirst + key;
                       return (
                         <Card
-                          key={key}
+                          key={schedule.id}
                           schedule={schedule}
                           update={updateDirections}
+                          onMoveUp={() => handleMove(schedule.id, -1)}
+                          onMoveDown={() => handleMove(schedule.id, 1)}
+                          isFirst={!canReorder || globalIndex === 0}
+                          isLast={
+                            !canReorder || globalIndex === members.length - 1
+                          }
                         />
                       );
                     })}

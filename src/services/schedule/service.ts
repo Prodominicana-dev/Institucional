@@ -14,6 +14,28 @@ export function useSchedule() {
   });
 }
 
+export function useAllSchedule() {
+  return useQuery({
+    queryKey: ["scheduleAll"],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/schedule/all`;
+      const { data } = await axios.get(url);
+      return data;
+    },
+  });
+}
+
+export function useAdminSchedule() {
+  return useQuery({
+    queryKey: ["scheduleAdmin"],
+    queryFn: async () => {
+      const url = `${process.env.NEXT_PUBLIC_API_URL}/schedule/admin`;
+      const { data } = await axios.get(url);
+      return data;
+    },
+  });
+}
+
 export function useSheduleById(id: string) {
   return useQuery({
     queryKey: ["scheduleById", id],
@@ -23,6 +45,34 @@ export function useSheduleById(id: string) {
       return data;
     },
   });
+}
+
+export async function reorderSchedule(
+  items: { id: string; order: number }[],
+  userId: string
+) {
+  const userIdEncrypted = CryptoJS.AES.encrypt(
+    userId,
+    process.env.NEXT_PUBLIC_CRYPTOJS_KEY
+  ).toString();
+  try {
+    await axios.patch(
+      `${process.env.NEXT_PUBLIC_API_URL}/schedule/reorder`,
+      { items },
+      { headers: { Authorization: `${userIdEncrypted}` } }
+    );
+  } catch (error) {
+    notifications.show({
+      id: "reorderErr",
+      autoClose: 5000,
+      withCloseButton: false,
+      title: "Error",
+      message: "Hubo un error guardando el orden de la agenda.",
+      color: "red",
+      loading: false,
+    });
+    throw error;
+  }
 }
 
 export async function createSchedule(
