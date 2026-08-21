@@ -17,6 +17,19 @@
   --color-sied-pink: #e82d72;
   --color-blue-dark: #01296d;
 
+  /* Colores marca Mujer Exporta + */
+  --color-me-navy: #031b47;
+  --color-me-coral: #f2665e;
+  --color-me-coral-light: #f5b8b1;
+  --color-me-coral-pale: #fce0df;
+  --color-me-teal: #2fb7c8;
+  --color-me-teal-pale: #d5f1f4;
+  --color-me-azul: #3d63d8;
+  --color-me-azul-pale: #d8e0f7;
+  --color-me-naranja: #f39a3d;
+  --color-me-naranja-pale: #fdebd8;
+  --color-me-marfil: #f3eeea;
+
   /* Fuentes */
   --font-montserrat: "Montserrat", sans-serif;
   --font-opensans: "OpenSans", sans-serif;
@@ -24,6 +37,7 @@
   --font-adelia: "Adelia", normal;
   --font-gotham: "Gotham", medium;
   --font-glancyr: "Glancyr", regular;
+  --font-aeonik: "Aeonik", sans-serif;
 }
 
 /* font-display: swap en las seis — sin esto el navegador puede dejar el
@@ -61,6 +75,28 @@
 @font-face {
   font-family: "Noctura";
   src: url("../../../public/fonts/Noctura Georgia Brush.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Aeonik";
+  src: url("../../../public/fonts/aeonik/Aeonik-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Aeonik";
+  src: url("../../../public/fonts/aeonik/Aeonik-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Aeonik";
+  src: url("../../../public/fonts/aeonik/Aeonik-RegularItalic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
   font-display: swap;
 }
 

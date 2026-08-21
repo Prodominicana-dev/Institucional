@@ -1,4 +1,5 @@
 "use client";
+import "./hero-effects.css";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useMemo, useEffect } from "react";
@@ -20,23 +21,23 @@ import {
   Recurso,
 } from "@/data/mujeresExportadorasRecursos";
 
-// Colores por ruta (sólidos, sin gradientes)
-const RUTA_COLORS: Record<string, { primary: string; light: string; dark: string }> = {
-  aprender: { primary: "#0891b2", light: "#cffafe", dark: "#164e63" },    // cyan
-  impulsar: { primary: "#ea580c", light: "#ffedd5", dark: "#9a3412" },  // orange
-  exportar: { primary: "#059669", light: "#d1fae5", dark: "#064e3b" },    // emerald
-  conectar: { primary: "#b91c1c", light: "#fee2e2", dark: "#7f1d1d" },    // red-700
+// Colores oficiales de marca Mujer Exporta + (paleta 2026)
+const RUTA_COLORS: Record<string, { primary: string; light: string; icon: string; corner: string }> = {
+  aprender: { primary: "#3D63D8", light: "#d8e0f7", icon: "/mujer-exporta/icon-aprender.png", corner: "/mujer-exporta/corner-aprender.png" }, // Azul rutas
+  impulsar: { primary: "#F2665E", light: "#fce0df", icon: "/mujer-exporta/icon-impulsar.png", corner: "/mujer-exporta/corner-impulsar.png" }, // Coral
+  exportar: { primary: "#2FB7C8", light: "#d5f1f4", icon: "/mujer-exporta/icon-exportar.png", corner: "/mujer-exporta/corner-exportar.png" }, // Teal
+  conectar: { primary: "#F39A3D", light: "#fdebd8", icon: "/mujer-exporta/icon-conectar.png", corner: "/mujer-exporta/corner-conectar.png" }, // Naranja
 };
 
-// Componente de icono por ruta
+// Icono de marca por ruta
 function RutaIcon({ ruta, size = 32 }: { ruta: string; size?: number }) {
-  const icons: Record<string, JSX.Element> = {
-    aprender: <Icon icon="ph:book-open-bold" width={size} height={size} />,
-    impulsar: <Icon icon="ph:rocket-bold" width={size} height={size} />,
-    exportar: <Icon icon="ph:globe-bold" width={size} height={size} />,
-    conectar: <Icon icon="ph:users-three-bold" width={size} height={size} />,
-  };
-  return icons[ruta] || null;
+  const colors = RUTA_COLORS[ruta];
+  if (!colors) return null;
+  return (
+    <div className="relative" style={{ width: size, height: size }}>
+      <Image src={colors.icon} alt="" fill className="object-contain" />
+    </div>
+  );
 }
 
 export default function Page() {
@@ -106,9 +107,6 @@ export default function Page() {
           {/* Hero Section */}
           <HeroSection onExplore={() => setActiveView("recursos")} />
 
-          {/* Stats */}
-          <StatsSection />
-
           {/* Rutas Section */}
           <RutasSection onSelectRuta={handleSelectRuta} />
 
@@ -153,7 +151,7 @@ export default function Page() {
       {showScrollTop && (
         <button
           onClick={scrollToTop}
-          className="fixed bottom-8 right-8 w-14 h-14 bg-red-700 hover:bg-red-800 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 hover:scale-110 z-50"
+          className="me-hover-scale fixed bottom-8 right-8 w-14 h-14 bg-me-coral hover:opacity-90 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-50"
           aria-label="Ir arriba"
         >
           <Icon icon="ph:arrow-up-bold" width={24} />
@@ -171,52 +169,56 @@ function Header({
   setActiveView: (v: "home" | "recursos") => void;
 }) {
   return (
-    <div className="w-full bg-blue-950">
-      {/* Barra roja superior */}
-      <div className="w-full h-1.5 bg-red-700" />
+    <div className="w-full bg-white">
+      {/* Barra coral superior */}
+      <div className="w-full h-1.5 bg-me-coral" />
 
-      <div className="w-11/12 max-w-7xl mx-auto flex flex-col sm:flex-row items-center py-5 sm:py-6 gap-4 sm:gap-1">
-        <Link href="/">
-          <Image
-            width={1980}
-            height={1080}
-            alt="Prodominicana"
-            src="/prodominicanaFull.svg"
-            className="w-36 sm:w-48 flex-shrink-0 brightness-0 invert"
-          />
-        </Link>
+      <div className="w-11/12 max-w-7xl mx-auto flex flex-col sm:flex-row items-center py-5 sm:py-6 gap-4 sm:gap-6 border-b border-gray-100">
+        <div className="flex items-center gap-3 sm:gap-4 flex-shrink-0">
+          <Link href="/">
+            <Image
+              width={1600}
+              height={900}
+              alt="Mujer Exporta +"
+              src="/mujer-exporta/logo.png"
+              className="w-32 sm:w-36 h-auto"
+            />
+          </Link>
+          <div className="hidden md:flex items-center gap-2 pl-4 border-l border-gray-200">
+            <span className="text-xs text-gray-500 font-medium">Una Iniciativa de</span>
+            <Image
+              width={2343}
+              height={893}
+              alt="ProDominicana"
+              src="/prodominicanaFull.svg"
+              className="w-24 h-auto"
+            />
+          </div>
+        </div>
 
-        <div className="sm:ml-auto flex flex-wrap justify-center gap-5 sm:gap-8 text-sm sm:text-base font-medium">
+        <div className="sm:ml-auto flex flex-wrap items-center justify-center gap-5 sm:gap-8 text-sm sm:text-base font-medium">
           <button
             onClick={() => {
               setActiveView("home");
               setTimeout(() => document.getElementById("rutas")?.scrollIntoView({ behavior: "smooth" }), 100);
             }}
-            className="text-white hover:text-cyan-400 duration-200"
+            className="flex items-center gap-1 text-me-navy hover:text-me-coral duration-200"
           >
             Las 4 Rutas
+            <Icon icon="ph:caret-down-bold" width={14} />
           </button>
           <button
             onClick={() => setActiveView("recursos")}
-            className={`duration-200 ${activeView === "recursos" ? "text-cyan-400" : "text-white hover:text-cyan-400"}`}
+            className={`duration-200 ${activeView === "recursos" ? "text-me-coral" : "text-me-navy hover:text-me-coral"}`}
           >
             Recursos
           </button>
           <button
             onClick={() => {
               setActiveView("home");
-              setTimeout(() => document.getElementById("instituciones")?.scrollIntoView({ behavior: "smooth" }), 100);
-            }}
-            className="text-white hover:text-cyan-400 duration-200"
-          >
-            Instituciones
-          </button>
-          <button
-            onClick={() => {
-              setActiveView("home");
               setTimeout(() => document.getElementById("noticias")?.scrollIntoView({ behavior: "smooth" }), 100);
             }}
-            className="text-white hover:text-cyan-400 duration-200"
+            className="text-me-navy hover:text-me-coral duration-200"
           >
             Noticias
           </button>
@@ -225,82 +227,112 @@ function Header({
               setActiveView("home");
               setTimeout(() => document.getElementById("about")?.scrollIntoView({ behavior: "smooth" }), 100);
             }}
-            className="text-white hover:text-cyan-400 duration-200"
+            className="text-me-navy hover:text-me-coral duration-200"
           >
             Acerca de Mujer Exporta +
           </button>
         </div>
+
       </div>
     </div>
   );
 }
 
 function HeroSection({ onExplore }: { onExplore: () => void }) {
-  return (
-    <div className="w-full bg-blue-950 flex justify-center">
-      <div className="w-11/12 max-w-7xl py-12 sm:py-20 flex flex-col items-center text-center">
-        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 mb-8">
-          <Icon icon="ph:flag-banner-bold" className="text-red-500" width={16} />
-          <span className="text-sm font-medium text-white/90">Una iniciativa de ProDominicana</span>
-        </div>
-
-        <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold text-white leading-tight mb-4">
-          Mujer Exporta <span className="text-cyan-400">+</span>
-        </h1>
-
-        <p className="text-lg sm:text-xl text-white/80 font-medium max-w-3xl mb-4">
-          Tu camino hacia la <span className="text-cyan-400">exportación</span> comienza aquí
-        </p>
-
-        <p className="text-base sm:text-lg text-white/60 max-w-3xl mb-10">
-          Descubre más de <span className="text-red-500 font-bold">300 recursos</span> organizados
-          en 4 rutas diseñadas para impulsar a mujeres emprendedoras y exportadoras dominicanas.
-        </p>
-
-        <div className="flex flex-wrap justify-center gap-4">
-          <Button
-            onClick={onExplore}
-            placeholder=""
-            className="bg-red-700 hover:bg-red-800 text-white font-bold text-base h-14 rounded-full normal-case px-8 shadow-lg"
-          >
-            Explorar recursos
-          </Button>
-          <Button
-            onClick={() => document.getElementById("rutas")?.scrollIntoView({ behavior: "smooth" })}
-            placeholder=""
-            variant="outlined"
-            className="border-2 border-white text-white font-bold text-base h-14 rounded-full normal-case px-8 hover:bg-white hover:text-blue-950 duration-300"
-          >
-            Ver las 4 rutas
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function StatsSection() {
   const stats = [
-    { value: "+300", label: "Recursos disponibles", icon: "ph:files-bold", color: "text-blue-950" },
-    { value: "+80", label: "Instituciones aliadas", icon: "ph:buildings-bold", color: "text-blue-950" },
-    { value: "4", label: "Rutas de apoyo", icon: "ph:path-bold", color: "text-blue-950" },
-    { value: "100%", label: "Gratuito", icon: "ph:gift-bold", color: "text-blue-950" },
+    { value: "+300", label: "Recursos disponibles", icon: "ph:files-bold" },
+    { value: "+80", label: "Instituciones aliadas", icon: "ph:buildings-bold" },
+    { value: "4", label: "Rutas de apoyo", icon: "ph:path-bold" },
+    { value: "100%", label: "Gratuito", icon: "ph:gift-bold" },
   ];
 
   return (
-    <div className="w-full bg-white border-y border-gray-200">
-      <div className="w-11/12 max-w-7xl mx-auto py-8 flex flex-wrap justify-center gap-8 sm:gap-12">
-        {stats.map((stat, i) => (
-          <div key={i} className="flex items-center gap-3 px-4">
-            <div className="w-12 h-12 rounded-xl bg-red-700 flex items-center justify-center shadow-md">
-              <Icon icon={stat.icon} className="text-white" width={24} />
-            </div>
-            <div>
-              <div className={`text-2xl sm:text-3xl font-bold ${stat.color}`}>{stat.value}</div>
-              <div className="text-sm text-gray-600">{stat.label}</div>
-            </div>
+    <div className="w-full bg-me-marfil flex flex-col items-center">
+      <div className="w-11/12 max-w-7xl pt-12 sm:pt-16 pb-20 sm:pb-24 grid lg:grid-cols-2 gap-10 lg:gap-6 items-center">
+        {/* Texto */}
+        <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-gray-200 mb-8 shadow-sm">
+            <Icon icon="ph:flag-banner-bold" className="text-me-coral" width={16} />
+            <span className="text-sm font-medium text-me-navy/80">Una iniciativa de ProDominicana</span>
           </div>
-        ))}
+
+          <h1 className="font-aeonik font-bold text-4xl sm:text-5xl lg:text-6xl leading-[1.1] mb-6">
+            <span className="text-me-coral">Plataforma</span>
+            <br />
+            <span className="text-me-coral">Digital</span> <span className="text-me-navy">de Recursos</span>
+            <br />
+            <span className="text-me-navy">y Oportunidades</span>
+          </h1>
+
+          <p className="text-base sm:text-lg text-gray-600 max-w-xl mb-10">
+            Información útil para fortalecer tu empresa, prepararte para exportar y
+            conectar con nuevos mercados.
+          </p>
+
+          <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+            <Button
+              onClick={onExplore}
+              placeholder=""
+              className="flex items-center gap-2 bg-me-coral hover:opacity-90 text-white font-bold text-base h-14 rounded-2xl normal-case px-8 shadow-lg"
+            >
+              Encuentra tu ruta
+              <Icon icon="ph:arrow-right-bold" width={18} />
+            </Button>
+            <Button
+              onClick={onExplore}
+              placeholder=""
+              variant="outlined"
+              className="flex items-center gap-2 border-2 border-me-coral text-me-coral font-bold text-base h-14 rounded-2xl normal-case px-8 bg-white hover:bg-me-coral-pale duration-300"
+            >
+              Explora recursos
+              <Icon icon="ph:arrow-right-bold" width={18} />
+            </Button>
+          </div>
+        </div>
+
+        {/* Foto + formas decorativas */}
+        <div className="relative flex justify-center lg:justify-end">
+          <div className="relative w-64 sm:w-80 lg:w-96 aspect-[4/5]">
+            {/* Trazo outline, desplazado a la izquierda */}
+            <Image
+              src="/mujer-exporta/shape-outline.png"
+              alt=""
+              fill
+              className="me-shape-outline object-contain opacity-80 z-0"
+            />
+            {/* Forma sólida detrás de la fotografía */}
+            <Image
+              src="/mujer-exporta/shape-fill.png"
+              alt=""
+              fill
+              className="me-shape-fill object-contain z-0"
+            />
+            <Image
+              src="/mujer-exporta/hero-photo.png"
+              alt="Mujer emprendedora dominicana"
+              fill
+              className="object-contain object-bottom relative z-10"
+              priority
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Barra de estadísticas superpuesta */}
+      <div className="w-11/12 max-w-7xl -mt-14 sm:-mt-16 mb-2 z-10">
+        <div className="bg-white rounded-lg shadow-xl border border-gray-100 py-6 sm:py-8 px-4 sm:px-8 flex flex-wrap justify-center divide-x divide-gray-200">
+          {stats.map((stat, i) => (
+            <div key={i} className="flex items-center gap-3 px-6 sm:px-10 first:pl-0 last:pr-0">
+              <div className="w-12 h-12 rounded-full bg-me-coral-pale flex items-center justify-center shrink-0">
+                <Icon icon={stat.icon} className="text-me-coral" width={22} />
+              </div>
+              <div>
+                <div className="text-2xl sm:text-3xl font-aeonik font-bold text-me-coral">{stat.value}</div>
+                <div className="text-sm text-me-navy">{stat.label}</div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
@@ -308,76 +340,69 @@ function StatsSection() {
 
 function RutasSection({ onSelectRuta }: { onSelectRuta: (id: string) => void }) {
   return (
-    <section id="rutas" className="w-full bg-gray-50 py-16">
+    <section id="rutas" className="w-full bg-me-marfil py-16 sm:py-20">
       <div className="w-11/12 max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-blue-950 mb-4">Las <span className="text-red-700">4 Rutas</span> de Mujer Exporta +</h2>
+          <span className="inline-block bg-me-coral-pale text-me-navy text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-4">
+            Las 4 Rutas
+          </span>
+          <h2 className="font-aeonik font-bold text-3xl sm:text-4xl text-me-navy mb-4">
+            Encuentra <span className="text-me-coral">tu ruta</span>
+          </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Cada ruta agrupa recursos según la etapa en que se encuentra tu camino exportador.
+            Explora recursos según la necesidad o etapa en la que se encuentra tu empresa.
           </p>
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {RUTAS.map((ruta, index) => {
-            const count = recursos.filter((r) => r.ruta === ruta.id).length;
+          {RUTAS.map((ruta) => {
             const colors = RUTA_COLORS[ruta.id];
             return (
               <button
                 key={ruta.id}
                 onClick={() => onSelectRuta(ruta.id)}
-                className="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 text-left overflow-hidden"
+                className="group bg-white rounded-2xl border-2 shadow-lg hover:shadow-xl transition-all duration-300 text-left overflow-hidden flex flex-col"
+                style={{ borderColor: colors.light }}
               >
-                {/* Barra superior con color de ruta */}
-                <div className="h-1 w-full" style={{ backgroundColor: colors.primary }} />
-
-                <div className="p-6">
-                  {/* Icono */}
-                  <div
-                    className="w-16 h-16 rounded-xl flex items-center justify-center text-white mb-5 group-hover:scale-110 transition-transform duration-300"
-                    style={{ backgroundColor: colors.primary }}
-                  >
-                    <RutaIcon ruta={ruta.id} size={32} />
+                {/* Imagen de marca (esquina de color) con el ícono encima */}
+                <div className="relative pt-6 pl-6">
+                  <div className="relative w-32 sm:w-36 aspect-[700/530]">
+                    <Image src={colors.corner} alt="" fill className="object-contain object-left-top" />
+                    <div className="me-group-hover-scale absolute top-4 left-3 duration-300">
+                      <RutaIcon ruta={ruta.id} size={36} />
+                    </div>
                   </div>
+                </div>
 
-                  {/* Número de ruta */}
-                  <div
-                    className="text-xs font-bold uppercase tracking-widest mb-2"
-                    style={{ color: colors.primary }}
-                  >
-                    Ruta {index + 1}
-                  </div>
-
+                <div className="p-6 flex flex-col flex-1">
                   {/* Título */}
-                  <h3 className="text-xl font-bold text-blue-950 mb-3">
+                  <h3 className="font-aeonik text-xl font-bold text-me-navy mb-3">
                     {ruta.nombre}
                   </h3>
 
                   {/* Descripción */}
-                  <p className="text-gray-600 text-sm leading-relaxed mb-6">
+                  <p className="text-gray-600 text-sm leading-relaxed mb-6 flex-1">
                     {ruta.descripcion}
                   </p>
 
                   {/* Footer de la tarjeta */}
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                    <span
-                      className="text-sm font-semibold px-3 py-1 rounded-full"
-                      style={{ backgroundColor: colors.light, color: colors.primary }}
-                    >
-                      {count} recursos
-                    </span>
+                  <div className="flex items-center pt-4 border-t border-gray-200">
                     <div
-                      className="flex items-center gap-1 text-sm font-medium group-hover:gap-2 transition-all"
+                      className="flex items-center gap-1 text-sm font-medium whitespace-nowrap group-hover:gap-2 transition-all"
                       style={{ color: colors.primary }}
                     >
-                      <span>Explorar</span>
+                      <span>Hay una ruta para ti</span>
                       <Icon
                         icon="ph:arrow-right-bold"
-                        className="group-hover:translate-x-1 transition-transform"
+                        className="me-group-hover-arrow"
                         width={16}
                       />
                     </div>
                   </div>
                 </div>
+
+                {/* Barra inferior de color */}
+                <div className="h-2.5 w-full" style={{ backgroundColor: colors.primary }} />
               </button>
             );
           })}
@@ -397,14 +422,14 @@ function InfoSection() {
             placeholder=""
             className="bg-gray-100 h-14 sm:h-16 m-0 p-0 rounded-t-2xl"
             indicatorProps={{
-              className: "bg-red-700 rounded-t-2xl !text-white",
+              className: "bg-me-coral rounded-t-2xl !text-white",
             }}
           >
             <Tab
               key="about"
               value="about"
               placeholder=""
-              className={`duration-500 text-sm sm:text-base ${tab === "about" ? "text-white" : "text-blue-950"}`}
+              className={`duration-500 text-sm sm:text-base ${tab === "about" ? "text-white" : "text-me-navy"}`}
               onClick={() => setTab("about")}
             >
               Sobre Mujer Exporta +
@@ -413,7 +438,7 @@ function InfoSection() {
               key="how"
               value="how"
               placeholder=""
-              className={`duration-500 text-sm sm:text-base ${tab === "how" ? "text-white" : "text-blue-950"}`}
+              className={`duration-500 text-sm sm:text-base ${tab === "how" ? "text-white" : "text-me-navy"}`}
               onClick={() => setTab("how")}
             >
               Cómo Funciona
@@ -422,7 +447,7 @@ function InfoSection() {
               key="origen"
               value="origen"
               placeholder=""
-              className={`duration-500 text-sm sm:text-base ${tab === "origen" ? "text-white" : "text-blue-950"}`}
+              className={`duration-500 text-sm sm:text-base ${tab === "origen" ? "text-white" : "text-me-navy"}`}
               onClick={() => setTab("origen")}
             >
               Origen
@@ -441,7 +466,7 @@ function InfoSection() {
                   buscamos potenciar el talento local en los mercados internacionales.
                 </p>
                 <div className="flex flex-wrap gap-3 pt-4">
-                  <span className="px-4 py-2 bg-blue-950 text-white rounded-full text-sm font-medium">ProDominicana</span>
+                  <span className="px-4 py-2 bg-me-coral text-white rounded-full text-sm font-medium">ProDominicana</span>
                 </div>
               </div>
             </TabPanel>
@@ -454,7 +479,7 @@ function InfoSection() {
                   "Todos los recursos son gratuitos y están verificados por ProDominicana.",
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded-full bg-red-700 flex items-center justify-center text-white text-sm font-bold shrink-0">
+                    <div className="w-6 h-6 rounded-full bg-me-coral flex items-center justify-center text-white text-sm font-bold shrink-0">
                       {i + 1}
                     </div>
                     <span className="text-gray-700 text-base sm:text-lg">{item}</span>
@@ -474,7 +499,7 @@ function InfoSection() {
                   conectando a las emprendedoras con los recursos disponibles.
                 </p>
                 <div className="flex flex-wrap gap-3 pt-4">
-                  <span className="px-4 py-2 bg-blue-950 text-white rounded-full text-sm font-medium">ProDominicana</span>
+                  <span className="px-4 py-2 bg-me-coral text-white rounded-full text-sm font-medium">ProDominicana</span>
                 </div>
               </div>
             </TabPanel>
@@ -487,15 +512,15 @@ function InfoSection() {
 
 function CTASection({ onExplore }: { onExplore: () => void }) {
   return (
-    <div className="w-full bg-blue-950 py-16">
-      <div className="flex flex-col xl:flex-row justify-center items-center font-bold gap-5 xl:gap-20 w-11/12 max-w-7xl mx-auto">
+    <div className="w-full bg-me-coral py-16">
+      <div className="flex flex-col xl:flex-row justify-center items-center font-aeonik font-bold gap-5 xl:gap-20 w-11/12 max-w-7xl mx-auto">
         <h2 className="text-xl sm:text-2xl xl:text-4xl text-white xl:w-6/12 text-center leading-tight">
           Comienza tu camino hacia la exportación hoy
         </h2>
         <Button
           onClick={onExplore}
           placeholder=""
-          className="bg-red-700 hover:bg-red-800 text-white font-bold text-base xl:text-lg h-14 sm:h-16 rounded-full normal-case px-8 shadow-lg"
+          className="bg-white hover:bg-me-marfil text-me-coral font-bold text-base xl:text-lg h-14 sm:h-16 rounded-2xl normal-case px-8 shadow-lg duration-200"
         >
           Explorar todos los recursos
         </Button>
@@ -524,19 +549,19 @@ function NoticiasSection() {
   ];
 
   return (
-    <section id="noticias" className="w-full bg-white py-12">
+    <section id="noticias" className="w-full bg-me-marfil py-12">
       <div className="w-11/12 max-w-7xl mx-auto">
-        <h2 className="text-2xl sm:text-3xl font-bold text-blue-950 text-center mb-8">Noticias</h2>
+        <h2 className="font-aeonik text-2xl sm:text-3xl font-bold text-me-navy text-center mb-8">Noticias</h2>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {noticias.map((noticia, i) => (
             <div
               key={i}
-              className="bg-gray-50 border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300"
+              className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg transition-all duration-300"
             >
-              <span className="text-xs text-red-700 font-medium">{noticia.fecha}</span>
-              <h3 className="text-lg font-bold text-blue-950 mt-2 mb-3">{noticia.titulo}</h3>
+              <span className="text-xs text-me-coral font-medium">{noticia.fecha}</span>
+              <h3 className="text-lg font-bold text-me-navy mt-2 mb-3">{noticia.titulo}</h3>
               <p className="text-gray-600 text-sm leading-relaxed">{noticia.descripcion}</p>
-              <button className="mt-4 text-cyan-600 text-sm font-medium hover:text-red-700 transition-colors">
+              <button className="mt-4 text-me-teal text-sm font-medium hover:text-me-coral transition-colors">
                 Leer más →
               </button>
             </div>
@@ -560,8 +585,8 @@ function InstitucionesSection() {
   ];
 
   return (
-    <section id="instituciones" className="w-full bg-gray-50 py-16 overflow-hidden">
-      <h2 className="text-2xl sm:text-3xl font-bold text-blue-950 text-center mb-4">Instituciones Aliadas</h2>
+    <section id="instituciones" className="w-full bg-me-marfil py-16 overflow-hidden">
+      <h2 className="font-aeonik text-2xl sm:text-3xl font-bold text-me-navy text-center mb-4">Instituciones Aliadas</h2>
       <p className="text-gray-600 text-center mb-10 max-w-2xl mx-auto px-4">
         Más de 80 instituciones públicas y privadas comprometidas con el empoderamiento de mujeres exportadoras
       </p>
@@ -569,8 +594,8 @@ function InstitucionesSection() {
       {/* Carrusel infinito */}
       <div className="relative">
         {/* Gradientes de fade en los bordes */}
-        <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-gray-50 to-transparent z-10 pointer-events-none" />
-        <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-gray-50 to-transparent z-10 pointer-events-none" />
+        <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-me-marfil to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-me-marfil to-transparent z-10 pointer-events-none" />
 
         {/* Primera fila - movimiento hacia la izquierda */}
         <div className="flex animate-scroll-left mb-6">
@@ -579,7 +604,7 @@ function InstitucionesSection() {
               key={`row1-${i}`}
               className="flex-shrink-0 mx-4"
             >
-              <div className="group bg-white shadow-sm border border-gray-100 rounded-2xl p-4 hover:shadow-md hover:border-gray-200 transition-all duration-300 cursor-pointer hover:scale-105">
+              <div className="me-hover-scale group bg-white shadow-sm border border-gray-100 rounded-2xl p-4 hover:shadow-md hover:border-gray-200 transition-all duration-300 cursor-pointer">
                 <Image
                   src={inst.logo}
                   alt={inst.nombre}
@@ -599,7 +624,7 @@ function InstitucionesSection() {
               key={`row2-${i}`}
               className="flex-shrink-0 mx-4"
             >
-              <div className="group bg-white shadow-sm border border-gray-100 rounded-2xl p-4 hover:shadow-md hover:border-gray-200 transition-all duration-300 cursor-pointer hover:scale-105">
+              <div className="me-hover-scale group bg-white shadow-sm border border-gray-100 rounded-2xl p-4 hover:shadow-md hover:border-gray-200 transition-all duration-300 cursor-pointer">
                 <Image
                   src={inst.logo}
                   alt={inst.nombre}
@@ -615,9 +640,9 @@ function InstitucionesSection() {
 
       {/* Contador */}
       <div className="flex justify-center mt-10">
-        <div className="flex items-center gap-3 bg-red-100 rounded-full px-6 py-3">
-          <Icon icon="ph:buildings-bold" className="text-red-700" width={24} />
-          <span className="text-red-700 font-semibold">+80 Instituciones comprometidas</span>
+        <div className="flex items-center gap-3 bg-me-coral-pale rounded-full px-6 py-3">
+          <Icon icon="ph:buildings-bold" className="text-me-coral" width={24} />
+          <span className="text-me-coral font-semibold">+80 Instituciones comprometidas</span>
         </div>
       </div>
     </section>
@@ -654,34 +679,35 @@ function RecursosView({
   onReset: () => void;
 }) {
   return (
-    <section className="w-full min-h-screen bg-gray-50">
+    <section className="w-full min-h-screen bg-me-marfil">
       {/* Header */}
-      <div className="py-14 px-4 bg-blue-950">
+      <div className="py-14 px-4 bg-gradient-to-r from-me-coral-light to-me-coral">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-8">
-            <span className="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 text-xs text-cyan-200 font-medium mb-4 uppercase tracking-wider">
+            <span className="inline-flex items-center gap-2 bg-white rounded-full px-4 py-1.5 text-xs text-me-coral font-semibold mb-4 uppercase tracking-wider">
               {totalRecursos} recursos disponibles
             </span>
-            <h2 className="text-3xl lg:text-4xl font-bold text-white mb-3">
+            <h2 className="font-aeonik text-3xl lg:text-4xl font-bold text-white mb-3">
               Explorar Recursos
             </h2>
-            <p className="text-cyan-200 text-base max-w-xl mx-auto">
+            <div className="w-14 h-1 bg-white rounded-full mx-auto mb-4" />
+            <p className="text-white/70 text-base max-w-xl mx-auto">
               Filtra por ruta, tipo o nivel para encontrar exactamente lo que necesitas.
             </p>
           </div>
 
           {/* Buscador */}
           <div className="relative max-w-xl mx-auto">
-            <Icon icon="ph:magnifying-glass" className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" width={20} />
+            <Icon icon="ph:magnifying-glass" className="me-center-y absolute left-4 text-gray-400" width={20} />
             <input
               type="text"
               placeholder="Buscar por título, autor o tema..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-12 pr-12 py-4 bg-white rounded-2xl text-sm text-gray-900 placeholder:text-gray-400 border-0 focus:outline-none focus:ring-2 focus:ring-cyan-400 shadow-xl"
+              className="w-full pl-12 pr-12 py-4 bg-white rounded-2xl text-sm text-gray-900 placeholder:text-gray-400 border-0 focus:outline-none focus:ring-2 focus:ring-me-navy shadow-xl"
             />
             {search && (
-              <button onClick={() => setSearch("")} className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors">
+              <button onClick={() => setSearch("")} className="me-center-y absolute right-4 text-gray-400 hover:text-gray-600 transition-colors">
                 <Icon icon="ph:x-circle-fill" width={22} />
               </button>
             )}
@@ -697,7 +723,7 @@ function RecursosView({
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold text-gray-800 text-sm">Filtros</h3>
                 {(selectedRuta || filtroTipo !== "Todos" || filtroNivel !== "Todos") && (
-                  <button onClick={onReset} className="text-xs text-red-700 hover:underline">
+                  <button onClick={onReset} className="text-xs text-me-coral hover:underline">
                     Limpiar
                   </button>
                 )}
@@ -710,7 +736,7 @@ function RecursosView({
                   <button
                     onClick={() => setSelectedRuta(null)}
                     className={`w-full text-left text-sm px-3 py-1.5 rounded-lg transition-colors ${
-                      !selectedRuta ? "bg-blue-950 text-white font-medium" : "text-gray-600 hover:bg-gray-50"
+                      !selectedRuta ? "bg-me-coral text-white font-medium" : "text-gray-600 hover:bg-gray-50"
                     }`}
                   >
                     Todas las rutas
@@ -722,11 +748,15 @@ function RecursosView({
                       <button
                         key={ruta.id}
                         onClick={() => setSelectedRuta(ruta.id)}
-                        className={`w-full text-left text-sm px-3 py-1.5 rounded-lg transition-colors ${
+                        className={`w-full flex items-center gap-2 text-left text-sm px-3 py-1.5 rounded-lg transition-colors ${
                           isActive ? "font-semibold" : "text-gray-600 hover:bg-gray-50"
                         }`}
                         style={isActive ? { background: colors.light, color: colors.primary } : {}}
                       >
+                        <span
+                          className="w-2 h-2 rounded-full shrink-0"
+                          style={{ backgroundColor: colors.primary }}
+                        />
                         {ruta.nombre}
                       </button>
                     );
@@ -743,7 +773,7 @@ function RecursosView({
                       key={n}
                       onClick={() => setFiltroNivel(n)}
                       className={`w-full text-left text-sm px-3 py-1.5 rounded-lg transition-colors ${
-                        filtroNivel === n ? "bg-blue-950 text-white font-medium" : "text-gray-600 hover:bg-gray-50"
+                        filtroNivel === n ? "bg-me-coral text-white font-medium" : "text-gray-600 hover:bg-gray-50"
                       }`}
                     >
                       {n}
@@ -761,7 +791,7 @@ function RecursosView({
                       key={t}
                       onClick={() => setFiltroTipo(t)}
                       className={`w-full text-left text-sm px-3 py-1.5 rounded-lg transition-colors ${
-                        filtroTipo === t ? "bg-blue-950 text-white font-medium" : "text-gray-600 hover:bg-gray-50"
+                        filtroTipo === t ? "bg-me-coral text-white font-medium" : "text-gray-600 hover:bg-gray-50"
                       }`}
                     >
                       {t}
@@ -816,7 +846,7 @@ function RecursosView({
               <div className="text-center py-16">
                 <Icon icon="ph:magnifying-glass" className="mx-auto text-gray-300 mb-4" width={48} />
                 <p className="text-gray-500 font-medium">No se encontraron recursos</p>
-                <button onClick={onReset} className="mt-3 text-sm text-red-700 hover:underline">
+                <button onClick={onReset} className="mt-3 text-sm text-me-coral hover:underline">
                   Limpiar filtros
                 </button>
               </div>
@@ -874,7 +904,7 @@ function RecursoCard({ recurso }: { recurso: Recurso }) {
       </div>
 
       {/* Título */}
-      <h3 className="font-semibold text-gray-900 text-sm leading-snug mb-1.5 group-hover:text-blue-700 transition-colors line-clamp-2">
+      <h3 className="font-semibold text-gray-900 text-sm leading-snug mb-1.5 group-hover:text-me-coral transition-colors line-clamp-2">
         {recurso.titulo}
       </h3>
 
@@ -896,7 +926,7 @@ function RecursoCard({ recurso }: { recurso: Recurso }) {
             {recurso.nivel}
           </span>
           <div
-            className="w-7 h-7 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform"
+            className="me-group-hover-scale w-7 h-7 rounded-lg flex items-center justify-center"
             style={{ background: colors.primary }}
           >
             <Icon icon="ph:arrow-square-out-bold" className="text-white" width={14} />
@@ -911,7 +941,7 @@ function ApoyoSection() {
   return (
     <section className="w-full bg-white border-t border-gray-200 py-14">
       <div className="w-11/12 max-w-3xl mx-auto flex flex-col items-center text-center gap-5">
-        <h2 className="text-xl sm:text-2xl font-bold text-blue-950">
+        <h2 className="font-aeonik text-xl sm:text-2xl font-bold text-me-navy">
           Con el apoyo de
         </h2>
         <div className="flex items-center gap-3">
@@ -937,15 +967,15 @@ function ApoyoSection() {
 
 function Footer() {
   return (
-    <footer className="w-full bg-blue-950">
-      <div className="w-11/12 max-w-7xl mx-auto flex flex-col xl:flex-row gap-8 xl:gap-28 py-10 border-t-2 border-red-700 text-white">
+    <footer className="w-full bg-me-coral">
+      <div className="w-11/12 max-w-7xl mx-auto flex flex-col xl:flex-row gap-8 xl:gap-28 py-10 border-t-2 border-me-navy text-white">
         <div className="flex flex-col gap-4">
           <Image
-            width={1980}
-            height={1080}
+            width={2343}
+            height={893}
             alt="Prodominicana"
             src="/prodominicanaFull.svg"
-            className="w-40 sm:w-56 brightness-0 invert"
+            className="w-40 sm:w-56 h-auto brightness-0 invert"
           />
           <p className="text-white/70 text-sm max-w-xs">
             Directorio de recursos y oportunidades para mujeres emprendedoras y exportadoras.
@@ -956,17 +986,17 @@ function Footer() {
           <h3 className="font-bold text-base">Contacto</h3>
           <p>
             Teléfono:{" "}
-            <Link href="tel:+18095305505" className="hover:text-cyan-400 duration-200">
+            <Link href="tel:+18095305505" className="hover:text-me-teal duration-200">
               +1 809-530-5505
             </Link>
           </p>
           <p>
             Correo:{" "}
-            <Link href="mailto:servicios@prodominicana.gob.do" className="hover:text-cyan-400 duration-200">
+            <Link href="mailto:servicios@prodominicana.gob.do" className="hover:text-me-teal duration-200">
               servicios@prodominicana.gob.do
             </Link>
           </p>
-          <Link href="https://prodominicana.gob.do" target="_blank" className="font-bold hover:text-cyan-400 duration-200">
+          <Link href="https://prodominicana.gob.do" target="_blank" className="font-bold hover:text-me-teal duration-200">
             www.prodominicana.gob.do
           </Link>
         </div>
@@ -984,7 +1014,7 @@ function Footer() {
                 key={i}
                 href={social.href}
                 target="_blank"
-                className="rounded-full p-2 border-2 border-white/30 hover:border-red-700 hover:bg-red-700 group duration-200"
+                className="rounded-full p-2 border-2 border-white/30 hover:border-me-navy hover:bg-me-navy group duration-200"
               >
                 <Icon icon={social.icon} className="size-5 duration-200" />
               </Link>

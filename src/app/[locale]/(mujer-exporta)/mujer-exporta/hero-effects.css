@@ -1,0 +1,40 @@
+/*
+  Utilidades de transform como fallback manual.
+  En este proyecto las clases scale y translate de Tailwind no generan
+  CSS (bug reproducible incluso tras limpiar caché y reiniciar Turbopack),
+  así que estos efectos se declaran a mano.
+*/
+
+.me-shape-outline {
+  transform: scale(1.25) translate(-18%, 4%);
+}
+
+.me-shape-fill {
+  transform: scale(1.25);
+}
+
+.me-center-y {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.me-hover-scale {
+  transition: transform 0.3s;
+}
+.me-hover-scale:hover {
+  transform: scale(1.1);
+}
+
+.me-group-hover-scale {
+  transition: transform 0.3s;
+}
+.group:hover .me-group-hover-scale {
+  transform: scale(1.1);
+}
+
+.me-group-hover-arrow {
+  transition: transform 0.2s;
+}
+.group:hover .me-group-hover-arrow {
+  transform: translateX(4px);
+}

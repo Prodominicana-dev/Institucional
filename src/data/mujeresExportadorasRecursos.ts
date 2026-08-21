@@ -32,7 +32,7 @@ export const RUTAS: Ruta[] = [
   {
     id: 'aprender',
     nombre: 'Aprender',
-    descripcion: 'Formación, cursos, estudios y mentoría para desarrollar tus capacidades.',
+    descripcion: 'Formación, conocimientos y herramientas para fortalecer tus capacidades.',
     color: '#2D6A8F',
     colorBg: '#EFF6FF',
     colorBorder: '#BFDBFE',
@@ -42,7 +42,7 @@ export const RUTAS: Ruta[] = [
   {
     id: 'impulsar',
     nombre: 'Impulsar',
-    descripcion: 'Premios, certificaciones y servicios para hacer crecer tu negocio.',
+    descripcion: 'Servicios, iniciativas y recursos para fortalecer tu empresa.',
     color: '#2E7D32',
     colorBg: '#F0FDF4',
     colorBorder: '#BBF7D0',
@@ -52,7 +52,7 @@ export const RUTAS: Ruta[] = [
   {
     id: 'exportar',
     nombre: 'Exportar',
-    descripcion: 'Herramientas y requisitos para preparar tu empresa y llegar a nuevos mercados.',
+    descripcion: 'Información, herramientas y requisitos para explorar nuevos mercados.',
     color: '#00897B',
     colorBg: '#F0FDFA',
     colorBorder: '#99F6E4',
@@ -62,7 +62,7 @@ export const RUTAS: Ruta[] = [
   {
     id: 'conectar',
     nombre: 'Conectar',
-    descripcion: 'Redes, comunidades y contactos para ampliar tus oportunidades.',
+    descripcion: 'Redes, comunidades, instituciones y contactos de interés.',
     color: '#7B1FA2',
     colorBg: '#FAF5FF',
     colorBorder: '#E9D5FF',
