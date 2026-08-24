@@ -16,6 +16,12 @@
 # production
 /build
 
+# Documentos de los códigos QR: se suben desde el panel y viven solo en el
+# servidor. Al quedar ignorados, ni "git reset --hard" ni "git clean -fd" los
+# tocan durante el despliegue.
+/public/QRDocs/*
+!/public/QRDocs/.gitkeep
+
 # misc
 .DS_Store
 *.pem

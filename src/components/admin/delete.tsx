@@ -40,7 +40,7 @@ export default function DeleteButton({
             <div className="flex flex-row w-full space-x-3">
               <button
                 disabled={isLoading}
-                className="w-full h-12 font-normal text-red-500 duration-300 bg-white rounded-lg hover:shadow-lg hover:text-white hover:bg-red-500 border-2 border-red-500  flex justify-center items-center"
+                className="w-full h-12 font-normal cursor-pointer text-red-500 duration-300 bg-white rounded-lg hover:shadow-lg hover:text-white hover:bg-red-500 border-2 border-red-500  flex justify-center items-center"
                 onClick={() => {
                   setIsLoading(true);
                   funct();
@@ -50,7 +50,7 @@ export default function DeleteButton({
               </button>
               <button
                 onClick={handleOpen}
-                className="w-full h-12 font-normal text-white duration-300 bg-red-500 border-2 border-red-500 rounded-lg hover:shadow-lg hover:bg-white hover:text-red-500"
+                className="w-full h-12 font-normal cursor-pointer text-white duration-300 bg-red-500 border-2 border-red-500 rounded-lg hover:shadow-lg hover:bg-white hover:text-red-500"
               >
                 Cancelar
               </button>

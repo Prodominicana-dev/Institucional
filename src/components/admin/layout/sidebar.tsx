@@ -109,6 +109,11 @@ export function SideBar() {
             url={"/admin/documents"}
             iconUrl={"/svg/layout/sidebar/documents.svg"}
           />
+          <SidebarItem
+            title={"Documentos QR"}
+            url={"/admin/qr-docs"}
+            iconUrl={"/svg/layout/sidebar/documents.svg"}
+          />
           <Accordion
             open={openServices === 1}
             icon={

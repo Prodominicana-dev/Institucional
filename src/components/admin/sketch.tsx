@@ -39,7 +39,7 @@ export default function Sketch({
                 <button
                   key={key}
                   onClick={button.onClick}
-                  className="w-36 h-12 rounded-full bg-blue-dark text-white hover:text-white/80 hover:shadow-md"
+                  className="w-36 h-12 rounded-full bg-blue-dark text-white hover:text-white/80 hover:shadow-md cursor-pointer"
                 >
                   {button.name}
                 </button>
@@ -48,7 +48,7 @@ export default function Sketch({
             {hasFilter && (
               <button
                 onClick={handleFilterOpen}
-                className="w-36 h-12 rounded-full border-[1px] border-gray-400 text-gray-400 hover:text-gray-400/80 hover:shadow-sm"
+                className="w-36 h-12 rounded-full border-[1px] border-gray-400 text-gray-400 hover:text-gray-400/80 hover:shadow-sm cursor-pointer"
               >
                 Filtrar
               </button>
