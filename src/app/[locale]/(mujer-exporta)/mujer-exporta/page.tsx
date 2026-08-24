@@ -175,7 +175,13 @@ function Header({
 
       <div className="w-11/12 max-w-7xl mx-auto flex flex-col sm:flex-row items-center py-5 sm:py-6 gap-4 sm:gap-6 border-b border-gray-100">
         <div className="flex items-center gap-3 sm:gap-4 flex-shrink-0">
-          <Link href="/">
+          <Link
+            href="/mujer-exporta"
+            onClick={() => {
+              setActiveView("home");
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+          >
             <Image
               width={1600}
               height={900}
@@ -184,7 +190,7 @@ function Header({
               className="w-32 sm:w-36 h-auto"
             />
           </Link>
-          <div className="hidden md:flex items-center gap-2 pl-4 border-l border-gray-200">
+          <Link href="/" className="hidden md:flex items-center gap-2 pl-4 border-l border-gray-200">
             <span className="text-xs text-gray-500 font-medium">Una Iniciativa de</span>
             <Image
               width={2343}
@@ -193,7 +199,7 @@ function Header({
               src="/prodominicanaFull.svg"
               className="w-24 h-auto"
             />
-          </div>
+          </Link>
         </div>
 
         <div className="sm:ml-auto flex flex-wrap items-center justify-center gap-5 sm:gap-8 text-sm sm:text-base font-medium">
@@ -252,10 +258,13 @@ function HeroSection({ onExplore }: { onExplore: () => void }) {
         {/* Texto */}
         <div className="flex flex-col items-center lg:items-start text-center lg:text-left">
           {/* Badge visible solo en mobile: reemplaza al logo de ProDominicana del header, oculto ahí por espacio */}
-          <div className="flex md:hidden items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm mb-8">
-            <Icon icon="ph:flag-banner-bold" className="text-me-coral" width={16} />
+          <Link
+            href="/"
+            className="flex md:hidden items-center gap-2 px-4 py-2 rounded-full bg-white shadow-sm mb-8"
+          >
+            <Icon icon="ph:house-bold" className="text-me-coral" width={16} />
             <span className="text-sm font-medium text-me-navy">Una iniciativa de ProDominicana</span>
-          </div>
+          </Link>
 
           <h1 className="font-aeonik font-bold text-4xl sm:text-5xl lg:text-6xl leading-[1.1] mb-6">
             <span className="text-me-coral">Plataforma</span>
