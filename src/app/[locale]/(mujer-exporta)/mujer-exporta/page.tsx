@@ -16,7 +16,6 @@ import {
   RUTAS,
   recursos,
   TIPOS_RECURSO,
-  NIVELES,
   PUBLICO_OBJETIVO,
   Recurso,
 } from "@/data/mujeresExportadorasRecursos";
@@ -45,7 +44,6 @@ export default function Page() {
   const [selectedRuta, setSelectedRuta] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [filtroTipo, setFiltroTipo] = useState("Todos");
-  const [filtroNivel, setFiltroNivel] = useState("Todos");
   const [pagina, setPagina] = useState(1);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const POR_PAGINA = 12;
@@ -67,7 +65,6 @@ export default function Page() {
     return recursos.filter((r) => {
       if (selectedRuta && r.ruta !== selectedRuta) return false;
       if (filtroTipo !== "Todos" && r.tipo !== filtroTipo) return false;
-      if (filtroNivel !== "Todos" && r.nivel !== filtroNivel) return false;
       if (search) {
         const q = search.toLowerCase();
         return (
@@ -78,7 +75,7 @@ export default function Page() {
       }
       return true;
     });
-  }, [selectedRuta, filtroTipo, filtroNivel, search]);
+  }, [selectedRuta, filtroTipo, search]);
 
   const paginados = filtrados.slice(0, pagina * POR_PAGINA);
   const hayMas = paginados.length < filtrados.length;
@@ -93,7 +90,6 @@ export default function Page() {
     setSearch("");
     setSelectedRuta(null);
     setFiltroTipo("Todos");
-    setFiltroNivel("Todos");
     setPagina(1);
   };
 
@@ -119,8 +115,8 @@ export default function Page() {
           {/* Instituciones (oculta a pedido del cliente) */}
           {/* <InstitucionesSection /> */}
 
-          {/* Noticias */}
-          <NoticiasSection />
+          {/* Noticias (oculta a pedido del cliente) */}
+          {/* <NoticiasSection /> */}
 
           {/* Con el apoyo de */}
           <ApoyoSection />
@@ -136,8 +132,6 @@ export default function Page() {
           setSearch={setSearch}
           filtroTipo={filtroTipo}
           setFiltroTipo={setFiltroTipo}
-          filtroNivel={filtroNivel}
-          setFiltroNivel={setFiltroNivel}
           hayMas={hayMas}
           onLoadMore={() => setPagina((p) => p + 1)}
           onReset={resetFilters}
@@ -218,15 +212,6 @@ function Header({
             className={`duration-200 ${activeView === "recursos" ? "text-me-coral" : "text-me-navy hover:text-me-coral"}`}
           >
             Recursos
-          </button>
-          <button
-            onClick={() => {
-              setActiveView("home");
-              setTimeout(() => document.getElementById("noticias")?.scrollIntoView({ behavior: "smooth" }), 100);
-            }}
-            className="text-me-navy hover:text-me-coral duration-200"
-          >
-            Noticias
           </button>
           <button
             onClick={() => {
@@ -670,8 +655,6 @@ function RecursosView({
   setSearch,
   filtroTipo,
   setFiltroTipo,
-  filtroNivel,
-  setFiltroNivel,
   hayMas,
   onLoadMore,
   onReset,
@@ -684,8 +667,6 @@ function RecursosView({
   setSearch: (s: string) => void;
   filtroTipo: string;
   setFiltroTipo: (t: string) => void;
-  filtroNivel: string;
-  setFiltroNivel: (n: string) => void;
   hayMas: boolean;
   onLoadMore: () => void;
   onReset: () => void;
@@ -734,7 +715,7 @@ function RecursosView({
             <div className="bg-white rounded-2xl border border-gray-100 p-5 sticky top-20">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="font-semibold text-gray-800 text-sm">Filtros</h3>
-                {(selectedRuta || filtroTipo !== "Todos" || filtroNivel !== "Todos") && (
+                {(selectedRuta || filtroTipo !== "Todos") && (
                   <button onClick={onReset} className="text-xs text-me-coral hover:underline">
                     Limpiar
                   </button>
@@ -773,24 +754,6 @@ function RecursosView({
                       </button>
                     );
                   })}
-                </div>
-              </div>
-
-              {/* Nivel */}
-              <div className="mb-5">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Nivel</p>
-                <div className="space-y-1">
-                  {NIVELES.map((n) => (
-                    <button
-                      key={n}
-                      onClick={() => setFiltroNivel(n)}
-                      className={`w-full text-left text-sm px-3 py-1.5 rounded-lg transition-colors ${
-                        filtroNivel === n ? "bg-me-coral text-white font-medium" : "text-gray-600 hover:bg-gray-50"
-                      }`}
-                    >
-                      {n}
-                    </button>
-                  ))}
                 </div>
               </div>
 
@@ -931,12 +894,6 @@ function RecursoCard({ recurso }: { recurso: Recurso }) {
           <p className="text-xs font-medium text-gray-700">{recurso.autor}</p>
         </div>
         <div className="flex items-center gap-2">
-          <span
-            className="text-xs px-2 py-0.5 rounded-full font-medium"
-            style={{ background: colors.light, color: colors.primary }}
-          >
-            {recurso.nivel}
-          </span>
           <div
             className="me-group-hover-scale w-7 h-7 rounded-lg flex items-center justify-center"
             style={{ background: colors.primary }}
