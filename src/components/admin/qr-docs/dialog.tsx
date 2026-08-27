@@ -13,7 +13,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { uploadQrDoc } from "@/services/qr-docs/service";
 import { formatBytes } from "@/lib/image-compression";
 
@@ -85,16 +84,14 @@ export function QrDocDialog({
 
   return (
     <Dialog open={open} onOpenChange={handler}>
-      <DialogHeader className="font-semibold flex flex-col items-start gap-1 font-montserrat">
-        {esReemplazo ? "Reemplazar documento" : "Agregar documento"}
-      </DialogHeader>
-
+      {/* El encabezado va dentro del contenido: fuera de él se dibujaría en la
+          página, debajo de la tabla, en lugar de dentro de la ventana. */}
       <DialogContent className="flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar">
-        <VisuallyHidden>
+        <DialogHeader className="font-semibold flex flex-col items-start gap-1 font-montserrat">
           <DialogTitle>
             {esReemplazo ? "Reemplazar documento" : "Agregar documento"}
           </DialogTitle>
-        </VisuallyHidden>
+        </DialogHeader>
 
         <div className="flex flex-col w-full space-y-4">
           <label className="font-semibold text-black text-lg">
