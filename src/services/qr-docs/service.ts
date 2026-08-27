@@ -8,6 +8,19 @@ var CryptoJS = require("crypto-js");
    hosting compartido de la API es lento subiendo. */
 const UPLOAD_TIMEOUT_MS = 5 * 60 * 1000;
 
+/* Las consultas viajan por el dominio público, para que la pantalla cargue
+   desde cualquier lugar. */
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+/* Las subidas, en cambio, van por la dirección interna del servidor: no pasan
+   por Cloudflare y así esquivan su límite de tiempo en peticiones largas, que
+   es lo que corta la carga de un PDF pesado.
+
+   Se define en NEXT_PUBLIC_INTERNAL_API_URL. Al ser una dirección de red
+   local, solo funciona desde la oficina, que es desde donde se administran
+   estos documentos. Si no está definida, se usa el dominio público. */
+const UPLOAD_URL = process.env.NEXT_PUBLIC_INTERNAL_API_URL || API_URL;
+
 /* Listado de los PDF que abren los códigos QR.
 
    Sin reintentos: si la API no responde, conviene decirlo de una vez en
@@ -19,7 +32,7 @@ export function useQrDocs() {
     retry: false,
     refetchOnWindowFocus: false,
     queryFn: async () => {
-      const url = `${process.env.NEXT_PUBLIC_API_URL}/qr-docs`;
+      const url = `${API_URL}/qr-docs`;
       const { data } = await axios.get(url);
       return data;
     },
@@ -44,7 +57,7 @@ export async function deleteQrDoc(
 
   try {
     const res = await axios.delete(
-      `${process.env.NEXT_PUBLIC_API_URL}/qr-docs/${encodeURIComponent(name)}`,
+      `${UPLOAD_URL}/qr-docs/${encodeURIComponent(name)}`,
       { headers: { Authorization: `${userIdEncrypted}` } }
     );
 
@@ -88,7 +101,7 @@ export async function uploadQrDoc(
 
   try {
     const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/qr-docs`,
+      `${UPLOAD_URL}/qr-docs`,
       document,
       {
         headers: { Authorization: `${userIdEncrypted}` },
