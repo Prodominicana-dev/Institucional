@@ -14,11 +14,13 @@ import {
 import { Icon } from "@iconify/react";
 import {
   RUTAS,
-  recursos,
+  recursos as recursosEstaticos,
   TIPOS_RECURSO,
   PUBLICO_OBJETIVO,
   Recurso,
 } from "@/data/mujeresExportadorasRecursos";
+import { useInitiatives } from "@/services/mujer-exporta/initiatives/service";
+import { SubscribeModal } from "@/components/mujer-exporta/subscribe-form";
 
 // Colores oficiales de marca Mujer Exporta + (paleta 2026)
 const RUTA_COLORS: Record<string, { primary: string; light: string; icon: string; corner: string }> = {
@@ -46,7 +48,34 @@ export default function Page() {
   const [filtroTipo, setFiltroTipo] = useState("Todos");
   const [pagina, setPagina] = useState(1);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [subscribeOpen, setSubscribeOpen] = useState(false);
   const POR_PAGINA = 12;
+
+  // Obtener iniciativas de la API
+  const { data: iniciativasAPI, isLoading: loadingAPI } = useInitiatives("es");
+
+  // Combinar datos de API con datos estáticos (fallback mientras se migran)
+  const recursos = useMemo(() => {
+    if (iniciativasAPI && iniciativasAPI.length > 0) {
+      // Convertir formato API al formato Recurso
+      return iniciativasAPI.map((i: any, index: number) => ({
+        id: index + 1,
+        ruta: i.ruta,
+        subtema: i.subtema || "",
+        tipo: i.tipo,
+        autor: i.autor,
+        titulo: i.title || "",
+        url: i.url,
+        descripcion: i.description || "",
+        publicoObjetivo: i.publicoObjetivo || "Mixto (hombres y mujeres)",
+        priorizacion: "Permanente institucional",
+        nivel: i.nivel || "Básico",
+        tags: i.tags || [],
+      }));
+    }
+    // Fallback a datos estáticos
+    return recursosEstaticos;
+  }, [iniciativasAPI]);
 
   // Detectar scroll para mostrar botón de ir arriba
   useEffect(() => {
@@ -62,7 +91,7 @@ export default function Page() {
   };
 
   const filtrados = useMemo(() => {
-    return recursos.filter((r) => {
+    return recursos.filter((r: Recurso) => {
       if (selectedRuta && r.ruta !== selectedRuta) return false;
       if (filtroTipo !== "Todos" && r.tipo !== filtroTipo) return false;
       if (search) {
@@ -75,7 +104,7 @@ export default function Page() {
       }
       return true;
     });
-  }, [selectedRuta, filtroTipo, search]);
+  }, [recursos, selectedRuta, filtroTipo, search]);
 
   const paginados = filtrados.slice(0, pagina * POR_PAGINA);
   const hayMas = paginados.length < filtrados.length;
@@ -96,7 +125,7 @@ export default function Page() {
   return (
     <div className="bg-white min-h-screen flex flex-col items-center">
       {/* Header */}
-      <Header activeView={activeView} setActiveView={setActiveView} />
+      <Header activeView={activeView} setActiveView={setActiveView} onSubscribe={() => setSubscribeOpen(true)} />
 
       {activeView === "home" ? (
         <>
@@ -110,7 +139,7 @@ export default function Page() {
           <InfoSection />
 
           {/* CTA */}
-          <CTASection onExplore={() => setActiveView("recursos")} />
+          <CTASection onExplore={() => setActiveView("recursos")} onSubscribe={() => setSubscribeOpen(true)} />
 
           {/* Instituciones (oculta a pedido del cliente) */}
           {/* <InstitucionesSection /> */}
@@ -151,6 +180,9 @@ export default function Page() {
           <Icon icon="ph:arrow-up-bold" width={24} />
         </button>
       )}
+
+      {/* Modal de suscripción */}
+      <SubscribeModal open={subscribeOpen} onClose={() => setSubscribeOpen(false)} />
     </div>
   );
 }
@@ -158,9 +190,11 @@ export default function Page() {
 function Header({
   activeView,
   setActiveView,
+  onSubscribe,
 }: {
   activeView: "home" | "recursos";
   setActiveView: (v: "home" | "recursos") => void;
+  onSubscribe: () => void;
 }) {
   return (
     <div className="w-full bg-white">
@@ -221,6 +255,13 @@ function Header({
             className="text-me-navy hover:text-me-coral duration-200"
           >
             Acerca de Mujer Exporta +
+          </button>
+          <button
+            onClick={onSubscribe}
+            className="flex items-center gap-2 px-4 py-2 bg-me-coral text-white rounded-xl font-medium hover:opacity-90 duration-200"
+          >
+            <Icon icon="ph:envelope-simple-bold" width={18} />
+            <span className="hidden sm:inline">Suscribirme</span>
           </button>
         </div>
 
@@ -507,20 +548,30 @@ function InfoSection() {
   );
 }
 
-function CTASection({ onExplore }: { onExplore: () => void }) {
+function CTASection({ onExplore, onSubscribe }: { onExplore: () => void; onSubscribe: () => void }) {
   return (
     <div className="w-full bg-me-coral py-16">
-      <div className="flex flex-col xl:flex-row justify-center items-center font-aeonik font-bold gap-5 xl:gap-20 w-11/12 max-w-7xl mx-auto">
-        <h2 className="text-xl sm:text-2xl xl:text-4xl text-white xl:w-6/12 text-center leading-tight">
+      <div className="flex flex-col xl:flex-row justify-center items-center font-aeonik font-bold gap-5 xl:gap-10 w-11/12 max-w-7xl mx-auto">
+        <h2 className="text-xl sm:text-2xl xl:text-4xl text-white xl:w-5/12 text-center xl:text-left leading-tight">
           Comienza tu camino hacia la exportación hoy
         </h2>
-        <Button
-          onClick={onExplore}
-          placeholder=""
-          className="bg-white hover:bg-me-marfil text-me-coral font-bold text-base xl:text-lg h-14 sm:h-16 rounded-2xl normal-case px-8 shadow-lg duration-200"
-        >
-          Explorar todos los recursos
-        </Button>
+        <div className="flex flex-col sm:flex-row gap-4">
+          <Button
+            onClick={onExplore}
+            placeholder=""
+            className="bg-white hover:bg-me-marfil text-me-coral font-bold text-base xl:text-lg h-14 sm:h-16 rounded-2xl normal-case px-8 shadow-lg duration-200"
+          >
+            Explorar todos los recursos
+          </Button>
+          <Button
+            onClick={onSubscribe}
+            placeholder=""
+            className="bg-me-navy hover:bg-me-navy/90 text-white font-bold text-base xl:text-lg h-14 sm:h-16 rounded-2xl normal-case px-8 shadow-lg duration-200 flex items-center gap-2"
+          >
+            <Icon icon="ph:envelope-simple-bold" width={20} />
+            Suscribirme
+          </Button>
+        </div>
       </div>
     </div>
   );
