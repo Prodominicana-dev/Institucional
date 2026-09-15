@@ -42,7 +42,7 @@ export default function Page() {
   const [rutaFilter, setRutaFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
 
-  const { data, isLoading, refetch } = useAdminInitiatives(user?.sub as string);
+  const { data, isLoading, refetch } = useAdminInitiatives();
   const [initiatives, setInitiatives] = useState<any[]>([]);
 
   const handleRefresh = () => {

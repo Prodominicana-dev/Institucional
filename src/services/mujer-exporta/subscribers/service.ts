@@ -1,15 +1,9 @@
 import { notifications } from "@mantine/notifications";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-var CryptoJS = require("crypto-js");
 
 // Hook para obtener suscriptores (admin)
-export function useSubscribers(userId: string, search?: string) {
-  const userIdEncrypted = CryptoJS.AES.encrypt(
-    userId,
-    process.env.NEXT_PUBLIC_CRYPTOJS_KEY
-  ).toString();
-
+export function useSubscribers(search?: string) {
   return useQuery({
     queryKey: ["mujerExportaSubscribers", search],
     queryFn: async () => {
@@ -17,12 +11,9 @@ export function useSubscribers(userId: string, search?: string) {
       if (search) {
         url += `?search=${encodeURIComponent(search)}`;
       }
-      const { data } = await axios.get(url, {
-        headers: { Authorization: userIdEncrypted },
-      });
+      const { data } = await axios.get(url);
       return data;
     },
-    enabled: !!userId,
   });
 }
 
@@ -74,20 +65,11 @@ export async function createSubscriber(
 export function deleteSubscriber(
   id: string,
   handleOpen: () => void,
-  update: () => void,
-  userId: string
+  update: () => void
 ) {
-  const userIdEncrypted = CryptoJS.AES.encrypt(
-    userId,
-    process.env.NEXT_PUBLIC_CRYPTOJS_KEY
-  ).toString();
-
   return axios
     .delete(
-      `${process.env.NEXT_PUBLIC_API_URL}/mujer-exporta/subscribers/${id}`,
-      {
-        headers: { Authorization: userIdEncrypted },
-      }
+      `${process.env.NEXT_PUBLIC_API_URL}/mujer-exporta/subscribers/${id}`
     )
     .then((res) => {
       if (res.status === 200) {
@@ -118,17 +100,11 @@ export function deleteSubscriber(
 }
 
 // Exportar suscriptores a CSV
-export async function exportSubscribers(userId: string): Promise<void> {
-  const userIdEncrypted = CryptoJS.AES.encrypt(
-    userId,
-    process.env.NEXT_PUBLIC_CRYPTOJS_KEY
-  ).toString();
-
+export async function exportSubscribers(): Promise<void> {
   try {
     const res = await axios.get(
       `${process.env.NEXT_PUBLIC_API_URL}/mujer-exporta/subscribers/export`,
       {
-        headers: { Authorization: userIdEncrypted },
         responseType: "blob",
       }
     );

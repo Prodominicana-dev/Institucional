@@ -30,7 +30,7 @@ export default function Page() {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const { data, isLoading, refetch } = useSubscribers(user?.sub as string, "");
+  const { data, isLoading, refetch } = useSubscribers("");
   const [subscribers, setSubscribers] = useState<any[]>([]);
 
   const handleRefresh = () => {
@@ -64,14 +64,14 @@ export default function Page() {
 
   const handleDelete = () => {
     if (user && !userLoading && selectedId) {
-      deleteSubscriber(selectedId, () => handleDeleteOpen(), handleRefresh, user.sub as string);
+      deleteSubscriber(selectedId, () => handleDeleteOpen(), handleRefresh);
     }
   };
 
   const handleExport = async () => {
     if (user && !userLoading) {
       setExporting(true);
-      await exportSubscribers(user.sub as string);
+      await exportSubscribers();
       setExporting(false);
     }
   };

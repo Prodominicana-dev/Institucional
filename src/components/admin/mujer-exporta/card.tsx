@@ -60,19 +60,19 @@ export default function Card({
 
   const handleDeactivate = () => {
     if (user && !isLoading) {
-      disableInitiative(initiative.id, handleInactiveOpen, update, user.sub as string);
+      disableInitiative(initiative.id, handleInactiveOpen, update);
     }
   };
 
   const handleActivate = () => {
     if (user && !isLoading) {
-      enableInitiative(initiative.id, handleActivateOpen, update, user.sub as string);
+      enableInitiative(initiative.id, handleActivateOpen, update);
     }
   };
 
   const handleDelete = () => {
     if (user && !isLoading) {
-      deleteInitiative(initiative.id, handleDeleteOpen, update, user.sub as string);
+      deleteInitiative(initiative.id, handleDeleteOpen, update);
     }
   };
 

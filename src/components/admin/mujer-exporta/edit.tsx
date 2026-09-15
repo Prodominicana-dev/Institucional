@@ -185,7 +185,7 @@ export function EditInitiativeDialog({
       updated_By: user?.email,
     };
 
-    const success = await editInitiative(id, initiativeData, update, user?.sub as string);
+    const success = await editInitiative(id, initiativeData, update);
     setSubmitLoading(false);
 
     if (success) {

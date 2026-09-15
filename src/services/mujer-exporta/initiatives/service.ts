@@ -1,7 +1,6 @@
 import { notifications } from "@mantine/notifications";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-var CryptoJS = require("crypto-js");
 
 // Hook para obtener iniciativas públicas (filtradas por status y vigencia)
 export function useInitiatives(lang: string) {
@@ -16,22 +15,14 @@ export function useInitiatives(lang: string) {
 }
 
 // Hook para obtener todas las iniciativas (admin)
-export function useAdminInitiatives(userId: string) {
-  const userIdEncrypted = CryptoJS.AES.encrypt(
-    userId,
-    process.env.NEXT_PUBLIC_CRYPTOJS_KEY
-  ).toString();
-
+export function useAdminInitiatives() {
   return useQuery({
     queryKey: ["mujerExportaInitiativesAdmin"],
     queryFn: async () => {
       const url = `${process.env.NEXT_PUBLIC_API_URL}/mujer-exporta/initiatives/admin`;
-      const { data } = await axios.get(url, {
-        headers: { Authorization: userIdEncrypted },
-      });
+      const { data } = await axios.get(url);
       return data;
     },
-    enabled: !!userId,
   });
 }
 
@@ -51,21 +42,12 @@ export function useInitiativeById(id: string, enabled: boolean = true) {
 // Crear iniciativa
 export async function createInitiative(
   initiative: any,
-  update: () => void,
-  userId: string
+  update: () => void
 ): Promise<boolean> {
-  const userIdEncrypted = CryptoJS.AES.encrypt(
-    userId,
-    process.env.NEXT_PUBLIC_CRYPTOJS_KEY
-  ).toString();
-
   try {
     const res = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/mujer-exporta/initiatives`,
-      initiative,
-      {
-        headers: { Authorization: userIdEncrypted },
-      }
+      initiative
     );
 
     if (res.status === 201) {
@@ -100,21 +82,12 @@ export async function createInitiative(
 export async function editInitiative(
   id: string,
   initiative: any,
-  update: () => void,
-  userId: string
+  update: () => void
 ): Promise<boolean> {
-  const userIdEncrypted = CryptoJS.AES.encrypt(
-    userId,
-    process.env.NEXT_PUBLIC_CRYPTOJS_KEY
-  ).toString();
-
   try {
     const res = await axios.patch(
       `${process.env.NEXT_PUBLIC_API_URL}/mujer-exporta/initiatives/${id}`,
-      initiative,
-      {
-        headers: { Authorization: userIdEncrypted },
-      }
+      initiative
     );
 
     if (res.status === 200) {
@@ -149,21 +122,12 @@ export async function editInitiative(
 export function enableInitiative(
   id: string,
   handleOpen: () => void,
-  update: () => void,
-  userId: string
+  update: () => void
 ) {
-  const userIdEncrypted = CryptoJS.AES.encrypt(
-    userId,
-    process.env.NEXT_PUBLIC_CRYPTOJS_KEY
-  ).toString();
-
   return axios
     .patch(
       `${process.env.NEXT_PUBLIC_API_URL}/mujer-exporta/initiatives/enable/${id}`,
-      null,
-      {
-        headers: { Authorization: userIdEncrypted },
-      }
+      null
     )
     .then((res) => {
       if (res.status === 200) {
@@ -197,21 +161,12 @@ export function enableInitiative(
 export function disableInitiative(
   id: string,
   handleOpen: () => void,
-  update: () => void,
-  userId: string
+  update: () => void
 ) {
-  const userIdEncrypted = CryptoJS.AES.encrypt(
-    userId,
-    process.env.NEXT_PUBLIC_CRYPTOJS_KEY
-  ).toString();
-
   return axios
     .patch(
       `${process.env.NEXT_PUBLIC_API_URL}/mujer-exporta/initiatives/disable/${id}`,
-      null,
-      {
-        headers: { Authorization: userIdEncrypted },
-      }
+      null
     )
     .then((res) => {
       if (res.status === 200) {
@@ -245,20 +200,11 @@ export function disableInitiative(
 export function deleteInitiative(
   id: string,
   handleOpen: () => void,
-  update: () => void,
-  userId: string
+  update: () => void
 ) {
-  const userIdEncrypted = CryptoJS.AES.encrypt(
-    userId,
-    process.env.NEXT_PUBLIC_CRYPTOJS_KEY
-  ).toString();
-
   return axios
     .delete(
-      `${process.env.NEXT_PUBLIC_API_URL}/mujer-exporta/initiatives/${id}`,
-      {
-        headers: { Authorization: userIdEncrypted },
-      }
+      `${process.env.NEXT_PUBLIC_API_URL}/mujer-exporta/initiatives/${id}`
     )
     .then((res) => {
       if (res.status === 200) {

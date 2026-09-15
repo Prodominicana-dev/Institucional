@@ -165,7 +165,7 @@ export function InitiativeDialog({
       created_By: user?.email,
     };
 
-    const success = await createInitiative(initiativeData, update, user?.sub as string);
+    const success = await createInitiative(initiativeData, update);
     setSubmitLoading(false);
 
     if (success) {
