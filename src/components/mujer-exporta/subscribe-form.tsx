@@ -111,6 +111,8 @@ export function SubscribeForm({ onClose, isModal = false }: SubscribeFormProps) 
           placeholder="Tu nombre completo"
           className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-me-coral focus:ring-2 focus:ring-me-coral/20 outline-none transition-all"
           required
+          onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity("Por favor, completa este campo")}
+          onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
         />
       </div>
 
@@ -125,6 +127,8 @@ export function SubscribeForm({ onClose, isModal = false }: SubscribeFormProps) 
           placeholder="tu@correo.com"
           className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-me-coral focus:ring-2 focus:ring-me-coral/20 outline-none transition-all"
           required
+          onInvalid={(e) => (e.target as HTMLInputElement).setCustomValidity("Por favor, ingresa un correo electrónico válido")}
+          onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
         />
       </div>
 
