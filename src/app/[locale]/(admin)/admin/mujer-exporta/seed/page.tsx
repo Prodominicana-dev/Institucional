@@ -34,6 +34,9 @@ export default function Page() {
       <Sketch
         title="Mujer Exporta - Migrar Recursos"
         subtitle="Migrar los recursos estáticos a la base de datos"
+        handleFilterOpen={() => {}}
+        buttons={[]}
+        hasFilter={false}
       >
         <div className="max-w-2xl mx-auto">
           <div className="bg-white rounded-xl border p-6 mb-6">
