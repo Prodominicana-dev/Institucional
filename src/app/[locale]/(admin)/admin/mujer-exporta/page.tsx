@@ -138,7 +138,7 @@ export default function Page() {
   }, [initiatives]);
 
   return (
-    <AuthUser permission="create:mujer-exporta">
+    <AuthUser permission="create:transparency">
       <Sketch
         title="Mujer Exporta - Iniciativas"
         subtitle="Gestiona las iniciativas del repositorio de Mujer Exporta"

@@ -106,7 +106,7 @@ export default function Page() {
   ];
 
   return (
-    <AuthUser permission="create:mujer-exporta">
+    <AuthUser permission="create:transparency">
       <Sketch
         title="Mujer Exporta - Suscriptores"
         subtitle="Personas suscritas al programa Mujer Exporta"
