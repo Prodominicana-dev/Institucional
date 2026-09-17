@@ -10,7 +10,7 @@ export default function BusinessFacilitation() {
   return (
     <div>
       {/* ============ Banner Cariforo UE ============ */}
-      <div className="w-full bg-black">
+      {/* <div className="w-full bg-black">
         <Link
           href="https://www.hubcamarasantodomingo.do/"
           target="_blank"
@@ -24,7 +24,7 @@ export default function BusinessFacilitation() {
             className="w-full h-auto object-contain"
           />
         </Link>
-      </div>
+      </div> */}
       {/* ============ FIN Banner ============ */}
 
       {/* Espaciado entre carousel y sección de texto */}
