@@ -33,7 +33,6 @@
         "exportDesc": "Maximizamos tu presencia internacional"
       },
       "formTitle": "Solicitud de Asistencia",
-
       "Name": "Nombre",
       "LastName": "Apellido",
       "Email": "Correo electrónico",
@@ -42,7 +41,6 @@
       "Select": "Via de preferencia de contacto",
       "Message": "Asistencia Requerida",
       "Btn": "Enviar",
-
       "contactInfo": {
         "title": "Contáctanos directamente",
         "description": "Utiliza cualquiera de nuestras vías de contacto",
@@ -59,7 +57,6 @@
           "info": "Abrir en Google Maps"
         }
       },
-
       "regionalOffices": {
         "title": "Oficinas regionales",
         "description": "Encuentra la oficina más cercana a ti."
@@ -75,7 +72,9 @@
         "prodomTV": "ProDominicana TV",
         "prodomTVDesc": "Explora contenido exclusivo de ProDominicana",
         "gallery": "Galería de fotos",
-        "galleryDesc": "Descubre momentos visuales impactantes"
+        "galleryDesc": "Descubre momentos visuales impactantes",
+        "proeconomia": "Radar Económico",
+        "proeconomiaDesc": "Análisis económico y datos del mercado dominicano"
       }
     },
     "womenPrograms": {
@@ -387,6 +386,38 @@
       ]
     }
   },
+  "proeconomia": {
+    "categories": {
+      "todos": "Todos",
+      "exportacion": "Exportación",
+      "inversion": "Inversión",
+      "turismo": "Turismo",
+      "finanzas": "Finanzas"
+    },
+    "searchPlaceholder": "Buscar noticias...",
+    "tickerLabel": "RADAR ECONÓMICO",
+    "dailyCovers": "Portadas Diarias",
+    "noFeatured": "Sin noticia destacada",
+    "noCovers": "Sin portadas disponibles",
+    "recentNews": "Noticias Recientes",
+    "scheduleSubtitle": "COMUNICACIÓN SEMANAL DE ACTIVIDADES",
+    "scheduleTitle": "Al Día con ProDominicana",
+    "colExport": "Exportación",
+    "colInvest": "Inversión",
+    "colFinance": "Finanzas",
+    "indicatorsTitle": "Indicadores Económicos",
+    "newsletterTitle": "Suscríbase al Boletín",
+    "newsletterSubtitle": "Reciba las últimas noticias y análisis económicos directamente en su correo.",
+    "newsletterNamePlaceholder": "Nombre (opcional)",
+    "newsletterEmailPlaceholder": "Correo electrónico *",
+    "newsletterButton": "Suscribirse",
+    "newsletterLoading": "Enviando...",
+    "newsletterOk": "¡Suscripción exitosa! Gracias por unirse.",
+    "newsletterDuplicate": "Este correo ya está suscrito.",
+    "newsletterError": "Ocurrió un error. Por favor intente de nuevo.",
+    "indicatorUnavailable": "No disponible",
+    "indicatorUpdatedOn": "Actualizado el {date}"
+  },
   "legal": {
     "title": "Marco legal",
     "laws": {
@@ -616,7 +647,6 @@
       "message": "Mensaje",
       "button": "Enviar"
     },
-
     "contactInfo": {
       "title": "Contáctanos directamente",
       "description": "Utiliza cualquiera de nuestras vías de contacto",
@@ -638,7 +668,6 @@
       "description": "Encuentra la oficina más cercana a ti."
     }
   },
-
   "complaints": {
     "title": "Denuncia",
     "description": "Si tiene algún inconveniente, escríbenos.La información proporcionada será manejada con confidencialidad.",
@@ -654,7 +683,6 @@
       "involvedPerson": " Funcionario involucrado",
       "buttonnPopup": "Ir al formulario"
     },
-
     "contactInfo": {
       "title": "Contáctanos directamente",
       "description": "Utiliza cualquiera de nuestras vías de contacto",

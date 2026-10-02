@@ -234,7 +234,12 @@ export function SideBar() {
                   />                  <SidebarMenuItem
                     title={"Feedback"}
                     url={"/admin/feedback"}
-                  />                </List>
+                  />
+                  <SidebarMenuItem
+                    title={"Proeconomía"}
+                    url={"/admin/proeconomia"}
+                  />
+                </List>
               )}
             </AccordionBody>
           </Accordion>

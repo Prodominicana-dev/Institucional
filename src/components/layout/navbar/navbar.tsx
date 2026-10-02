@@ -4,6 +4,7 @@ import {
   MagnifyingGlassIcon,
   NewspaperIcon,
   PhotoIcon,
+  PresentationChartLineIcon,
   ScaleIcon,
   UserIcon,
   VideoCameraIcon,
@@ -108,6 +109,12 @@ export default function Navbar() {
       description: t("news.menuList.galleryDesc"),
       icon: PhotoIcon,
       link: "/gallery",
+    },
+    {
+      title: t("news.menuList.proeconomia"),
+      description: t("news.menuList.proeconomiaDesc"),
+      icon: PresentationChartLineIcon,
+      link: "/proeconomia",
     },
   ];
 

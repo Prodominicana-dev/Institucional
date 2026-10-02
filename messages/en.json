@@ -32,7 +32,6 @@
         "export": "Export Services",
         "exportDesc": "Maximize your international presence"
       },
-
       "formTitle": "Assistance Request",
       "Name": "First Name",
       "LastName": "Last Name",
@@ -53,7 +52,9 @@
         "prodomTV": "ProDominicana TV",
         "prodomTVDesc": "Explore exclusive content from ProDominicana",
         "gallery": "Photo Gallery",
-        "galleryDesc": "Discover impactful visual moments"
+        "galleryDesc": "Discover impactful visual moments",
+        "proeconomia": "Economic Radar",
+        "proeconomiaDesc": "Economic analysis and Dominican market data"
       }
     },
     "womenPrograms": {
@@ -235,6 +236,38 @@
         }
       ]
     }
+  },
+  "proeconomia": {
+    "categories": {
+      "todos": "All",
+      "exportacion": "Export",
+      "inversion": "Investment",
+      "turismo": "Tourism",
+      "finanzas": "Finance"
+    },
+    "searchPlaceholder": "Search news...",
+    "tickerLabel": "ECONOMIC RADAR",
+    "dailyCovers": "Daily Covers",
+    "noFeatured": "No featured article",
+    "noCovers": "No covers available",
+    "recentNews": "Recent News",
+    "scheduleSubtitle": "WEEKLY ACTIVITY COMMUNICATION",
+    "scheduleTitle": "Up to Date with ProDominicana",
+    "colExport": "Export",
+    "colInvest": "Investment",
+    "colFinance": "Finance",
+    "indicatorsTitle": "Economic Indicators",
+    "newsletterTitle": "Subscribe to the Newsletter",
+    "newsletterSubtitle": "Receive the latest news and economic analysis directly in your inbox.",
+    "newsletterNamePlaceholder": "Name (optional)",
+    "newsletterEmailPlaceholder": "Email address *",
+    "newsletterButton": "Subscribe",
+    "newsletterLoading": "Sending...",
+    "newsletterOk": "Subscription successful! Thank you for joining.",
+    "newsletterDuplicate": "This email is already subscribed.",
+    "newsletterError": "An error occurred. Please try again.",
+    "indicatorUnavailable": "Not available",
+    "indicatorUpdatedOn": "Updated on {date}"
   },
   "organizationalChart": {
     "title": "Organizational Chart",
@@ -1078,7 +1111,6 @@
       "description": "Find the office nearest to you."
     }
   },
-
   "complaints": {
     "title": "Complaint",
     "description": "If you have any issues, write to us. The information provided will be handled confidentially.",
@@ -1115,7 +1147,6 @@
       "description": "Find the office nearest to you."
     }
   },
-
   "termsofuse": {
     "title": "Terms of Use"
   },
