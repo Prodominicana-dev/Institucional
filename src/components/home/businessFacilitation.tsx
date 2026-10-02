@@ -9,6 +9,19 @@ export default function BusinessFacilitation() {
 
   return (
     <div>
+      {/* ============ Banner Sumando Exportadoras 2026 ============ */}
+      <Link href="/sumando-exportadoras" className="block w-full">
+        <Image
+          width={3840}
+          height={284}
+          src="/images/bannerSumandoExportadoras2026.jpg"
+          alt="Sumando Exportadoras 2026 — Regístrate, participa y transforma tu negocio. Cierre de aplicación el 18 de octubre"
+          className="w-full h-auto object-contain"
+          priority
+        />
+      </Link>
+      {/* ============ FIN Banner ============ */}
+
       {/* ============ Banner Cariforo UE ============ */}
       {/* <div className="w-full bg-black">
         <Link
