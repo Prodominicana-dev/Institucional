@@ -28,6 +28,11 @@ export function NewsletterModal({ open, onClose, update, newsletter }: Props) {
   const [titleEn, setTitleEn] = useState(newsletter?.titleEn ?? "");
   const [subject, setSubject] = useState(newsletter?.subject ?? "");
   const [tags, setTags] = useState((newsletter?.tags ?? []).join(", "));
+  const [scheduledAt, setScheduledAt] = useState(
+    newsletter?.scheduledSendDate
+      ? new Date(newsletter.scheduledSendDate).toISOString().slice(0, 16)
+      : ""
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -60,6 +65,15 @@ export function NewsletterModal({ open, onClose, update, newsletter }: Props) {
         .filter(Boolean),
     };
     if (titleEn) body.titleEn = titleEn;
+    // Con fecha, el boletin queda programado y la tarea del servidor lo envia
+    // sola al llegar el momento. Sin fecha, vuelve a borrador.
+    if (scheduledAt) {
+      body.scheduledSendDate = new Date(scheduledAt).toISOString();
+      body.state = "scheduled";
+    } else if (newsletter?.state === "scheduled") {
+      body.scheduledSendDate = null as any;
+      body.state = "draft";
+    }
     const ok = newsletter
       ? await editNewsletter(newsletter.id, body, update, user.sub as string)
       : await createNewsletter(body, update, user.sub as string);
@@ -131,6 +145,24 @@ export function NewsletterModal({ open, onClose, update, newsletter }: Props) {
               onChange={(e) => setTags(e.target.value)}
               placeholder="tecnología, exportación, ..."
             />
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="nl-scheduled">
+              Programar envío{" "}
+              <span className="text-xs text-gray-400">(opcional)</span>
+            </Label>
+            <Input
+              id="nl-scheduled"
+              type="datetime-local"
+              value={scheduledAt}
+              onChange={(e) => setScheduledAt(e.target.value)}
+            />
+            <p className="text-xs text-gray-500">
+              Si indica fecha y hora, el boletín se enviará solo en ese momento
+              a todos los suscriptores activos. Déjelo vacío para guardarlo como
+              borrador y enviarlo usted a mano.
+            </p>
           </div>
 
           <div className="flex flex-col gap-1.5">
