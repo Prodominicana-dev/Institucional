@@ -385,8 +385,9 @@ function Benefits() {
     },
     {
       icon: "mdi:cash-multiple",
-      title: "Consultoría valorada en USD 2,500",
-      description: "Aplica para empresas de servicios.",
+      title: "Consultoría valorada en USD 2,000",
+      description:
+        "A cargo de Nex Consulting. Aplica para empresas de servicios.",
     },
     {
       icon: "mdi:camera-outline",
