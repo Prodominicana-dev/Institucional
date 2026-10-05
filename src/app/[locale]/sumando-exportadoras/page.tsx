@@ -384,6 +384,11 @@ function Benefits() {
       description: "Participación en el programa del Banco BHD.",
     },
     {
+      icon: "mdi:cash-multiple",
+      title: "Consultoría valorada en USD 2,500",
+      description: "Aplica para empresas de servicios.",
+    },
+    {
       icon: "mdi:camera-outline",
       title: "Fotografía y video profesional de sus productos",
       description: "Sesión de 2 horas.",
@@ -723,6 +728,13 @@ function Footer() {
             alt="Mujer BHD"
             src="/images/sumando-exportadoras/mujer-bhd.png"
             className="h-9 sm:h-11 w-auto object-contain"
+          />
+          <Image
+            width={1050}
+            height={600}
+            alt="Nex Consulting"
+            src="/images/sumando-exportadoras/nex-consulting.png"
+            className="h-12 sm:h-16 w-auto object-contain"
           />
           <Link href="/shetrades" target="_blank">
             <Image
