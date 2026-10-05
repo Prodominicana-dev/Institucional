@@ -10,12 +10,7 @@ export default function BusinessFacilitation() {
   return (
     <div>
       {/* ============ Banner Sumando Exportadoras 2026 ============ */}
-      <Link
-        href="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=ghXqEGP41EuvCTx0XnNcBQ31lOl-DKtCsTDiHFRWb-hUM0REOTFDUzRRT0lTQUsxRUpUTTlCWEdNMS4u"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block w-full"
-      >
+      <Link href="/sumando-exportadoras" className="block w-full">
         <Image
           width={3840}
           height={284}
