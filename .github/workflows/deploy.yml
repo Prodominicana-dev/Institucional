@@ -45,16 +45,24 @@ jobs:
         run: |
           cd "$APP_DIR"
           git fetch --prune origin
-          # reset --hard descarta cambios locales en archivos versionados, pero
-          # respeta los ignorados: .env.local del servidor queda intacto.
-          # No agregar `git clean`: borraría ese .env.local.
-          git reset --hard "origin/${GITHUB_REF_NAME}"
+          # ff-only a propósito: si la rama del servidor divergió, o si hay
+          # cambios locales que se perderían, el deploy FALLA en vez de
+          # sobrescribir. Es un sitio institucional y el servidor tiene
+          # archivos y commits propios que no están en GitHub.
+          #
+          # NUNCA poner aquí `git reset --hard` ni `git clean`: borrarían el
+          # .env.local de producción, la ruta (mujeres-exportadoras) que solo
+          # existe en el servidor, y los PDFs de guías de inversión.
+          git merge --ff-only "origin/${GITHUB_REF_NAME}"
           git log -1 --oneline
 
       - name: Instalar dependencias
         run: |
           cd "$APP_DIR"
-          npm ci
+          # install y no `ci`: `npm ci` borra node_modules entero y exige que el
+          # lockfile esté sincronizado. En este servidor package-lock.json tiene
+          # cambios locales, así que `ci` rompería el deploy.
+          npm install --no-audit --no-fund
 
       - name: Compilar
         run: |
@@ -64,8 +72,9 @@ jobs:
       - name: Recargar PM2
         run: |
           cd "$APP_DIR"
-          # startOrReload arranca la app si no corre y la recarga si ya corría.
-          # El `pm2 start` anterior fallaba en todo deploy posterior al primero.
-          pm2 startOrReload ecosystem.config.js --update-env
-          pm2 save
-          pm2 describe Institucional
+          # Recarga por NOMBRE, no con ecosystem.config.js. El proceso en
+          # producción corre en cluster_mode y con el Node de nvm, una config
+          # que no coincide con la del archivo del repo; pasar el archivo le
+          # cambiaría el modo de ejecución en caliente.
+          pm2 reload Institucional
+          pm2 describe Institucional | head -20

@@ -27,7 +27,8 @@ puerto entrante.**
 
 - Acceso SSH con `sudo` al servidor.
 - **Permiso de admin en el repositorio** para generar el token de registro.
-  Una cuenta con permiso de escritura no basta.
+  Una cuenta con permiso de escritura no basta. Los únicos admin de
+  `Prodominicana-dev/Institucional` son `ProdominicanaDev` y `josegv23`.
 - Node.js 20+, npm y PM2 ya instalados (el sitio corre con Next.js 15).
 
 ### 1. Obtener el token de registro
@@ -43,19 +44,13 @@ El token expira en una hora.
 
 ### 2. Instalar el runner en el servidor
 
-Conectado por SSH, **con el mismo usuario que ya ejecuta PM2** (importante: si se
-usa otro usuario, `pm2 reload` hablaría con un demonio PM2 distinto y no
-recargaría el sitio). Para confirmar cuál es:
-
-```bash
-ps -o user= -C PM2 | sort -u   # o: pm2 list
-```
-
-Luego:
+Conectado por SSH **como el usuario `ceird`**, que es el que ejecuta PM2. Si se
+usa otro usuario, `pm2 reload` hablaría con un demonio PM2 distinto y el deploy
+quedaría en verde sin recargar nada.
 
 ```bash
 mkdir -p ~/actions-runner && cd ~/actions-runner
-curl -o runner.tar.gz -L https://github.com/actions/runner/releases/download/v2.330.0/actions-runner-linux-x64-2.330.0.tar.gz
+curl -o runner.tar.gz -L https://github.com/actions/runner/releases/download/v2.337.0/actions-runner-linux-x64-2.337.0.tar.gz
 tar xzf runner.tar.gz && rm runner.tar.gz
 
 ./config.sh \
@@ -78,18 +73,16 @@ servidor con `runs-on: [self-hosted, linux, institucional]`.
 Así sobrevive a reinicios del servidor:
 
 ```bash
-sudo ./svc.sh install $(whoami)
+sudo ./svc.sh install ceird
 sudo ./svc.sh start
 sudo ./svc.sh status
 ```
 
 ### 4. Permisos sobre el directorio del sitio
 
-El usuario del runner necesita escribir en el directorio de la app:
-
-```bash
-sudo chown -R $(whoami) /var/www/Institucional
-```
+No hace falta hacer nada: `/var/www/Institucional` ya pertenece a `ceird:ceird`,
+el mismo usuario del runner. **No correr `chown` sobre esa carpeta** sin
+revisarla antes.
 
 ### 5. Probar
 
@@ -100,13 +93,32 @@ verde. A partir de ahí, cada push a `main` despliega solo.
 
 Sobre `/var/www/Institucional`:
 
-1. `git fetch` + `git reset --hard origin/main`
-2. `npm ci`
+1. `git fetch` + `git merge --ff-only origin/main`
+2. `npm install`
 3. `npm run build`
-4. `pm2 startOrReload ecosystem.config.js --update-env` + `pm2 save`
+4. `pm2 reload Institucional`
 
 Si un paso falla, el deploy se detiene y PM2 **no** se recarga: el sitio sigue
 sirviendo la versión anterior.
+
+### Por qué estos comandos y no otros
+
+Este servidor **no es un clon limpio del repositorio**, así que el deploy está
+escrito para fallar antes que destruir:
+
+- **`git merge --ff-only`, nunca `git reset --hard`.** La rama del servidor
+  divergió de GitHub y hay archivos versionados con cambios locales (los PDFs de
+  guías de inversión, `package-lock.json`). `ff-only` se niega a avanzar si
+  perdería algo; `reset --hard` lo borraría sin preguntar.
+- **Nunca `git clean`.** Hay archivos sin seguimiento que el sitio necesita: el
+  `.env.local` de producción y la ruta `src/app/[locale]/(mujeres-exportadoras)/`,
+  que está viva en producción pero no existe en el repositorio.
+- **`npm install`, no `npm ci`.** `ci` borra `node_modules` y exige el lockfile
+  sincronizado; aquí `package-lock.json` tiene cambios locales.
+- **`pm2 reload Institucional` por nombre, no con `ecosystem.config.js`.** El
+  proceso real corre en `cluster_mode` y con Node v23.7.0 de nvm — una
+  configuración que no coincide con la del archivo del repo. Pasar el archivo le
+  cambiaría el modo de ejecución en caliente.
 
 ## Notas importantes
 
@@ -124,6 +136,24 @@ sirviendo la versión anterior.
 - Los secrets viejos (`SERVER_HOST`, `SERVER_PORT`, `SERVER_USERNAME`,
   `SERVER_PASSWORD`) ya no se usan y se pueden borrar. Además, `SERVER_PASSWORD`
   guardaba una contraseña SSH en texto: conviene rotarla.
+
+## Pendientes conocidos
+
+Cosas que hay que resolver para que el deploy automático funcione de punta a
+punta. Ninguna es urgente, pero sin la primera los deploys fallarán:
+
+1. **La rama del servidor divergió de `origin/main`.** Tiene un merge commit
+   local (`13e3eb5`) y commits que nunca se subieron. Mientras eso siga así,
+   `git merge --ff-only` fallará y el deploy no avanzará. Hay que revisar
+   `git log origin/main..HEAD` y subir a GitHub lo que valga la pena.
+2. **Código en producción fuera de Git:** `src/app/[locale]/(mujeres-exportadoras)/`
+   está sin seguimiento pero sirve una ruta real. Debería commitearse.
+3. **Node inconsistente:** el shell usa v20.20.2 y PM2 ejecuta la app con
+   v23.7.0 (nvm). Se compila con una versión y se sirve con otra. Conviene
+   unificar en una LTS.
+4. **PM2 desactualizado en memoria:** 5.3.1 corriendo contra 6.0.5 instalado.
+   `pm2 update` lo arregla, pero reinicia las tres apps: hacerlo en una ventana
+   de mantenimiento.
 
 ## Si falla
 
