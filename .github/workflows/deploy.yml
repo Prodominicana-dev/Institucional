@@ -1,29 +1,71 @@
 name: Deploy to Remote Server
+
+# El servidor institucional no acepta conexiones SSH entrantes desde internet
+# (el workflow anterior fallaba siempre con "dial tcp: i/o timeout"), por eso el
+# deploy va al revés: un runner self-hosted instalado en el propio servidor sale
+# hacia GitHub y ejecuta estos pasos localmente. No hace falta abrir puertos.
 on:
   push:
     branches:
       - main # Cambiar esto al nombre de la rama que quieres que despliegue el proyecto
+  workflow_dispatch: # Permite relanzar el deploy a mano desde la pestaña Actions
+
+# El repositorio es público: NO agregar el evento pull_request. Un fork podría
+# ejecutar código arbitrario en el servidor de producción. Solo `push` a main,
+# que únicamente pueden generar personas con permiso de escritura.
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false # Nunca cortar un deploy a medias
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, institucional]
+    timeout-minutes: 20
+
+    env:
+      APP_DIR: /var/www/Institucional
+
+    # Shell de login para que se cargue el PATH del usuario (nvm, pm2, etc.).
+    # Como servicio systemd el runner arranca con un entorno mínimo y sin esto
+    # no encuentra node ni pm2.
+    defaults:
+      run:
+        shell: bash -leo pipefail {0}
 
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      - name: Mostrar versiones
+        run: |
+          echo "node:  $(node -v)"
+          echo "npm:   $(npm -v)"
+          echo "pm2:   $(pm2 -v)"
+          echo "user:  $(whoami)"
 
-      - name: Deploy to Remote Server
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.SERVER_HOST }}
-          port: ${{ secrets.SERVER_PORT }}
-          username: ${{ secrets.SERVER_USERNAME }}
-          password: ${{ secrets.SERVER_PASSWORD }}
-          script: |
-            # Comandos a ejecutar en el servidor remoto
-            cd /var/www/Institucional
-            git reset --hard HEAD
-            git pull
-            npm install
-            npm run build
-            pm2 start ecosystem.config.js
+      - name: Actualizar código
+        run: |
+          cd "$APP_DIR"
+          git fetch --prune origin
+          # reset --hard descarta cambios locales en archivos versionados, pero
+          # respeta los ignorados: .env.local del servidor queda intacto.
+          # No agregar `git clean`: borraría ese .env.local.
+          git reset --hard "origin/${GITHUB_REF_NAME}"
+          git log -1 --oneline
+
+      - name: Instalar dependencias
+        run: |
+          cd "$APP_DIR"
+          npm ci
+
+      - name: Compilar
+        run: |
+          cd "$APP_DIR"
+          npm run build
+
+      - name: Recargar PM2
+        run: |
+          cd "$APP_DIR"
+          # startOrReload arranca la app si no corre y la recarga si ya corría.
+          # El `pm2 start` anterior fallaba en todo deploy posterior al primero.
+          pm2 startOrReload ecosystem.config.js --update-env
+          pm2 save
+          pm2 describe Institucional
