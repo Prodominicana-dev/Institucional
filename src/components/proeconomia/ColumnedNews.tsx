@@ -10,9 +10,9 @@ interface Props {
 }
 
 const COLUMNS = [
-  { key: "importación", labelKey: "colImport" },
+  { key: "exportación", labelKey: "colExport" },
   { key: "inversión", labelKey: "colInvest" },
-  { key: "economía", labelKey: "colEconomy" },
+  { key: "finanzas", labelKey: "colFinance" },
 ];
 
 function NewsCol({ items, label }: { items: any[]; label: string }) {
@@ -20,7 +20,7 @@ function NewsCol({ items, label }: { items: any[]; label: string }) {
   if (!main) return null;
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="text-blue-900 font-extrabold text-base uppercase font-opensans border-l-4 border-red-700 pl-3">
+      <h3 className="font-opensans text-lg font-extrabold text-blue-dark">
         {label}
       </h3>
       <Link href={`/news/${main.id}`} className="group block space-y-2">

@@ -1,5 +1,48 @@
 # Institucional — Registro de cambios
 
+## 2026-10-07 — Radar Económico: ajuste a la maqueta
+
+El cliente señaló que lo visual no coincidía con el mandato. Se revisó la maqueta
+contra el código y se corrigieron las seis diferencias. Rama `feat/radar-economico-v2`,
+partiendo de `44a7411`; proeconomía entró por merge de `feat/noticias-pro` para no
+perder los textos de Sumando Exportadoras.
+
+### Movido al menú Novedades
+
+Estaba como enlace suelto de primer nivel ("Noticias Pro"), al lado de SheTrades y
+Mujer Exporta. Ahora es un elemento del desplegable **Novedades**, con el rótulo
+**Radar Económico** y su descripción, en escritorio (`navbar.tsx`) y en móvil
+(`navBarMobile.tsx`). La clave suelta `navbar.noticiasPro` quedó huérfana y se quitó.
+
+### Diferencias con la maqueta, corregidas
+
+- **Franja de titulares roja.** Era `bg-blue-950`. El rojo elegido es `#C8102E`, el
+  que ya trae el logo `prodominicanaFull.svg` — no es paleta nueva y `globals.css`
+  sigue sin tocarse. El mismo rojo se aplicó a las etiquetas de categoría y al filete
+  de las columnas. Se dejó `text-red-400` en el hero (sobre el degradado azul oscuro
+  `#C8102E` no se lee) y `text-red-700` en el error del boletín, que no es categoría.
+- **Cabecera propia.** La barra de categorías ahora lleva la marca PROECONOMÍA +
+  "Radar Económico" a la izquierda, las secciones en el centro y el buscador a la
+  derecha, como la maqueta. Sin archivo de logo: la marca va en texto con Montserrat.
+- **Secciones.** Exportación · Inversión · Turismo · Finanzas, en lugar de
+  Importación · Inversión · Economía · Internacionales.
+- **Columnas.** Exportación / Inversión / Finanzas (antes Importación / Inversión /
+  Economía).
+- **Tablero de Datos.** Ya existía para la portada: se importan `DataDashboard` y
+  `DataDashboardMobile` de `src/components/home/`, a ancho completo entre las tarjetas
+  y "Al Día". No se construyó nada nuevo ni se tocaron esos componentes.
+- **"Al Día con ProDominicana".** Pasa de banda azul a fondo blanco: subtítulo rojo
+  entre filetes, título centrado, tarjetas blancas con borde inferior azul y bloque de
+  fecha azul.
+
+### Pendiente de verificar
+
+- Las secciones salen de la tabla `NewsCategory`. Si **Turismo** y **Finanzas** no
+  existen ahí, su filtro y su columna saldrán vacíos.
+- Falta el archivo del logo PROECONOMÍA; mientras tanto es texto.
+
+Verificado: `npx tsc --noEmit` sin errores. Sin commitear.
+
 ## 2026-10-01 — Proeconomía / Radar Económico
 
 Apartado nuevo bajo el menú Novedades: página pública `/proeconomia` y cuatro

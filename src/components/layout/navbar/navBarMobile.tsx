@@ -119,11 +119,11 @@ export default function NavBarMobile() {
         { title: t("news.menuList.event"), link: "/events" },
         { title: t("news.menuList.prodomTV"), link: "/tv" },
         { title: t("news.menuList.gallery"), link: "/gallery" },
+        { title: t("news.menuList.proeconomia"), link: "/proeconomia" },
       ],
     },
     { title: t("shetrades"), link: "/shetrades", type: "link" },
     { title: t("mujerExporta"), link: "/mujer-exporta", type: "link" },
-    { title: t("noticiasPro"), link: "/proeconomia", type: "link" },
     {
       title: t("transparency"),
       link: "https://transparencia.prodominicana.gob.do/",

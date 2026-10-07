@@ -35,7 +35,7 @@ export default function RecentNewsThumbs({ news, locale }: Props) {
               />
             </div>
             <div className="flex-1 min-w-0 space-y-1">
-              <span className="text-red-700 text-xs font-bold uppercase tracking-widest font-montserrat block">
+              <span className="text-[#C8102E] text-xs font-bold uppercase tracking-widest font-montserrat block">
                 {locale === "es"
                   ? nombreCategoria(item.category, "es")
                   : nombreCategoria(item.category, "en")}

@@ -12,10 +12,10 @@ interface Props {
 
 const CATEGORIES = [
   { key: "all", labelKey: "categories.todos" },
-  { key: "importación", labelKey: "categories.importacion" },
+  { key: "exportación", labelKey: "categories.exportacion" },
   { key: "inversión", labelKey: "categories.inversion" },
-  { key: "economía", labelKey: "categories.economia" },
-  { key: "internacional", labelKey: "categories.internacionales" },
+  { key: "turismo", labelKey: "categories.turismo" },
+  { key: "finanzas", labelKey: "categories.finanzas" },
 ];
 
 export default function CategoryBar({
@@ -27,32 +27,45 @@ export default function CategoryBar({
   const t = useTranslations("proeconomia");
 
   return (
-    <div className="sticky top-0 z-40 bg-white border-b border-gray-200 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-4">
-        <div className="flex items-center gap-1 overflow-x-auto">
+    <div className="sticky top-0 z-40 border-b border-gray-200 bg-white shadow-sm">
+      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 sm:px-6 lg:h-24 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:py-0 lg:px-8">
+        {/* Marca */}
+        <div className="flex flex-shrink-0 flex-col leading-none">
+          <span className="font-montserrat text-2xl font-extrabold tracking-tight text-blue-dark lg:text-3xl">
+            {t("brandName")}
+          </span>
+          <span className="font-montserrat text-xs font-semibold uppercase tracking-[0.2em] text-[#C8102E] lg:text-sm">
+            {t("brandTagline")}
+          </span>
+        </div>
+
+        {/* Secciones */}
+        <nav className="flex items-center gap-1 overflow-x-auto lg:gap-2">
           {CATEGORIES.map(({ key, labelKey }) => (
             <button
               key={key}
               onClick={() => onCategoryChange(key)}
               className={cn(
-                "px-4 py-1.5 rounded-full text-sm font-semibold whitespace-nowrap font-montserrat transition-colors",
+                "whitespace-nowrap border-b-2 px-3 py-2 font-montserrat text-xs font-bold uppercase tracking-wide transition-colors lg:text-sm",
                 activeCategory === key
-                  ? "bg-blue-dark text-white"
-                  : "text-gray-600 hover:text-blue-dark"
+                  ? "border-[#C8102E] text-blue-dark"
+                  : "border-transparent text-gray-500 hover:text-blue-dark"
               )}
             >
               {t(labelKey)}
             </button>
           ))}
-        </div>
-        <label className="flex items-center border border-gray-300 rounded-full px-3 py-1.5 gap-2 min-w-[180px] cursor-text">
-          <MagnifyingGlassIcon className="size-4 text-gray-400 flex-shrink-0" />
+        </nav>
+
+        {/* Buscador */}
+        <label className="flex min-w-[180px] cursor-text items-center gap-2 rounded-full border border-gray-300 px-3 py-1.5">
+          <MagnifyingGlassIcon className="size-4 flex-shrink-0 text-gray-400" />
           <input
             type="text"
             value={search}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder={t("searchPlaceholder")}
-            className="outline-none text-sm w-full bg-white text-gray-800 font-montserrat"
+            className="w-full bg-white font-montserrat text-sm text-gray-800 outline-none"
           />
         </label>
       </div>
