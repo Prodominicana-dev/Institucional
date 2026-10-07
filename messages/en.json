@@ -32,7 +32,6 @@
         "export": "Export Services",
         "exportDesc": "Maximize your international presence"
       },
-
       "formTitle": "Assistance Request",
       "Name": "First Name",
       "LastName": "Last Name",
@@ -67,6 +66,7 @@
     },
     "shetrades": "SheTrades",
     "mujerExporta": "Mujer Exporta +",
+    "noticiasPro": "Pro News",
     "transparency": "Transparency",
     "contact": "Contact",
     "institute": "Institute",
@@ -235,6 +235,39 @@
         }
       ]
     }
+  },
+  "proeconomia": {
+    "categories": {
+      "todos": "All",
+      "importacion": "Imports",
+      "inversion": "Investment",
+      "economia": "Economy",
+      "internacionales": "International"
+    },
+    "searchPlaceholder": "Search news...",
+    "tickerLabel": "PRO NEWS",
+    "dailyCovers": "Daily Covers",
+    "noFeatured": "No featured article",
+    "noCovers": "No covers available",
+    "recentNews": "Recent News",
+    "scheduleSubtitle": "WEEKLY ACTIVITY COMMUNICATION",
+    "scheduleTitle": "Up to Date with ProDominicana",
+    "colInvest": "Investment",
+    "indicatorsTitle": "Economic Indicators",
+    "newsletterTitle": "Subscribe to the Newsletter",
+    "newsletterSubtitle": "Receive the latest news and economic analysis directly in your inbox.",
+    "newsletterNamePlaceholder": "Name (optional)",
+    "newsletterEmailPlaceholder": "Email address *",
+    "newsletterButton": "Subscribe",
+    "newsletterLoading": "Sending...",
+    "newsletterOk": "Subscription successful! Thank you for joining.",
+    "newsletterDuplicate": "This email is already subscribed.",
+    "newsletterError": "An error occurred. Please try again.",
+    "indicatorUnavailable": "Not available",
+    "indicatorUpdatedOn": "Updated on {date}",
+    "colImport": "Imports",
+    "colEconomy": "Economy",
+    "seeMore": "See more news"
   },
   "organizationalChart": {
     "title": "Organizational Chart",
@@ -1078,7 +1111,6 @@
       "description": "Find the office nearest to you."
     }
   },
-
   "complaints": {
     "title": "Complaint",
     "description": "If you have any issues, write to us. The information provided will be handled confidentially.",
@@ -1115,7 +1147,6 @@
       "description": "Find the office nearest to you."
     }
   },
-
   "termsofuse": {
     "title": "Terms of Use"
   },

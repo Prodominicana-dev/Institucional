@@ -218,6 +218,11 @@ export default function Navbar() {
               className="h-full px-3 xl:px-1.5 xl:text-sm 2xl:px-2.5 2xl:text-base flex items-center"
             />
             <NavbarLink
+              title={t("noticiasPro")}
+              link={"/proeconomia"}
+              className="h-full px-3 xl:px-1.5 xl:text-sm 2xl:px-2.5 2xl:text-base flex items-center"
+            />
+            <NavbarLink
               title={t("transparency")}
               link={"https://transparencia.prodominicana.gob.do/"}
               className="h-full px-3 xl:px-1.5 xl:text-sm 2xl:px-2.5 2xl:text-base flex items-center"

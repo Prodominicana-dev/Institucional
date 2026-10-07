@@ -41,3 +41,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Documentos generados (PDF): se comparten aparte, no se versionan
+docs/

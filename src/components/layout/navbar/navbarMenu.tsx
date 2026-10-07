@@ -35,6 +35,7 @@ const routeMap: Record<string, string> = {
   "/noticias": "/news",
   "/eventos": "/events",
   "/tv": "/tv",
+  "/proeconomia": "/proeconomia",
 };
 
 export default function NavbarMenu({ title, navListMenuItems }: Props) {
