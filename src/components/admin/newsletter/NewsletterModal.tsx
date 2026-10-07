@@ -37,7 +37,7 @@ export function NewsletterModal({ open, onClose, update, newsletter }: Props) {
   const [error, setError] = useState(false);
 
   const editor = Editor({
-    placeholder: "Contenido HTML del boletín...",
+    placeholder: "Escriba aquí el contenido que recibirán los suscriptores...",
     content: newsletter?.html ?? "",
   });
 
@@ -83,22 +83,25 @@ export function NewsletterModal({ open, onClose, update, newsletter }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && !loading && onClose()}>
-      <DialogContent className="flex h-[90vh] w-[90vw] max-w-none flex-col gap-4 overflow-y-auto p-6 font-montserrat text-black">
-        <h2 className="text-2xl font-bold">
-          {newsletter ? "Editar boletín" : "Nuevo boletín"}
+      {/* sm:max-w-lg viene en la base del dialogo y, por ser variante
+          responsiva, gana sobre un max-w- sin variante: hay que pisarlo
+          con la misma variante o el modal se queda estrecho. */}
+      <DialogContent className="flex h-[92vh] w-[97vw] max-w-none flex-col gap-4 overflow-x-hidden overflow-y-auto p-6 font-montserrat text-black sm:max-w-[1400px]">
+        <h2 className="font-opensans text-2xl font-extrabold uppercase text-blue-900">
+          {newsletter ? "Editar noticia" : "Nueva noticia"}
         </h2>
 
-        <div className="grid gap-4">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="grid min-w-0 gap-4">
+          <div className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="nl-title">
+              <Label htmlFor="nl-title" className="font-montserrat font-semibold text-blue-950">
                 Título (ES) <span className="text-red-500">*</span>
               </Label>
               <Input
                 id="nl-title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Título del boletín"
+                placeholder="Título de la noticia"
               />
               {error && !title && (
                 <p className="flex items-center gap-1 text-xs text-red-500">
@@ -107,7 +110,7 @@ export function NewsletterModal({ open, onClose, update, newsletter }: Props) {
               )}
             </div>
             <div className="flex flex-col gap-1.5">
-              <Label htmlFor="nl-title-en">Título (EN)</Label>
+              <Label htmlFor="nl-title-en" className="font-montserrat font-semibold text-blue-950">Título (EN)</Label>
               <Input
                 id="nl-title-en"
                 value={titleEn}
@@ -118,7 +121,7 @@ export function NewsletterModal({ open, onClose, update, newsletter }: Props) {
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="nl-subject">
+            <Label htmlFor="nl-subject" className="font-montserrat font-semibold text-blue-950">
               Asunto del correo <span className="text-red-500">*</span>
             </Label>
             <Input
@@ -134,42 +137,49 @@ export function NewsletterModal({ open, onClose, update, newsletter }: Props) {
             )}
           </div>
 
-          <div className="flex flex-col gap-1.5">
-            <Label htmlFor="nl-tags">
-              Etiquetas{" "}
-              <span className="text-xs text-gray-400">(separadas por coma)</span>
-            </Label>
-            <Input
-              id="nl-tags"
-              value={tags}
-              onChange={(e) => setTags(e.target.value)}
-              placeholder="tecnología, exportación, ..."
-            />
+          {/* Etiquetas y programacion comparten fila: son cortos y asi el
+              formulario cabe sin tanto desplazamiento. */}
+          <div className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2">
+            <div className="flex min-w-0 flex-col gap-1.5">
+              <Label htmlFor="nl-tags" className="font-montserrat font-semibold text-blue-950">
+                Etiquetas{" "}
+                <span className="text-xs text-gray-400">
+                  (separadas por coma)
+                </span>
+              </Label>
+              <Input
+                id="nl-tags"
+                value={tags}
+                onChange={(e) => setTags(e.target.value)}
+                placeholder="tecnología, exportación, ..."
+              />
+            </div>
+
+            <div className="flex min-w-0 flex-col gap-1.5">
+              <Label htmlFor="nl-scheduled" className="font-montserrat font-semibold text-blue-950">
+                Programar envío{" "}
+                <span className="text-xs text-gray-400">(opcional)</span>
+              </Label>
+              <Input
+                id="nl-scheduled"
+                type="datetime-local"
+                value={scheduledAt}
+                onChange={(e) => setScheduledAt(e.target.value)}
+              />
+              <p className="text-xs text-gray-500">
+                Con fecha y hora, la noticia se envía sola en ese momento.
+                Vacío, queda en borrador para enviarlo a mano.
+              </p>
+            </div>
           </div>
 
           <div className="flex flex-col gap-1.5">
-            <Label htmlFor="nl-scheduled">
-              Programar envío{" "}
-              <span className="text-xs text-gray-400">(opcional)</span>
+            <Label className="font-montserrat font-semibold text-blue-950">
+              Contenido <span className="text-red-500">*</span>
             </Label>
-            <Input
-              id="nl-scheduled"
-              type="datetime-local"
-              value={scheduledAt}
-              onChange={(e) => setScheduledAt(e.target.value)}
-            />
-            <p className="text-xs text-gray-500">
-              Si indica fecha y hora, el boletín se enviará solo en ese momento
-              a todos los suscriptores activos. Déjelo vacío para guardarlo como
-              borrador y enviarlo usted a mano.
-            </p>
-          </div>
-
-          <div className="flex flex-col gap-1.5">
-            <Label>
-              Contenido HTML <span className="text-red-500">*</span>
-            </Label>
-            <TextEditor editor={editor} />
+            <div className="min-w-0 [&_.ProseMirror]:min-h-[320px]">
+              <TextEditor editor={editor} />
+            </div>
             {error && !editor?.getText()?.trim() && (
               <p className="flex items-center gap-1 text-xs text-red-500">
                 <AlertCircle className="size-3.5" /> El contenido es obligatorio.
@@ -192,7 +202,7 @@ export function NewsletterModal({ open, onClose, update, newsletter }: Props) {
             ) : newsletter ? (
               "Actualizar"
             ) : (
-              "Crear boletín"
+              "Crear noticia"
             )}
           </Button>
         </div>

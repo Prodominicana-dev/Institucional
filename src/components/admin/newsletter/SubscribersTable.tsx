@@ -83,7 +83,7 @@ export function SubscribersTable({ onExport, exporting }: Props) {
           variant="outline"
           className="h-10 rounded-xl"
         >
-          {exporting ? "Exportando..." : "Exportar CSV"}
+          {exporting ? "Descargando..." : "Descargar lista en Excel"}
         </Button>
       </div>
 

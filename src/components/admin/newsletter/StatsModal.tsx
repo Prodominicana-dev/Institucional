@@ -29,7 +29,7 @@ export function StatsModal({ open, newsletter, onClose }: Props) {
       <DialogContent className="max-w-md font-montserrat text-black">
         <DialogTitle className="text-xl font-bold">{newsletter.title}</DialogTitle>
         <DialogDescription className="text-sm text-gray-500">
-          Métricas del boletín
+          Métricas de la noticia
         </DialogDescription>
         {isLoading ? (
           <div className="flex justify-center py-8">

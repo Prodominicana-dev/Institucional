@@ -4,7 +4,6 @@ import {
   MagnifyingGlassIcon,
   NewspaperIcon,
   PhotoIcon,
-  PresentationChartLineIcon,
   ScaleIcon,
   UserIcon,
   VideoCameraIcon,
@@ -109,12 +108,6 @@ export default function Navbar() {
       description: t("news.menuList.galleryDesc"),
       icon: PhotoIcon,
       link: "/gallery",
-    },
-    {
-      title: t("news.menuList.proeconomia"),
-      description: t("news.menuList.proeconomiaDesc"),
-      icon: PresentationChartLineIcon,
-      link: "/proeconomia",
     },
   ];
 
@@ -222,6 +215,11 @@ export default function Navbar() {
             <NavbarLink
               title={t("mujerExporta")}
               link={"/mujer-exporta"}
+              className="h-full px-3 xl:px-1.5 xl:text-sm 2xl:px-2.5 2xl:text-base flex items-center"
+            />
+            <NavbarLink
+              title={t("noticiasPro")}
+              link={"/proeconomia"}
               className="h-full px-3 xl:px-1.5 xl:text-sm 2xl:px-2.5 2xl:text-base flex items-center"
             />
             <NavbarLink

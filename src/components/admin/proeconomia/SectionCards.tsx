@@ -6,18 +6,25 @@ import {
   UsersIcon,
   NewspaperIcon,
   ChartBarIcon,
+  StarIcon,
 } from "@heroicons/react/24/outline";
 
 const SECCIONES = [
   {
-    titulo: "Boletines",
-    descripcion: "Redacte, programe y envíe el boletín del Radar Económico.",
+    titulo: "Noticia destacada",
+    descripcion: "Elija la noticia que encabeza la página de Noticias Pro.",
+    url: "/admin/proeconomia/destacada",
+    Icono: StarIcon,
+  },
+  {
+    titulo: "Noticias",
+    descripcion: "Redacte, programe y envíe las noticias a los suscriptores.",
     url: "/admin/newsletter",
     Icono: EnvelopeOpenIcon,
   },
   {
     titulo: "Suscriptores",
-    descripcion: "Consulte y exporte las personas suscritas al boletín.",
+    descripcion: "Consulte y exporte las personas suscritas.",
     url: "/admin/newsletter/subscribers",
     Icono: UsersIcon,
   },

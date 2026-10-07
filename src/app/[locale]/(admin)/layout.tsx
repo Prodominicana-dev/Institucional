@@ -8,6 +8,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/sonner";
 import "@mantine/tiptap/styles.css";
 import { MantineProvider } from "@mantine/core";
+// Sin este componente, notifications.show() no pinta nada: los avisos de
+// exito y error del panel fallaban en silencio.
+import { Notifications } from "@mantine/notifications";
+import "@mantine/notifications/styles.css";
 const queryClient = new QueryClient();
 const monserratStyle = Montserrat({ subsets: ["latin"] });
 
@@ -20,6 +24,7 @@ export default function RootLayout({
     <QueryClientProvider client={queryClient}>
       <Provider>
         <MantineProvider>
+          <Notifications position="top-right" zIndex={2000} />
           <div
             className="w-full h-screen flex bg-white"
             style={monserratStyle.style}

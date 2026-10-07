@@ -236,7 +236,7 @@ export function SideBar() {
                     url={"/admin/feedback"}
                   />
                   <SidebarMenuItem
-                    title={"Proeconomía"}
+                    title={"Noticias Pro"}
                     url={"/admin/proeconomia"}
                   />
                 </List>

@@ -117,7 +117,7 @@ Un detalle operativo: el botón **Guardar cambios** es uno solo para los cuatro 
 4. **Título (EN)**: opcional.
 5. **Asunto del correo**: obligatorio. Es la línea que el suscriptor ve en su bandeja de entrada antes de abrir el correo.
 6. **Etiquetas**: opcional, separadas por coma. Sirven para clasificar los boletines dentro del panel.
-7. **Contenido HTML**: obligatorio. Escriba aquí el cuerpo del boletín con el editor de texto.
+7. **Contenido del boletín**: obligatorio. Escriba aquí el cuerpo del boletín con el editor de texto.
 8. Pulse **Crear boletín**. Queda guardado con el estado **Borrador** y todavía no se ha enviado a nadie.
 
 El boletín no tiene campo de imagen de portada. Las imágenes que quiera incluir van dentro del contenido.

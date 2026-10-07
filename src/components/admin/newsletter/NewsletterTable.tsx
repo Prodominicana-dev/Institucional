@@ -159,7 +159,7 @@ export function NewsletterTable({ items, isLoading, update }: Props) {
         </div>
         {items.length === 0 && (
           <div className="py-12 text-center">
-            <p className="text-gray-500">No hay boletines registrados.</p>
+            <p className="text-gray-500">No hay noticias registradas.</p>
           </div>
         )}
       </div>
@@ -190,8 +190,8 @@ export function NewsletterTable({ items, isLoading, update }: Props) {
       {deleteItem && (
         <DeleteButton
           open
-          title="Eliminar boletín"
-          message={`¿Está seguro de que desea eliminar el boletín "${deleteItem.title}"? Esta acción no se puede deshacer.`}
+          title="Eliminar noticia"
+          message={`¿Está seguro de que desea eliminar la noticia "${deleteItem.title}"? Esta acción no se puede deshacer.`}
           handleOpen={() => setDeleteItem(null)}
           funct={handleDelete}
         />

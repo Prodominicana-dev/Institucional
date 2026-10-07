@@ -28,18 +28,18 @@ export function SendModal({ open, newsletter, onClose, update }: Props) {
   return (
     <Dialog open={open} onOpenChange={(v) => !v && !loading && onClose()}>
       <DialogContent className="max-w-md font-montserrat text-black">
-        <DialogTitle className="sr-only">Enviar boletín</DialogTitle>
+        <DialogTitle className="sr-only">Enviar noticia</DialogTitle>
         <DialogDescription className="sr-only">
-          Confirmar envío del boletín a todos los suscriptores activos.
+          Confirmar envío del noticia a todos los suscriptores activos.
         </DialogDescription>
         <div className="flex flex-col items-center gap-6 p-4">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-blue-dark/10">
             <PaperAirplaneIcon className="h-8 w-8 text-blue-dark" />
           </div>
           <div className="space-y-2 text-center">
-            <p className="text-xl font-bold">Enviar boletín</p>
+            <p className="text-xl font-bold">Enviar noticia</p>
             <p className="text-sm text-gray-600">
-              El boletín{" "}
+              El noticia{" "}
               <strong className="text-gray-900">&ldquo;{newsletter.title}&rdquo;</strong>{" "}
               será enviado a todos los suscriptores activos. Esta acción no se
               puede deshacer.

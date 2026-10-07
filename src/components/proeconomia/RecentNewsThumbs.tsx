@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { nombreCategoria } from "./categoria";
 
 interface Props {
   news: any[];
@@ -36,8 +37,8 @@ export default function RecentNewsThumbs({ news, locale }: Props) {
             <div className="flex-1 min-w-0 space-y-1">
               <span className="text-red-700 text-xs font-bold uppercase tracking-widest font-montserrat block">
                 {locale === "es"
-                  ? item.category?.nameEs
-                  : item.category?.nameEn}
+                  ? nombreCategoria(item.category, "es")
+                  : nombreCategoria(item.category, "en")}
               </span>
               <p className="text-blue-950 text-sm font-bold font-montserrat line-clamp-3">
                 {item.title}

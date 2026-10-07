@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import AuthUser from "@/components/admin/auth";
+import { BackLink } from "@/components/admin/proeconomia/BackLink";
 import Sketch from "@/components/admin/sketch";
 import { SubscribersTable } from "@/components/admin/newsletter/SubscribersTable";
 import { exportNewsletterSubscribers } from "@/services/newsletter/subscribers";
@@ -19,16 +20,17 @@ export default function Page() {
 
   const buttons = [
     {
-      name: exporting ? "Exportando..." : "Exportar CSV",
+      name: exporting ? "Descargando..." : "Descargar lista en Excel",
       onClick: handleExport,
     },
   ];
 
   return (
     <AuthUser permission="create:news">
+      <BackLink />
       <Sketch
-        title="Suscriptores del boletín"
-        subtitle="Personas suscritas al boletín electrónico"
+        title="Suscriptores"
+        subtitle="Personas suscritas a Noticias Pro"
         handleFilterOpen={() => {}}
         buttons={buttons}
         hasFilter={false}

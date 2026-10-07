@@ -12,10 +12,10 @@ interface Props {
 
 const CATEGORIES = [
   { key: "all", labelKey: "categories.todos" },
-  { key: "exportación", labelKey: "categories.exportacion" },
+  { key: "importación", labelKey: "categories.importacion" },
   { key: "inversión", labelKey: "categories.inversion" },
-  { key: "turismo", labelKey: "categories.turismo" },
-  { key: "finanzas", labelKey: "categories.finanzas" },
+  { key: "economía", labelKey: "categories.economia" },
+  { key: "internacional", labelKey: "categories.internacionales" },
 ];
 
 export default function CategoryBar({

@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { nombreCategoria } from "./categoria";
 
 interface Props {
   news: any[];
@@ -9,9 +10,9 @@ interface Props {
 }
 
 const COLUMNS = [
-  { key: "exportación", labelKey: "colExport" },
+  { key: "importación", labelKey: "colImport" },
   { key: "inversión", labelKey: "colInvest" },
-  { key: "finanzas", labelKey: "colFinance" },
+  { key: "economía", labelKey: "colEconomy" },
 ];
 
 function NewsCol({ items, label }: { items: any[]; label: string }) {
@@ -36,7 +37,7 @@ function NewsCol({ items, label }: { items: any[]; label: string }) {
           {main.title}
         </p>
       </Link>
-      {rest.slice(0, 2).map((item: any) => (
+      {rest.map((item: any) => (
         <Link
           key={item.id}
           href={`/news/${item.id}`}
@@ -65,7 +66,7 @@ export default function ColumnedNews({ news, locale }: Props) {
     <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
       {COLUMNS.map(({ key, labelKey }) => {
         const items = news.filter((n: any) =>
-          n.category?.nameEs?.toLowerCase().includes(key)
+          nombreCategoria(n.category).toLowerCase().includes(key)
         );
         return (
           <NewsCol key={key} items={items} label={t(labelKey)} />

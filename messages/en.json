@@ -52,9 +52,7 @@
         "prodomTV": "ProDominicana TV",
         "prodomTVDesc": "Explore exclusive content from ProDominicana",
         "gallery": "Photo Gallery",
-        "galleryDesc": "Discover impactful visual moments",
-        "proeconomia": "Economic Radar",
-        "proeconomiaDesc": "Economic analysis and Dominican market data"
+        "galleryDesc": "Discover impactful visual moments"
       }
     },
     "womenPrograms": {
@@ -68,6 +66,7 @@
     },
     "shetrades": "SheTrades",
     "mujerExporta": "Mujer Exporta +",
+    "noticiasPro": "Pro News",
     "transparency": "Transparency",
     "contact": "Contact",
     "institute": "Institute",
@@ -240,22 +239,20 @@
   "proeconomia": {
     "categories": {
       "todos": "All",
-      "exportacion": "Export",
+      "importacion": "Imports",
       "inversion": "Investment",
-      "turismo": "Tourism",
-      "finanzas": "Finance"
+      "economia": "Economy",
+      "internacionales": "International"
     },
     "searchPlaceholder": "Search news...",
-    "tickerLabel": "ECONOMIC RADAR",
+    "tickerLabel": "PRO NEWS",
     "dailyCovers": "Daily Covers",
     "noFeatured": "No featured article",
     "noCovers": "No covers available",
     "recentNews": "Recent News",
     "scheduleSubtitle": "WEEKLY ACTIVITY COMMUNICATION",
     "scheduleTitle": "Up to Date with ProDominicana",
-    "colExport": "Export",
     "colInvest": "Investment",
-    "colFinance": "Finance",
     "indicatorsTitle": "Economic Indicators",
     "newsletterTitle": "Subscribe to the Newsletter",
     "newsletterSubtitle": "Receive the latest news and economic analysis directly in your inbox.",
@@ -267,7 +264,10 @@
     "newsletterDuplicate": "This email is already subscribed.",
     "newsletterError": "An error occurred. Please try again.",
     "indicatorUnavailable": "Not available",
-    "indicatorUpdatedOn": "Updated on {date}"
+    "indicatorUpdatedOn": "Updated on {date}",
+    "colImport": "Imports",
+    "colEconomy": "Economy",
+    "seeMore": "See more news"
   },
   "organizationalChart": {
     "title": "Organizational Chart",

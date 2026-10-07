@@ -8,10 +8,10 @@ export default function Page() {
     <AuthUser permission="create:news">
       <div className="min-h-screen bg-gray-50 flex flex-col items-center py-12">
         <div className="w-full max-w-3xl bg-white rounded-lg shadow p-8">
-          <h1 className="text-3xl font-bold text-navy mb-4">Proeconomía</h1>
+          <h1 className="text-3xl font-bold text-navy mb-4">Noticias Pro</h1>
           <p className="text-gray-600 mb-8">
-            Administre el apartado Radar Económico del portal: el boletín y sus
-            suscriptores, las portadas diarias y los indicadores del mercado.
+            Administre el apartado Noticias Pro del portal: las noticias que se
+            envían, sus suscriptores, las portadas diarias y los indicadores.
           </p>
           <SectionCards />
         </div>

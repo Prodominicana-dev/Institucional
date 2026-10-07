@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { nombreCategoria } from "./categoria";
 
 interface Props {
   news: any[];
@@ -34,8 +35,8 @@ export default function NewsCards({ news, locale }: Props) {
             <div className="mt-2 space-y-1">
               <span className="text-red-700 font-normal tracking-widest uppercase font-montserrat text-sm block">
                 {locale === "es"
-                  ? item.category?.nameEs
-                  : item.category?.nameEn}
+                  ? nombreCategoria(item.category, "es")
+                  : nombreCategoria(item.category, "en")}
               </span>
               <h3 className="text-blue-950 font-bold font-montserrat text-xl line-clamp-3 break-words">
                 {item.title}

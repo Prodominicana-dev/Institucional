@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import AuthUser from "@/components/admin/auth";
+import { BackLink } from "@/components/admin/proeconomia/BackLink";
 import Sketch from "@/components/admin/sketch";
 import { NewsletterTable } from "@/components/admin/newsletter/NewsletterTable";
 import { NewsletterModal } from "@/components/admin/newsletter/NewsletterModal";
@@ -21,13 +22,14 @@ export default function Page() {
   }, [refresh]);
 
   const handleRefresh = () => setRefresh((r) => !r);
-  const buttons = [{ name: "Crear boletín", onClick: () => setAddOpen(true) }];
+  const buttons = [{ name: "Crear noticia", onClick: () => setAddOpen(true) }];
 
   return (
     <AuthUser permission="create:news">
+      <BackLink />
       <Sketch
-        title="Boletines"
-        subtitle="Gestión de boletines electrónicos"
+        title="Noticias"
+        subtitle="Gestión de noticias electrónicos"
         handleFilterOpen={() => {}}
         buttons={buttons}
         hasFilter={false}

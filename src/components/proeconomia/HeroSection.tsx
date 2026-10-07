@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import CoversCarousel from "./CoversCarousel";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import {
@@ -14,8 +15,8 @@ interface Props {
 export default function HeroSection({ locale }: Props) {
   const t = useTranslations("proeconomia");
   const { data: featured, isLoading: featLoading } = useFeaturedNews(locale);
-  const { data: coversRaw, isLoading: covLoading } = useNewspaperCovers(1);
-  const cover = Array.isArray(coversRaw) ? coversRaw[0] : undefined;
+  const { data: coversRaw, isLoading: covLoading } = useNewspaperCovers(8);
+  const covers: any[] = Array.isArray(coversRaw) ? coversRaw : [];
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -60,32 +61,12 @@ export default function HeroSection({ locale }: Props) {
             {t("dailyCovers")}
           </h3>
           {covLoading ? (
-            <div className="h-64 bg-gray-100 rounded-md animate-pulse" />
-          ) : cover ? (
-            <a
-              href={cover.link ?? "#"}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block rounded-md overflow-hidden border border-gray-200 hover:shadow-md transition-shadow"
-            >
-              <Image
-                src={`${process.env.NEXT_PUBLIC_API_URL}/newspaper-cover/${cover.id}/img/${cover.image}`}
-                alt={cover.media ?? t("dailyCovers")}
-                width={260}
-                height={380}
-                className="w-full object-cover"
-              />
-              {cover.media && (
-                <div className="p-2 bg-blue-950">
-                  <p className="text-white text-xs font-montserrat truncate">
-                    {cover.media}
-                  </p>
-                </div>
-              )}
-            </a>
+            <div className="h-64 animate-pulse rounded-md bg-gray-100" />
+          ) : covers.length > 0 ? (
+            <CoversCarousel covers={covers} titulo={t("dailyCovers")} />
           ) : (
-            <div className="h-64 bg-gray-50 rounded-md flex items-center justify-center">
-              <p className="text-gray-400 font-montserrat text-sm">
+            <div className="flex h-64 items-center justify-center rounded-md bg-gray-50">
+              <p className="font-montserrat text-sm text-gray-400">
                 {t("noCovers")}
               </p>
             </div>
