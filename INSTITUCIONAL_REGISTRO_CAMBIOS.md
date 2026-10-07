@@ -1,5 +1,31 @@
 # Institucional — Registro de cambios
 
+## 2026-10-07 (tarde) — Noticias Pro: ruta propia y cabecera sin navbar
+
+Segunda tanda de correcciones, tras la revisión del cliente ya desplegada.
+
+- **Ruta `/proeconomia` → `/noticias-pro`.** La página se movió al grupo nuevo
+  `src/app/[locale]/(noticias-pro)/`, siguiendo el patrón de `(mujer-exporta)`.
+  `next.config.js` recibe tres redirecciones permanentes (`/proeconomia`,
+  `/es/proeconomia`, `/en/proeconomia`), porque la dirección vieja ya estuvo
+  publicada. Verificado: 308 a la nueva.
+- **Sin navbar institucional.** El grupo trae su propio `layout.tsx`: solo
+  `QueryClientProvider`, la página, accesibilidad y el pie. La cabecera de la
+  sección es la única barra de navegación, como en la maqueta.
+- **El rótulo pasa a NOTICIAS PRO** (en inglés, PRO NEWS), en el menú y en la
+  cabecera de la página. Se retiró "PROECONOMÍA / Radar Económico" y la clave
+  `brandTagline`.
+- **Turismo fuera.** Las secciones quedan Exportación · Inversión ·
+  Internacionales · Finanzas.
+
+Verificado con los dos servidores en local: `/es/noticias-pro` da 200, el rótulo y
+la sección Internacionales salen en el marcado, Turismo no, y del navbar no queda
+rastro (lo que aparece de "Servicios" y "Transparencia" es el pie).
+`npx tsc --noEmit` sin errores.
+
+⚠️ Al mover la ruta, `.next/types/validator.ts` quedó apuntando a la carpeta vieja
+y `tsc` falló con `TS2307`. Se arregla borrando `.next`.
+
 ## 2026-10-07 — Radar Económico: ajuste a la maqueta
 
 El cliente señaló que lo visual no coincidía con el mandato. Se revisó la maqueta

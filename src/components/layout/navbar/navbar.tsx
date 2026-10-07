@@ -114,7 +114,7 @@ export default function Navbar() {
       title: t("news.menuList.proeconomia"),
       description: t("news.menuList.proeconomiaDesc"),
       icon: ChartBarIcon,
-      link: "/proeconomia",
+      link: "/noticias-pro",
     },
   ];
 

@@ -45,7 +45,7 @@ export default function ProeconomiaPage() {
   }, [news, activeCategory, search]);
 
   return (
-    <div className="w-full bg-white pt-20 md:pt-20 xl:pt-0">
+    <div className="w-full bg-white">
       <CategoryBar
         activeCategory={activeCategory}
         search={search}

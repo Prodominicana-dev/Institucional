@@ -32,7 +32,7 @@ export default function SearchPage() {
     {
       Title: t("news.title"),
       Url: [
-        { label: t("news.menuList.proeconomia"), path: "/proeconomia" },
+        { label: t("news.menuList.proeconomia"), path: "/noticias-pro" },
         { label: t("news.menuList.news"), path: "/news" },
         { label: t("news.menuList.event"), path: "/events" },
         { label: t("news.menuList.prodomTV"), path: "/tv" },
@@ -74,7 +74,7 @@ export default function SearchPage() {
     },
     {
       Title: t("news.menuList.proeconomia"),
-      Url: [{ label: t("news.menuList.proeconomia"), path: "/proeconomia" }],
+      Url: [{ label: t("news.menuList.proeconomia"), path: "/noticias-pro" }],
     },
     {
       Title: t("news.menuList.news"),

@@ -73,7 +73,7 @@
         "prodomTVDesc": "Explora contenido exclusivo de ProDominicana",
         "gallery": "Galería de fotos",
         "galleryDesc": "Descubre momentos visuales impactantes",
-        "proeconomia": "Radar Económico",
+        "proeconomia": "Noticias Pro",
         "proeconomiaDesc": "Noticias, indicadores y portadas de la actualidad económica"
       }
     },
@@ -387,13 +387,12 @@
     }
   },
   "proeconomia": {
-    "brandName": "PROECONOMÍA",
-    "brandTagline": "Radar Económico",
+    "brandName": "NOTICIAS PRO",
     "categories": {
       "todos": "Todos",
       "exportacion": "Exportación",
       "inversion": "Inversión",
-      "turismo": "Turismo",
+      "internacionales": "Internacionales",
       "finanzas": "Finanzas"
     },
     "searchPlaceholder": "Buscar noticias...",

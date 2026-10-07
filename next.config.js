@@ -114,6 +114,24 @@ const nextConfig = {
         permanent: true,
       },
 
+      /* La seccion se llamo /proeconomia hasta el 2026-10-07. El enlace ya
+         estuvo publicado, asi que la direccion vieja sigue llevando a la nueva. */
+      {
+        source: "/proeconomia",
+        destination: "/noticias-pro",
+        permanent: true,
+      },
+      {
+        source: "/es/proeconomia",
+        destination: "/es/noticias-pro",
+        permanent: true,
+      },
+      {
+        source: "/en/proeconomia",
+        destination: "/en/noticias-pro",
+        permanent: true,
+      },
+
     ];
   },
 };

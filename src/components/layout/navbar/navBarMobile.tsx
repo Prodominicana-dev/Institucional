@@ -119,7 +119,7 @@ export default function NavBarMobile() {
         { title: t("news.menuList.event"), link: "/events" },
         { title: t("news.menuList.prodomTV"), link: "/tv" },
         { title: t("news.menuList.gallery"), link: "/gallery" },
-        { title: t("news.menuList.proeconomia"), link: "/proeconomia" },
+        { title: t("news.menuList.proeconomia"), link: "/noticias-pro" },
       ],
     },
     { title: t("shetrades"), link: "/shetrades", type: "link" },
