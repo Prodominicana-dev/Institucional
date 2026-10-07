@@ -33,7 +33,7 @@ export default function NewsCards({ news, locale }: Props) {
               />
             </div>
             <div className="mt-2 space-y-1">
-              <span className="text-red-700 font-normal tracking-widest uppercase font-montserrat text-sm block">
+              <span className="text-[#C8102E] font-normal tracking-widest uppercase font-montserrat text-sm block">
                 {locale === "es"
                   ? nombreCategoria(item.category, "es")
                   : nombreCategoria(item.category, "en")}

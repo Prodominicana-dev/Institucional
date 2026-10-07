@@ -13,6 +13,8 @@ import IndicatorsRow from "@/components/proeconomia/IndicatorsRow";
 import NewsletterForm from "@/components/proeconomia/NewsletterForm";
 import { useTranslations } from "next-intl";
 import { nombreCategoria } from "@/components/proeconomia/categoria";
+import DataDashboard from "@/components/home/dataDashboard";
+import DataDashboardMobile from "@/components/home/dataDashboardMobile";
 
 export default function ProeconomiaPage() {
   const { locale } = useParams<{ locale: string }>();
@@ -68,6 +70,10 @@ export default function ProeconomiaPage() {
             </button>
           </div>
         )}
+      </div>
+      <DataDashboard />
+      <DataDashboardMobile />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 py-10">
         <ScheduleCarousel locale={locale} />
         <ColumnedNews news={news} locale={locale} />
         <IndicatorsRow locale={locale} />

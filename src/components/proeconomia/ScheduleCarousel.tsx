@@ -46,32 +46,36 @@ export default function ScheduleCarousel({ locale }: Props) {
   if (schedule.length === 0) return null;
 
   return (
-    <section className="bg-blue-dark rounded-md p-6 sm:p-8">
-      <p className="text-red-400 text-xs font-bold uppercase tracking-widest font-montserrat">
-        {t("scheduleSubtitle")}
-      </p>
-      <h2 className="text-white font-extrabold text-xl sm:text-2xl font-opensans mb-6">
+    <section className="bg-white">
+      <div className="mb-6 flex items-center justify-center gap-3">
+        <span className="h-px w-10 bg-[#C8102E]" />
+        <p className="text-center font-montserrat text-[11px] font-bold uppercase tracking-[0.2em] text-[#C8102E]">
+          {t("scheduleSubtitle")}
+        </p>
+        <span className="h-px w-10 bg-[#C8102E]" />
+      </div>
+      <h2 className="mb-8 text-center font-opensans text-2xl font-extrabold text-blue-dark sm:text-3xl">
         {t("scheduleTitle")}
       </h2>
       <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex gap-4">
+        <div className="flex gap-5">
           {schedule.map((item: any) => {
             const { day, month } = getDateParts(item.date);
             const title = locale === "es" ? item.title : item.titleEn;
             return (
               <div
                 key={item.id}
-                className="flex-none w-64 sm:w-72 bg-white/10 rounded-md p-4 flex gap-4"
+                className="flex flex-none gap-4 rounded-md border border-gray-200 border-b-4 border-b-blue-dark bg-white p-4 shadow-sm w-64 sm:w-72"
               >
-                <div className="flex-shrink-0 w-12 text-center">
-                  <p className="text-red-400 font-bold text-xs font-montserrat">
+                <div className="w-14 flex-shrink-0 rounded-md bg-blue-dark px-2 py-2 text-center">
+                  <p className="font-montserrat text-[11px] font-bold text-white">
                     {month}
                   </p>
-                  <p className="text-white font-extrabold text-2xl font-montserrat leading-none mt-1">
+                  <p className="mt-0.5 font-montserrat text-2xl font-extrabold leading-none text-white">
                     {day}
                   </p>
                 </div>
-                <p className="text-white text-sm font-montserrat line-clamp-3 flex-1">
+                <p className="line-clamp-3 flex-1 font-montserrat text-sm font-semibold text-blue-dark">
                   {title}
                 </p>
               </div>
@@ -80,14 +84,14 @@ export default function ScheduleCarousel({ locale }: Props) {
         </div>
       </div>
       {scrollSnaps.length > 1 && (
-        <div className="flex justify-center gap-2 mt-5">
+        <div className="mt-6 flex justify-center gap-2">
           {scrollSnaps.map((_, i) => (
             <button
               key={i}
               aria-label={`Ir a diapositiva ${i + 1}`}
               onClick={() => emblaApi?.scrollTo(i)}
-              className={`w-2 h-2 rounded-full transition-colors ${
-                i === selectedIndex ? "bg-white" : "bg-white/30"
+              className={`h-2 w-2 rounded-full transition-colors ${
+                i === selectedIndex ? "bg-blue-dark" : "bg-gray-300"
               }`}
             />
           ))}

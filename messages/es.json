@@ -72,7 +72,9 @@
         "prodomTV": "ProDominicana TV",
         "prodomTVDesc": "Explora contenido exclusivo de ProDominicana",
         "gallery": "Galería de fotos",
-        "galleryDesc": "Descubre momentos visuales impactantes"
+        "galleryDesc": "Descubre momentos visuales impactantes",
+        "proeconomia": "Radar Económico",
+        "proeconomiaDesc": "Noticias, indicadores y portadas de la actualidad económica"
       }
     },
     "womenPrograms": {
@@ -86,7 +88,6 @@
     },
     "shetrades": "SheTrades",
     "mujerExporta": "Mujer Exporta +",
-    "noticiasPro": "Noticias Pro",
     "transparency": "Transparencia",
     "contact": "Contacto",
     "institute": "Instituto",
@@ -386,12 +387,14 @@
     }
   },
   "proeconomia": {
+    "brandName": "PROECONOMÍA",
+    "brandTagline": "Radar Económico",
     "categories": {
       "todos": "Todos",
-      "importacion": "Importación",
+      "exportacion": "Exportación",
       "inversion": "Inversión",
-      "economia": "Economía",
-      "internacionales": "Internacionales"
+      "turismo": "Turismo",
+      "finanzas": "Finanzas"
     },
     "searchPlaceholder": "Buscar noticias...",
     "tickerLabel": "NOTICIAS PRO",
@@ -401,9 +404,9 @@
     "recentNews": "Noticias Recientes",
     "scheduleSubtitle": "COMUNICACIÓN SEMANAL DE ACTIVIDADES",
     "scheduleTitle": "Al Día con ProDominicana",
-    "colImport": "Importación",
+    "colExport": "Exportación",
     "colInvest": "Inversión",
-    "colEconomy": "Economía",
+    "colFinance": "Finanzas",
     "indicatorsTitle": "Indicadores Económicos",
     "newsletterTitle": "Suscríbase al Boletín",
     "newsletterSubtitle": "Reciba las últimas noticias y análisis económicos directamente en su correo.",

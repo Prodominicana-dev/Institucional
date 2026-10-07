@@ -12,7 +12,7 @@ export default function TickerBanner({ news }: Props) {
   if (titles.length === 0) return null;
 
   return (
-    <div className="w-full bg-blue-950 py-2 overflow-hidden">
+    <div className="w-full bg-[#C8102E] py-2 overflow-hidden">
       <style>{`@keyframes ticker-move { from { transform: translateX(0); } to { transform: translateX(-50%); } }`}</style>
       <div className="flex items-center">
         <span className="flex-shrink-0 px-4 text-white font-bold font-montserrat text-xs uppercase tracking-widest border-r border-white/30 mr-4">
@@ -26,10 +26,10 @@ export default function TickerBanner({ news }: Props) {
             {[...titles, ...titles].map((title, i) => (
               <span
                 key={i}
-                className="text-white text-sm font-montserrat mx-6 opacity-90"
+                className="mx-6 font-montserrat text-[11px] font-semibold uppercase tracking-wide text-white"
               >
                 {title}
-                <span className="text-blue-300 mx-4">·</span>
+                <span className="mx-6 text-white/50">|</span>
               </span>
             ))}
           </div>
