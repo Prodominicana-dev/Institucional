@@ -25,7 +25,11 @@ export function FeaturedPicker() {
     refetchDestacada();
   };
 
-  const lista: any[] = Array.isArray(noticias) ? noticias : [];
+  /* Solo las etiquetadas para Noticias Pro: la destacada encabeza esa
+     pagina, no el portal. */
+  const lista: any[] = (Array.isArray(noticias) ? noticias : []).filter(
+    (n: any) => n.seccion
+  );
   const filtradas = busca.trim()
     ? lista.filter((n) =>
         (n.title ?? "").toLowerCase().includes(busca.trim().toLowerCase())

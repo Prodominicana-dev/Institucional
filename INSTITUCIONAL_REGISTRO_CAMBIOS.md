@@ -1,5 +1,28 @@
 # Institucional — Registro de cambios
 
+## 2026-10-08 (noche) — Separación completa entre Noticias y Noticias Pro
+
+Decisión del cliente: *"lo de Noticias Pro va solo en Noticias Pro y lo de
+Noticias solo va en Noticias"*.
+
+- **Etiquetas como desplegable.** En el formulario de noticias el campo pasa a
+  llamarse "Etiquetas", con las cuatro secciones. En el del boletín, "Etiquetas"
+  deja de ser texto libre y usa el mismo desplegable (se guarda como `tags`,
+  que la API ya define como lista).
+- **`/noticias` oculta lo etiquetado para Noticias Pro**, igual que Noticias Pro
+  ya ocultaba el resto.
+- **La portada del portal** pasa de `useLastTwoNews` a la lista completa y corta
+  las dos primeras sin etiqueta: pedir solo dos a la API y filtrar después podía
+  dejar una o ninguna.
+- **El selector de noticia destacada** solo ofrece las etiquetadas, que son las
+  únicas que pueden encabezar esa página.
+
+ℹ️ Sin tocar: la navegación anterior/siguiente del detalle de una noticia
+(`/apiv2/:lang/news/prnxt/:id`) la resuelve la API y puede saltar a una noticia
+de Noticias Pro. Hace falta cambio de API para cerrarlo.
+
+Verificado: `tsc --noEmit` 0.
+
 ## 2026-10-08 (tarde) — Noticias Pro deja de mostrar todas las noticias del portal
 
 Hasta ahora `/noticias-pro` servía la lista general de noticias (191 en

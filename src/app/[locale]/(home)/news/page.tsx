@@ -13,7 +13,8 @@ export default function Page() {
   const [news, setNews] = useState<any>();
   useEffect(() => {
     if (!isLoading && data) {
-      setNews(data);
+      /* Lo etiquetado para Noticias Pro vive solo alli. */
+      setNews((data as any[]).filter((n: any) => !n.seccion));
     }
   }, [data, isLoading]);
 

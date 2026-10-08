@@ -5,15 +5,19 @@ import Link from "next/link";
 import NewsCard from "./newsCard";
 import Schedule from "./schedule";
 import { useTranslations } from "next-intl";
-import { useLastTwoNews } from "@/services/news/service";
+import { useNews } from "@/services/news/service";
 
 export default function NewsSection({ locale }: { locale: string }) {
   const t = useTranslations("PressRoom");
-  const { data, isLoading } = useLastTwoNews(locale);
+  const { data, isLoading } = useNews(locale);
   const [news, setNews] = React.useState([]);
   React.useEffect(() => {
-    if (!isLoading) {
-      setNews(data);
+    if (!isLoading && data) {
+      /* Las dos ultimas que NO sean de Noticias Pro. La API ya las devuelve
+         ordenadas por fecha descendente. */
+      setNews(
+        (data as any[]).filter((n: any) => !n.seccion).slice(0, 2) as any
+      );
     }
   }, [data, isLoading]);
   return (
