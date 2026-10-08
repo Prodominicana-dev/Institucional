@@ -2,7 +2,6 @@
 import React from "react";
 import Link from "next/link";
 import {
-  EnvelopeOpenIcon,
   UsersIcon,
   NewspaperIcon,
   ChartBarIcon,
@@ -20,14 +19,8 @@ const SECCIONES = [
     titulo: "Noticias",
     descripcion:
       "Redacte las noticias que salen en Noticias Pro y elija su sección.",
-    url: "/admin/news",
+    url: "/admin/news?from=proeconomia",
     Icono: NewspaperIcon,
-  },
-  {
-    titulo: "Boletín por correo",
-    descripcion: "Redacte, programe y envíe el boletín a los suscriptores.",
-    url: "/admin/newsletter",
-    Icono: EnvelopeOpenIcon,
   },
   {
     titulo: "Suscriptores",

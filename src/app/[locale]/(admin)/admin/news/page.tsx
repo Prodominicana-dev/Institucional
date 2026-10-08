@@ -1,5 +1,6 @@
 "use client";
 import AuthUser from "@/components/admin/auth";
+import { BackLinkSiViene } from "@/components/admin/proeconomia/BackLinkSiViene";
 import Card from "@/components/admin/news/card";
 import { NewsDialog } from "@/components/admin/news/dialog";
 import Sketch from "@/components/admin/sketch";
@@ -65,6 +66,7 @@ export default function Page() {
 
   return (
     <AuthUser permission="create:news">
+      <BackLinkSiViene />
       <Sketch
         title="Noticias"
         handleFilterOpen={handleFilterOpen}
