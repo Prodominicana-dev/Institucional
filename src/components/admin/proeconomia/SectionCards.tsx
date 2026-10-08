@@ -18,7 +18,14 @@ const SECCIONES = [
   },
   {
     titulo: "Noticias",
-    descripcion: "Redacte, programe y envíe las noticias a los suscriptores.",
+    descripcion:
+      "Redacte las noticias que salen en Noticias Pro y elija su sección.",
+    url: "/admin/news",
+    Icono: NewspaperIcon,
+  },
+  {
+    titulo: "Boletín por correo",
+    descripcion: "Redacte, programe y envíe el boletín a los suscriptores.",
     url: "/admin/newsletter",
     Icono: EnvelopeOpenIcon,
   },

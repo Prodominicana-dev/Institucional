@@ -8,6 +8,7 @@ export interface NewspaperCover {
   image: string;
   media: string;
   link?: string;
+  section?: string;
   date: string;
 }
 

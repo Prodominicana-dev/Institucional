@@ -1,5 +1,56 @@
 # Institucional — Registro de cambios
 
+## 2026-10-08 — Noticias Pro: enlace en la noticia y sección en las portadas
+
+El equipo reportó que "las noticias no suben". La causa real tenía dos partes:
+la tarjeta **Noticias** del panel de Noticias Pro abría `/admin/newsletter`,
+que es el módulo de **correo**, y en producción faltaban las tablas del
+apartado (ver nota al final).
+
+- **Enlace de la noticia.** `dialog.tsx` y `edit.tsx` ganan un campo opcional
+  en el primer paso. Viaja dentro de `metadata`, que la API devuelve tal cual
+  (`news.service.ts` hace `...filteredNews`), así que **no hizo falta tocar la
+  API ni la base de datos**.
+- **La página usa ese enlace.** `enlace.ts` decide a dónde lleva cada noticia:
+  al enlace si lo hay, y si no al detalle de siempre. Lo usan `NewsCards`,
+  `RecentNewsThumbs`, `ColumnedNews` y `HeroSection`. Los externos abren en
+  pestaña nueva con `rel="noopener noreferrer"`.
+- **La tarjeta "Noticias" apunta a `/admin/news`**, que es donde se redactan
+  las noticias del portal. El boletín por correo pasa a su propia tarjeta,
+  rotulada como lo que es. Era la raíz de la confusión.
+- **Sección en las portadas diarias.** `NewspaperCover` recibe la columna
+  `section` y el formulario un desplegable con las cuatro secciones. Una
+  portada sin sección sale en todas, que es como están las ya cargadas.
+- **Una sola definición de las secciones**, en `proeconomia/secciones.ts`. La
+  usan la barra pública, el desplegable de portadas y el filtrado.
+
+Verificado: `tsc --noEmit` 0 en el front, `nest build` 0 en la API.
+
+⚠️ **Antes de desplegar** hay que correr en producción `proeconomia.sql`,
+`proeconomia_vigencia.sql` y el nuevo `proeconomia_seccion_portadas.sql`. Hoy
+la base de producción no tiene ninguna de las tablas del apartado: `Newsletter`
+da `P2021`, `NewspaperCover` y `EconomicIndicator` no existen y `News.featured`
+tampoco, así que portadas, indicadores y la noticia destacada responden 500.
+
+⚠️ La sección **Finanzas** sale vacía hasta que se cree esa categoría de
+noticias. Exportación e Inversión ya existen, e Internacionales se cubre con
+"Misión internacional" porque el filtro busca "internacional" dentro del
+nombre.
+
+- **Portada rota al comprimir (defecto previo, corregido).** `compressImage`
+  renombra el archivo a `.jpg`, pero `cover` guardaba el nombre original: una
+  portada subida en `.png` o `.webp` que se comprimiera quedaba apuntando a un
+  archivo inexistente. Ahora el nombre sale del archivo que de verdad se sube,
+  y al editar sin imagen nueva se conserva el que ya tenía. En crear y en
+  editar. **Las noticias ya guardadas con el nombre equivocado siguen rotas**:
+  hay que volver a subirles la portada.
+
+⚠️ Hallazgo del 8-oct: en producción **falla cualquier lectura de `News`**
+(`/apiv2/es/news` y `/apiv2/news/c/all` devuelven el error del catch), porque el
+código desplegado espera `News.featured` y la columna no existe. El portal no
+está sirviendo noticias en ninguna página. Lo arregla la primera línea de
+`proeconomia.sql`.
+
 ## 2026-10-07 (tarde) — Noticias Pro: ruta propia y cabecera sin navbar
 
 Segunda tanda de correcciones, tras la revisión del cliente ya desplegada.

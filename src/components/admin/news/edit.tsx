@@ -68,6 +68,7 @@ export function EditNewsDialog({
   const [date, setDate] = useState<any>(new Date());
   const [categoryOptions, setCategoryOptions] = useState<CategoryOption[]>([]);
   const [categoryId, setCategoryId] = useState("");
+  const [link, setLink] = useState("");
   const [keepOriginal, setKeepOriginal] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [compressing, setCompressing] = useState(false);
@@ -88,6 +89,7 @@ export function EditNewsDialog({
       setCover(news.cover);
       setImages(news.images);
       setCategoryId(news.category.id);
+      setLink(news.es.link ?? "");
     }
   }, [news, newsLoading]);
 
@@ -223,12 +225,14 @@ export function EditNewsDialog({
         title: spanishTitle,
         content: contentEs?.getHTML(),
         description: minidescriptionEs?.getHTML(),
+        link: link.trim(),
         language: "es",
       };
       const en_data = {
         title: englishTitle,
         content: contentEn?.getHTML(),
         description: minidescriptionEn?.getHTML(),
+        link: link.trim(),
         language: "en",
       };
 
@@ -236,7 +240,12 @@ export function EditNewsDialog({
       formData.append("es", JSON.stringify(es_data));
       formData.append("en", JSON.stringify(en_data));
       formData.append("date", date.toISOString());
-      formData.append("cover", cover);
+      /* El nombre tiene que ser el del archivo que se sube de verdad:
+         comprimir renombra a .jpg, y guardar el original dejaba la portada
+         rota en cuanto la imagen no venia ya en ese formato. Sin archivo
+         nuevo (al editar), se conserva el nombre que ya tenia. */
+      const coverName = coverFiles.length > 0 ? coverFiles[0].name : cover;
+      formData.append("cover", coverName);
       formData.append("categoryId", categoryId);
       formData.append("images", JSON.stringify(images));
       formData.append("updated_By", user?.email as string);
@@ -297,6 +306,21 @@ export function EditNewsDialog({
                 </p>
               )}
             </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="link">Enlace de la noticia</Label>
+            <Input
+              id="link"
+              onChange={(e) => setLink(e.target.value)}
+              value={link}
+              placeholder="https://..."
+              className="h-11 rounded-xl px-4 text-base shadow-sm"
+            />
+            <p className="text-xs text-muted-foreground">
+              Opcional. Si lo pones, la noticia llevará ahí en vez de a su
+              detalle en el portal.
+            </p>
           </div>
 
           <div className="flex flex-col gap-2">

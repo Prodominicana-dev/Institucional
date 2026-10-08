@@ -2,6 +2,7 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
+import { SECCIONES } from "./secciones";
 
 interface Props {
   activeCategory: string;
@@ -10,13 +11,7 @@ interface Props {
   onSearchChange: (s: string) => void;
 }
 
-const CATEGORIES = [
-  { key: "all", labelKey: "categories.todos" },
-  { key: "exportación", labelKey: "categories.exportacion" },
-  { key: "inversión", labelKey: "categories.inversion" },
-  { key: "internacional", labelKey: "categories.internacionales" },
-  { key: "finanzas", labelKey: "categories.finanzas" },
-];
+const CATEGORIES = [{ key: "all", labelKey: "categories.todos" }, ...SECCIONES];
 
 export default function CategoryBar({
   activeCategory,

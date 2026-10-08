@@ -20,6 +20,7 @@ import {
   createNewspaperCover,
   editNewspaperCover,
 } from "@/services/newspaper-cover/service";
+import { SECCIONES } from "@/components/proeconomia/secciones";
 
 interface Props {
   open: boolean;
@@ -32,6 +33,7 @@ export function CoverModal({ open, onClose, update, cover }: Props) {
   const { user } = useUser();
   const [media, setMedia] = useState(cover?.media ?? "");
   const [link, setLink] = useState(cover?.link ?? "");
+  const [section, setSection] = useState(cover?.section ?? "");
   const [date, setDate] = useState(
     cover?.date ? cover.date.substring(0, 10) : new Date().toISOString().substring(0, 10)
   );
@@ -57,6 +59,7 @@ export function CoverModal({ open, onClose, update, cover }: Props) {
     formData.append("media", media);
     formData.append("date", date);
     if (link) formData.append("link", link);
+    formData.append("section", section);
     if (uploadFile) formData.append("images", uploadFile);
     const ok = cover
       ? await editNewspaperCover(cover.id, formData, update, user.sub as string)
@@ -139,6 +142,26 @@ export function CoverModal({ open, onClose, update, cover }: Props) {
               onChange={(e) => setDate(e.target.value)}
               className="h-11 rounded-xl"
             />
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <Label htmlFor="cv-section">Sección (opcional)</Label>
+            <select
+              id="cv-section"
+              value={section}
+              onChange={(e) => setSection(e.target.value)}
+              className="h-11 rounded-xl border border-gray-300 bg-white px-3 text-sm"
+            >
+              <option value="">Todas las secciones</option>
+              {SECCIONES.map(({ key, nombre }) => (
+                <option key={key} value={key}>
+                  {nombre}
+                </option>
+              ))}
+            </select>
+            <p className="text-xs text-gray-500">
+              Si elige una, la portada solo sale en esa sección de Noticias Pro.
+            </p>
           </div>
 
           <div className="flex flex-col gap-1.5">

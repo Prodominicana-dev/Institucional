@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { nombreCategoria } from "./categoria";
+import { enlaceNoticia } from "@/components/proeconomia/enlace";
 
 interface Props {
   news: any[];
@@ -20,7 +21,7 @@ export default function NewsCards({ news, locale }: Props) {
         {news.map((item: any) => (
           <Link
             key={item.id}
-            href={`/news/${item.id}`}
+            {...enlaceNoticia(item)}
             className="flex flex-col group"
           >
             <div className="h-48 sm:h-[25vh] xl:h-[30vh] w-full overflow-hidden rounded-md">

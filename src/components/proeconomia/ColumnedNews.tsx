@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { nombreCategoria } from "./categoria";
+import { enlaceNoticia } from "@/components/proeconomia/enlace";
 
 interface Props {
   news: any[];
@@ -23,7 +24,7 @@ function NewsCol({ items, label }: { items: any[]; label: string }) {
       <h3 className="font-opensans text-lg font-extrabold text-blue-dark">
         {label}
       </h3>
-      <Link href={`/news/${main.id}`} className="group block space-y-2">
+      <Link {...enlaceNoticia(main)} className="group block space-y-2">
         <div className="h-40 w-full overflow-hidden rounded-md">
           <Image
             src={`${process.env.NEXT_PUBLIC_API_URL}/news/images/${main.id}/${main.cover}`}
@@ -40,7 +41,7 @@ function NewsCol({ items, label }: { items: any[]; label: string }) {
       {rest.map((item: any) => (
         <Link
           key={item.id}
-          href={`/news/${item.id}`}
+          {...enlaceNoticia(item)}
           className="flex gap-3 group border-t border-gray-100 pt-3"
         >
           <div className="relative w-16 h-14 flex-shrink-0 rounded-md overflow-hidden">

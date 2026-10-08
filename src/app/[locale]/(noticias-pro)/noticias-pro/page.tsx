@@ -53,7 +53,7 @@ export default function ProeconomiaPage() {
         onSearchChange={setSearch}
       />
       <TickerBanner news={news} />
-      <HeroSection locale={locale} />
+      <HeroSection locale={locale} seccion={activeCategory} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 py-10">
         <RecentNewsThumbs news={filteredNews.slice(0, 3)} locale={locale} />
         <NewsCards

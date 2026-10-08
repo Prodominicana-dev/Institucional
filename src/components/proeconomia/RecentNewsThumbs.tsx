@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { nombreCategoria } from "./categoria";
+import { enlaceNoticia } from "@/components/proeconomia/enlace";
 
 interface Props {
   news: any[];
@@ -23,7 +24,7 @@ export default function RecentNewsThumbs({ news, locale }: Props) {
         {news.map((item: any) => (
           <Link
             key={item.id}
-            href={`/news/${item.id}`}
+            {...enlaceNoticia(item)}
             className="flex gap-3 group"
           >
             <div className="relative w-24 h-20 flex-shrink-0 rounded-md overflow-hidden">

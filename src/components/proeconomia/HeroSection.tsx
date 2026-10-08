@@ -7,16 +7,24 @@ import {
   useFeaturedNews,
   useNewspaperCovers,
 } from "@/services/proeconomia/service";
+import { enlaceNoticia } from "@/components/proeconomia/enlace";
 
 interface Props {
   locale: string;
+  seccion: string;
 }
 
-export default function HeroSection({ locale }: Props) {
+export default function HeroSection({ locale, seccion }: Props) {
   const t = useTranslations("proeconomia");
   const { data: featured, isLoading: featLoading } = useFeaturedNews(locale);
   const { data: coversRaw, isLoading: covLoading } = useNewspaperCovers(8);
-  const covers: any[] = Array.isArray(coversRaw) ? coversRaw : [];
+  const todasLasPortadas: any[] = Array.isArray(coversRaw) ? coversRaw : [];
+  /* Una portada sin seccion sale en todas: es como se cargaron las que ya
+     estaban antes de que el campo existiera. */
+  const covers =
+    seccion === "all"
+      ? todasLasPortadas
+      : todasLasPortadas.filter((c) => !c.section || c.section === seccion);
 
   return (
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -26,7 +34,7 @@ export default function HeroSection({ locale }: Props) {
           <div className="h-[420px] bg-gray-100 rounded-md animate-pulse" />
         ) : featured ? (
           <Link
-            href={`/news/${featured.id}`}
+            {...enlaceNoticia(featured)}
             className="relative h-[420px] lg:h-[500px] rounded-md overflow-hidden block group"
           >
             <Image
