@@ -314,7 +314,7 @@ export function EditNewsDialog({
           </div>
 
           <div className="flex flex-col gap-2">
-            <Label htmlFor="seccion">Sección de Noticias Pro</Label>
+            <Label htmlFor="seccion">Etiquetas</Label>
             <select
               id="seccion"
               value={seccion}

@@ -14,6 +14,7 @@ import {
   createNewsletter,
   editNewsletter,
 } from "@/services/newsletter/service";
+import { SECCIONES } from "@/components/proeconomia/secciones";
 
 interface Props {
   open: boolean;
@@ -27,7 +28,7 @@ export function NewsletterModal({ open, onClose, update, newsletter }: Props) {
   const [title, setTitle] = useState(newsletter?.title ?? "");
   const [titleEn, setTitleEn] = useState(newsletter?.titleEn ?? "");
   const [subject, setSubject] = useState(newsletter?.subject ?? "");
-  const [tags, setTags] = useState((newsletter?.tags ?? []).join(", "));
+  const [tags, setTags] = useState((newsletter?.tags ?? [])[0] ?? "");
   const [scheduledAt, setScheduledAt] = useState(
     newsletter?.scheduledSendDate
       ? new Date(newsletter.scheduledSendDate).toISOString().slice(0, 16)
@@ -59,10 +60,7 @@ export function NewsletterModal({ open, onClose, update, newsletter }: Props) {
       title,
       subject,
       html: editor!.getHTML(),
-      tags: tags
-        .split(",")
-        .map((t) => t.trim())
-        .filter(Boolean),
+      tags: tags ? [tags] : [],
     };
     if (titleEn) body.titleEn = titleEn;
     // Con fecha, el boletin queda programado y la tarea del servidor lo envia
@@ -142,17 +140,21 @@ export function NewsletterModal({ open, onClose, update, newsletter }: Props) {
           <div className="grid min-w-0 grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="flex min-w-0 flex-col gap-1.5">
               <Label htmlFor="nl-tags" className="font-montserrat font-semibold text-blue-950">
-                Etiquetas{" "}
-                <span className="text-xs text-gray-400">
-                  (separadas por coma)
-                </span>
+                Etiquetas
               </Label>
-              <Input
+              <select
                 id="nl-tags"
                 value={tags}
                 onChange={(e) => setTags(e.target.value)}
-                placeholder="tecnología, exportación, ..."
-              />
+                className="h-10 rounded-md border border-gray-300 bg-white px-3 text-sm"
+              >
+                <option value="">Sin etiqueta</option>
+                {SECCIONES.map(({ key, nombre }) => (
+                  <option key={key} value={key}>
+                    {nombre}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="flex min-w-0 flex-col gap-1.5">
