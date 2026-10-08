@@ -12,7 +12,6 @@ import ColumnedNews from "@/components/proeconomia/ColumnedNews";
 import IndicatorsRow from "@/components/proeconomia/IndicatorsRow";
 import NewsletterForm from "@/components/proeconomia/NewsletterForm";
 import { useTranslations } from "next-intl";
-import { nombreCategoria } from "@/components/proeconomia/categoria";
 import DataDashboard from "@/components/home/dataDashboard";
 import DataDashboardMobile from "@/components/home/dataDashboardMobile";
 
@@ -25,16 +24,16 @@ export default function ProeconomiaPage() {
   const [verTodas, setVerTodas] = useState(false);
   const t = useTranslations("proeconomia");
   const { data: newsRaw } = useNews(locale);
-  const news: any[] = Array.isArray(newsRaw) ? newsRaw : [];
+  /* Noticias Pro solo muestra lo que el redactor marcó con una sección: el
+     resto de noticias del portal no pinta aquí. */
+  const news: any[] = (Array.isArray(newsRaw) ? newsRaw : []).filter(
+    (n: any) => n.seccion
+  );
 
   const filteredNews = useMemo(() => {
     let list = news;
     if (activeCategory !== "all") {
-      list = list.filter((n: any) =>
-        nombreCategoria(n.category)
-          .toLowerCase()
-          .includes(activeCategory.toLowerCase())
-      );
+      list = list.filter((n: any) => n.seccion === activeCategory);
     }
     if (search.trim()) {
       list = list.filter((n: any) =>

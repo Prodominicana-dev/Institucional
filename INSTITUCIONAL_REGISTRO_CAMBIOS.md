@@ -1,5 +1,25 @@
 # Institucional — Registro de cambios
 
+## 2026-10-08 (tarde) — Noticias Pro deja de mostrar todas las noticias del portal
+
+Hasta ahora `/noticias-pro` servía la lista general de noticias (191 en
+producción) y solo filtraba al pulsar una sección, así que en "Todos" salía
+todo el portal. No era lo que se quería.
+
+- **Campo propio "Sección de Noticias Pro"** en crear y editar noticia, vacío
+  por defecto. Se guarda en `metadata` junto al título y el enlace, así que
+  **no hubo cambio de esquema ni SQL**.
+- **La página solo muestra lo marcado.** `page.tsx` filtra por `seccion`, y el
+  filtro de la barra compara contra ese campo en vez de adivinar por el nombre
+  de la categoría. `ColumnedNews` hace lo mismo con sus tres columnas.
+- La categoría de la noticia queda para lo que siempre fue: el portal
+  institucional. Las dos cosas dejan de estar acopladas.
+
+⚠️ **Noticias Pro sale vacío hasta que se marquen noticias.** Es el efecto
+buscado: nada aparece ahí por accidente.
+
+Verificado: `tsc --noEmit` 0.
+
 ## 2026-10-08 — Noticias Pro: enlace en la noticia y sección en las portadas
 
 El equipo reportó que "las noticias no suben". La causa real tenía dos partes:

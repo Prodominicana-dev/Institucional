@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
+import { SECCIONES } from "@/components/proeconomia/secciones";
 import { Label } from "@/components/ui/label";
 import { compressImage, formatBytes } from "@/lib/image-compression";
 import { Header } from "./NewsModal/Header";
@@ -69,6 +70,7 @@ export function EditNewsDialog({
   const [categoryOptions, setCategoryOptions] = useState<CategoryOption[]>([]);
   const [categoryId, setCategoryId] = useState("");
   const [link, setLink] = useState("");
+  const [seccion, setSeccion] = useState("");
   const [keepOriginal, setKeepOriginal] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [compressing, setCompressing] = useState(false);
@@ -90,6 +92,7 @@ export function EditNewsDialog({
       setImages(news.images);
       setCategoryId(news.category.id);
       setLink(news.es.link ?? "");
+      setSeccion(news.es.seccion ?? "");
     }
   }, [news, newsLoading]);
 
@@ -226,6 +229,7 @@ export function EditNewsDialog({
         content: contentEs?.getHTML(),
         description: minidescriptionEs?.getHTML(),
         link: link.trim(),
+        seccion,
         language: "es",
       };
       const en_data = {
@@ -233,6 +237,7 @@ export function EditNewsDialog({
         content: contentEn?.getHTML(),
         description: minidescriptionEn?.getHTML(),
         link: link.trim(),
+        seccion,
         language: "en",
       };
 
@@ -306,6 +311,27 @@ export function EditNewsDialog({
                 </p>
               )}
             </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="seccion">Sección de Noticias Pro</Label>
+            <select
+              id="seccion"
+              value={seccion}
+              onChange={(e) => setSeccion(e.target.value)}
+              className="h-11 rounded-xl border bg-background px-4 text-base shadow-sm"
+            >
+              <option value="">No sale en Noticias Pro</option>
+              {SECCIONES.map(({ key, nombre }) => (
+                <option key={key} value={key}>
+                  {nombre}
+                </option>
+              ))}
+            </select>
+            <p className="text-xs text-muted-foreground">
+              Decide en qué sección de Noticias Pro aparece. Vacío, la noticia
+              solo sale en el portal de siempre.
+            </p>
           </div>
 
           <div className="flex flex-col gap-2">
