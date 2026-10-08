@@ -1,5 +1,18 @@
 # Institucional — Registro de cambios
 
+## 2026-10-08 (noche) — Retoques del panel de Noticias Pro
+
+- **Volver a Noticias Pro desde la pantalla de Noticias.** La tarjeta del panel
+  lleva ahora `?from=proeconomia` y el enlace de vuelta solo se pinta con ese
+  parametro: a `/admin/news` tambien se entra por el menu lateral, y ahi ese
+  enlace confundiria. Se lee con `window.location` a proposito, porque
+  `useSearchParams` obliga a envolver la pagina en Suspense o falla el build.
+- **Fuera la tarjeta "Boletin por correo".** El modulo sigue existiendo en
+  `/admin/newsletter`; solo deja de anunciarse. Quedan cinco tarjetas.
+
+ℹ️ Suscriptores se mantiene porque la pagina publica sigue recogiendo correos.
+Si no se van a enviar boletines, conviene decidir que se hace con esa recogida.
+
 ## 2026-10-08 (noche) — Separación completa entre Noticias y Noticias Pro
 
 Decisión del cliente: *"lo de Noticias Pro va solo en Noticias Pro y lo de
