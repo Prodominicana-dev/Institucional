@@ -1,5 +1,55 @@
 # Institucional — Registro de cambios
 
+## 2026-10-12 — Noticias Pro sale del menu Novedades
+
+El enlace a Noticias Pro ya no se pinta en el desplegable **Novedades**, ni en
+escritorio (`navbar.tsx`) ni en movil (`navBarMobile.tsx`). **La ruta sigue
+viva**: `/noticias-pro` responde en es y en, con sus redirecciones y su layout
+propio sin tocar.
+
+Se quito tambien el `import` de `ChartBarIcon`, que quedaba sin uso al borrar la
+entrada.
+
+Siguen en pie, porque no son del menu: la entrada de `/noticias-pro` en el
+`routeMap` de `navbarMenu.tsx` (traduce el pathname actual) y las claves
+`news.menuList.proeconomia` de `messages/{es,en}.json`, que usa el buscador.
+
+Verificado: `tsc --noEmit` 0 y, contra la app corriendo, `/noticias-pro` en 200
+(es y en) con la portada `/es` sin ninguna mencion a esa ruta.
+
+## 2026-10-12 — Noticias Pro con pantallas propias, separadas de Noticias
+
+La administradora editaba una noticia por otra: el panel de Noticias Pro no
+tenia pantalla de noticias, su tarjeta llevaba a `/admin/news`, y alli salian
+las 192 noticias del portal. En el mismo formulario convivian **Categoria** y
+**Etiquetas**, ambas con "Exportacion", asi que elegir la etiqueta equivocada
+saca la noticia de Noticias sin avisar.
+
+**Camino propio** en `/admin/proeconomia/noticias`, con lista, tarjeta, alta y
+edicion propias en `src/components/admin/proeconomia/noticias/`. No se reusa
+ninguna pieza de `admin/news/`; si se reusan los atomos de `NewsModal/`
+(Header, Stepper, UploadImage, CategorySelect, DatePicker, Footer,
+PreviewModal), que son del panel entero.
+
+- **La seccion es obligatoria al crear.** De esta pantalla no puede salir una
+  noticia sin seccion, que es una noticia que no aparece en ningun lado.
+- **Al editar si se puede dejar vacia**: es la unica forma de devolver al portal
+  una noticia etiquetada por error. Avisa en pantalla y pide confirmacion.
+- **Las dos listas ya no se mezclan.** `/admin/proeconomia/noticias` muestra
+  solo las que tienen seccion; `/admin/news` solo las que no la tienen.
+- **Fuera el campo Etiquetas del formulario institucional** (`dialog.tsx` y
+  `edit.tsx`). Desde Noticias ya no se puede etiquetar nada. En la edicion la
+  seccion guardada se conserva y se reenvia, para no borrarla si se llega por
+  otra via.
+- Botonera con las cuatro secciones y su conteo, insignia con la seccion en cada
+  tarjeta y marca "Oculta" cuando la noticia no esta publicada.
+
+Se borro `BackLinkSiViene.tsx`: existia para el enlace de vuelta desde
+`/admin/news`, que ya no se usa porque el panel no manda a nadie alli.
+
+Verificado: `tsc --noEmit` 0. ⚠️ Nadie lo ha probado contra la app corriendo:
+este clon no tiene `.env` ni base de datos.
+
 ## 2026-10-08 (noche) — Retoques del panel de Noticias Pro
 
 - **Volver a Noticias Pro desde la pantalla de Noticias.** La tarjeta del panel

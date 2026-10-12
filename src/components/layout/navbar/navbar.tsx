@@ -1,7 +1,6 @@
 "use client";
 import {
   CalendarDaysIcon,
-  ChartBarIcon,
   MagnifyingGlassIcon,
   NewspaperIcon,
   PhotoIcon,
@@ -109,12 +108,6 @@ export default function Navbar() {
       description: t("news.menuList.galleryDesc"),
       icon: PhotoIcon,
       link: "/gallery",
-    },
-    {
-      title: t("news.menuList.proeconomia"),
-      description: t("news.menuList.proeconomiaDesc"),
-      icon: ChartBarIcon,
-      link: "/noticias-pro",
     },
   ];
 

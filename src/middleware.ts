@@ -9,7 +9,10 @@ const intlMiddleware = createIntlMiddleware(routing);
 export async function middleware(request: NextRequest) {
   // Primero, verifica si la solicitud es para una ruta de autenticación
     // console.log("AUTH0_BASE_URL:", process.env.AUTH0_BASE_URL);
-  if (request.nextUrl.pathname.startsWith("/auth")) {
+  if (
+    request.nextUrl.pathname.startsWith("/auth") ||
+    request.nextUrl.pathname.startsWith("/api/auth")
+  ) {
     // Deja que Auth0 maneje las rutas de autenticación
     return await auth0.middleware(request);
   }
@@ -29,6 +32,7 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/",
+    "/api/auth/:path*",
     "/(en|es|fr|zh|ar)/:path*",
     "/((?!api|trpc|_next|_vercel|.*\\..*).*)",
   ],

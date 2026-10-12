@@ -1,6 +1,5 @@
 "use client";
 import AuthUser from "@/components/admin/auth";
-import { BackLinkSiViene } from "@/components/admin/proeconomia/BackLinkSiViene";
 import Card from "@/components/admin/news/card";
 import { NewsDialog } from "@/components/admin/news/dialog";
 import Sketch from "@/components/admin/sketch";
@@ -31,15 +30,21 @@ export default function Page() {
     setRefresh(!refresh);
   };
 
+  /* Las noticias de Noticias Pro no se administran aqui: tienen su propia
+     pantalla en /admin/proeconomia/noticias. Mezclarlas era lo que hacia que
+     se editara una por otra. */
+  const soloDelPortal = (lista: any): any =>
+    Array.isArray(lista) ? lista.filter((n: any) => !n.seccion) : [];
+
   useEffect(() => {
     if (data && !isLoading) {
-      setNews(data);
+      setNews(soloDelPortal(data));
     }
   }, [data, isLoading]);
 
   useEffect(() => {
     refetch().then((res: any) => {
-      setNews(res.data);
+      setNews(soloDelPortal(res.data));
     });
   }, [refresh]);
 
@@ -66,9 +71,9 @@ export default function Page() {
 
   return (
     <AuthUser permission="create:news">
-      <BackLinkSiViene />
       <Sketch
         title="Noticias"
+        subtitle="Noticias del portal institucional. Las de Noticias Pro se administran en su propio apartado."
         handleFilterOpen={handleFilterOpen}
         buttons={buttons}
       >

@@ -19,7 +19,7 @@ const SECCIONES = [
     titulo: "Noticias",
     descripcion:
       "Redacte las noticias que salen en Noticias Pro y elija su sección.",
-    url: "/admin/news?from=proeconomia",
+    url: "/admin/proeconomia/noticias",
     Icono: NewspaperIcon,
   },
   {

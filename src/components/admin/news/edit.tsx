@@ -15,7 +15,6 @@ import {
 } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { SECCIONES } from "@/components/proeconomia/secciones";
 import { Label } from "@/components/ui/label";
 import { compressImage, formatBytes } from "@/lib/image-compression";
 import { Header } from "./NewsModal/Header";
@@ -70,6 +69,9 @@ export function EditNewsDialog({
   const [categoryOptions, setCategoryOptions] = useState<CategoryOption[]>([]);
   const [categoryId, setCategoryId] = useState("");
   const [link, setLink] = useState("");
+  /* Esta pantalla ya no muestra la seccion: solo administra noticias del
+     portal institucional. Se conserva la que tenga guardada y se reenvia tal
+     cual, para no borrarla si se llega aqui por otra via. */
   const [seccion, setSeccion] = useState("");
   const [keepOriginal, setKeepOriginal] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -311,27 +313,6 @@ export function EditNewsDialog({
                 </p>
               )}
             </div>
-          </div>
-
-          <div className="flex flex-col gap-2">
-            <Label htmlFor="seccion">Etiquetas</Label>
-            <select
-              id="seccion"
-              value={seccion}
-              onChange={(e) => setSeccion(e.target.value)}
-              className="h-11 rounded-xl border bg-background px-4 text-base shadow-sm"
-            >
-              <option value="">No sale en Noticias Pro</option>
-              {SECCIONES.map(({ key, nombre }) => (
-                <option key={key} value={key}>
-                  {nombre}
-                </option>
-              ))}
-            </select>
-            <p className="text-xs text-muted-foreground">
-              Decide en qué sección de Noticias Pro aparece. Vacío, la noticia
-              solo sale en el portal de siempre.
-            </p>
           </div>
 
           <div className="flex flex-col gap-2">
