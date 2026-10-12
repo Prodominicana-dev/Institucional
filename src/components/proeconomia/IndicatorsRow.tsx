@@ -3,7 +3,6 @@ import {
   BanknotesIcon,
   ArrowTrendingUpIcon,
   GlobeAltIcon,
-  TruckIcon,
 } from "@heroicons/react/24/outline";
 import { useTranslations } from "next-intl";
 import { useEconomicIndicators } from "@/services/proeconomia/service";
@@ -12,12 +11,18 @@ interface Props {
   locale: string;
 }
 
-const ICONS = [BanknotesIcon, BanknotesIcon, GlobeAltIcon, TruckIcon];
+const ICONS = [BanknotesIcon, BanknotesIcon, GlobeAltIcon];
+/* El flete maritimo se dejo de publicar: no hay fuente publica y habia que
+   teclearlo a mano. Su fila sigue en la base, con su historico, y el panel la
+   sigue mostrando; aqui simplemente no se pinta. */
+const NO_SE_PUBLICAN = ["freight"];
 
 export default function IndicatorsRow({ locale }: Props) {
   const t = useTranslations("proeconomia");
   const { data: rawData, isLoading } = useEconomicIndicators();
-  const indicators: any[] = Array.isArray(rawData) ? rawData : [];
+  const indicators: any[] = (Array.isArray(rawData) ? rawData : []).filter(
+    (i: any) => !NO_SE_PUBLICAN.includes(i?.key)
+  );
 
   if (isLoading)
     return <div className="h-24 bg-gray-100 rounded-md animate-pulse" />;
@@ -32,7 +37,7 @@ export default function IndicatorsRow({ locale }: Props) {
       <h2 className="text-blue-900 uppercase font-extrabold text-xl lg:text-2xl font-opensans mb-5">
         {t("indicatorsTitle")}
       </h2>
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
         {sorted.map((ind: any, i: number) => {
           const Icon = ICONS[i % ICONS.length];
           const label =

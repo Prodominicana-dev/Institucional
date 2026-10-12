@@ -1,5 +1,21 @@
 # Institucional — Registro de cambios
 
+## 2026-10-12 — Fuera el indicador de Flete maritimo
+
+Se quita por decision suya. No tenia fuente publica gratuita (FBX y Drewry son
+de pago), asi que era el unico de los cuatro que habia que teclear a mano cada
+semana, y mientras nadie lo hacia mostraba "No disponible".
+
+- `IndicatorsRow.tsx`: la fila pasa de `lg:grid-cols-4` a `lg:grid-cols-3`, para
+  que no quede un hueco. Fuera el `TruckIcon`, que era el suyo y quedaba sin uso.
+- `services/economic-indicator/service.ts`: el tipo `key` ya no admite
+  `"freight"`.
+
+**La fila de la base se queda**, por decision suya, con su historico. Como el
+componente pinta lo que la API devuelve, se filtra aqui: `NO_SE_PUBLICAN` en
+`IndicatorsRow.tsx`. El panel la sigue mostrando, asi que si algun dia vuelve a
+haber fuente basta quitarla de esa lista.
+
 ## 2026-10-12 — Noticias Pro sale del menu Novedades
 
 El enlace a Noticias Pro ya no se pinta en el desplegable **Novedades**, ni en

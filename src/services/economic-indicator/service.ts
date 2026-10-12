@@ -3,7 +3,7 @@ import axios from "axios";
 var CryptoJS = require("crypto-js");
 
 export interface EconomicIndicator {
-  key: "usd" | "eur" | "oil" | "freight";
+  key: "usd" | "eur" | "oil";
   label: string;
   labelEn: string;
   value: string;
