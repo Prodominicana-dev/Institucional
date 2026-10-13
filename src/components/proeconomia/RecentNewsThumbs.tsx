@@ -24,7 +24,7 @@ export default function RecentNewsThumbs({ news, locale }: Props) {
         {news.map((item: any) => (
           <Link
             key={item.id}
-            {...enlaceNoticia(item)}
+            {...enlaceNoticia(item, locale)}
             className="flex gap-3 group"
           >
             <div className="relative w-24 h-20 flex-shrink-0 rounded-md overflow-hidden">

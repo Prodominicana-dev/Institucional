@@ -418,7 +418,12 @@
     "newsletterError": "Ocurrió un error. Por favor intente de nuevo.",
     "indicatorUnavailable": "No disponible",
     "indicatorUpdatedOn": "Actualizado el {date}",
-    "seeMore": "Ver más noticias"
+    "seeMore": "Ver más noticias",
+    "backToList": "Volver a Noticias Pro",
+    "prev": "Anterior",
+    "next": "Siguiente",
+    "share": "Compartir",
+    "notInPro": "Esta noticia no pertenece a Noticias Pro."
   },
   "legal": {
     "title": "Marco legal",

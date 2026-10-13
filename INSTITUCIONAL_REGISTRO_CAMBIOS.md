@@ -1,5 +1,57 @@
 # Institucional — Registro de cambios
 
+## 2026-10-13 — Detalle propio de Noticias Pro: el lector ya no sale del apartado
+
+Las listas estaban separadas, pero el detalle no. Una noticia de Noticias Pro
+sin enlace externo llevaba a `/news/{id}`, la pantalla de detalle del portal,
+con el navbar y el pie institucionales: el lector salia del apartado por el
+unico camino que quedaba abierto.
+
+Ahora Noticias Pro tiene su propio detalle en `/noticias-pro/{id}`, dentro del
+grupo `(noticias-pro)`, asi que hereda su layout y no monta el navbar
+institucional. Cinco archivos nuevos, ninguna pieza de `(home)/news/[id]`
+reusada:
+
+- `app/[locale]/(noticias-pro)/noticias-pro/[id]/page.tsx`: solo compone.
+- `components/proeconomia/detalle/CabeceraDetalle.tsx`: la marca y las cuatro
+  secciones de `CategoryBar`, pero como enlaces a la lista y no como botones de
+  filtro. Desde el detalle no hay nada que filtrar.
+- `components/proeconomia/detalle/ArticuloPro.tsx`: seccion en el rojo
+  `#C8102E`, categoria, fecha, titular, entradilla, portada y cuerpo. El cuerpo
+  reusa `components/news/text.tsx`, que solo aplica estilos al HTML del editor.
+- `components/proeconomia/detalle/CompartirPro.tsx`.
+- `components/proeconomia/detalle/AnteriorSiguientePro.tsx`.
+
+**El cruce queda cortado en los dos sentidos.** Una noticia sin seccion abierta
+en `/noticias-pro/{id}` no se pinta: sale el aviso `notInPro` y el boton de
+volver a la lista. La API ya hacia su parte, porque `getPrevNextNews` no cruza
+de apartado.
+
+Dos cosas que decidio el codigo existente, no el gusto:
+
+- Los iconos de FontAwesome se importan como objeto dentro de `CompartirPro`.
+  `library.add()` solo se ejecuta en `(home)/layout.tsx`, asi que las
+  referencias por texto (`["fab","facebook-f"]`) saldrian vacias en este grupo
+  de rutas.
+- `enlace.ts` gana `prefijoIdioma(locale)` y `enlaceNoticia` pasa a recibir el
+  idioma. `localePrefix` es `as-needed` y `/noticias-pro` no esta en el mapa de
+  `pathnames`, asi que el ingles necesita el prefijo `/en` a mano. De paso se
+  arregla un defecto que ya estaba: desde `/en/noticias-pro` las tarjetas
+  llevaban a la version en espanol. Las cuatro llamadas actualizadas:
+  `ColumnedNews.tsx` (dos, y `NewsCol` recibe ahora el idioma), `NewsCards.tsx`,
+  `RecentNewsThumbs.tsx` y `HeroSection.tsx`.
+
+La cabecera del detalle vuelve a la lista con `?s=<seccion>`, y la lista lo lee
+para no perder la seccion que el lector venia viendo. Un valor desconocido no
+filtra nada. Claves nuevas en `messages/{es,en}.json`: `backToList`, `prev`,
+`next`, `share` y `notInPro`.
+
+Verificado: `tsc --noEmit` 0 y, contra la app corriendo con 6 noticias de prueba
+(3 con seccion, 3 sin), `/noticias-pro/{id}` en 200 en es y en, el id sin
+seccion devolviendo el aviso, y `?s=inversión` en 200. Los 404 de
+`/apiv2/news/images/...` del registro son de los datos de prueba, que se
+sembraron con un nombre de portada sin archivo.
+
 ## 2026-10-12 — Fuera el indicador de Flete maritimo
 
 Se quita por decision suya. No tenia fuente publica gratuita (FBX y Drewry son

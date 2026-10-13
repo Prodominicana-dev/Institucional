@@ -34,7 +34,7 @@ export default function HeroSection({ locale, seccion }: Props) {
           <div className="h-[420px] bg-gray-100 rounded-md animate-pulse" />
         ) : featured ? (
           <Link
-            {...enlaceNoticia(featured)}
+            {...enlaceNoticia(featured, locale)}
             className="relative h-[420px] lg:h-[500px] rounded-md overflow-hidden block group"
           >
             <Image

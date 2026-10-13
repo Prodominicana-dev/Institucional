@@ -1,8 +1,9 @@
 "use client";
-import { useParams } from "next/navigation";
+import { useParams, useSearchParams } from "next/navigation";
 import { useState, useMemo } from "react";
 import { useNews } from "@/services/news/service";
 import CategoryBar from "@/components/proeconomia/CategoryBar";
+import { SECCIONES } from "@/components/proeconomia/secciones";
 import TickerBanner from "@/components/proeconomia/TickerBanner";
 import HeroSection from "@/components/proeconomia/HeroSection";
 import RecentNewsThumbs from "@/components/proeconomia/RecentNewsThumbs";
@@ -17,7 +18,12 @@ import DataDashboardMobile from "@/components/home/dataDashboardMobile";
 
 export default function ProeconomiaPage() {
   const { locale } = useParams<{ locale: string }>();
-  const [activeCategory, setActiveCategory] = useState("all");
+  /* La cabecera del detalle vuelve aqui con ?s=<seccion>, para que el lector
+     no pierda la seccion que venia viendo. Un valor desconocido no filtra. */
+  const sParam = useSearchParams().get("s");
+  const [activeCategory, setActiveCategory] = useState(
+    SECCIONES.some((x) => x.key === sParam) ? (sParam as string) : "all"
+  );
   const [search, setSearch] = useState("");
   // Se muestran 6 y el resto queda tras "Ver más": si cargan muchas, la
   // pagina no se vuelve interminable de entrada.

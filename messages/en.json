@@ -269,7 +269,12 @@
     "indicatorUpdatedOn": "Updated on {date}",
     "colExport": "Exports",
     "colFinance": "Finance",
-    "seeMore": "See more news"
+    "seeMore": "See more news",
+    "backToList": "Back to Pro News",
+    "prev": "Previous",
+    "next": "Next",
+    "share": "Share",
+    "notInPro": "This article does not belong to Pro News."
   },
   "organizationalChart": {
     "title": "Organizational Chart",

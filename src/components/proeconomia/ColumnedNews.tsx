@@ -15,7 +15,15 @@ const COLUMNS = [
   { key: "finanzas", labelKey: "colFinance" },
 ];
 
-function NewsCol({ items, label }: { items: any[]; label: string }) {
+function NewsCol({
+  items,
+  label,
+  locale,
+}: {
+  items: any[];
+  label: string;
+  locale: string;
+}) {
   const [main, ...rest] = items;
   if (!main) return null;
   return (
@@ -23,7 +31,7 @@ function NewsCol({ items, label }: { items: any[]; label: string }) {
       <h3 className="font-opensans text-lg font-extrabold text-blue-dark">
         {label}
       </h3>
-      <Link {...enlaceNoticia(main)} className="group block space-y-2">
+      <Link {...enlaceNoticia(main, locale)} className="group block space-y-2">
         <div className="h-40 w-full overflow-hidden rounded-md">
           <Image
             src={`${process.env.NEXT_PUBLIC_API_URL}/news/images/${main.id}/${main.cover}`}
@@ -40,7 +48,7 @@ function NewsCol({ items, label }: { items: any[]; label: string }) {
       {rest.map((item: any) => (
         <Link
           key={item.id}
-          {...enlaceNoticia(item)}
+          {...enlaceNoticia(item, locale)}
           className="flex gap-3 group border-t border-gray-100 pt-3"
         >
           <div className="relative w-16 h-14 flex-shrink-0 rounded-md overflow-hidden">
@@ -67,7 +75,12 @@ export default function ColumnedNews({ news, locale }: Props) {
       {COLUMNS.map(({ key, labelKey }) => {
         const items = news.filter((n: any) => n.seccion === key);
         return (
-          <NewsCol key={key} items={items} label={t(labelKey)} />
+          <NewsCol
+            key={key}
+            items={items}
+            label={t(labelKey)}
+            locale={locale}
+          />
         );
       })}
     </section>

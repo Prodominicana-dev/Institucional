@@ -21,7 +21,7 @@ export default function NewsCards({ news, locale }: Props) {
         {news.map((item: any) => (
           <Link
             key={item.id}
-            {...enlaceNoticia(item)}
+            {...enlaceNoticia(item, locale)}
             className="flex flex-col group"
           >
             <div className="h-48 sm:h-[25vh] xl:h-[30vh] w-full overflow-hidden rounded-md">
