@@ -4,6 +4,7 @@ import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { urlExterna } from "@/components/proeconomia/enlace";
 
 interface Props {
   covers: any[];
@@ -40,31 +41,37 @@ export default function CoversCarousel({ covers, titulo }: Props) {
     <div className="relative">
       <div className="overflow-hidden rounded-md" ref={emblaRef}>
         <div className="flex">
-          {covers.map((cover) => (
-            <div key={cover.id} className="min-w-0 flex-[0_0_100%]">
-              <a
-                href={cover.link ?? "#"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block overflow-hidden rounded-md border border-gray-200 transition-shadow hover:shadow-md"
-              >
-                <Image
-                  src={`${process.env.NEXT_PUBLIC_API_URL}/newspaper-cover/${cover.id}/img/${cover.image}`}
-                  alt={cover.media ?? titulo}
-                  width={260}
-                  height={380}
-                  className="w-full object-cover"
-                />
-                {cover.media && (
-                  <div className="bg-blue-950 p-2">
-                    <p className="truncate font-montserrat text-xs text-white">
-                      {cover.media}
-                    </p>
-                  </div>
-                )}
-              </a>
-            </div>
-          ))}
+          {covers.map((cover) => {
+            /* Sin enlace no se pinta un <a>: antes iba a "#" con target
+               _blank, asi que abria una pestana en blanco. */
+            const href = urlExterna(cover.link);
+            const Contenedor: any = href ? "a" : "div";
+            return (
+              <div key={cover.id} className="min-w-0 flex-[0_0_100%]">
+                <Contenedor
+                  href={href}
+                  target={href ? "_blank" : undefined}
+                  rel={href ? "noopener noreferrer" : undefined}
+                  className="block overflow-hidden rounded-md border border-gray-200 transition-shadow hover:shadow-md"
+                >
+                  <Image
+                    src={`${process.env.NEXT_PUBLIC_API_URL}/newspaper-cover/${cover.id}/img/${cover.image}`}
+                    alt={cover.media ?? titulo}
+                    width={260}
+                    height={380}
+                    className="w-full object-cover"
+                  />
+                  {cover.media && (
+                    <div className="bg-blue-950 p-2">
+                      <p className="truncate font-montserrat text-xs text-white">
+                        {cover.media}
+                      </p>
+                    </div>
+                  )}
+                </Contenedor>
+              </div>
+            );
+          })}
         </div>
       </div>
 

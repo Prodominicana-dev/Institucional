@@ -57,7 +57,10 @@ export function CoverModal({ open, onClose, update, cover }: Props) {
     const uploadFile = file ? await compressImage(file) : null;
     const formData = new FormData();
     formData.append("media", media);
-    formData.append("date", date);
+    /* El input type="date" da "YYYY-MM-DD" y Prisma exige ISO-8601 completo:
+       sin hora la creacion fallaba con 500. Mediodia local para que la fecha
+       no se corra un dia al pasar a UTC. */
+    formData.append("date", new Date(`${date}T12:00:00`).toISOString());
     if (link) formData.append("link", link);
     formData.append("section", section);
     if (uploadFile) formData.append("images", uploadFile);

@@ -1,5 +1,58 @@
 # Institucional — Registro de cambios
 
+## 2026-10-14 — Portadas Diarias dejan de dar 500, y el orden y la repeticion de Noticias Pro
+
+**Subir una portada de periodico fallaba siempre con 500.** El modal mandaba la
+fecha tal como la entrega el `input type="date"`, es decir `2026-10-14`, y el
+campo `date` de `NewspaperCover` es `DateTime`. Prisma 5.22 rechaza ese valor
+con `Invalid value for argument 'date': premature end of input. Expected
+ISO-8601 DateTime.`, el `catch` del controlador lo convertia en 500 y el panel
+solo mostraba "Ha ocurrido un error al crear la portada". Reproducido contra la
+base local antes de tocar nada: con la cadena de 10 caracteres falla, con un ISO
+completo crea la fila.
+
+`components/admin/newspaper-covers/CoverModal.tsx` ahora manda
+`new Date(`${date}T12:00:00`).toISOString()`. Es mediodia local a proposito: a
+medianoche el paso a UTC (RD esta en -4) adelantaria la portada un dia en la
+lista y en el `substring(0, 10)` que rellena el formulario de edicion. Arregla
+tambien la edicion, porque sale del mismo `FormData`. La noticia normal nunca
+tuvo el fallo: `admin/news/dialog.tsx` ya enviaba `date.toISOString()`.
+
+**El tablero de datos baja debajo de los indicadores.** En
+`(noticias-pro)/noticias-pro/page.tsx` el par `DataDashboard` /
+`DataDashboardMobile` estaba entre las tarjetas y "Al Dia con ProDominicana".
+Ahora el contenedor que lleva "Al Dia", las columnas y los Indicadores
+Economicos se cierra antes, el tablero va a continuacion a todo lo ancho (como
+estaba, fuera del `max-w-7xl`) y el formulario del boletin queda en su propio
+contenedor al final.
+
+**El enlace de la noticia ahora si llega al periodico.** El campo "Enlace de la
+noticia" del panel es un `Input` de texto sin validacion: si alguien escribia
+`listindiario.com/...` sin `https://`, el navegador lo tomaba como ruta del
+propio portal y el lector acababa en
+`prodominicana.gob.do/noticias-pro/listindiario.com/...`. `enlace.ts` gana
+`urlExterna()`, unica definicion: recorta, devuelve `undefined` si queda vacio y
+antepone `https://` cuando falta el esquema. `enlaceNoticia` la usa, asi que
+quedan cubiertas las cinco listas que ya pasaban por ella (destacada, Noticias
+Recientes, tarjetas y las dos plazas de las columnas). Un enlace de solo
+espacios ya no cuenta como externo: lleva al detalle, como corresponde.
+
+**La portada sin enlace ya no era un enlace falso.** `CoversCarousel` pintaba
+`<a href={cover.link ?? "#"} target="_blank">` siempre, asi que una portada
+cargada sin enlace abria una pestana nueva en blanco. Ahora pasa por
+`urlExterna` y, sin enlace, el contenedor es un `div`. Queda una limitacion sin
+tocar: el `PATCH` de portadas no permite borrar un enlace ya guardado, porque el
+modal no manda el campo cuando esta vacio y Prisma ignora `undefined`.
+
+**Las columnas de abajo ya no repiten lo de arriba.** `ColumnedNews` recibia la
+lista completa de noticias con seccion, asi que las tres de Noticias Recientes y
+las tres tarjetas volvian a salir mas abajo. Ahora recibe `newsColumnas`, la
+lista sin los seis ids que se pintan arriba sin tocar "Ver mas". Consecuencia
+asumida: con pocas noticias por seccion, una columna puede quedarse sin su nota
+principal y entonces no se pinta, porque `NewsCol` devuelve `null` sin `main`.
+La noticia destacada de la portada se sigue permitiendo repetida: sale ahi
+porque alguien la eligio a mano.
+
 ## 2026-10-13 — Detalle propio de Noticias Pro: el lector ya no sale del apartado
 
 Las listas estaban separadas, pero el detalle no. Una noticia de Noticias Pro

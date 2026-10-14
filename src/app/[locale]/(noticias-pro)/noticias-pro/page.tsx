@@ -49,6 +49,13 @@ export default function ProeconomiaPage() {
     return list;
   }, [news, activeCategory, search]);
 
+  /* Lo que se pinta arriba sin tocar "Ver mas": 3 en Noticias Recientes y 3 en
+     tarjetas. Las columnas de abajo no lo repiten. */
+  const recientes = filteredNews.slice(0, 3);
+  const tarjetas = verTodas ? filteredNews.slice(3) : filteredNews.slice(3, 6);
+  const yaVistas = new Set(filteredNews.slice(0, 6).map((n: any) => n.id));
+  const newsColumnas = news.filter((n: any) => !yaVistas.has(n.id));
+
   return (
     <div className="w-full bg-white">
       <CategoryBar
@@ -60,11 +67,8 @@ export default function ProeconomiaPage() {
       <TickerBanner news={news} />
       <HeroSection locale={locale} seccion={activeCategory} />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 py-10">
-        <RecentNewsThumbs news={filteredNews.slice(0, 3)} locale={locale} />
-        <NewsCards
-          news={verTodas ? filteredNews.slice(3) : filteredNews.slice(3, 6)}
-          locale={locale}
-        />
+        <RecentNewsThumbs news={recientes} locale={locale} />
+        <NewsCards news={tarjetas} locale={locale} />
         {!verTodas && filteredNews.length > 6 && (
           <div className="flex justify-center">
             <button
@@ -76,12 +80,14 @@ export default function ProeconomiaPage() {
           </div>
         )}
       </div>
-      <DataDashboard />
-      <DataDashboardMobile />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 py-10">
         <ScheduleCarousel locale={locale} />
-        <ColumnedNews news={news} locale={locale} />
+        <ColumnedNews news={newsColumnas} locale={locale} />
         <IndicatorsRow locale={locale} />
+      </div>
+      <DataDashboard />
+      <DataDashboardMobile />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <NewsletterForm />
       </div>
     </div>
