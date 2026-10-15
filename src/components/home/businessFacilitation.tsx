@@ -1,26 +1,86 @@
 "use client";
-import React from "react";
-import { useTranslations } from "next-intl";
+import React, { useRef } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
+import Autoplay from "embla-carousel-autoplay";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+
+type BannerSlide = {
+  src: string;
+  alt: string;
+  href: string;
+  external?: boolean;
+  locale?: "es" | "en"; 
+};
+
+
+const bannerSlides: BannerSlide[] = [
+  {
+    src: "/images/bannerSumandoExportadoras2026.jpg",
+    alt: "Sumando Exportadoras 2026 — Regístrate, participa y transforma tu negocio. Cierre de aplicación el 18 de octubre",
+    href: "/sumando-exportadoras",
+  },
+  {
+    src: "/images/BANNER MUJERES 2027 PAGINA WEB PD.jpg",
+    alt: "Mujeres en Exportación",
+    href: "https://forms.monday.com/forms/9866f0d5847de778a946082cb0732a0e?r=use1",
+    external: true,
+    locale: "es",
+  },
+  {
+    src: "/images/BANNER MUJERES WEB INGLES.jpg",
+    alt: " National Women in Export Forum ",
+    href: "https://forms.monday.com/forms/6d166f4eaaf1e4fe8a560ce8b773f787?r=use1",
+    external: true,
+    locale: "en",
+  },
+];
 
 export default function BusinessFacilitation() {
   const t = useTranslations("BusinessFacilitation");
+  const locale = useLocale();
+  const autoplay = useRef(
+    Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })
+  );
+
+  const slides = bannerSlides.filter((s) => !s.locale || s.locale === locale);
 
   return (
     <div>
-      {/* ============ Banner Sumando Exportadoras 2026 ============ */}
-      <Link href="/sumando-exportadoras" className="block w-full">
-        <Image
-          width={3840}
-          height={284}
-          src="/images/bannerSumandoExportadoras2026.jpg"
-          alt="Sumando Exportadoras 2026 — Regístrate, participa y transforma tu negocio. Cierre de aplicación el 18 de octubre"
-          className="w-full h-auto object-contain"
-          priority
-        />
-      </Link>
-      {/* ============ FIN Banner ============ */}
+      {/* ============ Carrusel de banners ============ */}
+      <Carousel
+        opts={{ loop: true }}
+        plugins={[autoplay.current]}
+        className="w-full"
+      >
+        <CarouselContent className="ml-0">
+          {slides.map((s, i) => (
+            <CarouselItem key={s.src} className="pl-0">
+              <Link
+                href={s.href}
+                target={s.external ? "_blank" : undefined}
+                rel={s.external ? "noopener noreferrer" : undefined}
+                className="block w-full"
+              >
+                <Image
+                  width={3840}
+                  height={284}
+                  src={s.src}
+                  alt={s.alt}
+                  className="w-full h-auto object-contain"
+                  priority={i === 0}
+                />
+              </Link>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Carousel>
+      {/* ============ FIN Carrusel ============ */}
 
       {/* ============ Banner Cariforo UE ============ */}
       {/* <div className="w-full bg-black">
