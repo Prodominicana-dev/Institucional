@@ -24,6 +24,7 @@ const bannerSlides: BannerSlide[] = [
     src: "/images/bannerSumandoExportadoras2026.jpg",
     alt: "Sumando Exportadoras 2026 — Regístrate, participa y transforma tu negocio. Cierre de aplicación el 18 de octubre",
     href: "/sumando-exportadoras",
+    locale: "es",
   },
   {
     src: "/images/BANNER MUJERES 2027 PAGINA WEB PD.jpg",
