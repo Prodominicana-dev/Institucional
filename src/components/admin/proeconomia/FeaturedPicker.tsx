@@ -9,6 +9,7 @@ import { useNews } from "@/services/news/service";
 import {
   useFeaturedNewsAdmin,
   setFeaturedNews,
+  TOPE_DESTACADAS,
 } from "@/services/news-featured/service";
 
 export function FeaturedPicker() {
@@ -17,8 +18,12 @@ export function FeaturedPicker() {
   const [guardando, setGuardando] = useState<string | null>(null);
 
   const { data: noticias, refetch: refetchNoticias } = useNews("es", true);
-  const { data: destacada, refetch: refetchDestacada } =
+  const { data: destacadasRaw, refetch: refetchDestacada } =
     useFeaturedNewsAdmin("es");
+
+  const destacadas: any[] = Array.isArray(destacadasRaw) ? destacadasRaw : [];
+  const idsDestacadas = new Set(destacadas.map((d: any) => d.id));
+  const sinCupo = destacadas.length >= TOPE_DESTACADAS;
 
   const recargar = () => {
     refetchNoticias();
@@ -47,13 +52,24 @@ export function FeaturedPicker() {
     <div className="flex flex-col gap-4">
       <div className="rounded-xl border bg-white p-5 shadow-sm">
         <p className="text-sm font-semibold text-gray-900">
-          Noticia destacada actual
+          Noticias destacadas ({destacadas.length} de {TOPE_DESTACADAS})
         </p>
-        {destacada?.id ? (
-          <p className="mt-1 text-sm text-gray-600">{destacada.title}</p>
+        {destacadas.length > 0 ? (
+          <ol className="mt-2 list-decimal space-y-1 pl-5">
+            {destacadas.map((d: any) => (
+              <li key={d.id} className="text-sm text-gray-600">
+                {d.title}
+              </li>
+            ))}
+          </ol>
         ) : (
           <p className="mt-1 text-sm text-amber-700">
             Ninguna. El encabezado de Noticias Pro aparece vacío.
+          </p>
+        )}
+        {sinCupo && (
+          <p className="mt-2 text-xs text-gray-500">
+            Se alcanzó el tope. Retire una para poder destacar otra.
           </p>
         )}
       </div>
@@ -72,7 +88,7 @@ export function FeaturedPicker() {
 
       <div className="flex flex-col gap-2">
         {filtradas.map((n) => {
-          const esDestacada = destacada?.id === n.id;
+          const esDestacada = idsDestacadas.has(n.id);
           return (
             <div
               key={n.id}
@@ -103,7 +119,7 @@ export function FeaturedPicker() {
               <Button
                 variant={esDestacada ? "secondary" : "default"}
                 size="sm"
-                disabled={guardando === n.id}
+                disabled={guardando === n.id || (sinCupo && !esDestacada)}
                 onClick={() => marcar(n.id, !esDestacada)}
               >
                 <StarIcon

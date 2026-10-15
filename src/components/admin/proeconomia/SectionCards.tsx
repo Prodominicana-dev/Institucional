@@ -10,8 +10,9 @@ import {
 
 const SECCIONES = [
   {
-    titulo: "Noticia destacada",
-    descripcion: "Elija la noticia que encabeza la página de Noticias Pro.",
+    titulo: "Noticias destacadas",
+    descripcion:
+      "Elija hasta cinco noticias para el carrusel que encabeza la página de Noticias Pro.",
     url: "/admin/proeconomia/destacada",
     Icono: StarIcon,
   },

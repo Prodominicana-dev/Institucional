@@ -393,7 +393,7 @@
       "exportacion": "Exportación",
       "inversion": "Inversión",
       "internacionales": "Internacionales",
-      "finanzas": "Finanzas"
+      "finanzas": "Económicas"
     },
     "searchPlaceholder": "Buscar noticias...",
     "tickerLabel": "NOTICIAS PRO",
@@ -405,7 +405,7 @@
     "scheduleTitle": "Al Día con ProDominicana",
     "colExport": "Exportación",
     "colInvest": "Inversión",
-    "colFinance": "Finanzas",
+    "colFinance": "Económicas",
     "indicatorsTitle": "Indicadores Económicos",
     "newsletterTitle": "Suscríbase al Boletín",
     "newsletterSubtitle": "Reciba las últimas noticias y análisis económicos directamente en su correo.",

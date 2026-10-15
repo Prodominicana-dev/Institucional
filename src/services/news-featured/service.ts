@@ -3,8 +3,11 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 var CryptoJS = require("crypto-js");
 
-/* La destacada es la noticia grande del encabezado de Noticias Pro.
-   Solo puede haber una: marcar otra desmarca la anterior. */
+/* Las destacadas son las noticias grandes del encabezado de Noticias Pro,
+   que las pasa en carrusel. Pueden ser varias, hasta TOPE_DESTACADAS; el tope
+   lo impone tambien la API, que responde 409 cuando ya no hay cupo. */
+
+export const TOPE_DESTACADAS = 5;
 
 function authHeader(userId: string) {
   const encrypted = CryptoJS.AES.encrypt(
@@ -14,6 +17,7 @@ function authHeader(userId: string) {
   return { Authorization: encrypted };
 }
 
+// Devuelve el arreglo de destacadas, de la mas reciente a la mas antigua.
 export function useFeaturedNewsAdmin(lang: string = "es") {
   return useQuery({
     queryKey: ["newsFeaturedAdmin", lang],
@@ -45,8 +49,8 @@ export async function setFeaturedNews(
         withCloseButton: false,
         title: featured ? "Noticia destacada" : "Marca retirada",
         message: featured
-          ? "La noticia ya aparece en el encabezado de Noticias Pro."
-          : "El encabezado de Noticias Pro queda sin noticia destacada.",
+          ? "La noticia ya aparece en el carrusel del encabezado de Noticias Pro."
+          : "La noticia sale del carrusel del encabezado de Noticias Pro.",
         color: "green",
         loading: false,
       });
@@ -63,7 +67,9 @@ export async function setFeaturedNews(
       message:
         error?.response?.status === 401
           ? "No tiene permiso para destacar noticias."
-          : "No se pudo cambiar la noticia destacada.",
+          : error?.response?.status === 409
+            ? `Ya hay ${TOPE_DESTACADAS} noticias destacadas. Retire una antes de destacar otra.`
+            : "No se pudo cambiar la noticia destacada.",
       color: "red",
       loading: false,
     });

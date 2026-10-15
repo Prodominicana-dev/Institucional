@@ -244,7 +244,7 @@
       "exportacion": "Exports",
       "inversion": "Investment",
       "internacionales": "International",
-      "finanzas": "Finance"
+      "finanzas": "Economic"
     },
     "searchPlaceholder": "Search news...",
     "tickerLabel": "PRO NEWS",
@@ -268,7 +268,7 @@
     "indicatorUnavailable": "Not available",
     "indicatorUpdatedOn": "Updated on {date}",
     "colExport": "Exports",
-    "colFinance": "Finance",
+    "colFinance": "Economic",
     "seeMore": "See more news",
     "backToList": "Back to Pro News",
     "prev": "Previous",

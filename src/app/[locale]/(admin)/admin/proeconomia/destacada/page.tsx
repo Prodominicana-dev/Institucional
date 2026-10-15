@@ -10,8 +10,8 @@ export default function Page() {
     <AuthUser permission="create:news">
       <BackLink />
       <Sketch
-        title="Noticia destacada"
-        subtitle="La noticia grande del encabezado de Noticias Pro. Solo puede haber una: al destacar otra, la anterior se retira sola."
+        title="Noticias destacadas"
+        subtitle="Las noticias grandes del encabezado de Noticias Pro. Se pueden destacar hasta cinco: el encabezado las pasa en carrusel, de la más reciente a la más antigua."
         handleFilterOpen={() => {}}
         hasFilter={false}
         buttons={[]}

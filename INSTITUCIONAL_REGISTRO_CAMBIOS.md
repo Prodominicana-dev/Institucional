@@ -1,5 +1,45 @@
 # Institucional — Registro de cambios
 
+## 2026-10-15 — Noticias Pro: seccion Economicas, portada del periodico mas grande y carrusel de destacadas
+
+**La seccion Finanzas pasa a llamarse Economicas.** Cambia solo el rotulo:
+`categories.finanzas` y `colFinance` en `messages/es.json` ("Economicas") y en
+`messages/en.json` ("Economic"), mas el `nombre` de `secciones.ts`, que es lo
+que ve la administradora en el desplegable de las portadas. La clave sigue
+siendo `finanzas` a proposito, porque es el valor ya guardado en el campo
+`seccion` de las noticias y en `NewspaperCover.section`; cambiarla dejaria fuera
+de la seccion a la noticia de produccion que ya la lleva. Queda anotado en el
+comentario de `secciones.ts` para que nadie la "corrija" despues.
+
+**La portada del periodico acaba a la misma altura que la noticia destacada.**
+En `HeroSection.tsx` la rejilla pasa a `lg:h-[500px]` y la columna de portadas
+de 260 a 320 pixeles de ancho; la destacada deja su altura fija y toma
+`lg:h-full`. `CoversCarousel.tsx` se vuelve una columna flexible: el area de
+diapositivas crece con `lg:flex-1`, la imagen pasa a `lg:h-full` y el rotulo del
+medio queda abajo, asi que las dos piezas del encabezado terminan a la misma
+altura. En movil no cambia nada: todos los ajustes van con el prefijo `lg:`, y
+la imagen conserva su proporcion porque `h-full` sobre un contenedor de altura
+automatica no aplica.
+
+**El encabezado admite hasta cinco noticias destacadas y las pasa en carrusel.**
+Antes solo podia haber una. `FeaturedCarousel.tsx` (nuevo) las pasa con Embla,
+avance automatico cada 6 segundos que se detiene al pasar el raton y no se
+reanuda si el lector usa las flechas o los puntos, igual que el de portadas. Los
+puntos van superpuestos sobre la imagen para no romper la altura del bloque. Con
+una sola destacada se ve como antes: ni flechas ni puntos.
+
+`HeroSection` ya recibe un arreglo; si delante quedara un build viejo de la API
+que responde con una sola noticia, la envuelve y la pinta igual.
+
+En el panel, `FeaturedPicker.tsx` lista las destacadas numeradas, muestra el
+contador "(N de 5)" y deshabilita el boton Destacar al llegar al tope, con el
+aviso de que hay que retirar una antes. El tope vive en `TOPE_DESTACADAS` de
+`services/news-featured/service.ts`, que ademas traduce el 409 de la API a un
+mensaje claro. La tarjeta del panel y el titulo de la pantalla pasan a plural.
+
+Verificado en local con la base de desarrollo: `npx tsc --noEmit` sin errores, y
+la pagina pintada en el navegador en es y en en, con cinco destacadas, tres
+portadas y la seccion Economicas en la barra.
 ## 2026-10-14 — Portadas Diarias dejan de dar 500, y el orden y la repeticion de Noticias Pro
 
 **Subir una portada de periodico fallaba siempre con 500.** El modal mandaba la
