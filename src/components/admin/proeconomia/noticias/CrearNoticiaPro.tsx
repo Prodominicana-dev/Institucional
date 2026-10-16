@@ -6,9 +6,11 @@ import { useNewsCategories } from "@/services/news/categories/service";
 import { type CategoryOption } from "@/components/admin/news/NewsModal/CategorySelect";
 import { PreviewModal } from "@/components/admin/news/NewsModal/PreviewModal";
 import { CamposPro } from "./CamposPro";
+import { idCategoriaPro } from "./categoriaPro";
 import { PasoIdiomaPro } from "./PasosIdiomaPro";
 import { MarcoModalPro, MAX_COVER_SIZE, TOTAL_STEPS } from "./MarcoModalPro";
 import { usePortadaPro } from "./usePortadaPro";
+import { SECCIONES } from "@/components/proeconomia/secciones";
 import { useEditoresPro } from "./useEditoresPro";
 
 /* Crear una noticia de Noticias Pro. Camino propio: la seccion es obligatoria,
@@ -32,7 +34,6 @@ export function CrearNoticiaPro({
   const [direction, setDirection] = useState(0);
   const [date, setDate] = useState<any>(new Date());
   const [categoryOptions, setCategoryOptions] = useState<CategoryOption[]>([]);
-  const [categoryId, setCategoryId] = useState("");
   const [link, setLink] = useState("");
   const [seccion, setSeccion] = useState("");
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -51,8 +52,12 @@ export function CrearNoticiaPro({
     handleRemoveCover,
     comprimirPortada,
   } = usePortadaPro();
-  const { minidescriptionEs, contentEs, minidescriptionEn, contentEn } =
+  const { contentEs, contentEn } =
     useEditoresPro();
+
+  /* Todas las noticias de Noticias Pro llevan la misma categoria del portal.
+     Si no existe, el formulario avisa y no deja publicar. */
+  const categoryId = idCategoriaPro(categoryOptions);
 
   const isFirstStep = activeStep === 0;
   const isLastStep = activeStep === TOTAL_STEPS - 1;
@@ -130,7 +135,7 @@ export function CrearNoticiaPro({
       const es_data = {
         title: spanishTitle,
         content: contentEs?.getHTML(),
-        description: minidescriptionEs?.getHTML(),
+        description: "",
         link: link.trim(),
         seccion,
         language: "es",
@@ -138,7 +143,7 @@ export function CrearNoticiaPro({
       const en_data = {
         title: englishTitle,
         content: contentEn?.getHTML(),
-        description: minidescriptionEn?.getHTML(),
+        description: "",
         link: link.trim(),
         seccion,
         language: "en",
@@ -181,9 +186,7 @@ export function CrearNoticiaPro({
       key="campos"
       date={date}
       setDate={setDate}
-      categoryId={categoryId}
-      setCategoryId={setCategoryId}
-      categoryOptions={categoryOptions}
+      faltaCategoriaPro={!categoriesLoading && !categoryId}
       seccion={seccion}
       setSeccion={setSeccion}
       link={link}
@@ -205,7 +208,6 @@ export function CrearNoticiaPro({
       idioma="es"
       titulo={spanishTitle}
       setTitulo={setSpanishTitle}
-      minidescription={minidescriptionEs}
       content={contentEs}
       warningAlert={warningAlert}
     />,
@@ -214,7 +216,6 @@ export function CrearNoticiaPro({
       idioma="en"
       titulo={englishTitle}
       setTitulo={setEnglishTitle}
-      minidescription={minidescriptionEn}
       content={contentEn}
       warningAlert={warningAlert}
     />,
@@ -248,17 +249,17 @@ export function CrearNoticiaPro({
         onOpenChange={setPreviewOpen}
         spanish={{
           title: spanishTitle,
-          description: minidescriptionEs?.getHTML() ?? "",
+          description: "",
           content: contentEs?.getHTML() ?? "",
         }}
         english={{
           title: englishTitle,
-          description: minidescriptionEn?.getHTML() ?? "",
+          description: "",
           content: contentEn?.getHTML() ?? "",
         }}
         coverSrc={previewCoverSrc}
         categoryLabel={
-          categoryOptions.find((option) => option.value === categoryId)?.label
+          SECCIONES.find((x) => x.key === seccion)?.nombre
         }
         date={date instanceof Date ? date : new Date(date)}
       />

@@ -8,13 +8,16 @@ import TickerBanner from "@/components/proeconomia/TickerBanner";
 import HeroSection from "@/components/proeconomia/HeroSection";
 import RecentNewsThumbs from "@/components/proeconomia/RecentNewsThumbs";
 import NewsCards from "@/components/proeconomia/NewsCards";
-import ScheduleCarousel from "@/components/proeconomia/ScheduleCarousel";
-import ColumnedNews from "@/components/proeconomia/ColumnedNews";
 import IndicatorsRow from "@/components/proeconomia/IndicatorsRow";
 import NewsletterForm from "@/components/proeconomia/NewsletterForm";
 import { useTranslations } from "next-intl";
 import DataDashboard from "@/components/home/dataDashboard";
 import DataDashboardMobile from "@/components/home/dataDashboardMobile";
+
+/* Lo que se pinta sin tocar "Ver mas": las 6 mas recientes pasan en el
+   carrusel de Noticias Recientes y las 9 siguientes salen en tarjetas. */
+const RECIENTES = 6;
+const TARJETAS = 9;
 
 export default function ProeconomiaPage() {
   const { locale } = useParams<{ locale: string }>();
@@ -25,7 +28,7 @@ export default function ProeconomiaPage() {
     SECCIONES.some((x) => x.key === sParam) ? (sParam as string) : "all"
   );
   const [search, setSearch] = useState("");
-  // Se muestran 6 y el resto queda tras "Ver más": si cargan muchas, la
+  // Se muestran 15 y el resto queda tras "Ver más": si cargan muchas, la
   // pagina no se vuelve interminable de entrada.
   const [verTodas, setVerTodas] = useState(false);
   const t = useTranslations("proeconomia");
@@ -49,12 +52,10 @@ export default function ProeconomiaPage() {
     return list;
   }, [news, activeCategory, search]);
 
-  /* Lo que se pinta arriba sin tocar "Ver mas": 3 en Noticias Recientes y 3 en
-     tarjetas. Las columnas de abajo no lo repiten. */
-  const recientes = filteredNews.slice(0, 3);
-  const tarjetas = verTodas ? filteredNews.slice(3) : filteredNews.slice(3, 6);
-  const yaVistas = new Set(filteredNews.slice(0, 6).map((n: any) => n.id));
-  const newsColumnas = news.filter((n: any) => !yaVistas.has(n.id));
+  const recientes = filteredNews.slice(0, RECIENTES);
+  const tarjetas = verTodas
+    ? filteredNews.slice(RECIENTES)
+    : filteredNews.slice(RECIENTES, RECIENTES + TARJETAS);
 
   return (
     <div className="w-full bg-white">
@@ -69,7 +70,7 @@ export default function ProeconomiaPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 py-10">
         <RecentNewsThumbs news={recientes} locale={locale} />
         <NewsCards news={tarjetas} locale={locale} />
-        {!verTodas && filteredNews.length > 6 && (
+        {!verTodas && filteredNews.length > RECIENTES + TARJETAS && (
           <div className="flex justify-center">
             <button
               onClick={() => setVerTodas(true)}
@@ -80,9 +81,7 @@ export default function ProeconomiaPage() {
           </div>
         )}
       </div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 py-10">
-        <ScheduleCarousel locale={locale} />
-        <ColumnedNews news={newsColumnas} locale={locale} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <IndicatorsRow locale={locale} />
       </div>
       <DataDashboard />

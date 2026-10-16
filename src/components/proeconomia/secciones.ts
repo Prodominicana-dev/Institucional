@@ -14,4 +14,13 @@ export const SECCIONES = [
   { key: "inversión", labelKey: "categories.inversion", nombre: "Inversión" },
   { key: "internacional", labelKey: "categories.internacionales", nombre: "Internacionales" },
   { key: "finanzas", labelKey: "categories.finanzas", nombre: "Económicas" },
+  { key: "turismo", labelKey: "categories.turismo", nombre: "Turismo" },
 ];
+
+/* La etiqueta de las tarjetas, las miniaturas, la destacada y el detalle
+   rotula la SECCION, no la categoria del portal: la categoria no se elige al
+   publicar en Noticias Pro. Devuelve la clave de traduccion, o null si la
+   noticia no lleva una seccion conocida. */
+export function rotuloSeccion(seccion?: string): string | null {
+  return SECCIONES.find((s) => s.key === seccion)?.labelKey ?? null;
+}

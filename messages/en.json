@@ -244,7 +244,8 @@
       "exportacion": "Exports",
       "inversion": "Investment",
       "internacionales": "International",
-      "finanzas": "Economic"
+      "finanzas": "Economic",
+      "turismo": "Tourism"
     },
     "searchPlaceholder": "Search news...",
     "tickerLabel": "PRO NEWS",
@@ -252,9 +253,6 @@
     "noFeatured": "No featured article",
     "noCovers": "No covers available",
     "recentNews": "Recent News",
-    "scheduleSubtitle": "WEEKLY ACTIVITY COMMUNICATION",
-    "scheduleTitle": "Up to Date with ProDominicana",
-    "colInvest": "Investment",
     "indicatorsTitle": "Economic Indicators",
     "newsletterTitle": "Subscribe to the Newsletter",
     "newsletterSubtitle": "Receive the latest news and economic analysis directly in your inbox.",
@@ -267,8 +265,6 @@
     "newsletterError": "An error occurred. Please try again.",
     "indicatorUnavailable": "Not available",
     "indicatorUpdatedOn": "Updated on {date}",
-    "colExport": "Exports",
-    "colFinance": "Economic",
     "seeMore": "See more news",
     "backToList": "Back to Pro News",
     "prev": "Previous",

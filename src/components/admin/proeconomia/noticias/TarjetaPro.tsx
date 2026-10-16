@@ -85,9 +85,6 @@ export default function TarjetaPro({
           <h1 className="text-2xl text-black font-montserrat font-bold truncate w-full">
             {news.title}
           </h1>
-          <p className="text-lg text-black/90 font-montserrat truncate w-full">
-            {news.category.nameEs}
-          </p>
         </div>
       </div>
 
@@ -155,7 +152,7 @@ export default function TarjetaPro({
             ? `${process.env.NEXT_PUBLIC_API_URL}/news/images/${news.id}/${previewNews.cover}`
             : undefined
         }
-        categoryLabel={previewNews?.category?.nameEs}
+        categoryLabel={seccion?.nombre}
         date={previewNews ? new Date(previewNews.date) : undefined}
       />
     </div>

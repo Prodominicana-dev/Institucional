@@ -1,19 +1,11 @@
 "use client";
 import Editor from "@/components/admin/tools/rich-editor/config";
 
-/* Los cuatro editores de texto de una noticia: descripcion y cuerpo, en
-   espanol y en ingles. */
+/* Los dos editores de texto de una noticia: el cuerpo en espanol y en
+   ingles. La breve descripcion ya no se pide en el panel de Noticias Pro. */
 export function useEditoresPro() {
-  const minidescriptionEs = Editor({
-    placeholder: "Breve descripción...",
-    contentEs: "",
-  });
   const contentEs = Editor({
     placeholder: "Contenido de la noticia...",
-    contentEs: "",
-  });
-  const minidescriptionEn = Editor({
-    placeholder: "Breve descripción en inglés...",
     contentEs: "",
   });
   const contentEn = Editor({
@@ -21,5 +13,5 @@ export function useEditoresPro() {
     contentEs: "",
   });
 
-  return { minidescriptionEs, contentEs, minidescriptionEn, contentEn };
+  return { contentEs, contentEn };
 }

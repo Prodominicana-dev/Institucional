@@ -33,13 +33,13 @@ export default function CategoryBar({
         </div>
 
         {/* Secciones */}
-        <nav className="flex items-center gap-1 overflow-x-auto lg:gap-2">
+        <nav className="flex min-w-0 flex-1 items-center gap-1 overflow-x-auto">
           {CATEGORIES.map(({ key, labelKey }) => (
             <button
               key={key}
               onClick={() => onCategoryChange(key)}
               className={cn(
-                "whitespace-nowrap border-b-2 px-3 py-2 font-montserrat text-xs font-bold uppercase tracking-wide transition-colors lg:text-sm",
+                "whitespace-nowrap border-b-2 px-2.5 py-2 font-montserrat text-xs font-bold uppercase tracking-wide transition-colors lg:text-[13px]",
                 activeCategory === key
                   ? "border-[#C8102E] text-blue-dark"
                   : "border-transparent text-gray-500 hover:text-blue-dark"
@@ -51,7 +51,7 @@ export default function CategoryBar({
         </nav>
 
         {/* Buscador */}
-        <label className="flex min-w-[180px] cursor-text items-center gap-2 rounded-full border border-gray-300 px-3 py-1.5">
+        <label className="flex min-w-[180px] flex-shrink-0 cursor-text items-center gap-2 rounded-full border border-gray-300 px-3 py-1.5 lg:w-56">
           <MagnifyingGlassIcon className="size-4 flex-shrink-0 text-gray-400" />
           <input
             type="text"

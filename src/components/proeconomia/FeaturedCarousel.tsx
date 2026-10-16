@@ -5,7 +5,9 @@ import Link from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { useTranslations } from "next-intl";
 import { enlaceNoticia } from "@/components/proeconomia/enlace";
+import { rotuloSeccion } from "@/components/proeconomia/secciones";
 
 interface Props {
   noticias: any[];
@@ -15,6 +17,7 @@ interface Props {
 /* Noticias destacadas del encabezado. Con una sola se ve igual que antes:
    las flechas y los puntos solo aparecen cuando hay mas de una. */
 export default function FeaturedCarousel({ noticias, locale }: Props) {
+  const t = useTranslations("proeconomia");
   /* Avanza solo cada 6 segundos. Se detiene al pasar el raton por encima y no
      se reanuda si la persona usa las flechas o los puntos: si esta leyendo un
      titular, no se le debe mover debajo. */
@@ -57,9 +60,8 @@ export default function FeaturedCarousel({ noticias, locale }: Props) {
                 <div className="absolute inset-0 bg-gradient-to-t from-blue-dark via-blue-dark/30 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <span className="font-montserrat text-xs font-bold uppercase tracking-widest text-red-400">
-                    {locale === "es"
-                      ? noticia.category?.nameEs
-                      : noticia.category?.nameEn}
+                    {rotuloSeccion(noticia.seccion) &&
+                      t(rotuloSeccion(noticia.seccion)!)}
                   </span>
                   <h2 className="mt-2 line-clamp-3 font-montserrat text-2xl font-extrabold uppercase text-white lg:text-3xl">
                     {noticia.title}

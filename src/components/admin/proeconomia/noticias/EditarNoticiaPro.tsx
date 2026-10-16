@@ -2,13 +2,12 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useUser } from "@auth0/nextjs-auth0";
 import { editNews, useNewsConfById } from "@/services/news/service";
-import { useNewsCategories } from "@/services/news/categories/service";
-import { type CategoryOption } from "@/components/admin/news/NewsModal/CategorySelect";
 import { PreviewModal } from "@/components/admin/news/NewsModal/PreviewModal";
 import { CamposPro } from "./CamposPro";
 import { PasoIdiomaPro } from "./PasosIdiomaPro";
 import { MarcoModalPro, MAX_COVER_SIZE, TOTAL_STEPS } from "./MarcoModalPro";
 import { usePortadaPro } from "./usePortadaPro";
+import { SECCIONES } from "@/components/proeconomia/secciones";
 import { useEditoresPro } from "./useEditoresPro";
 
 /* Editar una noticia de Noticias Pro. Aqui la seccion SI se puede dejar vacia:
@@ -33,14 +32,11 @@ export function EditarNoticiaPro({
   const [activeStep, setActiveStep] = useState(0);
   const [direction, setDirection] = useState(0);
   const [date, setDate] = useState<any>(new Date());
-  const [categoryOptions, setCategoryOptions] = useState<CategoryOption[]>([]);
   const [categoryId, setCategoryId] = useState("");
   const [link, setLink] = useState("");
   const [seccion, setSeccion] = useState("");
   const [uploadProgress, setUploadProgress] = useState(0);
   const [previewOpen, setPreviewOpen] = useState(false);
-  const { data: categories, isLoading: categoriesLoading } =
-    useNewsCategories();
   const { data: news, isLoading: newsLoading } = useNewsConfById(id);
   const {
     files,
@@ -55,7 +51,7 @@ export function EditarNoticiaPro({
     handleRemoveCover,
     comprimirPortada,
   } = usePortadaPro();
-  const { minidescriptionEs, contentEs, minidescriptionEn, contentEn } =
+  const { contentEs, contentEn } =
     useEditoresPro();
 
   const isFirstStep = activeStep === 0;
@@ -72,17 +68,6 @@ export function EditarNoticiaPro({
       setSeccion(news.es.seccion ?? "");
     }
   }, [news, newsLoading]);
-
-  useEffect(() => {
-    if (!categoriesLoading && categories) {
-      setCategoryOptions(
-        categories.map(({ id, nameEs }: { id: string; nameEs: string }) => ({
-          value: id,
-          label: nameEs,
-        }))
-      );
-    }
-  }, [categories, categoriesLoading]);
 
   const openRef = useRef<() => void>(null);
   const handleNext = () => {
@@ -149,7 +134,7 @@ export function EditarNoticiaPro({
       const es_data = {
         title: spanishTitle,
         content: contentEs?.getHTML(),
-        description: minidescriptionEs?.getHTML(),
+        description: news?.es.description ?? "",
         link: link.trim(),
         seccion,
         language: "es",
@@ -157,7 +142,7 @@ export function EditarNoticiaPro({
       const en_data = {
         title: englishTitle,
         content: contentEn?.getHTML(),
-        description: minidescriptionEn?.getHTML(),
+        description: news?.en.description ?? "",
         link: link.trim(),
         seccion,
         language: "en",
@@ -205,9 +190,7 @@ export function EditarNoticiaPro({
       key="campos"
       date={date}
       setDate={setDate}
-      categoryId={categoryId}
-      setCategoryId={setCategoryId}
-      categoryOptions={categoryOptions}
+      faltaCategoriaPro={false}
       seccion={seccion}
       setSeccion={setSeccion}
       link={link}
@@ -231,9 +214,7 @@ export function EditarNoticiaPro({
       idioma="es"
       titulo={spanishTitle}
       setTitulo={setSpanishTitle}
-      minidescription={minidescriptionEs}
       content={contentEs}
-      descriptionPrevia={news?.es.description}
       contentPrevio={news?.es.content}
       warningAlert={warningAlert}
     />,
@@ -242,9 +223,7 @@ export function EditarNoticiaPro({
       idioma="en"
       titulo={englishTitle}
       setTitulo={setEnglishTitle}
-      minidescription={minidescriptionEn}
       content={contentEn}
-      descriptionPrevia={news?.en.description}
       contentPrevio={news?.en.content}
       warningAlert={warningAlert}
     />,
@@ -278,17 +257,17 @@ export function EditarNoticiaPro({
         onOpenChange={setPreviewOpen}
         spanish={{
           title: spanishTitle,
-          description: minidescriptionEs?.getHTML() ?? "",
+          description: news?.es.description ?? "",
           content: contentEs?.getHTML() ?? "",
         }}
         english={{
           title: englishTitle,
-          description: minidescriptionEn?.getHTML() ?? "",
+          description: news?.en.description ?? "",
           content: contentEn?.getHTML() ?? "",
         }}
         coverSrc={newCoverBlobSrc ?? existingCoverSrc}
         categoryLabel={
-          categoryOptions.find((option) => option.value === categoryId)?.label
+          SECCIONES.find((x) => x.key === seccion)?.nombre
         }
         date={date instanceof Date ? date : new Date(date)}
       />

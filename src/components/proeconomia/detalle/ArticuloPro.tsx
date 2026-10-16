@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import TextContent from "@/components/news/text";
-import { nombreCategoria } from "@/components/proeconomia/categoria";
 import { SECCIONES } from "@/components/proeconomia/secciones";
 
 /* Cuerpo de la noticia dentro de Noticias Pro. A diferencia del detalle del
@@ -31,9 +30,6 @@ export default function ArticuloPro({
               {seccion.nombre}
             </span>
           )}
-          <span className="text-gray-500">
-            {nombreCategoria(noticia?.category, locale)}
-          </span>
           {fecha && <span className="font-semibold text-gray-400">{fecha}</span>}
         </div>
 
