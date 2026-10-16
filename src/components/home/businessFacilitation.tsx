@@ -125,7 +125,7 @@ export default function BusinessFacilitation() {
         <div className="xl:w-11/12 h-full flex flex-col-reverse xl:flex-row gap-5 justify-center items-center xl:items-start">
           <div className="w-full xl:w-7/12 aspect-video rounded-lg overflow-hidden hidden xl:flex xl:sticky xl:top-8">
             <iframe
-              src="https://www.youtube.com/embed/YEpRND-2qzU"
+              src="https://www.youtube.com/embed/spVmV3IHZFI?si=4hWdIlwAMrnV7Fco"
               title="YouTube video player"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               className="w-full h-full object-cover"
@@ -140,10 +140,10 @@ export default function BusinessFacilitation() {
               <p>{t("paragraph1")}</p>
               <p>{t("paragraph2")}</p>
               <p>{t("paragraph3")}</p>
-              <p>{t("paragraph4")}</p>
+              {/* <p>{t("paragraph4")}</p> */}
             </div>
             <Link
-              href="https://americasinvestmentforum.com/"
+              href="https://www.youtube.com/watch?v=spVmV3IHZFI"
               target="_blank"
               className="w-40 h-12 flex items-center justify-center rounded-lg bg-blue-dark hover:shadow-md duration-300 text-white hover:text-white/80"
             >
