@@ -313,6 +313,20 @@ export function NewsDialog({
             <Label>
               Portada de la noticia <span className="text-destructive">*</span>
             </Label>
+            <div className="flex items-start gap-2.5 rounded-xl border border-amber-300 bg-amber-50 p-3.5 text-sm text-amber-900">
+              <ImageIcon className="mt-0.5 size-4 shrink-0" />
+              <div>
+                <p className="font-semibold">
+                  Sube la foto con estas medidas:
+                </p>
+                <p>
+                  Tamaño: <span className="font-bold">1920 × 995 px</span>
+                </p>
+                <p>
+                  Orientación: <span className="font-bold">horizontal</span>
+                </p>
+              </div>
+            </div>
             <UploadImage
               file={files[0]}
               openRef={openRef}
