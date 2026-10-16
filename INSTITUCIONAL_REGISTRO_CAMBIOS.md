@@ -1,5 +1,93 @@
 # Institucional — Registro de cambios
 
+## 2026-10-16 — Noticias Pro: recientes en carrusel, nueve tarjetas, Turismo y un panel más corto
+
+**Noticias Recientes pasa a carrusel.** `RecentNewsThumbs.tsx` monta Embla con
+tres miniaturas por vista en pantalla grande, dos en tableta y una en móvil, y
+recibe las **6** noticias más recientes en vez de 3. No lleva avance automático
+a propósito: son titulares para leer, no un escaparate, así que solo se mueve si
+la persona lo mueve. Las flechas van en la cabecera, a la derecha del título, y
+no superpuestas sobre las miniaturas, donde tapaban la portada de la primera y
+la última. Con tres noticias o menos no aparecen ni flechas ni puntos.
+
+**Debajo se pintan 9 tarjetas antes del botón "Ver más"**, no 3. Las dos
+cantidades viven en `RECIENTES` y `TARJETAS`, al principio de
+`(noticias-pro)/noticias-pro/page.tsx`: el carrusel toma las 6 primeras y las
+tarjetas las 9 siguientes, así que la primera pantalla muestra 15 noticias y el
+botón solo sale si hay más.
+
+**"Al Día con ProDominicana" baja debajo de los Indicadores Económicos.** Es un
+intercambio de orden dentro del mismo contenedor; el Tablero de Datos y el
+formulario del boletín siguen después, como estaban.
+
+**"Al Día con ProDominicana" también sale de la página.** Primero se bajó debajo
+de los Indicadores Económicos y después él decidió quitarla del todo, así que se
+borra `ScheduleCarousel.tsx` y con él las claves `scheduleTitle` y
+`scheduleSubtitle` de los dos idiomas. La agenda sigue viva en el portal
+institucional (`(home)/schedule`), que usa el mismo `useAllSchedule`: ahí no se
+tocó nada.
+
+**Las columnas por sección salen de la página.** `ColumnedNews.tsx` se borra, y
+con él las claves `colExport`, `colInvest` y `colFinance` de `messages/es.json` y
+`messages/en.json`, que ya no las usa nadie. Desaparece también el cálculo de
+`newsColumnas`, que servía solo para no repetir arriba y abajo las mismas
+noticias.
+
+**Turismo vuelve como quinta sección de Noticias Pro.** Una entrada más en
+`secciones.ts` y la clave `categories.turismo` en los dos idiomas. Como es la
+definición única, sale a la vez en la barra de la página, en el filtro del panel
+de Noticias Pro y en el desplegable de las portadas. Con seis pestañas la barra
+ya no cabía: `CategoryBar.tsx` baja el texto a 13 píxeles y el relleno a `px-2.5`
+en pantalla grande, y el buscador deja de estirarse (`lg:w-56` y
+`flex-shrink-0`). Comprobado pintado a 1366 y a 1600 píxeles de ancho: las seis
+entran enteras.
+
+**En el panel, la categoría se va con los demás campos.** En `CamposPro.tsx` el
+bloque "Categoría del portal" entra en la misma rejilla que Fecha y Sección, que
+pasa a tres columnas en pantalla grande. Su texto de ayuda decía "en qué columna
+de Noticias Pro aparece" y ahora dice "en qué sección", porque las columnas ya no
+existen.
+
+**Un solo campo: la sección. La categoría del portal desaparece del panel de
+Noticias Pro.** En Noticias Pro la categoría no decidía nada —solo rotulaba la
+etiqueta roja—, pero `News.categoryId` es obligatorio en la base, así que sigue
+guardándose: ahora todas las noticias de Noticias Pro llevan siempre la misma,
+**«Noticias Pro» / «Pro News»**, definida una sola vez en
+`categoriaPro.ts` (`CATEGORIA_PRO` e `idCategoriaPro`). Al **crear** se asigna
+sola; al **editar** se conserva la que la noticia ya tenía, para que una noticia
+devuelta al portal (guardada sin sección) no se lleve la categoría de Noticias
+Pro consigo. Si esa categoría no existe en el portal, el formulario lo dice en
+rojo y no deja publicar.
+
+⛔ **Antes de desplegar hay que crear esa categoría en la base de producción**,
+o el panel de Noticias Pro no dejará publicar nada:
+`insert into "NewsCategory" (id,"nameEs","nameEn") values (gen_random_uuid(),'Noticias Pro','Pro News');`
+
+**La etiqueta roja pasa a rotular la sección**, no la categoría, que es lo único
+que ahora se elige: tarjetas (`NewsCards.tsx`), miniaturas
+(`RecentNewsThumbs.tsx`) y destacada (`FeaturedCarousel.tsx`) usan la nueva
+`rotuloSeccion()` de `secciones.ts`, y el detalle (`ArticuloPro.tsx`) pierde el
+texto gris de categoría, que repetía lo que ya decía la etiqueta roja. Con eso
+`categoria.ts` y su `nombreCategoria` se quedan sin usar y se borran. En el
+panel, la tarjeta de cada noticia deja de mostrar la categoría (diría lo mismo en
+todas) y la vista previa rotula la sección.
+
+**Fuera el campo "Breve descripción de la noticia"**, en crear y en editar y en
+los dos idiomas. `PasosIdiomaPro.tsx` pierde el editor y sus props, y
+`useEditoresPro.ts` baja de cuatro editores a dos. Al crear se envía
+`description: ""`. **Al editar se reenvía la descripción que la noticia ya tenía**
+(`news?.es.description`), para que una noticia vieja no pierda su entradilla por
+pasar por el formulario; la vista previa muestra lo mismo que se va a guardar. El
+campo es opcional en la API (`description?: string` en `news.dto.ts`), así que no
+hizo falta tocarla.
+
+ℹ️ Las Portadas Diarias ya pedían 8 desde el 15 de octubre
+(`useNewspaperCovers(8)` en `HeroSection.tsx`): no hizo falta cambiar nada.
+
+Verificado: `npx tsc --noEmit` sin errores, la página pintada en el navegador en
+"Todos" y filtrada por Turismo, y el DOM servido contando 6 miniaturas en el
+carrusel, 9 tarjetas y el botón "Ver más noticias".
+
 ## 2026-10-15 — Noticias Pro: seccion Economicas, portada del periodico mas grande y carrusel de destacadas
 
 **La seccion Finanzas pasa a llamarse Economicas.** Cambia solo el rotulo:

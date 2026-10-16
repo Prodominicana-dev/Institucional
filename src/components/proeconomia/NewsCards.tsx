@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { nombreCategoria } from "./categoria";
+import { rotuloSeccion } from "./secciones";
 import { enlaceNoticia } from "@/components/proeconomia/enlace";
 
 interface Props {
@@ -35,9 +35,7 @@ export default function NewsCards({ news, locale }: Props) {
             </div>
             <div className="mt-2 space-y-1">
               <span className="text-[#C8102E] font-normal tracking-widest uppercase font-montserrat text-sm block">
-                {locale === "es"
-                  ? nombreCategoria(item.category, "es")
-                  : nombreCategoria(item.category, "en")}
+                {rotuloSeccion(item.seccion) && t(rotuloSeccion(item.seccion)!)}
               </span>
               <h3 className="text-blue-950 font-bold font-montserrat text-xl line-clamp-3 break-words">
                 {item.title}

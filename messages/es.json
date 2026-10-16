@@ -393,7 +393,8 @@
       "exportacion": "Exportación",
       "inversion": "Inversión",
       "internacionales": "Internacionales",
-      "finanzas": "Económicas"
+      "finanzas": "Económicas",
+      "turismo": "Turismo"
     },
     "searchPlaceholder": "Buscar noticias...",
     "tickerLabel": "NOTICIAS PRO",
@@ -401,11 +402,6 @@
     "noFeatured": "Sin noticia destacada",
     "noCovers": "Sin portadas disponibles",
     "recentNews": "Noticias Recientes",
-    "scheduleSubtitle": "COMUNICACIÓN SEMANAL DE ACTIVIDADES",
-    "scheduleTitle": "Al Día con ProDominicana",
-    "colExport": "Exportación",
-    "colInvest": "Inversión",
-    "colFinance": "Económicas",
     "indicatorsTitle": "Indicadores Económicos",
     "newsletterTitle": "Suscríbase al Boletín",
     "newsletterSubtitle": "Reciba las últimas noticias y análisis económicos directamente en su correo.",

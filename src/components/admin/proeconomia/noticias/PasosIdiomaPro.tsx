@@ -11,18 +11,14 @@ export function PasoIdiomaPro({
   idioma,
   titulo,
   setTitulo,
-  minidescription,
   content,
-  descriptionPrevia,
   contentPrevio,
   warningAlert,
 }: {
   idioma: "es" | "en";
   titulo: string;
   setTitulo: (v: string) => void;
-  minidescription: any;
   content: any;
-  descriptionPrevia?: string;
   contentPrevio?: string;
   warningAlert: boolean;
 }) {
@@ -57,19 +53,6 @@ export function PasoIdiomaPro({
               : "El título en inglés es obligatorio."}
           </p>
         )}
-      </div>
-
-      <div className="flex flex-col gap-2">
-        <Label>
-          {es
-            ? "Breve descripción de la noticia"
-            : "Breve descripción de la noticia en inglés"}
-        </Label>
-        <TextEditor
-          editor={minidescription}
-          number={15}
-          description={descriptionPrevia}
-        />
       </div>
 
       <div className="flex flex-col gap-2">

@@ -5,7 +5,7 @@ import { RefObject } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SECCIONES } from "@/components/proeconomia/secciones";
-import { CategorySelect, type CategoryOption } from "@/components/admin/news/NewsModal/CategorySelect";
+import { CATEGORIA_PRO } from "./categoriaPro";
 import { DatePicker } from "@/components/admin/news/NewsModal/DatePicker";
 import { UploadImage } from "@/components/admin/news/NewsModal/UploadImage";
 
@@ -18,9 +18,7 @@ import { UploadImage } from "@/components/admin/news/NewsModal/UploadImage";
 export function CamposPro({
   date,
   setDate,
-  categoryId,
-  setCategoryId,
-  categoryOptions,
+  faltaCategoriaPro,
   seccion,
   setSeccion,
   link,
@@ -41,9 +39,7 @@ export function CamposPro({
 }: {
   date: any;
   setDate: (v: any) => void;
-  categoryId: string;
-  setCategoryId: (v: string) => void;
-  categoryOptions: CategoryOption[];
+  faltaCategoriaPro: boolean;
   seccion: string;
   setSeccion: (v: string) => void;
   link: string;
@@ -104,10 +100,18 @@ export function CamposPro({
             </p>
           )}
           <p className="text-xs text-muted-foreground">
-            Decide en qué columna de Noticias Pro aparece la noticia.
+            Decide en qué sección de Noticias Pro aparece la noticia.
           </p>
         </div>
       </div>
+
+      {faltaCategoriaPro && (
+        <div className="flex items-start gap-2.5 rounded-xl border border-destructive bg-destructive/5 p-3.5 text-sm text-destructive">
+          <AlertCircle className="mt-0.5 size-4 shrink-0" />
+          Falta crear la categoría «{CATEGORIA_PRO}» en Noticias del portal. Sin
+          ella no se puede publicar aquí.
+        </div>
+      )}
 
       {sacada && (
         <div className="flex items-start gap-2.5 rounded-xl border border-amber-300 bg-amber-50 p-3.5 text-sm text-amber-900">
@@ -116,28 +120,6 @@ export function CamposPro({
           portal institucional, donde se administra desde Noticias.
         </div>
       )}
-
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="categoryPro">
-          Categoría del portal <span className="text-destructive">*</span>
-        </Label>
-        <CategorySelect
-          id="categoryPro"
-          value={categoryId}
-          onChange={setCategoryId}
-          options={categoryOptions}
-          invalid={warningAlert && !categoryId}
-        />
-        {warningAlert && !categoryId && (
-          <p className="flex items-center gap-1 text-xs text-destructive">
-            <AlertCircle className="size-3.5" /> La categoría es obligatoria.
-          </p>
-        )}
-        <p className="text-xs text-muted-foreground">
-          Clasificación interna que toda noticia necesita. No decide dónde sale
-          en Noticias Pro: eso lo hace la sección.
-        </p>
-      </div>
 
       <div className="flex flex-col gap-2">
         <Label htmlFor="linkPro">Enlace de la noticia</Label>
