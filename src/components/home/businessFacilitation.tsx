@@ -22,7 +22,7 @@ type BannerSlide = {
 const bannerSlides: BannerSlide[] = [
   {
     src: "/images/bannerSumandoExportadoras2026.jpg",
-    alt: "Sumando Exportadoras 2026 — Regístrate, participa y transforma tu negocio. Cierre de aplicación el 18 de octubre",
+    alt: "Sumando Exportadoras 2026 — Regístrate, participa y transforma tu negocio. Cierre de aplicación el 26 de octubre",
     href: "/sumando-exportadoras",
     locale: "es",
   },
@@ -178,7 +178,7 @@ export default function BusinessFacilitation() {
         />
       </Link> */}
 
-      {/* <Link href="/documents/16MemoriasdeGestiónPD-2020-24.pdf" target="_blank">
+      <Link href="/documents/16MemoriasdeGestiónPD-2020-24.pdf" target="_blank">
         <Image
           width={2048}
           height={108}
@@ -186,7 +186,7 @@ export default function BusinessFacilitation() {
           alt="Memori-Post"
           className=" w-full "
         />
-      </Link> */}
+      </Link>
     </div>
   );
 }

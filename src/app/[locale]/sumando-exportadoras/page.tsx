@@ -254,7 +254,7 @@ function About() {
 function Dates() {
   const data = [
     { day: "01", month: "oct.", title: "Apertura convocatoria" },
-    { day: "18", month: "oct.", title: "Cierre de inscripciones" },
+    { day: "26", month: "oct.", title: "Cierre de inscripciones" },
     { day: "19", month: "nov.", title: "Anuncio beneficiarias del Programa" },
   ];
 
