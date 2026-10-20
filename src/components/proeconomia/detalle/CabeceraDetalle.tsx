@@ -1,6 +1,7 @@
 "use client";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { cn } from "@/lib/utils";
 import { SECCIONES } from "@/components/proeconomia/secciones";
@@ -23,11 +24,15 @@ export default function CabeceraDetalle({
   return (
     <div className="sticky top-0 z-40 border-b border-gray-200 bg-white shadow-sm">
       <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-3 sm:px-6 lg:h-24 lg:flex-row lg:items-center lg:justify-between lg:gap-6 lg:py-0 lg:px-8">
-        <Link href={base} className="flex flex-shrink-0 items-center gap-3">
-          <span className="h-8 w-1.5 rounded-full bg-[#C8102E]" />
-          <span className="font-montserrat text-2xl font-extrabold uppercase tracking-tight text-blue-dark lg:text-3xl">
-            {t("brandName")}
-          </span>
+        <Link href={base} className="flex flex-shrink-0 items-center">
+          <Image
+            src="/svg/noticias-pro-logo.svg"
+            alt={t("brandName")}
+            width={759}
+            height={146}
+            priority
+            className="h-8 w-auto lg:h-10"
+          />
         </Link>
 
         <nav className="flex items-center gap-1 overflow-x-auto lg:gap-2">

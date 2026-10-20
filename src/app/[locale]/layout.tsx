@@ -9,6 +9,13 @@ export const metadata: Metadata = {
   title: "ProDominicana",
   description: "Centro de Exportación e Inversión de la República Dominicana,responsables de promover nuestros productos, servicios y oportunidades de negocio por el mundo.",
   manifest: "/site.webmanifest",
+  metadataBase: new URL("https://prodominicana.gob.do"),
+  icons: {
+    icon: [
+      { url: "/icons/favicon-32x32.png", type: "image/png", sizes: "32x32" },
+      { url: "/icons/favicon-16x16.png", type: "image/png", sizes: "16x16" },
+    ],
+  },
 
    openGraph: {
     title: "ProDominicana",
@@ -47,18 +54,6 @@ export default async function RootLayout({
           rel="apple-touch-icon"
           sizes="180x180"
           href="/icons/apple-touch-icon.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="32x32"
-          href="/icons/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/icons/favicon-16x16.png"
         />
         <link rel="manifest" href="/site.webmanifest" />
         <link

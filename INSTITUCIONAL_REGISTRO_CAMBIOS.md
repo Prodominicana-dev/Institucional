@@ -1,5 +1,47 @@
 # Institucional — Registro de cambios
 
+## 2026-10-20 — Noticias Pro: logo del cliente en la cabecera, la pestaña y al compartir
+
+**La cabecera pinta el logo, no el texto.** `CategoryBar.tsx` (lista) y
+`CabeceraDetalle.tsx` (detalle) rotulaban la marca con el texto `brandName` y
+una barrita roja a la izquierda. Ahora muestran el logo que entregó el cliente,
+`/svg/noticias-pro-logo.svg`, a 32 px de alto en móvil y 40 px en escritorio;
+el texto sigue vivo como texto alternativo de la imagen, así que un lector de
+pantalla y el buscador leen lo mismo que antes. La barrita roja se retira
+porque el propio logo ya trae el rojo.
+
+**El logo se sacó del PDF original**, vectorial y de dos páginas (color y
+blanco), con `pdftocairo`. Quedan en el repositorio:
+`public/svg/noticias-pro-logo.svg`, `public/svg/noticias-pro-logo-blanco.svg`,
+`public/images/noticias-pro/logo-correo-blanco.png` (440 px, para el correo, que
+no admite SVG), `public/images/noticias-pro/icono.png` y `icono-32.png` (el
+isotipo recortado, para la pestaña) y `public/images/noticias-pro/og.png`
+(1200 × 630, para compartir).
+
+**Icono propio de la pestaña en `/noticias-pro`.** El grupo `(noticias-pro)`
+tenía el layout entero marcado como cliente, y de un componente de cliente no
+se pueden exportar metadatos. Se parte en dos: `layout.tsx` queda en servidor y
+declara los metadatos, y `shell.tsx` se lleva el proveedor de react-query y el
+pie. No cambia nada de lo que se pinta.
+
+**Los iconos del sitio pasan a la API de metadatos.** En `[locale]/layout.tsx`
+los dos `<link rel="icon">` estaban escritos a mano dentro de `<head>`, y lo
+escrito a mano no lo puede sustituir una ruta hija: en `/noticias-pro` salían
+los dos iconos institucionales **más** el de Noticias Pro. Ahora el layout raíz
+los declara en `metadata.icons` y la ruta de Noticias Pro los sustituye por el
+suyo. Las demás páginas quedan igual: se comprobó en el HTML pintado que `/`
+sigue sirviendo `favicon-32x32.png` y `favicon-16x16.png`.
+
+**Imagen al compartir.** Se añade `metadataBase` en el layout raíz y la imagen
+se declara en el layout de Noticias Pro. No se usa el archivo de convención
+`opengraph-image.png`: para esos archivos Next ignora `metadataBase` y arma la
+dirección con el origen del servidor, que fuera de Vercel es `localhost`, y el
+enlace compartido no cargaría la imagen. Comprobado en el HTML: `og:image` sale
+como `https://prodominicana.gob.do/images/noticias-pro/og.png`.
+
+Verificado: `tsc --noEmit` sin errores y las dos cabeceras pintadas en el
+navegador contra los datos de producción.
+
 ## 2026-10-20 — Noticias Pro: las tarjetas muestran todas las noticias y el carrusel avanza solo
 
 **Las tarjetas ya no empiezan después del carrusel.** El reparto era
