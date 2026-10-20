@@ -1,5 +1,38 @@
 # Institucional — Registro de cambios
 
+## 2026-10-20 — Noticias Pro: las tarjetas muestran todas las noticias y el carrusel avanza solo
+
+**Las tarjetas ya no empiezan después del carrusel.** El reparto era
+`filteredNews.slice(RECIENTES, RECIENTES + TARJETAS)`: las 6 noticias que se
+llevaba Noticias Recientes se descontaban de la rejilla de abajo. Con 10
+noticias publicadas en el portal, abajo solo quedaban 4 tarjetas y el tope de 9
+no se rozaba nunca, así que la página aparentaba tener menos contenido del que
+hay. Ahora las tarjetas arrancan también por la primera
+(`filteredNews.slice(0, TARJETAS)`): las 6 del carrusel se repiten abajo y se
+ven todas las noticias vivas. `TARJETAS` pasa de 9 a 15, que es el total que la
+página ya mostraba antes de "Ver más" sumando carrusel y rejilla, y la condición
+del botón pasa de `> RECIENTES + TARJETAS` a `> TARJETAS` para que ninguna
+noticia se quede escondida sin botón que la saque.
+
+**Noticias Recientes avanza solo cada 5 segundos.** Se añade
+`embla-carousel-autoplay` con `loop: true`, `stopOnMouseEnter` y
+`stopOnInteraction`, igual que la noticia destacada y las portadas diarias: se
+detiene mientras la persona tiene el ratón encima y no se reanuda si usa las
+flechas, para no mover un titular que se está leyendo. El 16 de octubre se dejó
+a propósito sin avance automático; se cambia a petición suya.
+
+Comprobado pintado contra los datos de producción: 10 noticias publicadas, 10
+tarjetas abajo y el carrusel desplazado solo a los 14 segundos. `tsc --noEmit`
+sin errores.
+
+**Nota sobre los datos, no es código.** En producción hay 27 noticias con
+sección: 10 publicadas y 17 deshabilitadas desde el panel (los días 14, 15 y 16
+de octubre). Las tarjetas salen de las publicadas, así que el número que se ve
+depende de cuántas queden habilitadas. Conviene saber además que `disable()` y
+`enable()` de la API escriben solo `status` y no tocan `updated_At` ni
+`updated_By`, de modo que no queda constancia de quién deshabilitó una noticia
+ni cuándo.
+
 ## 2026-10-16 — Noticias Pro: recientes en carrusel, nueve tarjetas, Turismo y un panel más corto
 
 **Noticias Recientes pasa a carrusel.** `RecentNewsThumbs.tsx` monta Embla con

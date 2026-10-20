@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { useTranslations } from "next-intl";
 import { rotuloSeccion } from "./secciones";
@@ -14,15 +15,16 @@ interface Props {
 }
 
 /* Noticias Recientes en carrusel: tres miniaturas por vista en pantalla
-   grande y una en movil. Sin avance automatico a proposito, porque son
-   titulares para leer y no un escaparate: solo se mueve si la persona lo
-   mueve. Con tres o menos no aparecen ni flechas ni puntos. */
+   grande y una en movil. Con tres o menos no aparecen ni flechas ni puntos. */
 export default function RecentNewsThumbs({ news, locale }: Props) {
   const t = useTranslations("proeconomia");
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "start",
-    loop: false,
-  });
+  /* Avanza solo cada 5 segundos, igual que la destacada. Se detiene al pasar
+     el raton por encima y no se reanuda si la persona usa las flechas: si
+     esta leyendo un titular, no se le debe mover debajo. El loop es lo que
+     deja que siga girando al llegar a la ultima. */
+  const [emblaRef, emblaApi] = useEmblaCarousel({ align: "start", loop: true }, [
+    Autoplay({ delay: 5000, stopOnMouseEnter: true, stopOnInteraction: true }),
+  ]);
   const [activo, setActivo] = useState(0);
   const [puntos, setPuntos] = useState<number[]>([]);
 

@@ -14,10 +14,12 @@ import { useTranslations } from "next-intl";
 import DataDashboard from "@/components/home/dataDashboard";
 import DataDashboardMobile from "@/components/home/dataDashboardMobile";
 
-/* Lo que se pinta sin tocar "Ver mas": las 6 mas recientes pasan en el
-   carrusel de Noticias Recientes y las 9 siguientes salen en tarjetas. */
+/* Las 6 mas recientes van en el carrusel de Noticias Recientes. Las tarjetas
+   de abajo arrancan tambien por la primera, asi que repiten esas 6 y siguen
+   con el resto: abajo se ven todas las noticias publicadas, no solo las que
+   el carrusel deja fuera. */
 const RECIENTES = 6;
-const TARJETAS = 9;
+const TARJETAS = 15;
 
 export default function ProeconomiaPage() {
   const { locale } = useParams<{ locale: string }>();
@@ -53,9 +55,7 @@ export default function ProeconomiaPage() {
   }, [news, activeCategory, search]);
 
   const recientes = filteredNews.slice(0, RECIENTES);
-  const tarjetas = verTodas
-    ? filteredNews.slice(RECIENTES)
-    : filteredNews.slice(RECIENTES, RECIENTES + TARJETAS);
+  const tarjetas = verTodas ? filteredNews : filteredNews.slice(0, TARJETAS);
 
   return (
     <div className="w-full bg-white">
@@ -70,7 +70,7 @@ export default function ProeconomiaPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 py-10">
         <RecentNewsThumbs news={recientes} locale={locale} />
         <NewsCards news={tarjetas} locale={locale} />
-        {!verTodas && filteredNews.length > RECIENTES + TARJETAS && (
+        {!verTodas && filteredNews.length > TARJETAS && (
           <div className="flex justify-center">
             <button
               onClick={() => setVerTodas(true)}
