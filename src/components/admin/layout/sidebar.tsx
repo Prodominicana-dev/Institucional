@@ -353,6 +353,10 @@ export function SideBar() {
                     title={"Suscriptores"}
                     url={"/admin/mujer-exporta/subscribers"}
                   />
+                  <SidebarMenuItem
+                    title={"Programa Mujeres en Exportación"}
+                    url={"/admin/mujeres-en-exportacion"}
+                  />
                 </List>
               )}
             </AccordionBody>
