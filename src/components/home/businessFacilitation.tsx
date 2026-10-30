@@ -21,9 +21,10 @@ type BannerSlide = {
 
 const bannerSlides: BannerSlide[] = [
   {
-    src: "/images/bannerSumandoExportadoras2026.jpg",
-    alt: "Sumando Exportadoras 2026 — Regístrate, participa y transforma tu negocio. Cierre de aplicación el 26 de octubre",
-    href: "/sumando-exportadoras",
+    src: "/images/bannerDashboardModa.jpg",
+    alt: "Explora nuestro Dashboard de Moda — Datos, mercados y oportunidades para una industria que sigue creciendo",
+    href: "https://app.powerbi.com/links/RDc8I1GV7l?ctid=10ea1582-f863-4bd4-af09-3c745e735c05&pbi_source=linkShare",
+    external: true,
     locale: "es",
   },
   {
