@@ -21,11 +21,15 @@
 /* Cabecera */
 .mex-hero { position: relative; overflow: hidden; background: var(--mex-azul); color: var(--mex-blanco); min-height: 340px; }
 .mex-hero__inner { position: relative; z-index: 1; max-width: 1240px; margin: 0 auto; padding: 48px 24px 52px; }
-.mex-hero__logo { display: block; width: 320px; height: auto; margin-left: -6px; }
+/* El PNG trae un margen transparente a la izquierda (187 de 1673 px, ~11,2 % del ancho):
+   se compensa para que el dibujo del logo arranque donde el trazo de la "P" del título */
+.mex-hero__logo { display: block; width: 320px; height: auto; margin-left: -32px; }
 .mex-hero__titulo { margin: 28px 0 6px; font-size: clamp(48px, 7vw, 76px); font-weight: 700; line-height: 1; letter-spacing: -0.02em; }
-.mex-hero__fechas, .mex-hero__lugar { margin: 0; font-size: 20px; }
+/* la "P" del título trae ~0,053em de aire antes del trazo (2,5–4 px según su tamaño): se iguala */
+.mex-hero__fechas, .mex-hero__lugar { margin: 0; font-size: 20px; padding-left: clamp(2.5px, 0.37vw, 4px); }
 .mex-hero__lugar { margin-top: 4px; opacity: .8; font-size: 17px; }
-.mex-hero__orbitas { position: absolute; right: 0; bottom: 0; width: min(720px, 60vw); height: 340px; }
+/* Siempre con su proporción (720:340): con alto fijo, en tablet se recortaba y quedaba debajo del texto */
+.mex-hero__orbitas { position: absolute; right: 0; bottom: 0; width: min(720px, 60vw); height: auto; aspect-ratio: 720 / 340; }
 
 /* Contenido */
 .mex-contenido { max-width: 1240px; margin: 0 auto; padding: 72px 24px 80px; }
@@ -83,11 +87,20 @@
 .mex-ponente__cargo { font-size: 14px; color: var(--mex-suave); }
 .mex-vacio { padding: 28px 54px; color: var(--mex-suave); margin: 0; }
 
-@media (max-width: 720px) {
+/* Hasta 1023 px (teléfonos acostados, teléfonos grandes y tablets) el dibujo va debajo
+   del texto: al lado no cabe y las letras llegaban a la línea amarilla */
+@media (max-width: 1023px) {
   .mex-hero { min-height: 0; }
-  .mex-hero__inner { padding: 32px 16px 150px; }
-  .mex-hero__logo { width: 230px; }
-  .mex-hero__orbitas { width: 100%; height: 150px; }
+  /* alto del dibujo (47,2 % de su ancho) menos su franja de arriba vacía (19 %), más 20 px de aire */
+  .mex-hero__inner { padding-bottom: calc(min(100vw, 720px) * 0.383 + 20px); }
+  .mex-hero__orbitas { width: min(100%, 720px); }
+}
+
+@media (max-width: 720px) {
+  .mex-hero__inner { padding: 32px 16px calc(38.3vw + 20px); }
+  .mex-hero__logo { width: 230px; margin-left: -23px; }
+  /* el PNG ya trae ~23 px transparentes debajo del logo: sumados a los 28 px el título quedaba lejos */
+  .mex-hero__titulo { margin-top: 4px; }
   .mex-contenido { padding: 40px 16px 56px; }
   .mex-dia__cabeza { min-height: 84px; padding: 18px 20px 18px 24px; }
   .mex-dia__nombre { font-size: 21px; }

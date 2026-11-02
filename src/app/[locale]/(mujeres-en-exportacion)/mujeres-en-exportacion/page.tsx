@@ -16,14 +16,17 @@ const slug = (s: string) =>
 
 function Orbitas() {
   return (
-    <svg className="mex-hero__orbitas" viewBox="0 0 720 340" aria-hidden="true" preserveAspectRatio="xMaxYMax slice">
-      <path d="M40 340 A 350 350 0 0 1 200 145" fill="none" stroke="#FF9D0A" strokeWidth="7" />
-      <path d="M310 90 A 350 350 0 0 1 545 120" fill="none" stroke="#FF9D0A" strokeWidth="5" />
-      <path d="M100 340 A 300 300 0 0 1 680 340" fill="none" stroke="#1495E8" strokeWidth="4" />
-      <path d="M160 340 A 235 235 0 0 1 620 340" fill="none" stroke="#F45D87" strokeWidth="8" />
-      <path d="M255 340 A 135 135 0 0 1 525 340 Z" fill="#1495E8" />
-      <path d="M255 75 Q 255 110 220 110 Q 255 110 255 145 Q 255 110 290 110 Q 255 110 255 75 Z" fill="#FF9D0A" />
-      <circle cx="580" cy="145" r="29" fill="#1495E8" />
+    <svg className="mex-hero__orbitas" viewBox="0 0 720 340" aria-hidden="true" preserveAspectRatio="xMaxYMax meet" shapeRendering="geometricPrecision">
+      {/* mismo tamaño que el de producción; todas las líneas comparten el centro (390, 417) y llevan 40 de aire
+         entre una y otra en todo el arco. Los tramos amarillos guardan con la estrella y la bolita la
+         distancia de producción. Puntas redondeadas: con el corte recto el extremo se veía dentado */}
+      <path d="M53.2 340 A 345.5 345.5 0 0 1 197.5 130.1" fill="none" stroke="#FF9D0A" strokeWidth="7" strokeLinecap="round" />
+      <path d="M310.5 80.8 A 345.5 345.5 0 0 1 542.6 107" fill="none" stroke="#FF9D0A" strokeWidth="5" strokeLinecap="round" />
+      <path d="M100.1 340 A 300 300 0 0 1 679.9 340" fill="none" stroke="#1495E8" strokeWidth="4" />
+      <path d="M148 340 A 254 254 0 0 1 632 340" fill="none" stroke="#F45D87" strokeWidth="8" />
+      <path d="M194.6 340 A 210 210 0 0 1 585.4 340 Z" fill="#1495E8" />
+      <path d="M255 64 Q 255 99 220 99 Q 255 99 255 134 Q 255 99 290 99 Q 255 99 255 64 Z" fill="#FF9D0A" />
+      <circle cx="580" cy="128.4" r="29" fill="#1495E8" />
     </svg>
   );
 }
@@ -138,6 +141,9 @@ export default function Page() {
   }, []);
 
   const ajustes = programa?.settings || {};
+  // El lugar sale del campo "Lugar" del admin. El texto de muestra es solo para
+  // pruebas en local (npm run dev); en producción, si el campo está vacío no se muestra.
+  const lugar = ajustes.location || (process.env.NODE_ENV !== "production" ? "Santo Domingo, República Dominicana" : "");
   let contenido: React.ReactNode;
   if (error) contenido = <p className="mex-estado">No se pudo cargar el programa. Intenta de nuevo más tarde.</p>;
   else if (!programa) contenido = <p className="mex-estado">Cargando programa...</p>;
@@ -163,7 +169,7 @@ export default function Page() {
           />
           <h1 className="mex-hero__titulo">{ajustes.title || "Programa"}</h1>
           <p className="mex-hero__fechas">{ajustes.dates || "18-19 de noviembre 2026"}</p>
-          {ajustes.location && <p className="mex-hero__lugar">{ajustes.location}</p>}
+          {lugar && <p className="mex-hero__lugar">{lugar}</p>}
         </div>
         <Orbitas />
       </header>
