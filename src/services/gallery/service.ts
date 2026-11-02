@@ -40,7 +40,7 @@ export async function createGallery(
   gallery: any,
   update: () => void,
   userId: string
-) {
+): Promise<{ ok: boolean; id?: string }> {
   try {
     const userIdEncrypted = CryptoJS.AES.encrypt(
       userId,
@@ -54,33 +54,29 @@ export async function createGallery(
         headers: {
           Authorization: userIdEncrypted,
         },
+        timeout: 120000,
       }
     );
 
     if (res.status === 201) {
-      notifications.show({
-        id: "member",
-        autoClose: 5000,
-        withCloseButton: false,
-        title: "Colaborador creada",
-        message: "El colaborador ha sido creada correctamente.",
-        color: "green",
-        loading: false,
-      });
       update();
-    } else {
-      handleErrorResponse(res);
+      /* El id viene del API; sirve para subir las fotos en tandas. */
+      return { ok: true, id: res.data?.id };
     }
+    handleErrorResponse(res);
+    return { ok: false };
   } catch (error) {
     notifications.show({
-      id: "member",
+      id: "gallery-create",
       autoClose: 5000,
       withCloseButton: false,
-      title: "Error creando al colaborador",
-      message: "Ocurrió un error creando al colaborador.",
+      title: "Error creando la galería",
+      message:
+        "No se pudo crear la galería. Revise su conexión e intente de nuevo.",
       color: "red",
       loading: false,
     });
+    return { ok: false };
   }
 }
 
@@ -91,8 +87,8 @@ function handleErrorResponse(response: any) {
         id: "member",
         autoClose: 5000,
         withCloseButton: false,
-        title: "Error creando al colaborador",
-        message: "Ocurrió un error creando al colaborador.",
+        title: "Error creando la galería",
+        message: "Ocurrió un error creando la galería.",
         color: "red",
         loading: false,
       });
@@ -104,7 +100,7 @@ function handleErrorResponse(response: any) {
         autoClose: 5000,
         withCloseButton: false,
         title: "Usuario no autorizado",
-        message: "No tienes permisos para crear un colaborador.",
+        message: "No tienes permisos para crear una galería.",
         color: "red",
         loading: false,
       });

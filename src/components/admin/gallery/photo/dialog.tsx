@@ -25,7 +25,8 @@ import { XMarkIcon } from "@heroicons/react/24/solid";
 import { createMember } from "@/services/structure-organizational/members/service";
 import DragNDrop from "../../tools/dropzone/dropzone";
 import { createGallery } from "@/services/gallery/service";
-import { createPhoto } from "@/services/gallery/photo/service";
+import { uploadGalleryPhotos } from "@/services/gallery/upload";
+import { notifications } from "@mantine/notifications";
 import { HashLoader } from "react-spinners";
 
 export function PhotoDialog({
@@ -50,6 +51,7 @@ export function PhotoDialog({
   const [isFirstStep, setIsFirstStep] = React.useState(false);
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const [imagesRelated, setImagesRelated] = useState<any>([]);
+  const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
 
   const openRef = useRef<() => void>(null);
 
@@ -63,17 +65,46 @@ export function PhotoDialog({
       return setWarning(true);
     }
     if (!isLoading && imagesRelated.length > 0) {
-      const formData = new FormData();
       setIsLoading(true);
-      formData.append("galleryId", galleryId);
-      formData.append("created_By", user?.email as string);
-      if (imagesRelated.length > 0)
-        imagesRelated.forEach((image: any) =>
-          formData.append("images", image as any)
-        );
-      await createPhoto(galleryId, formData, update, user?.sub as string);
+      /* Se suben en tandas y comprimidas, con progreso. Si no subio ninguna
+         el modal sigue abierto para reintentar sin perder la seleccion. */
+      const { uploaded, failed } = await uploadGalleryPhotos(
+        galleryId,
+        imagesRelated,
+        user?.email as string,
+        user?.sub as string,
+        (done, total) => setProgress({ done, total })
+      );
+      setProgress(null);
       setIsLoading(false);
-      handler();
+      if (uploaded > 0) update();
+      if (failed.length === 0) {
+        notifications.show({
+          id: "gallery-photos",
+          autoClose: 5000,
+          title: "Fotos agregadas",
+          message: `Se agregaron ${uploaded} fotos a la galería.`,
+          color: "green",
+        });
+        handler();
+      } else if (uploaded > 0) {
+        notifications.show({
+          id: "gallery-photos",
+          autoClose: 8000,
+          title: "Algunas fotos no se subieron",
+          message: `Se subieron ${uploaded} y fallaron ${failed.length}. Vuelva a agregar solo las que faltan.`,
+          color: "orange",
+        });
+        handler();
+      } else {
+        notifications.show({
+          id: "gallery-photos",
+          autoClose: 8000,
+          title: "No se pudieron subir las fotos",
+          message: "Revise su conexión e intente de nuevo.",
+          color: "red",
+        });
+      }
     }
   };
 
@@ -105,7 +136,7 @@ export function PhotoDialog({
 
   return (
     <>
-      <Dialog open={open} handler={handler} className="p-2 ">
+      <Dialog open={open} handler={() => !isLoading && handler()} className="p-2 ">
         <DialogHeader className="font-bold flex flex-col items-start gap-1 font-montserrat">
           Agregar fotos a la galería
         </DialogHeader>
@@ -123,6 +154,11 @@ export function PhotoDialog({
           ))}
         </DialogBody>
         <DialogFooter className="space-x-4 font-montserrat">
+          {progress && (
+            <span className="mr-auto self-center text-sm text-gray-600">
+              Subiendo fotos: {progress.done} de {progress.total}
+            </span>
+          )}
           <button
             onClick={handleSubmit}
             className={`

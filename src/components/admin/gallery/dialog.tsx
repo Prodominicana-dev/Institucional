@@ -10,6 +10,9 @@ import Image from "next/image";
 import { Dropzone, FileWithPath, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import DragNDrop from "../tools/dropzone/dropzone";
 import { createGallery } from "@/services/gallery/service";
+import { uploadGalleryPhotos } from "@/services/gallery/upload";
+import { compressImage } from "@/lib/image-compression";
+import { notifications } from "@mantine/notifications";
 import Day_Picker from "../tools/daypicker";
 import { HashLoader } from "react-spinners";
 import {
@@ -42,6 +45,7 @@ export function GalleryDialog({
   const [isFirstStep, setIsFirstStep] = React.useState(false);
   const [files, setFiles] = useState<FileWithPath[]>([]);
   const [imagesRelated, setImagesRelated] = useState<any>([]);
+  const [progress, setProgress] = useState<{ done: number; total: number } | null>(null);
 
   const openRef = useRef<() => void>(null);
 
@@ -71,19 +75,76 @@ export function GalleryDialog({
 
       !isLastStep && handleNext();
       if (isLastStep) {
-        const formData = new FormData();
         setIsLoading(true);
+        /* 1) Se crea la galeria solo con su portada (liviana).
+           2) Las demas fotos se suben despues, en tandas, con progreso.
+           Antes iba todo en una sola peticion y, si fallaba, el error se
+           perdia y el modal se cerraba como si hubiera salido bien. */
+        const cover = files.length > 0 ? await compressImage(files[0]) : null;
+        const formData = new FormData();
         formData.append("title", titleEs);
         formData.append("titleEn", titleEn);
         formData.append("date", date.toISOString());
-        formData.append("cover", image);
+        /* El API reconoce la portada por el nombre del archivo: tiene que ser
+           el del archivo ya comprimido, que puede cambiar la extension. */
+        formData.append("cover", cover ? cover.name : image);
         formData.append("created_By", user?.email as string);
-        if (files.length > 0) formData.append("images", files[0] as any);
-        if (imagesRelated.length > 0)
-          imagesRelated.forEach((image: any) =>
-            formData.append("images", image as any)
-          );
-        await createGallery(formData, update, user?.sub as string);
+        if (cover) formData.append("images", cover as any);
+
+        const created = await createGallery(
+          formData,
+          update,
+          user?.sub as string
+        );
+        if (!created.ok) {
+          /* No se cierra el modal: la persona no pierde lo que escribio. */
+          setIsLoading(false);
+          return;
+        }
+
+        if (imagesRelated.length > 0) {
+          if (!created.id) {
+            notifications.show({
+              id: "gallery-photos",
+              autoClose: 8000,
+              title: "Galería creada sin fotos",
+              message:
+                "La galería se creó, pero el servidor no permitió subir las fotos. Agréguelas con la opción de agregar fotos.",
+              color: "orange",
+            });
+          } else {
+            const { failed } = await uploadGalleryPhotos(
+              created.id,
+              imagesRelated,
+              user?.email as string,
+              user?.sub as string,
+              (done, total) => setProgress({ done, total })
+            );
+            notifications.show({
+              id: "gallery-photos",
+              autoClose: 8000,
+              title:
+                failed.length === 0
+                  ? "Galería creada"
+                  : "Algunas fotos no se subieron",
+              message:
+                failed.length === 0
+                  ? "La galería y todas sus fotos se guardaron correctamente."
+                  : `No se pudieron subir ${failed.length} de ${imagesRelated.length} fotos. La galería ya existe: agregue las que faltan con la opción de agregar fotos.`,
+              color: failed.length === 0 ? "green" : "orange",
+            });
+            update();
+          }
+        } else {
+          notifications.show({
+            id: "gallery-photos",
+            autoClose: 5000,
+            title: "Galería creada",
+            message: "La galería se ha creado correctamente.",
+            color: "green",
+          });
+        }
+        setProgress(null);
         setIsLoading(false);
         handler();
       }
@@ -233,7 +294,7 @@ export function GalleryDialog({
 
   return (
     <>
-      <Dialog open={open} onOpenChange={handler}>
+      <Dialog open={open} onOpenChange={() => !isLoading && handler()}>
         <DialogContent className="min-w-[800px] flex flex-col font-montserrat space-y-4 overflow-y-auto no-scrollbar">
           <DialogHeader className="font-bold flex flex-col items-start gap-1 font-montserrat">
             <DialogTitle className="text-black text-2xl">
@@ -267,6 +328,11 @@ export function GalleryDialog({
             </div>
           ))}
           <DialogFooter className="space-x-4 font-montserrat">
+            {progress && (
+              <span className="mr-auto self-center text-sm text-gray-600">
+                Subiendo fotos: {progress.done} de {progress.total}
+              </span>
+            )}
             <button
               onClick={handlePrev}
               className={`${

@@ -42,7 +42,7 @@ export default function DragNDrop({
         multiple
         // maxFiles={4 - images?.length}
         onError={() => {
-          toast.error("La imagen no puede sobrepasar los 2MB.");
+          toast.error("La imagen no puede sobrepasar los 20MB.");
         }}
       >
         <Group
