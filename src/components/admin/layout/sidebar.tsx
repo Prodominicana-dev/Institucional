@@ -239,6 +239,7 @@ export function SideBar() {
                     title={"Noticias Pro"}
                     url={"/admin/proeconomia"}
                   />
+                  <SidebarMenuItem title={"Banners"} url={"/admin/banners"} />
                 </List>
               )}
             </AccordionBody>

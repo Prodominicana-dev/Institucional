@@ -1,9 +1,10 @@
 "use client";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import Image from "next/image";
 import Autoplay from "embla-carousel-autoplay";
+import { bannerImageUrl, fetchPublicBanners } from "@/services/banner/public";
 import {
   Carousel,
   CarouselContent,
@@ -15,11 +16,13 @@ type BannerSlide = {
   alt: string;
   href: string;
   external?: boolean;
-  locale?: "es" | "en"; 
+  locale?: "es" | "en";
 };
 
-
-const bannerSlides: BannerSlide[] = [
+/* Respaldo: solo se usa si el API de banners no responde, para que la home
+   no se quede sin banners. Los banners reales se administran en
+   /admin/banners. */
+const fallbackSlides: BannerSlide[] = [
   {
     src: "/images/bannerDashboardModa.jpg",
     alt: "Explora nuestro Dashboard de Moda — Datos, mercados y oportunidades para una industria que sigue creciendo",
@@ -50,12 +53,41 @@ export default function BusinessFacilitation() {
     Autoplay({ delay: 5000, stopOnInteraction: false, stopOnMouseEnter: true })
   );
 
-  const slides = bannerSlides.filter((s) => !s.locale || s.locale === locale);
+  /* null = todavia cargando. Una lista vacia es valida: significa que el admin
+     ocultó o eliminó todos los banners, y entonces no se muestra el carrusel. */
+  const [slides, setSlides] = useState<BannerSlide[] | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchPublicBanners(locale)
+      .then((list) => {
+        if (cancelled) return;
+        setSlides(
+          list.map((b) => ({
+            src: bannerImageUrl(b),
+            alt: b.title,
+            href: b.link ?? "",
+            external: b.external,
+          }))
+        );
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setSlides(
+          fallbackSlides.filter((s) => !s.locale || s.locale === locale)
+        );
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, [locale]);
 
   return (
     <div>
       {/* ============ Carrusel de banners ============ */}
+      {slides && slides.length > 0 && (
       <Carousel
+        key={locale}
         opts={{ loop: true }}
         plugins={[autoplay.current]}
         className="w-full"
@@ -63,12 +95,23 @@ export default function BusinessFacilitation() {
         <CarouselContent className="ml-0">
           {slides.map((s, i) => (
             <CarouselItem key={s.src} className="pl-0">
-              <Link
-                href={s.href}
-                target={s.external ? "_blank" : undefined}
-                rel={s.external ? "noopener noreferrer" : undefined}
-                className="block w-full"
-              >
+              {s.href ? (
+                <Link
+                  href={s.href}
+                  target={s.external ? "_blank" : undefined}
+                  rel={s.external ? "noopener noreferrer" : undefined}
+                  className="block w-full"
+                >
+                  <Image
+                    width={3840}
+                    height={284}
+                    src={s.src}
+                    alt={s.alt}
+                    className="w-full h-auto object-contain"
+                    priority={i === 0}
+                  />
+                </Link>
+              ) : (
                 <Image
                   width={3840}
                   height={284}
@@ -77,11 +120,12 @@ export default function BusinessFacilitation() {
                   className="w-full h-auto object-contain"
                   priority={i === 0}
                 />
-              </Link>
+              )}
             </CarouselItem>
           ))}
         </CarouselContent>
       </Carousel>
+      )}
       {/* ============ FIN Carrusel ============ */}
 
       {/* ============ Banner Cariforo UE ============ */}
