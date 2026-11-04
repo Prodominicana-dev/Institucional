@@ -29,6 +29,42 @@ export interface MexSession {
   note?: string | null;
   visible: boolean;
   speakers: MexSpeaker[];
+  // Actividades traídas de ProDominicana Capacita
+  capacitaId?: number | null;
+  capacitaTipo?: string | null;
+  speakerText?: string | null;
+  registrationUrl?: string | null;
+  isNew?: boolean;
+  categoryColor?: string | null;
+}
+
+export interface MexCategory {
+  id: string;
+  label: string;
+  color: string;
+  customColor?: string | null;
+}
+
+export interface MexSyncEstado {
+  ok: boolean;
+  at: string;
+  nuevas: number;
+  actualizadas: number;
+  quitadas: number;
+  error?: string;
+}
+
+export const CAPACITA_ADMIN_URL = "https://capacita.prodominicana.gob.do/admin/agenda";
+
+// Texto blanco o azul según qué se lea mejor sobre el color de la categoría.
+export function textoSobre(hex?: string | null) {
+  const h = /^#[0-9a-fA-F]{6}$/.test(hex || "") ? (hex as string) : "#1495E8";
+  const n = parseInt(h.slice(1), 16);
+  const [r, g, b] = [(n >> 16) & 255, (n >> 8) & 255, n & 255].map((c) => {
+    const v = c / 255;
+    return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b > 0.4 ? "#052C59" : "#FFFFFF";
 }
 
 export interface MexDay {
@@ -48,6 +84,7 @@ export interface MexProgram {
 
 export interface MexAdminData extends MexProgram {
   speakers: MexSpeaker[];
+  categories: MexCategory[];
 }
 
 export function speakerPhotoUrl(s: MexSpeaker) {
@@ -102,4 +139,7 @@ export const mexAdmin = {
   createSpeaker: (u: string, fd: FormData) => llamar<MexSpeaker>(u, "post", "/speakers", fd),
   updateSpeaker: (u: string, id: string, fd: FormData) => llamar<MexSpeaker>(u, "patch", `/speakers/${id}`, fd),
   deleteSpeaker: (u: string, id: string) => llamar(u, "delete", `/speakers/${id}`),
+  syncCapacita: (u: string) => llamar<MexSyncEstado>(u, "post", "/capacita/sync"),
+  markReviewed: (u: string, id: string) => llamar(u, "patch", `/sessions/${id}/reviewed`),
+  setCategoryColor: (u: string, id: string, color: string | null) => llamar(u, "patch", `/categories/${id}`, { color }),
 };

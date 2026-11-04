@@ -4,6 +4,7 @@ import {
   getProgram,
   hora12,
   speakerPhotoUrl,
+  textoSobre,
   MexDay,
   MexProgram,
   MexSession,
@@ -70,10 +71,22 @@ function Sesion({ s }: { s: MexSession }) {
         <h3 className="mex-sesion__titulo">{s.title}</h3>
         {(s.type || s.location || s.note) && (
           <div className="mex-sesion__meta">
-            {s.type && <span className={`mex-etiqueta mex-etiqueta--${slug(s.type)}`}>{s.type}</span>}
+            {s.type &&
+              (s.categoryColor ? (
+                // Actividad de Capacita: color de su categoría (el de Capacita o el que se puso en el admin).
+                <span className="mex-etiqueta" style={{ background: s.categoryColor, color: textoSobre(s.categoryColor) }}>{s.type}</span>
+              ) : (
+                <span className={`mex-etiqueta mex-etiqueta--${slug(s.type)}`}>{s.type}</span>
+              ))}
             {s.location && <span>{s.location}</span>}
             {s.note && <span className="mex-nota">{s.note}</span>}
           </div>
+        )}
+        {s.speakerText && <p className="mex-sesion__imparte">Imparte: {s.speakerText}</p>}
+        {s.registrationUrl && (
+          <a className="mex-boton mex-boton--inscribirse" href={s.registrationUrl} target="_blank" rel="noopener noreferrer">
+            Inscribirse
+          </a>
         )}
         {tieneDetalle && (
           <div className="mex-sesion__detalle" id={detalleId} hidden={!abierto}>

@@ -6,13 +6,17 @@ import { HashLoader } from "react-spinners";
 import AuthUser from "@/components/admin/auth";
 import Sketch from "@/components/admin/sketch";
 import {
+  CAPACITA_ADMIN_URL,
   hora12,
   mexAdmin,
   speakerPhotoUrl,
+  textoSobre,
   MexAdminData,
+  MexCategory,
   MexDay,
   MexSession,
   MexSpeaker,
+  MexSyncEstado,
 } from "@/services/mujeres-exportacion/service";
 
 /* Panel del programa del Encuentro Nacional Mujeres en Exportación.
@@ -309,6 +313,47 @@ function PonenteForm({ ponente, onGuardar, onCancelar }: { ponente: MexSpeaker |
   );
 }
 
+// ---------- Capacita ----------
+function haceCuanto(iso?: string) {
+  if (!iso) return "";
+  const min = Math.round((Date.now() - new Date(iso).getTime()) / 60000);
+  if (min < 1) return "hace un momento";
+  if (min < 60) return `hace ${min} min`;
+  if (min < 24 * 60) return `hace ${Math.round(min / 60)} h`;
+  return new Date(iso).toLocaleString("es-DO", { dateStyle: "medium", timeStyle: "short" });
+}
+
+function Chip({ label, color }: { label: string; color?: string | null }) {
+  return (
+    <span className="rounded-full px-2 py-0.5 text-xs font-semibold" style={{ background: color || "#F6A0B8", color: textoSobre(color || "#F6A0B8") }}>
+      {label}
+    </span>
+  );
+}
+
+function FilaCategoria({ c, onColor }: { c: MexCategory; onColor: (color: string | null) => Promise<void> }) {
+  const actual = c.customColor || c.color;
+  const [color, setColor] = useState(actual);
+  useEffect(() => setColor(actual), [actual]);
+  return (
+    <div className="flex flex-wrap items-center gap-3 rounded-xl border border-gray-200 bg-white p-3">
+      <div className="min-w-[160px] flex-1"><Chip label={c.label} color={color} /></div>
+      <label className="flex items-center gap-2 text-sm">
+        Color
+        <input type="color" value={color} onChange={(e) => setColor(e.target.value)} className="h-8 w-12 cursor-pointer rounded border border-gray-300" />
+      </label>
+      {color.toLowerCase() !== actual.toLowerCase() && <button className={btnPrimario} onClick={() => onColor(color)}>Guardar color</button>}
+      {c.customColor ? (
+        <button className={btn} onClick={() => onColor(null)} title={`En Capacita es ${c.color}`}>
+          Usar el color de Capacita <span className="ml-1 inline-block h-3 w-3 rounded-full align-middle" style={{ background: c.color }} />
+        </button>
+      ) : (
+        <span className="text-xs text-gray-500">Color de Capacita</span>
+      )}
+    </div>
+  );
+}
+
 // ---------- Ajustes ----------
 function Ajustes({ ajustes, onGuardar }: { ajustes: Record<string, string>; onGuardar: (b: any) => Promise<void> }) {
   const [f, setF] = useState({
@@ -344,7 +389,9 @@ function Panel() {
   const { user } = useUser();
   const uid = user?.sub as string;
   const [datos, setDatos] = useState<MexAdminData | null>(null);
-  const [pestana, setPestana] = useState<"programa" | "ponentes" | "ajustes">("programa");
+  const [pestana, setPestana] = useState<"programa" | "ponentes" | "categorias" | "ajustes">("programa");
+  const [sincronizando, setSincronizando] = useState(false);
+  const nuevasAntes = useRef<number | null>(null);
   const [busqueda, setBusqueda] = useState("");
   const [modalDia, setModalDia] = useState<{ dia: MexDay | null } | null>(null);
   const [modalSesion, setModalSesion] = useState<(Partial<MexSession> & { dayId: string }) | null>(null);
@@ -357,6 +404,41 @@ function Panel() {
 
   useEffect(() => { if (uid) cargar(); }, [uid, cargar]);
 
+  // La sincronización automática corre cada 5 minutos en el servidor: el panel
+  // se refresca solo cada 2 para mostrar lo que haya llegado.
+  useEffect(() => {
+    if (!uid) return;
+    const t = setInterval(() => { if (document.visibilityState === "visible") cargar(); }, 120000);
+    return () => clearInterval(t);
+  }, [uid, cargar]);
+
+  const nuevas = (datos?.days || []).flatMap((d) => d.sessions.filter((s) => s.isNew));
+  useEffect(() => {
+    if (!datos) return;
+    if (nuevasAntes.current !== null && nuevas.length > nuevasAntes.current) {
+      const n = nuevas.length - nuevasAntes.current;
+      notifications.show({ autoClose: 8000, title: "Actividades nuevas de Capacita", message: `Llegaron ${n} actividad(es) nueva(s). Están ocultas: revísalas y pulsa Mostrar.`, color: "yellow" });
+    }
+    nuevasAntes.current = nuevas.length;
+  }, [datos, nuevas.length]);
+
+  const sincronizar = async () => {
+    if (sincronizando) return;
+    setSincronizando(true);
+    try {
+      const r = await mexAdmin.syncCapacita(uid);
+      if (!r.ok) avisar(`No se pudo sincronizar con Capacita: ${r.error}`, true);
+      else if (r.nuevas > 0) {
+        nuevasAntes.current = (nuevasAntes.current || 0) + r.nuevas;
+        notifications.show({ autoClose: 10000, title: "Sincronizado con Capacita", message: `Llegaron ${r.nuevas} actividad(es) nueva(s) y están ocultas. Revísalas y pulsa Mostrar.`, color: "yellow" });
+      } else avisar(`Sincronizado con Capacita: ${r.actualizadas} actualizada(s)${r.quitadas ? `, ${r.quitadas} quitada(s)` : ""}, ninguna nueva.`);
+      await cargar();
+    } catch (ex: any) {
+      avisar(ex.message, true);
+    } finally {
+      setSincronizando(false);
+    }
+  };
   // Ejecuta una acción del panel, avisa y recarga.
   const hacer = async (accion: () => Promise<any>, ok: string) => {
     try { await accion(); avisar(ok); await cargar(); } catch (ex: any) { avisar(ex.message, true); }
@@ -364,7 +446,10 @@ function Panel() {
   const confirmar = (mensaje: string, accion: () => Promise<void>) => setConfirmacion({ mensaje, accion });
 
   const botones =
-    pestana === "programa" ? [{ name: "Agregar día", onClick: () => setModalDia({ dia: null }) }]
+    pestana === "programa" ? [
+      { name: sincronizando ? "Sincronizando..." : "Sincronizar con Capacita", onClick: sincronizar },
+      { name: "Agregar día", onClick: () => setModalDia({ dia: null }) },
+    ]
     : pestana === "ponentes" ? [{ name: "Agregar ponente", onClick: () => setModalPonente({ ponente: null }) }]
     : [];
 
@@ -374,6 +459,9 @@ function Panel() {
 
   const usos = new Map<string, number>();
   datos.days.forEach((d) => d.sessions.forEach((s) => s.speakers.forEach((p) => usos.set(p.id, (usos.get(p.id) || 0) + 1))));
+  let estadoSync: MexSyncEstado | null = null;
+  try { estadoSync = datos.settings.capacitaSync ? JSON.parse(datos.settings.capacitaSync) : null; } catch { estadoSync = null; }
+  const irA = (id: string) => document.getElementById(`sesion-${id}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
   const q = busqueda.trim().toLowerCase();
   const ponentesFiltrados = datos.speakers.filter((p) => !q || `${p.name} ${p.organization || ""} ${p.position || ""}`.toLowerCase().includes(q));
 
@@ -388,7 +476,7 @@ function Panel() {
       <div className="flex w-11/12 flex-col gap-6 text-[#052C59]">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex gap-1 rounded-xl bg-gray-100 p-1" role="tablist">
-            {(["programa", "ponentes", "ajustes"] as const).map((p) => (
+            {(["programa", "ponentes", "categorias", "ajustes"] as const).map((p) => (
               <button
                 key={p}
                 role="tab"
@@ -396,7 +484,7 @@ function Panel() {
                 onClick={() => setPestana(p)}
                 className={`rounded-lg px-4 py-2 text-sm font-semibold capitalize ${pestana === p ? "bg-white shadow text-[#052C59]" : "text-gray-500"}`}
               >
-                {p}
+                {p === "categorias" ? "categorías" : p}
               </button>
             ))}
           </div>
@@ -410,7 +498,32 @@ function Panel() {
 
         {pestana === "programa" && (
           <>
-            <p className="text-sm text-gray-600">Las sesiones se ordenan solas por hora de inicio. Las ocultas no aparecen en la página pública.</p>
+            <div className="flex flex-wrap items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm">
+              <span className="rounded-full bg-[#1495E8] px-2 py-0.5 text-xs font-bold text-white">Capacita</span>
+              {estadoSync ? (
+                estadoSync.ok ? (
+                  <span>Última sincronización {haceCuanto(estadoSync.at)}. Se sincroniza sola cada 5 minutos.</span>
+                ) : (
+                  <span className="font-semibold text-red-700">La última sincronización ({haceCuanto(estadoSync.at)}) falló: {estadoSync.error}</span>
+                )
+              ) : (
+                <span>Todavía no se ha sincronizado. Pulsa &quot;Sincronizar con Capacita&quot;.</span>
+              )}
+              <button className={`${btn} ml-auto`} disabled={sincronizando} onClick={sincronizar}>{sincronizando ? "Sincronizando..." : "Sincronizar ahora"}</button>
+            </div>
+            {nuevas.length > 0 && (
+              <div className="flex flex-wrap items-center gap-3 rounded-xl border-2 border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+                <span className="relative flex h-3 w-3">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
+                  <span className="relative inline-flex h-3 w-3 rounded-full bg-amber-500" />
+                </span>
+                <span className="flex-1 font-semibold">
+                  {nuevas.length === 1 ? "Hay 1 actividad nueva de Capacita que está oculta." : `Hay ${nuevas.length} actividades nuevas de Capacita que están ocultas.`} Revísalas y pulsa Mostrar para que salgan en la página.
+                </span>
+                <button className={btn} onClick={() => irA(nuevas[0].id)}>Ir a la primera</button>
+              </div>
+            )}
+            <p className="text-sm text-gray-600">Las sesiones se ordenan solas por hora de inicio. Las ocultas no aparecen en la página pública. Las que vienen de Capacita se editan en Capacita; aquí solo se muestran u ocultan.</p>
             {datos.days.length === 0 && <p className="rounded-xl border border-gray-200 p-6 text-gray-500">No hay días. Agrega el primero.</p>}
             {datos.days.map((d, i) => (
               <section key={d.id} className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
@@ -440,7 +553,11 @@ function Panel() {
                 </div>
                 {d.sessions.length === 0 && <p className="p-5 text-sm text-gray-500">Sin sesiones todavía.</p>}
                 {d.sessions.map((s) => (
-                  <div key={s.id} className={`flex flex-wrap items-start gap-4 border-t border-gray-100 px-5 py-3 first:border-t-0 ${s.visible ? "" : "bg-gray-50 text-gray-500"}`}>
+                  <div
+                    key={s.id}
+                    id={`sesion-${s.id}`}
+                    className={`flex flex-wrap items-start gap-4 border-t border-gray-100 px-5 py-3 first:border-t-0 ${s.isNew ? "bg-amber-50 ring-2 ring-inset ring-amber-300" : s.visible ? "" : "bg-gray-50 text-gray-500"}`}
+                  >
                     <div className="w-28 shrink-0 font-bold text-[#1495E8]">
                       {hora12(s.startTime)}
                       {s.endTime && <div className="text-xs font-normal text-gray-500">a {hora12(s.endTime)}</div>}
@@ -448,14 +565,35 @@ function Panel() {
                     <div className="min-w-[200px] flex-1">
                       <div className="font-bold">{s.title}</div>
                       <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-gray-600">
-                        {!s.visible && <span className="rounded-full bg-gray-200 px-2 py-0.5 font-semibold">Oculta</span>}
-                        {s.type && <span className="rounded-full bg-[#F6A0B8] px-2 py-0.5 font-semibold text-[#052C59]">{s.type}</span>}
+                        {s.isNew ? (
+                          <span className="animate-pulse rounded-full bg-amber-400 px-2 py-0.5 font-bold text-amber-950">Nueva, oculta</span>
+                        ) : (
+                          !s.visible && <span className="rounded-full bg-gray-200 px-2 py-0.5 font-semibold">Oculta</span>
+                        )}
+                        {s.capacitaId && <span className="rounded-full bg-[#1495E8] px-2 py-0.5 font-bold text-white">Capacita</span>}
+                        {s.type && (s.capacitaId ? <Chip label={s.type} color={s.categoryColor} /> : <span className="rounded-full bg-[#F6A0B8] px-2 py-0.5 font-semibold text-[#052C59]">{s.type}</span>)}
                         {[s.location, s.note].filter(Boolean).join(" · ")}
                       </div>
                       {s.speakers.length > 0 && (
                         <div className="mt-1 text-xs text-gray-600">{s.speakers.map((p) => (p.role ? `${p.name} (${p.role})` : p.name)).join(", ")}</div>
                       )}
+                      {s.speakerText && <div className="mt-1 text-xs text-gray-600">Imparte: {s.speakerText}</div>}
                     </div>
+                    {s.capacitaId ? (
+                    <div className="flex flex-wrap gap-2">
+                      {s.isNew ? (
+                        <>
+                          <button className={btnPrimario} onClick={() => hacer(() => mexAdmin.setVisible(uid, s.id, true), "Actividad visible en la página.")}>Mostrar</button>
+                          <button className={btn} onClick={() => hacer(() => mexAdmin.markReviewed(uid, s.id), "Revisada: se queda oculta.")}>Dejar oculta</button>
+                        </>
+                      ) : (
+                        <button className={btn} onClick={() => hacer(() => mexAdmin.setVisible(uid, s.id, !s.visible), s.visible ? "Actividad oculta." : "Actividad visible.")}>
+                          {s.visible ? "Ocultar" : "Mostrar"}
+                        </button>
+                      )}
+                      <a className={btn} href={CAPACITA_ADMIN_URL} target="_blank" rel="noopener noreferrer">Editar en Capacita</a>
+                    </div>
+                    ) : (
                     <div className="flex flex-wrap gap-2">
                       <button className={btn} onClick={() => setModalSesion(s)}>Editar</button>
                       <button className={btn} onClick={() => setModalSesion({ ...s, id: undefined, title: `${s.title} (copia)` })}>Duplicar</button>
@@ -467,6 +605,7 @@ function Panel() {
                         () => hacer(() => mexAdmin.deleteSession(uid, s.id), "Sesión eliminada."),
                       )}>Eliminar</button>
                     </div>
+                    )}
                   </div>
                 ))}
               </section>
@@ -497,6 +636,26 @@ function Panel() {
                     )}>Eliminar</button>
                   </div>
                 </div>
+              ))}
+            </div>
+          </>
+        )}
+
+        {pestana === "categorias" && (
+          <>
+            <p className="text-sm text-gray-600">
+              Son los tipos de evento de Capacita. Llegan con el color que tienen en Capacita; si cambias uno aquí, se usa el tuyo en esta página y la sincronización no lo cambia.
+            </p>
+            {(datos.categories || []).length === 0 && (
+              <p className="rounded-xl border border-gray-200 p-6 text-gray-500">Aún no hay categorías. Pulsa &quot;Sincronizar con Capacita&quot; en la pestaña programa.</p>
+            )}
+            <div className="flex max-w-3xl flex-col gap-2">
+              {(datos.categories || []).map((c) => (
+                <FilaCategoria
+                  key={c.id}
+                  c={c}
+                  onColor={(color) => hacer(() => mexAdmin.setCategoryColor(uid, c.id, color), color ? "Color guardado." : "Se usa el color de Capacita.")}
+                />
               ))}
             </div>
           </>

@@ -73,6 +73,9 @@
 .mex-etiqueta--networking, .mex-etiqueta--receso, .mex-etiqueta--almuerzo { background: var(--mex-naranja); color: var(--mex-azul); }
 .mex-etiqueta--ceremonia, .mex-etiqueta--registro { background: var(--mex-azul); color: var(--mex-blanco); }
 .mex-nota { font-weight: 700; color: var(--mex-rosa); }
+.mex-sesion__imparte { margin: 8px 0 0; font-size: 15px; color: var(--mex-suave); }
+/* Inscripción en ProDominicana Capacita (actividades traídas de su agenda) */
+.mex-boton--inscribirse { margin-top: 14px; padding: 9px 20px; font-size: 15px; }
 .mex-sesion__detalle { margin-top: 14px; }
 .mex-sesion__desc { margin: 0 0 16px; max-width: 820px; font-size: 16px; white-space: pre-line; }
 .mex-ver-mas { background: none; border: 0; padding: 0; font: inherit; cursor: pointer; margin-top: 12px; font-size: 15px; font-weight: 700; color: var(--mex-azul-brillante); border-bottom: 2px solid currentColor; }
