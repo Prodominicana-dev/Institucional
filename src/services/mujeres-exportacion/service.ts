@@ -140,6 +140,7 @@ export const mexAdmin = {
   updateSpeaker: (u: string, id: string, fd: FormData) => llamar<MexSpeaker>(u, "patch", `/speakers/${id}`, fd),
   deleteSpeaker: (u: string, id: string) => llamar(u, "delete", `/speakers/${id}`),
   syncCapacita: (u: string) => llamar<MexSyncEstado>(u, "post", "/capacita/sync"),
+  setSpeakers: (u: string, id: string, speakers: { speakerId: string; role: string }[]) => llamar(u, "patch", `/sessions/${id}/speakers`, { speakers }),
   markReviewed: (u: string, id: string) => llamar(u, "patch", `/sessions/${id}/reviewed`),
   setCategoryColor: (u: string, id: string, color: string | null) => llamar(u, "patch", `/categories/${id}`, { color }),
 };

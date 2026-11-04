@@ -82,7 +82,8 @@ function Sesion({ s }: { s: MexSession }) {
             {s.note && <span className="mex-nota">{s.note}</span>}
           </div>
         )}
-        {s.speakerText && <p className="mex-sesion__imparte">Imparte: {s.speakerText}</p>}
+        {/* Con ponentes asignados en el admin se ven sus tarjetas; si no, el instructor de Capacita. */}
+        {s.speakerText && s.speakers.length === 0 && <p className="mex-sesion__imparte">Imparte: {s.speakerText}</p>}
         {s.registrationUrl && (
           <a className="mex-boton mex-boton--inscribirse" href={s.registrationUrl} target="_blank" rel="noopener noreferrer">
             Inscribirse

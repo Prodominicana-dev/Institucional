@@ -123,37 +123,19 @@ function DiaForm({ dia, onGuardar, onCancelar }: { dia: MexDay | null; onGuardar
   );
 }
 
-// ---------- Formulario de sesión ----------
 type Asignado = { speakerId: string; role: string };
 
-function SesionForm({
-  sesion, dias, ponentes, onGuardar, onCancelar, onCrearPonente,
+// ---------- Ponentes de una sesión (formulario de sesión y actividades de Capacita) ----------
+function PonentesEditor({
+  asignados, setAsignados, ponentes, onCrearPonente,
 }: {
-  sesion: Partial<MexSession> & { dayId: string };
-  dias: MexDay[];
+  asignados: Asignado[];
+  setAsignados: (a: Asignado[]) => void;
   ponentes: MexSpeaker[];
-  onGuardar: (b: any) => Promise<void>;
-  onCancelar: () => void;
   onCrearPonente: (fd: FormData) => Promise<MexSpeaker>;
 }) {
-  const [f, setF] = useState({
-    dayId: sesion.dayId,
-    startTime: sesion.startTime || "",
-    endTime: sesion.endTime || "",
-    title: sesion.title || "",
-    type: sesion.type || "",
-    location: sesion.location || "",
-    note: sesion.note || "",
-    description: sesion.description || "",
-    visible: sesion.visible ?? true,
-  });
-  const [asignados, setAsignados] = useState<Asignado[]>((sesion.speakers || []).map((p) => ({ speakerId: p.id, role: p.role || "Panelista" })));
   const [elegido, setElegido] = useState("");
   const [rapido, setRapido] = useState({ name: "", position: "", organization: "" });
-  const [error, setError] = useState("");
-  const [guardando, setGuardando] = useState(false);
-
-  const set = (k: string, v: any) => setF({ ...f, [k]: v });
   const libres = ponentes.filter((p) => !asignados.some((a) => a.speakerId === p.id));
   const mover = (i: number, j: number) => {
     const copia = [...asignados];
@@ -175,32 +157,7 @@ function SesionForm({
   };
 
   return (
-    <form
-      className="flex max-h-[80vh] flex-col gap-4 overflow-y-auto pr-1"
-      onSubmit={async (e) => {
-        e.preventDefault();
-        setGuardando(true);
-        try { await onGuardar({ ...f, speakers: asignados }); } catch (ex: any) { setError(ex.message); } finally { setGuardando(false); }
-      }}
-    >
-      <h3 className="text-xl font-bold text-[#052C59]">{sesion.id ? "Editar sesión" : "Nueva sesión"}</h3>
-      <div className="flex flex-wrap gap-3">
-        <label className={etiqueta}>Día
-          <select className={input} value={f.dayId} onChange={(e) => set("dayId", e.target.value)}>
-            {dias.map((d) => <option key={d.id} value={d.id}>{d.label}</option>)}
-          </select>
-        </label>
-        <label className={etiqueta}>Inicio<input type="time" required className={input} value={f.startTime} onChange={(e) => set("startTime", e.target.value)} /></label>
-        <label className={etiqueta}>Fin<input type="time" className={input} value={f.endTime} onChange={(e) => set("endTime", e.target.value)} /></label>
-      </div>
-      <label className={etiqueta}>Título<input required maxLength={300} className={input} value={f.title} onChange={(e) => set("title", e.target.value)} /></label>
-      <div className="flex flex-wrap gap-3">
-        <label className={etiqueta}>Tipo<input list="mex-tipos" maxLength={60} className={input} placeholder="Panel, Plenaria, Networking..." value={f.type} onChange={(e) => set("type", e.target.value)} /></label>
-        <label className={etiqueta}>Lugar o salón<input maxLength={200} className={input} value={f.location} onChange={(e) => set("location", e.target.value)} /></label>
-      </div>
-      <label className={etiqueta}>Nota destacada<input maxLength={200} className={input} placeholder="Opcional, por ejemplo: Solo por invitación" value={f.note} onChange={(e) => set("note", e.target.value)} /></label>
-      <label className={etiqueta}>Descripción<textarea rows={4} className={input} value={f.description} onChange={(e) => set("description", e.target.value)} /></label>
-
+    <>
       <fieldset className="flex flex-col gap-3 rounded-xl border border-gray-200 p-4">
         <legend className="px-1 text-sm font-bold text-[#052C59]">Ponentes de la sesión</legend>
         {asignados.length === 0 && <p className="text-sm text-gray-500">Sin ponentes asignadas.</p>}
@@ -248,6 +205,105 @@ function SesionForm({
           </div>
         </details>
       </fieldset>
+      <datalist id="mex-roles">{ROLES.map((r) => <option key={r} value={r} />)}</datalist>
+    </>
+  );
+}
+
+// Solo los ponentes de una actividad de Capacita (lo demás se edita en Capacita).
+function PonentesCapacitaForm({
+  sesion, ponentes, onGuardar, onCancelar, onCrearPonente,
+}: {
+  sesion: MexSession;
+  ponentes: MexSpeaker[];
+  onGuardar: (speakers: Asignado[]) => Promise<void>;
+  onCancelar: () => void;
+  onCrearPonente: (fd: FormData) => Promise<MexSpeaker>;
+}) {
+  const [asignados, setAsignados] = useState<Asignado[]>(sesion.speakers.map((p) => ({ speakerId: p.id, role: p.role || "Panelista" })));
+  const [error, setError] = useState("");
+  const [guardando, setGuardando] = useState(false);
+  return (
+    <form
+      className="flex max-h-[80vh] flex-col gap-4 overflow-y-auto pr-1"
+      onSubmit={async (e) => {
+        e.preventDefault();
+        setGuardando(true);
+        try { await onGuardar(asignados); } catch (ex: any) { setError(ex.message); } finally { setGuardando(false); }
+      }}
+    >
+      <div>
+        <h3 className="text-xl font-bold text-[#052C59]">Ponentes</h3>
+        <p className="mt-1 text-sm text-gray-600">{sesion.title}</p>
+        <p className="mt-1 text-xs text-gray-500">
+          Actividad de Capacita{sesion.speakerText ? ` (instructor en Capacita: ${sesion.speakerText})` : ""}. Si asignas ponentes, en la página se ven sus tarjetas en lugar de &quot;Imparte&quot;. La sincronización no los cambia.
+        </p>
+      </div>
+      <PonentesEditor asignados={asignados} setAsignados={setAsignados} ponentes={ponentes} onCrearPonente={onCrearPonente} />
+      {error && <p className="text-sm font-semibold text-red-700">{error}</p>}
+      <div className="flex justify-end gap-2">
+        <button type="button" className={btn} onClick={onCancelar}>Cancelar</button>
+        <button type="submit" className={btnPrimario} disabled={guardando}>{guardando ? "Guardando..." : "Guardar ponentes"}</button>
+      </div>
+    </form>
+  );
+}
+
+// ---------- Formulario de sesión ----------
+function SesionForm({
+  sesion, dias, ponentes, onGuardar, onCancelar, onCrearPonente,
+}: {
+  sesion: Partial<MexSession> & { dayId: string };
+  dias: MexDay[];
+  ponentes: MexSpeaker[];
+  onGuardar: (b: any) => Promise<void>;
+  onCancelar: () => void;
+  onCrearPonente: (fd: FormData) => Promise<MexSpeaker>;
+}) {
+  const [f, setF] = useState({
+    dayId: sesion.dayId,
+    startTime: sesion.startTime || "",
+    endTime: sesion.endTime || "",
+    title: sesion.title || "",
+    type: sesion.type || "",
+    location: sesion.location || "",
+    note: sesion.note || "",
+    description: sesion.description || "",
+    visible: sesion.visible ?? true,
+  });
+  const [asignados, setAsignados] = useState<Asignado[]>((sesion.speakers || []).map((p) => ({ speakerId: p.id, role: p.role || "Panelista" })));
+  const [error, setError] = useState("");
+  const [guardando, setGuardando] = useState(false);
+
+  const set = (k: string, v: any) => setF({ ...f, [k]: v });
+  return (
+    <form
+      className="flex max-h-[80vh] flex-col gap-4 overflow-y-auto pr-1"
+      onSubmit={async (e) => {
+        e.preventDefault();
+        setGuardando(true);
+        try { await onGuardar({ ...f, speakers: asignados }); } catch (ex: any) { setError(ex.message); } finally { setGuardando(false); }
+      }}
+    >
+      <h3 className="text-xl font-bold text-[#052C59]">{sesion.id ? "Editar sesión" : "Nueva sesión"}</h3>
+      <div className="flex flex-wrap gap-3">
+        <label className={etiqueta}>Día
+          <select className={input} value={f.dayId} onChange={(e) => set("dayId", e.target.value)}>
+            {dias.map((d) => <option key={d.id} value={d.id}>{d.label}</option>)}
+          </select>
+        </label>
+        <label className={etiqueta}>Inicio<input type="time" required className={input} value={f.startTime} onChange={(e) => set("startTime", e.target.value)} /></label>
+        <label className={etiqueta}>Fin<input type="time" className={input} value={f.endTime} onChange={(e) => set("endTime", e.target.value)} /></label>
+      </div>
+      <label className={etiqueta}>Título<input required maxLength={300} className={input} value={f.title} onChange={(e) => set("title", e.target.value)} /></label>
+      <div className="flex flex-wrap gap-3">
+        <label className={etiqueta}>Tipo<input list="mex-tipos" maxLength={60} className={input} placeholder="Panel, Plenaria, Networking..." value={f.type} onChange={(e) => set("type", e.target.value)} /></label>
+        <label className={etiqueta}>Lugar o salón<input maxLength={200} className={input} value={f.location} onChange={(e) => set("location", e.target.value)} /></label>
+      </div>
+      <label className={etiqueta}>Nota destacada<input maxLength={200} className={input} placeholder="Opcional, por ejemplo: Solo por invitación" value={f.note} onChange={(e) => set("note", e.target.value)} /></label>
+      <label className={etiqueta}>Descripción<textarea rows={4} className={input} value={f.description} onChange={(e) => set("description", e.target.value)} /></label>
+
+      <PonentesEditor asignados={asignados} setAsignados={setAsignados} ponentes={ponentes} onCrearPonente={onCrearPonente} />
 
       <label className="flex items-center gap-2 text-sm text-[#052C59]">
         <input type="checkbox" checked={f.visible} onChange={(e) => set("visible", e.target.checked)} /> Visible en la página pública
@@ -258,7 +314,6 @@ function SesionForm({
         <button type="submit" className={btnPrimario} disabled={guardando}>{guardando ? "Guardando..." : "Guardar sesión"}</button>
       </div>
       <datalist id="mex-tipos">{TIPOS.map((t) => <option key={t} value={t} />)}</datalist>
-      <datalist id="mex-roles">{ROLES.map((r) => <option key={r} value={r} />)}</datalist>
     </form>
   );
 }
@@ -396,6 +451,7 @@ function Panel() {
   const [modalDia, setModalDia] = useState<{ dia: MexDay | null } | null>(null);
   const [modalSesion, setModalSesion] = useState<(Partial<MexSession> & { dayId: string }) | null>(null);
   const [modalPonente, setModalPonente] = useState<{ ponente: MexSpeaker | null } | null>(null);
+  const [modalPonentesCap, setModalPonentesCap] = useState<MexSession | null>(null);
   const [confirmacion, setConfirmacion] = useState<{ mensaje: string; accion: () => Promise<void> } | null>(null);
 
   const cargar = useCallback(async () => {
@@ -591,6 +647,7 @@ function Panel() {
                           {s.visible ? "Ocultar" : "Mostrar"}
                         </button>
                       )}
+                      <button className={btn} onClick={() => setModalPonentesCap(s)}>Ponentes{s.speakers.length ? ` (${s.speakers.length})` : ""}</button>
                       <a className={btn} href={CAPACITA_ADMIN_URL} target="_blank" rel="noopener noreferrer">Editar en Capacita</a>
                     </div>
                     ) : (
@@ -703,6 +760,27 @@ function Panel() {
               else await mexAdmin.createSession(uid, b);
               setModalSesion(null);
               avisar("Sesión guardada.");
+              await cargar();
+            }}
+          />
+        )}
+      </Modal>
+
+      <Modal ancho open={!!modalPonentesCap} onClose={() => setModalPonentesCap(null)}>
+        {modalPonentesCap && (
+          <PonentesCapacitaForm
+            sesion={modalPonentesCap}
+            ponentes={datos.speakers}
+            onCancelar={() => setModalPonentesCap(null)}
+            onCrearPonente={async (fd) => {
+              const nueva = await mexAdmin.createSpeaker(uid, fd);
+              setDatos((prev) => (prev ? { ...prev, speakers: [...prev.speakers, nueva] } : prev));
+              return nueva;
+            }}
+            onGuardar={async (speakers) => {
+              await mexAdmin.setSpeakers(uid, modalPonentesCap.id, speakers);
+              setModalPonentesCap(null);
+              avisar("Ponentes guardados.");
               await cargar();
             }}
           />
