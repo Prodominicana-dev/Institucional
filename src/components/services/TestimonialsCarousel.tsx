@@ -109,11 +109,6 @@ export default function TestimonialsCarousel({
                         <p className="text-gray-900 font-bold text-base text-center font-montserrat">
                           {feedback.name}
                         </p>
-                        {feedback.email && (
-                          <p className="text-gray-500 text-xs text-center mt-1">
-                            {feedback.email}
-                          </p>
-                        )}
                         <div className="flex items-center justify-center mt-3 gap-2">
                           <div className="w-1.5 h-1.5 bg-red-600 rounded-full"></div>
                           <p className="text-gray-600 text-xs font-medium">

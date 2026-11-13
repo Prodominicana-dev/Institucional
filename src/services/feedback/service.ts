@@ -1,6 +1,7 @@
 import axios from "axios";
 import { toast } from "sonner";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+var CryptoJS = require("crypto-js");
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "https://api.prodominicana.gob.do";
 
@@ -29,25 +30,31 @@ export interface FeedbackStats {
   rejected: number;
 }
 
-// Obtener user_id del admin (desde Auth0 o sesión)
-const getAdminUserId = () => {
-  // TODO: Implementar obtención del user_id desde Auth0 o contexto
-  const userId = "admin-user-id"; // Placeholder
-  // console.log("getAdminUserId:", userId);
-  return userId;
-};
+// La API exige el id del usuario de Auth0 cifrado en Authorization,
+// igual que el resto del admin.
+function authHeader(userId?: string) {
+  const encrypted = CryptoJS.AES.encrypt(
+    userId ?? "",
+    process.env.NEXT_PUBLIC_CRYPTOJS_KEY
+  ).toString();
+  return { Authorization: encrypted };
+}
 
 // Hook para obtener todos los feedbacks con filtro opcional
-export function useAllFeedbacks(status?: "pending" | "approved" | "rejected") {
+export function useAllFeedbacks(
+  status?: "pending" | "approved" | "rejected",
+  userId?: string
+) {
   return useQuery({
     queryKey: ["allFeedbacks", status],
+    enabled: !!userId,
     queryFn: async () => {
       const url = status 
         ? `${API_URL}/feedback/admin/all?status=${status}`
         : `${API_URL}/feedback/admin/all`;
       const { data } = await axios.get<Feedback[]>(url, {
         headers: {
-          user_id: getAdminUserId(),
+          ...authHeader(userId),
         },
       });
       return data;
@@ -70,14 +77,15 @@ export function usePublicFeedbacks(serviceType?: "investment" | "export") {
 }
 
 // Hook para obtener feedbacks pendientes (admin)
-export function usePendingFeedbacks() {
+export function usePendingFeedbacks(userId?: string) {
   return useQuery({
+    enabled: !!userId,
     queryKey: ["pendingFeedbacks"],
     queryFn: async () => {
       const url = `${API_URL}/feedback/admin/pending`;
       const { data } = await axios.get<Feedback[]>(url, {
         headers: {
-          user_id: getAdminUserId(),
+          ...authHeader(userId),
         },
       });
       return data;
@@ -86,14 +94,15 @@ export function usePendingFeedbacks() {
 }
 
 // Hook para obtener estadísticas de feedbacks
-export function useFeedbackStats() {
+export function useFeedbackStats(userId?: string) {
   return useQuery({
+    enabled: !!userId,
     queryKey: ["feedbackStats"],
     queryFn: async () => {
       const url = `${API_URL}/feedback/admin/stats`;
       const { data } = await axios.get<FeedbackStats>(url, {
         headers: {
-          user_id: getAdminUserId(),
+          ...authHeader(userId),
         },
       });
       return data;
@@ -102,19 +111,19 @@ export function useFeedbackStats() {
 }
 
 // Hook para obtener un feedback específico
-export function useFeedbackById(id: string) {
+export function useFeedbackById(id: string, userId?: string) {
   return useQuery({
     queryKey: ["feedback", id],
     queryFn: async () => {
       const url = `${API_URL}/feedback/admin/${id}`;
       const { data } = await axios.get<Feedback>(url, {
         headers: {
-          user_id: getAdminUserId(),
+          ...authHeader(userId),
         },
       });
       return data;
     },
-    enabled: !!id,
+    enabled: !!id && !!userId,
   });
 }
 
@@ -173,7 +182,7 @@ export async function createFeedback(
 }
 
 // Mutation para aprobar un feedback
-export function useApproveFeedback() {
+export function useApproveFeedback(userId?: string) {
   const queryClient = useQueryClient();
   
   return useMutation({
@@ -187,7 +196,7 @@ export function useApproveFeedback() {
         { serviceType }, // Enviar serviceType en el body
         {
           headers: {
-            user_id: getAdminUserId(),
+            ...authHeader(userId),
             'Content-Type': 'application/json',
           },
         }
@@ -209,7 +218,7 @@ export function useApproveFeedback() {
 }
 
 // Mutation para rechazar un feedback
-export function useRejectFeedback() {
+export function useRejectFeedback(userId?: string) {
   const queryClient = useQueryClient();
   
   return useMutation({
@@ -221,7 +230,7 @@ export function useRejectFeedback() {
         { serviceType }, // Enviar serviceType en el body
         {
           headers: {
-            user_id: getAdminUserId(),
+            ...authHeader(userId),
             'Content-Type': 'application/json',
           },
         }
@@ -243,7 +252,7 @@ export function useRejectFeedback() {
 }
 
 // Mutation para revertir un feedback a pending
-export function useRevertFeedback() {
+export function useRevertFeedback(userId?: string) {
   const queryClient = useQueryClient();
   
   return useMutation({
@@ -255,7 +264,7 @@ export function useRevertFeedback() {
         { serviceType }, // Enviar serviceType en el body
         {
           headers: {
-            user_id: getAdminUserId(),
+            ...authHeader(userId),
             'Content-Type': 'application/json',
           },
         }

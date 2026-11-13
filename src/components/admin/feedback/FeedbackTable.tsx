@@ -32,11 +32,14 @@ export default function FeedbackTable() {
     data: feedbacks,
     isLoading,
     error,
-  } = useAllFeedbacks(statusFilter === "all" ? undefined : statusFilter);
+  } = useAllFeedbacks(
+    statusFilter === "all" ? undefined : statusFilter,
+    user?.sub ?? undefined,
+  );
 
-  const approveMutation = useApproveFeedback();
-  const rejectMutation = useRejectFeedback();
-  const revertMutation = useRevertFeedback();
+  const approveMutation = useApproveFeedback(user?.sub ?? undefined);
+  const rejectMutation = useRejectFeedback(user?.sub ?? undefined);
+  const revertMutation = useRevertFeedback(user?.sub ?? undefined);
 
   const getStatusBadge = (status: string) => {
     const styles = {

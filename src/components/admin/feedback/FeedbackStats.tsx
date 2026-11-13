@@ -6,7 +6,7 @@ import { MessageSquare, Clock, CheckCircle, XCircle } from "lucide-react";
 
 export default function FeedbackStats() {
   const { user } = useUser();
-  const { data: stats, isLoading, error } = useFeedbackStats();
+  const { data: stats, isLoading, error } = useFeedbackStats(user?.sub ?? undefined);
 
   if (isLoading) {
     return (
