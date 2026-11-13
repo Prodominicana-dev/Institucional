@@ -172,6 +172,10 @@ export const routing = defineRouting({
       en: "/frequently-asked-questions",
       es: "/preguntas-frecuentes",
     },
+    "/ratings": {
+      en: "/ratings",
+      es: "/valoraciones",
+    },
     "/mujer-exporta": {
       en: "/mujer-exporta",
       es: "/mujer-exporta",

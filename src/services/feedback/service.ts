@@ -76,6 +76,30 @@ export function usePublicFeedbacks(serviceType?: "investment" | "export") {
   });
 }
 
+export interface PublicFeedbackStats {
+  total: number;
+  average: number;
+  satisfactionRate: number;
+  distribution: { stars: number; count: number }[];
+  byMonth: { month: string; count: number; average: number }[];
+  byService: { service: string; count: number; average: number }[];
+  since: string | null;
+  updatedAt: string;
+}
+
+// Histórico público de valoraciones (página /valoraciones)
+export function usePublicFeedbackStats() {
+  return useQuery({
+    queryKey: ["publicFeedbackStats"],
+    queryFn: async () => {
+      const { data } = await axios.get<PublicFeedbackStats>(
+        `${API_URL}/feedback/public/stats`
+      );
+      return data;
+    },
+  });
+}
+
 // Hook para obtener feedbacks pendientes (admin)
 export function usePendingFeedbacks(userId?: string) {
   return useQuery({

@@ -165,6 +165,12 @@ export default function Footer() {
               >
                 {t("stayInformed.frequentlyQuestions")}
               </Link>
+              <Link
+                href="/ratings"
+                className="text-blue-950 hover:text-cyan-600 duration-300"
+              >
+                {t("stayInformed.ratings")}
+              </Link>
             </div>
           </div>
         </div>
