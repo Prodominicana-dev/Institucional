@@ -135,6 +135,7 @@ export const mexAdmin = {
   createSession: (u: string, body: any) => llamar(u, "post", "/sessions", body),
   updateSession: (u: string, id: string, body: any) => llamar(u, "patch", `/sessions/${id}`, body),
   setVisible: (u: string, id: string, visible: boolean) => llamar(u, "patch", `/sessions/${id}/visible`, { visible }),
+  reorderSessions: (u: string, ids: string[]) => llamar(u, "patch", "/sessions/order", { ids }),
   deleteSession: (u: string, id: string) => llamar(u, "delete", `/sessions/${id}`),
   createSpeaker: (u: string, fd: FormData) => llamar<MexSpeaker>(u, "post", "/speakers", fd),
   updateSpeaker: (u: string, id: string, fd: FormData) => llamar<MexSpeaker>(u, "patch", `/speakers/${id}`, fd),

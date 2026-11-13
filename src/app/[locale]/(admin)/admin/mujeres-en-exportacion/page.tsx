@@ -579,7 +579,7 @@ function Panel() {
                 <button className={btn} onClick={() => irA(nuevas[0].id)}>Ir a la primera</button>
               </div>
             )}
-            <p className="text-sm text-gray-600">Las sesiones se ordenan solas por hora de inicio. Las ocultas no aparecen en la página pública. Las que vienen de Capacita se editan en Capacita; aquí solo se muestran u ocultan.</p>
+            <p className="text-sm text-gray-600">Las sesiones se ordenan solas por hora de inicio; si varias empiezan a la misma hora, usa Subir y Bajar para decidir en qué orden salen. Las ocultas no aparecen en la página pública. Las que vienen de Capacita se editan en Capacita; aquí solo se muestran u ocultan.</p>
             {datos.days.length === 0 && <p className="rounded-xl border border-gray-200 p-6 text-gray-500">No hay días. Agrega el primero.</p>}
             {datos.days.map((d, i) => (
               <section key={d.id} className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
@@ -608,7 +608,16 @@ function Panel() {
                   </div>
                 </div>
                 {d.sessions.length === 0 && <p className="p-5 text-sm text-gray-500">Sin sesiones todavía.</p>}
-                {d.sessions.map((s) => (
+                {d.sessions.map((s) => {
+                  // Subir/Bajar solo entre las que empiezan a la misma hora.
+                  const grupo = d.sessions.filter((x) => x.startTime === s.startTime).map((x) => x.id);
+                  const k = grupo.indexOf(s.id);
+                  const moverSesion = (destino: number) => {
+                    const ids = [...grupo];
+                    [ids[k], ids[destino]] = [ids[destino], ids[k]];
+                    hacer(() => mexAdmin.reorderSessions(uid, ids), "Orden actualizado.");
+                  };
+                  return (
                   <div
                     key={s.id}
                     id={`sesion-${s.id}`}
@@ -617,6 +626,12 @@ function Panel() {
                     <div className="w-28 shrink-0 font-bold text-[#1495E8]">
                       {hora12(s.startTime)}
                       {s.endTime && <div className="text-xs font-normal text-gray-500">a {hora12(s.endTime)}</div>}
+                      {grupo.length > 1 && (
+                        <div className="mt-2 flex gap-1">
+                          <button className={`${btn} !px-2 !py-0.5 !text-xs`} disabled={k === 0} onClick={() => moverSesion(k - 1)}>Subir</button>
+                          <button className={`${btn} !px-2 !py-0.5 !text-xs`} disabled={k === grupo.length - 1} onClick={() => moverSesion(k + 1)}>Bajar</button>
+                        </div>
+                      )}
                     </div>
                     <div className="min-w-[200px] flex-1">
                       <div className="font-bold">{s.title}</div>
@@ -664,7 +679,8 @@ function Panel() {
                     </div>
                     )}
                   </div>
-                ))}
+                  );
+                })}
               </section>
             ))}
           </>
