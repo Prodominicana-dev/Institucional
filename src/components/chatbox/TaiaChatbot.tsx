@@ -1,86 +1,56 @@
 "use client";
+import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
-import Image from "next/image";
-import { useParams } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+/**
+ * Burbuja flotante de TAIA, la asistente virtual de ProDominicana.
+ *
+ * El chat vive en https://chatbot.prodominicana.gob.do (su propio servidor y despliegue) y aquí
+ * se muestra dentro de un iframe. El iframe solo se carga la primera vez que se abre la burbuja,
+ * para no sumar peso a la carga inicial del sitio. Permite el micrófono para el modo de voz.
+ */
+const URL_CHATBOT = "https://chatbot.prodominicana.gob.do/embed";
 
-/* TAIA es la asistente de IA de ProDominicana. Vive en su propio servicio
-   (chatbot.prodominicana.gob.do) y aquí solo se muestra su avatar flotante:
-   al pulsarlo se abre el chat dentro de un marco, sin salir de la página.
-   La dirección es la versión del chat hecha para incrustarse en otros sitios.
-
-   El marco no se crea hasta el primer clic, así que el avatar no le cuesta
-   nada a la carga inicial. Una vez abierto se conserva al cerrar, para que
-   la conversación siga donde estaba si la persona vuelve a abrirlo. */
-const TAIA_URL =
-  process.env.NEXT_PUBLIC_TAIA_URL ||
-  "https://chatbot.prodominicana.gob.do/embed";
-
-const AVATAR = "/images/taia-avatar.webp";
-
-const TEXTOS = {
-  es: {
-    abrir: "Abrir el chat con TAIA, la asistente de IA de ProDominicana",
-    ventana: "Chat con TAIA",
-    cerrar: "Cerrar el chat",
-  },
-  en: {
-    abrir: "Open the chat with TAIA, ProDominicana's AI assistant",
-    ventana: "Chat with TAIA",
-    cerrar: "Close the chat",
-  },
-};
-
-/* El avatar se mueve igual que dentro del chat: flota despacio y parpadea.
-   El parpadeo son dos párpados dibujados encima de la imagen, que aparecen un
-   instante cada pocos segundos. Quien tiene desactivadas las animaciones en
-   su sistema la ve quieta. */
-const ANIMACION = `
-@keyframes taia-entrar {
-  from { opacity: 0; transform: translateY(24px) scale(0.6); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-@keyframes taia-flotar {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-7px) rotate(-3deg); }
-}
-@keyframes taia-sombra {
-  0%, 100% { transform: scale(1); opacity: 0.9; }
-  50% { transform: scale(0.75); opacity: 0.5; }
-}
-@keyframes taia-parpadear {
-  0%, 44%, 48%, 88%, 91%, 94%, 97%, 100% { opacity: 0; }
-  45%, 47%, 89%, 90%, 95%, 96% { opacity: 1; }
-}
-.taia-avatar { animation: taia-entrar 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both; transition: transform 0.2s ease; }
-.taia-avatar:hover { transform: scale(1.08); }
-.taia-flota { animation: taia-flotar 4s ease-in-out infinite; transform-origin: 50% 85%; }
-.taia-sombra { animation: taia-sombra 4s ease-in-out infinite; }
-.taia-parpados { opacity: 0; animation: taia-parpadear 6s linear infinite; }
-@media (prefers-reduced-motion: reduce) {
-  .taia-avatar, .taia-flota, .taia-sombra, .taia-parpados { animation: none; }
-}
-`;
+const ICONO = "/images/taia-avatar.webp";
 
 /* Centro de cada ojo sobre la imagen, en una cuadrícula de 1254 x 1254
    (la misma que usa el avatar dentro del chat). */
 const OJOS = [497.5, 821.5];
 
+/* Quien tiene desactivadas las animaciones en su sistema ve el icono quieto. */
+const ANIMACION = `
+@keyframes taia-flotar {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(-3deg); }
+}
+@keyframes taia-sombra {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(0.78); opacity: 0.5; }
+}
+@keyframes taia-parpadear {
+  0%, 44%, 48%, 88%, 91%, 94%, 97%, 100% { opacity: 0; }
+  45%, 47%, 89%, 90%, 95%, 96% { opacity: 1; }
+}
+.taia-flota { animation: taia-flotar 4s ease-in-out infinite; transform-origin: 50% 85%; }
+.taia-sombra { animation: taia-sombra 4s ease-in-out infinite; }
+.taia-parpados { opacity: 0; animation: taia-parpadear 6s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .taia-flota, .taia-sombra, .taia-parpados { animation: none; }
+}
+`;
+
 export default function TaiaChatbot() {
-  const params = useParams<{ locale: string }>();
-  const t = params?.locale === "en" ? TEXTOS.en : TEXTOS.es;
-
   const [abierto, setAbierto] = useState(false);
-  const [marcoCreado, setMarcoCreado] = useState(false);
-  const botonRef = useRef<HTMLButtonElement>(null);
-  const cerrarRef = useRef<HTMLButtonElement>(null);
-
-  // El avatar aparece cuando el navegador queda libre, sin competir con la carga inicial
+  const [cargado, setCargado] = useState(false);
   const [visible, setVisible] = useState(false);
+  const en = (usePathname() || "").startsWith("/en");
+  const t = en
+    ? { titulo: "TAIA · ProDominicana virtual assistant", cerrar: "Close the chat", abrir: "Open the chat with TAIA, virtual assistant", cerrarBurbuja: "Close the chat with TAIA", iframe: "Chat with TAIA, ProDominicana virtual assistant" }
+    : { titulo: "TAIA · Asistente virtual de ProDominicana", cerrar: "Cerrar el chat", abrir: "Abrir el chat con TAIA, asistente virtual", cerrarBurbuja: "Cerrar el chat con TAIA", iframe: "Chat con TAIA, asistente virtual de ProDominicana" };
+
+  // La burbuja aparece cuando el navegador queda libre, sin competir con la carga inicial
   useEffect(() => {
-    const win = window as typeof window & {
-      requestIdleCallback?: (cb: () => void) => number;
-    };
+    const win = window as typeof window & { requestIdleCallback?: (cb: () => void) => number };
     if (win.requestIdleCallback) {
       const id = win.requestIdleCallback(() => setVisible(true));
       return () => (window as any).cancelIdleCallback?.(id);
@@ -89,126 +59,105 @@ export default function TaiaChatbot() {
     return () => clearTimeout(id);
   }, []);
 
-  const abrir = useCallback(() => {
-    setMarcoCreado(true);
-    setAbierto(true);
-  }, []);
-
-  const cerrar = useCallback(() => setAbierto(false), []);
-
+  // Escape cierra el chat
   useEffect(() => {
-    if (!marcoCreado) return;
-    if (!abierto) {
-      // Al cerrar, el foco vuelve al avatar: quien navega con teclado sigue donde estaba
-      botonRef.current?.focus();
-      return;
-    }
+    if (!abierto) return;
+    const alTeclear = (e: KeyboardEvent) => { if (e.key === "Escape") setAbierto(false); };
+    window.addEventListener("keydown", alTeclear);
+    return () => window.removeEventListener("keydown", alTeclear);
+  }, [abierto]);
 
-    cerrarRef.current?.focus();
-    const alPulsar = (e: KeyboardEvent) => {
-      if (e.key === "Escape") cerrar();
-    };
-    window.addEventListener("keydown", alPulsar);
+  // En el móvil el chat cubre la pantalla: la página de fondo no se desplaza mientras está abierto
+  useEffect(() => {
+    if (!abierto || !window.matchMedia("(max-width: 639px)").matches) return;
+    const previo = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { document.body.style.overflow = previo; };
+  }, [abierto]);
 
-    /* En el móvil el chat ocupa toda la pantalla: se bloquea el desplazamiento
-       de la página de fondo mientras está abierto. */
-    const enMovil = window.matchMedia("(max-width: 639px)").matches;
-    const desplazamientoPrevio = document.body.style.overflow;
-    if (enMovil) document.body.style.overflow = "hidden";
+  if (!visible) return null;
 
-    return () => {
-      window.removeEventListener("keydown", alPulsar);
-      if (enMovil) document.body.style.overflow = desplazamientoPrevio;
-    };
-  }, [abierto, marcoCreado, cerrar]);
+  const abrir = () => { setCargado(true); setAbierto(true); };
 
   return (
-    <div className="print:hidden">
-      {/* AVATAR FLOTANTE, sin fondo ni texto, en la esquina inferior derecha. */}
-      {visible && !abierto && (
-        <div className="fixed bottom-[14px] right-[8px] z-[9990]">
-          <button
-            ref={botonRef}
-            type="button"
-            onClick={abrir}
-            aria-label={t.abrir}
-            aria-haspopup="dialog"
-            aria-expanded={abierto}
-            title="TAIA"
-            className="taia-avatar relative block h-[92px] w-[92px] cursor-pointer rounded-full bg-transparent focus:outline-none focus-visible:ring-4 focus-visible:ring-[#1d9bf0]"
-          >
-            <span
-              aria-hidden="true"
-              className="taia-sombra absolute bottom-[-4px] left-[21px] h-[10px] w-[50px] rounded-[50%] bg-[#002f73]/30 blur-[3px]"
-            />
-            <span className="taia-flota relative block h-full w-full">
-              <Image
-                src={AVATAR}
-                alt=""
-                width={92}
-                height={92}
-                className="absolute inset-0 h-full w-full object-contain drop-shadow-[0_6px_8px_rgba(0,47,115,0.35)]"
-              />
-              <svg
-                viewBox="0 0 1254 1254"
-                aria-hidden="true"
-                className="absolute inset-0 h-full w-full"
-              >
-                <g className="taia-parpados">
-                  {OJOS.map((cx) => (
-                    <g key={cx}>
-                      <ellipse cx={cx} cy="630" rx="66" ry="70" fill="#FDFCFD" />
-                      <path
-                        d={`M${cx - 52} 628 Q${cx} 668 ${cx + 52} 628`}
-                        stroke="#012B74"
-                        strokeWidth="16"
-                        fill="none"
-                        strokeLinecap="round"
-                      />
-                    </g>
-                  ))}
-                </g>
-              </svg>
-            </span>
-          </button>
-          <style>{ANIMACION}</style>
-        </div>
+    <>
+      {/* En el móvil el chat se abre como una hoja sobre la página oscurecida; tocar fuera lo cierra */}
+      {cargado && (
+        <div
+          aria-hidden="true"
+          onClick={() => setAbierto(false)}
+          className={`fixed inset-0 z-[9998] bg-[#021F4D]/60 backdrop-blur-[2px] transition-opacity duration-200 sm:hidden
+            ${abierto ? "opacity-100" : "pointer-events-none opacity-0"}`}
+        />
       )}
 
-      {/* VENTANA DEL CHAT. En el móvil ocupa toda la pantalla. */}
-      {marcoCreado && (
+      {/* Ventana del chat: se mantiene montada al cerrarla para no perder la conversación.
+          No lleva barra de título: el chat ya trae su propia cabecera con el nombre y el avatar,
+          y repetirla encima se veía como dos cabeceras de distinto azul. */}
+      {cargado && (
         <div
           role="dialog"
-          aria-label={t.ventana}
+          aria-label={t.titulo}
           aria-hidden={!abierto}
-          className={`fixed inset-0 z-[2147483000] flex-col overflow-hidden bg-white shadow-2xl ring-1 ring-black/10 sm:inset-auto sm:bottom-5 sm:right-5 sm:h-[min(680px,calc(100dvh-40px))] sm:w-[410px] sm:rounded-2xl ${
-            abierto ? "flex" : "hidden"
-          }`}
+          className={`fixed z-[9999] transition-all duration-200 ease-out
+            inset-x-2 bottom-2 top-14
+            sm:inset-auto sm:bottom-[104px] sm:right-5 sm:h-[640px] sm:max-h-[calc(100dvh-8rem)] sm:w-[400px] sm:origin-bottom-right
+            ${abierto ? "translate-y-0 scale-100 opacity-100" : "pointer-events-none translate-y-3 scale-95 opacity-0"}`}
         >
-          {/* El chat trae su propia cabecera con el nombre y el avatar. Aquí solo
-              va una franja del mismo azul con el botón de cerrar, para que las
-              dos se vean como una sola. */}
-          <div className="flex h-9 shrink-0 items-center justify-end bg-[#002f73] px-1.5 text-white">
-            <button
-              ref={cerrarRef}
-              type="button"
-              onClick={cerrar}
-              aria-label={t.cerrar}
-              title={t.cerrar}
-              className="flex h-7 w-7 cursor-pointer items-center justify-center rounded-full text-xl leading-none hover:bg-white/15 focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
-            >
-              ×
-            </button>
+          {/* Mismas esquinas que el chat (24 px), para que el borde sea uno solo */}
+          <div className="h-full w-full overflow-hidden rounded-3xl bg-white shadow-[0_24px_60px_-12px_rgba(1,47,115,0.5)] ring-1 ring-[#012F73]/10">
+            <iframe
+              src={URL_CHATBOT}
+              title={t.iframe}
+              className="h-full w-full border-none"
+              allow="microphone; autoplay; clipboard-write"
+            />
           </div>
 
-          <iframe
-            src={TAIA_URL}
-            title={t.ventana}
-            allow="microphone; autoplay; clipboard-write"
-            className="w-full flex-1 border-0 bg-white"
-          />
+          {/* Cerrar: flota fuera de la ventana para no tapar los controles del chat.
+              En el móvil queda encima de la hoja; en escritorio, en la esquina. */}
+          <button
+            type="button"
+            onClick={() => setAbierto(false)}
+            aria-label={t.cerrar}
+            title={t.cerrar}
+            className="absolute -top-11 right-0 flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#012F73] shadow-lg ring-1 ring-[#012F73]/10 transition-colors duration-150 hover:bg-[#012F73] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400 sm:-right-3 sm:-top-3"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" aria-hidden="true">
+              <path d="M6 6l12 12M18 6L6 18" />
+            </svg>
+          </button>
         </div>
       )}
-    </div>
+
+      {/* Burbuja */}
+      <button
+        type="button"
+        onClick={() => (abierto ? setAbierto(false) : abrir())}
+        aria-label={abierto ? t.cerrarBurbuja : t.abrir}
+        aria-expanded={abierto}
+        className={`fixed bottom-2 right-3 z-[10000] h-20 w-20 rounded-full bg-transparent
+          transition-transform duration-200 hover:scale-105 focus:outline-none focus-visible:ring-4 focus-visible:ring-sky-400
+          ${abierto ? "max-sm:hidden" : ""}`}
+      >
+        {/* El icono va sin fondo: solo la figura de TAIA, que flota despacio y parpadea,
+            igual que dentro del chat. El parpadeo son dos párpados dibujados sobre la imagen. */}
+        <span aria-hidden="true" className="taia-sombra absolute bottom-[-2px] left-[18px] h-2 w-11 rounded-[50%] bg-[#0B2452]/30 blur-[3px]" />
+        <span className="taia-flota relative block h-full w-full">
+          <img src={ICONO} alt="" draggable={false} className="absolute inset-0 h-full w-full object-contain drop-shadow-[0_5px_7px_rgba(11,36,82,0.35)]" />
+          <svg viewBox="0 0 1254 1254" aria-hidden="true" className="absolute inset-0 h-full w-full">
+            <g className="taia-parpados">
+              {OJOS.map((cx) => (
+                <g key={cx}>
+                  <ellipse cx={cx} cy="630" rx="66" ry="70" fill="#FDFCFD" />
+                  <path d={`M${cx - 52} 628 Q${cx} 668 ${cx + 52} 628`} stroke="#012B74" strokeWidth="16" fill="none" strokeLinecap="round" />
+                </g>
+              ))}
+            </g>
+          </svg>
+        </span>
+        <style>{ANIMACION}</style>
+      </button>
+    </>
   );
 }

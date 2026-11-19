@@ -2,7 +2,6 @@
 import Navbar, { NavbarExportMobile } from "@/components/layout/export/navbar";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import TaiaChatbot from "@/components/chatbox/TaiaChatbot";
 
 export default function RootLayout({
   children,
@@ -37,7 +36,6 @@ export default function RootLayout({
       <NavbarExportMobile options={navbarOptions} />
       <Navbar options={navbarOptions} />
       {children}
-      <TaiaChatbot />
     </QueryClientProvider>
   );
 }
