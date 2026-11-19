@@ -7,6 +7,7 @@ import React, { use } from "react";
 import { APIProvider } from "@vis.gl/react-google-maps";
 import { useTranslations } from "next-intl";
 import { useParams } from "next/navigation";
+import TaiaChatbot from "@/components/chatbox/TaiaChatbot";
 
 interface RootLayoutProps {
   children: React.ReactNode;
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <NavbarInvestMobile options={navbarOptions} />
       <Navbar options={navbarOptions} />
       {children}
+      <TaiaChatbot />
     </APIProvider>
   );
 }
