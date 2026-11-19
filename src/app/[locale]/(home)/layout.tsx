@@ -3,7 +3,9 @@ import FooterMobile from "@/components/layout/footer/footerMobile";
 import NavBarMobile from "@/components/layout/navbar/navBarMobile";
 import Footer from "@/components/layout/footer/footer";
 import Navbar from "@/components/layout/navbar/navbar";
-import TawkMessenger from "@/components/chatbox/TawkMessenger";
+// Tawk (chat en vivo) se reemplazó por TAIA en la misma esquina; se puede reactivar aquí.
+// import TawkMessenger from "@/components/chatbox/TawkMessenger";
+import TaiaChatbot from "@/components/chatbox/TaiaChatbot";
 import Accesibility from "@/components/accessibility/accesScrip";
 import React from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -70,7 +72,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <Footer />
           <FooterMobile />
           <Toaster />
-          <TawkMessenger />
+          <TaiaChatbot />
         </APIProvider>
       </QueryClientProvider>
     </div>
