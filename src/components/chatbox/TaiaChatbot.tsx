@@ -31,11 +31,27 @@ const ANIMACION = `
   0%, 44%, 48%, 88%, 91%, 94%, 97%, 100% { opacity: 0; }
   45%, 47%, 89%, 90%, 95%, 96% { opacity: 1; }
 }
+@keyframes taia-saludo-entra {
+  0% { opacity: 0; transform: translateY(8px) scale(0.85); }
+  60% { opacity: 1; transform: translateY(-2px) scale(1.02); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes taia-punto {
+  0%, 80%, 100% { opacity: 0.3; transform: translateY(0); }
+  40% { opacity: 1; transform: translateY(-3px); }
+}
+@keyframes taia-texto-entra {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.taia-saludo { animation: taia-saludo-entra 0.45s ease-out both; transform-origin: 100% 100%; }
+.taia-punto { animation: taia-punto 1s ease-in-out infinite; }
+.taia-texto { animation: taia-texto-entra 0.3s ease-out both; }
 .taia-flota { animation: taia-flotar 4s ease-in-out infinite; transform-origin: 50% 85%; }
 .taia-sombra { animation: taia-sombra 4s ease-in-out infinite; }
 .taia-parpados { opacity: 0; animation: taia-parpadear 6s linear infinite; }
 @media (prefers-reduced-motion: reduce) {
-  .taia-flota, .taia-sombra, .taia-parpados { animation: none; }
+  .taia-flota, .taia-sombra, .taia-parpados, .taia-saludo, .taia-punto, .taia-texto { animation: none; }
 }
 `;
 
@@ -43,10 +59,12 @@ export default function TaiaChatbot() {
   const [abierto, setAbierto] = useState(false);
   const [cargado, setCargado] = useState(false);
   const [visible, setVisible] = useState(false);
+  // Saludo al cargar la página: puntos de "escribiendo", luego el texto, y se oculta solo. Una vez por sesión.
+  const [saludo, setSaludo] = useState<"no" | "escribiendo" | "texto">("no");
   const en = (usePathname() || "").startsWith("/en");
   const t = en
-    ? { titulo: "TAIA · ProDominicana virtual assistant", cerrar: "Close the chat", abrir: "Open the chat with TAIA, virtual assistant", cerrarBurbuja: "Close the chat with TAIA", iframe: "Chat with TAIA, ProDominicana virtual assistant" }
-    : { titulo: "TAIA · Asistente virtual de ProDominicana", cerrar: "Cerrar el chat", abrir: "Abrir el chat con TAIA, asistente virtual", cerrarBurbuja: "Cerrar el chat con TAIA", iframe: "Chat con TAIA, asistente virtual de ProDominicana" };
+    ? { titulo: "TAIA · ProDominicana virtual assistant", cerrar: "Close the chat", abrir: "Open the chat with TAIA, virtual assistant", cerrarBurbuja: "Close the chat with TAIA", saludo: "Hi! I'm TAIA, how can I help you today?", escribiendo: "TAIA is typing", cerrarSaludo: "Close the greeting", iframe: "Chat with TAIA, ProDominicana virtual assistant" }
+    : { titulo: "TAIA · Asistente virtual de ProDominicana", cerrar: "Cerrar el chat", abrir: "Abrir el chat con TAIA, asistente virtual", cerrarBurbuja: "Cerrar el chat con TAIA", saludo: "¡Hola! Soy TAIA, ¿en qué puedo ayudarte hoy?", escribiendo: "TAIA está escribiendo", cerrarSaludo: "Cerrar el saludo", iframe: "Chat con TAIA, asistente virtual de ProDominicana" };
 
   // La burbuja aparece cuando el navegador queda libre, sin competir con la carga inicial
   useEffect(() => {
@@ -58,6 +76,20 @@ export default function TaiaChatbot() {
     const id = setTimeout(() => setVisible(true), 1500);
     return () => clearTimeout(id);
   }, []);
+
+  useEffect(() => {
+    if (!visible) return;
+    let yaSaludo = false;
+    try { yaSaludo = sessionStorage.getItem("taia-saludo") === "1"; } catch {}
+    if (yaSaludo) return;
+    const tiempos = [
+      setTimeout(() => setSaludo("escribiendo"), 1200),
+      setTimeout(() => setSaludo((s) => (s === "escribiendo" ? "texto" : s)), 2400),
+      setTimeout(() => setSaludo("no"), 14000),
+    ];
+    try { sessionStorage.setItem("taia-saludo", "1"); } catch {}
+    return () => tiempos.forEach(clearTimeout);
+  }, [visible]);
 
   // Escape cierra el chat
   useEffect(() => {
@@ -77,7 +109,7 @@ export default function TaiaChatbot() {
 
   if (!visible) return null;
 
-  const abrir = () => { setCargado(true); setAbierto(true); };
+  const abrir = () => { setSaludo("no"); setCargado(true); setAbierto(true); };
 
   return (
     <>
@@ -127,6 +159,36 @@ export default function TaiaChatbot() {
               <path d="M6 6l12 12M18 6L6 18" />
             </svg>
           </button>
+        </div>
+      )}
+
+      {/* Saludo: globo junto al avatar. Pulsarlo abre el chat; la X lo cierra. */}
+      {saludo !== "no" && !abierto && (
+        <div role="status" className="taia-saludo fixed bottom-[92px] right-5 z-[10000] flex max-w-[250px] items-start gap-1 rounded-2xl rounded-br-md bg-white py-2.5 pl-4 pr-2 text-[#012F73] shadow-[0_12px_30px_-8px_rgba(1,47,115,0.45)] ring-1 ring-[#012F73]/10">
+          <button type="button" onClick={abrir} className="text-left text-sm font-medium leading-snug focus:outline-none focus-visible:underline">
+            {saludo === "escribiendo" ? (
+              <span className="flex h-5 items-center gap-1 pr-2" aria-label={t.escribiendo}>
+                {[0, 0.15, 0.3].map((d) => (
+                  <span key={d} className="taia-punto block h-1.5 w-1.5 rounded-full bg-[#012F73]" style={{ animationDelay: `${d}s` }} />
+                ))}
+              </span>
+            ) : (
+              <span className="taia-texto block">{t.saludo}</span>
+            )}
+          </button>
+          {saludo === "texto" && (
+            <button
+              type="button"
+              onClick={() => setSaludo("no")}
+              aria-label={t.cerrarSaludo}
+              title={t.cerrarSaludo}
+              className="-mr-0.5 -mt-0.5 shrink-0 rounded-full p-1 text-[#012F73]/50 hover:bg-[#012F73]/10 hover:text-[#012F73] focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-400"
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" aria-hidden="true">
+                <path d="M6 6l12 12M18 6L6 18" />
+              </svg>
+            </button>
+          )}
         </div>
       )}
 
